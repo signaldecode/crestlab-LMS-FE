@@ -5,7 +5,7 @@
  */
 
 import mainData from '@/data/mainData.json';
-import type { MainData, SiteData, NavItem, Course, FaqItem, Testimonial, FooterData, GeoData } from '@/types';
+import type { MainData, SiteData, NavData, Course, FaqItem, Testimonial, FooterData, GeoData } from '@/types';
 
 const data = mainData as MainData;
 
@@ -20,7 +20,7 @@ export function getSiteData(): SiteData {
 }
 
 /** 내비게이션 메뉴 반환 */
-export function getNavData(): NavItem[] {
+export function getNavData(): NavData {
   return data.nav;
 }
 

@@ -27,13 +27,27 @@
     }
   },
 
-  "nav": [
-    { "label": "홈", "href": "/", "ariaLabel": "홈으로 이동" },
-    { "label": "강의", "href": "/courses", "ariaLabel": "강의 목록으로 이동" },
-    { "label": "커뮤니티", "href": "/community", "ariaLabel": "커뮤니티로 이동" },
-    { "label": "고객센터", "href": "/support", "ariaLabel": "고객센터로 이동" },
-    { "label": "소개", "href": "/about", "ariaLabel": "소개 페이지로 이동" }
-  ],
+  "nav": {
+    "main": [
+      { "label": "카테고리", "href": "/courses", "ariaLabel": "카테고리별 강의 보기" },
+      { "label": "베스트", "href": "/courses?sort=popular", "ariaLabel": "인기 강의 보기" },
+      { "label": "신규 강의", "href": "/courses?sort=latest", "ariaLabel": "신규 강의 보기" },
+      { "label": "이벤트/할인", "href": "/courses?badge=event", "ariaLabel": "이벤트 및 할인 강의 보기" },
+      { "label": "커뮤니티", "href": "/community", "ariaLabel": "커뮤니티로 이동" }
+    ],
+    "user": [
+      { "label": "내 강의실", "href": "/learn", "ariaLabel": "내 강의실로 이동" },
+      { "label": "장바구니", "href": "/cart", "ariaLabel": "장바구니로 이동" }
+    ],
+    "auth": {
+      "loginLabel": "로그인",
+      "loginHref": "/auth/login",
+      "loginAriaLabel": "로그인 페이지로 이동",
+      "signupLabel": "회원가입",
+      "signupHref": "/auth/signup",
+      "signupAriaLabel": "회원가입 페이지로 이동"
+    }
+  },
 
   "ui": {
     "common": {
@@ -305,10 +319,18 @@
   "footer": {
     "copyright": "© 2026 강의 플랫폼. All rights reserved.",
     "links": [
-      { "label": "이용약관", "href": "/etc/terms" },
-      { "label": "개인정보처리방침", "href": "/etc/privacy" },
-      { "label": "고객센터", "href": "/support" }
-    ]
+      { "label": "이용약관", "href": "/etc/terms", "ariaLabel": "이용약관 보기" },
+      { "label": "개인정보처리방침", "href": "/etc/privacy", "ariaLabel": "개인정보처리방침 보기" },
+      { "label": "환불정책", "href": "/etc/refund", "ariaLabel": "환불정책 보기" },
+      { "label": "고객센터", "href": "/support", "ariaLabel": "고객센터로 이동" }
+    ],
+    "business": {
+      "companyName": "주식회사 강의플랫폼",
+      "ceo": "홍길동",
+      "registrationNumber": "000-00-00000",
+      "ecommerceRegistration": "2026-서울강남-0000호",
+      "label": "사업자 정보"
+    }
   },
 
   "a11y": {

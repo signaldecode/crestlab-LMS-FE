@@ -1,0 +1,40 @@
+// ============================================
+// 앱 헤더 스타일 (_app-header.scss)
+// - 사이트 최상단 헤더 레이아웃
+// - 토큰 변수를 참조하며, HEX/px 직접 사용을 금지한다
+// ============================================
+
+@use '../tokens/colors' as *;
+@use '../tokens/spacing' as *;
+@use '../tokens/typography' as *;
+@use '../tokens/z-index' as *;
+
+.app-header {
+  position: sticky;
+  top: $spacing-0;
+  z-index: $z-index-sticky;
+  background-color: $color-bg-primary;
+  border-bottom: 0.0625rem solid $color-border;
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: $container-max-width;
+    margin: $spacing-0 auto;
+    padding: $spacing-3 $container-padding;
+  }
+}
+
+.app-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+
+  &__image {
+    height: $spacing-10;
+    width: auto;
+    object-fit: contain;
+  }
+}

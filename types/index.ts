@@ -63,10 +63,35 @@ export interface Testimonial {
   course: string;
 }
 
+/* ── 네비게이션 (구조화) ── */
+export interface NavAuthData {
+  loginLabel: string;
+  loginHref: string;
+  loginAriaLabel: string;
+  signupLabel: string;
+  signupHref: string;
+  signupAriaLabel: string;
+}
+
+export interface NavData {
+  main: NavItem[];
+  user: NavItem[];
+  auth: NavAuthData;
+}
+
 /* ── 푸터 ── */
+export interface FooterBusiness {
+  companyName: string;
+  ceo: string;
+  registrationNumber: string;
+  ecommerceRegistration: string;
+  label: string;
+}
+
 export interface FooterData {
   copyright: string;
   links: NavItem[];
+  business: FooterBusiness;
 }
 
 /* ── GEO ── */
@@ -175,7 +200,7 @@ export interface SortOption {
 
 export interface MainData {
   site: SiteData;
-  nav: NavItem[];
+  nav: NavData;
   ui: {
     common: Record<string, string>;
     toast: Record<string, string>;

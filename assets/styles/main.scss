@@ -19,6 +19,10 @@
 @use 'base/typography';
 
 // 4) Component Styles
+@use 'components/skip-to-content';
+@use 'components/app-header';
+@use 'components/global-nav';
+@use 'components/app-footer';
 @use 'components/accordion';
 @use 'components/admin-layout';
 @use 'components/video-upload';

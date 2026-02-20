@@ -1,11 +1,22 @@
 /**
- * (site) 루트 페이지 — "/" 접근 시 /home으로 리다이렉트
- * - app/(site)/home/page.jsx가 실제 홈 페이지이므로,
- *   루트 접근 시 /home으로 이동시킨다
+ * 홈(랜딩) 페이지
+ * - 공개 사이트의 메인 진입점 ("/")
+ * - Hero, 추천 강의, 후기, FAQ 등 주요 섹션을 컨테이너로 조립한다
+ * - SEO 메타데이터는 data 기반으로 생성한다
  */
 
-import { redirect } from 'next/navigation';
+import HomeHeroContainer from '@/components/containers/HomeHeroContainer';
+import FeaturedCoursesContainer from '@/components/containers/FeaturedCoursesContainer';
+import TestimonialsContainer from '@/components/containers/TestimonialsContainer';
+import FaqContainer from '@/components/containers/FaqContainer';
 
-export default function SiteRootPage() {
-  redirect('/home');
+export default function HomePage() {
+  return (
+    <>
+      <HomeHeroContainer />
+      <FeaturedCoursesContainer />
+      <TestimonialsContainer />
+      <FaqContainer />
+    </>
+  );
 }

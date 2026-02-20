@@ -1,0 +1,86 @@
+// ============================================
+// 글로벌 내비게이션 스타일 (_global-nav.scss)
+// - 헤더 내 메인 메뉴 + 유저 메뉴 + 인증 링크 레이아웃
+// - 토큰 변수를 참조하며, HEX/px 직접 사용을 금지한다
+// ============================================
+
+@use '../tokens/colors' as *;
+@use '../tokens/spacing' as *;
+@use '../tokens/typography' as *;
+
+.global-nav {
+  display: flex;
+  align-items: center;
+  gap: $spacing-6;
+  flex: 1;
+  justify-content: space-between;
+  margin-left: $spacing-8;
+
+  &__list {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+    list-style: none;
+    margin: $spacing-0;
+    padding: $spacing-0;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+  }
+
+  &__link {
+    display: block;
+    padding: $spacing-2 $spacing-3;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    text-decoration: none;
+    border-radius: $spacing-1;
+    transition: color 0.2s ease, background-color 0.2s ease;
+
+    &:hover {
+      color: $color-primary;
+      background-color: $color-bg-secondary;
+    }
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+  }
+
+  &__auth {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+  }
+
+  &__auth-link {
+    display: block;
+    padding: $spacing-2 $spacing-4;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    text-decoration: none;
+    border-radius: $spacing-1;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $color-primary;
+    }
+
+    &--signup {
+      color: $color-bg-primary;
+      background-color: $color-primary;
+      border-radius: $spacing-2;
+
+      &:hover {
+        background-color: $color-primary-dark;
+        color: $color-bg-primary;
+      }
+    }
+  }
+}
