@@ -20,6 +20,9 @@
 
 // 4) Component Styles
 @use 'components/accordion';
+@use 'components/admin-layout';
+@use 'components/video-upload';
+@use 'components/upload-progress';
 
 // 5) Themes
 @use 'themes/default';

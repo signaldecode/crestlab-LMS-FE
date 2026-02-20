@@ -204,6 +204,48 @@
       "continueLabel": "이어보기",
       "progressLabel": "진행률",
       "completedLabel": "수강 완료"
+    },
+    "admin": {
+      "layout": {
+        "title": "관리자",
+        "navLabel": "관리자 메뉴",
+        "navAriaLabel": "관리자 내비게이션",
+        "menuItems": [
+          { "label": "대시보드", "href": "/", "ariaLabel": "관리자 대시보드로 이동" },
+          { "label": "강의 관리", "href": "/courses", "ariaLabel": "강의 관리 페이지로 이동" },
+          { "label": "주문 관리", "href": "/orders", "ariaLabel": "주문 관리 페이지로 이동" },
+          { "label": "유저 관리", "href": "/users", "ariaLabel": "유저 관리 페이지로 이동" },
+          { "label": "커뮤니티 관리", "href": "/community", "ariaLabel": "커뮤니티 관리 페이지로 이동" }
+        ]
+      },
+      "courseEdit": {
+        "seo": { "title": "강의 편집 — 관리자" },
+        "title": "강의 편집",
+        "uploadSectionTitle": "영상 업로드"
+      },
+      "upload": {
+        "dropzoneLabel": "영상 파일을 드래그하거나 클릭하여 선택하세요",
+        "dropzoneActiveLabel": "여기에 파일을 놓으세요",
+        "browseLabel": "파일 선택",
+        "browseAriaLabel": "업로드할 영상 파일 선택",
+        "cancelLabel": "업로드 취소",
+        "cancelAriaLabel": "진행 중인 업로드 취소",
+        "retryLabel": "다시 시도",
+        "retryAriaLabel": "업로드 다시 시도",
+        "progressLabel": "업로드 진행률",
+        "successMessage": "영상이 성공적으로 업로드되었습니다.",
+        "allowedFormats": "MP4, MOV, AVI, MKV",
+        "maxSizeLabel": "최대 파일 크기",
+        "maxSizeValue": "5GB",
+        "errors": {
+          "invalidFormat": "지원하지 않는 파일 형식입니다. MP4, MOV, AVI, MKV 파일만 업로드 가능합니다.",
+          "fileTooLarge": "파일 크기가 5GB를 초과합니다.",
+          "presignedFailed": "업로드 URL 발급에 실패했습니다. 잠시 후 다시 시도해 주세요.",
+          "uploadFailed": "업로드에 실패했습니다. 네트워크 연결을 확인하고 다시 시도해 주세요.",
+          "confirmFailed": "업로드 확인에 실패했습니다. 잠시 후 다시 시도해 주세요.",
+          "cancelled": "업로드가 취소되었습니다."
+        }
+      }
     }
   },
 
