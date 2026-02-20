@@ -1,0 +1,15 @@
+// ============================================
+// z-index 디자인 토큰 (_z-index.scss)
+// - 레이어 쌓임 순서를 정의한다
+// - z-index 숫자 직접 사용 금지: 반드시 이 토큰을 참조한다
+// ============================================
+
+$z-index-dropdown: 100;
+$z-index-sticky: 200;
+$z-index-fixed: 300;
+$z-index-sidebar: 400;
+$z-index-modal-backdrop: 500;
+$z-index-modal: 600;
+$z-index-toast: 700;
+$z-index-tooltip: 800;
+$z-index-skip-to-content: 900;

@@ -1,0 +1,352 @@
+{
+  "_comment": "메인 데이터 파일 — UI 문구, 접근성 텍스트, SEO/AEO/GEO, 강의/FAQ 엔티티 데이터를 중앙 관리한다. 고객사 커스터마이징은 이 파일만 수정하면 된다.",
+
+  "site": {
+    "name": "강의 플랫폼",
+    "description": "최고의 온라인 강의 플랫폼",
+    "url": "https://example.com",
+    "logo": {
+      "src": "/images/logo/logo.png",
+      "alt": "강의 플랫폼 로고"
+    },
+    "links": {
+      "header": [
+        { "label": "홈", "href": "/", "ariaLabel": "홈으로 이동" },
+        { "label": "강의", "href": "/courses", "ariaLabel": "강의 목록으로 이동" },
+        { "label": "커뮤니티", "href": "/community", "ariaLabel": "커뮤니티로 이동" },
+        { "label": "소개", "href": "/about", "ariaLabel": "소개 페이지로 이동" }
+      ],
+      "footer": [
+        { "label": "이용약관", "href": "/etc/terms" },
+        { "label": "개인정보처리방침", "href": "/etc/privacy" },
+        { "label": "고객센터", "href": "/support" }
+      ],
+      "external": [
+        { "label": "블로그", "href": "https://blog.example.com", "ariaLabel": "공식 블로그 (새 탭)" }
+      ]
+    }
+  },
+
+  "nav": [
+    { "label": "홈", "href": "/", "ariaLabel": "홈으로 이동" },
+    { "label": "강의", "href": "/courses", "ariaLabel": "강의 목록으로 이동" },
+    { "label": "커뮤니티", "href": "/community", "ariaLabel": "커뮤니티로 이동" },
+    { "label": "고객센터", "href": "/support", "ariaLabel": "고객센터로 이동" },
+    { "label": "소개", "href": "/about", "ariaLabel": "소개 페이지로 이동" }
+  ],
+
+  "ui": {
+    "common": {
+      "save": "저장",
+      "cancel": "취소",
+      "confirm": "확인",
+      "delete": "삭제",
+      "edit": "수정",
+      "more": "더보기",
+      "close": "닫기",
+      "submit": "제출",
+      "back": "뒤로가기",
+      "next": "다음",
+      "prev": "이전",
+      "loading": "로딩 중",
+      "retry": "다시 시도",
+      "search": "검색",
+      "login": "로그인",
+      "logout": "로그아웃",
+      "signup": "회원가입"
+    },
+    "toast": {
+      "linkCopied": "링크가 복사되었습니다.",
+      "saveSuccess": "저장되었습니다.",
+      "deleteSuccess": "삭제되었습니다.",
+      "loginRequired": "로그인이 필요합니다.",
+      "networkError": "네트워크 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.",
+      "genericError": "오류가 발생했습니다.",
+      "reportSuccess": "신고가 접수되었습니다.",
+      "cartAdded": "장바구니에 담았습니다.",
+      "cartRemoved": "장바구니에서 삭제했습니다."
+    },
+    "emptyState": {
+      "courses": "아직 강의가 없습니다.",
+      "myCourses": "수강 중인 강의가 없습니다.",
+      "cart": "장바구니가 비어 있습니다.",
+      "orders": "주문 내역이 없습니다.",
+      "posts": "게시글이 없습니다.",
+      "comments": "댓글이 없습니다.",
+      "tickets": "문의 내역이 없습니다.",
+      "searchResult": "검색 결과가 없습니다."
+    }
+  },
+
+  "pages": {
+    "home": {
+      "seo": {
+        "title": "강의 플랫폼 — 최고의 온라인 강의",
+        "description": "실무 중심의 온라인 강의를 만나보세요.",
+        "og": {
+          "title": "강의 플랫폼",
+          "description": "실무 중심의 온라인 강의 플랫폼",
+          "image": "/images/banners/og-home.png"
+        }
+      },
+      "hero": {
+        "title": "당신의 성장을 위한 강의",
+        "subtitle": "실무에서 바로 쓰이는 기술을 배워보세요",
+        "ctaLabel": "강의 보러가기",
+        "ctaHref": "/courses",
+        "ctaAriaLabel": "강의 목록 페이지로 이동"
+      }
+    },
+    "courses": {
+      "seo": {
+        "title": "강의 목록 — 강의 플랫폼",
+        "description": "다양한 카테고리의 강의를 탐색하세요."
+      },
+      "list": {
+        "title": "전체 강의",
+        "filterCategoryLabel": "카테고리",
+        "filterCategoryAriaLabel": "카테고리 필터 선택",
+        "filterLevelLabel": "난이도",
+        "filterLevelAriaLabel": "난이도 필터 선택",
+        "sortLabel": "정렬",
+        "sortAriaLabel": "강의 정렬 기준 선택",
+        "sortOptions": [
+          { "value": "latest", "label": "최신순" },
+          { "value": "popular", "label": "인기순" },
+          { "value": "price-asc", "label": "가격 낮은순" },
+          { "value": "price-desc", "label": "가격 높은순" }
+        ],
+        "categories": [
+          { "value": "", "label": "전체" },
+          { "value": "frontend", "label": "프론트엔드" },
+          { "value": "backend", "label": "백엔드" },
+          { "value": "devops", "label": "DevOps" },
+          { "value": "design", "label": "디자인" }
+        ],
+        "levels": [
+          { "value": "", "label": "전체" },
+          { "value": "beginner", "label": "입문" },
+          { "value": "intermediate", "label": "중급" },
+          { "value": "advanced", "label": "고급" }
+        ]
+      },
+      "detail": {
+        "ctaBuyLabel": "수강 신청",
+        "ctaBuyAriaLabel": "이 강의 수강 신청하기",
+        "ctaCartLabel": "장바구니 담기",
+        "ctaCartAriaLabel": "장바구니에 담기",
+        "priceLabel": "수강료",
+        "durationLabel": "총 학습 시간",
+        "levelLabel": "난이도",
+        "instructorLabel": "강사",
+        "curriculumTitle": "커리큘럼",
+        "reviewTitle": "수강 후기",
+        "faqTitle": "자주 묻는 질문"
+      }
+    },
+    "about": {
+      "seo": {
+        "title": "소개 — 강의 플랫폼",
+        "description": "강의 플랫폼 소개 및 비전"
+      }
+    },
+    "community": {
+      "seo": {
+        "title": "커뮤니티 — 강의 플랫폼",
+        "description": "수강생들과 자유롭게 소통하는 커뮤니티"
+      }
+    },
+    "support": {
+      "seo": {
+        "title": "고객센터 — 강의 플랫폼",
+        "description": "자주 묻는 질문과 1:1 문의"
+      }
+    },
+    "auth": {
+      "login": {
+        "seo": { "title": "로그인 — 강의 플랫폼" },
+        "title": "로그인",
+        "emailLabel": "이메일",
+        "emailPlaceholder": "이메일을 입력하세요",
+        "passwordLabel": "비밀번호",
+        "passwordPlaceholder": "비밀번호를 입력하세요",
+        "submitLabel": "로그인",
+        "signupLink": "아직 회원이 아니신가요?",
+        "socialKakao": "카카오로 시작하기",
+        "socialGoogle": "Google로 시작하기"
+      },
+      "signup": {
+        "seo": { "title": "회원가입 — 강의 플랫폼" },
+        "title": "회원가입",
+        "nameLabel": "이름",
+        "namePlaceholder": "이름을 입력하세요",
+        "emailLabel": "이메일",
+        "emailPlaceholder": "이메일을 입력하세요",
+        "passwordLabel": "비밀번호",
+        "passwordPlaceholder": "비밀번호를 입력하세요 (8자 이상)",
+        "agreeTerms": "이용약관에 동의합니다",
+        "agreePrivacy": "개인정보처리방침에 동의합니다",
+        "submitLabel": "가입하기"
+      }
+    },
+    "cart": {
+      "seo": { "title": "장바구니 — 강의 플랫폼" },
+      "title": "장바구니",
+      "subtotalLabel": "합계",
+      "discountLabel": "할인",
+      "totalLabel": "결제 금액",
+      "checkoutLabel": "결제하기",
+      "checkoutAriaLabel": "결제 페이지로 이동"
+    },
+    "learn": {
+      "seo": { "title": "내 강의실 — 강의 플랫폼" },
+      "title": "내 강의실",
+      "continueLabel": "이어보기",
+      "progressLabel": "진행률",
+      "completedLabel": "수강 완료"
+    }
+  },
+
+  "courses": [
+    {
+      "slug": "react-masterclass",
+      "title": "React 마스터클래스",
+      "summary": "React의 기초부터 고급 패턴까지 한번에 배우는 실전 강의입니다.",
+      "description": "컴포넌트 설계, 상태 관리, 성능 최적화까지 실무에 필요한 React 핵심을 학습합니다.",
+      "thumbnail": "/images/courses/react-masterclass.png",
+      "thumbnailAlt": "React 마스터클래스 강의 썸네일",
+      "category": "frontend",
+      "level": "intermediate",
+      "duration": "20시간",
+      "price": 89000,
+      "instructor": "김리액트",
+      "featured": true,
+      "badges": ["BEST"],
+      "faq": [
+        { "question": "수강 기간은 얼마인가요?", "answer": "구매 후 무제한으로 수강하실 수 있습니다." },
+        { "question": "환불이 가능한가요?", "answer": "수강 시작 후 7일 이내 환불 가능합니다." }
+      ]
+    },
+    {
+      "slug": "js-basic-101",
+      "title": "JavaScript 기초 101",
+      "summary": "프로그래밍 입문자를 위한 JavaScript 기초 강의입니다.",
+      "description": "변수, 함수, 배열, 객체 등 자바스크립트 핵심 개념을 쉽게 배웁니다.",
+      "thumbnail": "/images/courses/js-basic-101.png",
+      "thumbnailAlt": "JavaScript 기초 101 강의 썸네일",
+      "category": "frontend",
+      "level": "beginner",
+      "duration": "12시간",
+      "price": 49000,
+      "instructor": "박자바스",
+      "featured": true,
+      "badges": ["NEW"],
+      "faq": []
+    }
+  ],
+
+  "testimonials": [
+    {
+      "name": "이수강",
+      "content": "실무에서 바로 적용할 수 있는 내용이 가득했습니다.",
+      "course": "react-masterclass"
+    }
+  ],
+
+  "faq": [
+    { "question": "결제는 어떻게 하나요?", "answer": "신용카드, 계좌이체, 간편결제를 지원합니다." },
+    { "question": "환불 정책은 어떻게 되나요?", "answer": "수강 시작 후 7일 이내 전액 환불이 가능합니다." },
+    { "question": "수강 기간에 제한이 있나요?", "answer": "모든 강의는 구매 후 무제한으로 수강 가능합니다." },
+    { "question": "수료증이 발급되나요?", "answer": "강의 완료 시 수료증을 PDF로 다운로드할 수 있습니다." }
+  ],
+
+  "footer": {
+    "copyright": "© 2026 강의 플랫폼. All rights reserved.",
+    "links": [
+      { "label": "이용약관", "href": "/etc/terms" },
+      { "label": "개인정보처리방침", "href": "/etc/privacy" },
+      { "label": "고객센터", "href": "/support" }
+    ]
+  },
+
+  "a11y": {
+    "skipToContent": "본문 바로가기",
+    "nav": {
+      "mainMenu": "주요 메뉴",
+      "footerMenu": "하단 메뉴",
+      "breadcrumb": "브레드크럼",
+      "pagination": "페이지 탐색",
+      "prevPage": "이전 페이지",
+      "nextPage": "다음 페이지"
+    },
+    "forms": {
+      "required": "(필수)",
+      "optional": "(선택)",
+      "errorPrefix": "오류:",
+      "searchLabel": "검색어 입력",
+      "searchSubmit": "검색 실행"
+    }
+  },
+
+  "geo": {
+    "countryCode": "KR",
+    "city": "서울",
+    "address": "서울특별시 강남구 테헤란로 123",
+    "postalCode": "06234",
+    "latitude": 37.5065,
+    "longitude": 127.0536,
+    "phone": "02-1234-5678",
+    "businessHours": "평일 09:00 - 18:00",
+    "organization": {
+      "name": "강의 플랫폼",
+      "type": "Organization",
+      "email": "contact@example.com"
+    },
+    "social": [
+      { "platform": "youtube", "url": "https://youtube.com/@example", "label": "유튜브 채널" },
+      { "platform": "instagram", "url": "https://instagram.com/example", "label": "인스타그램" },
+      { "platform": "kakao", "url": "https://pf.kakao.com/example", "label": "카카오 채널" }
+    ]
+  },
+
+  "seo": {
+    "siteDefaults": {
+      "titleTemplate": "%s — 강의 플랫폼",
+      "defaultTitle": "강의 플랫폼 — 최고의 온라인 강의",
+      "defaultDescription": "실무 중심의 온라인 강의 플랫폼",
+      "defaultOgImage": "/images/banners/og-default.png",
+      "locale": "ko_KR",
+      "type": "website"
+    },
+    "course": {
+      "_comment": "Course JSON-LD 필드 매핑 — courses 엔티티의 slug/title/summary/instructor/duration/price로 생성",
+      "schemaType": "Course",
+      "providerType": "Organization"
+    },
+    "faq": {
+      "_comment": "FAQPage JSON-LD — faq 배열의 question/answer로 생성",
+      "schemaType": "FAQPage"
+    },
+    "breadcrumb": {
+      "_comment": "BreadcrumbList JSON-LD — 페이지 경로 기반으로 자동 생성",
+      "schemaType": "BreadcrumbList",
+      "homeLabel": "홈"
+    }
+  },
+
+  "community": {
+    "categories": [
+      { "value": "all", "label": "전체" },
+      { "value": "free", "label": "자유" },
+      { "value": "qna", "label": "질문/답변" },
+      { "value": "review", "label": "수강후기" },
+      { "value": "notice", "label": "공지" }
+    ],
+    "reportReasons": [
+      { "value": "spam", "label": "스팸/광고" },
+      { "value": "abuse", "label": "욕설/비방" },
+      { "value": "inappropriate", "label": "부적절한 콘텐츠" },
+      { "value": "other", "label": "기타" }
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+// ============================================
+// 컬러 디자인 토큰 (_colors.scss)
+// - 브랜드 컬러, 텍스트 컬러, 배경 컬러, 상태 컬러 등을 정의한다
+// - 고객사 커스터마이징 시 이 파일의 값만 교체하면 전체 테마가 변경된다
+// - HEX/RGB 직접 사용 금지: 반드시 이 토큰을 참조한다
+// ============================================
+
+// Brand
+$color-primary: #2563eb;
+$color-primary-light: #60a5fa;
+$color-primary-dark: #1d4ed8;
+
+// Secondary
+$color-secondary: #7c3aed;
+$color-secondary-light: #a78bfa;
+
+// Text
+$color-text-primary: #111827;
+$color-text-secondary: #6b7280;
+$color-text-inverse: #ffffff;
+
+// Background
+$color-bg-primary: #ffffff;
+$color-bg-secondary: #f9fafb;
+$color-bg-tertiary: #f3f4f6;
+
+// Border
+$color-border: #e5e7eb;
+$color-border-focus: #2563eb;
+
+// State
+$color-success: #16a34a;
+$color-error: #dc2626;
+$color-warning: #f59e0b;
+$color-info: #2563eb;

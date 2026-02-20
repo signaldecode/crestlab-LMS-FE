@@ -1,0 +1,31 @@
+// ============================================
+// 타이포그래피 디자인 토큰 (_typography.scss)
+// - 폰트 패밀리, 사이즈, 라인 하이트, 웨이트 등을 정의한다
+// - px 직접 사용 금지: 반드시 이 토큰을 참조한다
+// ============================================
+
+// Font Family
+$font-family-base: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$font-family-heading: $font-family-base;
+$font-family-mono: 'Fira Code', 'Consolas', monospace;
+
+// Font Size (rem 기반)
+$font-size-xs: 0.75rem;    // 12px
+$font-size-sm: 0.875rem;   // 14px
+$font-size-base: 1rem;     // 16px
+$font-size-md: 1.125rem;   // 18px
+$font-size-lg: 1.25rem;    // 20px
+$font-size-xl: 1.5rem;     // 24px
+$font-size-2xl: 2rem;      // 32px
+$font-size-3xl: 2.5rem;    // 40px
+
+// Font Weight
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// Line Height
+$line-height-tight: 1.25;
+$line-height-base: 1.5;
+$line-height-relaxed: 1.75;

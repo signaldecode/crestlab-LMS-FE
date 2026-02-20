@@ -1,0 +1,20 @@
+// ============================================
+// 기본 타이포그래피 스타일 (_typography.scss · base)
+// - body, heading, paragraph 등 전역 텍스트 기본 스타일
+// - 토큰(_typography.scss)에서 정의한 변수를 참조한다
+// ============================================
+
+@use '../tokens/typography' as *;
+
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-base;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-heading;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+}

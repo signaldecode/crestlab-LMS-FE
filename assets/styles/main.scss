@@ -1,0 +1,25 @@
+// ============================================
+// 메인 SCSS 엔트리 (main.scss)
+// - 전체 스타일의 진입점으로, 아래 순서로 import한다
+// - 순서: tokens → mixins → base → components → themes
+// - 이 파일을 Next.js layout에서 import하여 전역 스타일로 적용한다
+// ============================================
+
+// 1) Design Tokens
+@forward 'tokens/colors';
+@forward 'tokens/typography';
+@forward 'tokens/spacing';
+@forward 'tokens/z-index';
+
+// 2) Mixins & Functions
+@forward 'mixins/breakpoints';
+
+// 3) Base (Reset & Global)
+@use 'base/reset';
+@use 'base/typography';
+
+// 4) Component Styles
+@use 'components/accordion';
+
+// 5) Themes
+@use 'themes/default';
