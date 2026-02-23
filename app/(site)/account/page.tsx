@@ -1,13 +1,15 @@
 /**
- * 계정 메인 페이지
- * - 내 수강 목록, 프로필 정보 등을 보여주는 마이페이지
- * - 로그인된 사용자 전용 페이지
+ * 마이페이지 (AccountPage)
+ * - "내 강의실" / "프로필" 두 탭으로 전환되는 2칸 레이아웃
  */
 
-export default function AccountPage() {
+import type { JSX } from 'react';
+import MyPageShell from '@/components/mypage/MyPageShell';
+
+export default function AccountPage(): JSX.Element {
   return (
-    <section className="account-page">
-      {/* 내 수강 목록, 프로필 요약 등이 렌더링된다 */}
+    <section className="mypage">
+      <MyPageShell />
     </section>
   );
 }
