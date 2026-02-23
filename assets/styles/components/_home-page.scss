@@ -1,0 +1,245 @@
+// ============================================
+// 홈페이지 스켈레톤 스타일 (_home-page.scss)
+// - 배너 캐러셀, 카테고리 아이콘, 강의 카드 그리드
+// ============================================
+
+@use '../tokens/colors' as *;
+@use '../tokens/spacing' as *;
+@use '../tokens/typography' as *;
+@use '../mixins/breakpoints' as *;
+
+// ── 스켈레톤 애니메이션 ──
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+// ── 홈 페이지 래퍼 ──
+.home-page {
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 $container-padding;
+}
+
+// ============================================
+// 1) 히어로 배너 캐러셀
+// ============================================
+.home-hero {
+  margin-bottom: $spacing-10;
+
+  &__carousel {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 5;
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+
+  &__slide {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__skeleton {
+    background: $color-bg-tertiary;
+    animation: skeleton-pulse 1.8s ease-in-out infinite;
+  }
+
+  // 좌우 화살표
+  &__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.7);
+    font-size: $font-size-xl;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-text-primary;
+    z-index: 2;
+
+    &--prev { left: $spacing-4; }
+    &--next { right: $spacing-4; }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.95);
+    }
+  }
+
+  // 인디케이터 도트
+  &__indicators {
+    position: absolute;
+    bottom: $spacing-4;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: $spacing-2;
+    z-index: 2;
+  }
+
+  &__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transition: background 0.2s;
+
+    &--active {
+      background: #fff;
+      width: 1.5rem;
+      border-radius: 0.25rem;
+    }
+  }
+}
+
+// ============================================
+// 2) 카테고리 아이콘 네비게이션
+// ============================================
+.home-categories {
+  margin-bottom: $spacing-12;
+
+  &__inner {
+    display: flex;
+    justify-content: center;
+    gap: $spacing-6;
+    flex-wrap: wrap;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-2;
+    text-decoration: none;
+    color: $color-text-primary;
+    cursor: pointer;
+
+    &:hover .home-categories__icon {
+      transform: translateY(-2px);
+    }
+  }
+
+  &__icon {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    transition: transform 0.2s;
+  }
+
+  &__skeleton-circle {
+    background: $color-bg-tertiary;
+    animation: skeleton-pulse 1.8s ease-in-out infinite;
+  }
+
+  &__label {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    white-space: nowrap;
+  }
+}
+
+// ============================================
+// 3) 강의 리스트 섹션
+// ============================================
+.home-course-section {
+  margin-bottom: $spacing-12;
+
+  &__inner {
+    width: 100%;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-6;
+  }
+
+  &__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+  }
+
+  &__more {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+
+    &:hover {
+      color: $color-text-primary;
+    }
+  }
+
+  // 5열 그리드
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: $spacing-5;
+
+    @include breakpoint(lg) {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    @media (max-width: 1023px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width: 639px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+// ── 강의 카드 스켈레톤 ──
+.home-course-card {
+  border-radius: 0.5rem;
+  overflow: hidden;
+
+  &__thumb {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 0.5rem;
+  }
+
+  &__skeleton {
+    background: $color-bg-tertiary;
+    animation: skeleton-pulse 1.8s ease-in-out infinite;
+  }
+
+  &__body {
+    padding: $spacing-3 0;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+  }
+
+  &__skeleton-line {
+    height: 0.875rem;
+    border-radius: 0.25rem;
+    background: $color-bg-tertiary;
+    animation: skeleton-pulse 1.8s ease-in-out infinite;
+
+    &--title {
+      width: 90%;
+      height: 1rem;
+    }
+
+    &--sub {
+      width: 60%;
+    }
+
+    &--price {
+      width: 40%;
+      margin-top: $spacing-1;
+    }
+  }
+}

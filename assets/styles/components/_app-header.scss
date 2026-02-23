@@ -1,6 +1,6 @@
 // ============================================
 // 앱 헤더 스타일 (_app-header.scss)
-// - 사이트 최상단 헤더 레이아웃
+// - 2줄 구조: 상단바(top-bar) + 하단 탭바(sub-nav)
 // - 토큰 변수를 참조하며, HEX/px 직접 사용을 금지한다
 // ============================================
 
@@ -14,15 +14,125 @@
   top: $spacing-0;
   z-index: $z-index-sticky;
   background-color: $color-bg-primary;
-  border-bottom: 0.0625rem solid $color-border;
 
-  &__inner {
+  // ── 상단바 ──
+  &__top-bar {
+    border-bottom: 0.0625rem solid $color-border;
+  }
+
+  &__top-bar-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
     max-width: $container-max-width;
     margin: $spacing-0 auto;
     padding: $spacing-3 $container-padding;
+  }
+
+  &__top-left {
+    display: flex;
+    align-items: center;
+    gap: $spacing-8;
+  }
+
+  &__top-right {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+  }
+
+  // ── 섹션 탭 (클래스 / 커뮤니티 / 부동산중개) ──
+  &__sections {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+  }
+
+  &__section-link {
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $color-text-primary;
+    }
+
+    &--active {
+      font-weight: $font-weight-bold;
+      color: $color-text-primary;
+    }
+  }
+
+  // ── 검색 ──
+  &__search {
+    display: flex;
+    align-items: center;
+  }
+
+  &__search-input {
+    width: 15rem;
+    padding: $spacing-2 $spacing-3;
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+    background-color: $color-bg-secondary;
+    border: 0.0625rem solid $color-border;
+    border-radius: $spacing-2;
+    outline: none;
+    transition: border-color 0.2s ease;
+
+    &::placeholder {
+      color: $color-text-secondary;
+    }
+
+    &:focus {
+      border-color: $color-border-focus;
+    }
+  }
+
+  // ── 인증 (로그인 / 회원가입) ──
+  &__auth {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+  }
+
+  &__auth-link {
+    display: block;
+    padding: $spacing-2 $spacing-4;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    text-decoration: none;
+    border-radius: $spacing-1;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $color-primary;
+    }
+
+    &--signup {
+      color: $color-bg-primary;
+      background-color: $color-primary;
+      border-radius: $spacing-2;
+
+      &:hover {
+        background-color: $color-primary-dark;
+        color: $color-bg-primary;
+      }
+    }
+  }
+
+  // ── 하단 탭바 (SubNav) ──
+  &__sub-nav {
+    border-bottom: 0.0625rem solid $color-border;
+  }
+
+  &__sub-nav-inner {
+    max-width: $container-max-width;
+    margin: $spacing-0 auto;
+    padding: $spacing-0 $container-padding;
   }
 }
 

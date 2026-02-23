@@ -28,16 +28,25 @@
   },
 
   "nav": {
-    "main": [
-      { "label": "카테고리", "href": "/courses", "ariaLabel": "카테고리별 강의 보기" },
-      { "label": "베스트", "href": "/courses?sort=popular", "ariaLabel": "인기 강의 보기" },
-      { "label": "신규 강의", "href": "/courses?sort=latest", "ariaLabel": "신규 강의 보기" },
-      { "label": "이벤트/할인", "href": "/courses?badge=event", "ariaLabel": "이벤트 및 할인 강의 보기" },
+    "topBar": [
+      { "label": "클래스", "href": "/", "ariaLabel": "클래스(강의) 보기" },
       { "label": "커뮤니티", "href": "/community", "ariaLabel": "커뮤니티로 이동" }
     ],
+    "search": {
+      "placeholder": "검색어를 입력하세요",
+      "ariaLabel": "강의 검색"
+    },
+    "main": [
+      { "label": "카테고리", "href": "/courses", "ariaLabel": "카테고리별 강의 보기" },
+      { "label": "부동산기초", "href": "/courses?category=real-estate-basics", "ariaLabel": "부동산기초 강의 보기" },
+      { "label": "오리지널", "href": "/courses?category=original", "ariaLabel": "오리지널 강의 보기" },
+      { "label": "베스트", "href": "/courses?category=best", "ariaLabel": "베스트 강의 보기" },
+      { "label": "커리큘럼", "href": "/curriculum", "ariaLabel": "커리큘럼 보기" },
+      { "label": "내게맞는강의찾기", "href": "/courses?category=recommend", "ariaLabel": "내게 맞는 강의 찾기" },
+      { "label": "오픈예정", "href": "/courses?category=upcoming", "ariaLabel": "오픈예정 강의 보기" }
+    ],
     "user": [
-      { "label": "내 강의실", "href": "/learn", "ariaLabel": "내 강의실로 이동" },
-      { "label": "장바구니", "href": "/cart", "ariaLabel": "장바구니로 이동" }
+      { "label": "강사 지원하기", "href": "/instructor/apply", "ariaLabel": "강사 지원 페이지로 이동" }
     ],
     "auth": {
       "loginLabel": "로그인",
@@ -46,6 +55,57 @@
       "signupLabel": "회원가입",
       "signupHref": "/auth/signup",
       "signupAriaLabel": "회원가입 페이지로 이동"
+    },
+    "categoryMenu": {
+      "ariaLabel": "전체 카테고리",
+      "groups": [
+        {
+          "label": "오리지널",
+          "href": "/courses?category=original",
+          "items": [
+            { "label": "오리지널 정규", "href": "/courses?category=original&sub=regular" },
+            { "label": "부동산 기초", "href": "/courses?category=original&sub=real-estate-basic" },
+            { "label": "내집마련", "href": "/courses?category=original&sub=my-house" },
+            { "label": "지역 분석", "href": "/courses?category=original&sub=area-analysis" }
+          ]
+        },
+        {
+          "label": "부동산",
+          "href": "/courses?category=real-estate",
+          "items": [
+            { "label": "부동산 입문", "href": "/courses?category=real-estate&sub=beginner" },
+            { "label": "경매/공매", "href": "/courses?category=real-estate&sub=auction" },
+            { "label": "청약/재개발", "href": "/courses?category=real-estate&sub=subscription" },
+            { "label": "상가/빌딩/토지", "href": "/courses?category=real-estate&sub=commercial" },
+            { "label": "세금/대출", "href": "/courses?category=real-estate&sub=tax-loan" }
+          ]
+        },
+        {
+          "label": "재테크/주식",
+          "href": "/courses?category=finance",
+          "items": [
+            { "label": "주식/코인", "href": "/courses?category=finance&sub=stock-coin" },
+            { "label": "창업/부업", "href": "/courses?category=finance&sub=business" },
+            { "label": "재테크기초", "href": "/courses?category=finance&sub=basic" },
+            { "label": "자기계발", "href": "/courses?category=finance&sub=self-dev" }
+          ]
+        },
+        {
+          "label": "코칭",
+          "href": "/courses?category=coaching",
+          "items": [
+            { "label": "투자코칭", "href": "/courses?category=coaching&sub=investment" },
+            { "label": "매물코칭", "href": "/courses?category=coaching&sub=property" }
+          ]
+        },
+        {
+          "label": "돈 버는 독서 모임",
+          "href": "/courses?category=book-club",
+          "items": [
+            { "label": "돈 버는 독서 모임", "href": "/courses?category=book-club&sub=main" }
+          ]
+        }
+      ]
     }
   },
 
@@ -132,10 +192,11 @@
         ],
         "categories": [
           { "value": "", "label": "전체" },
-          { "value": "frontend", "label": "프론트엔드" },
-          { "value": "backend", "label": "백엔드" },
-          { "value": "devops", "label": "DevOps" },
-          { "value": "design", "label": "디자인" }
+          { "value": "original", "label": "오리지널" },
+          { "value": "real-estate", "label": "부동산" },
+          { "value": "finance", "label": "재테크/주식" },
+          { "value": "coaching", "label": "코칭" },
+          { "value": "book-club", "label": "돈 버는 독서 모임" }
         ],
         "levels": [
           { "value": "", "label": "전체" },

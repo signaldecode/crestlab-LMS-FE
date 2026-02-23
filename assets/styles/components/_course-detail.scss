@@ -1,0 +1,390 @@
+// ============================================
+// 강의 상세 페이지 스타일 (_course-detail.scss)
+// - 2칸 레이아웃: 왼쪽 콘텐츠 / 오른쪽 구매 사이드바
+// ============================================
+
+@use '../tokens/colors' as *;
+@use '../tokens/spacing' as *;
+@use '../tokens/typography' as *;
+@use '../mixins/breakpoints' as *;
+
+@keyframes course-detail-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+// ── 페이지 래퍼 ──
+.course-detail-page {
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 $container-padding;
+}
+
+// ── 2칸 레이아웃 ──
+.course-detail-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: $spacing-10;
+  padding: $spacing-8 0;
+
+  @media (max-width: 1023px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ============================================
+// 왼쪽 콘텐츠
+// ============================================
+.course-detail-content {
+  min-width: 0;
+
+  // 브레드크럼
+  &__breadcrumb {
+    margin-bottom: $spacing-4;
+  }
+
+  &__breadcrumb-skeleton {
+    display: block;
+    width: 12rem;
+    height: 0.75rem;
+    border-radius: 0.25rem;
+    background: $color-bg-tertiary;
+    animation: course-detail-pulse 1.8s ease-in-out infinite;
+  }
+
+  // 썸네일
+  &__thumb {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 0.75rem;
+    margin-bottom: $spacing-8;
+  }
+
+  &__skeleton {
+    background: $color-bg-tertiary;
+    animation: course-detail-pulse 1.8s ease-in-out infinite;
+  }
+
+  // 베스트 수강 후기
+  &__reviews-section {
+    margin-bottom: $spacing-8;
+  }
+
+  &__section-title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin-bottom: $spacing-4;
+  }
+
+  &__reviews-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-4;
+    margin-bottom: $spacing-4;
+
+    @media (max-width: 639px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__review-card {
+    border: 1px solid $color-border;
+    border-radius: 0.5rem;
+    padding: $spacing-4;
+  }
+
+  &__review-header {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    margin-bottom: $spacing-3;
+  }
+
+  &__review-avatar {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+  }
+
+  &__skeleton-circle {
+    background: $color-bg-tertiary;
+    animation: course-detail-pulse 1.8s ease-in-out infinite;
+  }
+
+  &__review-meta {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+  }
+
+  &__review-body {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+  }
+
+  &__skeleton-line {
+    height: 0.75rem;
+    border-radius: 0.25rem;
+    background: $color-bg-tertiary;
+    animation: course-detail-pulse 1.8s ease-in-out infinite;
+
+    &--name { width: 4rem; height: 0.875rem; }
+    &--rating { width: 5rem; }
+    &--text { width: 100%; }
+    &--text-short { width: 85%; }
+    &--text-shorter { width: 60%; }
+    &--info { width: 8rem; }
+    &--desc { height: 0.875rem; margin-bottom: $spacing-2; }
+  }
+
+  &__reviews-all {
+    display: block;
+    width: 100%;
+    padding: $spacing-3;
+    text-align: center;
+    border: 1px solid $color-border;
+    border-radius: 0.375rem;
+    background: $color-bg-primary;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    cursor: pointer;
+
+    &:hover {
+      background: $color-bg-secondary;
+    }
+  }
+
+  // 앵커 탭
+  &__tabs {
+    display: flex;
+    border-bottom: 1px solid $color-border;
+    margin-bottom: $spacing-8;
+    position: sticky;
+    top: 0;
+    background: $color-bg-primary;
+    z-index: 5;
+  }
+
+  &__tab {
+    flex: 1;
+    padding: $spacing-3 $spacing-4;
+    text-align: center;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    cursor: pointer;
+    white-space: nowrap;
+
+    &--active {
+      color: $color-primary;
+      font-weight: $font-weight-bold;
+      border-bottom-color: $color-primary;
+    }
+
+    &:hover {
+      color: $color-text-primary;
+    }
+  }
+
+  // 탭 콘텐츠 패널
+  &__tab-panel {
+    padding-bottom: $spacing-16;
+  }
+
+  &__info-grid {
+    display: flex;
+    gap: $spacing-10;
+    margin-bottom: $spacing-8;
+  }
+
+  &__info-item {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+  }
+
+  &__info-label {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+}
+
+// ============================================
+// 오른쪽 사이드바
+// ============================================
+.course-detail-sidebar {
+  @media (max-width: 1023px) {
+    order: -1;
+  }
+
+  &__sticky {
+    position: sticky;
+    top: $spacing-8;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+    padding: $spacing-6;
+    border: 1px solid $color-border;
+    border-radius: 0.75rem;
+    background: $color-bg-primary;
+  }
+
+  &__skeleton-line {
+    height: 0.875rem;
+    border-radius: 0.25rem;
+    background: $color-bg-tertiary;
+    animation: course-detail-pulse 1.8s ease-in-out infinite;
+
+    &--title { width: 100%; height: 1.25rem; }
+    &--title-sub { width: 70%; height: 1.25rem; }
+    &--rating { width: 6rem; }
+    &--original { width: 5rem; }
+    &--discount { width: 7rem; height: 1.5rem; }
+    &--option { width: 10rem; }
+    &--option-price { width: 6rem; margin-left: auto; }
+    &--total { width: 7rem; height: 1.25rem; margin-left: auto; }
+  }
+
+  // 평점
+  &__rating {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+  }
+
+  &__stars {
+    color: #f59e0b;
+    font-size: $font-size-sm;
+    letter-spacing: -0.05em;
+  }
+
+  // 가격
+  &__price-section {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+  }
+
+  &__original-price {
+    text-decoration: line-through;
+    color: $color-text-secondary;
+  }
+
+  &__discount-price {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+  }
+
+  &__first-buy {
+    font-size: $font-size-xs;
+    color: $color-primary;
+    border: 1px solid $color-primary;
+    border-radius: 0.25rem;
+    padding: $spacing-1 $spacing-2;
+  }
+
+  // 쿠폰
+  &__coupon-btn {
+    width: 100%;
+    padding: $spacing-2 $spacing-4;
+    border: 1px solid $color-primary;
+    border-radius: 0.375rem;
+    background: $color-bg-primary;
+    color: $color-primary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    text-align: center;
+
+    &:hover {
+      background: rgba($color-primary, 0.05);
+    }
+  }
+
+  // 수강 옵션
+  &__options {
+    border-top: 1px solid $color-border;
+    padding-top: $spacing-4;
+  }
+
+  &__options-title {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    margin-bottom: $spacing-3;
+  }
+
+  &__option-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $spacing-3;
+    border: 1px solid $color-border;
+    border-radius: 0.375rem;
+    background: $color-bg-secondary;
+  }
+
+  // 총 상품 금액
+  &__total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid $color-border;
+    padding-top: $spacing-4;
+  }
+
+  &__total-label {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+  }
+
+  // CTA 버튼
+  &__actions {
+    display: flex;
+    gap: $spacing-3;
+  }
+
+  &__wish-btn {
+    flex-shrink: 0;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $color-border;
+    border-radius: 0.5rem;
+    background: $color-bg-primary;
+    font-size: $font-size-xl;
+    cursor: pointer;
+    color: $color-text-secondary;
+
+    &:hover {
+      border-color: $color-error;
+      color: $color-error;
+    }
+  }
+
+  &__buy-btn {
+    flex: 1;
+    height: 3rem;
+    border: none;
+    border-radius: 0.5rem;
+    background: $color-primary;
+    color: $color-text-inverse;
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    cursor: pointer;
+
+    &:hover {
+      background: $color-primary-dark;
+    }
+  }
+}

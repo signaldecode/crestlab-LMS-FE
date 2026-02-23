@@ -1,0 +1,223 @@
+// ============================================
+// 모달 스타일 (_modal.scss)
+// - 공용 모달(.modal-*) + 인증 모달(.auth-modal__*)
+// - 토큰 변수를 참조하며, HEX/px 직접 사용을 금지한다
+// ============================================
+
+@use '../tokens/colors' as *;
+@use '../tokens/spacing' as *;
+@use '../tokens/typography' as *;
+@use '../tokens/z-index' as *;
+
+// ── 공용 모달 ──
+.modal-overlay {
+  position: fixed;
+  inset: $spacing-0;
+  z-index: $z-index-modal-backdrop;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  position: relative;
+  z-index: $z-index-modal;
+  width: 100%;
+  max-width: 28rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  background-color: $color-bg-primary;
+  border-radius: $spacing-3;
+  box-shadow: 0 $spacing-6 $spacing-16 rgba(0, 0, 0, 0.15);
+  padding: $spacing-8;
+}
+
+.modal-close {
+  position: absolute;
+  top: $spacing-4;
+  right: $spacing-4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $spacing-8;
+  height: $spacing-8;
+  font-size: $font-size-xl;
+  color: $color-text-secondary;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: $spacing-1;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: $color-text-primary;
+  }
+}
+
+// ── 인증 모달 ──
+.auth-modal {
+  &__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    text-align: center;
+    margin: $spacing-0 $spacing-0 $spacing-6;
+  }
+
+  &__subtitle {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    text-align: center;
+    margin: $spacing-0 $spacing-0 $spacing-2;
+  }
+
+  &__highlight {
+    color: $color-primary;
+    font-weight: $font-weight-semibold;
+  }
+
+  // 소셜 로그인
+  &__social {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+    margin-bottom: $spacing-6;
+  }
+
+  &__social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-2;
+    width: 100%;
+    padding: $spacing-3;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    border: 0.0625rem solid $color-border;
+    border-radius: $spacing-2;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.85;
+    }
+
+    &--kakao {
+      background-color: #fee500;
+      color: #191919;
+      border-color: #fee500;
+    }
+  }
+
+  &__social-icons {
+    display: flex;
+    justify-content: center;
+    gap: $spacing-4;
+    margin-bottom: $spacing-6;
+  }
+
+  &__social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $spacing-10;
+    height: $spacing-10;
+    border-radius: 50%;
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    cursor: pointer;
+    border: 0.0625rem solid $color-border;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.85;
+    }
+
+    &--naver {
+      background-color: #03c75a;
+      color: $color-text-inverse;
+      border-color: #03c75a;
+    }
+
+    &--google {
+      background-color: $color-bg-primary;
+      color: $color-text-primary;
+    }
+
+    &--apple {
+      background-color: $color-text-primary;
+      color: $color-text-inverse;
+      border-color: $color-text-primary;
+    }
+  }
+
+  // 폼
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+  }
+
+  &__input {
+    width: 100%;
+    padding: $spacing-3;
+    font-size: $font-size-base;
+    color: $color-text-primary;
+    background-color: $color-bg-primary;
+    border: 0.0625rem solid $color-border;
+    border-radius: $spacing-2;
+    outline: none;
+    transition: border-color 0.2s ease;
+
+    &::placeholder {
+      color: $color-text-secondary;
+    }
+
+    &:focus {
+      border-color: $color-border-focus;
+    }
+  }
+
+  &__submit {
+    width: 100%;
+    padding: $spacing-3;
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-text-inverse;
+    background-color: $color-primary;
+    border: none;
+    border-radius: $spacing-2;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: $spacing-2;
+
+    &:hover {
+      background-color: $color-primary-dark;
+    }
+  }
+
+  // 하단 링크
+  &__links {
+    display: flex;
+    justify-content: center;
+    gap: $spacing-2;
+    margin-top: $spacing-4;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+
+  &__link {
+    color: $color-text-secondary;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  &__divider {
+    color: $color-border;
+  }
+}

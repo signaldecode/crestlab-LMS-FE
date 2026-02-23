@@ -1,20 +1,21 @@
 // ============================================
 // 글로벌 내비게이션 스타일 (_global-nav.scss)
-// - 헤더 내 메인 메뉴 + 유저 메뉴 + 인증 링크 레이아웃
+// - 하단 탭바 메뉴 + 유저 메뉴 레이아웃
+// - 카테고리 메가 메뉴 드롭다운 포함
+// - 인증(로그인/회원가입)은 _app-header.scss에서 관리한다
 // - 토큰 변수를 참조하며, HEX/px 직접 사용을 금지한다
 // ============================================
 
 @use '../tokens/colors' as *;
 @use '../tokens/spacing' as *;
 @use '../tokens/typography' as *;
+@use '../tokens/z-index' as *;
 
 .global-nav {
   display: flex;
   align-items: center;
-  gap: $spacing-6;
-  flex: 1;
   justify-content: space-between;
-  margin-left: $spacing-8;
+  padding: $spacing-2 $spacing-0;
 
   &__list {
     display: flex;
@@ -28,12 +29,18 @@
   &__item {
     display: flex;
     align-items: center;
+
+    // 카테고리 항목: position: static 유지 → 메가 메뉴가 .app-header(sticky) 기준으로 배치
+    // JS(CategoryMenuTrigger)가 .is-open 클래스로 열림 상태를 제어한다
+    &--has-menu {
+      position: static;
+    }
   }
 
   &__link {
     display: block;
     padding: $spacing-2 $spacing-3;
-    font-size: $font-size-base;
+    font-size: $font-size-sm;
     font-weight: $font-weight-medium;
     color: $color-text-primary;
     text-decoration: none;
@@ -51,36 +58,76 @@
     align-items: center;
     gap: $spacing-4;
   }
+}
 
-  &__auth {
-    display: flex;
-    align-items: center;
-    gap: $spacing-2;
+// 카테고리 메가 메뉴 드롭다운 (화면 전체 너비)
+.category-mega-menu {
+  position: absolute;
+  top: 100%;
+  left: $spacing-0;
+  right: $spacing-0;
+  z-index: $z-index-dropdown;
+  background-color: $color-bg-primary;
+  border-top: 0.0625rem solid $color-border;
+  border-bottom: 0.0625rem solid $color-border;
+  box-shadow: 0 $spacing-2 $spacing-6 rgba(0, 0, 0, 0.08);
+  padding: $spacing-8 $spacing-0;
+
+  // 내비게이션 링크와 메가 메뉴 사이 간격을 연결하는 투명 브리지
+  // → 마우스를 메뉴로 이동할 때 hover가 끊기지 않는다
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: $spacing-0;
+    right: $spacing-0;
+    height: $spacing-4;
   }
 
-  &__auth-link {
-    display: block;
-    padding: $spacing-2 $spacing-4;
-    font-size: $font-size-sm;
-    font-weight: $font-weight-medium;
-    color: $color-text-secondary;
+  &__inner {
+    display: flex;
+    gap: $spacing-8;
+    max-width: $container-max-width;
+    margin: $spacing-0 auto;
+    padding: $spacing-0 $container-padding;
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+    min-width: $spacing-20 * 2;
+  }
+
+  &__group-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
     text-decoration: none;
-    border-radius: $spacing-1;
     transition: color 0.2s ease;
 
     &:hover {
       color: $color-primary;
     }
+  }
 
-    &--signup {
-      color: $color-bg-primary;
-      background-color: $color-primary;
-      border-radius: $spacing-2;
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+    list-style: none;
+    margin: $spacing-0;
+    padding: $spacing-0;
+  }
 
-      &:hover {
-        background-color: $color-primary-dark;
-        color: $color-bg-primary;
-      }
+  &__link {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $color-primary;
     }
   }
 }

@@ -1,0 +1,194 @@
+// ============================================
+// 강의 목록 페이지 스타일 (_courses-page.scss)
+// - 배너 + 2단 레이아웃(사이드바 + 카드 그리드)
+// - 토큰 변수를 참조하며, HEX/px 직접 사용을 금지한다
+// ============================================
+
+@use '../tokens/colors' as *;
+@use '../tokens/spacing' as *;
+@use '../tokens/typography' as *;
+@use '../mixins/breakpoints' as *;
+
+// 페이지 전체
+.courses-page {
+  max-width: $container-max-width;
+  margin: $spacing-0 auto;
+  padding: $spacing-0 $container-padding;
+
+  &__content {
+    display: flex;
+    gap: $spacing-8;
+    margin-top: $spacing-8;
+  }
+
+  &__main {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__toolbar {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: $spacing-6;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-6;
+  }
+
+  &__pagination {
+    margin-top: $spacing-10;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+// 배너
+.course-banner {
+  width: 100%;
+  min-height: $spacing-20 * 2;
+  background-color: $color-bg-tertiary;
+  border-radius: $spacing-2;
+  margin-top: $spacing-6;
+}
+
+// 사이드바
+.course-sidebar {
+  width: $spacing-20 * 3;
+  flex-shrink: 0;
+
+  &__nav {
+    position: sticky;
+    top: $spacing-20;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+    list-style: none;
+    margin: $spacing-0;
+    padding: $spacing-0;
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 0.0625rem solid $color-border;
+  }
+
+  &__group-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: $spacing-3;
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $color-primary;
+    }
+
+    &--active {
+      color: $color-primary;
+    }
+  }
+
+  &__chevron {
+    font-size: $font-size-lg;
+    line-height: 1;
+    transition: transform 0.2s ease;
+    transform: rotate(90deg);
+
+    &--open {
+      transform: rotate(-90deg);
+    }
+  }
+
+  &__sub-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    margin: $spacing-0;
+    padding: $spacing-0 $spacing-0 $spacing-3 $spacing-3;
+  }
+
+  &__sub-link {
+    display: block;
+    padding: $spacing-2 $spacing-3;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $color-primary;
+    }
+
+    &--active {
+      font-weight: $font-weight-bold;
+      color: $color-primary;
+    }
+  }
+}
+
+// 정렬
+.course-sort {
+  min-width: $spacing-20 * 2;
+}
+
+// 카드
+.course-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: $spacing-2;
+  overflow: hidden;
+  background-color: $color-bg-primary;
+  transition: box-shadow 0.2s ease;
+
+  &__thumbnail {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: $color-bg-tertiary;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+    padding: $spacing-4;
+  }
+
+  &__badges {
+    display: flex;
+    gap: $spacing-1;
+  }
+
+  &__title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    line-height: $line-height-tight;
+    margin: $spacing-0;
+  }
+
+  &__instructor {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    margin: $spacing-0;
+  }
+
+  &__price {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+  }
+}

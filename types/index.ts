@@ -73,10 +73,34 @@ export interface NavAuthData {
   signupAriaLabel: string;
 }
 
+export interface CategoryMenuItem {
+  label: string;
+  href: string;
+}
+
+export interface CategoryMenuGroup {
+  label: string;
+  href: string;
+  items: CategoryMenuItem[];
+}
+
+export interface CategoryMenu {
+  ariaLabel: string;
+  groups: CategoryMenuGroup[];
+}
+
+export interface NavSearchData {
+  placeholder: string;
+  ariaLabel: string;
+}
+
 export interface NavData {
+  topBar: NavItem[];
+  search: NavSearchData;
   main: NavItem[];
   user: NavItem[];
   auth: NavAuthData;
+  categoryMenu: CategoryMenu;
 }
 
 /* ── 푸터 ── */

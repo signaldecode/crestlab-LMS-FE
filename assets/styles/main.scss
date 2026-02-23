@@ -23,10 +23,16 @@
 @use 'components/app-header';
 @use 'components/global-nav';
 @use 'components/app-footer';
+@use 'components/courses-page';
 @use 'components/accordion';
 @use 'components/admin-layout';
 @use 'components/video-upload';
 @use 'components/upload-progress';
+@use 'components/modal';
+@use 'components/home-page';
+@use 'components/community-page';
+@use 'components/course-detail';
+@use 'components/curriculum-page';
 
 // 5) Themes
 @use 'themes/default';

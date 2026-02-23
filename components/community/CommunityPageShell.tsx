@@ -1,19 +1,19 @@
 /**
  * 커뮤니티 페이지 셸 (CommunityPageShell)
- * - 커뮤니티 메인 페이지의 전체 구조를 잡는 셸 컴포넌트
- * - CommunityHeader, CommunityTabs, PostList를 조합하여 렌더링한다
+ * - 3칸 레이아웃: 왼쪽 사이드바 / 가운데 피드 / 오른쪽 랭킹
  */
 
-import CommunityHeader from '@/components/community/CommunityHeader';
-import CommunityTabs from '@/components/community/CommunityTabs';
-import PostList from '@/components/community/PostList';
+import type { JSX } from 'react';
+import CommunitySidebar from '@/components/community/CommunitySidebar';
+import CommunityFeed from '@/components/community/CommunityFeed';
+import CommunityAside from '@/components/community/CommunityAside';
 
-export default function CommunityPageShell(): React.JSX.Element {
+export default function CommunityPageShell(): JSX.Element {
   return (
-    <div className="community-page-shell">
-      <CommunityHeader />
-      <CommunityTabs />
-      <PostList />
+    <div className="community-layout">
+      <CommunitySidebar />
+      <CommunityFeed />
+      <CommunityAside />
     </div>
   );
 }
