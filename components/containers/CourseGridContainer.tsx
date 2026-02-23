@@ -4,7 +4,7 @@
  * - 필터(카테고리/레벨), 정렬, 검색, 페이지네이션을 조합한다
  */
 
-import type { JSX } from 'react';
+import { Suspense, type JSX } from 'react';
 import CourseBanner from '@/components/courses/CourseBanner';
 import CourseSidebar from '@/components/courses/CourseSidebar';
 import CourseSort from '@/components/courses/CourseSort';
@@ -16,7 +16,9 @@ export default function CourseGridContainer(): JSX.Element {
       <CourseBanner />
 
       <div className="courses-page__content">
-        <CourseSidebar />
+        <Suspense fallback={<div className="course-sidebar-skeleton" />}>
+          <CourseSidebar />
+        </Suspense>
 
         <div className="courses-page__main">
           <div className="courses-page__toolbar">
