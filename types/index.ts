@@ -216,8 +216,11 @@ export interface Comment {
 export interface User {
   id: string;
   name: string;
+  nickname?: string;
+  bio?: string;
   email: string;
   profileImage?: string;
+  featuredPostIds?: string[];
 }
 
 /* ── 장바구니 / 주문 ── */

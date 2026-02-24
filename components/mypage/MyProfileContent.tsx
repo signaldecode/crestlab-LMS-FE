@@ -8,6 +8,7 @@
 
 import { useState } from 'react';
 import type { JSX } from 'react';
+import Link from 'next/link';
 import ProfileIntroTab from '@/components/mypage/ProfileIntroTab';
 import ProfileFollowTab from '@/components/mypage/ProfileFollowTab';
 
@@ -90,7 +91,7 @@ export default function MyProfileContent({ userId, userName }: MyProfileContentP
           <div className="mypage-profile__empty">
             <p>아직은 비어있지만, 여기에 내 경험이 쌓일거에요.</p>
             <p>오늘 어떤 이야기를 남겨볼까요?</p>
-            <button type="button" className="mypage-profile__write-btn">+ 글쓰기</button>
+            <Link href="/community/new" className="mypage-profile__write-btn">+ 글쓰기</Link>
           </div>
         </>
       )}

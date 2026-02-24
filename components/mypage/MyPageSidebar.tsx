@@ -18,6 +18,10 @@ interface MyPageSidebarProps {
   userId?: string;
 }
 
+const menuLinks: Record<string, string> = {
+  '관심 클래스': '/mypage/wishlist',
+};
+
 const classroomMenu = [
   { section: '강의 관련', items: ['관심 클래스', '강의 상담', '수료증', '후기 관리', '구매 내역'] },
   { section: '고객 지원', items: ['1:1 문의', '자주 묻는 질문'] },
@@ -58,7 +62,33 @@ export default function MyPageSidebar({ activeTab, userId }: MyPageSidebarProps)
         {/* 프로필 카드 */}
         <div className="mypage-sidebar__profile">
           <div className="mypage-sidebar__avatar mypage-sidebar__skeleton-circle" />
-          <div className="mypage-sidebar__skeleton-line mypage-sidebar__skeleton-line--name" />
+
+          <div className="mypage-sidebar__name-row">
+            {authUser?.nickname || authUser?.name ? (
+              <span className="mypage-sidebar__username">
+                {authUser.nickname || authUser.name}
+              </span>
+            ) : (
+              <div className="mypage-sidebar__skeleton-line mypage-sidebar__skeleton-line--name" />
+            )}
+            {activeTab === 'profile' && (
+              <Link
+                href="/mypage/profile/edit"
+                className="mypage-sidebar__edit-btn"
+                aria-label="프로필 수정"
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path
+                    d="M3 13l1.2-3.2L12 2a1.2 1.2 0 011.6 0l.4.4a1.2 1.2 0 010 1.6L6.2 11.8 3 13z"
+                    stroke="currentColor"
+                    strokeWidth="1.2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </Link>
+            )}
+          </div>
 
           {activeTab === 'classroom' ? (
             <div className="mypage-sidebar__info-list">
@@ -117,7 +147,7 @@ export default function MyPageSidebar({ activeTab, userId }: MyPageSidebarProps)
               <ul className="mypage-sidebar__menu-list">
                 {group.items.map((item) => (
                   <li key={item} className="mypage-sidebar__menu-item">
-                    <a href="#" className="mypage-sidebar__menu-link">{item}</a>
+                    <Link href={menuLinks[item] || '#'} className="mypage-sidebar__menu-link">{item}</Link>
                   </li>
                 ))}
               </ul>

@@ -8,6 +8,7 @@
 'use client';
 
 import type { JSX } from 'react';
+import Link from 'next/link';
 
 interface ProfileIntroTabProps {
   userName?: string;
@@ -25,9 +26,9 @@ export default function ProfileIntroTab({ userName = '회원' }: ProfileIntroTab
         <p className="profile-intro__bio-desc">
           이루고 싶은 목표나 현재의 고민, 관심사를 나눠주시면 좋아요.
         </p>
-        <button type="button" className="profile-intro__bio-btn">
+        <Link href="/mypage/profile/edit" className="profile-intro__bio-btn">
           내 소개 작성하기
-        </button>
+        </Link>
       </div>
 
       {/* 대표글 섹션 */}
