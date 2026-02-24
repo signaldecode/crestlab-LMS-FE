@@ -6,9 +6,15 @@
 import type { JSX } from 'react';
 
 const tabs = ['소개', '작성 및 활동', '팔로우'];
-const activityFilters = ['작성한 글', '맷글단 글', '저장한 글', '배지'];
+const activityFilters = ['작성한 글', '댓글단 글', '저장한 글', '배지'];
 
-export default function MyProfileContent(): JSX.Element {
+interface MyProfileContentProps {
+  userId?: string;
+}
+
+export default function MyProfileContent({ userId }: MyProfileContentProps): JSX.Element {
+  // userId를 활용하여 해당 유저의 프로필 데이터를 로드할 수 있다
+  void userId;
   return (
     <div className="mypage-profile">
       {/* 탭 */}

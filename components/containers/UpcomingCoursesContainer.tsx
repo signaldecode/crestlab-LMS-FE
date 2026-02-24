@@ -11,7 +11,7 @@ import UpcomingCourseCardSkeleton from '@/components/courses/UpcomingCourseCardS
 
 export default function UpcomingCoursesContainer(): JSX.Element {
   const courses = getUpcomingCourses();
-  const featuredCourse = courses.find((c) => c.featured);
+  const featuredCourses = courses.filter((c) => c.featured);
   const otherCourses = courses.filter((c) => !c.featured);
 
   return (
@@ -19,12 +19,10 @@ export default function UpcomingCoursesContainer(): JSX.Element {
       {/* ── 인기 오픈 예정 강의 ── */}
       <section className="upcoming-page__featured">
         <h2 className="upcoming-page__section-title">인기 오픈 예정 강의</h2>
-        <div className="upcoming-page__featured-grid">
-          {featuredCourse ? (
-            <UpcomingCourseCard course={featuredCourse} />
-          ) : (
-            <UpcomingCourseCardSkeleton />
-          )}
+        <div className="upcoming-page__grid">
+          {featuredCourses.map((course) => (
+            <UpcomingCourseCard key={course.slug} course={course} />
+          ))}
         </div>
       </section>
 

@@ -1,26 +1,19 @@
 /**
  * 마이페이지 셸 (MyPageShell)
- * - "내 강의실" / "프로필" 탭 전환 + 2칸 레이아웃
- * - 탭에 따라 사이드바 메뉴와 오른쪽 콘텐츠가 바뀐다
+ * - 이전 호환용: /account 등에서 참조 시 /mypage와 동일한 레이아웃을 렌더링한다
+ * - 실제 탭 전환은 라우트 기반(/mypage, /mypage/[userId])으로 처리된다
  */
 
-'use client';
-
-import { useState, type JSX } from 'react';
+import type { JSX } from 'react';
 import MyPageSidebar from '@/components/mypage/MyPageSidebar';
 import MyClassroomContent from '@/components/mypage/MyClassroomContent';
-import MyProfileContent from '@/components/mypage/MyProfileContent';
-
-type MyPageTab = 'classroom' | 'profile';
 
 export default function MyPageShell(): JSX.Element {
-  const [activeTab, setActiveTab] = useState<MyPageTab>('classroom');
-
   return (
     <div className="mypage__layout">
-      <MyPageSidebar activeTab={activeTab} onTabChange={setActiveTab} />
+      <MyPageSidebar activeTab="classroom" />
       <div className="mypage__content">
-        {activeTab === 'classroom' ? <MyClassroomContent /> : <MyProfileContent />}
+        <MyClassroomContent />
       </div>
     </div>
   );

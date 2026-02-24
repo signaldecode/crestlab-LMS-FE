@@ -4,6 +4,7 @@
  */
 
 import type { JSX } from 'react';
+import MyPostsButton from '@/components/community/MyPostsButton';
 
 const navSections = [
   {
@@ -44,9 +45,7 @@ export default function CommunitySidebar(): JSX.Element {
       <div className="community-sidebar__profile">
         <div className="community-sidebar__avatar community-sidebar__skeleton-circle" />
         <span className="community-sidebar__login-label">로그인</span>
-        <button type="button" className="community-sidebar__my-posts-btn">
-          내가 쓴 글 보러가기
-        </button>
+        <MyPostsButton />
       </div>
 
       {/* 네비게이션 메뉴 */}

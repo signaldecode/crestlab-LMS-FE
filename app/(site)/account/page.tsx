@@ -1,15 +1,10 @@
 /**
- * 마이페이지 (AccountPage)
- * - "내 강의실" / "프로필" 두 탭으로 전환되는 2칸 레이아웃
+ * /account → /mypage 리다이렉트
+ * - 기존 /account 경로 호환을 위해 /mypage로 영구 리다이렉트한다
  */
 
-import type { JSX } from 'react';
-import MyPageShell from '@/components/mypage/MyPageShell';
+import { redirect } from 'next/navigation';
 
-export default function AccountPage(): JSX.Element {
-  return (
-    <section className="mypage">
-      <MyPageShell />
-    </section>
-  );
+export default function AccountPage(): never {
+  redirect('/mypage');
 }
