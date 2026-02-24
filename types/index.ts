@@ -50,6 +50,41 @@ export interface Course {
   faq: CourseFaq[];
 }
 
+/* ── 오픈예정 강의 ── */
+export interface UpcomingCourse {
+  slug: string;
+  title: string;
+  thumbnail: string;
+  thumbnailAlt: string;
+  categoryLabel: string;
+  instructor: string;
+  tags: string[];
+  rating: number;
+  reviewCount: number;
+  openDate: string;
+  featured: boolean;
+}
+
+/* ── 베스트 강의 ── */
+export interface BestCourse {
+  slug: string;
+  title: string;
+  thumbnail: string;
+  thumbnailAlt: string;
+  categoryLabel: string;
+  instructor: string;
+  tags: string[];
+  rating: number;
+  reviewCount: number;
+  category: string;
+  badge?: string;
+}
+
+export interface BestChipCategory {
+  value: string;
+  label: string;
+}
+
 /* ── FAQ ── */
 export interface FaqItem {
   question: string;
@@ -232,6 +267,9 @@ export interface MainData {
   };
   pages: Record<string, unknown>;
   courses: Course[];
+  upcomingCourses: UpcomingCourse[];
+  bestCourses: BestCourse[];
+  bestChipCategories: BestChipCategory[];
   testimonials: Testimonial[];
   faq: FaqItem[];
   footer: FooterData;

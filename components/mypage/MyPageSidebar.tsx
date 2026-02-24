@@ -1,49 +1,58 @@
 /**
  * 마이페이지 왼쪽 사이드바 (MyPageSidebar)
  * - 탭 토글(내 강의실/프로필) + 프로필 카드 + 탭별 메뉴
+ * - 탭은 Link 기반 라우팅: 내 강의실 → /mypage, 프로필 → /mypage/[userId]
+ * - useAuthStore에서 현재 로그인 유저 ID를 읽어 프로필 링크를 구성한다
  */
 
+'use client';
+
 import type { JSX } from 'react';
+import Link from 'next/link';
+import useAuthStore from '@/stores/useAuthStore';
 
 type MyPageTab = 'classroom' | 'profile';
 
 interface MyPageSidebarProps {
   activeTab: MyPageTab;
-  onTabChange: (tab: MyPageTab) => void;
+  userId?: string;
 }
 
 const classroomMenu = [
-  { section: '강의 관련', items: ['관심 클래스', '강의 상담', '아너스 혜택', '수료증', '후기 관리', '구매 내역'] },
+  { section: '강의 관련', items: ['관심 클래스', '강의 상담', '수료증', '후기 관리', '구매 내역'] },
+  { section: '고객 지원', items: ['1:1 문의', '자주 묻는 질문'] },
+  { section: '계정 관리', items: ['회원정보관리', '로그아웃'] },
 ];
 
 const profileMenu = [
-  { section: '중개 서비스', items: ['부동산중개 BETA'] },
+  // { section: '중개 서비스', items: ['부동산중개 BETA'] },
   { section: '고객 지원', items: ['1:1 문의', '자주 묻는 질문'] },
-  { section: '계정 관리', items: ['회원정보관리', '글라이드'] },
+  { section: '계정 관리', items: ['회원정보관리', '로그아웃'] },
 ];
 
-export default function MyPageSidebar({ activeTab, onTabChange }: MyPageSidebarProps): JSX.Element {
+export default function MyPageSidebar({ activeTab, userId }: MyPageSidebarProps): JSX.Element {
   const menu = activeTab === 'classroom' ? classroomMenu : profileMenu;
+  const authUser = useAuthStore((s) => s.user);
+  const currentUserId = userId || authUser?.id || 'me';
+  const profileHref = `/mypage/${currentUserId}`;
 
   return (
     <aside className="mypage-sidebar">
       <div className="mypage-sidebar__sticky">
-        {/* 탭 토글 */}
+        {/* 탭 토글 (Link 기반 라우팅) */}
         <div className="mypage-sidebar__tabs">
-          <button
-            type="button"
+          <Link
+            href="/mypage"
             className={`mypage-sidebar__tab${activeTab === 'classroom' ? ' mypage-sidebar__tab--active' : ''}`}
-            onClick={() => onTabChange('classroom')}
           >
             내 강의실
-          </button>
-          <button
-            type="button"
+          </Link>
+          <Link
+            href={profileHref}
             className={`mypage-sidebar__tab${activeTab === 'profile' ? ' mypage-sidebar__tab--active' : ''}`}
-            onClick={() => onTabChange('profile')}
           >
             프로필
-          </button>
+          </Link>
         </div>
 
         {/* 프로필 카드 */}
