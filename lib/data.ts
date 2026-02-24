@@ -5,7 +5,7 @@
  */
 
 import mainData from '@/data/mainData.json';
-import type { MainData, SiteData, NavData, Course, UpcomingCourse, FaqItem, Testimonial, FooterData, GeoData } from '@/types';
+import type { MainData, SiteData, NavData, Course, UpcomingCourse, BestCourse, BestChipCategory, FaqItem, Testimonial, FooterData, GeoData } from '@/types';
 
 const data = mainData as MainData;
 
@@ -47,6 +47,16 @@ export function getFeaturedCourses(): Course[] {
 /** 오픈예정 강의 목록 반환 */
 export function getUpcomingCourses(): UpcomingCourse[] {
   return data.upcomingCourses || [];
+}
+
+/** 베스트 강의 칩 필터 카테고리 반환 */
+export function getBestChipCategories(): BestChipCategory[] {
+  return data.bestChipCategories || [];
+}
+
+/** 베스트 강의 목록 반환 */
+export function getBestCourses(): BestCourse[] {
+  return data.bestCourses || [];
 }
 
 /** 전역 FAQ 반환 */
