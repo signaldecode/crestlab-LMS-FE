@@ -19,7 +19,7 @@ const classroomMenu = [
 const profileMenu = [
   { section: '중개 서비스', items: ['부동산중개 BETA'] },
   { section: '고객 지원', items: ['1:1 문의', '자주 묻는 질문'] },
-  { section: '계정 관리', items: ['회원정보관리', '글라이드'] },
+  { section: '계정 관리', items: ['회원정보관리', '로그아웃'] },
 ];
 
 export default function MyPageSidebar({ activeTab, onTabChange }: MyPageSidebarProps): JSX.Element {
