@@ -400,3 +400,177 @@
     }
   }
 }
+
+// ============================================
+// 프로필 소개 탭
+// ============================================
+.profile-intro {
+
+  // 소개글 섹션
+  &__bio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: $spacing-12 0;
+    border-bottom: 1px solid $color-border;
+  }
+
+  &__bio-title {
+    font-size: $font-size-md;
+    font-weight: $font-weight-bold;
+    color: $color-primary;
+    margin-bottom: $spacing-3;
+  }
+
+  &__bio-desc {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    line-height: $line-height-base;
+    margin: 0;
+  }
+
+  &__bio-btn {
+    margin-top: $spacing-6;
+    padding: $spacing-3 $spacing-6;
+    border: 1px solid $color-text-primary;
+    border-radius: 0.375rem;
+    background: $color-bg-primary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    cursor: pointer;
+
+    &:hover {
+      background: $color-bg-secondary;
+    }
+  }
+
+  // 대표글 섹션
+  &__featured {
+    padding-top: $spacing-8;
+  }
+
+  &__featured-header {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    margin-bottom: $spacing-6;
+  }
+
+  &__featured-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0;
+  }
+
+  &__featured-count {
+    font-size: $font-size-sm;
+    color: $color-primary;
+    font-weight: $font-weight-bold;
+  }
+
+  &__featured-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: $spacing-12 0;
+    border: 1px solid $color-border;
+    border-radius: 0.75rem;
+    text-align: center;
+  }
+
+  &__featured-icon {
+    font-size: $font-size-2xl;
+    margin-bottom: $spacing-4;
+  }
+
+  &__featured-label {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0 0 $spacing-2;
+  }
+
+  &__featured-desc {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    line-height: $line-height-base;
+    margin: 0;
+  }
+
+  &__featured-add {
+    margin-top: $spacing-4;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $color-border;
+    border-radius: 50%;
+    background: $color-bg-primary;
+    font-size: $font-size-base;
+    color: $color-text-secondary;
+    cursor: pointer;
+
+    &:hover {
+      background: $color-bg-secondary;
+      color: $color-text-primary;
+    }
+  }
+}
+
+// ============================================
+// 프로필 팔로우 탭
+// ============================================
+.profile-follow {
+
+  &__sub-tabs {
+    display: flex;
+    gap: $spacing-3;
+    margin-bottom: $spacing-8;
+  }
+
+  &__sub-tab {
+    padding: $spacing-2 $spacing-4;
+    border-radius: 2rem;
+    border: 1px solid $color-border;
+    background: $color-bg-primary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+
+    &--active {
+      background: $color-text-primary;
+      color: $color-text-inverse;
+      border-color: $color-text-primary;
+    }
+
+    &:hover:not(&--active) {
+      background: $color-bg-secondary;
+    }
+  }
+
+  &__sub-tab-count {
+    font-weight: $font-weight-bold;
+  }
+
+  &__panel {
+    min-height: 16rem;
+  }
+
+  &__empty {
+    display: flex;
+    justify-content: center;
+    padding: $spacing-16 0;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+
+  &__empty-highlight {
+    color: $color-primary;
+  }
+}

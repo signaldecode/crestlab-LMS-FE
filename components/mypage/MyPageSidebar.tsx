@@ -19,7 +19,9 @@ interface MyPageSidebarProps {
 }
 
 const classroomMenu = [
-  { section: '강의 관련', items: ['관심 클래스', '강의 상담', '아너스 혜택', '수료증', '후기 관리', '구매 내역'] },
+  { section: '강의 관련', items: ['관심 클래스', '강의 상담', '수료증', '후기 관리', '구매 내역'] },
+  { section: '고객 지원', items: ['1:1 문의', '자주 묻는 질문'] },
+  { section: '계정 관리', items: ['회원정보관리', '로그아웃'] },
 ];
 
 const profileMenu = [
