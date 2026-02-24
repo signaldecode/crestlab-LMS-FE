@@ -8,10 +8,20 @@
 
 'use client';
 
-import { useState, useCallback, type JSX } from 'react';
+import { useState, useCallback, useEffect, type JSX } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { getNavData } from '@/lib/data';
+
+function findGroupHrefByCategory(category: string, groups: { href: string }[]): string | null {
+  for (const group of groups) {
+    const url = new URL(group.href, 'http://x');
+    if (url.searchParams.get('category') === category) {
+      return group.href;
+    }
+  }
+  return null;
+}
 
 export default function CourseSidebar(): JSX.Element {
   const { categoryMenu } = getNavData();
@@ -20,15 +30,13 @@ export default function CourseSidebar(): JSX.Element {
   const activeSub = searchParams.get('sub') ?? '';
 
   // 한 번에 하나만 펼침 — 활성 카테고리를 기본값으로
-  const [openGroup, setOpenGroup] = useState<string | null>(() => {
-    for (const group of categoryMenu.groups) {
-      const url = new URL(group.href, 'http://x');
-      if (url.searchParams.get('category') === activeCategory) {
-        return group.href;
-      }
-    }
-    return null;
-  });
+  const [openGroup, setOpenGroup] = useState<string | null>(() =>
+    findGroupHrefByCategory(activeCategory, categoryMenu.groups),
+  );
+
+  useEffect(() => {
+    setOpenGroup(findGroupHrefByCategory(activeCategory, categoryMenu.groups));
+  }, [activeCategory, categoryMenu.groups]);
 
   const toggleGroup = useCallback((href: string) => {
     setOpenGroup((prev) => (prev === href ? null : href));

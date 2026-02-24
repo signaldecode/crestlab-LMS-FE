@@ -3,11 +3,16 @@
  * - 탭(강의 / 과제 관리 / 조편성) + 강의 목록 스켈레톤
  */
 
+'use client';
+
 import type { JSX } from 'react';
+import { useState } from 'react';
 
 const tabs = ['강의', '과제 관리', '조편성'];
 
 export default function MyClassroomContent(): JSX.Element {
+  const [activeTab, setActiveTab] = useState(tabs[0]);
+
   return (
     <div className="mypage-classroom">
       {/* 탭 */}
@@ -16,7 +21,9 @@ export default function MyClassroomContent(): JSX.Element {
           <button
             key={tab}
             type="button"
-            className={`mypage-classroom__tab${tab === '강의' ? ' mypage-classroom__tab--active' : ''}`}
+            className={`mypage-classroom__tab${tab === activeTab ? ' mypage-classroom__tab--active' : ''}`}
+            onClick={() => setActiveTab(tab)}
+            aria-pressed={tab === activeTab}
           >
             {tab}
           </button>
