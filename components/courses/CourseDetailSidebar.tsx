@@ -5,8 +5,13 @@
  */
 
 import type { JSX } from 'react';
+import Link from 'next/link';
 
-export default function CourseDetailSidebar(): JSX.Element {
+interface CourseDetailSidebarProps {
+  courseSlug?: string;
+}
+
+export default function CourseDetailSidebar({ courseSlug }: CourseDetailSidebarProps): JSX.Element {
   return (
     <aside className="course-detail-sidebar">
       <div className="course-detail-sidebar__sticky">
@@ -56,9 +61,12 @@ export default function CourseDetailSidebar(): JSX.Element {
           <button type="button" className="course-detail-sidebar__wish-btn" aria-label="찜하기">
             ♡
           </button>
-          <button type="button" className="course-detail-sidebar__buy-btn">
+          <Link
+            href={courseSlug ? `/checkout?slug=${courseSlug}` : '/checkout'}
+            className="course-detail-sidebar__buy-btn"
+          >
             강의 구매하기
-          </button>
+          </Link>
         </div>
       </div>
     </aside>

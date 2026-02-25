@@ -16,7 +16,7 @@ export default function CourseDetailContainer({ course }: CourseDetailContainerP
   return (
     <div className="course-detail-layout">
       <CourseDetailContent />
-      <CourseDetailSidebar />
+      <CourseDetailSidebar courseSlug={course?.slug} />
     </div>
   );
 }
