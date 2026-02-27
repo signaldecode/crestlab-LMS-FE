@@ -1,23 +1,55 @@
 /**
  * 커뮤니티 가운데 피드 (CommunityFeed)
- * - 탭(커뮤니티 홈 / 내 피드), 공지 배너, 검색, 인기글, 최신 칼럼 스켈레톤
+ * - 탭(커뮤니티 홈 / 내 피드) 전환을 처리한다
+ * - 커뮤니티 홈: 공지 배너, 검색, 인기글, 최신 칼럼 스켈레톤
+ * - 내 피드: 팔로우한 사람의 글 목록 (없으면 추천글)
  */
 
+'use client';
+
+import { useState } from 'react';
 import type { JSX } from 'react';
+import MyFeedContent from '@/components/community/MyFeedContent';
+
+type FeedTab = 'home' | 'myFeed';
 
 export default function CommunityFeed(): JSX.Element {
+  const [activeTab, setActiveTab] = useState<FeedTab>('home');
+
   return (
     <div className="community-feed">
       {/* 탭 */}
-      <div className="community-feed__tabs">
-        <button type="button" className="community-feed__tab community-feed__tab--active">
+      <div className="community-feed__tabs" role="tablist">
+        <button
+          type="button"
+          role="tab"
+          aria-selected={activeTab === 'home'}
+          className={`community-feed__tab${activeTab === 'home' ? ' community-feed__tab--active' : ''}`}
+          onClick={() => setActiveTab('home')}
+        >
           커뮤니티 홈
         </button>
-        <button type="button" className="community-feed__tab">
+        <button
+          type="button"
+          role="tab"
+          aria-selected={activeTab === 'myFeed'}
+          className={`community-feed__tab${activeTab === 'myFeed' ? ' community-feed__tab--active' : ''}`}
+          onClick={() => setActiveTab('myFeed')}
+        >
           내 피드
         </button>
       </div>
 
+      {/* 탭 콘텐츠 */}
+      {activeTab === 'home' ? <HomeFeedContent /> : <MyFeedContent />}
+    </div>
+  );
+}
+
+/** 커뮤니티 홈 탭 콘텐츠 (기존 스켈레톤) */
+function HomeFeedContent(): JSX.Element {
+  return (
+    <>
       {/* 공지 배너 스켈레톤 */}
       <div className="community-feed__notice">
         <div className="community-feed__notice-skeleton" />
@@ -71,6 +103,6 @@ export default function CommunityFeed(): JSX.Element {
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 }

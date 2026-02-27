@@ -6,7 +6,7 @@
     "description": "최고의 온라인 강의 플랫폼",
     "url": "https://example.com",
     "logo": {
-      "src": "/images/logo/logo.png",
+      "src": "/logo.png",
       "alt": "강의 플랫폼 로고"
     },
     "links": {
@@ -42,7 +42,6 @@
       { "label": "오리지널", "href": "/courses?category=original", "ariaLabel": "오리지널 강의 보기" },
       { "label": "베스트", "href": "/best", "ariaLabel": "베스트 강의 보기" },
       { "label": "커리큘럼", "href": "/curriculum", "ariaLabel": "커리큘럼 보기" },
-      { "label": "내게맞는강의찾기", "href": "/courses?category=recommend", "ariaLabel": "내게 맞는 강의 찾기" },
       { "label": "오픈예정", "href": "/upcoming", "ariaLabel": "오픈예정 강의 보기" }
     ],
     "user": [

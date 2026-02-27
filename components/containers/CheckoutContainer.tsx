@@ -37,19 +37,29 @@ export default function CheckoutContainer() {
         {/* ── 왼쪽: 주문 정보 ── */}
         <div className="checkout-container__main">
 
-          {/* 주문 강의 (스켈레톤) */}
+          {/* 주문 강의 정보 (스켈레톤) */}
           <div className="checkout-container__section">
+            <h2 className="checkout-container__section-title">주문 강의</h2>
             <div className="checkout-container__course-item">
-              <Skeleton variant="rect" width={120} height={68} className="checkout-container__course-thumb" />
+              <Skeleton variant="rect" width={180} height={100} className="checkout-container__course-thumb" />
               <div className="checkout-container__course-info">
                 <div className="checkout-container__course-badges">
-                  <Skeleton variant="rect" width={32} height={20} />
-                  <Skeleton variant="rect" width={42} height={20} />
-                  <Skeleton variant="rect" width={52} height={20} />
+                  <Skeleton variant="rect" width={36} height={20} />
+                  <Skeleton variant="rect" width={48} height={20} />
                 </div>
-                <Skeleton variant="text" width="80%" height={18} />
-                <Skeleton variant="text" width="30%" height={14} />
-                <Skeleton variant="text" width={100} height={18} />
+                <Skeleton variant="text" width="85%" height={20} />
+                <div className="checkout-container__course-meta">
+                  <Skeleton variant="circle" width={20} height={20} />
+                  <Skeleton variant="text" width={60} height={14} />
+                  <span className="checkout-container__course-meta-dot" />
+                  <Skeleton variant="text" width={50} height={14} />
+                  <span className="checkout-container__course-meta-dot" />
+                  <Skeleton variant="text" width={40} height={14} />
+                </div>
+                <div className="checkout-container__course-price">
+                  <Skeleton variant="text" width={60} height={14} className="checkout-container__course-price-original" />
+                  <Skeleton variant="text" width={90} height={20} />
+                </div>
               </div>
             </div>
           </div>

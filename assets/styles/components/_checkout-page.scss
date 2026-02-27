@@ -109,6 +109,31 @@
     gap: $spacing-1;
   }
 
+  &__course-meta {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+  }
+
+  &__course-meta-dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: $color-text-secondary;
+  }
+
+  &__course-price {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    margin-top: $spacing-1;
+  }
+
+  &__course-price-original {
+    text-decoration: line-through;
+    opacity: 0.5;
+  }
+
   // ── 쿠폰 ──
   &__coupon-link {
     background: none;
@@ -352,7 +377,18 @@
   }
 }
 
-// ── Skeleton 컴포넌트 pulse ──
-.checkout-container .skeleton {
+// ── Skeleton 컴포넌트 base + pulse ──
+.skeleton {
+  display: inline-block;
+  background: $color-bg-tertiary;
+  border-radius: 0.25rem;
   animation: checkout-pulse 1.8s ease-in-out infinite;
+
+  &--circle {
+    border-radius: 50%;
+  }
+
+  &--text {
+    border-radius: 0.125rem;
+  }
 }

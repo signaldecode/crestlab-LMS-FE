@@ -49,3 +49,4 @@ export default function AppHeader(): JSX.Element {
     </header>
   );
 }
+// 내게 맞는 강의 찾기는 삭제할듯 -> AI연결해야해서

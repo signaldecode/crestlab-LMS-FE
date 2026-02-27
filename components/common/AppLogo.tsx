@@ -18,8 +18,8 @@ export default function AppLogo(): JSX.Element {
         src={site.logo.src}
         alt={site.logo.alt}
         className="app-logo__image"
-        width={140}
-        height={40}
+        width={160}
+        height={60}
         priority
       />
     </Link>

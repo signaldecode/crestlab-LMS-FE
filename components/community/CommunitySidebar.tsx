@@ -1,17 +1,21 @@
 /**
  * 커뮤니티 왼쪽 사이드바 (CommunitySidebar)
- * - 프로필 영역 + 네비게이션 메뉴 스켈레톤
+ * - 프로필 영역 + 네비게이션 메뉴
+ * - 현재 선택된 카테고리를 하이라이팅 표시한다
  */
+
+'use client';
 
 import type { JSX } from 'react';
 import MyPostsButton from '@/components/community/MyPostsButton';
+import useCommunityStore from '@/stores/useCommunityStore';
 
 const navSections = [
   {
     icon: '🏠',
     title: '커뮤니티홈',
     href: '/community',
-    items: [],
+    items: [] as string[],
   },
   {
     icon: '📢',
@@ -38,6 +42,14 @@ const navSections = [
 ];
 
 export default function CommunitySidebar(): JSX.Element {
+  const activeCategory = useCommunityStore((s) => s.activeCategory);
+  const setActiveCategory = useCommunityStore((s) => s.setActiveCategory);
+
+  /** 섹션 타이틀이 활성 상태인지 (직접 선택 또는 하위 아이템 선택) */
+  const isSectionActive = (section: (typeof navSections)[number]) =>
+    activeCategory === section.title ||
+    section.items.includes(activeCategory);
+
   return (
     <aside className="community-sidebar">
       <div className="community-sidebar__sticky">
@@ -52,19 +64,29 @@ export default function CommunitySidebar(): JSX.Element {
       <nav className="community-sidebar__nav">
         {navSections.map((section) => (
           <div key={section.title} className="community-sidebar__section">
-            <div
+            <button
+              type="button"
               className={`community-sidebar__section-title${
-                section.title === '커뮤니티홈' ? ' community-sidebar__section-title--active' : ''
+                isSectionActive(section) ? ' community-sidebar__section-title--active' : ''
               }`}
+              onClick={() => setActiveCategory(section.title)}
             >
               <span className="community-sidebar__section-icon">{section.icon}</span>
               {section.title}
-            </div>
+            </button>
             {section.items.length > 0 && (
               <ul className="community-sidebar__list">
                 {section.items.map((item) => (
                   <li key={item} className="community-sidebar__list-item">
-                    <a href="#" className="community-sidebar__link">{item}</a>
+                    <button
+                      type="button"
+                      className={`community-sidebar__link${
+                        activeCategory === item ? ' community-sidebar__link--active' : ''
+                      }`}
+                      onClick={() => setActiveCategory(item)}
+                    >
+                      {item}
+                    </button>
                   </li>
                 ))}
               </ul>

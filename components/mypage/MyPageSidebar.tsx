@@ -3,13 +3,16 @@
  * - 탭 토글(내 강의실/프로필) + 프로필 카드 + 탭별 메뉴
  * - 탭은 Link 기반 라우팅: 내 강의실 → /mypage, 프로필 → /mypage/[userId]
  * - useAuthStore에서 현재 로그인 유저 ID를 읽어 프로필 링크를 구성한다
+ * - 메뉴 아이템 클릭 시 하이라이팅 처리
  */
 
 'use client';
 
 import type { JSX } from 'react';
 import Link from 'next/link';
+import { useRouter, usePathname } from 'next/navigation';
 import useAuthStore from '@/stores/useAuthStore';
+import useMyPageStore from '@/stores/useMyPageStore';
 
 type MyPageTab = 'classroom' | 'profile';
 
@@ -22,6 +25,9 @@ const menuLinks: Record<string, string> = {
   '관심 클래스': '/mypage/wishlist',
 };
 
+/** 콘텐츠 영역에서 탭으로 렌더링되는 메뉴 아이템 */
+const contentMenuItems = ['강의 상담', '수료증', '후기 관리', '구매 내역'];
+
 const classroomMenu = [
   { section: '강의 관련', items: ['관심 클래스', '강의 상담', '수료증', '후기 관리', '구매 내역'] },
   { section: '고객 지원', items: ['1:1 문의', '자주 묻는 질문'] },
@@ -29,7 +35,6 @@ const classroomMenu = [
 ];
 
 const profileMenu = [
-  // { section: '중개 서비스', items: ['부동산중개 BETA'] },
   { section: '고객 지원', items: ['1:1 문의', '자주 묻는 질문'] },
   { section: '계정 관리', items: ['회원정보관리', '로그아웃'] },
 ];
@@ -39,6 +44,21 @@ export default function MyPageSidebar({ activeTab, userId }: MyPageSidebarProps)
   const authUser = useAuthStore((s) => s.user);
   const currentUserId = userId || authUser?.id || 'me';
   const profileHref = `/mypage/${currentUserId}`;
+
+  const router = useRouter();
+  const pathname = usePathname();
+  const activeMenu = useMyPageStore((s) => s.activeMenu);
+  const setActiveMenu = useMyPageStore((s) => s.setActiveMenu);
+
+  const handleMenuClick = (item: string) => {
+    if (contentMenuItems.includes(item)) {
+      setActiveMenu(item);
+      // 다른 라우트(예: /mypage/wishlist)에 있으면 /mypage로 복귀
+      if (pathname !== '/mypage') {
+        router.push('/mypage');
+      }
+    }
+  };
 
   return (
     <aside className="mypage-sidebar">
@@ -145,11 +165,32 @@ export default function MyPageSidebar({ activeTab, userId }: MyPageSidebarProps)
             <div key={group.section} className="mypage-sidebar__menu-section">
               <span className="mypage-sidebar__menu-heading">{group.section}</span>
               <ul className="mypage-sidebar__menu-list">
-                {group.items.map((item) => (
-                  <li key={item} className="mypage-sidebar__menu-item">
-                    <Link href={menuLinks[item] || '#'} className="mypage-sidebar__menu-link">{item}</Link>
-                  </li>
-                ))}
+                {group.items.map((item) => {
+                  const isContentTab = contentMenuItems.includes(item);
+                  const isActive = isContentTab && activeMenu === item;
+
+                  if (isContentTab) {
+                    return (
+                      <li key={item} className="mypage-sidebar__menu-item">
+                        <button
+                          type="button"
+                          className={`mypage-sidebar__menu-link${isActive ? ' mypage-sidebar__menu-link--active' : ''}`}
+                          onClick={() => handleMenuClick(item)}
+                        >
+                          {item}
+                        </button>
+                      </li>
+                    );
+                  }
+
+                  return (
+                    <li key={item} className="mypage-sidebar__menu-item">
+                      <Link href={menuLinks[item] || '#'} className="mypage-sidebar__menu-link">
+                        {item}
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}
