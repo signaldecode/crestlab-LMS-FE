@@ -1,32 +1,87 @@
 /**
  * 강의 카드 (CourseCard)
- * - 개별 강의를 카드 형태로 표시한다
- * - 썸네일 + 제목 + 가격 + 뱃지 영역으로 구성된다
- * - 실제 데이터는 추후 props로 주입한다
+ * - 썸네일 + 뱃지 + 제목 + 강사명 + 평점/리뷰 + 가격
+ * - 하트 버튼으로 위시리스트 토글
  */
 
-import type { JSX } from 'react';
+'use client';
 
-export default function CourseCard(): JSX.Element {
+import Image from 'next/image';
+import Link from 'next/link';
+import type { JSX } from 'react';
+import type { Course } from '@/types';
+import useWishlistStore from '@/stores/useWishlistStore';
+
+interface CourseCardProps {
+  course: Course;
+}
+
+function formatPrice(price: number): string {
+  return price.toLocaleString('ko-KR') + '원';
+}
+
+function formatReviewCount(count: number): string {
+  if (count >= 10000) return (count / 10000).toFixed(1).replace(/\.0$/, '') + '만';
+  if (count >= 1000) return (count / 1000).toFixed(1).replace(/\.0$/, '') + '천';
+  return count.toLocaleString('ko-KR');
+}
+
+function getBadgeVariant(badge: string): string {
+  if (badge === 'ORIGINAL') return 'original';
+  if (badge === 'BEST') return 'best';
+  if (badge === 'NEW' || badge.includes('신규')) return 'new';
+  if (badge.includes('선착순') || badge.includes('마감')) return 'urgent';
+  if (badge.startsWith('LV.')) return 'level';
+  return 'default';
+}
+
+export default function CourseCard({ course }: CourseCardProps): JSX.Element {
+  const toggleWish = useWishlistStore((s) => s.toggleWish);
+  const wished = useWishlistStore((s) => s.slugs.includes(course.slug));
+
+  const handleWish = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleWish(course.slug);
+  };
+
   return (
-    <article className="course-card">
+    <Link href={`/courses/${course.slug}`} className="course-card">
       <div className="course-card__thumbnail">
-        {/* 썸네일 이미지 영역 */}
+        <Image
+          src={course.thumbnail}
+          alt={course.thumbnailAlt}
+          fill
+          sizes="(max-width: 639px) 50vw, (max-width: 1023px) 33vw, 20vw"
+          className="course-card__image"
+        />
+        {course.badges.length > 0 && (
+          <div className="course-card__badge-overlay">
+            {course.badges.map((badge) => (
+              <span key={badge} className={`course-card__badge course-card__badge--${getBadgeVariant(badge)}`}>{badge}</span>
+            ))}
+          </div>
+        )}
+        <button
+          type="button"
+          className={`course-card__wish-btn${wished ? ' course-card__wish-btn--active' : ''}`}
+          onClick={handleWish}
+          aria-label={wished ? '찜 해제' : '찜하기'}
+        >
+          {wished ? '♥' : '♡'}
+        </button>
       </div>
       <div className="course-card__body">
-        <div className="course-card__badges">
-          {/* 뱃지 (BEST, NEW 등) 영역 */}
-        </div>
-        <h3 className="course-card__title">
-          {/* 강의 제목 */}
-        </h3>
-        <p className="course-card__instructor">
-          {/* 강사명 */}
-        </p>
-        <span className="course-card__price">
-          {/* 가격 */}
-        </span>
+        <h3 className="course-card__title">{course.title}</h3>
+        <p className="course-card__instructor">{course.instructor}</p>
+        {course.rating != null && (
+          <div className="course-card__rating">
+            <span className="course-card__stars">★ {course.rating.toFixed(2)}</span>
+            <span className="course-card__review-count">({formatReviewCount(course.reviewCount ?? 0)})</span>
+          </div>
+        )}
+        <span className="course-card__price">{formatPrice(course.price)}</span>
       </div>
-    </article>
+    </Link>
   );
 }

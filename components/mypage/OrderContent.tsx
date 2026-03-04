@@ -1,0 +1,82 @@
+/**
+ * 구매 내역 콘텐츠 (OrderContent)
+ * - /mypage/orders 페이지에서 사용
+ */
+
+'use client';
+
+import type { JSX } from 'react';
+import { useMemo } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { getOrders, getCourses } from '@/lib/data';
+import type { Course } from '@/types';
+
+const SK = 'mypage-classroom';
+
+function formatPrice(price: number): string {
+  return price.toLocaleString('ko-KR') + '원';
+}
+
+export default function OrderContent(): JSX.Element {
+  const orders = getOrders();
+  const allCourses = getCourses();
+
+  const ordersWithCourses = useMemo(() => {
+    return orders.map((order) => ({
+      ...order,
+      courses: order.courseSlugs
+        .map((slug) => allCourses.find((c) => c.slug === slug))
+        .filter((c): c is Course => c != null),
+    }));
+  }, [orders, allCourses]);
+
+  return (
+    <div className="mypage-classroom">
+      <div className={`${SK}__menu-content`}>
+        <h2 className={`${SK}__menu-title`}>구매 내역</h2>
+        {ordersWithCourses.length === 0 ? (
+          <div className={`${SK}__empty`}>
+            <p className={`${SK}__empty-text`}>구매 내역이 없습니다.</p>
+          </div>
+        ) : (
+          <div className={`${SK}__purchase-list`}>
+            {ordersWithCourses.map((order) => (
+              <div key={order.id} className={`${SK}__purchase-row`}>
+                <span className={`${SK}__purchase-date`}>{order.createdAt}</span>
+                <div className={`${SK}__purchase-course`}>
+                  {order.courses[0] && (
+                    <>
+                      <Link href={`/courses/${order.courses[0].slug}`} className={`${SK}__purchase-thumb-link`}>
+                        <Image
+                          src={order.courses[0].thumbnail}
+                          alt={order.courses[0].thumbnailAlt}
+                          width={64}
+                          height={48}
+                          className={`${SK}__purchase-img`}
+                        />
+                      </Link>
+                      <div className={`${SK}__purchase-info`}>
+                        <Link href={`/courses/${order.courses[0].slug}`} className={`${SK}__purchase-title`}>
+                          {order.courses[0].title}
+                        </Link>
+                        <span className={`${SK}__purchase-instructor`}>
+                          {order.courses[0].instructor}
+                          {order.courses.length > 1 && ` 외 ${order.courses.length - 1}건`}
+                        </span>
+                      </div>
+                    </>
+                  )}
+                </div>
+                <span className={`${SK}__purchase-price`}>{formatPrice(order.totalAmount)}</span>
+                <span className={`${SK}__purchase-status ${SK}__purchase-status--${order.status === '환불' ? 'refund' : 'done'}`}>
+                  {order.status}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

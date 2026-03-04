@@ -1,16 +1,17 @@
 /**
  * 관심 클래스 콘텐츠 (WishlistContent)
- * - 관심 클래스 (찜한 강의) 섹션 + 최근 본 클래스 섹션
- * - 스켈레톤 카드(BestCourseCardSkeleton)로 로딩 상태 표현
- * - 한 줄에 최대 4개 카드 그리드
- * - 사이드바와 함께 사용되며, 오른쪽 콘텐츠 영역만 담당한다
+ * - 찜한 강의를 CourseCard로 표시 (한 줄에 최대 3개)
+ * - 최근 본 클래스 섹션
  */
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import type { JSX } from 'react';
-import BestCourseCardSkeleton from '@/components/courses/BestCourseCardSkeleton';
+import useWishlistStore from '@/stores/useWishlistStore';
+import { getCourses } from '@/lib/data';
+import CourseCard from '@/components/courses/CourseCard';
+import type { Course } from '@/types';
 
 const sortOptions = [
   { value: 'recent', label: '최신순' },
@@ -18,8 +19,36 @@ const sortOptions = [
   { value: 'title', label: '이름순' },
 ];
 
+function sortCourses(courses: Course[], sort: string): Course[] {
+  const sorted = [...courses];
+  switch (sort) {
+    case 'rating':
+      return sorted.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
+    case 'title':
+      return sorted.sort((a, b) => a.title.localeCompare(b.title, 'ko'));
+    default:
+      return sorted;
+  }
+}
+
 export default function WishlistContent(): JSX.Element {
   const [sort, setSort] = useState('recent');
+  const slugs = useWishlistStore((s) => s.slugs);
+  const recentSlugs = useWishlistStore((s) => s.recentSlugs);
+  const allCourses = getCourses();
+
+  const wishedCourses = useMemo(() => {
+    const courses = slugs
+      .map((slug) => allCourses.find((c) => c.slug === slug))
+      .filter((c): c is Course => c != null);
+    return sortCourses(courses, sort);
+  }, [slugs, allCourses, sort]);
+
+  const recentCourses = useMemo(() => {
+    return recentSlugs
+      .map((slug) => allCourses.find((c) => c.slug === slug))
+      .filter((c): c is Course => c != null);
+  }, [recentSlugs, allCourses]);
 
   return (
     <div className="wishlist">
@@ -39,19 +68,30 @@ export default function WishlistContent(): JSX.Element {
           </select>
         </div>
 
-        {/* 빈 상태 */}
-        <p className="wishlist__empty">관심 클래스가 없습니다.</p>
+        {wishedCourses.length > 0 ? (
+          <div className="wishlist__grid">
+            {wishedCourses.map((course) => (
+              <CourseCard key={course.slug} course={course} />
+            ))}
+          </div>
+        ) : (
+          <p className="wishlist__empty">관심 클래스가 없습니다.</p>
+        )}
       </section>
 
       {/* 최근 본 클래스 */}
       <section className="wishlist__section">
         <h2 className="wishlist__title">최근 본 클래스</h2>
 
-        <div className="wishlist__grid">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <BestCourseCardSkeleton key={i} />
-          ))}
-        </div>
+        {recentCourses.length > 0 ? (
+          <div className="wishlist__grid">
+            {recentCourses.map((course) => (
+              <CourseCard key={course.slug} course={course} />
+            ))}
+          </div>
+        ) : (
+          <p className="wishlist__empty">최근 본 클래스가 없습니다.</p>
+        )}
       </section>
     </div>
   );

@@ -16,10 +16,20 @@ interface AuthState {
   setUser: (user: User) => void;
 }
 
+const defaultUser: User = {
+  id: 'user-001',
+  name: '김회원',
+  nickname: '김회원',
+  bio: '',
+  email: 'kim@example.com',
+  profileImage: undefined,
+  featuredPostIds: [],
+};
+
 const useAuthStore = create<AuthState>((set) => ({
-  isLoggedIn: false,
-  user: null,
-  token: null,
+  isLoggedIn: true,
+  user: defaultUser,
+  token: 'mock-token',
 
   login: (user, token) => set({ isLoggedIn: true, user, token }),
   logout: () => set({ isLoggedIn: false, user: null, token: null }),

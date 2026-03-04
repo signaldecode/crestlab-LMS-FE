@@ -7,6 +7,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import type { UpcomingCourse } from '@/types';
 
 interface UpcomingCourseCardProps {
@@ -21,6 +22,13 @@ export default function UpcomingCourseCard({ course }: UpcomingCourseCardProps) 
   return (
     <article className="upcoming-card">
       <div className="upcoming-card__thumbnail">
+        <Image
+          src={course.thumbnail}
+          alt={course.thumbnailAlt}
+          fill
+          sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+          className="upcoming-card__image"
+        />
         <span className="upcoming-card__category-tag">{course.categoryLabel}</span>
         <button
           className="upcoming-card__wish-btn"

@@ -3,13 +3,15 @@
  * - 결제 페이지의 메인 조립 레이어
  * - 주문 정보 확인, 쿠폰/상품권·포인트 적용, 결제 수단 선택, 최종 결제 버튼
  * - 2칸 레이아웃: 왼쪽 주문 정보 / 오른쪽 결제 요약
- * - 강의 정보만 스켈레톤, 나머지는 실제 UI
+ * - course prop으로 실제 강의 데이터를 표시한다
  */
 
 'use client';
 
 import { useState } from 'react';
-import Skeleton from '@/components/ui/Skeleton';
+import Image from 'next/image';
+import type { Course } from '@/types';
+import useCouponStore from '@/stores/useCouponStore';
 
 type PaymentMethod = 'card' | 'kakao' | 'naver' | 'toss' | 'bank';
 
@@ -21,13 +23,52 @@ const PAYMENT_METHODS: { key: PaymentMethod; label: string }[] = [
   { key: 'bank', label: '계좌이체' },
 ];
 
-export default function CheckoutContainer() {
+function formatPrice(price: number): string {
+  return price.toLocaleString('ko-KR') + '원';
+}
+
+function getBadgeVariant(badge: string): string {
+  if (badge === 'ORIGINAL') return 'original';
+  if (badge === 'BEST') return 'best';
+  if (badge === 'NEW' || badge.includes('신규')) return 'new';
+  if (badge.includes('선착순') || badge.includes('마감')) return 'urgent';
+  if (badge.startsWith('LV.')) return 'level';
+  return 'default';
+}
+
+function getLevelLabel(level: string): string {
+  const map: Record<string, string> = { beginner: '입문', intermediate: '초급', advanced: '중급이상' };
+  return map[level] ?? level;
+}
+
+interface CheckoutContainerProps {
+  course: Course | null;
+}
+
+export default function CheckoutContainer({ course }: CheckoutContainerProps) {
   const [selectedMethod, setSelectedMethod] = useState<PaymentMethod>('card');
   const [couponOpen, setCouponOpen] = useState(false);
+  const [couponApplied, setCouponApplied] = useState(false);
   const [voucherType, setVoucherType] = useState<'voucher' | 'point'>('voucher');
   const [voucherAmount, setVoucherAmount] = useState('0');
   const [pointAmount, setPointAmount] = useState('0');
   const [agreed, setAgreed] = useState(false);
+
+  const coupon = useCouponStore((s) => s.coupons.find((c) => c.courseSlug === (course?.slug ?? '')) ?? null);
+
+  if (!course) {
+    return (
+      <section className="checkout-container">
+        <h1 className="checkout-container__title">주문결제</h1>
+        <p style={{ padding: '2rem 0', color: '#888' }}>강의 정보를 찾을 수 없습니다.</p>
+      </section>
+    );
+  }
+
+  const couponDiscount = couponApplied && coupon
+    ? Math.round(course.price * (coupon.discountRate / 100))
+    : 0;
+  const finalPrice = course.price - couponDiscount;
 
   return (
     <section className="checkout-container">
@@ -37,28 +78,42 @@ export default function CheckoutContainer() {
         {/* ── 왼쪽: 주문 정보 ── */}
         <div className="checkout-container__main">
 
-          {/* 주문 강의 정보 (스켈레톤) */}
+          {/* 주문 강의 정보 */}
           <div className="checkout-container__section">
             <h2 className="checkout-container__section-title">주문 강의</h2>
             <div className="checkout-container__course-item">
-              <Skeleton variant="rect" width={180} height={100} className="checkout-container__course-thumb" />
+              <div className="checkout-container__course-thumb">
+                <Image
+                  src={course.thumbnail}
+                  alt={course.thumbnailAlt || course.title}
+                  width={180}
+                  height={100}
+                  style={{ objectFit: 'cover', borderRadius: '0.375rem' }}
+                />
+              </div>
               <div className="checkout-container__course-info">
-                <div className="checkout-container__course-badges">
-                  <Skeleton variant="rect" width={36} height={20} />
-                  <Skeleton variant="rect" width={48} height={20} />
-                </div>
-                <Skeleton variant="text" width="85%" height={20} />
+                {course.badges.length > 0 && (
+                  <div className="checkout-container__course-badges">
+                    {course.badges.map((badge) => (
+                      <span
+                        key={badge}
+                        className={`checkout-container__course-badge checkout-container__course-badge--${getBadgeVariant(badge)}`}
+                      >
+                        {badge}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                <span className="checkout-container__course-title">{course.title}</span>
                 <div className="checkout-container__course-meta">
-                  <Skeleton variant="circle" width={20} height={20} />
-                  <Skeleton variant="text" width={60} height={14} />
+                  <span className="checkout-container__course-instructor">{course.instructor}</span>
                   <span className="checkout-container__course-meta-dot" />
-                  <Skeleton variant="text" width={50} height={14} />
+                  <span className="checkout-container__course-level">{getLevelLabel(course.level)}</span>
                   <span className="checkout-container__course-meta-dot" />
-                  <Skeleton variant="text" width={40} height={14} />
+                  <span className="checkout-container__course-duration">{course.duration}</span>
                 </div>
                 <div className="checkout-container__course-price">
-                  <Skeleton variant="text" width={60} height={14} className="checkout-container__course-price-original" />
-                  <Skeleton variant="text" width={90} height={20} />
+                  <span className="checkout-container__course-price-final">{formatPrice(course.price)}</span>
                 </div>
               </div>
             </div>
@@ -77,8 +132,20 @@ export default function CheckoutContainer() {
               </button>
             </div>
             <div className="checkout-container__select-wrap">
-              <select className="checkout-container__select" disabled>
-                <option>사용가능한 쿠폰이 없어요</option>
+              <select
+                className="checkout-container__select"
+                disabled={!coupon}
+                value={couponApplied ? 'apply' : ''}
+                onChange={(e) => setCouponApplied(e.target.value === 'apply')}
+              >
+                {coupon ? (
+                  <>
+                    <option value="">쿠폰을 선택하세요</option>
+                    <option value="apply">{coupon.discountRate}% 할인 쿠폰</option>
+                  </>
+                ) : (
+                  <option value="">사용가능한 쿠폰이 없어요</option>
+                )}
               </select>
               <svg className="checkout-container__select-arrow" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M7 10l5 5 5-5z" />
@@ -185,11 +252,13 @@ export default function CheckoutContainer() {
 
             <div className="checkout-container__summary-row">
               <span>총 클래스 금액</span>
-              <Skeleton variant="text" width={90} height={16} />
+              <span>{formatPrice(course.price)}</span>
             </div>
             <div className="checkout-container__summary-row">
-              <span>쿠폰 사용</span>
-              <span>0원</span>
+              <span>쿠폰 할인</span>
+              <span className={couponDiscount > 0 ? 'checkout-container__summary-discount' : ''}>
+                {couponDiscount > 0 ? `-${formatPrice(couponDiscount)}` : '0원'}
+              </span>
             </div>
             <div className="checkout-container__summary-row">
               <span>상품권 사용</span>
@@ -204,7 +273,7 @@ export default function CheckoutContainer() {
 
             <div className="checkout-container__summary-row checkout-container__summary-row--total">
               <span>총 결제 금액</span>
-              <Skeleton variant="text" width={110} height={24} />
+              <span>{formatPrice(finalPrice)}</span>
             </div>
 
             <button
@@ -212,7 +281,7 @@ export default function CheckoutContainer() {
               className="checkout-container__pay-btn"
               disabled={!agreed}
             >
-              결제하기
+              {formatPrice(finalPrice)} 결제하기
             </button>
 
             <label className="checkout-container__agree-label">

@@ -47,7 +47,14 @@ export interface Course {
   instructor: string;
   featured: boolean;
   badges: string[];
+  rating?: number;
+  reviewCount?: number;
   faq: CourseFaq[];
+}
+
+export interface HomeSection {
+  title: string;
+  slugs: string[];
 }
 
 /* ── 오픈예정 강의 ── */
@@ -240,6 +247,47 @@ export interface Order {
   createdAt: string;
 }
 
+export interface OrderData {
+  id: string;
+  courseSlugs: string[];
+  totalAmount: number;
+  status: string;
+  createdAt: string;
+}
+
+export interface ExpiredCouponData {
+  id: string;
+  amount: number;
+  description: string;
+  validFrom: string;
+  validTo: string;
+  status: string;
+}
+
+export interface CertificateData {
+  id: string;
+  courseSlug: string;
+  status: string;
+  issuedAt: string | null;
+  completedAt: string | null;
+}
+
+export interface ConsultationData {
+  id: string;
+  courseSlug: string;
+  status: string;
+  question: string;
+  createdAt: string;
+}
+
+export interface ReviewData {
+  id: string;
+  courseSlug: string;
+  rating: number;
+  content: string;
+  createdAt: string;
+}
+
 /* ── SEO ── */
 export interface OgMeta {
   title: string;
@@ -270,6 +318,7 @@ export interface MainData {
   };
   pages: Record<string, unknown>;
   courses: Course[];
+  homeSections: HomeSection[];
   upcomingCourses: UpcomingCourse[];
   bestCourses: BestCourse[];
   bestChipCategories: BestChipCategory[];
@@ -280,6 +329,11 @@ export interface MainData {
   geo: GeoData;
   seo: Record<string, unknown>;
   community: CommunityData;
+  consultations: ConsultationData[];
+  reviews: ReviewData[];
+  certificates: CertificateData[];
+  orders: OrderData[];
+  expiredCoupons: ExpiredCouponData[];
 }
 
 /* ── Breadcrumb ── */

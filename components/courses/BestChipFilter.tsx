@@ -48,7 +48,7 @@ export default function BestChipFilter({ categories, courses }: BestChipFilterPr
         ))}
       </div>
 
-      {/* 스켈레톤 UI 미리보기 */}
+      {/* 스켈레톤 UI 미리보기
       <section className="best-page__skeleton-preview">
         <h3 className="best-page__section-subtitle">스켈레톤 UI 미리보기</h3>
 
@@ -63,7 +63,7 @@ export default function BestChipFilter({ categories, courses }: BestChipFilterPr
             <BestCourseCardSkeleton key={i} />
           ))}
         </div>
-      </section>
+      </section> */}
     </>
   );
 }

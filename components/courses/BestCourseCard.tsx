@@ -3,7 +3,18 @@
  * - 썸네일(카테고리 태그 + 뱃지 오버레이) + 제목 + 평점/리뷰 + 강사/태그
  */
 
+import Image from 'next/image';
+import Link from 'next/link';
 import type { BestCourse } from '@/types';
+
+function getBadgeVariant(badge: string): string {
+  if (badge === 'ORIGINAL') return 'original';
+  if (badge === 'BEST') return 'best';
+  if (badge === 'NEW' || badge.includes('신규')) return 'new';
+  if (badge.includes('선착순') || badge.includes('마감')) return 'urgent';
+  if (badge.startsWith('LV.')) return 'level';
+  return 'default';
+}
 
 interface BestCourseCardProps {
   course: BestCourse;
@@ -13,11 +24,18 @@ export default function BestCourseCard({ course }: BestCourseCardProps) {
   const formattedReviewCount = course.reviewCount.toLocaleString();
 
   return (
-    <article className="best-card">
+    <Link href={`/courses/${course.slug}`} className="best-card">
       <div className="best-card__thumbnail">
+        <Image
+          src={course.thumbnail}
+          alt={course.thumbnailAlt}
+          fill
+          sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+          className="best-card__image"
+        />
         <span className="best-card__category-tag">
           {course.badge && (
-            <span className="best-card__badge">{course.badge}</span>
+            <span className={`best-card__badge best-card__badge--${getBadgeVariant(course.badge)}`}>{course.badge}</span>
           )}
           {course.categoryLabel}
         </span>
@@ -44,6 +62,6 @@ export default function BestCourseCard({ course }: BestCourseCardProps) {
           )}
         </div>
       </div>
-    </article>
+    </Link>
   );
 }

@@ -51,14 +51,14 @@ export default function UpcomingCoursesContainer(): JSX.Element {
       </section>
 
       {/* ── 스켈레톤 미리보기 섹션 ── */}
-      <section className="upcoming-page__skeleton-preview">
+      {/* <section className="upcoming-page__skeleton-preview">
         <h2 className="upcoming-page__section-title">스켈레톤 UI 미리보기</h2>
         <div className="upcoming-page__grid">
           <UpcomingCourseCardSkeleton />
           <UpcomingCourseCardSkeleton />
           <UpcomingCourseCardSkeleton />
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }

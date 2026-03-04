@@ -5,7 +5,7 @@
  */
 
 import mainData from '@/data/mainData.json';
-import type { MainData, SiteData, NavData, Course, UpcomingCourse, BestCourse, BestChipCategory, FaqItem, Testimonial, FooterData, GeoData } from '@/types';
+import type { MainData, SiteData, NavData, Course, HomeSection, UpcomingCourse, BestCourse, BestChipCategory, FaqItem, Testimonial, FooterData, GeoData, OrderData, CertificateData, ConsultationData, ReviewData, ExpiredCouponData } from '@/types';
 
 const data = mainData as MainData;
 
@@ -44,6 +44,19 @@ export function getFeaturedCourses(): Course[] {
   return data.courses?.filter((course) => course.featured) || [];
 }
 
+/** 홈 섹션 목록 반환 */
+export function getHomeSections(): HomeSection[] {
+  return data.homeSections || [];
+}
+
+/** 홈 섹션별 강의 목록 반환 */
+export function getHomeSectionCourses(section: HomeSection): Course[] {
+  const courses = data.courses || [];
+  return section.slugs
+    .map((slug) => courses.find((c) => c.slug === slug))
+    .filter((c): c is Course => c != null);
+}
+
 /** 오픈예정 강의 목록 반환 */
 export function getUpcomingCourses(): UpcomingCourse[] {
   return data.upcomingCourses || [];
@@ -77,4 +90,29 @@ export function getGeoData(): GeoData | null {
 /** 푸터 데이터 반환 */
 export function getFooterData(): FooterData | null {
   return data.footer || null;
+}
+
+/** 강의 상담 목록 반환 */
+export function getConsultations(): ConsultationData[] {
+  return data.consultations || [];
+}
+
+/** 후기 목록 반환 */
+export function getReviews(): ReviewData[] {
+  return data.reviews || [];
+}
+
+/** 수료증 목록 반환 */
+export function getCertificates(): CertificateData[] {
+  return data.certificates || [];
+}
+
+/** 주문 내역 반환 */
+export function getOrders(): OrderData[] {
+  return data.orders || [];
+}
+
+/** 만료된 쿠폰 목록 반환 */
+export function getExpiredCoupons(): ExpiredCouponData[] {
+  return data.expiredCoupons || [];
 }

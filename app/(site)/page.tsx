@@ -7,22 +7,21 @@
 import HomeHeroContainer from '@/components/containers/HomeHeroContainer';
 import HomeCategoryNav from '@/components/home/HomeCategoryNav';
 import HomeCourseSection from '@/components/home/HomeCourseSection';
-
-const courseSections = [
-  { title: '지금 가장 주목받는 강의' },
-  { title: 'BEST 재테크 클래스' },
-  { title: '이번 달 BEST' },
-  { title: '요즘 뜨는 부동산 지역 분석 강의' },
-  { title: '새로 나온 강의' },
-];
+import { getHomeSections, getHomeSectionCourses } from '@/lib/data';
 
 export default function HomePage() {
+  const sections = getHomeSections();
+
   return (
     <main className="home-page">
       <HomeHeroContainer />
       <HomeCategoryNav />
-      {courseSections.map((section) => (
-        <HomeCourseSection key={section.title} title={section.title} />
+      {sections.map((section) => (
+        <HomeCourseSection
+          key={section.title}
+          title={section.title}
+          courses={getHomeSectionCourses(section)}
+        />
       ))}
     </main>
   );

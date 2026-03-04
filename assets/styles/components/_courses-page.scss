@@ -28,8 +28,28 @@
 
   &__toolbar {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: $spacing-6;
+  }
+
+  &__count {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+
+    strong {
+      font-weight: $font-weight-bold;
+      color: $color-text-primary;
+    }
+  }
+
+  &__empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 15rem;
+    font-size: $font-size-base;
+    color: $color-text-secondary;
   }
 
   &__grid {
@@ -47,11 +67,17 @@
 
 // 배너
 .course-banner {
-  width: 100%;
-  min-height: $spacing-20 * 2;
-  background-color: $color-bg-tertiary;
-  border-radius: $spacing-2;
+  position: relative;
+  width: 100vw;
+  margin-left: calc(-1 * (100vw - 100%) / 2);
+  height: 10rem;
+  overflow: hidden;
   margin-top: $spacing-6;
+  margin-bottom: $spacing-2;
+
+  &__image {
+    object-fit: cover;
+  }
 }
 
 // 사이드바
@@ -152,42 +178,143 @@
   border-radius: $spacing-2;
   overflow: hidden;
   background-color: $color-bg-primary;
-  transition: box-shadow 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+
+  &:hover &__image {
+    transform: scale(1.05);
+  }
 
   &__thumbnail {
+    position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
     background-color: $color-bg-tertiary;
+    overflow: hidden;
+    border-radius: $spacing-2;
+  }
+
+  &__image {
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  &__badge-overlay {
+    position: absolute;
+    top: $spacing-2;
+    left: $spacing-2;
+    display: flex;
+    gap: $spacing-1;
+    z-index: 1;
+    flex-wrap: wrap;
+  }
+
+  &__wish-btn {
+    position: absolute;
+    top: $spacing-2;
+    right: $spacing-2;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    font-size: 1.125rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    line-height: 1;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.6);
+      transform: scale(1.1);
+    }
+
+    &--active {
+      color: #ef4444;
+      background: rgba(255, 255, 255, 0.9);
+    }
+  }
+
+  &__badge {
+    display: inline-block;
+    padding: 0.125rem 0.5rem;
+    font-size: 0.6875rem;
+    font-weight: $font-weight-semibold;
+    color: #fff;
+    background: $color-primary;
+    border-radius: 0.25rem;
+    line-height: 1.4;
+    white-space: nowrap;
+
+    &--original {
+      background: $color-secondary;
+    }
+
+    &--best {
+      background: $color-error;
+    }
+
+    &--new {
+      background: $color-success;
+    }
+
+    &--urgent {
+      background: #ea580c;
+    }
+
+    &--level {
+      background: $color-warning;
+      color: $color-text-primary;
+    }
   }
 
   &__body {
     display: flex;
     flex-direction: column;
-    gap: $spacing-2;
-    padding: $spacing-4;
-  }
-
-  &__badges {
-    display: flex;
     gap: $spacing-1;
+    padding: $spacing-3 $spacing-1;
   }
 
   &__title {
-    font-size: $font-size-base;
+    font-size: $font-size-sm;
     font-weight: $font-weight-semibold;
     color: $color-text-primary;
     line-height: $line-height-tight;
     margin: $spacing-0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   &__instructor {
-    font-size: $font-size-sm;
+    font-size: $font-size-xs;
     color: $color-text-secondary;
     margin: $spacing-0;
   }
 
+  &__rating {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+    font-size: $font-size-xs;
+  }
+
+  &__stars {
+    color: #f59e0b;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__review-count {
+    color: $color-text-secondary;
+  }
+
   &__price {
-    font-size: $font-size-base;
+    font-size: $font-size-sm;
     font-weight: $font-weight-bold;
     color: $color-text-primary;
   }

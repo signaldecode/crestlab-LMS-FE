@@ -13,10 +13,20 @@ interface CourseDetailContainerProps {
 }
 
 export default function CourseDetailContainer({ course }: CourseDetailContainerProps): JSX.Element {
+  if (!course) {
+    return (
+      <div className="course-detail-layout">
+        <div className="course-detail-content">
+          <p>강의를 찾을 수 없습니다.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="course-detail-layout">
-      <CourseDetailContent />
-      <CourseDetailSidebar courseSlug={course?.slug} />
+      <CourseDetailContent course={course} />
+      <CourseDetailSidebar course={course} />
     </div>
   );
 }

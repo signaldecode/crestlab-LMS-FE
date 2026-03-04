@@ -22,79 +22,110 @@
 }
 
 // ============================================
-// 1) 히어로 배너 캐러셀
+// 1) 히어로 배너 캐러셀 (풀 블리드 peek 스타일)
 // ============================================
 .home-hero {
   margin-bottom: $spacing-10;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
 
-  &__carousel {
+  &__viewport {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 5;
-    border-radius: 0.75rem;
+    aspect-ratio: 32 / 6;
     overflow: hidden;
   }
 
+  // 슬라이드 공통
   &__slide {
-    width: 100%;
-    height: 100%;
-  }
-
-  &__skeleton {
-    background: $color-bg-tertiary;
-    animation: skeleton-pulse 1.8s ease-in-out infinite;
-  }
-
-  // 좌우 화살표
-  &__arrow {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 50%;
+    top: 0;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  // 가운데 (메인)
+  &__slide--center {
+    left: 27%;
+    width: 46%;
+    z-index: 2;
+    border-radius: 0.75rem;
+  }
+
+  // 왼쪽 peek
+  &__slide--prev {
+    left: 0;
+    width: 26%;
+    z-index: 1;
+    border-radius: 0.75rem;
+  }
+
+  // 오른쪽 peek
+  &__slide--next {
+    right: 0;
+    width: 26%;
+    z-index: 1;
+    border-radius: 0.75rem;
+  }
+
+  // 반투명 오버레이 (양쪽 슬라이드)
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.55);
+    z-index: 1;
+  }
+
+  &__image {
+    object-fit: cover;
+  }
+
+  // 하단 우측 컨트롤바
+  &__controls {
+    position: absolute;
+    bottom: $spacing-4;
+    right: 28%;
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: 1.25rem;
+    padding: $spacing-1 $spacing-3;
+  }
+
+  &__ctrl-btn {
+    background: none;
     border: none;
-    background: rgba(255, 255, 255, 0.7);
-    font-size: $font-size-xl;
+    padding: 0;
+    color: #fff;
+    font-size: 1rem;
     line-height: 1;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: $color-text-primary;
-    z-index: 2;
-
-    &--prev { left: $spacing-4; }
-    &--next { right: $spacing-4; }
+    width: 1.5rem;
+    height: 1.5rem;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.95);
+      opacity: 0.8;
     }
   }
 
-  // 인디케이터 도트
-  &__indicators {
-    position: absolute;
-    bottom: $spacing-4;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: $spacing-2;
-    z-index: 2;
+  &__counter {
+    font-size: $font-size-sm;
+    color: rgba(255, 255, 255, 0.7);
+    white-space: nowrap;
   }
 
-  &__dot {
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
-    transition: background 0.2s;
+  &__counter-current {
+    color: #fff;
+    font-weight: $font-weight-semibold;
+  }
 
-    &--active {
-      background: #fff;
-      width: 1.5rem;
-      border-radius: 0.25rem;
-    }
+  &__counter-total {
+    color: rgba(255, 255, 255, 0.6);
   }
 }
 
@@ -145,7 +176,7 @@
 }
 
 // ============================================
-// 3) 강의 리스트 섹션
+// 3) 강의 리스트 섹션 (캐러셀)
 // ============================================
 .home-course-section {
   margin-bottom: $spacing-12;
@@ -167,34 +198,98 @@
     color: $color-text-primary;
   }
 
-  &__more {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: $font-size-sm;
-    color: $color-text-secondary;
+  // 화살표 컨트롤
+  &__controls {
+    display: flex;
+    gap: $spacing-2;
+  }
 
-    &:hover {
-      color: $color-text-primary;
+  &__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid $color-border;
+    border-radius: 50%;
+    background: $color-bg-primary;
+    color: $color-text-primary;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+
+    &:hover:not(:disabled) {
+      border-color: $color-primary;
+      color: $color-primary;
+    }
+
+    &--disabled {
+      opacity: 0.35;
+      cursor: default;
     }
   }
 
-  // 5열 그리드
-  &__grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: $spacing-5;
+  // 캐러셀
+  &__carousel {
+    overflow: hidden;
+  }
 
-    @include breakpoint(lg) {
-      grid-template-columns: repeat(5, 1fr);
-    }
+  &__track {
+    display: flex;
+    transition: transform 0.4s ease;
+  }
+
+  &__slide {
+    flex: 0 0 25%;
+    min-width: 0;
+    padding: 0 $spacing-2;
+    box-sizing: border-box;
 
     @media (max-width: 1023px) {
-      grid-template-columns: repeat(3, 1fr);
+      flex: 0 0 33.333%;
     }
 
     @media (max-width: 639px) {
-      grid-template-columns: repeat(2, 1fr);
+      flex: 0 0 50%;
+    }
+  }
+
+  // CTA 추천 카드
+  &__cta-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 16rem;
+    padding: $spacing-6;
+    background: $color-bg-secondary;
+    border-radius: 0.5rem;
+    text-align: center;
+  }
+
+  &__cta-text {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    line-height: $line-height-relaxed;
+    margin: 0 0 $spacing-5;
+    font-weight: $font-weight-medium;
+  }
+
+  &__cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-1;
+    padding: $spacing-2 $spacing-5;
+    background: $color-primary;
+    color: $color-text-inverse;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    border-radius: 1.5rem;
+    text-decoration: none;
+    transition: background 0.2s;
+
+    &:hover {
+      background: $color-primary-dark;
     }
   }
 }

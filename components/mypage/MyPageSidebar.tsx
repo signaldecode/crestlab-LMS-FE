@@ -1,18 +1,16 @@
 /**
  * 마이페이지 왼쪽 사이드바 (MyPageSidebar)
  * - 탭 토글(내 강의실/프로필) + 프로필 카드 + 탭별 메뉴
- * - 탭은 Link 기반 라우팅: 내 강의실 → /mypage, 프로필 → /mypage/[userId]
- * - useAuthStore에서 현재 로그인 유저 ID를 읽어 프로필 링크를 구성한다
- * - 메뉴 아이템 클릭 시 하이라이팅 처리
+ * - 모든 메뉴 아이템은 Link 기반 라우팅으로 동작한다
  */
 
 'use client';
 
 import type { JSX } from 'react';
 import Link from 'next/link';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import useAuthStore from '@/stores/useAuthStore';
-import useMyPageStore from '@/stores/useMyPageStore';
+import useCouponStore from '@/stores/useCouponStore';
 
 type MyPageTab = 'classroom' | 'profile';
 
@@ -21,12 +19,20 @@ interface MyPageSidebarProps {
   userId?: string;
 }
 
+/** 메뉴 아이템 → 라우트 매핑 */
 const menuLinks: Record<string, string> = {
   '관심 클래스': '/mypage/wishlist',
+  '내 쿠폰': '/mypage/coupons',
+  '상품권': '/mypage/giftcards',
+  '포인트': '/mypage/points',
+  '강의 상담': '/mypage/consultations',
+  '수료증': '/mypage/certificates',
+  '후기 관리': '/mypage/reviews',
+  '구매 내역': '/mypage/orders',
+  '1:1 문의': '/support/tickets',
+  '자주 묻는 질문': '/support',
+  '회원정보관리': '/mypage/profile/edit',
 };
-
-/** 콘텐츠 영역에서 탭으로 렌더링되는 메뉴 아이템 */
-const contentMenuItems = ['강의 상담', '수료증', '후기 관리', '구매 내역'];
 
 const classroomMenu = [
   { section: '강의 관련', items: ['관심 클래스', '강의 상담', '수료증', '후기 관리', '구매 내역'] },
@@ -45,20 +51,8 @@ export default function MyPageSidebar({ activeTab, userId }: MyPageSidebarProps)
   const currentUserId = userId || authUser?.id || 'me';
   const profileHref = `/mypage/${currentUserId}`;
 
-  const router = useRouter();
   const pathname = usePathname();
-  const activeMenu = useMyPageStore((s) => s.activeMenu);
-  const setActiveMenu = useMyPageStore((s) => s.setActiveMenu);
-
-  const handleMenuClick = (item: string) => {
-    if (contentMenuItems.includes(item)) {
-      setActiveMenu(item);
-      // 다른 라우트(예: /mypage/wishlist)에 있으면 /mypage로 복귀
-      if (pathname !== '/mypage') {
-        router.push('/mypage');
-      }
-    }
-  };
+  const couponCount = useCouponStore((s) => s.coupons.length);
 
   return (
     <aside className="mypage-sidebar">
@@ -81,16 +75,17 @@ export default function MyPageSidebar({ activeTab, userId }: MyPageSidebarProps)
 
         {/* 프로필 카드 */}
         <div className="mypage-sidebar__profile">
-          <div className="mypage-sidebar__avatar mypage-sidebar__skeleton-circle" />
+          <div className="mypage-sidebar__avatar mypage-sidebar__avatar--default">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </div>
 
           <div className="mypage-sidebar__name-row">
-            {authUser?.nickname || authUser?.name ? (
-              <span className="mypage-sidebar__username">
-                {authUser.nickname || authUser.name}
-              </span>
-            ) : (
-              <div className="mypage-sidebar__skeleton-line mypage-sidebar__skeleton-line--name" />
-            )}
+            <span className="mypage-sidebar__username">
+              {authUser?.nickname || authUser?.name || '회원'}
+            </span>
             {activeTab === 'profile' && (
               <Link
                 href="/mypage/profile/edit"
@@ -114,19 +109,34 @@ export default function MyPageSidebar({ activeTab, userId }: MyPageSidebarProps)
             <div className="mypage-sidebar__info-list">
               <div className="mypage-sidebar__info-row">
                 <span>학습등급</span>
-                <div className="mypage-sidebar__skeleton-line mypage-sidebar__skeleton-line--value" />
+                <span className="mypage-sidebar__info-badge">입문</span>
               </div>
               <div className="mypage-sidebar__info-row">
                 <span>내 쿠폰</span>
-                <div className="mypage-sidebar__skeleton-line mypage-sidebar__skeleton-line--value" />
+                <Link
+                  href="/mypage/coupons"
+                  className="mypage-sidebar__info-value mypage-sidebar__info-value--link"
+                >
+                  {couponCount}장
+                </Link>
               </div>
               <div className="mypage-sidebar__info-row">
                 <span>상품권</span>
-                <div className="mypage-sidebar__skeleton-line mypage-sidebar__skeleton-line--value" />
+                <Link
+                  href="/mypage/giftcards"
+                  className="mypage-sidebar__info-value mypage-sidebar__info-value--link"
+                >
+                  0원
+                </Link>
               </div>
               <div className="mypage-sidebar__info-row">
                 <span>포인트</span>
-                <div className="mypage-sidebar__skeleton-line mypage-sidebar__skeleton-line--value" />
+                <Link
+                  href="/mypage/points"
+                  className="mypage-sidebar__info-value mypage-sidebar__info-value--link"
+                >
+                  0원
+                </Link>
               </div>
             </div>
           ) : (
@@ -166,17 +176,13 @@ export default function MyPageSidebar({ activeTab, userId }: MyPageSidebarProps)
               <span className="mypage-sidebar__menu-heading">{group.section}</span>
               <ul className="mypage-sidebar__menu-list">
                 {group.items.map((item) => {
-                  const isContentTab = contentMenuItems.includes(item);
-                  const isActive = isContentTab && activeMenu === item;
+                  const href = menuLinks[item];
+                  const isActive = href ? pathname === href : false;
 
-                  if (isContentTab) {
+                  if (!href) {
                     return (
                       <li key={item} className="mypage-sidebar__menu-item">
-                        <button
-                          type="button"
-                          className={`mypage-sidebar__menu-link${isActive ? ' mypage-sidebar__menu-link--active' : ''}`}
-                          onClick={() => handleMenuClick(item)}
-                        >
+                        <button type="button" className="mypage-sidebar__menu-link">
                           {item}
                         </button>
                       </li>
@@ -185,7 +191,10 @@ export default function MyPageSidebar({ activeTab, userId }: MyPageSidebarProps)
 
                   return (
                     <li key={item} className="mypage-sidebar__menu-item">
-                      <Link href={menuLinks[item] || '#'} className="mypage-sidebar__menu-link">
+                      <Link
+                        href={href}
+                        className={`mypage-sidebar__menu-link${isActive ? ' mypage-sidebar__menu-link--active' : ''}`}
+                      >
                         {item}
                       </Link>
                     </li>

@@ -109,10 +109,36 @@
     gap: $spacing-1;
   }
 
+  &__course-badge {
+    display: inline-block;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    line-height: 1.4;
+    background: $color-bg-tertiary;
+    color: $color-text-secondary;
+
+    &--original { background: #f3e8ff; color: #7c3aed; }
+    &--best     { background: #fee2e2; color: #dc2626; }
+    &--new      { background: #dcfce7; color: #16a34a; }
+    &--urgent   { background: #fff7ed; color: #ea580c; }
+    &--level    { background: #fef9c3; color: #a16207; }
+  }
+
+  &__course-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    line-height: $line-height-base;
+  }
+
   &__course-meta {
     display: flex;
     align-items: center;
     gap: $spacing-2;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
   }
 
   &__course-meta-dot {
@@ -130,8 +156,21 @@
   }
 
   &__course-price-original {
+    font-size: $font-size-sm;
     text-decoration: line-through;
-    opacity: 0.5;
+    color: $color-text-secondary;
+  }
+
+  &__course-price-discount {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    color: $color-primary;
+  }
+
+  &__course-price-final {
+    font-size: $font-size-md;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
   }
 
   // ── 쿠폰 ──
@@ -325,6 +364,11 @@
       color: $color-text-primary;
       padding-top: $spacing-3;
     }
+  }
+
+  &__summary-discount {
+    color: $color-primary;
+    font-weight: $font-weight-medium;
   }
 
   &__summary-divider {

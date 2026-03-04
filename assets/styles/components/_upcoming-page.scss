@@ -113,6 +113,10 @@
     overflow: hidden;
   }
 
+  &__image {
+    object-fit: cover;
+  }
+
   &__category-tag {
     position: absolute;
     bottom: $spacing-3;

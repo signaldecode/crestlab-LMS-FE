@@ -174,15 +174,26 @@
   border-radius: 0.5rem;
   overflow: hidden;
   background-color: $color-bg-primary;
+  text-decoration: none;
+  color: inherit;
 
   // ── 썸네일 ──
   &__thumbnail {
     position: relative;
     width: 100%;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 9;
     background-color: $color-bg-tertiary;
     border-radius: 0.5rem;
     overflow: hidden;
+  }
+
+  &:hover &__image {
+    transform: scale(1.05);
+  }
+
+  &__image {
+    object-fit: cover;
+    transition: transform 0.3s ease;
   }
 
   &__category-tag {
@@ -211,6 +222,27 @@
     font-weight: $font-weight-bold;
     border-radius: 0.125rem;
     letter-spacing: 0.02em;
+
+    &--original {
+      background: $color-secondary;
+    }
+
+    &--best {
+      background: $color-error;
+    }
+
+    &--new {
+      background: $color-success;
+    }
+
+    &--urgent {
+      background: #ea580c;
+    }
+
+    &--level {
+      background: $color-warning;
+      color: $color-text-primary;
+    }
   }
 
   // ── 카드 바디 ──
