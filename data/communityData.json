@@ -1,0 +1,17 @@
+{
+  "_comment": "커뮤니티 설정 데이터 — 카테고리, 신고 사유 등",
+
+  "categories": [
+    { "value": "all", "label": "전체" },
+    { "value": "free", "label": "자유" },
+    { "value": "qna", "label": "질문/답변" },
+    { "value": "review", "label": "수강후기" },
+    { "value": "notice", "label": "공지" }
+  ],
+  "reportReasons": [
+    { "value": "spam", "label": "스팸/광고" },
+    { "value": "abuse", "label": "욕설/비방" },
+    { "value": "inappropriate", "label": "부적절한 콘텐츠" },
+    { "value": "other", "label": "기타" }
+  ]
+}

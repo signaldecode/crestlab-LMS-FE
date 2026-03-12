@@ -1,0 +1,44 @@
+{
+  "_comment": "공통 UI 문구 — 버튼 라벨, 토스트 메시지, 빈 상태 문구 등",
+
+  "common": {
+    "save": "저장",
+    "cancel": "취소",
+    "confirm": "확인",
+    "delete": "삭제",
+    "edit": "수정",
+    "more": "더보기",
+    "close": "닫기",
+    "submit": "제출",
+    "back": "뒤로가기",
+    "next": "다음",
+    "prev": "이전",
+    "loading": "로딩 중",
+    "retry": "다시 시도",
+    "search": "검색",
+    "login": "로그인",
+    "logout": "로그아웃",
+    "signup": "회원가입"
+  },
+  "toast": {
+    "linkCopied": "링크가 복사되었습니다.",
+    "saveSuccess": "저장되었습니다.",
+    "deleteSuccess": "삭제되었습니다.",
+    "loginRequired": "로그인이 필요합니다.",
+    "networkError": "네트워크 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.",
+    "genericError": "오류가 발생했습니다.",
+    "reportSuccess": "신고가 접수되었습니다.",
+    "cartAdded": "장바구니에 담았습니다.",
+    "cartRemoved": "장바구니에서 삭제했습니다."
+  },
+  "emptyState": {
+    "courses": "아직 강의가 없습니다.",
+    "myCourses": "수강 중인 강의가 없습니다.",
+    "cart": "장바구니가 비어 있습니다.",
+    "orders": "주문 내역이 없습니다.",
+    "posts": "게시글이 없습니다.",
+    "comments": "댓글이 없습니다.",
+    "tickets": "문의 내역이 없습니다.",
+    "searchResult": "검색 결과가 없습니다."
+  }
+}

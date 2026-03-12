@@ -4,10 +4,10 @@
  * - 컴포넌트/페이지에서 직접 JSON을 import하지 않고, 이 헬퍼를 통해 접근한다
  */
 
-import mainData from '@/data/mainData.json';
+import mainData from '@/data';
 import type { MainData, SiteData, NavData, Course, HomeSection, UpcomingCourse, BestCourse, BestChipCategory, FaqItem, Testimonial, FooterData, GeoData, OrderData, CertificateData, ConsultationData, ReviewData, ExpiredCouponData } from '@/types';
 
-const data = mainData as MainData;
+const data: MainData = mainData;
 
 /** 전체 데이터 반환 */
 export function getMainData(): MainData {

@@ -1,0 +1,125 @@
+{
+  "_comment": "마이페이지/계정 데이터 — 주문 내역, 상담, 후기, 수료증, 만료 쿠폰 (목데이터)",
+
+  "orders": [
+    {
+      "id": "ORD-20250215-001",
+      "courseSlugs": ["real-estate-intermediate"],
+      "totalAmount": 254150,
+      "status": "완료",
+      "createdAt": "2025-02-15"
+    },
+    {
+      "id": "ORD-20250128-002",
+      "courseSlugs": ["financial-basic-class", "us-stock-basic"],
+      "totalAmount": 382500,
+      "status": "완료",
+      "createdAt": "2025-01-28"
+    },
+    {
+      "id": "ORD-20250110-003",
+      "courseSlugs": ["my-house-basic"],
+      "totalAmount": 169150,
+      "status": "완료",
+      "createdAt": "2025-01-10"
+    },
+    {
+      "id": "ORD-20241220-004",
+      "courseSlugs": ["auction-basics"],
+      "totalAmount": 211650,
+      "status": "환불",
+      "createdAt": "2024-12-20"
+    }
+  ],
+
+  "consultations": [
+    {
+      "id": "CONSULT-001",
+      "courseSlug": "real-estate-intermediate",
+      "status": "답변완료",
+      "question": "강의 수강 기간 연장은 어떻게 하나요?",
+      "createdAt": "2025-02-20"
+    },
+    {
+      "id": "CONSULT-002",
+      "courseSlug": "financial-basic-class",
+      "status": "대기중",
+      "question": "보충 자료 PDF를 어디서 다운받을 수 있나요?",
+      "createdAt": "2025-03-01"
+    },
+    {
+      "id": "CONSULT-003",
+      "courseSlug": "my-house-basic",
+      "status": "답변완료",
+      "question": "실습 과제 제출 방법이 궁금합니다.",
+      "createdAt": "2025-01-15"
+    }
+  ],
+
+  "reviews": [
+    {
+      "id": "REVIEW-001",
+      "courseSlug": "real-estate-intermediate",
+      "rating": 5,
+      "content": "부동산 투자에 대해 체계적으로 배울 수 있었습니다. 특히 실전 사례 분석이 매우 유익했어요.",
+      "createdAt": "2025-02-26"
+    },
+    {
+      "id": "REVIEW-002",
+      "courseSlug": "financial-basic-class",
+      "rating": 4,
+      "content": "재테크 기초를 잡기에 좋은 강의입니다. 초보자도 이해하기 쉽게 설명해주셔서 좋았습니다.",
+      "createdAt": "2025-02-09"
+    },
+    {
+      "id": "REVIEW-003",
+      "courseSlug": "my-house-basic",
+      "rating": 5,
+      "content": "내 집 마련 과정을 A부터 Z까지 알려주는 강의! 덕분에 자신감이 생겼습니다.",
+      "createdAt": "2025-01-20"
+    }
+  ],
+
+  "certificates": [
+    {
+      "id": "CERT-001",
+      "courseSlug": "real-estate-intermediate",
+      "status": "발급완료",
+      "issuedAt": "2025-02-28",
+      "completedAt": "2025-02-25"
+    },
+    {
+      "id": "CERT-002",
+      "courseSlug": "financial-basic-class",
+      "status": "발급완료",
+      "issuedAt": "2025-02-10",
+      "completedAt": "2025-02-08"
+    },
+    {
+      "id": "CERT-003",
+      "courseSlug": "my-house-basic",
+      "status": "수강중",
+      "issuedAt": null,
+      "completedAt": null
+    }
+  ],
+
+  "expiredCoupons": [
+    {
+      "id": "cpn-expired-1",
+      "amount": 30000,
+      "description": "[오픈알림 혜택] 열반스쿨중급반 단 하루 3만원 쿠폰",
+      "validFrom": "2026.02.27",
+      "validTo": "2026.02.27",
+      "status": "기간만료"
+    },
+    {
+      "id": "cpn-expired-2",
+      "amount": 20000,
+      "description": "[오픈알림 혜택 특별연장] 열반스쿨중급반 2만원 쿠폰",
+      "validFrom": "2026.02.28",
+      "validTo": "2026.03.02",
+      "status": "기간만료"
+    }
+  ]
+}

@@ -1,0 +1,192 @@
+{
+  "_comment": "사이트 글로벌 설정 — 사이트 기본 정보, 네비게이션, 푸터, 접근성, GEO, SEO 설정",
+
+  "site": {
+    "name": "강의 플랫폼",
+    "description": "최고의 온라인 강의 플랫폼",
+    "url": "https://example.com",
+    "logo": {
+      "src": "/logo.png",
+      "alt": "강의 플랫폼 로고"
+    },
+    "links": {
+      "header": [
+        { "label": "홈", "href": "/", "ariaLabel": "홈으로 이동" },
+        { "label": "강의", "href": "/courses", "ariaLabel": "강의 목록으로 이동" },
+        { "label": "커뮤니티", "href": "/community", "ariaLabel": "커뮤니티로 이동" },
+        { "label": "소개", "href": "/about", "ariaLabel": "소개 페이지로 이동" }
+      ],
+      "footer": [
+        { "label": "이용약관", "href": "/etc/terms" },
+        { "label": "개인정보처리방침", "href": "/etc/privacy" },
+        { "label": "고객센터", "href": "/support" }
+      ],
+      "external": [
+        { "label": "블로그", "href": "https://blog.example.com", "ariaLabel": "공식 블로그 (새 탭)" }
+      ]
+    }
+  },
+
+  "nav": {
+    "topBar": [
+      { "label": "클래스", "href": "/", "ariaLabel": "클래스(강의) 보기" },
+      { "label": "커뮤니티", "href": "/community", "ariaLabel": "커뮤니티로 이동" }
+    ],
+    "search": {
+      "placeholder": "검색어를 입력하세요",
+      "ariaLabel": "강의 검색"
+    },
+    "main": [
+      { "label": "카테고리", "href": "/courses", "ariaLabel": "카테고리별 강의 보기" },
+      { "label": "부동산기초", "href": "/courses/real-estate-sell-strategy", "ariaLabel": "부동산기초 강의 상세 보기" },
+      { "label": "오리지널", "href": "/courses?category=original", "ariaLabel": "오리지널 강의 보기" },
+      { "label": "베스트", "href": "/best", "ariaLabel": "베스트 강의 보기" },
+      { "label": "커리큘럼", "href": "/curriculum", "ariaLabel": "커리큘럼 보기" },
+      { "label": "오픈예정", "href": "/upcoming", "ariaLabel": "오픈예정 강의 보기" }
+    ],
+    "user": [
+      { "label": "강사 지원하기", "href": "/instructor/apply", "ariaLabel": "강사 지원 페이지로 이동" }
+    ],
+    "auth": {
+      "loginLabel": "로그인",
+      "loginHref": "/auth/login",
+      "loginAriaLabel": "로그인 페이지로 이동",
+      "signupLabel": "회원가입",
+      "signupHref": "/auth/signup",
+      "signupAriaLabel": "회원가입 페이지로 이동"
+    },
+    "categoryMenu": {
+      "ariaLabel": "전체 카테고리",
+      "groups": [
+        {
+          "label": "오리지널",
+          "href": "/courses?category=original",
+          "items": [
+            { "label": "오리지널 정규", "href": "/courses?category=original&sub=regular" },
+            { "label": "부동산 기초", "href": "/courses?category=original&sub=real-estate-basic" },
+            { "label": "내집마련", "href": "/courses?category=original&sub=my-house" },
+            { "label": "지역 분석", "href": "/courses?category=original&sub=area-analysis" }
+          ]
+        },
+        {
+          "label": "부동산",
+          "href": "/courses?category=real-estate",
+          "items": [
+            { "label": "부동산 입문", "href": "/courses?category=real-estate&sub=beginner" },
+            { "label": "경매/공매", "href": "/courses?category=real-estate&sub=auction" },
+            { "label": "청약/재개발", "href": "/courses?category=real-estate&sub=subscription" },
+            { "label": "상가/빌딩/토지", "href": "/courses?category=real-estate&sub=commercial" },
+            { "label": "세금/대출", "href": "/courses?category=real-estate&sub=tax-loan" }
+          ]
+        },
+        {
+          "label": "재테크/주식",
+          "href": "/courses?category=finance",
+          "items": [
+            { "label": "주식/코인", "href": "/courses?category=finance&sub=stock-coin" },
+            { "label": "창업/부업", "href": "/courses?category=finance&sub=business" },
+            { "label": "재테크기초", "href": "/courses?category=finance&sub=basic" },
+            { "label": "자기계발", "href": "/courses?category=finance&sub=self-dev" }
+          ]
+        },
+        {
+          "label": "코칭",
+          "href": "/courses?category=coaching",
+          "items": [
+            { "label": "투자코칭", "href": "/courses?category=coaching&sub=investment" },
+            { "label": "매물코칭", "href": "/courses?category=coaching&sub=property" }
+          ]
+        },
+        {
+          "label": "돈 버는 독서 모임",
+          "href": "/courses?category=book-club",
+          "items": [
+            { "label": "돈 버는 독서 모임", "href": "/courses?category=book-club&sub=main" }
+          ]
+        }
+      ]
+    }
+  },
+
+  "footer": {
+    "copyright": "© 2026 강의 플랫폼. All rights reserved.",
+    "links": [
+      { "label": "이용약관", "href": "/etc/terms", "ariaLabel": "이용약관 보기" },
+      { "label": "개인정보처리방침", "href": "/etc/privacy", "ariaLabel": "개인정보처리방침 보기" },
+      { "label": "환불정책", "href": "/etc/refund", "ariaLabel": "환불정책 보기" },
+      { "label": "고객센터", "href": "/support", "ariaLabel": "고객센터로 이동" }
+    ],
+    "business": {
+      "companyName": "주식회사 강의플랫폼",
+      "ceo": "홍길동",
+      "registrationNumber": "000-00-00000",
+      "ecommerceRegistration": "2026-서울강남-0000호",
+      "label": "사업자 정보"
+    }
+  },
+
+  "a11y": {
+    "skipToContent": "본문 바로가기",
+    "nav": {
+      "mainMenu": "주요 메뉴",
+      "footerMenu": "하단 메뉴",
+      "breadcrumb": "브레드크럼",
+      "pagination": "페이지 탐색",
+      "prevPage": "이전 페이지",
+      "nextPage": "다음 페이지"
+    },
+    "forms": {
+      "required": "(필수)",
+      "optional": "(선택)",
+      "errorPrefix": "오류:",
+      "searchLabel": "검색어 입력",
+      "searchSubmit": "검색 실행"
+    }
+  },
+
+  "geo": {
+    "countryCode": "KR",
+    "city": "서울",
+    "address": "서울특별시 강남구 테헤란로 123",
+    "postalCode": "06234",
+    "latitude": 37.5065,
+    "longitude": 127.0536,
+    "phone": "02-1234-5678",
+    "businessHours": "평일 09:00 - 18:00",
+    "organization": {
+      "name": "강의 플랫폼",
+      "type": "Organization",
+      "email": "contact@example.com"
+    },
+    "social": [
+      { "platform": "youtube", "url": "https://youtube.com/@example", "label": "유튜브 채널" },
+      { "platform": "instagram", "url": "https://instagram.com/example", "label": "인스타그램" },
+      { "platform": "kakao", "url": "https://pf.kakao.com/example", "label": "카카오 채널" }
+    ]
+  },
+
+  "seo": {
+    "siteDefaults": {
+      "titleTemplate": "%s — 강의 플랫폼",
+      "defaultTitle": "강의 플랫폼 — 최고의 온라인 강의",
+      "defaultDescription": "실무 중심의 온라인 강의 플랫폼",
+      "defaultOgImage": "/images/banners/og-default.png",
+      "locale": "ko_KR",
+      "type": "website"
+    },
+    "course": {
+      "_comment": "Course JSON-LD 필드 매핑 — courses 엔티티의 slug/title/summary/instructor/duration/price로 생성",
+      "schemaType": "Course",
+      "providerType": "Organization"
+    },
+    "faq": {
+      "_comment": "FAQPage JSON-LD — faq 배열의 question/answer로 생성",
+      "schemaType": "FAQPage"
+    },
+    "breadcrumb": {
+      "_comment": "BreadcrumbList JSON-LD — 페이지 경로 기반으로 자동 생성",
+      "schemaType": "BreadcrumbList",
+      "homeLabel": "홈"
+    }
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "_comment": "페이지별 SEO 메타/콘텐츠 데이터 — 각 페이지의 title, description, OG, 폼 라벨 등",
+
+  "home": {
+    "seo": {
+      "title": "강의 플랫폼 — 최고의 온라인 강의",
+      "description": "실무 중심의 온라인 강의를 만나보세요.",
+      "og": {
+        "title": "강의 플랫폼",
+        "description": "실무 중심의 온라인 강의 플랫폼",
+        "image": "/images/banners/og-home.png"
+      }
+    },
+    "hero": {
+      "title": "당신의 성장을 위한 강의",
+      "subtitle": "실무에서 바로 쓰이는 기술을 배워보세요",
+      "ctaLabel": "강의 보러가기",
+      "ctaHref": "/courses",
+      "ctaAriaLabel": "강의 목록 페이지로 이동"
+    }
+  },
+  "courses": {
+    "seo": {
+      "title": "강의 목록 — 강의 플랫폼",
+      "description": "다양한 카테고리의 강의를 탐색하세요."
+    },
+    "list": {
+      "title": "전체 강의",
+      "filterCategoryLabel": "카테고리",
+      "filterCategoryAriaLabel": "카테고리 필터 선택",
+      "filterLevelLabel": "난이도",
+      "filterLevelAriaLabel": "난이도 필터 선택",
+      "sortLabel": "정렬",
+      "sortAriaLabel": "강의 정렬 기준 선택",
+      "sortOptions": [
+        { "value": "latest", "label": "최신순" },
+        { "value": "popular", "label": "인기순" },
+        { "value": "price-asc", "label": "가격 낮은순" },
+        { "value": "price-desc", "label": "가격 높은순" }
+      ],
+      "categories": [
+        { "value": "", "label": "전체" },
+        { "value": "original", "label": "오리지널" },
+        { "value": "real-estate", "label": "부동산" },
+        { "value": "finance", "label": "재테크/주식" },
+        { "value": "coaching", "label": "코칭" },
+        { "value": "book-club", "label": "돈 버는 독서 모임" }
+      ],
+      "levels": [
+        { "value": "", "label": "전체" },
+        { "value": "beginner", "label": "입문" },
+        { "value": "intermediate", "label": "중급" },
+        { "value": "advanced", "label": "고급" }
+      ]
+    },
+    "detail": {
+      "ctaBuyLabel": "수강 신청",
+      "ctaBuyAriaLabel": "이 강의 수강 신청하기",
+      "ctaCartLabel": "장바구니 담기",
+      "ctaCartAriaLabel": "장바구니에 담기",
+      "priceLabel": "수강료",
+      "durationLabel": "총 학습 시간",
+      "levelLabel": "난이도",
+      "instructorLabel": "강사",
+      "curriculumTitle": "커리큘럼",
+      "reviewTitle": "수강 후기",
+      "faqTitle": "자주 묻는 질문"
+    }
+  },
+  "about": {
+    "seo": {
+      "title": "소개 — 강의 플랫폼",
+      "description": "강의 플랫폼 소개 및 비전"
+    }
+  },
+  "community": {
+    "seo": {
+      "title": "커뮤니티 — 강의 플랫폼",
+      "description": "수강생들과 자유롭게 소통하는 커뮤니티"
+    }
+  },
+  "support": {
+    "seo": {
+      "title": "고객센터 — 강의 플랫폼",
+      "description": "자주 묻는 질문과 1:1 문의"
+    }
+  },
+  "auth": {
+    "login": {
+      "seo": { "title": "로그인 — 강의 플랫폼" },
+      "title": "로그인",
+      "emailLabel": "이메일",
+      "emailPlaceholder": "이메일을 입력하세요",
+      "passwordLabel": "비밀번호",
+      "passwordPlaceholder": "비밀번호를 입력하세요",
+      "submitLabel": "로그인",
+      "signupLink": "아직 회원이 아니신가요?",
+      "socialKakao": "카카오로 시작하기",
+      "socialGoogle": "Google로 시작하기"
+    },
+    "signup": {
+      "seo": { "title": "회원가입 — 강의 플랫폼" },
+      "title": "회원가입",
+      "nameLabel": "이름",
+      "namePlaceholder": "이름을 입력하세요",
+      "emailLabel": "이메일",
+      "emailPlaceholder": "이메일을 입력하세요",
+      "passwordLabel": "비밀번호",
+      "passwordPlaceholder": "비밀번호를 입력하세요 (8자 이상)",
+      "agreeTerms": "이용약관에 동의합니다",
+      "agreePrivacy": "개인정보처리방침에 동의합니다",
+      "submitLabel": "가입하기"
+    }
+  },
+  "cart": {
+    "seo": { "title": "장바구니 — 강의 플랫폼" },
+    "title": "장바구니",
+    "subtotalLabel": "합계",
+    "discountLabel": "할인",
+    "totalLabel": "결제 금액",
+    "checkoutLabel": "결제하기",
+    "checkoutAriaLabel": "결제 페이지로 이동"
+  },
+  "learn": {
+    "seo": { "title": "내 강의실 — 강의 플랫폼" },
+    "title": "내 강의실",
+    "continueLabel": "이어보기",
+    "progressLabel": "진행률",
+    "completedLabel": "수강 완료"
+  },
+  "admin": {
+    "layout": {
+      "title": "관리자",
+      "navLabel": "관리자 메뉴",
+      "navAriaLabel": "관리자 내비게이션",
+      "menuItems": [
+        { "label": "대시보드", "href": "/", "ariaLabel": "관리자 대시보드로 이동" },
+        { "label": "강의 관리", "href": "/courses", "ariaLabel": "강의 관리 페이지로 이동" },
+        { "label": "주문 관리", "href": "/orders", "ariaLabel": "주문 관리 페이지로 이동" },
+        { "label": "유저 관리", "href": "/users", "ariaLabel": "유저 관리 페이지로 이동" },
+        { "label": "커뮤니티 관리", "href": "/community", "ariaLabel": "커뮤니티 관리 페이지로 이동" }
+      ]
+    },
+    "courseEdit": {
+      "seo": { "title": "강의 편집 — 관리자" },
+      "title": "강의 편집",
+      "uploadSectionTitle": "영상 업로드"
+    },
+    "upload": {
+      "dropzoneLabel": "영상 파일을 드래그하거나 클릭하여 선택하세요",
+      "dropzoneActiveLabel": "여기에 파일을 놓으세요",
+      "browseLabel": "파일 선택",
+      "browseAriaLabel": "업로드할 영상 파일 선택",
+      "cancelLabel": "업로드 취소",
+      "cancelAriaLabel": "진행 중인 업로드 취소",
+      "retryLabel": "다시 시도",
+      "retryAriaLabel": "업로드 다시 시도",
+      "progressLabel": "업로드 진행률",
+      "successMessage": "영상이 성공적으로 업로드되었습니다.",
+      "allowedFormats": "MP4, MOV, AVI, MKV",
+      "maxSizeLabel": "최대 파일 크기",
+      "maxSizeValue": "5GB",
+      "errors": {
+        "invalidFormat": "지원하지 않는 파일 형식입니다. MP4, MOV, AVI, MKV 파일만 업로드 가능합니다.",
+        "fileTooLarge": "파일 크기가 5GB를 초과합니다.",
+        "presignedFailed": "업로드 URL 발급에 실패했습니다. 잠시 후 다시 시도해 주세요.",
+        "uploadFailed": "업로드에 실패했습니다. 네트워크 연결을 확인하고 다시 시도해 주세요.",
+        "confirmFailed": "업로드 확인에 실패했습니다. 잠시 후 다시 시도해 주세요.",
+        "cancelled": "업로드가 취소되었습니다."
+      }
+    }
+  }
+}

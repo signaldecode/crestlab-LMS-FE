@@ -1,0 +1,251 @@
+{
+  "_comment": "홈 페이지 큐레이션 데이터 — 섹션별 강의 구성, 오픈예정, 베스트, 후기, FAQ",
+
+  "homeSections": [
+    {
+      "title": "지금 가장 주목받는 강의",
+      "slugs": ["real-estate-intermediate", "location-analysis", "interior-renovation", "real-estate-sell-strategy", "cheap-apartment-finder"]
+    },
+    {
+      "title": "BEST 재테크 클래스",
+      "slugs": ["financial-basic-class", "us-stock-basic", "tax-income-report", "my-house-basic", "money-book-club"]
+    },
+    {
+      "title": "이번 달 BEST",
+      "slugs": ["real-estate-intermediate", "my-house-basic", "ss-coupon-basic", "cheap-apartment-finder", "financial-basic-class"]
+    },
+    {
+      "title": "요즘 뜨는 부동산 지역 분석 강의",
+      "slugs": ["gangnam-20min", "location-analysis", "cheap-apartment-finder", "auction-basics", "subscription-redevelopment"]
+    },
+    {
+      "title": "새로 나온 강의",
+      "slugs": ["ai-homepage-business", "danggeun-market-100", "olive-young-seller", "youtube-income-start", "commercial-building"]
+    }
+  ],
+
+  "upcomingCourses": [
+    {
+      "slug": "real-estate-basic-class",
+      "title": "[26.5월 규제반영] 2026 부동산 투자 시작하는 법 - 열반스쿨 기초반",
+      "thumbnail": "/images/banners/banner1.jpg",
+      "thumbnailAlt": "열반스쿨 기초반 강의 썸네일",
+      "categoryLabel": "부동산 투자 기초",
+      "instructor": "너바나",
+      "tags": ["자금과외요", "주우이"],
+      "rating": 4.98,
+      "reviewCount": 171912,
+      "openDate": "02/26 (목)",
+      "featured": true
+    },
+    {
+      "slug": "my-house-basic",
+      "title": "[3월 오픈] 내집마련 고민이라면? 집사기 전 - 너나위의 내집마련 기초반",
+      "thumbnail": "/images/banners/banner7.png",
+      "thumbnailAlt": "내집마련 기초반 강의 썸네일",
+      "categoryLabel": "내집마련",
+      "instructor": "너나위",
+      "tags": ["용용맘민맘", "자금과외요"],
+      "rating": 4.97,
+      "reviewCount": 82059,
+      "openDate": "03/26 (목)",
+      "featured": false
+    },
+    {
+      "slug": "real-estate-intermediate",
+      "title": "열반스쿨 중급반 - 직장인이 투자로 10억 달성하는 법",
+      "thumbnail": "/images/banners/banner1.jpg",
+      "thumbnailAlt": "열반스쿨 중급반 강의 썸네일",
+      "categoryLabel": "부동산 기초",
+      "instructor": "딥부엔트",
+      "tags": ["밤발사주는부자마늘"],
+      "rating": 4.98,
+      "reviewCount": 106062,
+      "openDate": "",
+      "featured": false
+    },
+    {
+      "slug": "financial-basic-class",
+      "title": "[4월 오픈] 재테크 기초반 - 같은 월급 2배 더 빨리 모으는 재테크 성공공식",
+      "thumbnail": "/images/banners/banner10.webp",
+      "thumbnailAlt": "재테크 기초반 강의 썸네일",
+      "categoryLabel": "재테크 기초",
+      "instructor": "너나위",
+      "tags": ["광화문금융러", "김인턴"],
+      "rating": 4.87,
+      "reviewCount": 11265,
+      "openDate": "",
+      "featured": false
+    },
+    {
+      "slug": "money-book-club",
+      "title": "26년 4월 돈버는 독서모임 <돈의 가격>",
+      "thumbnail": "/images/banners/banner11.webp",
+      "thumbnailAlt": "돈버는 독서모임 강의 썸네일",
+      "categoryLabel": "독서멘토",
+      "instructor": "독서리더",
+      "tags": [],
+      "rating": 4.94,
+      "reviewCount": 2020,
+      "openDate": "",
+      "featured": false
+    },
+    {
+      "slug": "us-stock-basic",
+      "title": "[사전 예약] 계좌개설부터 백만원까지, 미국주식 기초반 6기",
+      "thumbnail": "/images/banners/banner9.jpg",
+      "thumbnailAlt": "미국주식 기초반 강의 썸네일",
+      "categoryLabel": "미국주식 직투",
+      "instructor": "광화문금융러",
+      "tags": [],
+      "rating": 4.94,
+      "reviewCount": 555,
+      "openDate": "",
+      "featured": false
+    }
+  ],
+
+  "bestChipCategories": [
+    { "value": "all", "label": "전체" },
+    { "value": "real-estate", "label": "부동산투자" },
+    { "value": "my-house", "label": "내집마련" },
+    { "value": "online-store", "label": "온라인스토어" },
+    { "value": "blog", "label": "블로그" },
+    { "value": "youtube", "label": "유튜브" },
+    { "value": "auction", "label": "경매" },
+    { "value": "stock", "label": "주식" },
+    { "value": "finance", "label": "재테크" },
+    { "value": "tax-loan", "label": "세금/대출" },
+    { "value": "commercial", "label": "상가/빌딩" }
+  ],
+
+  "bestCourses": [
+    {
+      "slug": "real-estate-basic-class",
+      "title": "[26.5월 규제반영] 2026 부동산 투자 시작하는 법 - 열반스쿨 기초반",
+      "thumbnail": "/images/banners/banner1.jpg",
+      "thumbnailAlt": "열반스쿨 기초반 강의 썸네일",
+      "categoryLabel": "부동산 투자 기초",
+      "instructor": "너바나",
+      "tags": ["자금과외요", "주우이"],
+      "rating": 4.98,
+      "reviewCount": 171912,
+      "category": "real-estate"
+    },
+    {
+      "slug": "ss-coupon-basic",
+      "title": "[3차 얼리버드] 무조건 주문이 들어오는 스스쿠팡 기초반 5기",
+      "thumbnail": "/images/banners/banner8.png",
+      "thumbnailAlt": "스스쿠팡 기초반 강의 썸네일",
+      "categoryLabel": "부업 BEST 1위",
+      "instructor": "민군",
+      "tags": [],
+      "rating": 4.91,
+      "reviewCount": 3063,
+      "category": "online-store",
+      "badge": "LV.1"
+    },
+    {
+      "slug": "cheap-apartment-finder",
+      "title": "2026 NEW 부동산 입문 BEST - 너나위의 저평가 아파트 찾는 법",
+      "thumbnail": "/images/banners/banner5.jpg",
+      "thumbnailAlt": "저평가 아파트 찾는 법 강의 썸네일",
+      "categoryLabel": "2026년 NEW",
+      "instructor": "너나위",
+      "tags": [],
+      "rating": 4.96,
+      "reviewCount": 4687,
+      "category": "real-estate"
+    },
+    {
+      "slug": "real-estate-intermediate",
+      "title": "열반스쿨 중급반 - 직장인이 투자로 10억 달성하는 법",
+      "thumbnail": "/images/banners/banner2.png",
+      "thumbnailAlt": "열반스쿨 중급반 강의 썸네일",
+      "categoryLabel": "부동산 기초",
+      "instructor": "딥부엔트",
+      "tags": ["밥잘사주는부자마늘"],
+      "rating": 4.98,
+      "reviewCount": 106062,
+      "category": "real-estate"
+    },
+    {
+      "slug": "my-house-basic",
+      "title": "[3월 오픈] 내집마련 고민이라면? 집사기 전 - 너나위의 내집마련 기초반",
+      "thumbnail": "/images/banners/banner7.png",
+      "thumbnailAlt": "내집마련 기초반 강의 썸네일",
+      "categoryLabel": "내집마련",
+      "instructor": "너나위",
+      "tags": ["용용맘민맘", "자금과외요"],
+      "rating": 4.97,
+      "reviewCount": 82059,
+      "category": "my-house",
+      "badge": "LV.1"
+    },
+    {
+      "slug": "blog-auto-income",
+      "title": "[이번 주 모집 마감] 월부월백 기초반 - 자는 동안에도 돈 버는 블로그 만들기",
+      "thumbnail": "/images/banners/banner6.jpg",
+      "thumbnailAlt": "월부월백 기초반 강의 썸네일",
+      "categoryLabel": "블로그 부업",
+      "instructor": "메킷",
+      "tags": [],
+      "rating": 4.89,
+      "reviewCount": 1915,
+      "category": "blog",
+      "badge": "LV.1"
+    },
+    {
+      "slug": "us-stock-basic",
+      "title": "[사전 예약] 계좌개설부터 백만원까지, 미국주식 기초반 6기",
+      "thumbnail": "/images/banners/banner9.jpg",
+      "thumbnailAlt": "미국주식 기초반 강의 썸네일",
+      "categoryLabel": "미국주식 직투",
+      "instructor": "광화문금융러",
+      "tags": [],
+      "rating": 4.94,
+      "reviewCount": 555,
+      "category": "stock",
+      "badge": "LV.1"
+    },
+    {
+      "slug": "financial-basic-class",
+      "title": "[4월 오픈] 재테크 기초반 - 같은 월급 2배 더 빨리 모으는 재테크 성공공식",
+      "thumbnail": "/images/banners/banner10.webp",
+      "thumbnailAlt": "재테크 기초반 강의 썸네일",
+      "categoryLabel": "2026 NEW",
+      "instructor": "너나위",
+      "tags": ["광화문금융러", "김인턴"],
+      "rating": 4.87,
+      "reviewCount": 11265,
+      "category": "finance"
+    },
+    {
+      "slug": "money-book-club",
+      "title": "26년 4월 돈버는 독서모임 <돈의 가격>",
+      "thumbnail": "/images/banners/banner11.webp",
+      "thumbnailAlt": "돈버는 독서모임 강의 썸네일",
+      "categoryLabel": "독서멘토",
+      "instructor": "독서리더",
+      "tags": ["독서멘트", "독서리더"],
+      "rating": 4.94,
+      "reviewCount": 2020,
+      "category": "finance"
+    }
+  ],
+
+  "testimonials": [
+    {
+      "name": "이수강",
+      "content": "실무에서 바로 적용할 수 있는 내용이 가득했습니다.",
+      "course": "react-masterclass"
+    }
+  ],
+
+  "faq": [
+    { "question": "결제는 어떻게 하나요?", "answer": "신용카드, 계좌이체, 간편결제를 지원합니다." },
+    { "question": "환불 정책은 어떻게 되나요?", "answer": "수강 시작 후 7일 이내 전액 환불이 가능합니다." },
+    { "question": "수강 기간에 제한이 있나요?", "answer": "모든 강의는 구매 후 무제한으로 수강 가능합니다." },
+    { "question": "수료증이 발급되나요?", "answer": "강의 완료 시 수료증을 PDF로 다운로드할 수 있습니다." }
+  ]
+}
