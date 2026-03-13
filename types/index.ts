@@ -33,6 +33,37 @@ export interface CourseFaq {
   answer: string;
 }
 
+export interface CourseReview {
+  name: string;
+  rating: number;
+  text: string;
+  date: string;
+}
+
+export interface CurriculumLesson {
+  name: string;
+  duration: string;
+  locked: boolean;
+}
+
+export interface CurriculumSection {
+  title: string;
+  lessons: CurriculumLesson[];
+}
+
+export interface CourseCreator {
+  name: string;
+  role: string;
+  bio: string;
+  avatar?: string;
+}
+
+export interface CourseDiscount {
+  rate: number;
+  label: string;
+  couponValidDays: number;
+}
+
 export interface Course {
   slug: string;
   title: string;
@@ -49,7 +80,13 @@ export interface Course {
   badges: string[];
   rating?: number;
   reviewCount?: number;
+  enrollmentPeriod: string;
   faq: CourseFaq[];
+  bestReviews: CourseReview[];
+  allReviews: CourseReview[];
+  curriculum: CurriculumSection[];
+  creator: CourseCreator;
+  discount: CourseDiscount;
 }
 
 export interface HomeSection {

@@ -54,6 +54,80 @@
       ]
     },
     "detail": {
+      "tabs": ["소개", "질문 · 답변", "커리큘럼", "크리에이터", "후기"],
+      "breadcrumb": {
+        "homeLabel": "홈",
+        "homeHref": "/",
+        "coursesLabel": "강의",
+        "coursesHref": "/courses",
+        "ariaLabel": "경로"
+      },
+      "categoryLabels": {
+        "real-estate": "부동산",
+        "finance": "재테크/주식",
+        "online-store": "온라인스토어",
+        "side-business": "부업",
+        "coaching": "코칭",
+        "blog": "블로그",
+        "stock": "주식"
+      },
+      "levelLabels": {
+        "beginner": "입문·초급",
+        "intermediate": "중급",
+        "advanced": "고급"
+      },
+      "infoLabels": {
+        "enrollmentPeriod": "수강 기간",
+        "totalDuration": "총 강의 시간",
+        "level": "난이도",
+        "instructor": "강사"
+      },
+      "sectionTitles": {
+        "courseInfo": "수강 정보",
+        "description": "강의 설명",
+        "faq": "자주 묻는 질문",
+        "bestReviews": "베스트 수강 후기",
+        "allReviews": "전체 후기",
+        "curriculum": "커리큘럼"
+      },
+      "buttons": {
+        "allReviews": "전체 후기 보기",
+        "allReviewsAriaLabel": "전체 수강 후기 탭으로 이동"
+      },
+      "emptyStates": {
+        "questions": "아직 질문이 없습니다."
+      },
+      "sidebar": {
+        "originalPriceLabel": "정가",
+        "firstBuyLabel": "첫구매 할인가",
+        "couponClaimLabel": "쿠폰 받기",
+        "couponClaimedLabel": "✓ 쿠폰 받음",
+        "optionsTitle": "수강 옵션",
+        "unlimitedLabel": "무제한 수강",
+        "totalLabel": "총 상품 금액",
+        "wishAriaLabel": "찜하기",
+        "wishActiveAriaLabel": "찜 해제",
+        "wishIcon": "♡",
+        "wishActiveIcon": "♥",
+        "buyLabel": "강의 구매하기",
+        "buyAriaLabel": "이 강의 구매 페이지로 이동"
+      },
+      "couponModal": {
+        "title": "쿠폰 받기 완료!",
+        "descriptionTemplate": "{validTo}까지 할인받고 구매하세요.",
+        "badgeLabel": "혜택 쿠폰",
+        "confirmLabel": "확인",
+        "ariaLabel": "쿠폰 받기 완료"
+      },
+      "banners": {
+        "": { "src": "/images/banners/course-banner.png", "alt": "강의 프로모션 배너" },
+        "real-estate": { "src": "/images/banners/course-banner.png", "alt": "부동산 강의 배너" },
+        "original": { "src": "/images/banners/course-banner.png", "alt": "오리지널 강의 배너" },
+        "finance": { "src": "/images/banners/course-banner.png", "alt": "재테크 강의 배너" }
+      },
+      "bannerAriaLabel": "강의 배너",
+      "reviewUnit": "개",
+      "reviewScoreSuffix": "개 후기",
       "ctaBuyLabel": "수강 신청",
       "ctaBuyAriaLabel": "이 강의 수강 신청하기",
       "ctaCartLabel": "장바구니 담기",

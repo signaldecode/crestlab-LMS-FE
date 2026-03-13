@@ -7,6 +7,7 @@ import type { JSX } from 'react';
 import type { Course } from '@/types';
 import CourseDetailContent from '@/components/courses/CourseDetailContent';
 import CourseDetailSidebar from '@/components/courses/CourseDetailSidebar';
+import uiData from '@/data/uiData.json';
 
 interface CourseDetailContainerProps {
   course: Course | null;
@@ -17,7 +18,7 @@ export default function CourseDetailContainer({ course }: CourseDetailContainerP
     return (
       <div className="course-detail-layout">
         <div className="course-detail-content">
-          <p>강의를 찾을 수 없습니다.</p>
+          <p>{uiData.emptyState.courseNotFound}</p>
         </div>
       </div>
     );

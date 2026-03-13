@@ -39,6 +39,7 @@
     "posts": "게시글이 없습니다.",
     "comments": "댓글이 없습니다.",
     "tickets": "문의 내역이 없습니다.",
-    "searchResult": "검색 결과가 없습니다."
+    "searchResult": "검색 결과가 없습니다.",
+    "courseNotFound": "강의를 찾을 수 없습니다."
   }
 }
