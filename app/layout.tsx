@@ -7,6 +7,7 @@
 
 import type { JSX, ReactNode } from 'react';
 import type { Metadata } from 'next';
+import Providers from './providers';
 import '@/assets/styles/main.scss';
 
 export const metadata: Metadata = {
@@ -20,8 +21,10 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
   return (
-    <html lang="ko">
-      <body>{children}</body>
+    <html lang="ko" suppressHydrationWarning>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

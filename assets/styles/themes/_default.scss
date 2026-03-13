@@ -1,7 +1,96 @@
 // ============================================
-// 기본 테마 (_default.scss)
-// - 기본 테마 확장/오버라이드를 위한 파일
-// - 다크 모드 등 테마 분기가 필요할 때 이곳에서 관리한다
+// 기본(라이트) 테마 (_default.scss)
+// - SCSS 토큰을 CSS Custom Properties로 노출한다
+// - 컴포넌트에서 var(--color-primary) 등으로 참조하면
+//   런타임 테마 전환이 가능해진다
+// - 고객사 커스터마이징 시 이 파일의 값만 교체하면 전체 테마가 변경된다
 // ============================================
 
-// 기본 테마는 토큰 값을 그대로 사용한다
+@use '../tokens/colors' as c;
+@use '../tokens/typography' as t;
+@use '../tokens/spacing' as s;
+@use '../tokens/z-index' as z;
+
+:root {
+  // ── Brand ──
+  --color-primary: #{c.$color-primary};
+  --color-primary-light: #{c.$color-primary-light};
+  --color-primary-dark: #{c.$color-primary-dark};
+
+  // ── Secondary ──
+  --color-secondary: #{c.$color-secondary};
+  --color-secondary-light: #{c.$color-secondary-light};
+
+  // ── Text ──
+  --color-text-primary: #{c.$color-text-primary};
+  --color-text-secondary: #{c.$color-text-secondary};
+  --color-text-inverse: #{c.$color-text-inverse};
+
+  // ── Background ──
+  --color-bg-primary: #{c.$color-bg-primary};
+  --color-bg-secondary: #{c.$color-bg-secondary};
+  --color-bg-tertiary: #{c.$color-bg-tertiary};
+
+  // ── Border ──
+  --color-border: #{c.$color-border};
+  --color-border-focus: #{c.$color-border-focus};
+
+  // ── State ──
+  --color-success: #{c.$color-success};
+  --color-error: #{c.$color-error};
+  --color-warning: #{c.$color-warning};
+  --color-info: #{c.$color-info};
+
+  // ── Typography ──
+  --font-family-base: #{t.$font-family-base};
+  --font-family-heading: #{t.$font-family-heading};
+  --font-family-mono: #{t.$font-family-mono};
+
+  --font-size-xs: #{t.$font-size-xs};
+  --font-size-sm: #{t.$font-size-sm};
+  --font-size-base: #{t.$font-size-base};
+  --font-size-md: #{t.$font-size-md};
+  --font-size-lg: #{t.$font-size-lg};
+  --font-size-xl: #{t.$font-size-xl};
+  --font-size-2xl: #{t.$font-size-2xl};
+  --font-size-3xl: #{t.$font-size-3xl};
+
+  --font-weight-regular: #{t.$font-weight-regular};
+  --font-weight-medium: #{t.$font-weight-medium};
+  --font-weight-semibold: #{t.$font-weight-semibold};
+  --font-weight-bold: #{t.$font-weight-bold};
+
+  --line-height-tight: #{t.$line-height-tight};
+  --line-height-base: #{t.$line-height-base};
+  --line-height-relaxed: #{t.$line-height-relaxed};
+
+  // ── Spacing ──
+  --spacing-0: #{s.$spacing-0};
+  --spacing-1: #{s.$spacing-1};
+  --spacing-2: #{s.$spacing-2};
+  --spacing-3: #{s.$spacing-3};
+  --spacing-4: #{s.$spacing-4};
+  --spacing-5: #{s.$spacing-5};
+  --spacing-6: #{s.$spacing-6};
+  --spacing-8: #{s.$spacing-8};
+  --spacing-10: #{s.$spacing-10};
+  --spacing-12: #{s.$spacing-12};
+  --spacing-16: #{s.$spacing-16};
+  --spacing-20: #{s.$spacing-20};
+
+  --section-padding-y: #{s.$section-padding-y};
+  --section-padding-x: #{s.$section-padding-x};
+  --container-max-width: #{s.$container-max-width};
+  --container-padding: #{s.$container-padding};
+
+  // ── Z-Index ──
+  --z-dropdown: #{z.$z-index-dropdown};
+  --z-sticky: #{z.$z-index-sticky};
+  --z-fixed: #{z.$z-index-fixed};
+  --z-sidebar: #{z.$z-index-sidebar};
+  --z-modal-backdrop: #{z.$z-index-modal-backdrop};
+  --z-modal: #{z.$z-index-modal};
+  --z-toast: #{z.$z-index-toast};
+  --z-tooltip: #{z.$z-index-tooltip};
+  --z-skip-to-content: #{z.$z-index-skip-to-content};
+}

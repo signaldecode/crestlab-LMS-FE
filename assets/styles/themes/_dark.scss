@@ -1,0 +1,37 @@
+// ============================================
+// 다크 테마 (_dark.scss)
+// - [data-theme="dark"] 선택자로 CSS Custom Properties를 오버라이드한다
+// - 라이트 테마와 동일한 변수명을 사용하므로 컴포넌트 수정 없이 전환 가능하다
+// - 색상만 변경하며, 타이포/스페이싱/z-index는 라이트 테마 값을 유지한다
+// ============================================
+
+[data-theme='dark'] {
+  // ── Brand ──
+  --color-primary: #60a5fa;
+  --color-primary-light: #93c5fd;
+  --color-primary-dark: #3b82f6;
+
+  // ── Secondary ──
+  --color-secondary: #a78bfa;
+  --color-secondary-light: #c4b5fd;
+
+  // ── Text ──
+  --color-text-primary: #f9fafb;
+  --color-text-secondary: #9ca3af;
+  --color-text-inverse: #111827;
+
+  // ── Background ──
+  --color-bg-primary: #111827;
+  --color-bg-secondary: #1f2937;
+  --color-bg-tertiary: #374151;
+
+  // ── Border ──
+  --color-border: #374151;
+  --color-border-focus: #60a5fa;
+
+  // ── State ──
+  --color-success: #22c55e;
+  --color-error: #f87171;
+  --color-warning: #fbbf24;
+  --color-info: #60a5fa;
+}

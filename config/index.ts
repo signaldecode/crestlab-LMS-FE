@@ -6,12 +6,14 @@
 
 interface Config {
   apiBase: string;
+  backendBase: string;
   siteName: string;
   isProd: boolean;
 }
 
 const config: Config = {
   apiBase: process.env.NEXT_PUBLIC_API_BASE || '/api',
+  backendBase: process.env.BACKEND_API_BASE || 'http://localhost:8080',
   siteName: process.env.NEXT_PUBLIC_SITE_NAME || '강의 플랫폼',
   isProd: process.env.NODE_ENV === 'production',
 };
