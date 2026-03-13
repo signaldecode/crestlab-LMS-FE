@@ -31,6 +31,13 @@
     "cartAdded": "장바구니에 담았습니다.",
     "cartRemoved": "장바구니에서 삭제했습니다."
   },
+  "wish": {
+    "addAriaLabel": "찜하기",
+    "removeAriaLabel": "찜 해제",
+    "addIcon": "♡",
+    "removeIcon": "♥"
+  },
+  "priceUnit": "원",
   "emptyState": {
     "courses": "아직 강의가 없습니다.",
     "myCourses": "수강 중인 강의가 없습니다.",

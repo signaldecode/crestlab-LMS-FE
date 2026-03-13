@@ -10,7 +10,9 @@ import { useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getCertificates, getCourses } from '@/lib/data';
+import accountData from '@/data/accountData.json';
 
+const certsPageData = accountData.mypage.certificatesPage;
 const SK = 'mypage-classroom';
 
 export default function CertificateContent(): JSX.Element {
@@ -27,10 +29,10 @@ export default function CertificateContent(): JSX.Element {
   return (
     <div className="mypage-classroom">
       <div className={`${SK}__menu-content`}>
-        <h2 className={`${SK}__menu-title`}>수료증</h2>
+        <h2 className={`${SK}__menu-title`}>{certsPageData.title}</h2>
         {certsWithCourse.length === 0 ? (
           <div className={`${SK}__empty`}>
-            <p className={`${SK}__empty-text`}>수료증이 없습니다.</p>
+            <p className={`${SK}__empty-text`}>{certsPageData.emptyText}</p>
           </div>
         ) : (
           <div className={`${SK}__course-grid`}>
@@ -51,17 +53,17 @@ export default function CertificateContent(): JSX.Element {
                 )}
                 <div className={`${SK}__cert-body`}>
                   <span className={`${SK}__cert-title`}>
-                    {cert.course?.title ?? '알 수 없는 강의'}
+                    {cert.course?.title ?? certsPageData.unknownCourse}
                   </span>
                   <div className={`${SK}__course-meta`}>
                     <span className={`${SK}__cert-instructor`}>{cert.course?.instructor}</span>
                   </div>
                   <div className={`${SK}__cert-footer`}>
                     <span className={`${SK}__cert-date`}>
-                      {cert.issuedAt ? `발급일 ${cert.issuedAt}` : '수강 진행중'}
+                      {cert.issuedAt ? `${certsPageData.issueDatePrefix} ${cert.issuedAt}` : certsPageData.inProgressLabel}
                     </span>
                     {cert.status === '발급완료' ? (
-                      <button type="button" className={`${SK}__cert-download-btn`}>다운로드</button>
+                      <button type="button" className={`${SK}__cert-download-btn`}>{certsPageData.downloadLabel}</button>
                     ) : (
                       <span className={`${SK}__cert-status`}>{cert.status}</span>
                     )}

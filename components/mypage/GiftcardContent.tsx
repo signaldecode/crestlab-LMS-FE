@@ -6,31 +6,33 @@
 'use client';
 
 import type { JSX } from 'react';
+import accountData from '@/data/accountData.json';
 
+const giftcardsData = accountData.mypage.giftcardsPage;
 const SK = 'mypage-classroom';
 
 export default function GiftcardContent(): JSX.Element {
   return (
     <div className="mypage-classroom">
       <div className={`${SK}__menu-content`}>
-        <h2 className={`${SK}__menu-title`}>상품권</h2>
+        <h2 className={`${SK}__menu-title`}>{giftcardsData.title}</h2>
 
         {/* 총 사용가능 금액 */}
         <div className={`${SK}__giftcard-summary`}>
-          <span className={`${SK}__giftcard-summary-label`}>총 사용가능</span>
-          <span className={`${SK}__giftcard-summary-value`}>0원</span>
+          <span className={`${SK}__giftcard-summary-label`}>{giftcardsData.totalLabel}</span>
+          <span className={`${SK}__giftcard-summary-value`}>{giftcardsData.defaultValue}</span>
         </div>
 
         {/* 보유 상품권 */}
         <div className={`${SK}__empty`}>
-          <p className={`${SK}__empty-text`}>보유중인 상품권이 없습니다.</p>
+          <p className={`${SK}__empty-text`}>{giftcardsData.emptyText}</p>
         </div>
 
         {/* 이용내역 */}
         <div className={`${SK}__giftcard-history`}>
-          <h3 className={`${SK}__giftcard-history-title`}>이용내역</h3>
+          <h3 className={`${SK}__giftcard-history-title`}>{giftcardsData.historyTitle}</h3>
           <div className={`${SK}__empty`}>
-            <p className={`${SK}__empty-text`}>최근 이용내역이 없습니다.</p>
+            <p className={`${SK}__empty-text`}>{giftcardsData.historyEmptyText}</p>
           </div>
         </div>
       </div>

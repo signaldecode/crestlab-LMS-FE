@@ -10,7 +10,9 @@ import { useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getReviews, getCourses } from '@/lib/data';
+import accountData from '@/data/accountData.json';
 
+const reviewsPageData = accountData.mypage.reviewsPage;
 const SK = 'mypage-classroom';
 
 export default function ReviewContent(): JSX.Element {
@@ -27,10 +29,10 @@ export default function ReviewContent(): JSX.Element {
   return (
     <div className="mypage-classroom">
       <div className={`${SK}__menu-content`}>
-        <h2 className={`${SK}__menu-title`}>후기 관리</h2>
+        <h2 className={`${SK}__menu-title`}>{reviewsPageData.title}</h2>
         {reviewsWithCourse.length === 0 ? (
           <div className={`${SK}__empty`}>
-            <p className={`${SK}__empty-text`}>작성한 후기가 없습니다.</p>
+            <p className={`${SK}__empty-text`}>{reviewsPageData.emptyText}</p>
           </div>
         ) : (
           <div className={`${SK}__review-list`}>

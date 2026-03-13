@@ -8,6 +8,9 @@
 
 import { useState } from 'react';
 import type { JSX } from 'react';
+import accountData from '@/data/accountData.json';
+
+const followData = accountData.mypage.profileFollow;
 
 type FollowSubTab = 'followers' | 'following';
 
@@ -25,7 +28,7 @@ export default function ProfileFollowTab({
   return (
     <div className="profile-follow">
       {/* 서브탭: 팔로워 / 팔로잉 */}
-      <div className="profile-follow__sub-tabs" role="tablist" aria-label="팔로우 탭">
+      <div className="profile-follow__sub-tabs" role="tablist" aria-label={followData.tabsAriaLabel}>
         <button
           type="button"
           role="tab"
@@ -35,7 +38,7 @@ export default function ProfileFollowTab({
           aria-controls="follow-panel-followers"
           onClick={() => setActiveSubTab('followers')}
         >
-          팔로워 <span className="profile-follow__sub-tab-count">{followerCount}</span>
+          {followData.followersLabel} <span className="profile-follow__sub-tab-count">{followerCount}</span>
         </button>
         <button
           type="button"
@@ -46,7 +49,7 @@ export default function ProfileFollowTab({
           aria-controls="follow-panel-following"
           onClick={() => setActiveSubTab('following')}
         >
-          팔로잉 <span className="profile-follow__sub-tab-count">{followingCount}</span>
+          {followData.followingLabel} <span className="profile-follow__sub-tab-count">{followingCount}</span>
         </button>
       </div>
 
@@ -59,7 +62,7 @@ export default function ProfileFollowTab({
         className="profile-follow__panel"
       >
         <p className="profile-follow__empty">
-          나를 팔로우한 사용자가 없습니다.
+          {followData.emptyFollowers}
         </p>
       </div>
 
@@ -72,7 +75,7 @@ export default function ProfileFollowTab({
         className="profile-follow__panel"
       >
         <p className="profile-follow__empty">
-          팔로잉 중인 사용자가 없습니다.
+          {followData.emptyFollowing}
         </p>
       </div>
     </div>

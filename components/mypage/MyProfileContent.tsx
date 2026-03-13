@@ -11,11 +11,9 @@ import type { JSX } from 'react';
 import Link from 'next/link';
 import ProfileIntroTab from '@/components/mypage/ProfileIntroTab';
 import ProfileFollowTab from '@/components/mypage/ProfileFollowTab';
+import accountData from '@/data/accountData.json';
 
-const tabs = ['소개', '작성 및 활동', '팔로우'] as const;
-type ProfileTab = (typeof tabs)[number];
-
-const activityFilters = ['작성한 글', '댓글단 글', '저장한 글', '배지'];
+const profileData = accountData.mypage.profile;
 
 interface MyProfileContentProps {
   userId?: string;
@@ -23,15 +21,15 @@ interface MyProfileContentProps {
 }
 
 export default function MyProfileContent({ userId, userName }: MyProfileContentProps): JSX.Element {
-  const [activeTab, setActiveTab] = useState<ProfileTab>('소개');
+  const [activeTab, setActiveTab] = useState(profileData.tabs[0]);
 
   void userId;
 
   return (
     <div className="mypage-profile">
       {/* 탭 */}
-      <div className="mypage-profile__tabs" role="tablist" aria-label="프로필 탭">
-        {tabs.map((tab) => (
+      <div className="mypage-profile__tabs" role="tablist" aria-label={profileData.tabsAriaLabel}>
+        {profileData.tabs.map((tab) => (
           <button
             key={tab}
             type="button"
@@ -46,20 +44,20 @@ export default function MyProfileContent({ userId, userName }: MyProfileContentP
       </div>
 
       {/* 소개 탭 */}
-      {activeTab === '소개' && (
+      {activeTab === profileData.tabs[0] && (
         <ProfileIntroTab userName={userName} />
       )}
 
       {/* 작성 및 활동 탭 */}
-      {activeTab === '작성 및 활동' && (
+      {activeTab === profileData.tabs[1] && (
         <>
           {/* 활동 필터 */}
           <div className="mypage-profile__filters">
-            {activityFilters.map((filter) => (
+            {profileData.activityFilters.map((filter) => (
               <button
                 key={filter}
                 type="button"
-                className={`mypage-profile__filter${filter === '작성한 글' ? ' mypage-profile__filter--active' : ''}`}
+                className={`mypage-profile__filter${filter === profileData.activityFilters[0] ? ' mypage-profile__filter--active' : ''}`}
               >
                 {filter} <span className="mypage-profile__filter-count">0</span>
               </button>
@@ -68,36 +66,43 @@ export default function MyProfileContent({ userId, userName }: MyProfileContentP
 
           {/* 검색 + 정렬 */}
           <div className="mypage-profile__toolbar">
-            <select className="mypage-profile__select" aria-label="필터">
-              <option>전체</option>
+            <select className="mypage-profile__select" aria-label={profileData.filterAriaLabel}>
+              <option>{profileData.filterAllLabel}</option>
             </select>
             <input
               type="search"
               className="mypage-profile__search"
-              placeholder="검색어를 입력하세요"
-              aria-label="검색"
+              placeholder={profileData.searchPlaceholder}
+              aria-label={profileData.searchAriaLabel}
             />
           </div>
 
           <div className="mypage-profile__result-info">
-            <span>글 0건</span>
+            <span>{profileData.resultCountTemplate.replace('{count}', '0')}</span>
             <div className="mypage-profile__sort">
-              <button type="button" className="mypage-profile__sort-btn mypage-profile__sort-btn--active">최신순</button>
-              <button type="button" className="mypage-profile__sort-btn">오래된순</button>
+              {profileData.sortOptions.map((opt, i) => (
+                <button
+                  key={opt}
+                  type="button"
+                  className={`mypage-profile__sort-btn${i === 0 ? ' mypage-profile__sort-btn--active' : ''}`}
+                >
+                  {opt}
+                </button>
+              ))}
             </div>
           </div>
 
           {/* 빈 상태 */}
           <div className="mypage-profile__empty">
-            <p>아직은 비어있지만, 여기에 내 경험이 쌓일거에요.</p>
-            <p>오늘 어떤 이야기를 남겨볼까요?</p>
-            <Link href="/community/new" className="mypage-profile__write-btn">+ 글쓰기</Link>
+            <p>{profileData.emptyActivity.line1}</p>
+            <p>{profileData.emptyActivity.line2}</p>
+            <Link href="/community/new" className="mypage-profile__write-btn">{profileData.emptyActivity.writeLabel}</Link>
           </div>
         </>
       )}
 
       {/* 팔로우 탭 */}
-      {activeTab === '팔로우' && (
+      {activeTab === profileData.tabs[2] && (
         <ProfileFollowTab />
       )}
     </div>

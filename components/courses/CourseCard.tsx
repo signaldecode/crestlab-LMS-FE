@@ -11,13 +11,14 @@ import Link from 'next/link';
 import type { JSX } from 'react';
 import type { Course } from '@/types';
 import useWishlistStore from '@/stores/useWishlistStore';
+import uiData from '@/data/uiData.json';
 
 interface CourseCardProps {
   course: Course;
 }
 
 function formatPrice(price: number): string {
-  return price.toLocaleString('ko-KR') + '원';
+  return price.toLocaleString('ko-KR') + uiData.priceUnit;
 }
 
 function formatReviewCount(count: number): string {
@@ -66,9 +67,9 @@ export default function CourseCard({ course }: CourseCardProps): JSX.Element {
           type="button"
           className={`course-card__wish-btn${wished ? ' course-card__wish-btn--active' : ''}`}
           onClick={handleWish}
-          aria-label={wished ? '찜 해제' : '찜하기'}
+          aria-label={wished ? uiData.wish.removeAriaLabel : uiData.wish.addAriaLabel}
         >
-          {wished ? '♥' : '♡'}
+          {wished ? uiData.wish.removeIcon : uiData.wish.addIcon}
         </button>
       </div>
       <div className="course-card__body">

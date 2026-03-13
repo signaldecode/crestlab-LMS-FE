@@ -186,8 +186,11 @@ export interface NavData {
 export interface FooterBusiness {
   companyName: string;
   ceo: string;
+  ceoLabel: string;
   registrationNumber: string;
+  registrationLabel: string;
   ecommerceRegistration: string;
+  ecommerceLabel: string;
   label: string;
 }
 

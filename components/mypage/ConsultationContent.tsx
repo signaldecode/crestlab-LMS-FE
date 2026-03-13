@@ -10,7 +10,9 @@ import { useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getConsultations, getCourses } from '@/lib/data';
+import accountData from '@/data/accountData.json';
 
+const consultsPageData = accountData.mypage.consultationsPage;
 const SK = 'mypage-classroom';
 
 export default function ConsultationContent(): JSX.Element {
@@ -27,10 +29,10 @@ export default function ConsultationContent(): JSX.Element {
   return (
     <div className="mypage-classroom">
       <div className={`${SK}__menu-content`}>
-        <h2 className={`${SK}__menu-title`}>강의 상담</h2>
+        <h2 className={`${SK}__menu-title`}>{consultsPageData.title}</h2>
         {consultsWithCourse.length === 0 ? (
           <div className={`${SK}__empty`}>
-            <p className={`${SK}__empty-text`}>강의 상담 내역이 없습니다.</p>
+            <p className={`${SK}__empty-text`}>{consultsPageData.emptyText}</p>
           </div>
         ) : (
           <div className={`${SK}__consult-list`}>

@@ -11,12 +11,15 @@ import { useState } from 'react';
 import Link from 'next/link';
 import useCouponStore from '@/stores/useCouponStore';
 import { getExpiredCoupons } from '@/lib/data';
+import accountData from '@/data/accountData.json';
+import uiData from '@/data/uiData.json';
 import type { CouponItem } from '@/stores/useCouponStore';
 
+const couponPageData = accountData.mypage.couponsPage;
 const SK = 'mypage-classroom';
 
 function formatPrice(price: number): string {
-  return price.toLocaleString('ko-KR') + '원';
+  return price.toLocaleString('ko-KR') + uiData.priceUnit;
 }
 
 function getDaysRemaining(validTo: string): number {
@@ -35,22 +38,22 @@ export default function CouponContent(): JSX.Element {
   return (
     <div className="mypage-classroom">
       <div className={`${SK}__menu-content`}>
-        <h2 className={`${SK}__menu-title`}>쿠폰</h2>
+        <h2 className={`${SK}__menu-title`}>{couponPageData.title}</h2>
         <div className={`${SK}__coupon-page`}>
           {/* 쿠폰 등록 */}
           <div className={`${SK}__coupon-register`}>
             <input
               type="text"
               className={`${SK}__coupon-input`}
-              placeholder="쿠폰 번호를 입력하세요."
+              placeholder={couponPageData.registerPlaceholder}
               value={couponCode}
               onChange={(e) => setCouponCode(e.target.value)}
             />
             <button type="button" className={`${SK}__coupon-register-btn`}>
-              쿠폰 등록
+              {couponPageData.registerButton}
             </button>
           </div>
-          <p className={`${SK}__coupon-note`}>대소문자 구분을 확인하세요.</p>
+          <p className={`${SK}__coupon-note`}>{couponPageData.registerNote}</p>
 
           {/* 쿠폰 목록 */}
           <div className={`${SK}__coupon-list`}>
@@ -64,11 +67,11 @@ export default function CouponContent(): JSX.Element {
                     </span>
                     <p className={`${SK}__coupon-desc`}>
                       {coupon.description}
-                      {coupon.discountRate > 0 && ` (${coupon.discountRate}% 할인)`}
+                      {coupon.discountRate > 0 && ` (${coupon.discountRate}${couponPageData.discountSuffix})`}
                     </p>
                     <span className={`${SK}__coupon-period`}>
                       {daysLeft > 0 && (
-                        <span className={`${SK}__coupon-remaining`}>{daysLeft}일 남음</span>
+                        <span className={`${SK}__coupon-remaining`}>{daysLeft}{couponPageData.remainingSuffix}</span>
                       )}
                       {coupon.validFrom} ~ {coupon.validTo}
                     </span>
@@ -78,7 +81,7 @@ export default function CouponContent(): JSX.Element {
                       href={`/courses/${coupon.courseSlug}`}
                       className={`${SK}__coupon-apply-link`}
                     >
-                      적용상품 보기 &gt;
+                      {couponPageData.viewProductLabel}
                     </Link>
                   </div>
                 </div>
@@ -104,7 +107,7 @@ export default function CouponContent(): JSX.Element {
 
             {claimedCoupons.length === 0 && expiredCoupons.length === 0 && (
               <div className={`${SK}__empty`}>
-                <p className={`${SK}__empty-text`}>쿠폰이 없습니다.</p>
+                <p className={`${SK}__empty-text`}>{couponPageData.emptyText}</p>
               </div>
             )}
           </div>

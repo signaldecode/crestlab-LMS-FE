@@ -9,6 +9,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { JSX } from 'react';
+import siteData from '@/data/siteData.json';
 
 interface TopBarNavItem {
   label: string;
@@ -24,7 +25,7 @@ export default function TopBarNav({ items }: TopBarNavProps): JSX.Element {
   const pathname = usePathname();
 
   return (
-    <nav className="app-header__sections" aria-label="섹션 메뉴">
+    <nav className="app-header__sections" aria-label={siteData.a11y.nav.sectionMenu}>
       {items.map((item) => {
         const isActive =
           item.href === '/'

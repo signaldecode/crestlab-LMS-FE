@@ -10,10 +10,11 @@ import AppLogo from '@/components/common/AppLogo';
 import TopBarNav from '@/components/layout/TopBarNav';
 import GlobalNav from '@/components/layout/GlobalNav';
 import SubNav from '@/components/layout/SubNav';
-import { getNavData } from '@/lib/data';
+import { getNavData, getMainData } from '@/lib/data';
 
 export default function AppHeader(): JSX.Element {
   const nav = getNavData();
+  const a11yHeader = getMainData().a11y.header as { notificationAriaLabel: string; myClassroomLabel: string };
 
   return (
     <header className="app-header" role="banner">
@@ -39,7 +40,7 @@ export default function AppHeader(): JSX.Element {
               />
             </div>
 
-            <button type="button" className="app-header__icon-btn" aria-label="알림">
+            <button type="button" className="app-header__icon-btn" aria-label={a11yHeader.notificationAriaLabel}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
                 <path d="M13.73 21a2 2 0 0 1-3.46 0" />
@@ -51,7 +52,7 @@ export default function AppHeader(): JSX.Element {
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
               </svg>
-              내 강의실
+              {a11yHeader.myClassroomLabel}
             </Link>
           </div>
         </div>

@@ -19,41 +19,41 @@ import accountData from '@/data/accountData.json';
 import type { ProfileCardData, MyPageSection } from '@/types';
 
 const profileCardData = accountData.profileCard as unknown as ProfileCardData;
+const mypageData = accountData.mypage;
 
-/** 메뉴 아이템 → 섹션 매핑 (내부 SPA 전환) */
-const menuSections: Record<string, MyPageSection> = {
-  '관심 클래스': 'wishlist',
-  '내 쿠폰': 'coupons',
-  '상품권': 'giftcards',
-  '포인트': 'points',
-  '강의 상담': 'consultations',
-  '수료증': 'certificates',
-  '후기 관리': 'reviews',
-  '구매 내역': 'orders',
-  '회원정보관리': 'profileEdit',
+/** 메뉴 아이템 키 → 섹션 매핑 (내부 SPA 전환) */
+const menuSectionKeys: Record<string, MyPageSection> = {
+  wishlist: 'wishlist',
+  coupons: 'coupons',
+  giftcards: 'giftcards',
+  points: 'points',
+  consultations: 'consultations',
+  certificates: 'certificates',
+  reviews: 'reviews',
+  orders: 'orders',
+  profileEdit: 'profileEdit',
 };
 
-/** 외부 링크 (마이페이지 밖으로 이동) */
-const externalLinks: Record<string, string> = {
-  '1:1 문의': '/support/tickets',
-  '자주 묻는 질문': '/support',
-};
+/** 외부 링크 키 → href 매핑 */
+const externalLinkMap: Record<string, string> = {};
+mypageData.sidebar.externalLinks.forEach((link) => {
+  externalLinkMap[link.key] = link.href;
+});
 
 interface MyPageSidebarProps {
   /** 타 유저 프로필인지 여부 */
   isOtherUser?: boolean;
 }
 
-const classroomMenu = [
-  { section: '강의 관련', items: ['관심 클래스', '강의 상담', '수료증', '후기 관리', '구매 내역'] },
-  { section: '고객 지원', items: ['1:1 문의', '자주 묻는 질문'] },
-  { section: '계정 관리', items: ['회원정보관리', '로그아웃'] },
-];
-
-const profileMenu = [
-  { section: '고객 지원', items: ['1:1 문의', '자주 묻는 질문'] },
-  { section: '계정 관리', items: ['회원정보관리', '로그아웃'] },
-];
+/** 키로 라벨 텍스트 가져오기 */
+function getItemLabel(key: string): string {
+  const menuItems = mypageData.sidebar.menuItems as Record<string, string>;
+  if (menuItems[key]) return menuItems[key];
+  const extLink = mypageData.sidebar.externalLinks.find((l) => l.key === key);
+  if (extLink) return extLink.label;
+  if (key === 'logout') return mypageData.sidebar.logoutLabel;
+  return key;
+}
 
 export default function MyPageSidebar({ isOtherUser = false }: MyPageSidebarProps): JSX.Element {
   const authUser = useAuthStore((s) => s.user);
@@ -65,8 +65,10 @@ export default function MyPageSidebar({ isOtherUser = false }: MyPageSidebarProp
   const activeSection = useMyPageStore((s) => s.activeSection);
   const setActiveSection = useMyPageStore((s) => s.setActiveSection);
 
-  const menu = activeTab === 'classroom' ? classroomMenu : profileMenu;
-  const userName = authUser?.nickname || authUser?.name || '회원';
+  const menuGroups = activeTab === 'classroom'
+    ? mypageData.sidebar.menuGroups.classroom
+    : mypageData.sidebar.menuGroups.profile;
+  const userName = authUser?.nickname || authUser?.name || mypageData.sidebar.fallbackName;
   const { toggleLabels, profileMode, classroomMode, otherUserMode } = profileCardData;
 
   const handleToggle = () => {
@@ -75,16 +77,16 @@ export default function MyPageSidebar({ isOtherUser = false }: MyPageSidebarProp
     setActiveSection(nextTab);
   };
 
-  const handleMenuClick = (item: string) => {
-    const section = menuSections[item];
+  const handleMenuClick = (key: string) => {
+    const section = menuSectionKeys[key];
     if (section) {
       setActiveSection(section);
     }
   };
 
   /** 현재 메뉴 아이템이 활성 상태인지 확인 */
-  const isMenuActive = (item: string): boolean => {
-    const section = menuSections[item];
+  const isMenuActive = (key: string): boolean => {
+    const section = menuSectionKeys[key];
     return section ? activeSection === section : false;
   };
 
@@ -248,7 +250,7 @@ export default function MyPageSidebar({ isOtherUser = false }: MyPageSidebarProp
                             className="mypage-sidebar__info-value mypage-sidebar__info-value--link"
                             tabIndex={activeTab === 'classroom' ? 0 : -1}
                             onClick={() => {
-                              const section = Object.entries(menuSections).find(
+                              const section = Object.entries(menuSectionKeys).find(
                                 ([, s]) => row.href === `/mypage/${s}`
                               );
                               if (section) setActiveSection(section[1]);
@@ -308,20 +310,21 @@ export default function MyPageSidebar({ isOtherUser = false }: MyPageSidebarProp
         {/* 메뉴 목록 (본인만) */}
         {!isOtherUser && (
           <nav className="mypage-sidebar__nav">
-            {menu.map((group) => (
+            {menuGroups.map((group) => (
               <div key={group.section} className="mypage-sidebar__menu-section">
                 <span className="mypage-sidebar__menu-heading">{group.section}</span>
                 <ul className="mypage-sidebar__menu-list">
-                  {group.items.map((item) => {
-                    const externalHref = externalLinks[item];
-                    const section = menuSections[item];
+                  {group.items.map((itemKey) => {
+                    const label = getItemLabel(itemKey);
+                    const externalHref = externalLinkMap[itemKey];
+                    const section = menuSectionKeys[itemKey];
 
                     /* 외부 링크 (마이페이지 밖) */
                     if (externalHref) {
                       return (
-                        <li key={item} className="mypage-sidebar__menu-item">
+                        <li key={itemKey} className="mypage-sidebar__menu-item">
                           <Link href={externalHref} className="mypage-sidebar__menu-link">
-                            {item}
+                            {label}
                           </Link>
                         </li>
                       );
@@ -330,13 +333,13 @@ export default function MyPageSidebar({ isOtherUser = false }: MyPageSidebarProp
                     /* 내부 섹션 전환 (SPA) */
                     if (section) {
                       return (
-                        <li key={item} className="mypage-sidebar__menu-item">
+                        <li key={itemKey} className="mypage-sidebar__menu-item">
                           <button
                             type="button"
-                            className={`mypage-sidebar__menu-link${isMenuActive(item) ? ' mypage-sidebar__menu-link--active' : ''}`}
-                            onClick={() => handleMenuClick(item)}
+                            className={`mypage-sidebar__menu-link${isMenuActive(itemKey) ? ' mypage-sidebar__menu-link--active' : ''}`}
+                            onClick={() => handleMenuClick(itemKey)}
                           >
-                            {item}
+                            {label}
                           </button>
                         </li>
                       );
@@ -344,9 +347,9 @@ export default function MyPageSidebar({ isOtherUser = false }: MyPageSidebarProp
 
                     /* 로그아웃 등 특수 버튼 */
                     return (
-                      <li key={item} className="mypage-sidebar__menu-item">
+                      <li key={itemKey} className="mypage-sidebar__menu-item">
                         <button type="button" className="mypage-sidebar__menu-link">
-                          {item}
+                          {label}
                         </button>
                       </li>
                     );

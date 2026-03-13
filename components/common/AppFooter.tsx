@@ -8,6 +8,7 @@
 import type { JSX } from 'react';
 import Link from 'next/link';
 import { getFooterData, getGeoData, getSiteData } from '@/lib/data';
+import siteData from '@/data/siteData.json';
 
 export default function AppFooter(): JSX.Element {
   const footer = getFooterData();
@@ -20,7 +21,7 @@ export default function AppFooter(): JSX.Element {
         {/* 상단: 사이트명 + 약관/정책 링크 */}
         <div className="app-footer__top">
           <span className="app-footer__site-name">{site.name}</span>
-          <nav className="app-footer__links" aria-label="하단 메뉴">
+          <nav className="app-footer__links" aria-label={siteData.a11y.nav.footerMenu}>
             <ul className="app-footer__link-list">
               {footer?.links.map((link) => (
                 <li key={link.href} className="app-footer__link-item">
@@ -46,15 +47,15 @@ export default function AppFooter(): JSX.Element {
                 <dd className="app-footer__dd">{footer.business.companyName}</dd>
               </div>
               <div className="app-footer__business-row">
-                <dt className="app-footer__dt">대표</dt>
+                <dt className="app-footer__dt">{footer.business.ceoLabel}</dt>
                 <dd className="app-footer__dd">{footer.business.ceo}</dd>
               </div>
               <div className="app-footer__business-row">
-                <dt className="app-footer__dt">사업자등록번호</dt>
+                <dt className="app-footer__dt">{footer.business.registrationLabel}</dt>
                 <dd className="app-footer__dd">{footer.business.registrationNumber}</dd>
               </div>
               <div className="app-footer__business-row">
-                <dt className="app-footer__dt">통신판매업신고</dt>
+                <dt className="app-footer__dt">{footer.business.ecommerceLabel}</dt>
                 <dd className="app-footer__dd">{footer.business.ecommerceRegistration}</dd>
               </div>
             </dl>

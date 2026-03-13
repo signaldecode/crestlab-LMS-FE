@@ -5,13 +5,16 @@
  */
 
 import Link from 'next/link';
+import pagesData from '@/data/pagesData.json';
+
+const notFoundData = pagesData.learn.notFound;
 
 export default function LectureNotFound() {
   return (
     <div className="lecture-not-found">
-      <h2>강의를 찾을 수 없습니다</h2>
-      <p>요청하신 강의가 존재하지 않거나 수강 권한이 없습니다.</p>
-      <Link href="/learn">내 강의실로 돌아가기</Link>
+      <h2>{notFoundData.title}</h2>
+      <p>{notFoundData.description}</p>
+      <Link href={notFoundData.linkHref}>{notFoundData.linkLabel}</Link>
     </div>
   );
 }

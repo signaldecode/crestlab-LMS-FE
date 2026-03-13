@@ -6,24 +6,26 @@
 'use client';
 
 import type { JSX } from 'react';
+import accountData from '@/data/accountData.json';
 
+const pointsData = accountData.mypage.pointsPage;
 const SK = 'mypage-classroom';
 
 export default function PointContent(): JSX.Element {
   return (
     <div className="mypage-classroom">
       <div className={`${SK}__menu-content`}>
-        <h2 className={`${SK}__menu-title`}>포인트</h2>
+        <h2 className={`${SK}__menu-title`}>{pointsData.title}</h2>
 
         {/* 포인트 요약 */}
         <div className={`${SK}__point-summary`}>
-          <span className={`${SK}__point-summary-value`}>0P</span>
-          <span className={`${SK}__point-summary-expire`}>30일 이내 소멸 예정 <strong>0P</strong></span>
+          <span className={`${SK}__point-summary-value`}>0{pointsData.unit}</span>
+          <span className={`${SK}__point-summary-expire`}>{pointsData.expireNotice} <strong>0{pointsData.unit}</strong></span>
         </div>
 
         {/* 포인트 이력 */}
         <div className={`${SK}__empty`}>
-          <p className={`${SK}__empty-text`}>포인트 이력이 없습니다.</p>
+          <p className={`${SK}__empty-text`}>{pointsData.emptyText}</p>
         </div>
       </div>
     </div>

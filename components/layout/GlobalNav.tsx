@@ -9,6 +9,7 @@
 import type { JSX } from 'react';
 import Link from 'next/link';
 import { getNavData } from '@/lib/data';
+import siteData from '@/data/siteData.json';
 import CategoryMegaMenu from '@/components/layout/CategoryMegaMenu';
 import CategoryMenuTrigger from '@/components/layout/CategoryMenuTrigger';
 
@@ -16,7 +17,7 @@ export default function GlobalNav(): JSX.Element {
   const nav = getNavData();
 
   return (
-    <nav className="global-nav" aria-label="주요 메뉴">
+    <nav className="global-nav" aria-label={siteData.a11y.nav.mainMenu}>
       <ul className="global-nav__list">
         {nav.main.map((item, index) =>
           index === 0 ? (

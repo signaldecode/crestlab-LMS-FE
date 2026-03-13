@@ -10,19 +10,20 @@ import type { JSX } from 'react';
 import { useState } from 'react';
 import Image from 'next/image';
 import mypageBanner from '@/assets/images/banners/mypage-banner.jpg';
+import accountData from '@/data/accountData.json';
 
-const defaultTabs = ['강의', '과제 관리', '조편성'];
+const classroomData = accountData.mypage.classroom;
 
 const SK = 'mypage-classroom';
 
 export default function MyClassroomContent(): JSX.Element {
-  const [activeTab, setActiveTab] = useState(defaultTabs[0]);
+  const [activeTab, setActiveTab] = useState(classroomData.tabs[0]);
 
   return (
     <div className="mypage-classroom">
       {/* 탭 */}
       <div className="mypage-classroom__tabs" role="tablist">
-        {defaultTabs.map((tab) => (
+        {classroomData.tabs.map((tab) => (
           <button
             key={tab}
             type="button"
@@ -38,14 +39,14 @@ export default function MyClassroomContent(): JSX.Element {
 
       {/* 강의 탭 콘텐츠 */}
       <div className={`${SK}__empty`}>
-        <p className={`${SK}__empty-text`}>아직 수강한 강의가 없어요.</p>
+        <p className={`${SK}__empty-text`}>{classroomData.emptyText}</p>
       </div>
 
       {/* 프로모션 배너 */}
       <div className="mypage-classroom__promo">
         <Image
           src={mypageBanner}
-          alt="프로모션 배너"
+          alt={classroomData.promoBannerAlt}
           fill
           sizes="(max-width: 767px) 100vw, 700px"
           className="mypage-classroom__promo-img"

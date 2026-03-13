@@ -10,12 +10,15 @@ import { useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getOrders, getCourses } from '@/lib/data';
+import accountData from '@/data/accountData.json';
+import uiData from '@/data/uiData.json';
 import type { Course } from '@/types';
 
+const ordersPageData = accountData.mypage.ordersPage;
 const SK = 'mypage-classroom';
 
 function formatPrice(price: number): string {
-  return price.toLocaleString('ko-KR') + '원';
+  return price.toLocaleString('ko-KR') + uiData.priceUnit;
 }
 
 export default function OrderContent(): JSX.Element {
@@ -34,10 +37,10 @@ export default function OrderContent(): JSX.Element {
   return (
     <div className="mypage-classroom">
       <div className={`${SK}__menu-content`}>
-        <h2 className={`${SK}__menu-title`}>구매 내역</h2>
+        <h2 className={`${SK}__menu-title`}>{ordersPageData.title}</h2>
         {ordersWithCourses.length === 0 ? (
           <div className={`${SK}__empty`}>
-            <p className={`${SK}__empty-text`}>구매 내역이 없습니다.</p>
+            <p className={`${SK}__empty-text`}>{ordersPageData.emptyText}</p>
           </div>
         ) : (
           <div className={`${SK}__purchase-list`}>
@@ -62,7 +65,7 @@ export default function OrderContent(): JSX.Element {
                         </Link>
                         <span className={`${SK}__purchase-instructor`}>
                           {order.courses[0].instructor}
-                          {order.courses.length > 1 && ` 외 ${order.courses.length - 1}건`}
+                          {order.courses.length > 1 && ` 외 ${order.courses.length - 1}${ordersPageData.additionalCountSuffix}`}
                         </span>
                       </div>
                     </>

@@ -172,6 +172,16 @@
       "socialKakao": "카카오로 시작하기",
       "socialGoogle": "Google로 시작하기"
     },
+    "modal": {
+      "subtitle": "지금 가입 하고",
+      "highlight": "ㅇㅇㅇ님 칼럼과 자료를 무료로 받으세요!",
+      "socialKakaoLabel": "카카오로 3초만에 시작하기",
+      "socialNaverAriaLabel": "네이버 로그인",
+      "socialGoogleAriaLabel": "구글 로그인",
+      "socialAppleAriaLabel": "애플 로그인",
+      "findAccountLabel": "아이디(계정)·비밀번호 찾기",
+      "emailSignupLabel": "이메일 회원가입"
+    },
     "signup": {
       "seo": { "title": "회원가입 — 강의 플랫폼" },
       "title": "회원가입",
@@ -200,7 +210,13 @@
     "title": "내 강의실",
     "continueLabel": "이어보기",
     "progressLabel": "진행률",
-    "completedLabel": "수강 완료"
+    "completedLabel": "수강 완료",
+    "notFound": {
+      "title": "강의를 찾을 수 없습니다",
+      "description": "요청하신 강의가 존재하지 않거나 수강 권한이 없습니다.",
+      "linkLabel": "내 강의실로 돌아가기",
+      "linkHref": "/learn"
+    }
   },
   "notFound": {
     "seo": { "title": "페이지를 찾을 수 없습니다" },

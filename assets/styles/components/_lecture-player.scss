@@ -3,6 +3,7 @@
 // - 상단바 / 비디오 / 사이드바 / 컨트롤바 / 하단 네비게이션
 // ============================================
 
+@use 'sass:color';
 @use '../tokens/colors' as *;
 @use '../tokens/spacing' as *;
 @use '../tokens/typography' as *;
@@ -991,8 +992,8 @@ body:has(.lecture-player-layout) {
       border-color: $color-success;
 
       &:hover:not(:disabled) {
-        background: darken(#16a34a, 8%);
-        border-color: darken(#16a34a, 8%);
+        background: color.adjust($color-success, $lightness: -8%);
+        border-color: color.adjust($color-success, $lightness: -8%);
       }
     }
   }

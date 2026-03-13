@@ -119,8 +119,11 @@
     "business": {
       "companyName": "주식회사 강의플랫폼",
       "ceo": "홍길동",
+      "ceoLabel": "대표",
       "registrationNumber": "000-00-00000",
+      "registrationLabel": "사업자등록번호",
       "ecommerceRegistration": "2026-서울강남-0000호",
+      "ecommerceLabel": "통신판매업신고",
       "label": "사업자 정보"
     }
   },
@@ -130,10 +133,15 @@
     "nav": {
       "mainMenu": "주요 메뉴",
       "footerMenu": "하단 메뉴",
+      "sectionMenu": "섹션 메뉴",
       "breadcrumb": "브레드크럼",
       "pagination": "페이지 탐색",
       "prevPage": "이전 페이지",
       "nextPage": "다음 페이지"
+    },
+    "header": {
+      "notificationAriaLabel": "알림",
+      "myClassroomLabel": "내 강의실"
     },
     "forms": {
       "required": "(필수)",

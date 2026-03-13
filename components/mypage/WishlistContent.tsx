@@ -11,13 +11,10 @@ import type { JSX } from 'react';
 import useWishlistStore from '@/stores/useWishlistStore';
 import { getCourses } from '@/lib/data';
 import CourseCard from '@/components/courses/CourseCard';
+import accountData from '@/data/accountData.json';
 import type { Course } from '@/types';
 
-const sortOptions = [
-  { value: 'recent', label: '최신순' },
-  { value: 'rating', label: '평점순' },
-  { value: 'title', label: '이름순' },
-];
+const wishlistData = accountData.mypage.wishlist;
 
 function sortCourses(courses: Course[], sort: string): Course[] {
   const sorted = [...courses];
@@ -55,14 +52,14 @@ export default function WishlistContent(): JSX.Element {
       {/* 관심 클래스 */}
       <section className="wishlist__section">
         <div className="wishlist__header">
-          <h2 className="wishlist__title">관심 클래스</h2>
+          <h2 className="wishlist__title">{wishlistData.title}</h2>
           <select
             className="wishlist__sort"
             value={sort}
             onChange={(e) => setSort(e.target.value)}
-            aria-label="정렬"
+            aria-label={wishlistData.sortAriaLabel}
           >
-            {sortOptions.map((opt) => (
+            {wishlistData.sortOptions.map((opt) => (
               <option key={opt.value} value={opt.value}>{opt.label}</option>
             ))}
           </select>
@@ -75,13 +72,13 @@ export default function WishlistContent(): JSX.Element {
             ))}
           </div>
         ) : (
-          <p className="wishlist__empty">관심 클래스가 없습니다.</p>
+          <p className="wishlist__empty">{wishlistData.emptyText}</p>
         )}
       </section>
 
       {/* 최근 본 클래스 */}
       <section className="wishlist__section">
-        <h2 className="wishlist__title">최근 본 클래스</h2>
+        <h2 className="wishlist__title">{wishlistData.recentTitle}</h2>
 
         {recentCourses.length > 0 ? (
           <div className="wishlist__grid">
@@ -90,7 +87,7 @@ export default function WishlistContent(): JSX.Element {
             ))}
           </div>
         ) : (
-          <p className="wishlist__empty">최근 본 클래스가 없습니다.</p>
+          <p className="wishlist__empty">{wishlistData.recentEmptyText}</p>
         )}
       </section>
     </div>
