@@ -1995,15 +1995,18 @@
   // ── 포인트 페이지 ──
   &__point-summary {
     display: flex;
-    flex-direction: column;
-    gap: $spacing-2;
+    align-items: baseline;
+    gap: $spacing-4;
     margin-bottom: $spacing-8;
+    padding: $spacing-6;
+    background-color: $color-bg-secondary;
+    border-radius: $spacing-2;
   }
 
   &__point-summary-value {
     font-size: $font-size-2xl;
     font-weight: $font-weight-bold;
-    color: $color-text-primary;
+    color: $color-primary;
   }
 
   &__point-summary-expire {
@@ -2012,6 +2015,109 @@
 
     strong {
       font-weight: $font-weight-bold;
+    }
+  }
+
+  &__point-history-title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin-bottom: $spacing-4;
+  }
+
+  &__point-tabs {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+    margin-bottom: $spacing-6;
+  }
+
+  &__point-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-2;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-regular;
+    color: $color-text-secondary;
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &--active {
+      color: $color-primary;
+      font-weight: $font-weight-bold;
+    }
+  }
+
+  &__point-tab-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: $spacing-10;
+    height: $spacing-6;
+    padding: 0 $spacing-2;
+    border-radius: 9999px;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    background-color: $color-bg-tertiary;
+    color: $color-text-secondary;
+    transition: all 0.2s ease;
+
+    .mypage-classroom__point-tab--active & {
+      background-color: $color-primary;
+      color: $color-bg-primary;
+    }
+  }
+
+  &__point-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__point-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: $spacing-5 0;
+    border-bottom: 1px solid $color-border;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__point-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+  }
+
+  &__point-item-desc {
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    line-height: 1.5;
+  }
+
+  &__point-item-date {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+
+  &__point-item-amount {
+    flex-shrink: 0;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    margin-left: $spacing-4;
+
+    &--earn {
+      color: $color-primary;
+    }
+
+    &--use {
+      color: $color-text-secondary;
     }
   }
 }

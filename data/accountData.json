@@ -103,10 +103,74 @@
       "emptyText": "작성한 후기가 없습니다."
     },
     "pointsPage": {
-      "title": "포인트",
+      "title": "잔여 포인트",
       "unit": "P",
       "expireNotice": "30일 이내 소멸 예정",
-      "emptyText": "포인트 이력이 없습니다."
+      "emptyText": "포인트 이력이 없습니다.",
+      "historyTitle": "포인트 사용 내역",
+      "dateLabel": "날짜",
+      "tabs": {
+        "earn": "적립",
+        "use": "사용"
+      },
+      "mockHistory": [
+        {
+          "id": "pt-001",
+          "type": "earn",
+          "description": "[수강평 작성] 100포인트가 적립되었습니다.",
+          "amount": 600,
+          "date": "26.05.22"
+        },
+        {
+          "id": "pt-002",
+          "type": "use",
+          "description": "[강의 사용] 100포인트가 차감되었습니다.",
+          "amount": -200,
+          "date": "26.05.22"
+        },
+        {
+          "id": "pt-003",
+          "type": "use",
+          "description": "[강의 사용] 100포인트가 차감되었습니다.",
+          "amount": -200,
+          "date": "26.05.22"
+        },
+        {
+          "id": "pt-004",
+          "type": "earn",
+          "description": "[수강평 작성] 100포인트가 적립되었습니다.",
+          "amount": 600,
+          "date": "26.05.22"
+        },
+        {
+          "id": "pt-005",
+          "type": "use",
+          "description": "[강의 사용] 100포인트가 차감되었습니다.",
+          "amount": -200,
+          "date": "26.05.22"
+        },
+        {
+          "id": "pt-006",
+          "tye": "earn",
+          "description": "[수강평 작성] 100포인트가 적립되었습니다.",
+          "amount": 600,
+          "date": "26.05.22"
+        },
+        {
+          "id": "pt-007",
+          "type": "earn",
+          "description": "[수강평 작성] 100포인트가 적립되었습니다.",
+          "amount": 600,
+          "date": "26.05.22"
+        },
+        {
+          "id": "pt-008",
+          "type": "earn",
+          "description": "[수강평 작성] 100포인트가 적립되었습니다.",
+          "amount": 600,
+          "date": "26.05.22"
+        }
+      ]
     },
     "giftcardsPage": {
       "title": "상품권",

@@ -83,7 +83,7 @@ export default function CouponContent(): JSX.Element {
                     >
                       {couponPageData.viewProductLabel}
                     </Link>
-                  </div>
+                  </div>ㅗ
                 </div>
               );
             })}
