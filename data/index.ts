@@ -38,4 +38,5 @@ const mainData: MainData = {
   expiredCoupons: accountData.expiredCoupons,
 };
 
+export { uiData };
 export default mainData;

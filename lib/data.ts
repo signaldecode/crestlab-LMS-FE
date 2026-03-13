@@ -116,3 +116,71 @@ export function getOrders(): OrderData[] {
 export function getExpiredCoupons(): ExpiredCouponData[] {
   return data.expiredCoupons || [];
 }
+
+/* ── 커리큘럼 / 플레이어 헬퍼 ── */
+
+/** 커리큘럼 레슨의 안정적 ID 생성 (섹션 인덱스 + 레슨 인덱스) */
+export function generateLessonId(sectionIdx: number, lessonIdx: number): string {
+  return `l-${sectionIdx}-${lessonIdx}`;
+}
+
+/** 사이드바용 커리큘럼 아이템 */
+export interface SidebarCurriculumItem {
+  id: string;
+  title: string;
+  duration: string;
+  isCompleted: boolean;
+}
+
+/** 사이드바용 커리큘럼 섹션 */
+export interface SidebarCurriculumSection {
+  title: string;
+  items: SidebarCurriculumItem[];
+}
+
+/** slug로 강의를 찾고 사이드바용 커리큘럼 데이터를 반환한다 */
+export function getCurriculumForSidebar(courseSlug: string): SidebarCurriculumSection[] | null {
+  const course = findCourseBySlug(courseSlug);
+  if (!course) return null;
+
+  return course.curriculum.map((section, sIdx) => ({
+    title: section.title,
+    items: section.lessons.map((lesson, lIdx) => ({
+      id: generateLessonId(sIdx, lIdx),
+      title: lesson.name,
+      duration: lesson.duration,
+      isCompleted: false,
+    })),
+  }));
+}
+
+/** 네비게이션용 레슨 정보 */
+export interface LessonNavInfo {
+  id: string;
+  title: string;
+}
+
+/** 커리큘럼에서 현재/이전/다음 레슨 정보를 반환한다 */
+export function findLessonNav(courseSlug: string, lectureId: string): {
+  current: LessonNavInfo;
+  prev: LessonNavInfo | null;
+  next: LessonNavInfo | null;
+} | null {
+  const sections = getCurriculumForSidebar(courseSlug);
+  if (!sections) return null;
+
+  const allLessons = sections.flatMap((s) => s.items);
+  const currentIdx = allLessons.findIndex((l) => l.id === lectureId);
+  if (currentIdx === -1) return null;
+
+  const current = allLessons[currentIdx];
+  return {
+    current: { id: current.id, title: current.title },
+    prev: currentIdx > 0
+      ? { id: allLessons[currentIdx - 1].id, title: allLessons[currentIdx - 1].title }
+      : null,
+    next: currentIdx < allLessons.length - 1
+      ? { id: allLessons[currentIdx + 1].id, title: allLessons[currentIdx + 1].title }
+      : null,
+  };
+}

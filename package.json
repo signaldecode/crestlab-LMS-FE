@@ -9,7 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@vidstack/react": "^1.12.13",
     "aws-sdk": "^2.1693.0",
+    "hls.js": "^1.6.15",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",

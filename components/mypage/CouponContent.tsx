@@ -76,14 +76,14 @@ export default function CouponContent(): JSX.Element {
                       {coupon.validFrom} ~ {coupon.validTo}
                     </span>
                   </div>
-                  <div className={`${SK}__coupon-card-right`}>
+                  <div className={`${SK}__coupon-card-right`}>vscode-webview://1tln9mqp3smtksr4epaav6brjht21f440sebhegkagniakuhbdtu/index.html?id=4985b833-5ec3-4821-af70-56a26e9f18fc&parentId=1&origin=c4f8db38-8c87-4112-b7c7-1b7ff1a5fa28&swVersion=4&extensionId=Anthropic.claude-code&platform=electron&vscode-resource-base-authority=vscode-resource.vscode-cdn.net&parentOrigin=vscode-file%3A%2F%2Fvscode-app&session=f7dbe986-e57c-47eb-9da7-b256ffa34080#
                     <Link
                       href={`/courses/${coupon.courseSlug}`}
                       className={`${SK}__coupon-apply-link`}
                     >
                       {couponPageData.viewProductLabel}
                     </Link>
-                  </div>ㅗ
+                  </div>
                 </div>
               );
             })}

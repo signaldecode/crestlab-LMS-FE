@@ -49,3 +49,28 @@ export function formatTime(seconds: number): string {
   const s = Math.floor(seconds % 60);
   return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
 }
+
+/* ── 배속 기억 (localStorage) ── */
+
+const PLAYBACK_RATE_KEY = 'lecture_playback_rate';
+
+/** 마지막 사용 배속을 localStorage에 저장 */
+export function savePlaybackRate(rate: number): void {
+  try {
+    localStorage.setItem(PLAYBACK_RATE_KEY, String(rate));
+  } catch {
+    // localStorage 용량 초과 등 예외 무시
+  }
+}
+
+/** localStorage에서 마지막 사용 배속을 복원 (기본값 1) */
+export function getPlaybackRate(): number {
+  try {
+    const raw = localStorage.getItem(PLAYBACK_RATE_KEY);
+    if (!raw) return 1;
+    const rate = Number(raw);
+    return rate > 0 && rate <= 4 ? rate : 1;
+  } catch {
+    return 1;
+  }
+}

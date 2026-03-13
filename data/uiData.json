@@ -38,6 +38,88 @@
     "removeIcon": "♥"
   },
   "priceUnit": "원",
+  "player": {
+    "errors": {
+      "authRequired": "로그인이 필요합니다. 로그인 후 다시 시도해 주세요.",
+      "noEnrollment": "수강 권한이 없습니다. 강의를 구매한 후 이용할 수 있습니다.",
+      "sessionExpired": "재생 세션이 만료되었습니다. 다시 시도해 주세요.",
+      "tooManyRequests": "요청이 너무 많습니다. 잠시 후 다시 시도해 주세요.",
+      "mediaNetwork": "네트워크 연결을 확인해 주세요. 영상을 불러올 수 없습니다.",
+      "mediaDecode": "영상을 재생할 수 없습니다. 다른 브라우저에서 시도해 주세요.",
+      "mediaNotSupported": "지원하지 않는 영상 형식입니다.",
+      "unknown": "알 수 없는 오류가 발생했습니다."
+    },
+    "labels": {
+      "play": "재생",
+      "pause": "일시정지",
+      "mute": "음소거",
+      "unmute": "음소거 해제",
+      "fullscreen": "전체화면",
+      "exitFullscreen": "전체화면 종료",
+      "subtitle": "자막",
+      "settings": "설정",
+      "speed": "재생 속도",
+      "quality": "화질",
+      "pip": "PIP 모드",
+      "exitPip": "PIP 종료",
+      "captionOn": "자막 켜기",
+      "captionOff": "자막 끄기",
+      "autoQuality": "자동",
+      "retry": "다시 시도",
+      "resume": "이어보기",
+      "goToCourse": "강의 상세로 이동",
+      "buffering": "버퍼링 중",
+      "completed": "수강 완료"
+    },
+    "ariaLabels": {
+      "playButton": "영상 재생하기",
+      "pauseButton": "영상 일시정지하기",
+      "muteButton": "음소거 토글",
+      "fullscreenButton": "전체화면 토글",
+      "pipButton": "PIP 모드 토글",
+      "captionButton": "자막 토글",
+      "qualityMenu": "화질 선택",
+      "progressBar": "재생 진행률",
+      "volumeSlider": "볼륨 조절",
+      "speedMenu": "재생 속도 선택",
+      "settingsMenu": "설정 메뉴 열기",
+      "playerRegion": "강의 영상 플레이어"
+    }
+  },
+  "sidebar": {
+    "tabs": {
+      "curriculum": "커리큘럼",
+      "qna": "Q&A",
+      "note": "노트",
+      "chat": "채팅",
+      "script": "스크립트"
+    },
+    "progressFormat": "{completed}/{total}개 수강 완료",
+    "ariaLabel": "강의 사이드바",
+    "tabsAriaLabel": "사이드바 탭",
+    "empty": {
+      "qna": "이 강의에 대한 질문을 남겨보세요.",
+      "qnaButton": "질문 작성하기",
+      "note": "강의를 들으며 메모를 남겨보세요.",
+      "noteButton": "노트 작성하기",
+      "chat": "수강생들과 실시간으로 소통하세요.",
+      "script": "자막 스크립트가 준비되지 않았습니다."
+    }
+  },
+  "lectureNav": {
+    "prev": "이전",
+    "next": "다음",
+    "markComplete": "봤어요",
+    "completed": "완료됨",
+    "nextInfo": "다음: {title}",
+    "prevAriaLabel": "이전 강의: {title}",
+    "nextAriaLabel": "다음 강의: {title}",
+    "noPrev": "이전 강의 없음",
+    "noNext": "다음 강의 없음",
+    "completeAriaLabel": "수강 완료로 표시",
+    "completedAriaLabel": "수강 완료됨",
+    "backAriaLabel": "강의 상세 페이지로 돌아가기"
+  },
   "emptyState": {
     "courses": "아직 강의가 없습니다.",
     "myCourses": "수강 중인 강의가 없습니다.",

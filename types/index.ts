@@ -40,10 +40,26 @@ export interface CourseReview {
   date: string;
 }
 
+export interface CaptionTrack {
+  src: string;
+  srclang: string;
+  label: string;
+  default?: boolean;
+}
+
+export interface LessonA11y {
+  ariaLabel: string;
+}
+
 export interface CurriculumLesson {
+  id?: string;
+  slug?: string;
   name: string;
   duration: string;
   locked: boolean;
+  preview?: boolean;
+  captions?: CaptionTrack[];
+  a11y?: LessonA11y;
 }
 
 export interface CurriculumSection {
@@ -581,4 +597,60 @@ export type UploadStatus = 'idle' | 'requesting' | 'uploading' | 'confirming' | 
 export interface UploadError {
   errorKey: string;
   message?: string;
+}
+
+/* ── 스트리밍 세션 ── */
+export type StreamingSessionType = 'PRESIGNED_URL' | 'SIGNED_COOKIE';
+
+export interface StreamingSessionRequest {
+  courseSlug: string;
+  lessonSlug: string;
+}
+
+export interface StreamingSessionData {
+  manifestUrl: string;
+  expiresAt: string;
+  type: StreamingSessionType;
+}
+
+export interface StreamingSessionResponse {
+  data: StreamingSessionData;
+}
+
+export type StreamingErrorCode =
+  | 'AUTH_REQUIRED'
+  | 'NO_ENROLLMENT'
+  | 'SESSION_EXPIRED'
+  | 'TOO_MANY_REQUESTS'
+  | 'INTERNAL_ERROR';
+
+export interface StreamingError {
+  code: StreamingErrorCode;
+  status: number;
+  message?: string;
+}
+
+/* ── 플레이어 ── */
+export type PlayerErrorType =
+  | 'STREAMING_AUTH'
+  | 'STREAMING_FORBIDDEN'
+  | 'STREAMING_EXPIRED'
+  | 'STREAMING_RATE_LIMIT'
+  | 'MEDIA_NETWORK'
+  | 'MEDIA_DECODE'
+  | 'MEDIA_NOT_SUPPORTED';
+
+export interface PlayerError {
+  type: PlayerErrorType;
+  message: string;
+  retryable: boolean;
+}
+
+/** 이어보기/진행률 서버 동기화용 */
+export interface LectureProgress {
+  courseSlug: string;
+  lectureId: string;
+  progress: number;
+  lastPosition: number;
+  isCompleted: boolean;
 }
