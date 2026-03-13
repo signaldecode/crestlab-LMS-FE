@@ -2,6 +2,7 @@
  * 커뮤니티 왼쪽 사이드바 (CommunitySidebar)
  * - 프로필 영역 + 네비게이션 메뉴
  * - 현재 선택된 카테고리를 하이라이팅 표시한다
+ * - 사이드바 네비게이션은 data 기반으로 렌더링한다 (추후 admin에서 관리)
  */
 
 'use client';
@@ -9,46 +10,19 @@
 import type { JSX } from 'react';
 import MyPostsButton from '@/components/community/MyPostsButton';
 import useCommunityStore from '@/stores/useCommunityStore';
+import mainData from '@/data';
+import type { SidebarNavSection } from '@/types';
 
-const navSections = [
-  {
-    icon: '🏠',
-    title: '커뮤니티홈',
-    href: '/community',
-    items: [] as string[],
-  },
-  {
-    icon: '📢',
-    title: '공지사항',
-    items: ['강의일정', '알림&이벤트', '신규멤버필독', '어제의게시글'],
-  },
-  {
-    icon: '📋',
-    title: '전문가인사이트',
-    items: ['전문가칼럼', '전문가피드', '10억달성기'],
-  },
-  {
-    icon: '💬',
-    title: '투자후기',
-    items: [
-      '오늘의응원',
-      '실전투자경험',
-      '내집마련성공기',
-      '1억달성기',
-      '투자공부방',
-      '부업수익인증',
-    ],
-  },
-];
+const { sidebarNav, sidebar } = mainData.community;
 
 export default function CommunitySidebar(): JSX.Element {
   const activeCategory = useCommunityStore((s) => s.activeCategory);
   const setActiveCategory = useCommunityStore((s) => s.setActiveCategory);
 
   /** 섹션 타이틀이 활성 상태인지 (직접 선택 또는 하위 아이템 선택) */
-  const isSectionActive = (section: (typeof navSections)[number]) =>
+  const isSectionActive = (section: SidebarNavSection) =>
     activeCategory === section.title ||
-    section.items.includes(activeCategory);
+    section.items.some((item) => activeCategory === item.label);
 
   return (
     <aside className="community-sidebar">
@@ -56,14 +30,14 @@ export default function CommunitySidebar(): JSX.Element {
       {/* 프로필 영역 */}
       <div className="community-sidebar__profile">
         <div className="community-sidebar__avatar community-sidebar__skeleton-circle" />
-        <span className="community-sidebar__login-label">로그인</span>
+        <span className="community-sidebar__login-label">{sidebar.loginLabel}</span>
         <MyPostsButton />
       </div>
 
-      {/* 네비게이션 메뉴 */}
+      {/* 네비게이션 메뉴 — data 기반 렌더링 */}
       <nav className="community-sidebar__nav">
-        {navSections.map((section) => (
-          <div key={section.title} className="community-sidebar__section">
+        {sidebarNav.map((section) => (
+          <div key={section.id} className="community-sidebar__section">
             <button
               type="button"
               className={`community-sidebar__section-title${
@@ -77,15 +51,15 @@ export default function CommunitySidebar(): JSX.Element {
             {section.items.length > 0 && (
               <ul className="community-sidebar__list">
                 {section.items.map((item) => (
-                  <li key={item} className="community-sidebar__list-item">
+                  <li key={item.id} className="community-sidebar__list-item">
                     <button
                       type="button"
                       className={`community-sidebar__link${
-                        activeCategory === item ? ' community-sidebar__link--active' : ''
+                        activeCategory === item.label ? ' community-sidebar__link--active' : ''
                       }`}
-                      onClick={() => setActiveCategory(item)}
+                      onClick={() => setActiveCategory(item.label)}
                     >
-                      {item}
+                      {item.label}
                     </button>
                   </li>
                 ))}

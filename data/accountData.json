@@ -1,6 +1,53 @@
 {
   "_comment": "마이페이지/계정 데이터 — 주문 내역, 상담, 후기, 수료증, 만료 쿠폰 (목데이터)",
 
+  "profileCard": {
+    "coverImageAlt": "프로필 커버 이미지",
+    "avatarAlt": "프로필 사진",
+    "verifiedBadgeAlt": "인증 완료",
+    "toggleLabels": {
+      "profile": "프로필",
+      "classroom": "강의실",
+      "ariaLabel": "프로필과 강의실 전환"
+    },
+    "profileMode": {
+      "roleLabel": "멘토 크리에이터",
+      "communityLevel": {
+        "title": "커뮤니티 레벨",
+        "tooltipText": "활동에 따라 레벨이 올라갑니다",
+        "tooltipAriaLabel": "커뮤니티 레벨 안내",
+        "steps": ["1단계", "2단계", "3단계", "4단계"],
+        "currentStep": 1,
+        "progressPercent": 25
+      },
+      "stats": [
+        { "key": "followers", "label": "팔로워", "value": 0 },
+        { "key": "posts", "label": "작성한 글", "value": 0 },
+        { "key": "comments", "label": "댓글", "value": 0 }
+      ]
+    },
+    "classroomMode": {
+      "affiliationPrefix": "@",
+      "infoRows": [
+        { "key": "grade", "label": "학습등급", "value": "입문", "type": "badge" },
+        { "key": "coupons", "label": "내 쿠폰", "value": "0장", "href": "/mypage/coupons", "type": "link" },
+        { "key": "giftcards", "label": "상품권", "value": "0원", "href": "/mypage/giftcards", "type": "link" },
+        { "key": "points", "label": "포인트", "value": "0원", "href": "/mypage/points", "type": "link" }
+      ]
+    },
+    "otherUserMode": {
+      "shareAriaLabel": "프로필 공유",
+      "followLabel": "팔로우",
+      "followingLabel": "팔로잉",
+      "followAriaLabel": "팔로우하기",
+      "infoRows": [
+        { "key": "followers", "label": "팔로워" },
+        { "key": "specialty", "label": "전문분야" },
+        { "key": "experience", "label": "투자기간" }
+      ]
+    }
+  },
+
   "orders": [
     {
       "id": "ORD-20250215-001",

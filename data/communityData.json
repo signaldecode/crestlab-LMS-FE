@@ -1,5 +1,102 @@
 {
-  "_comment": "커뮤니티 설정 데이터 — 카테고리, 신고 사유 등",
+  "_comment": "커뮤니티 설정 데이터 — 사이드바 네비게이션, 피드 탭, Aside 섹션, 카테고리, 신고 사유 등. 추후 admin에서 관리 예정",
+
+  "sidebarNav": [
+    {
+      "id": "community-home",
+      "icon": "🏠",
+      "title": "커뮤니티홈",
+      "href": "/community",
+      "items": []
+    },
+    {
+      "id": "notice",
+      "icon": "📢",
+      "title": "공지사항",
+      "items": [
+        { "id": "notice-schedule", "label": "강의일정" },
+        { "id": "notice-event", "label": "알림&이벤트" },
+        { "id": "notice-newbie", "label": "신규멤버필독" },
+        { "id": "notice-yesterday", "label": "어제의게시글" }
+      ]
+    },
+    {
+      "id": "expert-insight",
+      "icon": "📋",
+      "title": "전문가인사이트",
+      "items": [
+        { "id": "expert-column", "label": "전문가칼럼" },
+        { "id": "expert-feed", "label": "전문가피드" },
+        { "id": "expert-billion", "label": "10억달성기" }
+      ]
+    },
+    {
+      "id": "investment-review",
+      "icon": "💬",
+      "title": "투자후기",
+      "items": [
+        { "id": "review-cheer", "label": "오늘의응원" },
+        { "id": "review-real", "label": "실전투자경험" },
+        { "id": "review-house", "label": "내집마련성공기" },
+        { "id": "review-100m", "label": "1억달성기" },
+        { "id": "review-study", "label": "투자공부방" },
+        { "id": "review-side", "label": "부업수익인증" }
+      ]
+    }
+  ],
+
+  "feedTabs": [
+    { "id": "home", "label": "커뮤니티 홈" },
+    { "id": "myFeed", "label": "내 피드" }
+  ],
+
+  "feedSections": [
+    {
+      "id": "popular",
+      "title": "🔥 인기글",
+      "type": "popular",
+      "itemCount": 5
+    },
+    {
+      "id": "expert-column",
+      "title": "최신 전문가칼럼",
+      "type": "article",
+      "itemCount": 3,
+      "showMore": true,
+      "moreLabel": "더보기"
+    }
+  ],
+
+  "asideSections": [
+    {
+      "id": "trending-members",
+      "title": "주목받는 멤버",
+      "type": "member",
+      "itemCount": 5,
+      "showRank": false
+    },
+    {
+      "id": "comment-ranking",
+      "title": "어제 댓글 랭킹",
+      "type": "member",
+      "itemCount": 5,
+      "showRank": true
+    }
+  ],
+
+  "searchFilters": {
+    "categoryLabel": "카테고리 필터",
+    "categoryDefault": "커뮤니티 전체",
+    "scopeLabel": "검색 범위",
+    "scopeDefault": "작성자 + 제목 + 내용",
+    "searchPlaceholder": "찾고 싶은 콘텐츠를 검색하세요!",
+    "searchAriaLabel": "커뮤니티 검색"
+  },
+
+  "sidebar": {
+    "loginLabel": "로그인",
+    "profileAriaLabel": "프로필 영역"
+  },
 
   "categories": [
     { "value": "all", "label": "전체" },
@@ -8,6 +105,7 @@
     { "value": "review", "label": "수강후기" },
     { "value": "notice", "label": "공지" }
   ],
+
   "reportReasons": [
     { "value": "spam", "label": "스팸/광고" },
     { "value": "abuse", "label": "욕설/비방" },

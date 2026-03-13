@@ -12,7 +12,7 @@ import homeData from './homeData.json';
 import communityData from './communityData.json';
 import accountData from './accountData.json';
 
-import type { MainData } from '@/types';
+import type { MainData, CommunityData } from '@/types';
 
 const mainData: MainData = {
   site: siteData.site,
@@ -30,7 +30,7 @@ const mainData: MainData = {
   a11y: siteData.a11y,
   geo: siteData.geo,
   seo: siteData.seo,
-  community: communityData,
+  community: communityData as unknown as CommunityData,
   consultations: accountData.consultations,
   reviews: accountData.reviews,
   certificates: accountData.certificates,

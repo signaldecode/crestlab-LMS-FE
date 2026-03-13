@@ -1,7 +1,6 @@
 /**
- * 마이페이지 — 프로필 탭 (/mypage/[userId])
- * - 사이드바(탭 토글 + 프로필 카드 + 메뉴) + 프로필 콘텐츠
- * - userId로 해당 유저의 프로필을 표시한다
+ * 타 유저 프로필 페이지 (/mypage/[userId])
+ * - 토글 없이 프로필 정보 + 팔로우 버튼만 표시
  */
 
 import type { JSX } from 'react';
@@ -12,13 +11,13 @@ interface ProfilePageProps {
   params: Promise<{ userId: string }>;
 }
 
-export default async function MyPageProfilePage({ params }: ProfilePageProps): Promise<JSX.Element> {
+export default async function OtherUserProfilePage({ params }: ProfilePageProps): Promise<JSX.Element> {
   const { userId } = await params;
 
   return (
     <section className="mypage">
       <div className="mypage__layout">
-        <MyPageSidebar activeTab="profile" userId={userId} />
+        <MyPageSidebar activeTab="profile" isOtherUser />
         <div className="mypage__content">
           <MyProfileContent userId={userId} />
         </div>

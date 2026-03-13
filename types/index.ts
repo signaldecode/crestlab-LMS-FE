@@ -227,7 +227,69 @@ export interface CategoryOption {
   label: string;
 }
 
+/** 사이드바 네비게이션 하위 아이템 */
+export interface SidebarNavItem {
+  id: string;
+  label: string;
+}
+
+/** 사이드바 네비게이션 섹션 (상위 탭) */
+export interface SidebarNavSection {
+  id: string;
+  icon: string;
+  title: string;
+  href?: string;
+  items: SidebarNavItem[];
+}
+
+/** 피드 탭 */
+export interface FeedTabItem {
+  id: string;
+  label: string;
+}
+
+/** 피드 섹션 (인기글, 전문가칼럼 등) */
+export interface FeedSection {
+  id: string;
+  title: string;
+  type: 'popular' | 'article';
+  itemCount: number;
+  showMore?: boolean;
+  moreLabel?: string;
+}
+
+/** Aside 섹션 (주목받는 멤버, 댓글 랭킹 등) */
+export interface AsideSection {
+  id: string;
+  title: string;
+  type: 'member';
+  itemCount: number;
+  showRank: boolean;
+}
+
+/** 검색 필터 UI 텍스트 */
+export interface SearchFilters {
+  categoryLabel: string;
+  categoryDefault: string;
+  scopeLabel: string;
+  scopeDefault: string;
+  searchPlaceholder: string;
+  searchAriaLabel: string;
+}
+
+/** 사이드바 UI 텍스트 */
+export interface SidebarLabels {
+  loginLabel: string;
+  profileAriaLabel: string;
+}
+
 export interface CommunityData {
+  sidebarNav: SidebarNavSection[];
+  feedTabs: FeedTabItem[];
+  feedSections: FeedSection[];
+  asideSections: AsideSection[];
+  searchFilters: SearchFilters;
+  sidebar: SidebarLabels;
   categories: CategoryOption[];
   reportReasons: CategoryOption[];
 }
@@ -284,6 +346,70 @@ export interface MarketingConsent {
   sms: boolean;
   email: boolean;
   nightAd: boolean;
+}
+
+/* ── 프로필 카드 ── */
+export interface ProfileCardToggleLabels {
+  profile: string;
+  classroom: string;
+  ariaLabel: string;
+}
+
+export interface CommunityLevelData {
+  title: string;
+  tooltipText: string;
+  tooltipAriaLabel: string;
+  steps: string[];
+  currentStep: number;
+  progressPercent: number;
+}
+
+export interface ProfileStatItem {
+  key: string;
+  label: string;
+  value: number;
+}
+
+export interface ProfileModeData {
+  roleLabel: string;
+  communityLevel: CommunityLevelData;
+  stats: ProfileStatItem[];
+}
+
+export interface ClassroomInfoRow {
+  key: string;
+  label: string;
+  value: string;
+  href?: string;
+  type: 'badge' | 'link' | 'text';
+}
+
+export interface ClassroomModeData {
+  affiliationPrefix: string;
+  infoRows: ClassroomInfoRow[];
+}
+
+export interface OtherUserInfoRow {
+  key: string;
+  label: string;
+}
+
+export interface OtherUserModeData {
+  shareAriaLabel: string;
+  followLabel: string;
+  followingLabel: string;
+  followAriaLabel: string;
+  infoRows: OtherUserInfoRow[];
+}
+
+export interface ProfileCardData {
+  coverImageAlt: string;
+  avatarAlt: string;
+  verifiedBadgeAlt: string;
+  toggleLabels: ProfileCardToggleLabels;
+  profileMode: ProfileModeData;
+  classroomMode: ClassroomModeData;
+  otherUserMode: OtherUserModeData;
 }
 
 /* ── 장바구니 / 주문 ── */

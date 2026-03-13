@@ -32,6 +32,30 @@
   }
 }
 
+// ── 콘텐츠 패널 전환 (애니메이션) ──
+.mypage__content-panels {
+  position: relative;
+}
+
+.mypage__content-panel {
+  opacity: 0;
+  max-height: 0;
+  transform: translateY(0.5rem);
+  overflow: hidden;
+  transition:
+    opacity 0.3s ease,
+    max-height 0.35s ease,
+    transform 0.3s ease;
+  pointer-events: none;
+
+  &--active {
+    opacity: 1;
+    max-height: none;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
 // ============================================
 // 사이드바
 // ============================================
@@ -42,49 +66,55 @@
     top: $spacing-8;
   }
 
-  // 탭 토글
-  &__tabs {
-    display: flex;
-    border-radius: 2rem;
+  // ── 프로필 카드 (새 디자인) ──
+  &__card {
     border: 1px solid $color-border;
+    border-radius: 0.75rem;
     overflow: hidden;
     margin-bottom: $spacing-6;
   }
 
-  &__tab {
-    flex: 1;
-    padding: $spacing-3 $spacing-4;
-    text-align: center;
-    border: none;
-    background: $color-bg-primary;
-    font-size: $font-size-sm;
-    font-weight: $font-weight-medium;
-    color: $color-text-secondary;
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s;
-
-    &--active {
-      background: $color-text-primary;
-      color: $color-text-inverse;
-      font-weight: $font-weight-bold;
-    }
+  // 커버 이미지
+  &__cover {
+    position: relative;
+    width: 100%;
+    height: 8rem;
+    background: $color-bg-tertiary;
   }
 
-  // 프로필 카드
-  &__profile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: $spacing-4;
-    padding: $spacing-6;
-    border: 1px solid $color-border;
-    border-radius: 0.75rem;
-    margin-bottom: $spacing-6;
+  &__cover-img {
+    object-fit: cover;
+  }
+
+  &__cover-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, $color-bg-tertiary 0%, $color-bg-secondary 100%);
+  }
+
+  // 아바타 (커버 하단에 겹침)
+  &__avatar-wrap {
+    position: absolute;
+    bottom: -2rem;
+    left: $spacing-5;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    border: 3px solid $color-bg-primary;
+    overflow: hidden;
+    background: $color-bg-primary;
+  }
+
+  &__avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
   }
 
   &__avatar {
-    width: 5rem;
-    height: 5rem;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
 
     &--default {
@@ -96,52 +126,222 @@
     }
   }
 
-  &__skeleton-circle {
-    background: $color-bg-tertiary;
-    animation: mypage-pulse 1.8s ease-in-out infinite;
+  // 이름/배지/역할 영역
+  &__identity {
+    padding: 2.5rem $spacing-5 0;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
   }
 
-  &__skeleton-line {
-    border-radius: 0.25rem;
-    background: $color-bg-tertiary;
-    animation: mypage-pulse 1.8s ease-in-out infinite;
-
-    &--name { width: 5rem; height: 1.25rem; }
-    &--value { width: 2.5rem; height: 0.875rem; }
-    &--level { width: 8rem; height: 0.875rem; }
-  }
-
-  // 이름 + 편집 아이콘
   &__name-row {
     display: flex;
     align-items: center;
-    gap: $spacing-2;
+    gap: $spacing-1;
   }
 
   &__username {
     font-size: $font-size-base;
     font-weight: $font-weight-bold;
     color: $color-text-primary;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
-  &__edit-btn {
+  &__verified-badge {
+    flex-shrink: 0;
+    color: $color-primary;
+  }
+
+  &__role {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__affiliation {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  // 역할 + 토글이 같은 줄
+  &__role-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $spacing-2 $spacing-5;
+  }
+
+  // ── iOS 스타일 슬라이드 토글 ──
+  &__switch {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+
+  &__switch-label {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+  }
+
+  &__switch-track {
+    position: relative;
+    width: 2.75rem;
+    height: 1.5rem;
+    border-radius: 1rem;
+    background: $color-primary;
+    transition: background 0.3s;
+  }
+
+  &__switch-thumb {
+    position: absolute;
+    top: 0.1875rem;
+    left: 0.1875rem;
+    width: 1.125rem;
+    height: 1.125rem;
+    border-radius: 50%;
+    background: $color-bg-primary;
+    transition: transform 0.3s;
+  }
+
+  // 강의실 모드일 때 (aria-checked="true") → thumb 오른쪽
+  &__switch[aria-checked='true'] {
+    .mypage-sidebar__switch-thumb {
+      transform: translateX(1.25rem);
+    }
+  }
+
+  // 프로필 모드일 때 (aria-checked="false") → thumb 왼쪽 (기본값)
+
+  // ── 모드 전환 패널 (애니메이션) ──
+  &__mode-panels {
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__mode-panel {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-0.5rem);
+    overflow: hidden;
+    transition:
+      opacity 0.3s ease,
+      max-height 0.35s ease,
+      transform 0.3s ease;
+    pointer-events: none;
+
+    &--active {
+      opacity: 1;
+      max-height: 25rem;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+  }
+
+  // ── 프로필 모드 하단 ──
+  &__profile-info {
+    padding: 0 $spacing-5 $spacing-5;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+  }
+
+  // 커뮤니티 레벨
+  &__level {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+  }
+
+  &__level-header {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+  }
+
+  &__level-title {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__level-tooltip-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1.75rem;
-    height: 1.75rem;
-    border-radius: 50%;
+    padding: 0;
+    border: none;
+    background: none;
     color: $color-text-secondary;
-    text-decoration: none;
-    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
 
     &:hover {
-      background: $color-bg-tertiary;
       color: $color-text-primary;
     }
   }
 
-  // 내 강의실 - 정보 목록
+  &__level-bar {
+    width: 100%;
+    height: 0.375rem;
+    border-radius: 0.25rem;
+    background: $color-bg-tertiary;
+  }
+
+  &__level-fill {
+    height: 100%;
+    border-radius: 0.25rem;
+    background: $color-primary;
+    transition: width 0.3s;
+  }
+
+  &__level-steps {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  &__level-step {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  // 통계
+  &__stats {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: $spacing-4;
+    border-top: 1px solid $color-border;
+  }
+
+  &__stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-1;
+  }
+
+  &__stat-label {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__stat-num {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+  }
+
+  // ── 강의실 모드 하단 ──
+  &__classroom-info {
+    padding: 0 $spacing-5 $spacing-5;
+  }
+
   &__info-list {
     width: 100%;
     display: flex;
@@ -179,6 +379,7 @@
       font-weight: $font-weight-bold;
       color: $color-primary;
       cursor: pointer;
+      text-decoration: none;
 
       &:hover {
         text-decoration: underline;
@@ -186,56 +387,84 @@
     }
   }
 
-  // 프로필 - 레벨
-  &__level {
-    width: 100%;
+  // ── 타 유저 모드 하단 ──
+  &__other-info {
+    padding: 0 $spacing-5 $spacing-5;
     display: flex;
     flex-direction: column;
-    gap: $spacing-2;
+    gap: $spacing-4;
   }
 
-  &__level-bar {
-    width: 100%;
-    height: 0.375rem;
-    border-radius: 0.25rem;
-    background: $color-bg-tertiary;
-  }
-
-  &__level-fill {
-    width: 15%;
-    height: 100%;
-    border-radius: 0.25rem;
-    background: $color-primary;
-  }
-
-  // 프로필 - 통계
-  &__stats {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    padding-top: $spacing-4;
-    border-top: 1px solid $color-border;
-  }
-
-  &__stat {
+  &__other-stats {
     display: flex;
     flex-direction: column;
+    gap: $spacing-3;
+  }
+
+  &__other-stat-row {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: $spacing-1;
+    font-size: $font-size-sm;
   }
 
-  &__stat-num {
-    font-size: $font-size-base;
+  &__other-stat-label {
+    color: $color-text-secondary;
+  }
+
+  &__other-stat-value {
     font-weight: $font-weight-bold;
     color: $color-text-primary;
   }
 
-  &__stat-label {
-    font-size: $font-size-xs;
-    color: $color-text-secondary;
+  &__other-actions {
+    display: flex;
+    gap: $spacing-3;
+    padding-top: $spacing-2;
   }
 
-  // 메뉴
+  &__share-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid $color-border;
+    border-radius: 0.5rem;
+    background: $color-bg-primary;
+    color: $color-text-secondary;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+
+    &:hover {
+      background: $color-bg-secondary;
+      color: $color-text-primary;
+    }
+  }
+
+  &__follow-btn {
+    flex: 1;
+    padding: $spacing-3;
+    border: none;
+    border-radius: 0.5rem;
+    background: $color-primary;
+    color: $color-text-inverse;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.85;
+    }
+
+    &--following {
+      background: $color-bg-tertiary;
+      color: $color-text-primary;
+    }
+  }
+
+  // ── 메뉴 ──
   &__nav {
     display: flex;
     flex-direction: column;
