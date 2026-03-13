@@ -1,282 +1,432 @@
 /**
- * 프로필 수정 콘텐츠 (ProfileEditContent)
- * - 닉네임 입력 + 중복확인
- * - 소개글 텍스트 입력
- * - 대표글 추가
- * - 프로필 완성도 사이드바
+ * 회원정보관리 콘텐츠 (ProfileEditContent)
+ * - 회원 기본정보 수정 (이름/아이디/비밀번호/휴대폰/생년월일/성별)
+ * - 소셜연동 관리
+ * - 마케팅 수신 설정
+ * - 회원탈퇴 / 취소 / 수정 버튼
  */
 
 'use client';
 
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback } from 'react';
 import type { JSX, ChangeEvent } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import useAuthStore from '@/stores/useAuthStore';
-import ProfileImage from '@/components/ui/ProfileImage';
+import accountData from '@/data/accountData.json';
+
+// Social Logos
+import naverLogo from '@/assets/images/logo/naver.png';
+import kakaoLogo from '@/assets/images/logo/kakaotalk.png';
+import googleLogo from '@/assets/images/logo/google.png';
+import appleLogo from '@/assets/images/logo/apple.png';
+
+const profileEdit = accountData.profileEdit;
 
 export default function ProfileEditContent(): JSX.Element {
   const router = useRouter();
   const user = useAuthStore((s) => s.user);
   const setUser = useAuthStore((s) => s.setUser);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const [nickname, setNickname] = useState(user?.nickname ?? '');
-  const [nicknameChecked, setNicknameChecked] = useState(false);
-  const [nicknameError, setNicknameError] = useState('');
-  const [bio, setBio] = useState(user?.bio ?? '');
-  const [profileImage, setProfileImage] = useState(user?.profileImage ?? '');
+  // 비밀번호
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
-  // 프로필 완성도 계산
-  const completionItems = [
-    { label: '프로필 사진', done: !!profileImage },
-    { label: '자기소개', done: bio.trim().length > 0 },
-    { label: '대표글', done: false },
-  ];
-  const completionPercent = Math.round(
-    (completionItems.filter((item) => item.done).length / completionItems.length) * 100,
-  );
+  // 휴대폰
+  const [phone, setPhone] = useState(user?.phone ?? '');
 
-  const handleNicknameChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setNickname(e.target.value);
-    setNicknameChecked(false);
-    setNicknameError('');
+  // 생년월일
+  const [birthday, setBirthday] = useState(user?.birthday ?? '');
+
+  // 성별
+  const [gender, setGender] = useState<'male' | 'female'>(user?.gender ?? 'male');
+
+  // 마케팅 동의
+  const [personalInfoConsent, setPersonalInfoConsent] = useState(user?.marketingConsent?.personalInfo ?? false);
+  const [smsConsent, setSmsConsent] = useState(user?.marketingConsent?.sms ?? false);
+  const [emailConsent, setEmailConsent] = useState(user?.marketingConsent?.email ?? false);
+  const [nightAdConsent, setNightAdConsent] = useState(user?.marketingConsent?.nightAd ?? false);
+
+  const handlePhoneChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setPhone(e.target.value);
   }, []);
 
-  const handleNicknameCheck = useCallback(() => {
-    const trimmed = nickname.trim();
-    if (trimmed.length < 2) {
-      setNicknameError('닉네임은 2자 이상이어야 합니다.');
-      return;
-    }
-    if (trimmed.length > 20) {
-      setNicknameError('닉네임은 20자 이하여야 합니다.');
-      return;
-    }
-    // TODO: 서버 중복확인 API 연동
-    setNicknameChecked(true);
-    setNicknameError('');
-  }, [nickname]);
-
-  const handleImageClick = useCallback(() => {
-    fileInputRef.current?.click();
-  }, []);
-
-  const handleImageChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      setProfileImage(reader.result as string);
-    };
-    reader.readAsDataURL(file);
-  }, []);
-
-  const handleSave = useCallback(() => {
+  const handleSubmit = useCallback(() => {
     if (!user) return;
-
     setUser({
       ...user,
-      nickname: nickname.trim() || undefined,
-      bio: bio.trim() || undefined,
-      profileImage: profileImage || undefined,
+      phone,
+      birthday,
+      gender,
+      marketingConsent: {
+        personalInfo: personalInfoConsent,
+        sms: smsConsent,
+        email: emailConsent,
+        nightAd: nightAdConsent,
+      },
     });
+    router.push('/mypage');
+  }, [user, phone, birthday, gender, personalInfoConsent, smsConsent, emailConsent, nightAdConsent, setUser, router]);
 
-    router.push(`/mypage/${user.id}`);
-  }, [user, nickname, bio, profileImage, setUser, router]);
-
-  const handleBack = useCallback(() => {
+  const handleCancel = useCallback(() => {
     router.back();
   }, [router]);
 
+  const socialAccounts = user?.socialAccounts ?? [];
+
+  // Social Logo mapping
+  const getSocialLogo = (id: string) => {
+    switch (id) {
+      case 'naver': return naverLogo;
+      case 'kakao': return kakaoLogo;
+      case 'google': return googleLogo;
+      case 'apple': return appleLogo;
+      default: return null;
+    }
+  };
+
   return (
-    <div className="profile-edit">
-      {/* 돌아가기 */}
-      <button type="button" className="profile-edit__back" onClick={handleBack}>
-        &larr; 돌아가기
-      </button>
+    <div className="member-edit">
+      <h2 className="member-edit__title">{profileEdit.title}</h2>
+      <hr className="member-edit__divider" />
 
-      <h2 className="profile-edit__title">프로필 수정</h2>
-
-      <div className="profile-edit__layout">
-        {/* 왼쪽: 편집 폼 */}
-        <div className="profile-edit__form">
-          {/* 프로필 이미지 */}
-          <div className="profile-edit__image-section">
-            <button
-              type="button"
-              className="profile-edit__image-btn"
-              onClick={handleImageClick}
-              aria-label="프로필 사진 변경"
-            >
-              <ProfileImage
-                src={profileImage || undefined}
-                alt={user?.name ?? '프로필'}
-                size={96}
-              />
-              <span className="profile-edit__image-overlay">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                  <path
-                    d="M4 16l1.5-4L14 3.5a1.5 1.5 0 012 0l.5.5a1.5 1.5 0 010 2L8 14.5 4 16z"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </span>
-            </button>
+      {/* 회원 기본정보 폼 */}
+      <div className="member-edit__form">
+        {/* 이름 */}
+        <div className="member-edit__row">
+          <label className="member-edit__label" htmlFor="member-name">
+            {profileEdit.fields.name.label}
+          </label>
+          <div className="member-edit__field">
             <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              className="profile-edit__image-input"
-              onChange={handleImageChange}
-              aria-hidden="true"
-              tabIndex={-1}
+              id="member-name"
+              type="text"
+              className="member-edit__input member-edit__input--readonly"
+              value={user?.name ?? ''}
+              readOnly
+              aria-label={profileEdit.fields.name.ariaLabel}
             />
-          </div>
-
-          {/* 닉네임 */}
-          <div className="profile-edit__field">
-            <div className="profile-edit__nickname-row">
-              <input
-                type="text"
-                className={`profile-edit__input${nicknameError ? ' profile-edit__input--error' : ''}`}
-                value={nickname}
-                onChange={handleNicknameChange}
-                placeholder="닉네임을 입력하세요"
-                maxLength={20}
-                aria-label="닉네임"
-              />
-              <button
-                type="button"
-                className="profile-edit__check-btn"
-                onClick={handleNicknameCheck}
-              >
-                중복확인
-              </button>
-            </div>
-            {nicknameError && (
-              <p className="profile-edit__error">{nicknameError}</p>
-            )}
-            {nicknameChecked && !nicknameError && (
-              <p className="profile-edit__success">사용 가능한 닉네임입니다.</p>
-            )}
-          </div>
-
-          {/* 소개글 */}
-          <div className="profile-edit__field">
-            <textarea
-              className="profile-edit__textarea"
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
-              placeholder={`${user?.name ?? '회원'}님을 더 잘 이해할 수 있도록 소개를 남겨주세요.\n어떤 목표로 월부에서 활동 중인지, 현재 상황이나 관심사를 적어주시면\n비슷한 멤버들과 연결되고 더 풍부한 대화를 나눌 수 있어요.`}
-              rows={6}
-              aria-label="자기소개"
-            />
-          </div>
-
-          {/* 대표글 */}
-          <div className="profile-edit__featured">
-            <div className="profile-edit__featured-header">
-              <h3 className="profile-edit__featured-title">대표글</h3>
-              <span className="profile-edit__featured-count">0</span>
-            </div>
-
-            <div className="profile-edit__featured-empty">
-              <span className="profile-edit__featured-icon" aria-hidden="true">
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                  <rect width="48" height="48" rx="24" fill="#EEF2FF" />
-                  <path
-                    d="M20 18h8m-8 4h8m-8 4h5"
-                    stroke="#6366F1"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </span>
-              <p className="profile-edit__featured-label">글 추가하기</p>
-              <p className="profile-edit__featured-desc">
-                나의 이야기를 보여줄 글을 골라
-                <br />
-                프로필에 고정해보세요.
-              </p>
-              <button
-                type="button"
-                className="profile-edit__featured-add"
-                aria-label="대표글 추가"
-              >
-                +
-              </button>
-            </div>
           </div>
         </div>
 
-        {/* 오른쪽: 프로필 완성도 */}
-        <aside className="profile-edit__sidebar">
-          <div className="profile-edit__completion">
-            <h3 className="profile-edit__completion-title">프로필 완성도</h3>
-            <span className="profile-edit__completion-percent">{completionPercent}%</span>
+        {/* 아이디 */}
+        <div className="member-edit__row">
+          <label className="member-edit__label" htmlFor="member-email">
+            {profileEdit.fields.email.label}
+          </label>
+          <div className="member-edit__field">
+            <input
+              id="member-email"
+              type="text"
+              className="member-edit__input member-edit__input--readonly"
+              value={user?.email ?? ''}
+              readOnly
+              aria-label={profileEdit.fields.email.ariaLabel}
+            />
+          </div>
+        </div>
 
-            {/* 프로그레스 바 */}
-            <div className="profile-edit__progress">
-              <div className="profile-edit__progress-track">
-                <div
-                  className="profile-edit__progress-fill"
-                  style={{ width: `${completionPercent}%` }}
-                />
-                <span
-                  className="profile-edit__progress-label"
-                  style={{ left: `${Math.max(completionPercent, 5)}%` }}
-                >
-                  완성도
-                </span>
-              </div>
-              <div className="profile-edit__progress-labels">
-                <span>부족해요</span>
-                <span>평균</span>
-                <span>만점이에요</span>
-              </div>
-            </div>
+        {/* 현재 비밀번호 */}
+        <div className="member-edit__row">
+          <label className="member-edit__label" htmlFor="member-current-pw">
+            {profileEdit.fields.currentPassword.label}
+          </label>
+          <div className="member-edit__field">
+            <input
+              id="member-current-pw"
+              type="password"
+              className="member-edit__input"
+              value={currentPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+              placeholder={profileEdit.fields.currentPassword.placeholder}
+              aria-label={profileEdit.fields.currentPassword.ariaLabel}
+            />
+          </div>
+        </div>
 
-            <p className="profile-edit__completion-hint">
-              정보를 더 채울수록 나와 비슷한 상황의 멤버들을 더 쉽게 만날 수 있어요.
-            </p>
+        {/* 새 비밀번호 */}
+        <div className="member-edit__row">
+          <label className="member-edit__label" htmlFor="member-new-pw">
+            {profileEdit.fields.newPassword.label}
+          </label>
+          <div className="member-edit__field">
+            <input
+              id="member-new-pw"
+              type="password"
+              className="member-edit__input"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              placeholder={profileEdit.fields.newPassword.placeholder}
+              aria-label={profileEdit.fields.newPassword.ariaLabel}
+            />
+          </div>
+        </div>
 
-            {/* 체크리스트 */}
-            <ul className="profile-edit__checklist">
-              {completionItems.map((item) => (
-                <li
-                  key={item.label}
-                  className={`profile-edit__checklist-item${item.done ? ' profile-edit__checklist-item--done' : ''}`}
-                >
-                  <span className="profile-edit__checklist-label">{item.label}</span>
-                  <span className="profile-edit__checklist-icon" aria-hidden="true">
-                    {item.done ? (
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <circle cx="10" cy="10" r="9" stroke="#16a34a" strokeWidth="2" />
-                        <path d="M6 10l3 3 5-5" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    ) : (
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <circle cx="10" cy="10" r="9" stroke="#e5e7eb" strokeWidth="2" />
-                      </svg>
-                    )}
-                  </span>
-                </li>
-              ))}
-            </ul>
+        {/* 새 비밀번호 확인 */}
+        <div className="member-edit__row">
+          <label className="member-edit__label" htmlFor="member-confirm-pw">
+            {profileEdit.fields.confirmPassword.label}
+          </label>
+          <div className="member-edit__field">
+            <input
+              id="member-confirm-pw"
+              type="password"
+              className="member-edit__input"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder={profileEdit.fields.confirmPassword.placeholder}
+              aria-label={profileEdit.fields.confirmPassword.ariaLabel}
+            />
+          </div>
+        </div>
 
-            <button
-              type="button"
-              className="profile-edit__save-btn"
-              onClick={handleSave}
-            >
-              저장하기
+        {/* 휴대폰 */}
+        <div className="member-edit__row">
+          <label className="member-edit__label" htmlFor="member-phone">
+            {profileEdit.fields.phone.label}
+          </label>
+          <div className="member-edit__field member-edit__field--with-btn">
+            <input
+              id="member-phone"
+              type="tel"
+              className="member-edit__input"
+              value={phone}
+              onChange={handlePhoneChange}
+              aria-label={profileEdit.fields.phone.ariaLabel}
+            />
+            <button type="button" className="member-edit__verify-btn">
+              {profileEdit.buttons.verifyPhone}
             </button>
           </div>
-        </aside>
+        </div>
+
+        {/* 생년월일 */}
+        <div className="member-edit__row">
+          <label className="member-edit__label" htmlFor="member-birthday">
+            {profileEdit.fields.birthday.label}
+          </label>
+          <div className="member-edit__field">
+            <input
+              id="member-birthday"
+              type="text"
+              className="member-edit__input"
+              value={birthday}
+              onChange={(e) => setBirthday(e.target.value)}
+              aria-label={profileEdit.fields.birthday.ariaLabel}
+            />
+          </div>
+        </div>
+
+        {/* 성별 */}
+        <div className="member-edit__row">
+          <span className="member-edit__label">
+            {profileEdit.fields.gender.label}
+          </span>
+          <div className="member-edit__field member-edit__field--radio" role="radiogroup" aria-label={profileEdit.fields.gender.ariaLabel}>
+            {profileEdit.genderOptions.map((option) => (
+              <label key={option.value} className="member-edit__radio-label">
+                <input
+                  type="radio"
+                  name="gender"
+                  className="member-edit__radio"
+                  value={option.value}
+                  checked={gender === option.value}
+                  onChange={() => setGender(option.value as 'male' | 'female')}
+                />
+                <span className="member-edit__radio-text">{option.label}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        {/* 소셜연동 */}
+        <div className="member-edit__row member-edit__row--social">
+          <span className="member-edit__label">
+            {profileEdit.fields.socialAccounts.label}
+          </span>
+          <div className="member-edit__field member-edit__field--social">
+            {profileEdit.socialProviders.map((provider) => {
+              const account = socialAccounts.find((a) => a.provider === provider.id);
+              const isConnected = account?.connected ?? false;
+
+              return (
+                <div key={provider.id} className="member-edit__social-row">
+                  <div className="member-edit__social-info">
+                    <span
+                      className="member-edit__social-icon"
+                      aria-hidden="true"
+                    >
+                      {getSocialLogo(provider.id) ? (
+                        <Image
+                          src={getSocialLogo(provider.id)!}
+                          alt={provider.label}
+                          width={20}
+                          height={20}
+                          className="member-edit__social-logo"
+                        />
+                      ) : (
+                        <span
+                          className="member-edit__social-dot"
+                          data-provider={provider.id}
+                        />
+                      )}
+                    </span>
+                    <span className="member-edit__social-name">
+                      {provider.label}
+                      {provider.note && (
+                        <span className="member-edit__social-note">{provider.note}</span>
+                      )}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    className={`member-edit__social-btn${isConnected ? ' member-edit__social-btn--connected' : ''}`}
+                    aria-label={`${provider.label} ${isConnected ? profileEdit.buttons.socialDisconnect : profileEdit.buttons.socialConnect}`}
+                  >
+                    {profileEdit.buttons.socialConnect}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* 가입일 */}
+        <div className="member-edit__row">
+          <label className="member-edit__label" htmlFor="member-join-date">
+            {profileEdit.fields.joinDate.label}
+          </label>
+          <div className="member-edit__field">
+            <input
+              id="member-join-date"
+              type="text"
+              className="member-edit__input member-edit__input--readonly"
+              value={user?.joinDate ?? ''}
+              readOnly
+              aria-label={profileEdit.fields.joinDate.ariaLabel}
+            />
+          </div>
+        </div>
+
+        {/* 등급 */}
+        <div className="member-edit__row">
+          <label className="member-edit__label" htmlFor="member-grade">
+            {profileEdit.fields.grade.label}
+          </label>
+          <div className="member-edit__field">
+            <input
+              id="member-grade"
+              type="text"
+              className="member-edit__input member-edit__input--readonly"
+              value={user?.grade ?? ''}
+              readOnly
+              aria-label={profileEdit.fields.grade.ariaLabel}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* 마케팅 수신 설정 */}
+      <section className="member-edit__marketing" aria-labelledby="marketing-title">
+        <h3 id="marketing-title" className="member-edit__marketing-title">
+          {profileEdit.marketing.title}
+        </h3>
+        <hr className="member-edit__divider" />
+
+        {/* 개인정보 동의 */}
+        <div className="member-edit__row">
+          <span className="member-edit__label">
+            {profileEdit.marketing.personalInfo.label}
+          </span>
+          <div className="member-edit__field">
+            <label className="member-edit__checkbox-label">
+              <input
+                type="checkbox"
+                className="member-edit__checkbox"
+                checked={personalInfoConsent}
+                onChange={(e) => setPersonalInfoConsent(e.target.checked)}
+              />
+              <span className="member-edit__checkbox-text">
+                {profileEdit.marketing.personalInfo.description}
+              </span>
+            </label>
+          </div>
+        </div>
+
+        {/* 광고성 정보 수신 동의 */}
+        <div className="member-edit__row">
+          <span className="member-edit__label member-edit__label--multiline">
+            {profileEdit.marketing.adConsent.label}
+          </span>
+          <div className="member-edit__field member-edit__field--checkbox-group">
+            <label className="member-edit__checkbox-label">
+              <input
+                type="checkbox"
+                className="member-edit__checkbox"
+                checked={smsConsent}
+                onChange={(e) => setSmsConsent(e.target.checked)}
+              />
+              <span className="member-edit__checkbox-text">
+                {profileEdit.marketing.adConsent.options[0]}
+              </span>
+            </label>
+            <label className="member-edit__checkbox-label">
+              <input
+                type="checkbox"
+                className="member-edit__checkbox"
+                checked={emailConsent}
+                onChange={(e) => setEmailConsent(e.target.checked)}
+              />
+              <span className="member-edit__checkbox-text">
+                {profileEdit.marketing.adConsent.options[1]}
+              </span>
+            </label>
+          </div>
+        </div>
+
+        {/* 광고성 정보 야간 동의 */}
+        <div className="member-edit__row">
+          <span className="member-edit__label member-edit__label--multiline">
+            {profileEdit.marketing.nightAdConsent.label}
+          </span>
+          <div className="member-edit__field">
+            <label className="member-edit__checkbox-label">
+              <input
+                type="checkbox"
+                className="member-edit__checkbox"
+                checked={nightAdConsent}
+                onChange={(e) => setNightAdConsent(e.target.checked)}
+              />
+              <span className="member-edit__checkbox-text">
+                {profileEdit.marketing.nightAdConsent.description}
+              </span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      {/* 하단 버튼 */}
+      <div className="member-edit__actions">
+        <button type="button" className="member-edit__withdraw-btn">
+          {profileEdit.buttons.withdraw}
+        </button>
+        <div className="member-edit__actions-right">
+          <button
+            type="button"
+            className="member-edit__cancel-btn"
+            onClick={handleCancel}
+          >
+            {profileEdit.buttons.cancel}
+          </button>
+          <button
+            type="button"
+            className="member-edit__submit-btn"
+            onClick={handleSubmit}
+          >
+            {profileEdit.buttons.submit}
+          </button>
+        </div>
       </div>
     </div>
   );

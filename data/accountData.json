@@ -121,5 +121,46 @@
       "validTo": "2026.03.02",
       "status": "기간만료"
     }
-  ]
+  ],
+
+  "profileEdit": {
+    "title": "회원정보관리",
+    "fields": {
+      "name": { "label": "이름", "ariaLabel": "이름" },
+      "email": { "label": "아이디", "ariaLabel": "아이디" },
+      "currentPassword": { "label": "현재 비밀번호", "placeholder": "현재 비밀번호를 입력해 주세요.", "ariaLabel": "현재 비밀번호" },
+      "newPassword": { "label": "새 비밀번호", "placeholder": "영문 및 숫자 특수문자 조합 8~20자", "ariaLabel": "새 비밀번호" },
+      "confirmPassword": { "label": "새 비밀번호 확인", "placeholder": "새 비밀번호를 한 번 더 입력해주세요.", "ariaLabel": "새 비밀번호 확인" },
+      "phone": { "label": "휴대폰", "ariaLabel": "휴대폰 번호" },
+      "birthday": { "label": "생년월일", "ariaLabel": "생년월일" },
+      "gender": { "label": "성별", "ariaLabel": "성별 선택" },
+      "socialAccounts": { "label": "소셜연동" },
+      "joinDate": { "label": "가입일", "ariaLabel": "가입일" },
+      "grade": { "label": "등급", "ariaLabel": "회원 등급" }
+    },
+    "genderOptions": [
+      { "value": "male", "label": "남성" },
+      { "value": "female", "label": "여성" }
+    ],
+    "socialProviders": [
+      { "id": "naver", "label": "네이버", "color": "#03C75A" },
+      { "id": "kakao", "label": "카카오", "color": "#FEE500" },
+      { "id": "apple", "label": "애플", "color": "#000000" },
+      { "id": "google", "label": "구글", "color": "#4285F4", "note": "*간편로그인 / 회원가입 서비스 종료" }
+    ],
+    "buttons": {
+      "verifyPhone": "인증요청",
+      "socialConnect": "연결",
+      "socialDisconnect": "연결",
+      "withdraw": "회원탈퇴",
+      "cancel": "취소하기",
+      "submit": "수정하기"
+    },
+    "marketing": {
+      "title": "마케팅 수신 설정",
+      "personalInfo": { "label": "개인정보 동의", "description": "마케팅 목적의 개인정보 수집 및 이용 동의" },
+      "adConsent": { "label": "광고성 정보\n수신 동의", "options": ["SMS 수신", "이메일수신"] },
+      "nightAdConsent": { "label": "광고성 정보\n야간 동의", "description": "광고성 정보 야간(21시 ~ 8시) 수신 동의" }
+    }
+  }
 }

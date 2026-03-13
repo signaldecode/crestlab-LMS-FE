@@ -1184,113 +1184,109 @@
 }
 
 // ============================================
-// 프로필 수정 페이지
+// 회원정보관리 페이지
 // ============================================
-.profile-edit {
-  max-width: $container-max-width;
-  padding: $spacing-8 0;
+.member-edit {
+  max-width: 50rem;
+  margin: 0 auto;
+  padding: $spacing-10 0 $spacing-16;
 
-  // 돌아가기 버튼
-  &__back {
-    display: inline-flex;
-    align-items: center;
-    gap: $spacing-2;
-    padding: $spacing-2 $spacing-4;
-    border: 1px solid $color-border;
-    border-radius: 2rem;
-    background: $color-bg-primary;
-    font-size: $font-size-sm;
-    color: $color-text-primary;
-    cursor: pointer;
-    margin-bottom: $spacing-6;
-
-    &:hover {
-      background: $color-bg-secondary;
-    }
-  }
-
+  // 타이틀
   &__title {
     font-size: $font-size-xl;
     font-weight: $font-weight-bold;
     color: $color-text-primary;
-    margin: 0 0 $spacing-8;
+    margin: 0 0 $spacing-4;
   }
 
-  // 2칸 레이아웃 (폼 + 사이드바)
-  &__layout {
-    display: grid;
-    grid-template-columns: 1fr 300px;
-    gap: $spacing-8;
-    align-items: start;
-
-    @media (max-width: 767px) {
-      grid-template-columns: 1fr;
-    }
+  // 구분선
+  &__divider {
+    border: none;
+    border-top: 2px solid $color-text-primary;
+    margin: 0 0 $spacing-8;
   }
 
   // 폼 영역
   &__form {
     display: flex;
     flex-direction: column;
-    gap: $spacing-6;
+    margin-bottom: $spacing-12;
   }
 
-  // 프로필 이미지
-  &__image-section {
-    margin-bottom: $spacing-4;
-  }
-
-  &__image-btn {
-    position: relative;
-    display: inline-block;
-    border: none;
-    background: none;
-    padding: 0;
-    cursor: pointer;
-    border-radius: 50%;
-  }
-
-  &__image-overlay {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 1.75rem;
-    height: 1.75rem;
+  // 행 (label + field)
+  &__row {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    background: $color-text-primary;
-    color: $color-text-inverse;
-    border-radius: 50%;
-    border: 2px solid $color-bg-primary;
+    align-items: flex-start;
+    padding: $spacing-4 0;
+
+    @media (max-width: 767px) {
+      flex-direction: column;
+      gap: $spacing-2;
+    }
   }
 
-  &__image-input {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
+  &__row--social {
+    align-items: flex-start;
+  }
+
+  // 레이블
+  &__label {
+    flex-shrink: 0;
+    width: 8rem;
+    padding-top: $spacing-3;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+
+    @media (max-width: 767px) {
+      width: 100%;
+      padding-top: 0;
+    }
+  }
+
+  &__label--multiline {
+    white-space: pre-line;
+    line-height: $line-height-base;
   }
 
   // 필드
   &__field {
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-2;
+    flex: 1;
+    min-width: 0;
   }
 
-  &__nickname-row {
+  &__field--with-btn {
     display: flex;
     gap: $spacing-3;
   }
 
+  &__field--radio {
+    display: flex;
+    align-items: center;
+    gap: $spacing-6;
+    padding-top: $spacing-3;
+  }
+
+  &__field--social {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+  }
+
+  &__field--checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: $spacing-6;
+  }
+
+  // 인풋
   &__input {
-    flex: 1;
+    width: 100%;
     padding: $spacing-3 $spacing-4;
     border: 1px solid $color-border;
     border-radius: 0.375rem;
-    font-size: $font-size-base;
+    font-size: $font-size-sm;
+    font-family: inherit;
     color: $color-text-primary;
     outline: none;
     transition: border-color 0.2s;
@@ -1303,14 +1299,207 @@
       border-color: $color-border-focus;
     }
 
-    &--error {
-      border-color: $color-error;
+    &--readonly {
+      background: $color-bg-secondary;
+      color: $color-text-secondary;
+      cursor: default;
     }
   }
 
-  &__check-btn {
+  // 인증요청 버튼
+  &__verify-btn {
     flex-shrink: 0;
-    padding: $spacing-3 $spacing-4;
+    padding: $spacing-3 $spacing-5;
+    border: 1px solid $color-primary;
+    border-radius: 0.375rem;
+    background: $color-bg-primary;
+    color: $color-primary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s, color 0.2s;
+
+    &:hover {
+      background: $color-primary;
+      color: $color-text-inverse;
+    }
+  }
+
+  // 라디오
+  &__radio-label {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    cursor: pointer;
+  }
+
+  &__radio {
+    width: 1.125rem;
+    height: 1.125rem;
+    accent-color: $color-primary;
+    cursor: pointer;
+  }
+
+  &__radio-text {
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+  }
+
+  // 소셜연동
+  &__social-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $spacing-3 0;
+  }
+
+  &__social-info {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+  }
+
+  &__social-dot {
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+
+    &[data-provider='naver'] { background: #03c75a; }
+    &[data-provider='kakao'] { background: #fee500; }
+    &[data-provider='apple'] { background: $color-text-primary; }
+    &[data-provider='google'] { background: #4285f4; }
+  }
+
+  &__social-logo {
+    display: block;
+    width: 1.25rem;
+    height: 1.25rem;
+    object-fit: contain;
+  }
+
+  &__social-name {
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+  }
+
+  &__social-note {
+    margin-left: $spacing-2;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__social-btn {
+    padding: $spacing-2 $spacing-5;
+    border: 1px solid $color-border;
+    border-radius: 0.375rem;
+    background: $color-bg-primary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover {
+      background: $color-bg-secondary;
+    }
+
+    &--connected {
+      background: $color-text-primary;
+      color: $color-text-inverse;
+      border-color: $color-text-primary;
+
+      &:hover {
+        opacity: 0.85;
+      }
+    }
+  }
+
+  // 마케팅 수신 설정
+  &__marketing {
+    margin-bottom: $spacing-12;
+  }
+
+  &__marketing-title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0 0 $spacing-4;
+  }
+
+  // 체크박스
+  &__checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    cursor: pointer;
+  }
+
+  &__checkbox {
+    width: 1.125rem;
+    height: 1.125rem;
+    accent-color: $color-primary;
+    cursor: pointer;
+  }
+
+  &__checkbox-text {
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+  }
+
+  // 하단 버튼
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: $spacing-8;
+
+    @media (max-width: 767px) {
+      flex-direction: column;
+      gap: $spacing-4;
+    }
+  }
+
+  &__actions-right {
+    display: flex;
+    gap: $spacing-3;
+  }
+
+  &__withdraw-btn {
+    padding: $spacing-3 $spacing-6;
+    border: 1px solid $color-text-primary;
+    border-radius: 0.375rem;
+    background: $color-bg-primary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover {
+      background: $color-bg-secondary;
+    }
+  }
+
+  &__cancel-btn {
+    padding: $spacing-3 $spacing-8;
+    border: 1px solid $color-border;
+    border-radius: 0.375rem;
+    background: $color-bg-primary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover {
+      background: $color-bg-secondary;
+    }
+  }
+
+  &__submit-btn {
+    padding: $spacing-3 $spacing-8;
     border: none;
     border-radius: 0.375rem;
     background: $color-text-primary;
@@ -1322,247 +1511,6 @@
 
     &:hover {
       opacity: 0.85;
-    }
-  }
-
-  &__error {
-    font-size: $font-size-xs;
-    color: $color-error;
-    margin: 0;
-  }
-
-  &__success {
-    font-size: $font-size-xs;
-    color: $color-success;
-    margin: 0;
-  }
-
-  // 소개글 텍스트영역
-  &__textarea {
-    width: 100%;
-    padding: $spacing-4;
-    border: 1px solid $color-border;
-    border-radius: 0.75rem;
-    font-size: $font-size-sm;
-    font-family: inherit;
-    color: $color-text-primary;
-    line-height: $line-height-relaxed;
-    resize: vertical;
-    outline: none;
-    transition: border-color 0.2s;
-
-    &::placeholder {
-      color: $color-text-secondary;
-    }
-
-    &:focus {
-      border-color: $color-border-focus;
-    }
-  }
-
-  // 대표글 섹션
-  &__featured {
-    padding-top: $spacing-8;
-    border-top: 1px solid $color-border;
-  }
-
-  &__featured-header {
-    display: flex;
-    align-items: center;
-    gap: $spacing-2;
-    margin-bottom: $spacing-6;
-  }
-
-  &__featured-title {
-    font-size: $font-size-base;
-    font-weight: $font-weight-bold;
-    color: $color-text-primary;
-    margin: 0;
-  }
-
-  &__featured-count {
-    font-size: $font-size-sm;
-    color: $color-primary;
-    font-weight: $font-weight-bold;
-  }
-
-  &__featured-empty {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: $spacing-12 0;
-    border: 1px solid $color-border;
-    border-radius: 0.75rem;
-    text-align: center;
-  }
-
-  &__featured-icon {
-    margin-bottom: $spacing-4;
-  }
-
-  &__featured-label {
-    font-size: $font-size-base;
-    font-weight: $font-weight-bold;
-    color: $color-primary;
-    margin: 0 0 $spacing-2;
-  }
-
-  &__featured-desc {
-    font-size: $font-size-sm;
-    color: $color-text-secondary;
-    line-height: $line-height-base;
-    margin: 0;
-  }
-
-  &__featured-add {
-    margin-top: $spacing-4;
-    width: 2rem;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid $color-border;
-    border-radius: 50%;
-    background: $color-bg-primary;
-    font-size: $font-size-base;
-    color: $color-text-secondary;
-    cursor: pointer;
-
-    &:hover {
-      background: $color-bg-secondary;
-      color: $color-text-primary;
-    }
-  }
-
-  // 사이드바: 프로필 완성도
-  &__sidebar {
-    @media (max-width: 767px) {
-      order: -1;
-    }
-  }
-
-  &__completion {
-    padding: $spacing-6;
-    border: 1px solid $color-border;
-    border-radius: 0.75rem;
-    background: $color-bg-primary;
-  }
-
-  &__completion-title {
-    font-size: $font-size-base;
-    font-weight: $font-weight-bold;
-    color: $color-text-primary;
-    margin: 0 0 $spacing-2;
-  }
-
-  &__completion-percent {
-    display: block;
-    font-size: $font-size-2xl;
-    font-weight: $font-weight-bold;
-    color: $color-text-primary;
-    margin-bottom: $spacing-4;
-  }
-
-  // 프로그레스 바
-  &__progress {
-    margin-bottom: $spacing-4;
-  }
-
-  &__progress-track {
-    position: relative;
-    width: 100%;
-    height: 0.5rem;
-    border-radius: 0.25rem;
-    background: $color-bg-tertiary;
-    margin-bottom: $spacing-2;
-  }
-
-  &__progress-fill {
-    height: 100%;
-    border-radius: 0.25rem;
-    background: $color-primary;
-    transition: width 0.3s ease;
-    min-width: 0.5rem;
-  }
-
-  &__progress-label {
-    position: absolute;
-    top: -1.75rem;
-    transform: translateX(-50%);
-    padding: $spacing-1 $spacing-2;
-    background: $color-text-primary;
-    color: $color-text-inverse;
-    font-size: $font-size-xs;
-    font-weight: $font-weight-medium;
-    border-radius: 0.25rem;
-    white-space: nowrap;
-  }
-
-  &__progress-labels {
-    display: flex;
-    justify-content: space-between;
-    font-size: $font-size-xs;
-    color: $color-text-secondary;
-  }
-
-  &__completion-hint {
-    padding: $spacing-3;
-    background: $color-bg-secondary;
-    border-radius: 0.5rem;
-    font-size: $font-size-xs;
-    color: $color-text-secondary;
-    line-height: $line-height-base;
-    margin: $spacing-4 0;
-  }
-
-  // 체크리스트
-  &__checklist {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 $spacing-6;
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-1;
-  }
-
-  &__checklist-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: $spacing-3 0;
-    border-bottom: 1px solid $color-border;
-    font-size: $font-size-sm;
-    color: $color-text-secondary;
-
-    &--done {
-      color: $color-text-primary;
-    }
-
-    &:last-child {
-      border-bottom: none;
-    }
-  }
-
-  &__checklist-icon {
-    display: flex;
-    align-items: center;
-  }
-
-  // 저장 버튼
-  &__save-btn {
-    width: 100%;
-    padding: $spacing-3 $spacing-4;
-    border: none;
-    border-radius: 0.5rem;
-    background: $color-primary;
-    color: $color-text-inverse;
-    font-size: $font-size-base;
-    font-weight: $font-weight-bold;
-    cursor: pointer;
-    transition: opacity 0.2s;
-
-    &:hover {
-      opacity: 0.9;
     }
   }
 }

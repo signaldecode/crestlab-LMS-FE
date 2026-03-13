@@ -228,6 +228,25 @@ export interface User {
   email: string;
   profileImage?: string;
   featuredPostIds?: string[];
+  phone?: string;
+  birthday?: string;
+  gender?: 'male' | 'female';
+  joinDate?: string;
+  grade?: string;
+  socialAccounts?: SocialAccount[];
+  marketingConsent?: MarketingConsent;
+}
+
+export interface SocialAccount {
+  provider: string;
+  connected: boolean;
+}
+
+export interface MarketingConsent {
+  personalInfo: boolean;
+  sms: boolean;
+  email: boolean;
+  nightAd: boolean;
 }
 
 /* ── 장바구니 / 주문 ── */

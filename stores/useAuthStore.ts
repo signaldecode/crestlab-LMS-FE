@@ -18,12 +18,29 @@ interface AuthState {
 
 const defaultUser: User = {
   id: 'user-001',
-  name: '김회원',
-  nickname: '김회원',
+  name: '신민석',
+  nickname: '신민석',
   bio: '',
-  email: 'kim@example.com',
+  email: 'ttsalstj422@naver.com',
   profileImage: undefined,
   featuredPostIds: [],
+  phone: '010-7558-9904',
+  birthday: '1991-01-01',
+  gender: 'male',
+  joinDate: '2026-03-06',
+  grade: '사원',
+  socialAccounts: [
+    { provider: 'naver', connected: true },
+    { provider: 'kakao', connected: false },
+    { provider: 'apple', connected: false },
+    { provider: 'google', connected: false },
+  ],
+  marketingConsent: {
+    personalInfo: true,
+    sms: false,
+    email: false,
+    nightAd: false,
+  },
 };
 
 const useAuthStore = create<AuthState>((set) => ({
