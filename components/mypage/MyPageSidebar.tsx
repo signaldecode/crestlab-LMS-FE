@@ -1,7 +1,8 @@
 /**
  * 마이페이지 왼쪽 사이드바 (MyPageSidebar)
  * - 커버 이미지 + 아바타 겹침 + 닉네임/배지/역할
- * - 토글 스위치(프로필 ↔ 강의실) — 로컬 state 전환 (라우트 이동 없음)
+ * - 토글 스위치(프로필 ↔ 강의실) — Zustand 전역 상태로 관리
+ * - 메뉴 항목 클릭 시 라우트 이동 없이 상태 전환 (SPA 방식)
  * - 타 유저 페이지: 토글 없이 팔로우 버튼
  */
 
@@ -11,39 +12,37 @@ import type { JSX } from 'react';
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
 import useAuthStore from '@/stores/useAuthStore';
 import useCouponStore from '@/stores/useCouponStore';
+import useMyPageStore from '@/stores/useMyPageStore';
 import accountData from '@/data/accountData.json';
-import type { ProfileCardData } from '@/types';
+import type { ProfileCardData, MyPageSection } from '@/types';
 
 const profileCardData = accountData.profileCard as unknown as ProfileCardData;
 
-export type MyPageTab = 'classroom' | 'profile';
+/** 메뉴 아이템 → 섹션 매핑 (내부 SPA 전환) */
+const menuSections: Record<string, MyPageSection> = {
+  '관심 클래스': 'wishlist',
+  '내 쿠폰': 'coupons',
+  '상품권': 'giftcards',
+  '포인트': 'points',
+  '강의 상담': 'consultations',
+  '수료증': 'certificates',
+  '후기 관리': 'reviews',
+  '구매 내역': 'orders',
+  '회원정보관리': 'profileEdit',
+};
+
+/** 외부 링크 (마이페이지 밖으로 이동) */
+const externalLinks: Record<string, string> = {
+  '1:1 문의': '/support/tickets',
+  '자주 묻는 질문': '/support',
+};
 
 interface MyPageSidebarProps {
-  /** 현재 활성 탭 */
-  activeTab: MyPageTab;
-  /** 탭 전환 콜백 (부모가 콘텐츠 전환) */
-  onTabChange?: (tab: MyPageTab) => void;
   /** 타 유저 프로필인지 여부 */
   isOtherUser?: boolean;
 }
-
-/** 메뉴 아이템 → 라우트 매핑 */
-const menuLinks: Record<string, string> = {
-  '관심 클래스': '/mypage/wishlist',
-  '내 쿠폰': '/mypage/coupons',
-  '상품권': '/mypage/giftcards',
-  '포인트': '/mypage/points',
-  '강의 상담': '/mypage/consultations',
-  '수료증': '/mypage/certificates',
-  '후기 관리': '/mypage/reviews',
-  '구매 내역': '/mypage/orders',
-  '1:1 문의': '/support/tickets',
-  '자주 묻는 질문': '/support',
-  '회원정보관리': '/mypage/profile/edit',
-};
 
 const classroomMenu = [
   { section: '강의 관련', items: ['관심 클래스', '강의 상담', '수료증', '후기 관리', '구매 내역'] },
@@ -56,18 +55,37 @@ const profileMenu = [
   { section: '계정 관리', items: ['회원정보관리', '로그아웃'] },
 ];
 
-export default function MyPageSidebar({ activeTab, onTabChange, isOtherUser = false }: MyPageSidebarProps): JSX.Element {
+export default function MyPageSidebar({ isOtherUser = false }: MyPageSidebarProps): JSX.Element {
   const authUser = useAuthStore((s) => s.user);
-  const pathname = usePathname();
   const couponCount = useCouponStore((s) => s.coupons.length);
   const [isFollowing, setIsFollowing] = useState(false);
+
+  const activeTab = useMyPageStore((s) => s.activeTab);
+  const setActiveTab = useMyPageStore((s) => s.setActiveTab);
+  const activeSection = useMyPageStore((s) => s.activeSection);
+  const setActiveSection = useMyPageStore((s) => s.setActiveSection);
 
   const menu = activeTab === 'classroom' ? classroomMenu : profileMenu;
   const userName = authUser?.nickname || authUser?.name || '회원';
   const { toggleLabels, profileMode, classroomMode, otherUserMode } = profileCardData;
 
   const handleToggle = () => {
-    onTabChange?.(activeTab === 'profile' ? 'classroom' : 'profile');
+    const nextTab = activeTab === 'profile' ? 'classroom' : 'profile';
+    setActiveTab(nextTab);
+    setActiveSection(nextTab);
+  };
+
+  const handleMenuClick = (item: string) => {
+    const section = menuSections[item];
+    if (section) {
+      setActiveSection(section);
+    }
+  };
+
+  /** 현재 메뉴 아이템이 활성 상태인지 확인 */
+  const isMenuActive = (item: string): boolean => {
+    const section = menuSections[item];
+    return section ? activeSection === section : false;
   };
 
   return (
@@ -225,13 +243,19 @@ export default function MyPageSidebar({ activeTab, onTabChange, isOtherUser = fa
                           <span className="mypage-sidebar__info-badge">{row.value}</span>
                         )}
                         {row.type === 'link' && row.href && (
-                          <Link
-                            href={row.href}
+                          <button
+                            type="button"
                             className="mypage-sidebar__info-value mypage-sidebar__info-value--link"
                             tabIndex={activeTab === 'classroom' ? 0 : -1}
+                            onClick={() => {
+                              const section = Object.entries(menuSections).find(
+                                ([, s]) => row.href === `/mypage/${s}`
+                              );
+                              if (section) setActiveSection(section[1]);
+                            }}
                           >
                             {row.key === 'coupons' ? `${couponCount}장` : row.value}
-                          </Link>
+                          </button>
                         )}
                         {row.type === 'text' && (
                           <span className="mypage-sidebar__info-value">{row.value}</span>
@@ -289,27 +313,41 @@ export default function MyPageSidebar({ activeTab, onTabChange, isOtherUser = fa
                 <span className="mypage-sidebar__menu-heading">{group.section}</span>
                 <ul className="mypage-sidebar__menu-list">
                   {group.items.map((item) => {
-                    const href = menuLinks[item];
-                    const isActive = href ? pathname === href : false;
+                    const externalHref = externalLinks[item];
+                    const section = menuSections[item];
 
-                    if (!href) {
+                    /* 외부 링크 (마이페이지 밖) */
+                    if (externalHref) {
                       return (
                         <li key={item} className="mypage-sidebar__menu-item">
-                          <button type="button" className="mypage-sidebar__menu-link">
+                          <Link href={externalHref} className="mypage-sidebar__menu-link">
+                            {item}
+                          </Link>
+                        </li>
+                      );
+                    }
+
+                    /* 내부 섹션 전환 (SPA) */
+                    if (section) {
+                      return (
+                        <li key={item} className="mypage-sidebar__menu-item">
+                          <button
+                            type="button"
+                            className={`mypage-sidebar__menu-link${isMenuActive(item) ? ' mypage-sidebar__menu-link--active' : ''}`}
+                            onClick={() => handleMenuClick(item)}
+                          >
                             {item}
                           </button>
                         </li>
                       );
                     }
 
+                    /* 로그아웃 등 특수 버튼 */
                     return (
                       <li key={item} className="mypage-sidebar__menu-item">
-                        <Link
-                          href={href}
-                          className={`mypage-sidebar__menu-link${isActive ? ' mypage-sidebar__menu-link--active' : ''}`}
-                        >
+                        <button type="button" className="mypage-sidebar__menu-link">
                           {item}
-                        </Link>
+                        </button>
                       </li>
                     );
                   })}

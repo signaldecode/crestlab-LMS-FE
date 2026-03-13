@@ -1,4 +1,39 @@
-# CLAUDE.md (Next.js + React + TypeScript · Lecture Platform Template)
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## 개발 명령어
+
+```bash
+npm run dev      # 개발 서버 실행 (localhost:3000)
+npm run build    # 프로덕션 빌드
+npm run start    # 프로덕션 서버 실행
+npm run lint     # ESLint 검사
+npx tsc --noEmit # TypeScript 타입 체크 (빌드 없이)
+```
+
+## 핵심 아키텍처 요약
+
+- **Next.js 16 App Router** + React 19 + TypeScript 5.9 (strict mode)
+- **상태관리**: Zustand — stores/ 디렉토리에 도메인별 스토어 분리
+- **스타일**: SCSS + Design Token System — inline style/HEX/px 직접 사용 금지
+- **데이터 분리 원칙**: UI 텍스트/alt/aria/SEO 메타 등 모든 문구는 `data/*.json`에서 관리, 하드코딩 절대 금지
+- **라우팅**: slug 기반 (`/courses/[slug]`), id 기반 라우팅 사용하지 않음
+- **환경설정**: `config/index.ts`에서 통합 관리 (apiBase, backendBase, siteName, isProd)
+- **Path alias**: `@/*` → 프로젝트 루트
+
+### 데이터 흐름
+`data/*.json` → `data/index.ts` (통합 로더) → `lib/data.ts` (조회 함수) → 컴포넌트
+
+### 마이페이지 SPA 구조
+마이페이지(`/mypage`)는 라우트 기반이 아닌 **클라이언트 상태 기반 SPA 방식**으로 동작한다.
+- `useMyPageStore`의 `activeSection` 상태로 모든 콘텐츠 패널을 전환
+- 토글 스위치(강의실 ↔ 프로필)와 서브 콘텐츠 모두 동일한 CSS 트랜지션 적용
+- `/mypage/[userId]`만 별도 라우트로 유지 (타 유저 공개 프로필)
+
+---
+
+# 상세 가이드 (Next.js + React + TypeScript · Lecture Platform Template)
 
 ## 핵심 목표 (절대 우선순위)
 

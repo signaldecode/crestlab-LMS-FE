@@ -412,6 +412,22 @@ export interface ProfileCardData {
   otherUserMode: OtherUserModeData;
 }
 
+/* ── 마이페이지 섹션 ── */
+export type MyPageTab = 'classroom' | 'profile';
+
+export type MyPageSection =
+  | 'classroom'
+  | 'profile'
+  | 'wishlist'
+  | 'orders'
+  | 'coupons'
+  | 'points'
+  | 'giftcards'
+  | 'reviews'
+  | 'certificates'
+  | 'consultations'
+  | 'profileEdit';
+
 /* ── 장바구니 / 주문 ── */
 export interface CartItem extends Course {}
 

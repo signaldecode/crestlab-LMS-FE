@@ -17,7 +17,7 @@ export default async function OtherUserProfilePage({ params }: ProfilePageProps)
   return (
     <section className="mypage">
       <div className="mypage__layout">
-        <MyPageSidebar activeTab="profile" isOtherUser />
+        <MyPageSidebar isOtherUser />
         <div className="mypage__content">
           <MyProfileContent userId={userId} />
         </div>
