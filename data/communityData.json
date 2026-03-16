@@ -1,5 +1,31 @@
 {
-  "_comment": "커뮤니티 설정 데이터 — 사이드바 네비게이션, 피드 탭, Aside 섹션, 카테고리, 신고 사유 등. 추후 admin에서 관리 예정",
+  "_comment": "커뮤니티 설정 데이터 — 사이드바 네비게이션, 피드 탭, 피드 섹션, Aside 섹션, 카테고리, 신고 사유 등. 추후 admin에서 관리 예정",
+
+  "verifiedBadge": {
+    "src": "/images/community/Bluecheck.png",
+    "alt": "인증 뱃지"
+  },
+
+  "sidebarProfile": {
+    "loginLabel": "로그인해주세요",
+    "profileAriaLabel": "프로필 영역",
+    "myPostsLabel": "내가 쓴 글 보러가기",
+    "stats": [
+      { "key": "investGrade", "label": "투자등급" },
+      { "key": "expertise", "label": "전문분야" },
+      { "key": "investPeriod", "label": "투자기간" }
+    ],
+    "dummyUser": {
+      "nickname": "고기먹고싶다",
+      "verified": true,
+      "followerCount": "팔로워 8,562",
+      "statValues": {
+        "investGrade": "퀴시",
+        "expertise": "부동산투자",
+        "investPeriod": "6년차"
+      }
+    }
+  },
 
   "sidebarNav": [
     {
@@ -7,41 +33,55 @@
       "icon": "🏠",
       "title": "커뮤니티홈",
       "href": "/community",
+      "collapsible": false,
       "items": []
     },
     {
       "id": "notice",
       "icon": "📢",
       "title": "공지사항",
+      "collapsible": true,
       "items": [
         { "id": "notice-schedule", "label": "강의일정" },
-        { "id": "notice-event", "label": "알림&이벤트" },
-        { "id": "notice-newbie", "label": "신규멤버필독" },
-        { "id": "notice-yesterday", "label": "어제의게시글" }
+        { "id": "notice-promo", "label": "할인 및 프로모션" },
+        { "id": "notice-newcourse", "label": "신규강의배포" },
+        { "id": "notice-event", "label": "이벤트/제시시즌" }
       ]
     },
     {
       "id": "expert-insight",
       "icon": "📋",
       "title": "전문가인사이트",
-      "items": [
-        { "id": "expert-column", "label": "전문가칼럼" },
-        { "id": "expert-feed", "label": "전문가피드" },
-        { "id": "expert-billion", "label": "10억달성기" }
-      ]
+      "collapsible": true,
+      "items": []
     },
     {
       "id": "investment-review",
       "icon": "💬",
       "title": "투자후기",
-      "items": [
-        { "id": "review-cheer", "label": "오늘의응원" },
-        { "id": "review-real", "label": "실전투자경험" },
-        { "id": "review-house", "label": "내집마련성공기" },
-        { "id": "review-100m", "label": "1억달성기" },
-        { "id": "review-study", "label": "투자공부방" },
-        { "id": "review-side", "label": "부업수익인증" }
-      ]
+      "collapsible": true,
+      "items": []
+    },
+    {
+      "id": "faq",
+      "icon": "❓",
+      "title": "자주묻는질문",
+      "collapsible": true,
+      "items": []
+    },
+    {
+      "id": "challenge",
+      "icon": "🏆",
+      "title": "월부챌린지",
+      "collapsible": true,
+      "items": []
+    },
+    {
+      "id": "study",
+      "icon": "📚",
+      "title": "스터디",
+      "collapsible": true,
+      "items": []
     }
   ],
 
@@ -53,49 +93,277 @@
   "feedSections": [
     {
       "id": "popular",
-      "title": "🔥 인기글",
+      "title": "인기글",
       "type": "popular",
       "itemCount": 5
     },
     {
+      "id": "series",
+      "title": "월부시리즈",
+      "type": "series",
+      "itemCount": 2
+    },
+    {
       "id": "expert-column",
-      "title": "최신 전문가칼럼",
+      "title": "최신 전문가 칼럼",
       "type": "article",
-      "itemCount": 3,
+      "itemCount": 4,
       "showMore": true,
       "moreLabel": "더보기"
+    },
+    {
+      "id": "qna",
+      "title": "비트코인 Q&A",
+      "type": "qna",
+      "itemCount": 5
+    }
+  ],
+
+  "dummyPopularPosts": [
+    {
+      "id": "pop-1",
+      "title": "국제유가 폭등, 내 집 마련 더 서둘러야 할까?국제유가 폭등, 내 집 마련 더 서둘러야 할까요?",
+      "authorNickname": "전조아빠",
+      "category": "전조아빠",
+      "date": "26.02.27",
+      "viewCount": 217
+    },
+    {
+      "id": "pop-2",
+      "title": "D-day 30일, '다주택자 급매' 잡으려면 이렇게 해야 합니다.",
+      "authorNickname": "전조아빠",
+      "category": "닉네임",
+      "date": "26.02.27",
+      "viewCount": 217
+    },
+    {
+      "id": "pop-3",
+      "title": "서울 아파트는 지금 투자하기 괜찮은걸까?",
+      "authorNickname": "전조아빠",
+      "category": "전조아빠",
+      "date": "26.02.27",
+      "viewCount": 217
+    },
+    {
+      "id": "pop-4",
+      "title": "서울시 서초구에 내집마련 성공했습니다!",
+      "authorNickname": "전조아빠",
+      "category": "전조아빠",
+      "date": "26.02.27",
+      "viewCount": 217
+    },
+    {
+      "id": "pop-5",
+      "title": "강남 30분안에 아직 7억대... 5월 9일 전 마지막 내집마련 기회인 '이곳'",
+      "authorNickname": "전조아빠",
+      "category": "전조아빠",
+      "date": "26.02.27",
+      "viewCount": 217
+    }
+  ],
+
+  "dummySeriesCards": [
+    {
+      "id": "series-1",
+      "thumbnail": "/images/banners/banner4.webp",
+      "thumbnailAlt": "월부시리즈 썸네일 1",
+      "title": "제목을 나타내는 임시텍스트입니다.",
+      "description": "제목을 나타내는 임시텍스트입니다.제목을 나타내는 임시텍스트입니다. 제목을 나타내는 임시텍스트입니다.제목을 나타내는",
+      "tags": ["#키워드", "#키워드"]
+    },
+    {
+      "id": "series-2",
+      "thumbnail": "/images/banners/banner10.webp",
+      "thumbnailAlt": "월부시리즈 썸네일 2",
+      "title": "제목을 나타내는 임시텍스트입니다.",
+      "description": "제목을 나타내는 임시텍스트입니다.제목을 나타내는 임시텍스트입니다. 제목을 나타내는 임시텍스트입니다.제목을 나타내는",
+      "tags": ["#키워드", "#키워드"]
+    }
+  ],
+
+  "dummyArticles": [
+    {
+      "id": "article-1",
+      "authorNickname": "나누리",
+      "authorVerified": true,
+      "date": "26.05.22",
+      "title": "나는 저기 저... 반포에 집을 샀어. - 집들이편 [서달스]",
+      "description": "임시텍스트 두줄 내용입시텍스트 두줄 내용임시텍스트 두줄 내용",
+      "thumbnail": "/images/banners/banner5.jpg",
+      "thumbnailAlt": "전문가 칼럼 썸네일 1",
+      "likeCount": 12,
+      "commentCount": 4
+    },
+    {
+      "id": "article-2",
+      "authorNickname": "나누리",
+      "authorVerified": true,
+      "date": "26.05.22",
+      "title": "\"집은 그렇게 사면 안 됩니다\" 집 사고 반드시 후회하는 사람들",
+      "description": "임시텍스트 두줄 내용입시텍스트 두줄 내용임시텍스트 두줄 내용",
+      "thumbnail": "/images/banners/banner6.jpg",
+      "thumbnailAlt": "전문가 칼럼 썸네일 2",
+      "likeCount": 0,
+      "commentCount": 0
+    },
+    {
+      "id": "article-3",
+      "authorNickname": "나누리",
+      "authorVerified": true,
+      "date": "26.05.22",
+      "title": "[자금공유] 상품 100개 올려도 안 팔린다면 당장 '이 것' 부터",
+      "description": "임시텍스트 두줄 내용입시텍스트 두줄 내용임시텍스트 두줄 내용",
+      "thumbnail": "/images/banners/banner9.jpg",
+      "thumbnailAlt": "전문가 칼럼 썸네일 3",
+      "likeCount": 0,
+      "commentCount": 0
+    },
+    {
+      "id": "article-4",
+      "authorNickname": "나누리",
+      "authorVerified": true,
+      "date": "26.05.22",
+      "title": "D-day 30일, '다주택자 급매' 잡으려면 이렇게 해야 합니다.",
+      "description": "임시텍스트 두줄 내용입시텍스트 두줄 내용임시텍스트 두줄 내용",
+      "thumbnail": "/images/banners/banner3.jpg",
+      "thumbnailAlt": "전문가 칼럼 썸네일 4",
+      "likeCount": 0,
+      "commentCount": 0
+    }
+  ],
+
+  "dummyQnaPosts": [
+    {
+      "id": "qna-1",
+      "title": "제목을 나타내는 임시텍스트입니다.",
+      "answererNickname": "나투리",
+      "answererVerified": true
+    },
+    {
+      "id": "qna-2",
+      "title": "제목을 나타내는 임시텍스트입니다.",
+      "answererNickname": "나투리",
+      "answererVerified": true
+    },
+    {
+      "id": "qna-3",
+      "title": "제목을 나타내는 임시텍스트입니다.",
+      "answererNickname": "나투리",
+      "answererVerified": true
+    },
+    {
+      "id": "qna-4",
+      "title": "제목을 나타내는 임시텍스트입니다.",
+      "answererNickname": "나투리",
+      "answererVerified": true
+    },
+    {
+      "id": "qna-5",
+      "title": "제목을 나타내는 임시텍스트입니다.",
+      "answererNickname": "나투리",
+      "answererVerified": true
+    }
+  ],
+
+  "dummyRecommendedProfiles": [
+    {
+      "id": "profile-1",
+      "nickname": "자율과자유",
+      "verified": true,
+      "followerCount": "팔로워 35,502"
+    },
+    {
+      "id": "profile-2",
+      "nickname": "이드니형",
+      "verified": true,
+      "followerCount": "팔로워 22,145"
+    },
+    {
+      "id": "profile-3",
+      "nickname": "참영이",
+      "verified": true,
+      "followerCount": "팔로워 520"
+    },
+    {
+      "id": "profile-4",
+      "nickname": "나누리",
+      "verified": false,
+      "followerCount": "팔로워 62,940"
+    },
+    {
+      "id": "profile-5",
+      "nickname": "입실나무는부자나무",
+      "verified": false,
+      "followerCount": "팔로워 442"
+    }
+  ],
+
+  "dummyCommentRanking": [
+    {
+      "id": "rank-1",
+      "nickname": "고기먹고싶다",
+      "verified": true,
+      "commentCount": 98,
+      "likeCount": 50
+    },
+    {
+      "id": "rank-2",
+      "nickname": "다이어트는 월요일",
+      "verified": false,
+      "commentCount": 50,
+      "likeCount": 37
+    },
+    {
+      "id": "rank-3",
+      "nickname": "빛나는금요일",
+      "verified": true,
+      "commentCount": 37,
+      "likeCount": 21
     }
   ],
 
   "asideSections": [
     {
-      "id": "trending-members",
-      "title": "주목받는 멤버",
-      "type": "member",
+      "id": "recommended-profiles",
+      "title": "추천프로필",
+      "type": "profile",
       "itemCount": 5,
-      "showRank": false
+      "showRank": false,
+      "showFollowerCount": true
     },
     {
       "id": "comment-ranking",
       "title": "어제 댓글 랭킹",
-      "type": "member",
-      "itemCount": 5,
-      "showRank": true
+      "type": "ranking",
+      "itemCount": 3,
+      "showRank": true,
+      "showFollowerCount": false,
+      "statLabels": [
+        { "key": "comment", "label": "댓글" },
+        { "key": "like", "label": "좋아요" }
+      ]
     }
   ],
 
   "searchFilters": {
     "categoryLabel": "카테고리 필터",
-    "categoryDefault": "커뮤니티 전체",
+    "categoryDefault": "전체",
     "scopeLabel": "검색 범위",
-    "scopeDefault": "작성자 + 제목 + 내용",
-    "searchPlaceholder": "찾고 싶은 콘텐츠를 검색하세요!",
-    "searchAriaLabel": "커뮤니티 검색"
+    "scopeDefault": "전심일 + 제목 + 내용",
+    "searchPlaceholder": "검색어를 입력해주세요",
+    "searchAriaLabel": "커뮤니티 검색",
+    "searchButtonAriaLabel": "검색"
   },
 
-  "sidebar": {
-    "loginLabel": "로그인",
-    "profileAriaLabel": "프로필 영역"
+  "noticeBanner": {
+    "badgeLabel": "공지사항",
+    "ariaLabel": "공지사항 배너",
+    "dummyText": "공지사항 텍스트입니다.공지사항 텍스트입니다.공지사항 텍스트입니다.공지사항 텍스트입니다."
+  },
+
+  "qnaLabels": {
+    "answeredBadge": "답변완료",
+    "answeredSuffix": "님이 답변하였습니다"
   },
 
   "categories": [
@@ -111,5 +379,8 @@
     { "value": "abuse", "label": "욕설/비방" },
     { "value": "inappropriate", "label": "부적절한 콘텐츠" },
     { "value": "other", "label": "기타" }
-  ]
+  ],
+
+  "writeButtonLabel": "글쓰기",
+  "writeButtonAriaLabel": "새 글 작성하기"
 }

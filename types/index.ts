@@ -258,6 +258,7 @@ export interface SidebarNavSection {
   icon: string;
   title: string;
   href?: string;
+  collapsible?: boolean;
   items: SidebarNavItem[];
 }
 
@@ -267,23 +268,31 @@ export interface FeedTabItem {
   label: string;
 }
 
-/** 피드 섹션 (인기글, 전문가칼럼 등) */
+/** 피드 섹션 (인기글, 시리즈, 전문가칼럼, Q&A 등) */
 export interface FeedSection {
   id: string;
   title: string;
-  type: 'popular' | 'article';
+  type: 'popular' | 'article' | 'series' | 'qna';
   itemCount: number;
   showMore?: boolean;
   moreLabel?: string;
 }
 
-/** Aside 섹션 (주목받는 멤버, 댓글 랭킹 등) */
+/** Aside 섹션 stat 라벨 */
+export interface AsideStatLabel {
+  key: string;
+  label: string;
+}
+
+/** Aside 섹션 (추천프로필, 댓글 랭킹 등) */
 export interface AsideSection {
   id: string;
   title: string;
-  type: 'member';
+  type: 'profile' | 'ranking';
   itemCount: number;
   showRank: boolean;
+  showFollowerCount?: boolean;
+  statLabels?: AsideStatLabel[];
 }
 
 /** 검색 필터 UI 텍스트 */
@@ -294,23 +303,130 @@ export interface SearchFilters {
   scopeDefault: string;
   searchPlaceholder: string;
   searchAriaLabel: string;
+  searchButtonAriaLabel?: string;
 }
 
-/** 사이드바 UI 텍스트 */
-export interface SidebarLabels {
+/** 사이드바 프로필 stat 아이템 */
+export interface SidebarProfileStat {
+  key: string;
+  label: string;
+}
+
+/** 인증 뱃지 이미지 */
+export interface VerifiedBadgeData {
+  src: string;
+  alt: string;
+}
+
+/** 사이드바 프로필 더미 유저 */
+export interface DummySidebarUser {
+  nickname: string;
+  verified: boolean;
+  followerCount: string;
+  statValues: Record<string, string>;
+}
+
+/** 사이드바 프로필 UI 텍스트 */
+export interface SidebarProfileData {
   loginLabel: string;
   profileAriaLabel: string;
+  myPostsLabel: string;
+  stats: SidebarProfileStat[];
+  dummyUser?: DummySidebarUser;
+}
+
+/** 공지 배너 UI 텍스트 */
+export interface NoticeBannerData {
+  badgeLabel: string;
+  ariaLabel: string;
+  dummyText?: string;
+}
+
+/** Q&A 라벨 */
+export interface QnaLabels {
+  answeredBadge: string;
+  answeredSuffix: string;
+}
+
+/** 더미 인기글 */
+export interface DummyPopularPost {
+  id: string;
+  title: string;
+  authorNickname: string;
+  category: string;
+  date: string;
+  viewCount: number;
+}
+
+/** 더미 시리즈 카드 */
+export interface DummySeriesCard {
+  id: string;
+  thumbnail: string;
+  thumbnailAlt: string;
+  title: string;
+  description: string;
+  tags: string[];
+}
+
+/** 더미 전문가 칼럼 */
+export interface DummyArticle {
+  id: string;
+  authorNickname: string;
+  authorVerified: boolean;
+  date: string;
+  title: string;
+  description: string;
+  thumbnail: string;
+  thumbnailAlt: string;
+  likeCount: number;
+  commentCount: number;
+}
+
+/** 더미 Q&A 게시글 */
+export interface DummyQnaPost {
+  id: string;
+  title: string;
+  answererNickname: string;
+  answererVerified: boolean;
+}
+
+/** 더미 추천 프로필 */
+export interface DummyProfile {
+  id: string;
+  nickname: string;
+  verified: boolean;
+  followerCount: string;
+}
+
+/** 더미 댓글 랭킹 */
+export interface DummyRankingUser {
+  id: string;
+  nickname: string;
+  verified: boolean;
+  commentCount: number;
+  likeCount: number;
 }
 
 export interface CommunityData {
+  verifiedBadge: VerifiedBadgeData;
+  sidebarProfile: SidebarProfileData;
   sidebarNav: SidebarNavSection[];
   feedTabs: FeedTabItem[];
   feedSections: FeedSection[];
   asideSections: AsideSection[];
   searchFilters: SearchFilters;
-  sidebar: SidebarLabels;
+  noticeBanner: NoticeBannerData;
+  qnaLabels: QnaLabels;
   categories: CategoryOption[];
   reportReasons: CategoryOption[];
+  writeButtonLabel: string;
+  writeButtonAriaLabel: string;
+  dummyPopularPosts?: DummyPopularPost[];
+  dummySeriesCards?: DummySeriesCard[];
+  dummyArticles?: DummyArticle[];
+  dummyQnaPosts?: DummyQnaPost[];
+  dummyRecommendedProfiles?: DummyProfile[];
+  dummyCommentRanking?: DummyRankingUser[];
 }
 
 export interface Post {

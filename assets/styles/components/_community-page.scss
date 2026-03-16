@@ -9,7 +9,7 @@
 @use '../tokens/z-index' as *;
 @use '../mixins/breakpoints' as *;
 
-// ── 스켈레톤 애니메이션 (home-page에서도 사용하지만 중복 선언 안전) ──
+// ── 스켈레톤 애니메이션 ──
 @keyframes community-skeleton-pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.4; }
@@ -87,26 +87,58 @@
     top: $spacing-8;
   }
 
-  // 프로필 영역
-  &__profile {
+  // ── 프로필 카드 ──
+  &__profile-card {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: $spacing-3;
-    padding-bottom: $spacing-6;
+    padding: $spacing-6 $spacing-4;
     border-bottom: 1px solid $color-border;
     margin-bottom: $spacing-4;
+  }
+
+  &__avatar-wrap {
+    position: relative;
   }
 
   &__avatar {
     width: 4.5rem;
     height: 4.5rem;
     border-radius: 50%;
+
+    &--placeholder {
+      background: $color-bg-tertiary;
+    }
   }
 
-  &__skeleton-circle {
-    background: $color-bg-tertiary;
-    animation: community-skeleton-pulse 1.8s ease-in-out infinite;
+  &__user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-1;
+  }
+
+  &__name-row {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+  }
+
+  &__nickname {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+  }
+
+  &__verified-badge {
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+
+  &__follower-count {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
   }
 
   &__login-label {
@@ -114,23 +146,40 @@
     color: $color-text-secondary;
   }
 
-  &__my-posts-btn {
+  // stats (투자등급 / 전문분야 / 투자기간)
+  &__stats {
+    display: flex;
     width: 100%;
-    padding: $spacing-2 $spacing-4;
-    border: 1px solid $color-border;
-    border-radius: 0.375rem;
-    background: $color-bg-primary;
-    font-size: $font-size-sm;
-    color: $color-text-primary;
-    cursor: pointer;
-    text-align: center;
-
-    &:hover {
-      background: $color-bg-secondary;
-    }
+    justify-content: space-between;
+    gap: $spacing-2;
+    padding-top: $spacing-3;
+    border-top: 1px solid $color-border;
+    margin-top: $spacing-2;
   }
 
-  // 네비게이션
+  &__stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-1;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__stat-label {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    white-space: nowrap;
+  }
+
+  &__stat-value {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    white-space: nowrap;
+  }
+
+  // ── 네비게이션 ──
   &__nav {
     display: flex;
     flex-direction: column;
@@ -138,7 +187,7 @@
   }
 
   &__section {
-    margin-bottom: $spacing-2;
+    margin-bottom: $spacing-1;
   }
 
   &__section-title {
@@ -155,15 +204,41 @@
     color: $color-text-primary;
     border-radius: 0.375rem;
     cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s;
+
+    &:hover {
+      background: $color-bg-secondary;
+    }
 
     &--active {
       background: $color-primary;
       color: $color-text-inverse;
+
+      &:hover {
+        background: $color-primary-dark;
+      }
     }
   }
 
   &__section-icon {
     font-size: $font-size-base;
+    flex-shrink: 0;
+  }
+
+  &__section-label {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__chevron {
+    flex-shrink: 0;
+    font-size: $font-size-sm;
+    transition: transform 0.2s;
+
+    &--open {
+      transform: rotate(90deg);
+    }
   }
 
   &__list {
@@ -233,22 +308,46 @@
 
   // 공지 배너
   &__notice {
-    margin-bottom: $spacing-6;
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    padding: $spacing-3 $spacing-4;
+    background: $color-bg-secondary;
+    border-radius: 0.5rem;
+    margin-bottom: $spacing-4;
+    overflow: hidden;
   }
 
-  &__notice-skeleton {
-    width: 100%;
-    height: 5rem;
-    border-radius: 0.5rem;
-    background: $color-bg-tertiary;
-    animation: community-skeleton-pulse 1.8s ease-in-out infinite;
+  &__notice-badge {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    padding: $spacing-1 $spacing-3;
+    background: $color-primary;
+    color: $color-text-inverse;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    border-radius: 0.25rem;
+    white-space: nowrap;
+  }
+
+  &__notice-text {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin: 0;
   }
 
   // 검색 바
   &__search {
     display: flex;
-    gap: $spacing-3;
+    gap: $spacing-2;
     margin-bottom: $spacing-8;
+    align-items: center;
   }
 
   &__select {
@@ -277,9 +376,27 @@
     }
   }
 
+  &__search-btn {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1px solid $color-border;
+    border-radius: 0.375rem;
+    background: $color-bg-primary;
+    cursor: pointer;
+    font-size: $font-size-sm;
+
+    &:hover {
+      background: $color-bg-secondary;
+    }
+  }
+
   // 섹션 공통
   &__section {
-    margin-bottom: $spacing-8;
+    margin-bottom: $spacing-10;
   }
 
   &__section-header {
@@ -308,38 +425,169 @@
     }
   }
 
-  // 인기글
+  // ── 인기글 ──
   &__popular-list {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: $spacing-3;
   }
 
   &__popular-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: $spacing-3;
+    padding: $spacing-3 0;
+    border-bottom: 1px solid $color-bg-tertiary;
+
+    &:last-child {
+      border-bottom: none;
+    }
   }
 
   &__popular-rank {
     flex-shrink: 0;
-    width: 1.25rem;
+    width: 1.5rem;
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  &__popular-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+  }
+
+  &__popular-title {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__popular-meta {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    flex-wrap: wrap;
+  }
+
+  &__popular-tag {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    padding: $spacing-0 $spacing-1;
+    background: $color-bg-tertiary;
+    border-radius: 0.25rem;
+  }
+
+  &__popular-date {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__popular-views {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  // ── 시리즈 카드 (2열 그리드) ──
+  &__series-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-6;
+
+    @media (max-width: 767px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__series-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    border: 1px solid $color-border;
+    transition: box-shadow 0.2s;
+
+    &:hover {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  &__series-thumb {
+    width: 100%;
+    height: 10rem;
+    overflow: hidden;
+  }
+
+  &__series-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &__series-body {
+    padding: $spacing-4;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+  }
+
+  &__series-title {
     font-size: $font-size-sm;
     font-weight: $font-weight-bold;
     color: $color-text-primary;
+    margin: 0;
   }
 
-  // 전문가 칼럼 아티클
+  &__series-desc {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    line-height: $line-height-base;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__series-tags {
+    display: flex;
+    gap: $spacing-2;
+    margin-top: $spacing-1;
+  }
+
+  &__series-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: $spacing-1 $spacing-2;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    border: 1px solid $color-border;
+    border-radius: 1rem;
+  }
+
+  // ── 전문가 칼럼 (article) ──
   &__article {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     gap: $spacing-4;
-    padding: $spacing-4 0;
+    padding: $spacing-5 0;
     border-bottom: 1px solid $color-bg-tertiary;
+
+    &:last-child {
+      border-bottom: none;
+    }
   }
 
   &__article-body {
@@ -350,29 +598,179 @@
     gap: $spacing-2;
   }
 
-  &__article-meta {
+  &__article-author {
     display: flex;
     align-items: center;
     gap: $spacing-2;
   }
 
-  &__article-thumb {
+  &__article-avatar {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: $color-bg-tertiary;
     flex-shrink: 0;
-    width: 5rem;
-    height: 5rem;
-    border-radius: 0.5rem;
   }
 
-  // 스켈레톤 유틸
+  &__article-author-name {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+  }
+
+  &__verified-badge {
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+
+  &__article-date {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__article-title {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0;
+  }
+
+  &__article-desc {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__article-actions {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+    margin-top: $spacing-1;
+  }
+
+  &__article-action {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__article-thumb {
+    flex-shrink: 0;
+    width: 8rem;
+    height: 6rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  &__article-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  // ── Q&A 리스트 ──
+  &__qna-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__qna-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: $spacing-4;
+    padding: $spacing-3 0;
+    border-bottom: 1px solid $color-bg-tertiary;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__qna-left {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__qna-badge {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    padding: $spacing-1 $spacing-2;
+    background: $color-primary;
+    color: $color-text-inverse;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    border-radius: 0.25rem;
+    white-space: nowrap;
+  }
+
+  &__qna-title {
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__qna-right {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__qna-answerer {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__qna-suffix {
+    white-space: nowrap;
+  }
+
+  // ── 스켈레톤 유틸 ──
   &__skeleton-line {
+    display: inline-block;
     height: 0.875rem;
     border-radius: 0.25rem;
     background: $color-bg-tertiary;
     animation: community-skeleton-pulse 1.8s ease-in-out infinite;
 
-    &--post { width: 85%; }
-    &--article-title { width: 70%; height: 1rem; }
-    &--meta { width: 6rem; }
+    // 인기글
+    &--post-title { width: 85%; height: 1rem; }
+    &--tag { width: 3.5rem; height: 1.25rem; border-radius: 0.25rem; }
+    &--date { width: 4rem; }
+    &--views { width: 3rem; }
+
+    // 공지
+    &--notice { width: 100%; height: 0.875rem; }
+
+    // 시리즈
+    &--series-title { width: 80%; height: 1rem; }
+    &--series-desc { width: 100%; }
+    &--series-desc-short { width: 60%; }
+    &--chip { width: 3rem; height: 1.5rem; border-radius: 1rem; }
+
+    // 칼럼
+    &--author-name { width: 3.5rem; }
+    &--article-title { width: 90%; height: 1.125rem; }
+    &--article-desc { width: 100%; }
+    &--action { width: 2.5rem; }
+
+    // Q&A
+    &--qna-title { width: 70%; }
   }
 
   &__skeleton-circle {
@@ -381,8 +779,8 @@
     animation: community-skeleton-pulse 1.8s ease-in-out infinite;
 
     &--sm {
-      width: 1.25rem;
-      height: 1.25rem;
+      width: 1.5rem;
+      height: 1.5rem;
     }
   }
 
@@ -446,7 +844,6 @@
     border-bottom: 1px solid $color-bg-tertiary;
   }
 
-  // 작성자 영역
   &__skeleton-author {
     display: flex;
     align-items: center;
@@ -468,14 +865,12 @@
     gap: $spacing-1;
   }
 
-  // 본문 영역
   &__skeleton-body {
     display: flex;
     flex-direction: column;
     gap: $spacing-2;
   }
 
-  // 썸네일
   &__skeleton-thumb {
     width: 100%;
     height: 10rem;
@@ -484,13 +879,11 @@
     animation: community-skeleton-pulse 1.8s ease-in-out infinite;
   }
 
-  // 하단 반응
   &__skeleton-stats {
     display: flex;
     gap: $spacing-4;
   }
 
-  // 스켈레톤 라인 공통
   &__skeleton-line {
     height: 0.875rem;
     border-radius: 0.25rem;
@@ -507,7 +900,7 @@
 }
 
 // ============================================
-// 오른쪽 사이드 (랭킹)
+// 오른쪽 사이드 (추천프로필 / 댓글 랭킹)
 // ============================================
 .community-aside {
 
@@ -565,11 +958,10 @@
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
-  }
 
-  &__skeleton-circle {
-    background: $color-bg-tertiary;
-    animation: community-skeleton-pulse 1.8s ease-in-out infinite;
+    &--placeholder {
+      background: $color-bg-tertiary;
+    }
   }
 
   &__member-info {
@@ -579,27 +971,82 @@
     min-width: 0;
   }
 
+  &__name-row {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+  }
+
+  &__nickname {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__verified-img {
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+
+  &__follower-count {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  // 댓글/좋아요 stats
+  &__stat-row {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+  }
+
+  &__stat-item {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+  }
+
+  &__stat-label {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    white-space: nowrap;
+  }
+
+  &__stat-value {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+  }
+
   &__skeleton-line {
+    display: inline-block;
     height: 0.75rem;
     border-radius: 0.25rem;
     background: $color-bg-tertiary;
     animation: community-skeleton-pulse 1.8s ease-in-out infinite;
 
     &--name { width: 4rem; height: 0.875rem; }
-    &--desc { width: 8rem; }
-    &--sub { width: 3rem; }
+    &--follower { width: 5rem; }
+    &--stat-num { width: 1.5rem; }
   }
 
   &__follow-btn {
     flex-shrink: 0;
-  }
-
-  &__skeleton-btn {
-    width: 3.5rem;
-    height: 1.75rem;
+    padding: $spacing-1 $spacing-3;
+    border: 1px solid $color-border;
     border-radius: 0.375rem;
-    background: $color-bg-tertiary;
-    animation: community-skeleton-pulse 1.8s ease-in-out infinite;
+    background: $color-bg-primary;
+    font-size: $font-size-xs;
+    color: $color-text-primary;
+    cursor: pointer;
+    white-space: nowrap;
+
+    &:hover {
+      background: $color-bg-secondary;
+    }
   }
 }
 
@@ -859,7 +1306,7 @@
 
   &__notice {
     padding: $spacing-4 $spacing-6;
-    background: #ecfdf5;
+    background: $color-bg-secondary;
     border-radius: 0.75rem;
   }
 
@@ -927,7 +1374,6 @@
   border-radius: 0.75rem;
   margin-bottom: $spacing-6;
 
-  // 카테고리
   &__category {
     margin-bottom: $spacing-4;
   }
@@ -941,7 +1387,6 @@
     animation: community-skeleton-pulse 1.8s ease-in-out infinite;
   }
 
-  // 제목
   &__title-area {
     margin-bottom: $spacing-3;
   }
@@ -958,7 +1403,6 @@
     &--body { height: 0.875rem; margin-bottom: $spacing-2; }
   }
 
-  // 메타
   &__meta {
     display: flex;
     align-items: center;
@@ -975,7 +1419,6 @@
     background: $color-text-secondary;
   }
 
-  // 본문
   &__body {
     margin-bottom: $spacing-8;
     padding-bottom: $spacing-6;
@@ -991,7 +1434,6 @@
     margin: $spacing-6 0;
   }
 
-  // 액션 (좋아요/북마크/공유)
   &__actions {
     display: flex;
     justify-content: space-between;
@@ -1014,7 +1456,7 @@
 }
 
 // ============================================
-// 댓글 스켈레톤 (CommentList 보강)
+// 댓글 스켈레톤 (CommentList)
 // ============================================
 .comment-list {
   padding: $spacing-6;
@@ -1035,7 +1477,6 @@
     gap: $spacing-6;
   }
 
-  // 프로필 카드
   &__card {
     padding: $spacing-6;
     border: 1px solid $color-border;
@@ -1102,7 +1543,6 @@
     }
   }
 
-  // 통계
   &__stats {
     display: flex;
     justify-content: space-between;
@@ -1123,14 +1563,12 @@
     color: $color-text-secondary;
   }
 
-  // 소개글
   &__bio {
     padding: $spacing-3;
     border: 1px solid $color-border;
     border-radius: 0.375rem;
   }
 
-  // 팔로우 버튼
   &__skel-follow-btn {
     width: 100%;
     height: 2.75rem;
@@ -1139,7 +1577,6 @@
     animation: community-skeleton-pulse 1.8s ease-in-out infinite;
   }
 
-  // 작성자의 최근 글
   &__posts {
     display: flex;
     flex-direction: column;
