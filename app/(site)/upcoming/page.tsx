@@ -5,11 +5,14 @@
  */
 
 import type { Metadata } from 'next';
+import { getPageData } from '@/lib/data';
 import UpcomingCoursesContainer from '@/components/containers/UpcomingCoursesContainer';
 
+const upcomingPageData = getPageData('upcoming') as { seo: { title: string; description: string } } | null;
+
 export const metadata: Metadata = {
-  title: '오픈예정 강의 — 강의 플랫폼',
-  description: '곧 오픈되는 강의들을 미리 확인하고 알림을 신청하세요.',
+  title: upcomingPageData?.seo?.title,
+  description: upcomingPageData?.seo?.description,
 };
 
 export default function UpcomingPage() {

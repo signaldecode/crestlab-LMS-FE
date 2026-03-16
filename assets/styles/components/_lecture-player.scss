@@ -136,13 +136,13 @@
   // ========================================
   &__sidebar {
     width: 320px;
-    display: flex;
+    display: none;
     flex-shrink: 0;
     border-left: 1px solid #2a2a2e;
     background: #1b1b1f;
 
-    @media (max-width: 1023px) {
-      display: none;
+    @include breakpoint(lg) {
+      display: flex;
     }
   }
 
@@ -265,6 +265,7 @@
 body:has(.lecture-player-layout) {
   overflow: hidden;
 
+  .top-banner,
   .app-header,
   .app-footer {
     display: none;
@@ -365,15 +366,15 @@ body:has(.lecture-player-layout) {
 // - 세로 아이콘 탭 + 탭별 콘텐츠 패널
 // ============================================
 .lecture-sidebar {
-  display: flex;
+  display: none;
   flex-shrink: 0;
   width: 340px;
   border-left: 1px solid #2a2a2e;
   background: #1b1b1f;
   transition: width 0.25s ease;
 
-  @media (max-width: 1023px) {
-    display: none;
+  @include breakpoint(lg) {
+    display: flex;
   }
 
   // 접힌 상태: 아이콘 탭만 보임
@@ -626,6 +627,135 @@ body:has(.lecture-player-layout) {
     }
   }
 }
+
+// ============================================
+// 모바일 사이드바 드로어 (lg 미만에서 표시)
+// - 하단 고정 탭 바 + 아래에서 올라오는 드로어
+// ============================================
+.lecture-sidebar-mobile {
+  // lg 이상에서는 숨김 (데스크탑은 기존 사이드바 사용)
+  @include breakpoint(lg) {
+    display: none;
+  }
+
+  // ── 백드롭 ──
+  &__backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: $z-index-modal - 1;
+  }
+
+  // ── 드로어 패널 ──
+  &__drawer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 3rem; // 하단 탭 바 높이만큼 위에 위치
+    height: 60vh;
+    background: #1b1b1f;
+    border-radius: 0.75rem 0.75rem 0 0;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+    z-index: $z-index-modal;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    &--open {
+      transform: translateY(0);
+    }
+
+    // 드로어 내부 패널은 flex 확장 + 스크롤
+    .lecture-sidebar__panel {
+      flex: 1;
+      overflow-y: auto;
+      min-height: 0;
+    }
+  }
+
+  // ── 드로어 헤더 ──
+  &__drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $spacing-3 $spacing-4;
+    border-bottom: 1px solid #2a2a2e;
+    flex-shrink: 0;
+  }
+
+  &__drawer-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  &__drawer-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    border-radius: 0.25rem;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+  }
+
+  // ── 하단 고정 탭 바 ──
+  &__bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: #1b1b1f;
+    border-top: 1px solid #2a2a2e;
+    z-index: $z-index-modal;
+  }
+
+  &__tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.125rem;
+    flex: 1;
+    height: 100%;
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: color 0.15s;
+
+    &:hover {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    &--active {
+      color: $color-primary-light;
+    }
+  }
+
+  &__tab-label {
+    font-size: 0.5625rem;
+    font-weight: $font-weight-medium;
+    line-height: 1;
+  }
+}
+
+// 모바일 드로어가 열릴 때 body 스크롤 방지는 JS에서 처리하지 않고
+// 드로어 자체가 fixed이므로 자연스럽게 격리된다
 
 // ============================================
 // 비디오 컨트롤 오버레이 (VideoControls)
@@ -883,6 +1013,13 @@ body:has(.lecture-player-layout) {
   border-top: 1px solid #2a2a2e;
   flex-shrink: 0;
 
+  // 모바일: 하단 사이드바 탭 바(3rem)만큼 올려서 겹침 방지
+  margin-bottom: 3rem;
+
+  @include breakpoint(lg) {
+    margin-bottom: 0;
+  }
+
   &__left,
   &__center,
   &__right {
@@ -986,9 +1123,10 @@ body:has(.lecture-player-layout) {
     flex-shrink: 0;
     border-left: 1px solid #2a2a2e;
     overflow-y: auto;
+    display: none;
 
-    @media (max-width: 1023px) {
-      display: none;
+    @include breakpoint(lg) {
+      display: block;
     }
   }
 

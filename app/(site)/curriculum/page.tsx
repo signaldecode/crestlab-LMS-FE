@@ -4,43 +4,45 @@
  */
 
 import type { JSX } from 'react';
+import type { Metadata } from 'next';
+import { getPageData } from '@/lib/data';
 import CurriculumHero from '@/components/curriculum/CurriculumHero';
 import CurriculumRoadmap from '@/components/curriculum/CurriculumRoadmap';
 import CurriculumStep from '@/components/curriculum/CurriculumStep';
 import CurriculumFooter from '@/components/curriculum/CurriculumFooter';
 
-const steps = [
-  {
-    step: 1,
-    title: '부동산투자 기초클래스',
-    subtitle: '부동산투자 기초부터 노후준비까지',
-    courseCount: 3,
-  },
-  {
-    step: 2,
-    title: '부동산투자 중급클래스',
-    subtitle: '서울부터 지방까지 실전 투자 노하우',
-    courseCount: 2,
-  },
-  {
-    step: 3,
-    title: '부동산투자 실전클래스',
-    subtitle: '직장인이 부동산 투자자로 성장하는 법',
-    courseCount: 2,
-  },
-  {
-    step: 4,
-    title: '부동산투자 마스터클래스',
-    subtitle: '직장인 투자자로 경제적 자유를 달성!',
-    courseCount: 1,
-  },
-];
+interface CurriculumStepData {
+  step: number;
+  title: string;
+  subtitle: string;
+  courseCount: number;
+}
+
+interface CurriculumPageData {
+  seo: { title: string; description: string };
+  steps: CurriculumStepData[];
+  stepCardLinkLabel: string;
+  roadmap: { goal: string; highlight: string; items: string[] }[];
+  footer: { title: string; cards: string[] };
+}
+
+const curriculumData = getPageData('curriculum') as CurriculumPageData | null;
+
+export const metadata: Metadata = {
+  title: curriculumData?.seo?.title,
+  description: curriculumData?.seo?.description,
+};
 
 export default function CurriculumPage(): JSX.Element {
+  const steps = curriculumData?.steps ?? [];
+  const roadmap = curriculumData?.roadmap ?? [];
+  const footer = curriculumData?.footer ?? { title: '', cards: [] };
+  const stepCardLinkLabel = curriculumData?.stepCardLinkLabel ?? '';
+
   return (
     <main className="curriculum-page">
       <CurriculumHero />
-      <CurriculumRoadmap />
+      <CurriculumRoadmap cols={roadmap} />
       {steps.map((s) => (
         <CurriculumStep
           key={s.step}
@@ -48,9 +50,10 @@ export default function CurriculumPage(): JSX.Element {
           title={s.title}
           subtitle={s.subtitle}
           courseCount={s.courseCount}
+          cardLinkLabel={stepCardLinkLabel}
         />
       ))}
-      <CurriculumFooter />
+      <CurriculumFooter title={footer.title} cards={footer.cards} />
     </main>
   );
 }

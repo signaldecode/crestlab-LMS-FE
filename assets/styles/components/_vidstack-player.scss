@@ -20,6 +20,16 @@
   overflow: hidden;
   background: #000;
 
+  // vidstack 기본 aspect-ratio 제거 — 부모 flex 컨테이너에 맞춰 채움
+  aspect-ratio: unset !important;
+
+  // 내부 media-provider 컨테이너도 동일하게 비율 제약 해제
+  [data-media-provider] {
+    aspect-ratio: unset !important;
+    width: 100%;
+    height: 100%;
+  }
+
   // video 엘리먼트
   video {
     width: 100%;

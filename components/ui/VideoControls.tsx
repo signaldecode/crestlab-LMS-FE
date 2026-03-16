@@ -65,15 +65,15 @@ export default function VideoControls() {
     ? labels.autoQuality
     : selectedQuality ? `${selectedQuality.height}p` : labels.autoQuality;
 
-  /** 저장된 배속 복원 (최초 1회) */
+  /** 저장된 배속 복원 (최초 1회, player 준비 후) */
   useEffect(() => {
-    if (hasRestoredRate.current) return;
+    if (hasRestoredRate.current || !player) return;
     const savedRate = getPlaybackRate();
     if (savedRate !== 1) {
       remote.changePlaybackRate(savedRate);
     }
     hasRestoredRate.current = true;
-  }, [remote]);
+  }, [remote, player]);
 
   const resetHideTimer = useCallback(() => {
     if (hideTimerRef.current) clearTimeout(hideTimerRef.current);

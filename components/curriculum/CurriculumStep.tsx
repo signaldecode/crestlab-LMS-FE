@@ -11,9 +11,10 @@ interface CurriculumStepProps {
   title: string;
   subtitle: string;
   courseCount: number;
+  cardLinkLabel: string;
 }
 
-export default function CurriculumStep({ step, title, subtitle, courseCount }: CurriculumStepProps): JSX.Element {
+export default function CurriculumStep({ step, title, subtitle, courseCount, cardLinkLabel }: CurriculumStepProps): JSX.Element {
   return (
     <section className="curriculum-step">
       {/* 타임라인 연결선 */}
@@ -40,7 +41,7 @@ export default function CurriculumStep({ step, title, subtitle, courseCount }: C
                 <div className="curriculum-step__skeleton-tag" />
                 <div className="curriculum-step__skeleton-tag" />
               </div>
-              <span className="curriculum-step__card-link">강의 보러가기 →</span>
+              <span className="curriculum-step__card-link">{cardLinkLabel}</span>
             </div>
           </div>
         ))}

@@ -5,11 +5,14 @@
  */
 
 import type { Metadata } from 'next';
+import { getPageData } from '@/lib/data';
 import BestCoursesContainer from '@/components/containers/BestCoursesContainer';
 
+const bestPageData = getPageData('best') as { seo: { title: string; description: string } } | null;
+
 export const metadata: Metadata = {
-  title: '베스트 강의 — 강의 플랫폼',
-  description: '가장 인기있는 베스트 강의를 카테고리별로 확인하세요.',
+  title: bestPageData?.seo?.title,
+  description: bestPageData?.seo?.description,
 };
 
 export default function BestPage() {

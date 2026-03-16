@@ -1,12 +1,13 @@
 /**
  * 강의 플레이어 사이드바 (LectureSidebar)
- * - 세로 아이콘 탭(커리큘럼, Q&A, 노트, 채팅, 스크립트) + 탭별 콘텐츠 패널
+ * - 데스크탑(lg 이상): 세로 아이콘 탭 + 탭별 콘텐츠 패널 (기존)
+ * - 모바일/태블릿(lg 미만): 하단 고정 탭 바 + 드로어 패널
  * - 커리큘럼 데이터는 props로 주입받아 렌더링한다 (data 기반)
  */
 
 'use client';
 
-import { useState, type ReactNode } from 'react';
+import { useState, useEffect, useCallback, type ReactNode } from 'react';
 import { uiData } from '@/data';
 
 type SidebarTab = 'curriculum' | 'qna' | 'note' | 'chat' | 'script';
@@ -66,9 +67,12 @@ export default function LectureSidebar({
 }: LectureSidebarProps) {
   const [activeTab, setActiveTab] = useState<SidebarTab>('curriculum');
   const [isCollapsed, setIsCollapsed] = useState(false);
+  /** 모바일 드로어 열림 상태 */
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const sidebarLabels = uiData.sidebar;
 
+  /** 데스크탑 탭 클릭 (접기/펼치기) */
   const handleTabClick = (tabKey: SidebarTab) => {
     if (activeTab === tabKey) {
       setIsCollapsed((prev) => !prev);
@@ -78,116 +82,198 @@ export default function LectureSidebar({
     }
   };
 
+  /** 모바일 탭 클릭 (드로어 토글) */
+  const handleMobileTabClick = (tabKey: SidebarTab) => {
+    if (activeTab === tabKey && isDrawerOpen) {
+      setIsDrawerOpen(false);
+    } else {
+      setActiveTab(tabKey);
+      setIsDrawerOpen(true);
+    }
+  };
+
+  const closeDrawer = useCallback(() => {
+    setIsDrawerOpen(false);
+  }, []);
+
+  /** ESC 키로 드로어 닫기 */
+  useEffect(() => {
+    if (!isDrawerOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeDrawer();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isDrawerOpen, closeDrawer]);
+
   const totalItems = sections.reduce((sum, s) => sum + s.items.length, 0);
   const completedItems = sections.reduce((sum, s) => sum + s.items.filter((i) => i.isCompleted).length, 0);
   const progressText = sidebarLabels.progressFormat
     .replace('{completed}', String(completedItems))
     .replace('{total}', String(totalItems));
 
-  return (
-    <aside
-      className={`lecture-sidebar ${isCollapsed ? 'lecture-sidebar--collapsed' : ''}`}
-      aria-label={sidebarLabels.ariaLabel}
-    >
-      {/* 세로 탭 아이콘 */}
-      <nav className="lecture-sidebar__tabs" aria-label={sidebarLabels.tabsAriaLabel}>
-        {TAB_KEYS.map((key) => (
-          <button
-            key={key}
-            className={`lecture-sidebar__tab ${activeTab === key && !isCollapsed ? 'lecture-sidebar__tab--active' : ''}`}
-            onClick={() => handleTabClick(key)}
-            aria-label={sidebarLabels.tabs[key]}
-            aria-selected={activeTab === key && !isCollapsed}
-            role="tab"
-          >
-            {TAB_ICONS[key]}
-            <span className="lecture-sidebar__tab-label">{sidebarLabels.tabs[key]}</span>
-          </button>
-        ))}
-      </nav>
-
-      {/* 탭 콘텐츠 패널 */}
-      <div className="lecture-sidebar__panel" role="tabpanel">
-        {activeTab === 'curriculum' && (
-          <div className="lecture-sidebar__curriculum">
-            {/* 진행률 헤더 */}
-            <div className="lecture-sidebar__progress-header">
-              <span className="lecture-sidebar__progress-text">{progressText}</span>
-              <div className="lecture-sidebar__progress-bar">
-                <div
-                  className="lecture-sidebar__progress-fill"
-                  style={{ width: `${totalItems > 0 ? (completedItems / totalItems) * 100 : 0}%` }}
-                />
-              </div>
+  /** 탭 콘텐츠 패널 (데스크탑/모바일 공용) */
+  const tabPanel = (
+    <div className="lecture-sidebar__panel" role="tabpanel">
+      {activeTab === 'curriculum' && (
+        <div className="lecture-sidebar__curriculum">
+          {/* 진행률 헤더 */}
+          <div className="lecture-sidebar__progress-header">
+            <span className="lecture-sidebar__progress-text">{progressText}</span>
+            <div className="lecture-sidebar__progress-bar">
+              <div
+                className="lecture-sidebar__progress-fill"
+                style={{ width: `${totalItems > 0 ? (completedItems / totalItems) * 100 : 0}%` }}
+              />
             </div>
+          </div>
 
-            {/* 섹션 목록 */}
-            {sections.map((section, sIdx) => (
-              <div key={sIdx} className="lecture-sidebar__section">
-                <div className="lecture-sidebar__section-header">
-                  <span className="lecture-sidebar__section-title">{section.title}</span>
-                  <span className="lecture-sidebar__section-count">
-                    {section.items.filter((i) => i.isCompleted).length}/{section.items.length}
-                  </span>
-                </div>
-                <ul className="lecture-sidebar__list">
-                  {section.items.map((item) => (
-                    <li key={item.id}>
-                      <button
-                        className={`lecture-sidebar__item ${item.id === currentLectureId ? 'lecture-sidebar__item--active' : ''} ${item.isCompleted ? 'lecture-sidebar__item--completed' : ''}`}
-                        onClick={() => onSelectLecture?.(item.id)}
-                        aria-current={item.id === currentLectureId ? 'true' : undefined}
-                      >
-                        <span className="lecture-sidebar__item-check" aria-hidden="true">
-                          {item.isCompleted ? (
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-                            </svg>
-                          ) : (
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" opacity="0.3">
-                              <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" strokeWidth="2" />
-                            </svg>
-                          )}
-                        </span>
-                        <span className="lecture-sidebar__item-info">
-                          <span className="lecture-sidebar__item-title">{item.title}</span>
-                          <span className="lecture-sidebar__item-duration">{item.duration}</span>
-                        </span>
-                      </button>
-                    </li>
-                  ))}
-                </ul>
+          {/* 섹션 목록 */}
+          {sections.map((section, sIdx) => (
+            <div key={sIdx} className="lecture-sidebar__section">
+              <div className="lecture-sidebar__section-header">
+                <span className="lecture-sidebar__section-title">{section.title}</span>
+                <span className="lecture-sidebar__section-count">
+                  {section.items.filter((i) => i.isCompleted).length}/{section.items.length}
+                </span>
               </div>
-            ))}
-          </div>
+              <ul className="lecture-sidebar__list">
+                {section.items.map((item) => (
+                  <li key={item.id}>
+                    <button
+                      className={`lecture-sidebar__item ${item.id === currentLectureId ? 'lecture-sidebar__item--active' : ''} ${item.isCompleted ? 'lecture-sidebar__item--completed' : ''}`}
+                      onClick={() => onSelectLecture?.(item.id)}
+                      aria-current={item.id === currentLectureId ? 'true' : undefined}
+                    >
+                      <span className="lecture-sidebar__item-check" aria-hidden="true">
+                        {item.isCompleted ? (
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                          </svg>
+                        ) : (
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" opacity="0.3">
+                            <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" strokeWidth="2" />
+                          </svg>
+                        )}
+                      </span>
+                      <span className="lecture-sidebar__item-info">
+                        <span className="lecture-sidebar__item-title">{item.title}</span>
+                        <span className="lecture-sidebar__item-duration">{item.duration}</span>
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {activeTab === 'qna' && (
+        <div className="lecture-sidebar__empty">
+          <p>{sidebarLabels.empty.qna}</p>
+          <button className="lecture-sidebar__empty-btn">{sidebarLabels.empty.qnaButton}</button>
+        </div>
+      )}
+
+      {activeTab === 'note' && (
+        <div className="lecture-sidebar__empty">
+          <p>{sidebarLabels.empty.note}</p>
+          <button className="lecture-sidebar__empty-btn">{sidebarLabels.empty.noteButton}</button>
+        </div>
+      )}
+
+      {activeTab === 'chat' && (
+        <div className="lecture-sidebar__empty">
+          <p>{sidebarLabels.empty.chat}</p>
+        </div>
+      )}
+
+      {activeTab === 'script' && (
+        <div className="lecture-sidebar__empty">
+          <p>{sidebarLabels.empty.script}</p>
+        </div>
+      )}
+    </div>
+  );
+
+  return (
+    <>
+      {/* ── 데스크탑: 기존 사이드바 (lg 이상, CSS로 표시) ── */}
+      <aside
+        className={`lecture-sidebar ${isCollapsed ? 'lecture-sidebar--collapsed' : ''}`}
+        aria-label={sidebarLabels.ariaLabel}
+      >
+        <nav className="lecture-sidebar__tabs" aria-label={sidebarLabels.tabsAriaLabel}>
+          {TAB_KEYS.map((key) => (
+            <button
+              key={key}
+              className={`lecture-sidebar__tab ${activeTab === key && !isCollapsed ? 'lecture-sidebar__tab--active' : ''}`}
+              onClick={() => handleTabClick(key)}
+              aria-label={sidebarLabels.tabs[key]}
+              aria-selected={activeTab === key && !isCollapsed}
+              role="tab"
+            >
+              {TAB_ICONS[key]}
+              <span className="lecture-sidebar__tab-label">{sidebarLabels.tabs[key]}</span>
+            </button>
+          ))}
+        </nav>
+        {tabPanel}
+      </aside>
+
+      {/* ── 모바일: 하단 고정 탭 바 + 드로어 (lg 미만, CSS로 표시) ── */}
+      <div className="lecture-sidebar-mobile">
+        {/* 백드롭 */}
+        {isDrawerOpen && (
+          <div
+            className="lecture-sidebar-mobile__backdrop"
+            onClick={closeDrawer}
+            aria-hidden="true"
+          />
         )}
 
-        {activeTab === 'qna' && (
-          <div className="lecture-sidebar__empty">
-            <p>{sidebarLabels.empty.qna}</p>
-            <button className="lecture-sidebar__empty-btn">{sidebarLabels.empty.qnaButton}</button>
+        {/* 드로어 패널 */}
+        <div
+          className={`lecture-sidebar-mobile__drawer ${isDrawerOpen ? 'lecture-sidebar-mobile__drawer--open' : ''}`}
+          role="dialog"
+          aria-label={sidebarLabels.ariaLabel}
+          aria-modal={isDrawerOpen}
+        >
+          <div className="lecture-sidebar-mobile__drawer-header">
+            <span className="lecture-sidebar-mobile__drawer-title">
+              {sidebarLabels.tabs[activeTab]}
+            </span>
+            <button
+              className="lecture-sidebar-mobile__drawer-close"
+              onClick={closeDrawer}
+              aria-label={sidebarLabels.drawerCloseAriaLabel}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+              </svg>
+            </button>
           </div>
-        )}
+          {tabPanel}
+        </div>
 
-        {activeTab === 'note' && (
-          <div className="lecture-sidebar__empty">
-            <p>{sidebarLabels.empty.note}</p>
-            <button className="lecture-sidebar__empty-btn">{sidebarLabels.empty.noteButton}</button>
-          </div>
-        )}
-
-        {activeTab === 'chat' && (
-          <div className="lecture-sidebar__empty">
-            <p>{sidebarLabels.empty.chat}</p>
-          </div>
-        )}
-
-        {activeTab === 'script' && (
-          <div className="lecture-sidebar__empty">
-            <p>{sidebarLabels.empty.script}</p>
-          </div>
-        )}
+        {/* 하단 고정 탭 바 */}
+        <nav className="lecture-sidebar-mobile__bar" aria-label={sidebarLabels.tabsAriaLabel}>
+          {TAB_KEYS.map((key) => (
+            <button
+              key={key}
+              className={`lecture-sidebar-mobile__tab ${activeTab === key && isDrawerOpen ? 'lecture-sidebar-mobile__tab--active' : ''}`}
+              onClick={() => handleMobileTabClick(key)}
+              aria-label={sidebarLabels.tabs[key]}
+              aria-selected={activeTab === key && isDrawerOpen}
+              role="tab"
+            >
+              {TAB_ICONS[key]}
+              <span className="lecture-sidebar-mobile__tab-label">{sidebarLabels.tabs[key]}</span>
+            </button>
+          ))}
+        </nav>
       </div>
-    </aside>
+    </>
   );
 }

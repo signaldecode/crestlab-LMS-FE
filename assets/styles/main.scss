@@ -41,6 +41,7 @@
 @use 'components/vidstack-player';
 @use 'components/checkout-page';
 @use 'components/not-found';
+@use 'components/global-error';
 
 // 5) Themes
 @use 'themes/default';

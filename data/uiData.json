@@ -97,6 +97,7 @@
     "progressFormat": "{completed}/{total}개 수강 완료",
     "ariaLabel": "강의 사이드바",
     "tabsAriaLabel": "사이드바 탭",
+    "drawerCloseAriaLabel": "사이드바 닫기",
     "empty": {
       "qna": "이 강의에 대한 질문을 남겨보세요.",
       "qnaButton": "질문 작성하기",
