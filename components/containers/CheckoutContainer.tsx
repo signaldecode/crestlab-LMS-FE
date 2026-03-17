@@ -3,29 +3,26 @@
  * - 결제 페이지의 메인 조립 레이어
  * - 주문 정보 확인, 쿠폰/상품권·포인트 적용, 결제 수단 선택, 최종 결제 버튼
  * - 2칸 레이아웃: 왼쪽 주문 정보 / 오른쪽 결제 요약
- * - course prop으로 실제 강의 데이터를 표시한다
+ * - 토스페이먼츠 SDK를 통해 실제 결제를 요청한다
  */
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import type { Course } from '@/types';
+import { getPageData } from '@/lib/data';
+import { formatPrice } from '@/lib/payments';
+import { createOrder } from '@/lib/api';
+import { getTossWidgets, resetTossWidgets } from '@/lib/toss';
 import useCouponStore from '@/stores/useCouponStore';
-
-type PaymentMethod = 'card' | 'kakao' | 'naver' | 'toss' | 'bank';
-
-const PAYMENT_METHODS: { key: PaymentMethod; label: string }[] = [
-  { key: 'card', label: '신용·체크카드' },
-  { key: 'kakao', label: '카카오페이' },
-  { key: 'naver', label: 'N Pay' },
-  { key: 'toss', label: '토스페이' },
-  { key: 'bank', label: '계좌이체' },
-];
-
-function formatPrice(price: number): string {
-  return price.toLocaleString('ko-KR') + '원';
-}
+import useOrderStore from '@/stores/useOrderStore';
+import useAuthStore from '@/stores/useAuthStore';
+import CouponSelect from '@/components/payments/CouponSelect';
+import PaymentMethodSelect from '@/components/payments/PaymentMethodSelect';
+import type { PaymentMethodKey } from '@/components/payments/PaymentMethodSelect';
+import PriceSummary from '@/components/payments/PriceSummary';
 
 function getBadgeVariant(badge: string): string {
   if (badge === 'ORIGINAL') return 'original';
@@ -46,33 +43,121 @@ interface CheckoutContainerProps {
 }
 
 export default function CheckoutContainer({ course }: CheckoutContainerProps) {
-  const [selectedMethod, setSelectedMethod] = useState<PaymentMethod>('card');
+  const router = useRouter();
+
+  /* ── data 기반 라벨 ── */
+  const pageData = getPageData('checkout') as Record<string, unknown> | null;
+  const title = (pageData?.title as string) ?? '주문결제';
+  const sections = (pageData?.sections as Record<string, string>) ?? {};
+  const agreement = (pageData?.agreement as Record<string, string>) ?? {};
+  const summary = (pageData?.summary as Record<string, string>) ?? {};
+  const errors = (pageData?.errors as Record<string, string>) ?? {};
+
+  /* ── 상태 ── */
+  const [selectedMethod, setSelectedMethod] = useState<PaymentMethodKey>('card');
   const [couponOpen, setCouponOpen] = useState(false);
   const [couponApplied, setCouponApplied] = useState(false);
   const [voucherType, setVoucherType] = useState<'voucher' | 'point'>('voucher');
   const [voucherAmount, setVoucherAmount] = useState('0');
   const [pointAmount, setPointAmount] = useState('0');
   const [agreed, setAgreed] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const coupon = useCouponStore((s) => s.coupons.find((c) => c.courseSlug === (course?.slug ?? '')) ?? null);
+  /* ── 스토어 ── */
+  const coupon = useCouponStore((s) =>
+    s.coupons.find((c) => c.courseSlug === (course?.slug ?? '')) ?? null
+  );
+  const user = useAuthStore((s) => s.user);
+  const { setPendingOrder, setPaymentStatus, setError } = useOrderStore();
 
+  /* ── 금액 계산 ── */
+  const coursePrice = course?.price ?? 0;
+  const couponDiscount =
+    couponApplied && coupon
+      ? Math.round(coursePrice * (coupon.discountRate / 100))
+      : 0;
+  const finalPrice = Math.max(coursePrice - couponDiscount, 0);
+
+  /* ── 결제 실행 ── */
+  const handlePayment = useCallback(async () => {
+    if (!course || !agreed || isProcessing) return;
+
+    if (!agreed) {
+      setErrorMessage(errors.agreementRequired ?? '구매 조건 및 환불 규정에 동의해주세요.');
+      return;
+    }
+
+    setIsProcessing(true);
+    setErrorMessage(null);
+    setPaymentStatus('creating');
+
+    try {
+      /* 1. 백엔드에 주문 생성 */
+      const orderResponse = await createOrder({
+        courseSlugs: [course.slug],
+        couponId: couponApplied && coupon ? coupon.id : undefined,
+      });
+
+      setPendingOrder(orderResponse);
+      setPaymentStatus('paying');
+
+      /* 2. 0원 결제인 경우 바로 완료 처리 */
+      if (orderResponse.totalAmount === 0) {
+        setPaymentStatus('done');
+        router.push(`/order/complete?orderId=${orderResponse.orderId}`);
+        return;
+      }
+
+      /* 3. 토스페이먼츠 위젯으로 결제 요청 */
+      const customerKey = user?.id ?? 'ANONYMOUS';
+      const widgets = await getTossWidgets(customerKey);
+
+      await widgets.setAmount({
+        currency: 'KRW',
+        value: orderResponse.totalAmount,
+      });
+
+      await widgets.requestPayment({
+        orderId: orderResponse.orderId,
+        orderName: orderResponse.orderName,
+        customerEmail: orderResponse.customerEmail,
+        customerName: orderResponse.customerName,
+        successUrl: `${window.location.origin}/checkout/success`,
+        failUrl: `${window.location.origin}/checkout/fail`,
+      });
+    } catch (err) {
+      setPaymentStatus('failed');
+      const message =
+        err instanceof Error ? err.message : (errors.paymentFailed ?? '결제에 실패했습니다.');
+      setErrorMessage(message);
+      setError({ code: 'PAYMENT_ERROR', message });
+      resetTossWidgets();
+    } finally {
+      setIsProcessing(false);
+    }
+  }, [
+    course, agreed, isProcessing, couponApplied, coupon, user,
+    errors, setPendingOrder, setPaymentStatus, setError, router,
+  ]);
+
+  /* ── 강의 없음 ── */
   if (!course) {
     return (
       <section className="checkout-container">
-        <h1 className="checkout-container__title">주문결제</h1>
-        <p style={{ padding: '2rem 0', color: '#888' }}>강의 정보를 찾을 수 없습니다.</p>
+        <h1 className="checkout-container__title">
+          {title}
+        </h1>
+        <p className="checkout-container__empty">강의 정보를 찾을 수 없습니다.</p>
       </section>
     );
   }
 
-  const couponDiscount = couponApplied && coupon
-    ? Math.round(course.price * (coupon.discountRate / 100))
-    : 0;
-  const finalPrice = course.price - couponDiscount;
-
   return (
     <section className="checkout-container">
-      <h1 className="checkout-container__title">주문결제</h1>
+      <h1 className="checkout-container__title">
+        {title}
+      </h1>
 
       <div className="checkout-container__layout">
         {/* ── 왼쪽: 주문 정보 ── */}
@@ -80,7 +165,9 @@ export default function CheckoutContainer({ course }: CheckoutContainerProps) {
 
           {/* 주문 강의 정보 */}
           <div className="checkout-container__section">
-            <h2 className="checkout-container__section-title">주문 강의</h2>
+            <h2 className="checkout-container__section-title">
+              {sections.orderInfo ?? '주문 강의'}
+            </h2>
             <div className="checkout-container__course-item">
               <div className="checkout-container__course-thumb">
                 <Image
@@ -113,51 +200,29 @@ export default function CheckoutContainer({ course }: CheckoutContainerProps) {
                   <span className="checkout-container__course-duration">{course.duration}</span>
                 </div>
                 <div className="checkout-container__course-price">
-                  <span className="checkout-container__course-price-final">{formatPrice(course.price)}</span>
+                  <span className="checkout-container__course-price-final">
+                    {formatPrice(coursePrice)}
+                  </span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* 쿠폰 */}
-          <div className="checkout-container__section">
-            <div className="checkout-container__section-header">
-              <h2 className="checkout-container__section-title">쿠폰</h2>
-              <button
-                type="button"
-                className="checkout-container__coupon-link"
-                onClick={() => setCouponOpen(!couponOpen)}
-              >
-                쿠폰코드 &gt;
-              </button>
-            </div>
-            <div className="checkout-container__select-wrap">
-              <select
-                className="checkout-container__select"
-                disabled={!coupon}
-                value={couponApplied ? 'apply' : ''}
-                onChange={(e) => setCouponApplied(e.target.value === 'apply')}
-              >
-                {coupon ? (
-                  <>
-                    <option value="">쿠폰을 선택하세요</option>
-                    <option value="apply">{coupon.discountRate}% 할인 쿠폰</option>
-                  </>
-                ) : (
-                  <option value="">사용가능한 쿠폰이 없어요</option>
-                )}
-              </select>
-              <svg className="checkout-container__select-arrow" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M7 10l5 5 5-5z" />
-              </svg>
-            </div>
-          </div>
+          <CouponSelect
+            coupon={coupon}
+            applied={couponApplied}
+            onApply={setCouponApplied}
+            onToggleCode={() => setCouponOpen(!couponOpen)}
+          />
 
           {/* 상품권 · 포인트 */}
           <div className="checkout-container__section">
             <h2 className="checkout-container__section-title">
-              상품권 · 포인트
-              <span className="checkout-container__section-note">*둘 중 하나만 적용 가능</span>
+              {sections.voucher ?? '상품권 · 포인트'}
+              <span className="checkout-container__section-note">
+                *{sections.voucherNotice ?? '상품권과 포인트 중 하나만 적용 가능합니다.'}
+              </span>
             </h2>
 
             {/* 상품권 */}
@@ -170,8 +235,12 @@ export default function CheckoutContainer({ course }: CheckoutContainerProps) {
                   onChange={() => setVoucherType('voucher')}
                   className="checkout-container__radio"
                 />
-                <span className="checkout-container__radio-text">상품권</span>
-                <span className="checkout-container__available">사용 가능 0</span>
+                <span className="checkout-container__radio-text">
+                  {sections.voucherLabel ?? '상품권'}
+                </span>
+                <span className="checkout-container__available">
+                  {sections.availablePrefix ?? '사용 가능'} 0
+                </span>
               </label>
               <div className="checkout-container__input-row">
                 <input
@@ -180,13 +249,14 @@ export default function CheckoutContainer({ course }: CheckoutContainerProps) {
                   value={voucherAmount}
                   onChange={(e) => setVoucherAmount(e.target.value)}
                   disabled={voucherType !== 'voucher'}
+                  aria-label={sections.voucherLabel ?? '상품권 금액 입력'}
                 />
                 <button
                   type="button"
                   className="checkout-container__apply-btn"
                   disabled={voucherType !== 'voucher'}
                 >
-                  전액 사용
+                  {sections.useAll ?? '전액 사용'}
                 </button>
               </div>
             </div>
@@ -201,8 +271,12 @@ export default function CheckoutContainer({ course }: CheckoutContainerProps) {
                   onChange={() => setVoucherType('point')}
                   className="checkout-container__radio"
                 />
-                <span className="checkout-container__radio-text">포인트</span>
-                <span className="checkout-container__available">사용 가능 0</span>
+                <span className="checkout-container__radio-text">
+                  {sections.pointLabel ?? '포인트'}
+                </span>
+                <span className="checkout-container__available">
+                  {sections.availablePrefix ?? '사용 가능'} 0
+                </span>
               </label>
               <div className="checkout-container__input-row">
                 <input
@@ -211,13 +285,14 @@ export default function CheckoutContainer({ course }: CheckoutContainerProps) {
                   value={pointAmount}
                   onChange={(e) => setPointAmount(e.target.value)}
                   disabled={voucherType !== 'point'}
+                  aria-label={sections.pointLabel ?? '포인트 금액 입력'}
                 />
                 <button
                   type="button"
                   className="checkout-container__apply-btn"
                   disabled={voucherType !== 'point'}
                 >
-                  전액 사용
+                  {sections.useAll ?? '전액 사용'}
                 </button>
               </div>
             </div>
@@ -228,60 +303,38 @@ export default function CheckoutContainer({ course }: CheckoutContainerProps) {
           </div>
 
           {/* 결제 수단 */}
-          <div className="checkout-container__section">
-            <h2 className="checkout-container__section-title">결제 수단</h2>
-            <div className="checkout-container__payment-methods">
-              {PAYMENT_METHODS.map((method) => (
-                <button
-                  key={method.key}
-                  type="button"
-                  className={`checkout-container__payment-option${selectedMethod === method.key ? ' checkout-container__payment-option--active' : ''}`}
-                  onClick={() => setSelectedMethod(method.key)}
-                >
-                  {method.label}
-                </button>
-              ))}
-            </div>
-          </div>
+          <PaymentMethodSelect
+            selected={selectedMethod}
+            onSelect={setSelectedMethod}
+          />
         </div>
 
         {/* ── 오른쪽: 결제 요약 ── */}
         <aside className="checkout-container__summary">
           <div className="checkout-container__summary-sticky">
-            <h2 className="checkout-container__section-title">결제 금액</h2>
+            <PriceSummary
+              coursePrice={coursePrice}
+              couponDiscount={couponDiscount}
+              pointUsed={0}
+              voucherUsed={0}
+            />
 
-            <div className="checkout-container__summary-row">
-              <span>총 클래스 금액</span>
-              <span>{formatPrice(course.price)}</span>
-            </div>
-            <div className="checkout-container__summary-row">
-              <span>쿠폰 할인</span>
-              <span className={couponDiscount > 0 ? 'checkout-container__summary-discount' : ''}>
-                {couponDiscount > 0 ? `-${formatPrice(couponDiscount)}` : '0원'}
-              </span>
-            </div>
-            <div className="checkout-container__summary-row">
-              <span>상품권 사용</span>
-              <span>0원</span>
-            </div>
-            <div className="checkout-container__summary-row">
-              <span>포인트 사용</span>
-              <span>0원</span>
-            </div>
-
-            <div className="checkout-container__summary-divider" />
-
-            <div className="checkout-container__summary-row checkout-container__summary-row--total">
-              <span>총 결제 금액</span>
-              <span>{formatPrice(finalPrice)}</span>
-            </div>
+            {errorMessage && (
+              <p className="checkout-container__error" role="alert">
+                {errorMessage}
+              </p>
+            )}
 
             <button
               type="button"
               className="checkout-container__pay-btn"
-              disabled={!agreed}
+              disabled={!agreed || isProcessing}
+              onClick={handlePayment}
+              aria-label={summary.submitAriaLabel ?? '최종 결제 금액으로 결제 진행'}
             >
-              {formatPrice(finalPrice)} 결제하기
+              {isProcessing
+                ? '처리 중...'
+                : `${formatPrice(finalPrice)} ${summary.submitLabel ?? '결제하기'}`}
             </button>
 
             <label className="checkout-container__agree-label">
@@ -290,9 +343,10 @@ export default function CheckoutContainer({ course }: CheckoutContainerProps) {
                 checked={agreed}
                 onChange={(e) => setAgreed(e.target.checked)}
                 className="checkout-container__agree-checkbox"
+                aria-label={agreement.ariaLabel ?? '구매 조건 및 환불 규정 동의'}
               />
               <span className="checkout-container__agree-text">
-                강의 및 결제 정보를 확인하였으며, 수강정책 및 환불규정에 동의합니다.
+                {agreement.text ?? '강의 및 결제 정보를 확인하였으며, 구매 조건 및 환불 규정에 동의합니다.'}
               </span>
             </label>
           </div>

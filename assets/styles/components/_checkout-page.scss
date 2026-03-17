@@ -400,6 +400,23 @@
     }
   }
 
+  // ── 에러 메시지 ──
+  &__error {
+    font-size: $font-size-sm;
+    color: #dc2626;
+    padding: $spacing-3;
+    border-radius: 0.375rem;
+    background: #fef2f2;
+    text-align: center;
+  }
+
+  // ── 빈 상태 ──
+  &__empty {
+    padding: $spacing-8 0;
+    color: $color-text-secondary;
+    font-size: $font-size-sm;
+  }
+
   // ── 동의 체크 ──
   &__agree-label {
     display: flex;

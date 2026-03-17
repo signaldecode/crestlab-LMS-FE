@@ -588,6 +588,77 @@ export interface OrderData {
   createdAt: string;
 }
 
+/* ── 토스페이먼츠 결제 ── */
+
+/** 토스페이먼츠 결제 수단 */
+export type TossPaymentMethod =
+  | 'CARD'
+  | 'TRANSFER'
+  | 'VIRTUAL_ACCOUNT'
+  | 'MOBILE_PHONE'
+  | 'TOSSPAY'
+  | 'KAKAOPAY'
+  | 'NAVERPAY';
+
+/** 주문 생성 요청 (프론트 → 백엔드) */
+export interface CreateOrderRequest {
+  courseSlugs: string[];
+  couponId?: string;
+  pointAmount?: number;
+  voucherAmount?: number;
+}
+
+/** 주문 생성 응답 (백엔드 → 프론트) */
+export interface CreateOrderResponse {
+  orderId: string;
+  orderName: string;
+  totalAmount: number;
+  customerEmail: string;
+  customerName: string;
+}
+
+/** 결제 승인 요청 (프론트 → 백엔드) */
+export interface ConfirmPaymentRequest {
+  paymentKey: string;
+  orderId: string;
+  amount: number;
+}
+
+/** 결제 승인 응답 (백엔드 → 프론트) */
+export interface ConfirmPaymentResponse {
+  orderId: string;
+  status: TossPaymentStatus;
+  totalAmount: number;
+  method: string;
+  approvedAt: string;
+  receipt?: { url: string };
+  courseAccess: { courseSlug: string; expiresAt: string }[];
+}
+
+/** 토스페이먼츠 결제 상태 */
+export type TossPaymentStatus =
+  | 'DONE'
+  | 'CANCELED'
+  | 'PARTIAL_CANCELED'
+  | 'ABORTED'
+  | 'EXPIRED';
+
+/** 결제 실패 정보 */
+export interface PaymentFailure {
+  code: string;
+  message: string;
+  orderId?: string;
+}
+
+/** 주문 상태 */
+export type OrderStatus =
+  | 'PENDING'
+  | 'PAID'
+  | 'CANCELED'
+  | 'REFUND_REQUESTED'
+  | 'REFUNDED'
+  | 'FAILED';
+
 export interface ExpiredCouponData {
   id: string;
   amount: number;

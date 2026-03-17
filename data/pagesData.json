@@ -274,7 +274,92 @@
     "discountLabel": "할인",
     "totalLabel": "결제 금액",
     "checkoutLabel": "결제하기",
-    "checkoutAriaLabel": "결제 페이지로 이동"
+    "checkoutAriaLabel": "결제 페이지로 이동",
+    "selectAllLabel": "전체 선택",
+    "deleteSelectedLabel": "선택 삭제",
+    "deleteSelectedAriaLabel": "선택한 강의를 장바구니에서 삭제",
+    "itemDeleteAriaLabel": "장바구니에서 삭제"
+  },
+  "checkout": {
+    "seo": {
+      "title": "주문결제 — 강의 플랫폼",
+      "description": "선택하신 강의를 안전하게 결제하세요."
+    },
+    "title": "주문결제",
+    "sections": {
+      "orderInfo": "주문 강의",
+      "coupon": "쿠폰",
+      "couponCode": "쿠폰코드",
+      "couponSelect": "쿠폰 선택",
+      "couponNone": "사용 안 함",
+      "voucher": "상품권 · 포인트",
+      "voucherLabel": "상품권",
+      "pointLabel": "포인트",
+      "voucherNotice": "상품권과 포인트 중 하나만 적용 가능합니다.",
+      "availablePrefix": "사용 가능",
+      "useAll": "전액 사용",
+      "paymentMethod": "결제 수단"
+    },
+    "methods": {
+      "card": "신용·체크카드",
+      "kakaopay": "카카오페이",
+      "naverpay": "N Pay",
+      "tosspay": "토스페이",
+      "transfer": "계좌이체"
+    },
+    "agreement": {
+      "text": "강의 및 결제 정보를 확인하였으며, 구매 조건 및 환불 규정에 동의합니다.",
+      "ariaLabel": "구매 조건 및 환불 규정 동의"
+    },
+    "summary": {
+      "coursePrice": "강의 금액",
+      "couponDiscount": "쿠폰 할인",
+      "pointDiscount": "포인트 사용",
+      "voucherDiscount": "상품권 사용",
+      "totalLabel": "최종 결제 금액",
+      "submitLabel": "결제하기",
+      "submitAriaLabel": "최종 결제 금액으로 결제 진행"
+    },
+    "errors": {
+      "amountMismatch": "결제 금액이 일치하지 않습니다. 다시 시도해주세요.",
+      "paymentFailed": "결제에 실패했습니다. 다시 시도해주세요.",
+      "orderCreationFailed": "주문 생성에 실패했습니다. 잠시 후 다시 시도해주세요.",
+      "networkError": "네트워크 오류가 발생했습니다. 인터넷 연결을 확인해주세요.",
+      "unauthorized": "로그인이 필요합니다.",
+      "alreadyPurchased": "이미 구매한 강의입니다.",
+      "agreementRequired": "구매 조건 및 환불 규정에 동의해주세요."
+    }
+  },
+  "orderComplete": {
+    "seo": {
+      "title": "결제 완료 — 강의 플랫폼",
+      "description": "결제가 성공적으로 완료되었습니다."
+    },
+    "title": "결제가 완료되었습니다!",
+    "subtitle": "수강 등록이 완료되었으며, 지금 바로 학습을 시작할 수 있습니다.",
+    "orderIdLabel": "주문번호",
+    "amountLabel": "결제 금액",
+    "methodLabel": "결제 수단",
+    "dateLabel": "결제 일시",
+    "receiptLabel": "영수증 보기",
+    "receiptAriaLabel": "결제 영수증 확인",
+    "startLearningLabel": "학습 시작하기",
+    "startLearningAriaLabel": "구매한 강의 학습 시작하기",
+    "goHomeLabel": "홈으로 돌아가기",
+    "goOrdersLabel": "주문 내역 보기",
+    "goOrdersAriaLabel": "마이페이지 주문 내역으로 이동"
+  },
+  "paymentFail": {
+    "seo": {
+      "title": "결제 실패 — 강의 플랫폼"
+    },
+    "title": "결제에 실패했습니다",
+    "subtitle": "아래 사유를 확인하고 다시 시도해주세요.",
+    "errorCodeLabel": "오류 코드",
+    "retryLabel": "다시 결제하기",
+    "retryAriaLabel": "결제 페이지로 돌아가서 다시 시도",
+    "goCartLabel": "장바구니로 돌아가기",
+    "goCartAriaLabel": "장바구니 페이지로 이동"
   },
   "learn": {
     "seo": { "title": "내 강의실 — 강의 플랫폼" },

@@ -9,6 +9,7 @@ interface Config {
   backendBase: string;
   siteName: string;
   isProd: boolean;
+  tossClientKey: string;
 }
 
 const config: Config = {
@@ -16,6 +17,7 @@ const config: Config = {
   backendBase: process.env.BACKEND_API_BASE || 'http://localhost:8080',
   siteName: process.env.NEXT_PUBLIC_SITE_NAME || '강의 플랫폼',
   isProd: process.env.NODE_ENV === 'production',
+  tossClientKey: process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY || '',
 };
 
 export default config;

@@ -5,7 +5,14 @@
  * - 엔드포인트별 함수를 제공하여 컴포넌트에서 직접 fetch하지 않도록 한다
  */
 
-import type { Course, Order } from '@/types';
+import type {
+  Course,
+  Order,
+  CreateOrderRequest,
+  CreateOrderResponse,
+  ConfirmPaymentRequest,
+  ConfirmPaymentResponse,
+} from '@/types';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || '/api';
 
@@ -43,9 +50,17 @@ export function fetchMyCourses(): Promise<Course[]> {
   return request<Course[]>('/me/courses');
 }
 
-/** 주문 생성 */
-export function createOrder(body: { items: string[]; couponCode?: string }): Promise<Order> {
-  return request<Order>('/orders', {
+/** 주문 생성 (결제 전 — 백엔드에서 orderId 발급) */
+export function createOrder(body: CreateOrderRequest): Promise<CreateOrderResponse> {
+  return request<CreateOrderResponse>('/proxy/api/orders', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+}
+
+/** 결제 승인 (토스 리다이렉트 후 — 백엔드에서 토스 최종 승인) */
+export function confirmPayment(body: ConfirmPaymentRequest): Promise<ConfirmPaymentResponse> {
+  return request<ConfirmPaymentResponse>('/api/payments/confirm', {
     method: 'POST',
     body: JSON.stringify(body),
   });
