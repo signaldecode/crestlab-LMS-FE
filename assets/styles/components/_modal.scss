@@ -55,6 +55,80 @@
   }
 }
 
+// ── 확인 모달 (ConfirmModal) ──
+.confirm-modal-overlay {
+  position: fixed;
+  inset: $spacing-0;
+  z-index: $z-index-modal-backdrop;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  animation: confirm-fade-in 0.2s ease;
+}
+
+.confirm-modal {
+  position: relative;
+  z-index: $z-index-modal;
+  width: 100%;
+  max-width: 26rem;
+  background-color: $color-bg-primary;
+  border-radius: $spacing-3;
+  box-shadow: 0 $spacing-6 $spacing-16 rgba(0, 0, 0, 0.15);
+  padding: $spacing-12 $spacing-8 $spacing-8;
+  text-align: center;
+  animation: confirm-slide-up 0.25s ease;
+
+  &__message {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: $spacing-0 $spacing-0 $spacing-10;
+    line-height: 1.4;
+    word-break: keep-all;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $spacing-3;
+  }
+
+  &__btn {
+    flex: 1;
+    padding: $spacing-4 $spacing-0;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    border: none;
+    border-radius: $spacing-2;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.85;
+    }
+
+    &--cancel {
+      background-color: $color-bg-tertiary;
+      color: $color-text-primary;
+    }
+
+    &--confirm {
+      background-color: $color-primary;
+      color: $color-text-inverse;
+    }
+  }
+}
+
+@keyframes confirm-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes confirm-slide-up {
+  from { opacity: 0; transform: translateY(0.5rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 // ── 쿠폰 모달 ──
 .coupon-modal {
   position: fixed;

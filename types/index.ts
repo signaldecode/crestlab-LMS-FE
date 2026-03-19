@@ -555,7 +555,7 @@ export interface OtherUserModeData {
 export interface ProfileCardData {
   coverImageAlt: string;
   avatarAlt: string;
-  verifiedBadgeAlt: string;
+  verifiedBadge: { src: string; alt: string };
   toggleLabels: ProfileCardToggleLabels;
   profileMode: ProfileModeData;
   classroomMode: ClassroomModeData;

@@ -220,7 +220,10 @@
   "profileCard": {
     "coverImageAlt": "프로필 커버 이미지",
     "avatarAlt": "프로필 사진",
-    "verifiedBadgeAlt": "인증 완료",
+    "verifiedBadge": {
+      "src": "/images/community/Bluecheck.png",
+      "alt": "인증 완료"
+    },
     "toggleLabels": {
       "profile": "프로필",
       "classroom": "강의실",
@@ -416,6 +419,7 @@
       "socialConnect": "연결",
       "socialDisconnect": "연결",
       "withdraw": "회원탈퇴",
+      "withdrawConfirmMessage": "회원탈퇴를 하시겠습니까?",
       "cancel": "취소하기",
       "submit": "수정하기"
     },

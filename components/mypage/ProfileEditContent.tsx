@@ -13,6 +13,7 @@ import type { JSX, ChangeEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import useAuthStore from '@/stores/useAuthStore';
+import ConfirmModal from '@/components/layout/ConfirmModal';
 import accountData from '@/data/accountData.json';
 
 // Social Logos
@@ -47,6 +48,14 @@ export default function ProfileEditContent(): JSX.Element {
   const [smsConsent, setSmsConsent] = useState(user?.marketingConsent?.sms ?? false);
   const [emailConsent, setEmailConsent] = useState(user?.marketingConsent?.email ?? false);
   const [nightAdConsent, setNightAdConsent] = useState(user?.marketingConsent?.nightAd ?? false);
+
+  // 회원탈퇴 확인 모달
+  const [isWithdrawOpen, setIsWithdrawOpen] = useState(false);
+
+  const handleWithdrawConfirm = useCallback(() => {
+    setIsWithdrawOpen(false);
+    // TODO: 실제 회원탈퇴 API 호출
+  }, []);
 
   const handlePhoneChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setPhone(e.target.value);
@@ -408,7 +417,11 @@ export default function ProfileEditContent(): JSX.Element {
 
       {/* 하단 버튼 */}
       <div className="member-edit__actions">
-        <button type="button" className="member-edit__withdraw-btn">
+        <button
+          type="button"
+          className="member-edit__withdraw-btn"
+          onClick={() => setIsWithdrawOpen(true)}
+        >
           {profileEdit.buttons.withdraw}
         </button>
         <div className="member-edit__actions-right">
@@ -428,6 +441,13 @@ export default function ProfileEditContent(): JSX.Element {
           </button>
         </div>
       </div>
+
+      <ConfirmModal
+        isOpen={isWithdrawOpen}
+        message={profileEdit.buttons.withdrawConfirmMessage}
+        onCancel={() => setIsWithdrawOpen(false)}
+        onConfirm={handleWithdrawConfirm}
+      />
     </div>
   );
 }
