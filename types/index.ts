@@ -708,6 +708,20 @@ export interface ReviewData {
   createdAt: string;
 }
 
+/* ── 알림 ── */
+export type NotificationType = 'new_post' | 'activity' | 'news';
+
+export interface NotificationData {
+  id: string;
+  type: NotificationType;
+  title: string;
+  message: string;
+  profileImage?: string;
+  isRead: boolean;
+  createdAt: string;
+  href?: string;
+}
+
 /* ── SEO ── */
 export interface OgMeta {
   title: string;
@@ -735,6 +749,7 @@ export interface MainData {
     common: Record<string, string>;
     toast: Record<string, string>;
     emptyState: Record<string, string>;
+    notification: Record<string, unknown>;
   };
   pages: Record<string, unknown>;
   courses: Course[];

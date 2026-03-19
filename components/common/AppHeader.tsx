@@ -7,7 +7,7 @@
 
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import type { JSX } from 'react';
 import Link from 'next/link';
 import AppLogo from '@/components/common/AppLogo';
@@ -16,22 +16,40 @@ import TopBarNav from '@/components/layout/TopBarNav';
 import GlobalNav from '@/components/layout/GlobalNav';
 import SubNav from '@/components/layout/SubNav';
 import SidebarMenu from '@/components/layout/SidebarMenu';
+import NotificationDrawer from '@/components/common/NotificationDrawer';
 import useAuthStore from '@/stores/useAuthStore';
+import useNotificationStore from '@/stores/useNotificationStore';
 import { getNavData, getMainData } from '@/lib/data';
+import type { NotificationData } from '@/types';
 
 export default function AppHeader(): JSX.Element {
   const nav = getNavData();
-  const a11yHeader = getMainData().a11y.header as {
+  const mainData = getMainData();
+  const a11yHeader = mainData.a11y.header as {
     notificationAriaLabel: string;
     myClassroomLabel: string;
     mobileMenuOpenLabel: string;
     mobileMenuCloseLabel: string;
   };
+  const notifUi = mainData.ui.notification as {
+    badgeAriaLabel: string;
+    mockNotifications: NotificationData[];
+  };
 
   const isLoggedIn = useAuthStore((s) => s.isLoggedIn);
+  const toggleNotification = useNotificationStore((s) => s.toggle);
+  const setNotifications = useNotificationStore((s) => s.setNotifications);
+  const unreadCount = useNotificationStore((s) => s.unreadCount);
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const openMenu = useCallback(() => setIsMobileMenuOpen(true), []);
   const closeMenu = useCallback(() => setIsMobileMenuOpen(false), []);
+
+  useEffect(() => {
+    if (notifUi.mockNotifications) {
+      setNotifications(notifUi.mockNotifications);
+    }
+  }, [notifUi.mockNotifications, setNotifications]);
 
   return (
     <header className="app-header" role="banner">
@@ -61,11 +79,22 @@ export default function AppHeader(): JSX.Element {
             {isLoggedIn ? (
               <>
                 {/* 알림 아이콘 */}
-                <button type="button" className="app-header__icon-btn" aria-label={a11yHeader.notificationAriaLabel}>
+                <button
+                  type="button"
+                  className="app-header__icon-btn app-header__notification-btn"
+                  aria-label={a11yHeader.notificationAriaLabel}
+                  onClick={toggleNotification}
+                >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
                     <path d="M13.73 21a2 2 0 0 1-3.46 0" />
                   </svg>
+                  {unreadCount() > 0 && (
+                    <span
+                      className="app-header__notification-badge"
+                      aria-label={notifUi.badgeAriaLabel.replace('{count}', String(unreadCount()))}
+                    />
+                  )}
                 </button>
 
                 {/* 내 강의실 버튼 — 데스크톱에서만 표시 */}
@@ -116,6 +145,9 @@ export default function AppHeader(): JSX.Element {
 
       {/* 모바일 사이드바 메뉴 */}
       <SidebarMenu isOpen={isMobileMenuOpen} onClose={closeMenu} />
+
+      {/* 알림 드로어 */}
+      <NotificationDrawer />
     </header>
   );
 }

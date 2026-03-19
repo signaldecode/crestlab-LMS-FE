@@ -1,0 +1,247 @@
+// ============================================
+// 알림 드로어 스타일 (_notification-drawer.scss)
+// - 오른쪽 슬라이드 패널, 탭 필터, 알림 아이템
+// ============================================
+
+@use '../tokens/colors' as *;
+@use '../tokens/spacing' as *;
+@use '../tokens/typography' as *;
+@use '../tokens/z-index' as *;
+
+// 백드롭 오버레이
+.notification-drawer__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: $z-index-modal-backdrop;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+
+  &--visible {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+// 드로어 패널
+.notification-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  max-width: 25rem; // 400px
+  height: 100vh;
+  background: $color-bg-primary;
+  z-index: $z-index-modal;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  &--open {
+    transform: translateX(0);
+  }
+
+  // 헤더
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $spacing-6;
+    padding-bottom: $spacing-4;
+    flex-shrink: 0;
+  }
+
+  &__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0;
+  }
+
+  &__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $spacing-10;
+    height: $spacing-10;
+    border: none;
+    background: none;
+    color: $color-text-secondary;
+    cursor: pointer;
+    border-radius: $spacing-2;
+    transition: background 0.15s ease;
+
+    &:hover {
+      background: $color-bg-tertiary;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-border-focus;
+      outline-offset: -2px;
+    }
+  }
+
+  // 탭 필터
+  &__tabs {
+    display: flex;
+    gap: $spacing-2;
+    padding: 0 $spacing-6;
+    padding-bottom: $spacing-4;
+    flex-shrink: 0;
+  }
+
+  &__tab {
+    padding: $spacing-2 $spacing-4;
+    border: 1px solid $color-border;
+    border-radius: $spacing-5;
+    background: $color-bg-primary;
+    color: $color-text-secondary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+
+    &:hover {
+      border-color: $color-primary;
+      color: $color-primary;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-border-focus;
+      outline-offset: -2px;
+    }
+
+    &--active {
+      background: $color-primary;
+      border-color: $color-primary;
+      color: $color-text-inverse;
+
+      &:hover {
+        background: $color-primary-dark;
+        border-color: $color-primary-dark;
+        color: $color-text-inverse;
+      }
+    }
+  }
+
+  // 기간 라벨
+  &__period {
+    padding: $spacing-2 $spacing-6;
+    flex-shrink: 0;
+    text-align: right;
+
+    span {
+      font-size: $font-size-xs;
+      color: $color-text-secondary;
+    }
+  }
+
+  // 알림 리스트
+  &__list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0;
+  }
+
+  &__empty {
+    text-align: center;
+    color: $color-text-secondary;
+    font-size: $font-size-sm;
+    padding: $spacing-16 $spacing-6;
+    margin: 0;
+  }
+}
+
+// 알림 아이템
+.notification-item {
+  display: flex;
+  gap: $spacing-3;
+  width: 100%;
+  padding: $spacing-4 $spacing-6;
+  border: none;
+  background: $color-bg-primary;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: $color-bg-secondary;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-border-focus;
+    outline-offset: -2px;
+  }
+
+  &--unread {
+    background: $color-bg-secondary;
+  }
+
+  // 아바타
+  &__avatar {
+    position: relative;
+    flex-shrink: 0;
+    width: $spacing-10;
+    height: $spacing-10;
+  }
+
+  &__avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &__avatar-default {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+
+  &__badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: $spacing-3;
+    height: $spacing-3;
+    background: $color-error;
+    border-radius: 50%;
+    border: 2px solid $color-bg-primary;
+  }
+
+  // 본문
+  &__body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__time {
+    display: block;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    margin-bottom: $spacing-1;
+  }
+
+  &__title {
+    display: block;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    margin-bottom: $spacing-1;
+    line-height: $line-height-tight;
+  }
+
+  &__message {
+    margin: 0;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    line-height: $line-height-base;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

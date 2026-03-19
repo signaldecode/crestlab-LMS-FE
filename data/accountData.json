@@ -16,7 +16,7 @@
         "profileEdit": "회원정보관리"
       },
       "externalLinks": [
-        { "key": "tickets", "label": "1:1 문의", "href": "/support/tickets" },
+        { "key": "tickets", "label": "1:1 문의", "href": "/support/tickets/new" },
         { "key": "faq", "label": "자주 묻는 질문", "href": "/support" }
       ],
       "logoutLabel": "로그아웃",

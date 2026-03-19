@@ -135,6 +135,95 @@
     "cancelAriaLabel": "취소",
     "confirmAriaLabel": "확인"
   },
+  "notification": {
+    "title": "알림",
+    "closeAriaLabel": "알림 패널 닫기",
+    "tabs": [
+      { "id": "all", "label": "전체" },
+      { "id": "new_post", "label": "새글" },
+      { "id": "activity", "label": "활동" },
+      { "id": "news", "label": "소식" }
+    ],
+    "tabsAriaLabel": "알림 필터 탭",
+    "recentLabel": "최근 7일",
+    "emptyText": "알림이 없습니다.",
+    "badgeAriaLabel": "읽지 않은 알림 {count}개",
+    "itemAriaLabel": "{title} - {message}",
+    "mockNotifications": [
+      {
+        "id": "notif-001",
+        "type": "activity",
+        "title": "Lv.1 4단계로 등업하기",
+        "message": "댓글을 작성해 보세요! 다음단계까지 댓글",
+        "isRead": false,
+        "createdAt": "2026-03-17T10:00:00Z"
+      },
+      {
+        "id": "notif-002",
+        "type": "activity",
+        "title": "Lv.1 4단계로 등업하기",
+        "message": "댓글을 작성해 보세요! 다음단계까지 댓글",
+        "isRead": true,
+        "createdAt": "2026-03-17T09:00:00Z"
+      },
+      {
+        "id": "notif-003",
+        "type": "activity",
+        "title": "Lv.1 4단계로 등업하기",
+        "message": "댓글을 작성해 보세요! 다음단계까지 댓글",
+        "isRead": false,
+        "createdAt": "2026-03-17T08:00:00Z"
+      },
+      {
+        "id": "notif-004",
+        "type": "activity",
+        "title": "Lv.1 4단계로 등업하기",
+        "message": "댓글을 작성해 보세요! 다음단계까지 댓글",
+        "isRead": false,
+        "createdAt": "2026-03-17T07:00:00Z"
+      },
+      {
+        "id": "notif-005",
+        "type": "activity",
+        "title": "Lv.1 4단계로 등업하기",
+        "message": "댓글을 작성해 보세요! 다음단계까지 댓글",
+        "isRead": false,
+        "createdAt": "2026-03-17T06:00:00Z"
+      },
+      {
+        "id": "notif-006",
+        "type": "activity",
+        "title": "Lv.1 4단계로 등업하기",
+        "message": "댓글을 작성해 보세요! 다음단계까지 댓글",
+        "isRead": false,
+        "createdAt": "2026-03-17T05:00:00Z"
+      },
+      {
+        "id": "notif-007",
+        "type": "activity",
+        "title": "Lv.1 4단계로 등업하기",
+        "message": "댓글을 작성해 보세요! 다음단계까지 댓글",
+        "isRead": false,
+        "createdAt": "2026-03-17T04:00:00Z"
+      },
+      {
+        "id": "notif-008",
+        "type": "activity",
+        "title": "Lv.1 4단계로 등업하기",
+        "message": "댓글을 작성해 보세요! 다음단계까지 댓글",
+        "isRead": false,
+        "createdAt": "2026-03-17T03:00:00Z"
+      },
+      {
+        "id": "notif-009",
+        "type": "activity",
+        "title": "Lv.1 4단계로 등업하기",
+        "message": "댓글을 작성해 보세요! 다음단계까지 댓글",
+        "isRead": false,
+        "createdAt": "2026-03-17T02:00:00Z"
+      }
+    ]
+  },
   "emptyState": {
     "courses": "아직 강의가 없습니다.",
     "myCourses": "수강 중인 강의가 없습니다.",

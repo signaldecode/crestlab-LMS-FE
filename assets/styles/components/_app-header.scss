@@ -151,6 +151,22 @@
     }
   }
 
+  // ── 알림 버튼 (배지 포함) ──
+  &__notification-btn {
+    position: relative;
+  }
+
+  &__notification-badge {
+    position: absolute;
+    top: $spacing-0;
+    right: $spacing-0;
+    width: $spacing-2;
+    height: $spacing-2;
+    background: $color-error;
+    border-radius: 50%;
+    border: 0.125rem solid $color-bg-primary;
+  }
+
   // ── 내 강의실 버튼 ──
   &__classroom-btn {
     display: flex;
