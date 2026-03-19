@@ -60,9 +60,32 @@
       "bioWriteLabel": "내 소개 작성하기",
       "featuredTitle": "대표글",
       "featuredAddLabel": "글 추가하기",
-      "featuredAddDescLine1": "나의 이야기를 보여줄 글을 골라",
-      "featuredAddDescLine2": "프로필에 고정해보세요.",
-      "featuredAddAriaLabel": "대표글 추가"
+      "featuredAddDescLine1": "아직은 비워졌지만, 여기에 내 경험이 빛날거예요.",
+      "featuredAddDescLine2": "오늘 어떤 이야기를 남겨볼까요?",
+      "featuredAddAriaLabel": "대표글 추가",
+      "featuredAddBtnLabel": "추가하기"
+    },
+    "profileIntroEdit": {
+      "profileImageEditLabel": "프로필이미지 수정",
+      "coverImageEditLabel": "배경이미지 수정",
+      "progressTitle": "당신의 프로필을 작성하세요!",
+      "progressItems": [
+        { "key": "profileImage", "label": "프로필 사진" },
+        { "key": "coverImage", "label": "배경 사진" },
+        { "key": "bio", "label": "자기소개" },
+        { "key": "featuredPosts", "label": "대표글" }
+      ],
+      "saveLabel": "저장하기",
+      "nicknameTitle": "닉네임수정",
+      "nicknamePlaceholder": "닉네임을 수정해주세요",
+      "nicknameDuplicateCheckLabel": "중복확인",
+      "bioTitle": "소개문구",
+      "bioPlaceholder": "소개문구를 작성해주세요",
+      "featuredTitle": "대표글",
+      "featuredAddLabel": "글 추가하기",
+      "featuredAddDescLine1": "아직은 비워졌지만, 여기에 내 경험이 빛날거예요.",
+      "featuredAddDescLine2": "오늘 어떤 이야기를 남겨볼까요?",
+      "featuredAddBtnLabel": "추가하기"
     },
     "profileFollow": {
       "tabsAriaLabel": "팔로우 탭",

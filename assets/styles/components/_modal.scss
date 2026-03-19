@@ -247,6 +247,18 @@
     gap: $spacing-3;
   }
 
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+  }
+
+  &__label {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+  }
+
   &__input {
     width: 100%;
     padding: $spacing-3;
@@ -267,6 +279,34 @@
     }
   }
 
+  // 약관 동의
+  &__agreements {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+    margin-top: $spacing-1;
+  }
+
+  &__checkbox {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    cursor: pointer;
+
+    input[type='checkbox'] {
+      width: $spacing-4;
+      height: $spacing-4;
+      accent-color: $color-primary;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+  }
+
+  &__checkbox-label {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+
   &__submit {
     width: 100%;
     padding: $spacing-3;
@@ -277,11 +317,16 @@
     border: none;
     border-radius: $spacing-2;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
     margin-top: $spacing-2;
 
-    &:hover {
+    &:hover:not(:disabled) {
       background-color: $color-primary-dark;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
   }
 

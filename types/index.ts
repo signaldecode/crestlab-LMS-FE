@@ -151,6 +151,25 @@ export interface FaqItem {
   answer: string;
 }
 
+export interface SupportFaqItem extends FaqItem {
+  category: string;
+}
+
+export interface SupportFaqCategory {
+  value: string;
+  label: string;
+}
+
+export interface SupportFaqData {
+  title: string;
+  ariaLabel: string;
+  chipAriaLabel: string;
+  questionPrefix: string;
+  answerPrefix: string;
+  categories: SupportFaqCategory[];
+  items: SupportFaqItem[];
+}
+
 /* ── 후기 ── */
 export interface Testimonial {
   name: string;
@@ -199,21 +218,17 @@ export interface NavData {
 }
 
 /* ── 푸터 ── */
-export interface FooterBusiness {
-  companyName: string;
-  ceo: string;
-  ceoLabel: string;
-  registrationNumber: string;
-  registrationLabel: string;
-  ecommerceRegistration: string;
-  ecommerceLabel: string;
+export interface FooterInquiryButton {
   label: string;
+  href: string;
+  ariaLabel: string;
 }
 
 export interface FooterData {
   copyright: string;
-  links: NavItem[];
-  business: FooterBusiness;
+  inquiryButton: FooterInquiryButton;
+  mainLinks: NavItem[];
+  subLinks: NavItem[];
 }
 
 /* ── GEO ── */
@@ -561,7 +576,8 @@ export type MyPageSection =
   | 'reviews'
   | 'certificates'
   | 'consultations'
-  | 'profileEdit';
+  | 'profileEdit'
+  | 'profileIntroEdit';
 
 /* ── 장바구니 / 주문 ── */
 export interface CartItem extends Course {}

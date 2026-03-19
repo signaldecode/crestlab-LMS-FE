@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import type { JSX } from 'react';
 import Link from 'next/link';
 import { getNavData } from '@/lib/data';
+import useAuthStore from '@/stores/useAuthStore';
 
 interface SidebarMenuProps {
   isOpen: boolean;
@@ -20,6 +21,8 @@ interface SidebarMenuProps {
 
 export default function SidebarMenu({ isOpen, onClose }: SidebarMenuProps): JSX.Element {
   const nav = getNavData();
+  const isLoggedIn = useAuthStore((s) => s.isLoggedIn);
+  const user = useAuthStore((s) => s.user);
 
   // Escape 키로 닫기
   useEffect(() => {
@@ -128,22 +131,37 @@ export default function SidebarMenu({ isOpen, onClose }: SidebarMenuProps): JSX.
 
         {/* 인증 */}
         <div className="sidebar-menu__auth">
-          <Link
-            href="/auth/login"
-            className="sidebar-menu__auth-btn"
-            onClick={onClose}
-            tabIndex={isOpen ? 0 : -1}
-          >
-            {nav.auth.loginLabel}
-          </Link>
-          <Link
-            href="/auth/signup"
-            className="sidebar-menu__auth-btn sidebar-menu__auth-btn--primary"
-            onClick={onClose}
-            tabIndex={isOpen ? 0 : -1}
-          >
-            {nav.auth.signupLabel}
-          </Link>
+          {isLoggedIn ? (
+            <>
+              <Link
+                href="/mypage"
+                className="sidebar-menu__auth-btn"
+                onClick={onClose}
+                tabIndex={isOpen ? 0 : -1}
+              >
+                {user?.nickname ?? user?.name ?? '마이페이지'}
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/auth/login"
+                className="sidebar-menu__auth-btn"
+                onClick={onClose}
+                tabIndex={isOpen ? 0 : -1}
+              >
+                {nav.auth.loginLabel}
+              </Link>
+              <Link
+                href="/auth/signup"
+                className="sidebar-menu__auth-btn sidebar-menu__auth-btn--primary"
+                onClick={onClose}
+                tabIndex={isOpen ? 0 : -1}
+              >
+                {nav.auth.signupLabel}
+              </Link>
+            </>
+          )}
         </div>
       </aside>
     </>

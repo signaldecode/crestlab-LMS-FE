@@ -11,6 +11,7 @@ import coursesData from './coursesData.json';
 import homeData from './homeData.json';
 import communityData from './communityData.json';
 import accountData from './accountData.json';
+import supportData from './supportData.json';
 
 import type { MainData, CommunityData } from '@/types';
 
@@ -38,5 +39,5 @@ const mainData: MainData = {
   expiredCoupons: accountData.expiredCoupons,
 };
 
-export { uiData };
+export { uiData, supportData };
 export default mainData;

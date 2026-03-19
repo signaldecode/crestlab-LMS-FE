@@ -1,6 +1,7 @@
 /**
  * 인증 트리거 (AuthTrigger)
  * - 로그인/회원가입 버튼을 렌더링하고, 클릭 시 AuthModal을 띄운다
+ * - 회원가입 버튼은 signup 모드로 모달을 연다
  * - AppHeader 상단바의 auth 영역을 대체한다
  */
 
@@ -9,6 +10,8 @@
 import { useState, useCallback, type JSX } from 'react';
 import AuthModal from '@/components/auth/AuthModal';
 
+type AuthMode = 'login' | 'signup';
+
 interface AuthTriggerProps {
   loginLabel: string;
   signupLabel: string;
@@ -16,8 +19,18 @@ interface AuthTriggerProps {
 
 export default function AuthTrigger({ loginLabel, signupLabel }: AuthTriggerProps): JSX.Element {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMode, setModalMode] = useState<AuthMode>('login');
 
-  const openModal = useCallback(() => setIsModalOpen(true), []);
+  const openLogin = useCallback(() => {
+    setModalMode('login');
+    setIsModalOpen(true);
+  }, []);
+
+  const openSignup = useCallback(() => {
+    setModalMode('signup');
+    setIsModalOpen(true);
+  }, []);
+
   const closeModal = useCallback(() => setIsModalOpen(false), []);
 
   return (
@@ -26,19 +39,19 @@ export default function AuthTrigger({ loginLabel, signupLabel }: AuthTriggerProp
         <button
           type="button"
           className="app-header__auth-link"
-          onClick={openModal}
+          onClick={openLogin}
         >
           {loginLabel}
         </button>
         <button
           type="button"
           className="app-header__auth-link app-header__auth-link--signup"
-          onClick={openModal}
+          onClick={openSignup}
         >
           {signupLabel}
         </button>
       </div>
-      <AuthModal isOpen={isModalOpen} onClose={closeModal} />
+      <AuthModal isOpen={isModalOpen} onClose={closeModal} initialMode={modalMode} />
     </>
   );
 }

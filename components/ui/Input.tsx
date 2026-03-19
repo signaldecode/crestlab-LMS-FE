@@ -16,14 +16,18 @@ interface InputProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
   hint?: string;
+  required?: boolean;
 }
 
-export default function Input({ id, label, type = 'text', placeholder, value, onChange, error, hint }: InputProps) {
+export default function Input({ id, label, type = 'text', placeholder, value, onChange, error, hint, required }: InputProps) {
   const descId: string | undefined = error ? `${id}-error` : hint ? `${id}-hint` : undefined;
 
   return (
     <div className="input-field">
-      <label htmlFor={id} className="input-field__label">{label}</label>
+      <label htmlFor={id} className="input-field__label">
+        {label}
+        {required && <span className="input-field__required" aria-hidden="true"> *</span>}
+      </label>
       <input
         id={id}
         className={`input-field__input${error ? ' input-field__input--error' : ''}`}
@@ -32,6 +36,7 @@ export default function Input({ id, label, type = 'text', placeholder, value, on
         value={value}
         onChange={onChange}
         aria-describedby={descId}
+        aria-required={required}
       />
       {error && <p id={`${id}-error`} className="input-field__error" role="alert">{error}</p>}
       {hint && !error && <p id={`${id}-hint`} className="input-field__hint">{hint}</p>}

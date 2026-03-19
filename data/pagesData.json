@@ -251,7 +251,8 @@
       "socialGoogleAriaLabel": "구글 로그인",
       "socialAppleAriaLabel": "애플 로그인",
       "findAccountLabel": "아이디(계정)·비밀번호 찾기",
-      "emailSignupLabel": "이메일 회원가입"
+      "emailSignupLabel": "이메일 회원가입",
+      "backToLoginLabel": "로그인으로 돌아가기"
     },
     "signup": {
       "seo": { "title": "회원가입 — 강의 플랫폼" },

@@ -44,9 +44,9 @@ const defaultUser: User = {
 };
 
 const useAuthStore = create<AuthState>((set) => ({
-  isLoggedIn: true,
-  user: defaultUser,
-  token: 'mock-token',
+  isLoggedIn: false,
+  user: null,
+  token: null,
 
   login: (user, token) => set({ isLoggedIn: true, user, token }),
   logout: () => set({ isLoggedIn: false, user: null, token: null }),

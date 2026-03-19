@@ -44,6 +44,8 @@
 @use 'components/order-complete';
 @use 'components/not-found';
 @use 'components/global-error';
+@use 'components/form-fields';
+@use 'components/support-page';
 
 // 5) Themes
 @use 'themes/default';

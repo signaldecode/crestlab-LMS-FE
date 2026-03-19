@@ -20,6 +20,7 @@ import ReviewContent from '@/components/mypage/ReviewContent';
 import CertificateContent from '@/components/mypage/CertificateContent';
 import ConsultationContent from '@/components/mypage/ConsultationContent';
 import ProfileEditContent from '@/components/mypage/ProfileEditContent';
+import ProfileIntroEditContent from '@/components/mypage/ProfileIntroEditContent';
 import type { MyPageSection } from '@/types';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -35,6 +36,7 @@ const sectionComponents: Record<MyPageSection, React.ComponentType<any>> = {
   certificates: CertificateContent,
   consultations: ConsultationContent,
   profileEdit: ProfileEditContent,
+  profileIntroEdit: ProfileIntroEditContent,
 };
 
 const sectionKeys = Object.keys(sectionComponents) as MyPageSection[];

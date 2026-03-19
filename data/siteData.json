@@ -109,23 +109,31 @@
   },
 
   "footer": {
-    "copyright": "© 2026 강의 플랫폼. All rights reserved.",
-    "links": [
+    "copyright": "HEALTHPRO LAB ALL RIGHTS RESERVED.",
+    "inquiryButton": {
+      "label": "문의하기",
+      "href": "/support/tickets/new",
+      "ariaLabel": "문의하기 페이지로 이동"
+    },
+    "mainLinks": [
+      { "label": "카테고리", "href": "/courses", "ariaLabel": "카테고리별 강의 보기" },
+      { "label": "부동산기초", "href": "/courses/real-estate-sell-strategy", "ariaLabel": "부동산기초 강의 상세 보기" },
+      { "label": "오리지널", "href": "/courses?category=original", "ariaLabel": "오리지널 강의 보기" },
+      { "label": "베스트", "href": "/best", "ariaLabel": "베스트 강의 보기" },
+      { "label": "커리큘럼", "href": "/curriculum", "ariaLabel": "커리큘럼 보기" },
+      { "label": "오픈예정", "href": "/upcoming", "ariaLabel": "오픈예정 강의 보기" },
+      { "label": "커뮤니티", "href": "/community", "ariaLabel": "커뮤니티로 이동" }
+    ],
+    "subLinks": [
       { "label": "이용약관", "href": "/etc/terms", "ariaLabel": "이용약관 보기" },
       { "label": "개인정보처리방침", "href": "/etc/privacy", "ariaLabel": "개인정보처리방침 보기" },
       { "label": "환불정책", "href": "/etc/refund", "ariaLabel": "환불정책 보기" },
-      { "label": "고객센터", "href": "/support", "ariaLabel": "고객센터로 이동" }
-    ],
-    "business": {
-      "companyName": "주식회사 강의플랫폼",
-      "ceo": "홍길동",
-      "ceoLabel": "대표",
-      "registrationNumber": "000-00-00000",
-      "registrationLabel": "사업자등록번호",
-      "ecommerceRegistration": "2026-서울강남-0000호",
-      "ecommerceLabel": "통신판매업신고",
-      "label": "사업자 정보"
-    }
+      { "label": "고객센터", "href": "/support", "ariaLabel": "고객센터로 이동" },
+      { "label": "회사소개", "href": "/about", "ariaLabel": "회사 소개로 이동" },
+      { "label": "강사 지원하기", "href": "/instructor/apply", "ariaLabel": "강사 지원 페이지로 이동" },
+      { "label": "블로그", "href": "https://blog.example.com", "ariaLabel": "공식 블로그 (새 탭)" },
+      { "label": "제휴 문의", "href": "/support/tickets/new", "ariaLabel": "제휴 문의로 이동" }
+    ]
   },
 
   "a11y": {
@@ -171,7 +179,7 @@
     "social": [
       { "platform": "youtube", "url": "https://youtube.com/@example", "label": "유튜브 채널" },
       { "platform": "instagram", "url": "https://instagram.com/example", "label": "인스타그램" },
-      { "platform": "kakao", "url": "https://pf.kakao.com/example", "label": "카카오 채널" }
+      { "platform": "x", "url": "https://x.com/example", "label": "X (트위터)" }
     ]
   },
 

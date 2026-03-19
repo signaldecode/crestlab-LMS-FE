@@ -11,10 +11,12 @@ import { useState, useCallback } from 'react';
 import type { JSX } from 'react';
 import Link from 'next/link';
 import AppLogo from '@/components/common/AppLogo';
+import AuthTrigger from '@/components/common/AuthTrigger';
 import TopBarNav from '@/components/layout/TopBarNav';
 import GlobalNav from '@/components/layout/GlobalNav';
 import SubNav from '@/components/layout/SubNav';
 import SidebarMenu from '@/components/layout/SidebarMenu';
+import useAuthStore from '@/stores/useAuthStore';
 import { getNavData, getMainData } from '@/lib/data';
 
 export default function AppHeader(): JSX.Element {
@@ -26,6 +28,7 @@ export default function AppHeader(): JSX.Element {
     mobileMenuCloseLabel: string;
   };
 
+  const isLoggedIn = useAuthStore((s) => s.isLoggedIn);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const openMenu = useCallback(() => setIsMobileMenuOpen(true), []);
   const closeMenu = useCallback(() => setIsMobileMenuOpen(false), []);
@@ -55,22 +58,31 @@ export default function AppHeader(): JSX.Element {
               />
             </div>
 
-            {/* 알림 아이콘 */}
-            <button type="button" className="app-header__icon-btn" aria-label={a11yHeader.notificationAriaLabel}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-              </svg>
-            </button>
+            {isLoggedIn ? (
+              <>
+                {/* 알림 아이콘 */}
+                <button type="button" className="app-header__icon-btn" aria-label={a11yHeader.notificationAriaLabel}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                  </svg>
+                </button>
 
-            {/* 내 강의실 버튼 — 데스크톱에서만 표시 */}
-            <Link href="/mypage" className="app-header__classroom-btn">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
-              {a11yHeader.myClassroomLabel}
-            </Link>
+                {/* 내 강의실 버튼 — 데스크톱에서만 표시 */}
+                <Link href="/mypage" className="app-header__classroom-btn">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                  {a11yHeader.myClassroomLabel}
+                </Link>
+              </>
+            ) : (
+              <AuthTrigger
+                loginLabel={nav.auth.loginLabel}
+                signupLabel={nav.auth.signupLabel}
+              />
+            )}
 
             {/* 햄버거 메뉴 버튼 — 모바일에서만 표시 */}
             <button
