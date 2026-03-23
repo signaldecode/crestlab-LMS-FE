@@ -267,6 +267,9 @@
       "usernamePlaceholder": "아이디를 입력하세요",
       "passwordLabel": "비밀번호",
       "passwordPlaceholder": "비밀번호를 입력하세요 (8자 이상)",
+      "passwordConfirmLabel": "비밀번호 확인",
+      "passwordConfirmPlaceholder": "비밀번호를 한 번 더 입력하세요",
+      "passwordMismatchError": "비밀번호가 일치하지 않습니다.",
       "birthdayLabel": "생년월일",
       "birthdayPlaceholder": "YYYY-MM-DD",
       "genderLabel": "성별",
@@ -278,7 +281,9 @@
       "genderPlaceholder": "성별을 선택하세요",
       "agreeTerms": "이용약관에 동의합니다",
       "agreePrivacy": "개인정보처리방침에 동의합니다",
-      "submitLabel": "가입하기"
+      "submitLabel": "가입하기",
+      "dividerText": "또는",
+      "hasAccountText": "이미 계정이 있으신가요?"
     },
     "callback": {
       "loadingMessage": "소셜 로그인 처리 중입니다...",

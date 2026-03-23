@@ -383,6 +383,24 @@
     }
   }
 
+  // 인풋 에러 상태
+  &__input--error {
+    border-color: $color-error;
+
+    &:focus {
+      border-color: $color-error;
+    }
+  }
+
+  // 에러 메시지
+  &__error {
+    display: block;
+    margin-top: $spacing-1;
+    font-size: $font-size-sm;
+    color: $color-error;
+    font-weight: $font-weight-medium;
+  }
+
   // fieldset 리셋
   &__fieldset {
     border: none;

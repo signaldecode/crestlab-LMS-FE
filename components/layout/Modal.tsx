@@ -16,9 +16,10 @@ interface ModalProps {
   onClose: () => void;
   title: string;
   children?: ReactNode;
+  closeOnOverlayClick?: boolean;
 }
 
-export default function Modal({ isOpen, onClose, title, children }: ModalProps): JSX.Element | null {
+export default function Modal({ isOpen, onClose, title, children, closeOnOverlayClick = true }: ModalProps): JSX.Element | null {
   useEffect(() => {
     if (!isOpen) return;
 
@@ -38,7 +39,7 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps):
   if (!isOpen) return null;
 
   return createPortal(
-    <div className="modal-overlay" onClick={onClose}>
+    <div className="modal-overlay" onClick={closeOnOverlayClick ? onClose : undefined}>
       <div
         className="modal-content"
         role="dialog"

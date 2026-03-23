@@ -1,0 +1,326 @@
+// ============================================
+// 회원가입 페이지 스타일 (_signup-page.scss)
+// - 회원가입 전용 페이지 레이아웃 및 폼 스타일
+// - 토큰 변수를 참조하며, HEX/px 직접 사용을 금지한다
+// ============================================
+
+@use '../tokens/colors' as *;
+@use '../tokens/spacing' as *;
+@use '../tokens/typography' as *;
+@use '../mixins/breakpoints' as *;
+
+// ── 페이지 래퍼 ──
+.signup-page {
+  display: flex;
+  justify-content: center;
+  padding: $spacing-12 $spacing-4;
+  min-height: 100vh;
+}
+
+// ── 컨테이너 ──
+.signup-container {
+  width: 100%;
+  max-width: 28rem;
+
+  &__title {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    text-align: center;
+    margin-bottom: $spacing-8;
+  }
+
+  // ── 소셜 로그인 ──
+  &__social {
+    margin-bottom: $spacing-4;
+  }
+
+  &__social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: $spacing-3;
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    border: none;
+    border-radius: $spacing-2;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &--kakao {
+      background-color: #fee500;
+      color: #191919;
+    }
+  }
+
+  &__social-icons {
+    display: flex;
+    justify-content: center;
+    gap: $spacing-4;
+    margin-bottom: $spacing-6;
+  }
+
+  &__social-icon {
+    width: $spacing-12;
+    height: $spacing-12;
+    border-radius: 50%;
+    border: 0.0625rem solid $color-border;
+    background-color: $color-bg-primary;
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+
+    &:hover {
+      border-color: $color-primary;
+    }
+
+    &--naver {
+      color: #03c75a;
+    }
+
+    &--google {
+      color: $color-text-primary;
+    }
+
+    &--apple {
+      color: $color-text-primary;
+    }
+  }
+
+  // ── 구분선 ──
+  &__divider {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+    margin-bottom: $spacing-6;
+
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+      height: 0.0625rem;
+      background-color: $color-border;
+    }
+  }
+
+  &__divider-text {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    white-space: nowrap;
+  }
+
+  // ── 폼 ──
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+  }
+
+  &__label {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+  }
+
+  &__input {
+    width: 100%;
+    padding: $spacing-3;
+    font-size: $font-size-base;
+    font-family: $font-family-base;
+    color: $color-text-primary;
+    background-color: $color-bg-primary;
+    border: 0.0625rem solid $color-border;
+    border-radius: $spacing-2;
+    outline: none;
+    transition: border-color 0.2s ease;
+
+    &::placeholder {
+      color: $color-text-secondary;
+    }
+
+    &:focus {
+      border-color: $color-border-focus;
+    }
+
+    &--error {
+      border-color: $color-error;
+
+      &:focus {
+        border-color: $color-error;
+      }
+    }
+  }
+
+  &__error {
+    display: block;
+    margin-top: $spacing-1;
+    font-size: $font-size-sm;
+    color: $color-error;
+    font-weight: $font-weight-medium;
+  }
+
+  // ── 인풋 + 버튼 조합 ──
+  &__input-with-btn {
+    display: flex;
+    gap: $spacing-2;
+
+    .signup-container__input {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+
+  &__check-btn {
+    flex-shrink: 0;
+    padding: $spacing-2 $spacing-4;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-primary;
+    background-color: $color-bg-primary;
+    border: 0.0625rem solid $color-primary;
+    border-radius: $spacing-2;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: $color-primary;
+      color: $color-text-inverse;
+    }
+  }
+
+  // ── fieldset 리셋 ──
+  &__fieldset {
+    border: none;
+    padding: $spacing-0;
+    margin: $spacing-0;
+  }
+
+  // ── 성별 토글 ──
+  &__gender-group {
+    display: flex;
+    gap: $spacing-2;
+  }
+
+  &__gender-btn {
+    flex: 1;
+    padding: $spacing-2 $spacing-0;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    background-color: $color-bg-primary;
+    border: 0.0625rem solid $color-border;
+    border-radius: $spacing-2;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    text-align: center;
+
+    &:hover {
+      border-color: $color-primary;
+      color: $color-primary;
+    }
+
+    &--active {
+      background-color: $color-primary;
+      color: $color-text-inverse;
+      border-color: $color-primary;
+
+      &:hover {
+        color: $color-text-inverse;
+        opacity: 0.9;
+      }
+    }
+  }
+
+  // ── 약관 동의 ──
+  &__agreements {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+    margin-top: $spacing-1;
+  }
+
+  &__checkbox {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    cursor: pointer;
+
+    input[type='checkbox'] {
+      width: $spacing-4;
+      height: $spacing-4;
+      accent-color: $color-primary;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+  }
+
+  &__checkbox-label {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+
+  // ── 제출 버튼 ──
+  &__submit {
+    width: 100%;
+    padding: $spacing-3;
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-text-inverse;
+    background-color: $color-primary;
+    border: none;
+    border-radius: $spacing-2;
+    cursor: pointer;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+    margin-top: $spacing-2;
+
+    &:hover:not(:disabled) {
+      background-color: $color-primary-dark;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  // ── 하단 링크 ──
+  &__footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: $spacing-2;
+    margin-top: $spacing-6;
+    font-size: $font-size-sm;
+  }
+
+  &__footer-text {
+    color: $color-text-secondary;
+  }
+
+  &__footer-link {
+    color: $color-primary;
+    text-decoration: none;
+    font-weight: $font-weight-medium;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}

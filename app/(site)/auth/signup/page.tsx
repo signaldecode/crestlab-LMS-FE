@@ -4,12 +4,20 @@
  * - SignupContainer로 조립한다
  */
 
+import type { Metadata } from 'next';
 import SignupContainer from '@/components/containers/SignupContainer';
+import pagesData from '@/data/pagesData.json';
+
+const signupSeo = pagesData.auth.signup.seo;
+
+export const metadata: Metadata = {
+  title: signupSeo.title,
+};
 
 export default function SignupPage() {
   return (
-    <section className="signup-page">
+    <main className="signup-page">
       <SignupContainer />
-    </section>
+    </main>
   );
 }
