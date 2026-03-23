@@ -478,28 +478,28 @@
     {
       "id": "user-f01",
       "nickname": "투자왕김사장",
-      "profileImage": "/images/community/avatars/avatar-01.jpg",
+      "profileImage": "/images/community/tomoong.png",
       "bio": "10년차 부동산 투자자",
       "verified": true
     },
     {
       "id": "user-f02",
       "nickname": "재테크초보탈출",
-      "profileImage": "/images/community/avatars/avatar-02.jpg",
+      "profileImage": "/images/community/tomoong.png",
       "bio": "주식/부동산 공부중인 직장인",
       "verified": false
     },
     {
       "id": "user-f03",
       "nickname": "경제학도서영",
-      "profileImage": "/images/community/avatars/avatar-03.jpg",
+      "profileImage": "/images/community/tomoong.png",
       "bio": "경제학 전공 대학원생",
       "verified": true
     },
     {
       "id": "user-f04",
       "nickname": "월급쟁이투자기록",
-      "profileImage": "/images/community/avatars/avatar-04.jpg",
+      "profileImage": "/images/community/tomoong.png",
       "bio": "매월 소액 투자 실천 기록",
       "verified": false
     }
@@ -509,21 +509,21 @@
     {
       "id": "user-g01",
       "nickname": "부동산멘토박코치",
-      "profileImage": "/images/community/avatars/avatar-05.jpg",
+      "profileImage": "/images/community/tomoong.png",
       "bio": "부동산 투자 강의 15년차 전문가",
       "verified": true
     },
     {
       "id": "user-g02",
       "nickname": "주식고수이대표",
-      "profileImage": "/images/community/avatars/avatar-06.jpg",
+      "profileImage": "/images/community/tomoong.png",
       "bio": "미국주식 전문 투자자",
       "verified": true
     },
     {
       "id": "user-g03",
       "nickname": "절약의신",
-      "profileImage": "/images/community/avatars/avatar-07.jpg",
+      "profileImage": "/images/community/tomoong.png",
       "bio": "가계부 작성 & 절약 팁 공유",
       "verified": false
     }

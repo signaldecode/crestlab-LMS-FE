@@ -11,6 +11,7 @@ import type { JSX } from 'react';
 import Image from 'next/image';
 import { getFollowers, getFollowing } from '@/lib/data';
 import accountData from '@/data/accountData.json';
+import defaultAvatar from '@/assets/images/community/tomoong.png';
 
 const followData = accountData.mypage.profileFollow;
 
@@ -70,7 +71,7 @@ export default function ProfileFollowTab(): JSX.Element {
               <div key={user.id} className="profile-follow__user-card">
                 <div className="profile-follow__user-avatar">
                   <Image
-                    src={user.profileImage}
+                    src={defaultAvatar}
                     alt={followData.defaultAvatarAlt}
                     width={48}
                     height={48}
@@ -123,7 +124,7 @@ export default function ProfileFollowTab(): JSX.Element {
               <div key={user.id} className="profile-follow__user-card">
                 <div className="profile-follow__user-avatar">
                   <Image
-                    src={user.profileImage}
+                    src={defaultAvatar}
                     alt={followData.defaultAvatarAlt}
                     width={48}
                     height={48}
