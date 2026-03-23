@@ -353,6 +353,79 @@
     }
   }
 
+  // 인풋 + 버튼 조합 (닉네임 중복확인 등)
+  &__input-with-btn {
+    display: flex;
+    gap: $spacing-2;
+
+    .auth-modal__input {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+
+  &__check-btn {
+    flex-shrink: 0;
+    padding: $spacing-2 $spacing-4;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-primary;
+    background-color: $color-bg-primary;
+    border: 0.0625rem solid $color-primary;
+    border-radius: $spacing-2;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: $color-primary;
+      color: $color-text-inverse;
+    }
+  }
+
+  // fieldset 리셋
+  &__fieldset {
+    border: none;
+    padding: $spacing-0;
+    margin: $spacing-0;
+  }
+
+  // 성별 토글 버튼 그룹
+  &__gender-group {
+    display: flex;
+    gap: $spacing-2;
+  }
+
+  &__gender-btn {
+    flex: 1;
+    padding: $spacing-2 $spacing-0;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    background-color: $color-bg-primary;
+    border: 0.0625rem solid $color-border;
+    border-radius: $spacing-2;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    text-align: center;
+
+    &:hover {
+      border-color: $color-primary;
+      color: $color-primary;
+    }
+
+    &--active {
+      background-color: $color-primary;
+      color: $color-text-inverse;
+      border-color: $color-primary;
+
+      &:hover {
+        color: $color-text-inverse;
+        opacity: 0.9;
+      }
+    }
+  }
+
   // 약관 동의
   &__agreements {
     display: flex;

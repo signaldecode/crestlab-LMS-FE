@@ -471,15 +471,16 @@ export interface Comment {
 /* ── 유저 ── */
 export interface User {
   id: string;
+  username: string;
   name: string;
   nickname?: string;
   bio?: string;
-  email: string;
+  email?: string;
   profileImage?: string;
   featuredPostIds?: string[];
   phone?: string;
   birthday?: string;
-  gender?: 'male' | 'female';
+  gender?: 'male' | 'female' | 'none';
   joinDate?: string;
   grade?: string;
   socialAccounts?: SocialAccount[];
@@ -846,6 +847,30 @@ export interface StreamingError {
   code: StreamingErrorCode;
   status: number;
   message?: string;
+}
+
+/* ── 소셜 로그인 (OAuth) ── */
+export type OAuthProvider = 'google' | 'kakao';
+
+/** 소셜 로그인 콜백 → 백엔드 전송 요청 */
+export interface SocialLoginRequest {
+  provider: OAuthProvider;
+  code: string;
+  redirectUri: string;
+}
+
+/** 백엔드 소셜 로그인 응답 */
+export interface SocialLoginResponse {
+  accessToken: string;
+  refreshToken?: string;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    nickname?: string;
+    profileImage?: string;
+  };
+  isNewUser: boolean;
 }
 
 /* ── 플레이어 ── */

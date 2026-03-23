@@ -18,6 +18,7 @@ interface AuthState {
 
 const defaultUser: User = {
   id: 'user-001',
+  username: 'ttsalstj422',
   name: '신민석',
   nickname: '신민석',
   bio: '',

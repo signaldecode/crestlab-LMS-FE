@@ -12,6 +12,7 @@ import { useState, useCallback, useEffect, type JSX } from 'react';
 import Modal from '@/components/layout/Modal';
 import useAuth from '@/hooks/useAuth';
 import { getMainData } from '@/lib/data';
+import { redirectToOAuth } from '@/lib/oauth';
 import pagesData from '@/data/pagesData.json';
 
 type AuthMode = 'login' | 'signup';
@@ -33,6 +34,7 @@ async function mockLogin(email: string, _password: string) {
   return {
     user: {
       id: 'user-' + Date.now(),
+      username: email.split('@')[0],
       name: email.split('@')[0],
       nickname: email.split('@')[0],
       email,
@@ -46,13 +48,22 @@ async function mockLogin(email: string, _password: string) {
  * 임시 회원가입 처리 — 나중에 실제 API 호출로 교체한다
  * TODO: POST /api/auth/signup 으로 교체
  */
-async function mockSignup(name: string, email: string, _password: string) {
+async function mockSignup(params: {
+  name: string;
+  nickname: string;
+  username: string;
+  password: string;
+  birthday: string;
+  gender: string;
+}) {
   return {
     user: {
       id: 'user-' + Date.now(),
-      name,
-      nickname: name,
-      email,
+      username: params.username,
+      name: params.name,
+      nickname: params.nickname,
+      birthday: params.birthday,
+      gender: params.gender as 'male' | 'female' | 'none',
       bio: '',
     },
     token: 'mock-token-' + Date.now(),
@@ -78,8 +89,11 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
 
   // 회원가입 폼 상태
   const [signupName, setSignupName] = useState('');
-  const [signupEmail, setSignupEmail] = useState('');
+  const [signupNickname, setSignupNickname] = useState('');
+  const [signupUsername, setSignupUsername] = useState('');
   const [signupPassword, setSignupPassword] = useState('');
+  const [signupBirthday, setSignupBirthday] = useState('');
+  const [signupGender, setSignupGender] = useState('');
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [agreePrivacy, setAgreePrivacy] = useState(false);
 
@@ -87,8 +101,11 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
     setLoginEmail('');
     setLoginPassword('');
     setSignupName('');
-    setSignupEmail('');
+    setSignupNickname('');
+    setSignupUsername('');
     setSignupPassword('');
+    setSignupBirthday('');
+    setSignupGender('');
     setAgreeTerms(false);
     setAgreePrivacy(false);
   }, []);
@@ -114,11 +131,18 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
 
   const handleSignup: React.FormEventHandler<HTMLFormElement> = useCallback(async (e) => {
     e.preventDefault();
-    const result = await mockSignup(signupName, signupEmail, signupPassword);
+    const result = await mockSignup({
+      name: signupName,
+      nickname: signupNickname,
+      username: signupUsername,
+      password: signupPassword,
+      birthday: signupBirthday,
+      gender: signupGender,
+    });
     login(result.user, result.token);
     resetForm();
     onClose();
-  }, [signupName, signupEmail, signupPassword, login, resetForm, onClose]);
+  }, [signupName, signupNickname, signupUsername, signupPassword, signupBirthday, signupGender, login, resetForm, onClose]);
 
   return (
     <Modal isOpen={isOpen} onClose={handleClose} title="">
@@ -137,7 +161,11 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
 
             {/* 카카오 로그인 버튼 */}
             <div className="auth-modal__social">
-              <button type="button" className="auth-modal__social-btn auth-modal__social-btn--kakao">
+              <button
+                type="button"
+                className="auth-modal__social-btn auth-modal__social-btn--kakao"
+                onClick={() => redirectToOAuth('kakao')}
+              >
                 💬 {loginData?.socialKakao ?? modalData.socialKakaoLabel}
               </button>
             </div>
@@ -147,7 +175,12 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
               <button type="button" className="auth-modal__social-icon auth-modal__social-icon--naver" aria-label={modalData.socialNaverAriaLabel}>
                 N
               </button>
-              <button type="button" className="auth-modal__social-icon auth-modal__social-icon--google" aria-label={modalData.socialGoogleAriaLabel}>
+              <button
+                type="button"
+                className="auth-modal__social-icon auth-modal__social-icon--google"
+                aria-label={modalData.socialGoogleAriaLabel}
+                onClick={() => redirectToOAuth('google')}
+              >
                 G
               </button>
               <button type="button" className="auth-modal__social-icon auth-modal__social-icon--apple" aria-label={modalData.socialAppleAriaLabel}>
@@ -207,15 +240,39 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
                 />
               </label>
 
+              <div className="auth-modal__field">
+                <span className="auth-modal__label">{signupData.nicknameLabel}</span>
+                <div className="auth-modal__input-with-btn">
+                  <input
+                    type="text"
+                    className="auth-modal__input"
+                    placeholder={signupData.nicknamePlaceholder}
+                    aria-label={signupData.nicknameLabel}
+                    value={signupNickname}
+                    onChange={(e) => setSignupNickname(e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    className="auth-modal__check-btn"
+                    aria-label={signupData.nicknameDuplicateCheckAriaLabel}
+                    onClick={() => {
+                      // TODO: GET /api/auth/check-nickname?nickname=... 으로 교체
+                    }}
+                  >
+                    {signupData.nicknameDuplicateCheckLabel}
+                  </button>
+                </div>
+              </div>
+
               <label className="auth-modal__field">
-                <span className="auth-modal__label">{signupData.emailLabel}</span>
+                <span className="auth-modal__label">{signupData.usernameLabel}</span>
                 <input
-                  type="email"
+                  type="text"
                   className="auth-modal__input"
-                  placeholder={signupData.emailPlaceholder}
-                  aria-label={signupData.emailLabel}
-                  value={signupEmail}
-                  onChange={(e) => setSignupEmail(e.target.value)}
+                  placeholder={signupData.usernamePlaceholder}
+                  aria-label={signupData.usernameLabel}
+                  value={signupUsername}
+                  onChange={(e) => setSignupUsername(e.target.value)}
                 />
               </label>
 
@@ -230,6 +287,36 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
                   onChange={(e) => setSignupPassword(e.target.value)}
                 />
               </label>
+
+              <label className="auth-modal__field">
+                <span className="auth-modal__label">{signupData.birthdayLabel}</span>
+                <input
+                  type="date"
+                  className="auth-modal__input"
+                  placeholder={signupData.birthdayPlaceholder}
+                  aria-label={signupData.birthdayLabel}
+                  value={signupBirthday}
+                  onChange={(e) => setSignupBirthday(e.target.value)}
+                />
+              </label>
+
+              <fieldset className="auth-modal__field auth-modal__fieldset">
+                <legend className="auth-modal__label">{signupData.genderLabel}</legend>
+                <div className="auth-modal__gender-group" role="radiogroup" aria-label={signupData.genderLabel}>
+                  {signupData.genderOptions.map((option: { value: string; label: string }) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      role="radio"
+                      aria-checked={signupGender === option.value}
+                      className={`auth-modal__gender-btn${signupGender === option.value ? ' auth-modal__gender-btn--active' : ''}`}
+                      onClick={() => setSignupGender(option.value)}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              </fieldset>
 
               {/* 약관 동의 */}
               <div className="auth-modal__agreements">

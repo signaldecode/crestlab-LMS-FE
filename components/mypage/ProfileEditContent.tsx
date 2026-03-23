@@ -41,7 +41,7 @@ export default function ProfileEditContent(): JSX.Element {
   const [birthday, setBirthday] = useState(user?.birthday ?? '');
 
   // 성별
-  const [gender, setGender] = useState<'male' | 'female'>(user?.gender ?? 'male');
+  const [gender, setGender] = useState<'male' | 'female' | 'none'>(user?.gender ?? 'none');
 
   // 마케팅 동의
   const [personalInfoConsent, setPersonalInfoConsent] = useState(user?.marketingConsent?.personalInfo ?? false);

@@ -259,13 +259,34 @@
       "title": "회원가입",
       "nameLabel": "이름",
       "namePlaceholder": "이름을 입력하세요",
-      "emailLabel": "이메일",
-      "emailPlaceholder": "이메일을 입력하세요",
+      "nicknameLabel": "닉네임",
+      "nicknamePlaceholder": "닉네임을 입력하세요",
+      "nicknameDuplicateCheckLabel": "중복확인",
+      "nicknameDuplicateCheckAriaLabel": "닉네임 중복 확인",
+      "usernameLabel": "아이디",
+      "usernamePlaceholder": "아이디를 입력하세요",
       "passwordLabel": "비밀번호",
       "passwordPlaceholder": "비밀번호를 입력하세요 (8자 이상)",
+      "birthdayLabel": "생년월일",
+      "birthdayPlaceholder": "YYYY-MM-DD",
+      "genderLabel": "성별",
+      "genderOptions": [
+        { "value": "male", "label": "남" },
+        { "value": "female", "label": "여" },
+        { "value": "none", "label": "선택 안 함" }
+      ],
+      "genderPlaceholder": "성별을 선택하세요",
       "agreeTerms": "이용약관에 동의합니다",
       "agreePrivacy": "개인정보처리방침에 동의합니다",
       "submitLabel": "가입하기"
+    },
+    "callback": {
+      "loadingMessage": "소셜 로그인 처리 중입니다...",
+      "errorTitle": "로그인 실패",
+      "errorMessage": "소셜 로그인 중 문제가 발생했습니다. 다시 시도해주세요.",
+      "retryLabel": "다시 로그인하기",
+      "retryAriaLabel": "로그인 페이지로 돌아가기",
+      "stateMismatchError": "인증 상태가 일치하지 않습니다. 다시 시도해주세요."
     }
   },
   "cart": {
