@@ -10,6 +10,7 @@
 import { useState, useCallback, type JSX } from 'react';
 import { useRouter } from 'next/navigation';
 import useAuth from '@/hooks/useAuth';
+import useAuthStore from '@/stores/useAuthStore';
 import { redirectToOAuth } from '@/lib/oauth';
 import pagesData from '@/data/pagesData.json';
 
@@ -45,6 +46,7 @@ async function mockSignup(params: {
 export default function SignupContainer(): JSX.Element {
   const router = useRouter();
   const { login } = useAuth();
+  const openLoginModal = useAuthStore((s) => s.openLoginModal);
 
   const [name, setName] = useState('');
   const [nickname, setNickname] = useState('');
@@ -249,10 +251,17 @@ export default function SignupContainer(): JSX.Element {
 
       {/* 로그인으로 돌아가기 */}
       <div className="signup-container__footer">
-        <span className="signup-container__footer-text">{signupData.hasAccountText ?? '이미 계정이 있으신가요?'}</span>
-        <a href="/auth/login" className="signup-container__footer-link">
-          {modalData.backToLoginLabel ?? '로그인으로 돌아가기'}
-        </a>
+        <span className="signup-container__footer-text">{signupData.hasAccountText}</span>
+        <button
+          type="button"
+          className="signup-container__footer-link"
+          onClick={() => {
+            router.push('/');
+            openLoginModal();
+          }}
+        >
+          {modalData.backToLoginLabel}
+        </button>
       </div>
     </section>
   );

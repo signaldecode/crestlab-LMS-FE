@@ -11,9 +11,12 @@ interface AuthState {
   isLoggedIn: boolean;
   user: User | null;
   token: string | null;
+  isLoginModalOpen: boolean;
   login: (user: User, token: string) => void;
   logout: () => void;
   setUser: (user: User) => void;
+  openLoginModal: () => void;
+  closeLoginModal: () => void;
 }
 
 const defaultUser: User = {
@@ -48,10 +51,13 @@ const useAuthStore = create<AuthState>((set) => ({
   isLoggedIn: false,
   user: null,
   token: null,
+  isLoginModalOpen: false,
 
   login: (user, token) => set({ isLoggedIn: true, user, token }),
   logout: () => set({ isLoggedIn: false, user: null, token: null }),
   setUser: (user) => set({ user }),
+  openLoginModal: () => set({ isLoginModalOpen: true }),
+  closeLoginModal: () => set({ isLoginModalOpen: false }),
 }));
 
 export default useAuthStore;

@@ -317,6 +317,11 @@
     color: $color-primary;
     text-decoration: none;
     font-weight: $font-weight-medium;
+    font-size: $font-size-sm;
+    background: none;
+    border: none;
+    padding: $spacing-0;
+    cursor: pointer;
     transition: opacity 0.2s ease;
 
     &:hover {
