@@ -676,6 +676,44 @@ export type OrderStatus =
   | 'REFUNDED'
   | 'FAILED';
 
+/* ── 상품권 ── */
+export interface GiftcardData {
+  id: string;
+  name: string;
+  balance: number;
+  originalAmount: number;
+  validFrom: string;
+  validTo: string;
+  status: 'active' | 'used' | 'expired';
+}
+
+export interface GiftcardHistoryData {
+  id: string;
+  giftcardId: string;
+  type: 'charge' | 'use';
+  amount: number;
+  description: string;
+  date: string;
+}
+
+/* ── 팔로우 유저 ── */
+export interface FollowUserData {
+  id: string;
+  nickname: string;
+  profileImage: string;
+  bio: string;
+  verified: boolean;
+}
+
+/* ── 수강중 강의 ── */
+export interface EnrolledCourseData {
+  courseSlug: string;
+  progress: number;
+  lastLecture: string;
+  lastAccessedAt: string;
+  enrolledAt: string;
+}
+
 export interface ExpiredCouponData {
   id: string;
   amount: number;
@@ -770,6 +808,11 @@ export interface MainData {
   certificates: CertificateData[];
   orders: OrderData[];
   expiredCoupons: ExpiredCouponData[];
+  giftcards: GiftcardData[];
+  giftcardHistory: GiftcardHistoryData[];
+  followers: FollowUserData[];
+  following: FollowUserData[];
+  enrolledCourses: EnrolledCourseData[];
 }
 
 /* ── Breadcrumb ── */

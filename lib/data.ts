@@ -5,7 +5,7 @@
  */
 
 import mainData from '@/data';
-import type { MainData, SiteData, NavData, Course, HomeSection, UpcomingCourse, BestCourse, BestChipCategory, FaqItem, Testimonial, FooterData, GeoData, OrderData, CertificateData, ConsultationData, ReviewData, ExpiredCouponData } from '@/types';
+import type { MainData, SiteData, NavData, Course, HomeSection, UpcomingCourse, BestCourse, BestChipCategory, FaqItem, Testimonial, FooterData, GeoData, OrderData, CertificateData, ConsultationData, ReviewData, ExpiredCouponData, GiftcardData, GiftcardHistoryData, FollowUserData, EnrolledCourseData } from '@/types';
 
 const data: MainData = mainData;
 
@@ -115,6 +115,31 @@ export function getOrders(): OrderData[] {
 /** 만료된 쿠폰 목록 반환 */
 export function getExpiredCoupons(): ExpiredCouponData[] {
   return data.expiredCoupons || [];
+}
+
+/** 상품권 목록 반환 */
+export function getGiftcards(): GiftcardData[] {
+  return data.giftcards || [];
+}
+
+/** 상품권 이용내역 반환 */
+export function getGiftcardHistory(): GiftcardHistoryData[] {
+  return data.giftcardHistory || [];
+}
+
+/** 팔로워 목록 반환 */
+export function getFollowers(): FollowUserData[] {
+  return data.followers || [];
+}
+
+/** 팔로잉 목록 반환 */
+export function getFollowing(): FollowUserData[] {
+  return data.following || [];
+}
+
+/** 수강중 강의 목록 반환 */
+export function getEnrolledCourses(): EnrolledCourseData[] {
+  return data.enrolledCourses || [];
 }
 
 /* ── 커리큘럼 / 플레이어 헬퍼 ── */

@@ -35,7 +35,12 @@
     "classroom": {
       "tabs": ["강의", "과제 관리", "조편성"],
       "emptyText": "아직 수강한 강의가 없어요.",
-      "promoBannerAlt": "프로모션 배너"
+      "promoBannerAlt": "프로모션 배너",
+      "progressLabel": "진행률",
+      "lastLectureLabel": "최근 수강",
+      "continueBtnLabel": "이어서 학습하기",
+      "completedLabel": "수강 완료",
+      "enrolledAtLabel": "수강 시작"
     },
     "profile": {
       "tabs": ["소개", "작성 및 활동", "팔로우"],
@@ -92,7 +97,11 @@
       "followersLabel": "팔로워",
       "followingLabel": "팔로잉",
       "emptyFollowers": "나를 팔로우한 사용자가 없습니다.",
-      "emptyFollowing": "팔로잉 중인 사용자가 없습니다."
+      "emptyFollowing": "팔로잉 중인 사용자가 없습니다.",
+      "followBtnLabel": "팔로우",
+      "followingBtnLabel": "팔로잉",
+      "profileAriaLabel": "프로필 보기",
+      "defaultAvatarAlt": "프로필 사진"
     },
     "wishlist": {
       "title": "관심 클래스",
@@ -201,7 +210,18 @@
       "defaultValue": "0원",
       "emptyText": "보유중인 상품권이 없습니다.",
       "historyTitle": "이용내역",
-      "historyEmptyText": "최근 이용내역이 없습니다."
+      "historyEmptyText": "최근 이용내역이 없습니다.",
+      "balanceLabel": "잔액",
+      "expiryLabel": "유효기간",
+      "statusLabels": {
+        "active": "사용가능",
+        "used": "사용완료",
+        "expired": "기간만료"
+      },
+      "historyTypeLabels": {
+        "charge": "충전",
+        "use": "사용"
+      }
     },
     "certificatesPage": {
       "title": "수료증",
@@ -386,6 +406,150 @@
       "validFrom": "2026.02.28",
       "validTo": "2026.03.02",
       "status": "기간만료"
+    }
+  ],
+
+  "giftcards": [
+    {
+      "id": "gc-001",
+      "name": "열반스쿨 수강 상품권",
+      "balance": 50000,
+      "originalAmount": 50000,
+      "validFrom": "2026-01-15",
+      "validTo": "2026-07-15",
+      "status": "active"
+    },
+    {
+      "id": "gc-002",
+      "name": "신규가입 축하 상품권",
+      "balance": 10000,
+      "originalAmount": 30000,
+      "validFrom": "2026-02-01",
+      "validTo": "2026-05-01",
+      "status": "active"
+    },
+    {
+      "id": "gc-003",
+      "name": "이벤트 당첨 상품권",
+      "balance": 0,
+      "originalAmount": 20000,
+      "validFrom": "2025-11-01",
+      "validTo": "2026-02-01",
+      "status": "used"
+    }
+  ],
+
+  "giftcardHistory": [
+    {
+      "id": "gch-001",
+      "giftcardId": "gc-002",
+      "type": "use",
+      "amount": -20000,
+      "description": "[강의 결제] 재테크 기초반 결제 시 사용",
+      "date": "2026-03-10"
+    },
+    {
+      "id": "gch-002",
+      "giftcardId": "gc-001",
+      "type": "charge",
+      "amount": 50000,
+      "description": "[상품권 등록] 열반스쿨 수강 상품권 등록",
+      "date": "2026-01-15"
+    },
+    {
+      "id": "gch-003",
+      "giftcardId": "gc-002",
+      "type": "charge",
+      "amount": 30000,
+      "description": "[상품권 등록] 신규가입 축하 상품권 등록",
+      "date": "2026-02-01"
+    },
+    {
+      "id": "gch-004",
+      "giftcardId": "gc-003",
+      "type": "use",
+      "amount": -20000,
+      "description": "[강의 결제] 부동산 입문반 결제 시 사용",
+      "date": "2025-12-20"
+    }
+  ],
+
+  "followers": [
+    {
+      "id": "user-f01",
+      "nickname": "투자왕김사장",
+      "profileImage": "/images/community/avatars/avatar-01.jpg",
+      "bio": "10년차 부동산 투자자",
+      "verified": true
+    },
+    {
+      "id": "user-f02",
+      "nickname": "재테크초보탈출",
+      "profileImage": "/images/community/avatars/avatar-02.jpg",
+      "bio": "주식/부동산 공부중인 직장인",
+      "verified": false
+    },
+    {
+      "id": "user-f03",
+      "nickname": "경제학도서영",
+      "profileImage": "/images/community/avatars/avatar-03.jpg",
+      "bio": "경제학 전공 대학원생",
+      "verified": true
+    },
+    {
+      "id": "user-f04",
+      "nickname": "월급쟁이투자기록",
+      "profileImage": "/images/community/avatars/avatar-04.jpg",
+      "bio": "매월 소액 투자 실천 기록",
+      "verified": false
+    }
+  ],
+
+  "following": [
+    {
+      "id": "user-g01",
+      "nickname": "부동산멘토박코치",
+      "profileImage": "/images/community/avatars/avatar-05.jpg",
+      "bio": "부동산 투자 강의 15년차 전문가",
+      "verified": true
+    },
+    {
+      "id": "user-g02",
+      "nickname": "주식고수이대표",
+      "profileImage": "/images/community/avatars/avatar-06.jpg",
+      "bio": "미국주식 전문 투자자",
+      "verified": true
+    },
+    {
+      "id": "user-g03",
+      "nickname": "절약의신",
+      "profileImage": "/images/community/avatars/avatar-07.jpg",
+      "bio": "가계부 작성 & 절약 팁 공유",
+      "verified": false
+    }
+  ],
+
+  "enrolledCourses": [
+    {
+      "courseSlug": "real-estate-intermediate",
+      "progress": 72,
+      "lastLecture": "실전 매물 분석 방법",
+      "lastAccessedAt": "2026-03-22",
+      "enrolledAt": "2026-02-15"
+    },
+    {
+      "courseSlug": "financial-basic-class",
+      "progress": 100,
+      "lastLecture": "포트폴리오 구성 실습",
+      "lastAccessedAt": "2026-03-18",
+      "enrolledAt": "2026-01-28"
+    },
+    {
+      "courseSlug": "my-house-basic",
+      "progress": 35,
+      "lastLecture": "청약 전략 세우기",
+      "lastAccessedAt": "2026-03-15",
+      "enrolledAt": "2026-01-10"
     }
   ],
 

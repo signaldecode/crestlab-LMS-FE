@@ -13,7 +13,7 @@ import communityData from './communityData.json';
 import accountData from './accountData.json';
 import supportData from './supportData.json';
 
-import type { MainData, CommunityData } from '@/types';
+import type { MainData, CommunityData, GiftcardData, GiftcardHistoryData, FollowUserData, EnrolledCourseData } from '@/types';
 
 const mainData: MainData = {
   site: siteData.site,
@@ -37,6 +37,11 @@ const mainData: MainData = {
   certificates: accountData.certificates,
   orders: accountData.orders,
   expiredCoupons: accountData.expiredCoupons,
+  giftcards: accountData.giftcards as unknown as GiftcardData[],
+  giftcardHistory: accountData.giftcardHistory as unknown as GiftcardHistoryData[],
+  followers: accountData.followers as unknown as FollowUserData[],
+  following: accountData.following as unknown as FollowUserData[],
+  enrolledCourses: accountData.enrolledCourses as unknown as EnrolledCourseData[],
 };
 
 export { uiData, supportData };

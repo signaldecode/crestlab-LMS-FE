@@ -96,7 +96,7 @@ export default function HomeHeroContainer(): JSX.Element {
             aria-label={paused ? '재생' : '일시정지'}
             onClick={() => setPaused((p) => !p)}
           >
-            {paused ? '▶' : 'ǁ'}
+            {paused ? '▶' : '❚❚'}
           </button>
           <span className="home-hero__counter">
             <span className="home-hero__counter-current">{current + 1}</span>

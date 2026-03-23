@@ -1,29 +1,28 @@
 /**
  * 프로필 팔로우 탭 (ProfileFollowTab)
  * - 팔로워 / 팔로잉 서브탭 전환
- * - 빈 상태 안내 메시지
+ * - 유저 카드 목록 렌더링
  */
 
 'use client';
 
 import { useState } from 'react';
 import type { JSX } from 'react';
+import Image from 'next/image';
+import { getFollowers, getFollowing } from '@/lib/data';
 import accountData from '@/data/accountData.json';
 
 const followData = accountData.mypage.profileFollow;
 
 type FollowSubTab = 'followers' | 'following';
 
-interface ProfileFollowTabProps {
-  followerCount?: number;
-  followingCount?: number;
-}
-
-export default function ProfileFollowTab({
-  followerCount = 0,
-  followingCount = 0,
-}: ProfileFollowTabProps): JSX.Element {
+export default function ProfileFollowTab(): JSX.Element {
   const [activeSubTab, setActiveSubTab] = useState<FollowSubTab>('followers');
+  const followers = getFollowers();
+  const following = getFollowing();
+
+  const followerCount = followers.length;
+  const followingCount = following.length;
 
   return (
     <div className="profile-follow">
@@ -61,9 +60,49 @@ export default function ProfileFollowTab({
         hidden={activeSubTab !== 'followers'}
         className="profile-follow__panel"
       >
-        <p className="profile-follow__empty">
-          {followData.emptyFollowers}
-        </p>
+        {followers.length === 0 ? (
+          <p className="profile-follow__empty">
+            {followData.emptyFollowers}
+          </p>
+        ) : (
+          <div className="profile-follow__user-list">
+            {followers.map((user) => (
+              <div key={user.id} className="profile-follow__user-card">
+                <div className="profile-follow__user-avatar">
+                  <Image
+                    src={user.profileImage}
+                    alt={followData.defaultAvatarAlt}
+                    width={48}
+                    height={48}
+                    className="profile-follow__user-img"
+                  />
+                </div>
+                <div className="profile-follow__user-info">
+                  <div className="profile-follow__user-name-row">
+                    <span className="profile-follow__user-nickname">{user.nickname}</span>
+                    {user.verified && (
+                      <Image
+                        src="/images/community/Bluecheck.png"
+                        alt={accountData.profileCard.verifiedBadge.alt}
+                        width={16}
+                        height={16}
+                        className="profile-follow__user-badge"
+                      />
+                    )}
+                  </div>
+                  <p className="profile-follow__user-bio">{user.bio}</p>
+                </div>
+                <button
+                  type="button"
+                  className="profile-follow__follow-btn"
+                  aria-label={`${user.nickname} ${followData.followBtnLabel}`}
+                >
+                  {followData.followBtnLabel}
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* 팔로잉 패널 */}
@@ -74,9 +113,49 @@ export default function ProfileFollowTab({
         hidden={activeSubTab !== 'following'}
         className="profile-follow__panel"
       >
-        <p className="profile-follow__empty">
-          {followData.emptyFollowing}
-        </p>
+        {following.length === 0 ? (
+          <p className="profile-follow__empty">
+            {followData.emptyFollowing}
+          </p>
+        ) : (
+          <div className="profile-follow__user-list">
+            {following.map((user) => (
+              <div key={user.id} className="profile-follow__user-card">
+                <div className="profile-follow__user-avatar">
+                  <Image
+                    src={user.profileImage}
+                    alt={followData.defaultAvatarAlt}
+                    width={48}
+                    height={48}
+                    className="profile-follow__user-img"
+                  />
+                </div>
+                <div className="profile-follow__user-info">
+                  <div className="profile-follow__user-name-row">
+                    <span className="profile-follow__user-nickname">{user.nickname}</span>
+                    {user.verified && (
+                      <Image
+                        src="/images/community/Bluecheck.png"
+                        alt={accountData.profileCard.verifiedBadge.alt}
+                        width={16}
+                        height={16}
+                        className="profile-follow__user-badge"
+                      />
+                    )}
+                  </div>
+                  <p className="profile-follow__user-bio">{user.bio}</p>
+                </div>
+                <button
+                  type="button"
+                  className="profile-follow__follow-btn profile-follow__follow-btn--following"
+                  aria-label={`${user.nickname} ${followData.followingBtnLabel}`}
+                >
+                  {followData.followingBtnLabel}
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
