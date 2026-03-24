@@ -50,8 +50,27 @@ export function fetchMyCourses(): Promise<Course[]> {
   return request<Course[]>('/me/courses');
 }
 
+/**
+ * 개발용 mock 모드 여부
+ * - 백엔드 미구현 시 NEXT_PUBLIC_MOCK_PAYMENT=true로 설정하면
+ *   createOrder / confirmPayment가 mock 응답을 반환한다
+ * - 백엔드 연동 시 해당 환경변수를 제거하면 실제 API를 호출한다
+ */
+const MOCK_PAYMENT = process.env.NEXT_PUBLIC_MOCK_PAYMENT === 'true';
+
 /** 주문 생성 (결제 전 — 백엔드에서 orderId 발급) */
-export function createOrder(body: CreateOrderRequest): Promise<CreateOrderResponse> {
+export async function createOrder(body: CreateOrderRequest): Promise<CreateOrderResponse> {
+  if (MOCK_PAYMENT) {
+    const orderId = `mock_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+    return {
+      orderId,
+      orderName: body.courseSlugs.join(', '),
+      totalAmount: 100,
+      customerEmail: 'test@example.com',
+      customerName: '테스트 사용자',
+    };
+  }
+
   return request<CreateOrderResponse>('/proxy/api/orders', {
     method: 'POST',
     body: JSON.stringify(body),
@@ -59,7 +78,19 @@ export function createOrder(body: CreateOrderRequest): Promise<CreateOrderRespon
 }
 
 /** 결제 승인 (토스 리다이렉트 후 — 백엔드에서 토스 최종 승인) */
-export function confirmPayment(body: ConfirmPaymentRequest): Promise<ConfirmPaymentResponse> {
+export async function confirmPayment(body: ConfirmPaymentRequest): Promise<ConfirmPaymentResponse> {
+  if (MOCK_PAYMENT) {
+    return {
+      orderId: body.orderId,
+      status: 'DONE',
+      totalAmount: body.amount,
+      method: '카드',
+      approvedAt: new Date().toISOString(),
+      receipt: undefined,
+      courseAccess: [],
+    };
+  }
+
   return request<ConfirmPaymentResponse>('/api/payments/confirm', {
     method: 'POST',
     body: JSON.stringify(body),

@@ -163,8 +163,8 @@ function SeriesSection({ section }: { section: FeedSection }): JSX.Element {
               <h4 className="community-feed__series-title">{card.title}</h4>
               <p className="community-feed__series-desc">{card.description}</p>
               <div className="community-feed__series-tags">
-                {card.tags.map((tag) => (
-                  <span key={tag} className="community-feed__series-chip">{tag}</span>
+                {card.tags.map((tag, idx) => (
+                  <span key={`${tag}-${idx}`} className="community-feed__series-chip">{tag}</span>
                 ))}
               </div>
             </div>

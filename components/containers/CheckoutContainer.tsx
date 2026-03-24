@@ -3,7 +3,7 @@
  * - 결제 페이지의 메인 조립 레이어
  * - 주문 정보 확인, 쿠폰/상품권·포인트 적용, 결제 수단 선택, 최종 결제 버튼
  * - 2칸 레이아웃: 왼쪽 주문 정보 / 오른쪽 결제 요약
- * - 토스페이먼츠 SDK를 통해 실제 결제를 요청한다
+ * - API 개별 연동 키로 토스 결제창을 직접 띄운다
  */
 
 'use client';
@@ -15,7 +15,7 @@ import type { Course } from '@/types';
 import { getPageData } from '@/lib/data';
 import { formatPrice } from '@/lib/payments';
 import { createOrder } from '@/lib/api';
-import { getTossWidgets, resetTossWidgets } from '@/lib/toss';
+import { getTossPayment, resetTossPayment, TOSS_ANONYMOUS } from '@/lib/toss';
 import useCouponStore from '@/stores/useCouponStore';
 import useOrderStore from '@/stores/useOrderStore';
 import useAuthStore from '@/stores/useAuthStore';
@@ -36,6 +36,27 @@ function getBadgeVariant(badge: string): string {
 function getLevelLabel(level: string): string {
   const map: Record<string, string> = { beginner: '입문', intermediate: '초급', advanced: '중급이상' };
   return map[level] ?? level;
+}
+
+/** 선택된 결제수단으로 토스 결제창을 호출한다 */
+async function requestTossPayment(
+  payment: Awaited<ReturnType<typeof getTossPayment>>,
+  method: PaymentMethodKey,
+  base: { amount: { currency: 'KRW'; value: number }; orderId: string; orderName: string; customerEmail: string; customerName: string; successUrl: string; failUrl: string },
+) {
+  if (method === 'transfer') {
+    return payment.requestPayment({ ...base, method: 'TRANSFER' });
+  }
+  /* 간편결제(카카오/네이버/토스)는 CARD + easyPay 조합 */
+  if (method === 'kakaopay' || method === 'naverpay' || method === 'tosspay') {
+    const easyPayMap = { kakaopay: 'KAKAOPAY', naverpay: 'NAVERPAY', tosspay: 'TOSSPAY' } as const;
+    return payment.requestPayment({
+      ...base,
+      method: 'CARD',
+      card: { flowMode: 'DIRECT', easyPay: easyPayMap[method] },
+    });
+  }
+  return payment.requestPayment({ ...base, method: 'CARD' });
 }
 
 interface CheckoutContainerProps {
@@ -83,11 +104,6 @@ export default function CheckoutContainer({ course }: CheckoutContainerProps) {
   const handlePayment = useCallback(async () => {
     if (!course || !agreed || isProcessing) return;
 
-    if (!agreed) {
-      setErrorMessage(errors.agreementRequired ?? '구매 조건 및 환불 규정에 동의해주세요.');
-      return;
-    }
-
     setIsProcessing(true);
     setErrorMessage(null);
     setPaymentStatus('creating');
@@ -109,16 +125,12 @@ export default function CheckoutContainer({ course }: CheckoutContainerProps) {
         return;
       }
 
-      /* 3. 토스페이먼츠 위젯으로 결제 요청 */
-      const customerKey = user?.id ?? 'ANONYMOUS';
-      const widgets = await getTossWidgets(customerKey);
+      /* 3. 토스페이먼츠 결제창 호출 (API 개별 연동 키 방식) */
+      const customerKey = user?.id ?? TOSS_ANONYMOUS;
+      const payment = await getTossPayment(customerKey);
 
-      await widgets.setAmount({
-        currency: 'KRW',
-        value: orderResponse.totalAmount,
-      });
-
-      await widgets.requestPayment({
+      await requestTossPayment(payment, selectedMethod, {
+        amount: { currency: 'KRW', value: orderResponse.totalAmount },
         orderId: orderResponse.orderId,
         orderName: orderResponse.orderName,
         customerEmail: orderResponse.customerEmail,
@@ -132,13 +144,13 @@ export default function CheckoutContainer({ course }: CheckoutContainerProps) {
         err instanceof Error ? err.message : (errors.paymentFailed ?? '결제에 실패했습니다.');
       setErrorMessage(message);
       setError({ code: 'PAYMENT_ERROR', message });
-      resetTossWidgets();
+      resetTossPayment();
     } finally {
       setIsProcessing(false);
     }
   }, [
     course, agreed, isProcessing, couponApplied, coupon, user,
-    errors, setPendingOrder, setPaymentStatus, setError, router,
+    selectedMethod, errors, setPendingOrder, setPaymentStatus, setError, router,
   ]);
 
   /* ── 강의 없음 ── */

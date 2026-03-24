@@ -121,14 +121,19 @@
       "additionalCountSuffix": "건"
     },
     "couponsPage": {
-      "title": "쿠폰",
-      "registerPlaceholder": "쿠폰 번호를 입력하세요.",
-      "registerButton": "쿠폰 등록",
-      "registerNote": "대소문자 구분을 확인하세요.",
-      "discountSuffix": "% 할인",
-      "remainingSuffix": "일 남음",
-      "viewProductLabel": "적용상품 보기 >",
-      "emptyText": "쿠폰이 없습니다."
+      "registerTitle": "쿠폰등록",
+      "registerPlaceholder": "쿠폰을 등록해주세요",
+      "registerButton": "쿠폰등록",
+      "registerNote": "반드시 비트코인에서 발행한 쿠폰번호만 입력해주세요(10~35자 일련번호 \"-\"제외)",
+      "listTitle": "쿠폰리스트",
+      "tabActive": "보유중인 쿠폰",
+      "tabUsed": "사용완료 쿠폰",
+      "discountSuffix": "%",
+      "emptyText": "쿠폰이 없습니다.",
+      "emptyUsedText": "사용완료된 쿠폰이 없습니다.",
+      "perPage": 8,
+      "paginationPrev": "이전 페이지",
+      "paginationNext": "다음 페이지"
     },
     "reviewsPage": {
       "title": "후기 관리",

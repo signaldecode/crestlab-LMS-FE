@@ -332,6 +332,11 @@
     }
   }
 
+  // ── 토스 위젯 컨테이너 ──
+  &__toss-widget {
+    min-height: $spacing-8;
+  }
+
   // ── 오른쪽 결제 요약 ──
   &__summary {
     @media (max-width: 1023px) {
