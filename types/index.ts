@@ -171,6 +171,36 @@ export interface SupportFaqData {
 }
 
 /* ── 후기 ── */
+export interface TestimonialItem {
+  id: string;
+  nickname: string;
+  date: string;
+  rating: number;
+  title: string;
+  content: string;
+  avatarColor: string;
+  ariaLabel: string;
+}
+
+export interface TestimonialStat {
+  label: string;
+  value: string;
+  icon: string;
+  ariaLabel: string;
+}
+
+export interface TestimonialsSection {
+  meta: {
+    label: string;
+    title: string;
+    description: string;
+    ariaLabel: string;
+  };
+  stats: TestimonialStat[];
+  items: TestimonialItem[];
+}
+
+/** @deprecated TestimonialsSection 으로 대체됨 */
 export interface Testimonial {
   name: string;
   content: string;
@@ -797,7 +827,7 @@ export interface MainData {
   upcomingCourses: UpcomingCourse[];
   bestCourses: BestCourse[];
   bestChipCategories: BestChipCategory[];
-  testimonials: Testimonial[];
+  testimonials: TestimonialsSection;
   faq: FaqItem[];
   footer: FooterData;
   a11y: Record<string, unknown>;

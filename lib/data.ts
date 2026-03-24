@@ -5,7 +5,7 @@
  */
 
 import mainData from '@/data';
-import type { MainData, SiteData, NavData, Course, HomeSection, UpcomingCourse, BestCourse, BestChipCategory, FaqItem, Testimonial, FooterData, GeoData, OrderData, CertificateData, ConsultationData, ReviewData, ExpiredCouponData, GiftcardData, GiftcardHistoryData, FollowUserData, EnrolledCourseData } from '@/types';
+import type { MainData, SiteData, NavData, Course, HomeSection, UpcomingCourse, BestCourse, BestChipCategory, FaqItem, TestimonialsSection, FooterData, GeoData, OrderData, CertificateData, ConsultationData, ReviewData, ExpiredCouponData, GiftcardData, GiftcardHistoryData, FollowUserData, EnrolledCourseData } from '@/types';
 
 const data: MainData = mainData;
 
@@ -77,9 +77,9 @@ export function getFaq(): FaqItem[] {
   return data.faq || [];
 }
 
-/** 후기/추천사 반환 */
-export function getTestimonials(): Testimonial[] {
-  return data.testimonials || [];
+/** 후기/추천사 섹션 반환 */
+export function getTestimonials(): TestimonialsSection {
+  return data.testimonials;
 }
 
 /** GEO 데이터 반환 */
