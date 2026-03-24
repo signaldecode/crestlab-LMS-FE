@@ -7,8 +7,16 @@
 
 import type { JSX, ReactNode } from 'react';
 import type { Metadata } from 'next';
+import localFont from 'next/font/local';
 import Providers from './providers';
 import '@/assets/styles/main.scss';
+
+const pretendard = localFont({
+  src: '../public/fonts/PretendardVariable.woff2',
+  variable: '--font-pretendard',
+  display: 'swap',
+  weight: '45 920',
+});
 
 export const metadata: Metadata = {
   title: '강의 플랫폼',
@@ -21,7 +29,7 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
   return (
-    <html lang="ko" suppressHydrationWarning>
+    <html lang="ko" suppressHydrationWarning className={pretendard.variable}>
       <body>
         <Providers>{children}</Providers>
       </body>

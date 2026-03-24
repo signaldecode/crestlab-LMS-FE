@@ -710,6 +710,7 @@ export interface EnrolledCourseData {
   courseSlug: string;
   progress: number;
   lastLecture: string;
+  lastLectureId: string;
   lastAccessedAt: string;
   enrolledAt: string;
 }

@@ -23,6 +23,7 @@ const mypageData = accountData.mypage;
 
 /** 메뉴 아이템 키 → 섹션 매핑 (내부 SPA 전환) */
 const menuSectionKeys: Record<string, MyPageSection> = {
+  myCourses: 'classroom',
   wishlist: 'wishlist',
   coupons: 'coupons',
   giftcards: 'giftcards',

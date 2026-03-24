@@ -5,6 +5,7 @@
     "sidebar": {
       "fallbackName": "회원",
       "menuItems": {
+        "myCourses": "내 강의 목록",
         "wishlist": "관심 클래스",
         "coupons": "내 쿠폰",
         "giftcards": "상품권",
@@ -22,7 +23,7 @@
       "logoutLabel": "로그아웃",
       "menuGroups": {
         "classroom": [
-          { "section": "강의 관련", "items": ["wishlist", "consultations", "certificates", "reviews", "orders"] },
+          { "section": "강의 관련", "items": ["myCourses", "wishlist", "consultations", "certificates", "reviews", "orders"] },
           { "section": "고객 지원", "items": ["tickets", "faq"] },
           { "section": "계정 관리", "items": ["profileEdit", "logout"] }
         ],
@@ -538,21 +539,24 @@
     {
       "courseSlug": "real-estate-intermediate",
       "progress": 72,
-      "lastLecture": "실전 매물 분석 방법",
+      "lastLecture": "리스크 관리",
+      "lastLectureId": "l-2-2",
       "lastAccessedAt": "2026-03-22",
       "enrolledAt": "2026-02-15"
     },
     {
       "courseSlug": "financial-basic-class",
       "progress": 100,
-      "lastLecture": "포트폴리오 구성 실습",
+      "lastLecture": "최종 정리 및 Q&A",
+      "lastLectureId": "l-2-3",
       "lastAccessedAt": "2026-03-18",
       "enrolledAt": "2026-01-28"
     },
     {
       "courseSlug": "my-house-basic",
       "progress": 35,
-      "lastLecture": "청약 전략 세우기",
+      "lastLecture": "핵심 개념 정리",
+      "lastLectureId": "l-1-0",
       "lastAccessedAt": "2026-03-15",
       "enrolledAt": "2026-01-10"
     }

@@ -31,7 +31,7 @@ export default function MyClassroomContent(): JSX.Element {
         if (!course) return null;
         return { ...ec, course };
       })
-      .filter((item): item is { courseSlug: string; progress: number; lastLecture: string; lastAccessedAt: string; enrolledAt: string; course: Course } => item != null);
+      .filter((item): item is { courseSlug: string; progress: number; lastLecture: string; lastLectureId: string; lastAccessedAt: string; enrolledAt: string; course: Course } => item != null);
   }, [enrolledCourses, allCourses]);
 
   return (
@@ -63,7 +63,7 @@ export default function MyClassroomContent(): JSX.Element {
             <div className={`${SK}__course-list`}>
               {coursesWithDetail.map((item) => (
                 <div key={item.courseSlug} className={`${SK}__course-card`}>
-                  <Link href={`/courses/${item.course.slug}`} className={`${SK}__course-thumb-link`}>
+                  <Link href={`/learn/${item.course.slug}/${item.lastLectureId}`} className={`${SK}__course-thumb-link`}>
                     <Image
                       src={item.course.thumbnail}
                       alt={item.course.thumbnailAlt}
@@ -73,7 +73,7 @@ export default function MyClassroomContent(): JSX.Element {
                     />
                   </Link>
                   <div className={`${SK}__course-info`}>
-                    <Link href={`/courses/${item.course.slug}`} className={`${SK}__course-title`}>
+                    <Link href={`/learn/${item.course.slug}/${item.lastLectureId}`} className={`${SK}__course-title`}>
                       {item.course.title}
                     </Link>
                     <span className={`${SK}__course-instructor`}>{item.course.instructor}</span>
@@ -96,14 +96,12 @@ export default function MyClassroomContent(): JSX.Element {
                     </div>
                   </div>
                   <div className={`${SK}__course-actions`}>
-                    {item.progress < 100 && (
-                      <Link
-                        href={`/learn/${item.course.slug}/l-0-0`}
-                        className={`${SK}__course-continue-btn`}
-                      >
-                        {classroomData.continueBtnLabel}
-                      </Link>
-                    )}
+                    <Link
+                      href={`/learn/${item.course.slug}/${item.lastLectureId}`}
+                      className={`${SK}__course-continue-btn`}
+                    >
+                      {item.progress < 100 ? classroomData.continueBtnLabel : classroomData.completedLabel}
+                    </Link>
                   </div>
                 </div>
               ))}
