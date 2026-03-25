@@ -71,8 +71,90 @@
   @media (max-width: 767px) {
     grid-template-columns: 1fr;
 
-    .community-sidebar {
+    .community-sidebar:not(.community-sidebar--in-drawer) {
       display: none;
+    }
+  }
+}
+
+// ============================================
+// 모바일 사이드바 드로어
+// ============================================
+.community-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: $z-index-modal-backdrop;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+
+  &--open {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.community-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: $z-index-modal;
+  width: 280px;
+  max-width: 80vw;
+  background: $color-bg-primary;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+  display: none;
+
+  @media (max-width: 767px) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &--open {
+    transform: translateX(0);
+  }
+
+  &__header {
+    display: flex;
+    justify-content: flex-end;
+    padding: $spacing-3 $spacing-4;
+    border-bottom: 1px solid $color-border;
+  }
+
+  &__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    background: none;
+    border: none;
+    font-size: $font-size-base;
+    color: $color-text-primary;
+    cursor: pointer;
+    border-radius: $spacing-1;
+    transition: background 0.2s;
+
+    &:hover {
+      background: $color-bg-tertiary;
+    }
+  }
+
+  &__body {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  // 드로어 내부 사이드바는 sticky 해제
+  .community-sidebar--in-drawer {
+    display: block;
+
+    .community-sidebar__sticky {
+      position: static;
     }
   }
 }
@@ -284,9 +366,58 @@
   // 탭
   &__tabs {
     display: flex;
+    align-items: center;
     gap: $spacing-6;
     border-bottom: 1px solid $color-border;
     margin-bottom: $spacing-6;
+  }
+
+  // ── 모바일 드로어 트리거 (탭 바 내부) ──
+  &__drawer-trigger {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    margin-right: $spacing-2;
+    background: none;
+    border: none;
+    color: $color-text-primary;
+    cursor: pointer;
+    border-radius: $spacing-1;
+    transition: background 0.2s;
+    flex-shrink: 0;
+
+    &:hover {
+      background: $color-bg-tertiary;
+    }
+
+    @media (max-width: 767px) {
+      display: inline-flex;
+    }
+  }
+
+  &__hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    width: 1.125rem;
+    height: 1.125rem;
+
+    &::before,
+    &::after {
+      content: '';
+      display: block;
+      height: 2px;
+      background: currentColor;
+      border-radius: 1px;
+    }
+
+    &::before {
+      box-shadow: 0 5px 0 currentColor;
+    }
   }
 
   &__tab {

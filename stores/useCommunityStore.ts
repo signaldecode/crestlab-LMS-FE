@@ -14,11 +14,13 @@ interface CommunityState {
   sort: string;
   page: number;
   pageSize: number;
+  drawerOpen: boolean;
   setActiveTab: (activeTab: string) => void;
   setActiveCategory: (activeCategory: string) => void;
   setQuery: (query: string) => void;
   setSort: (sort: string) => void;
   setPage: (page: number) => void;
+  setDrawerOpen: (open: boolean) => void;
   resetFilters: () => void;
 }
 
@@ -29,12 +31,14 @@ const useCommunityStore = create<CommunityState>((set) => ({
   sort: 'latest',
   page: 1,
   pageSize: 20,
+  drawerOpen: false,
 
   setActiveTab: (activeTab) => set({ activeTab, page: 1 }),
   setActiveCategory: (activeCategory) => set({ activeCategory, page: 1 }),
   setQuery: (query) => set({ query, page: 1 }),
   setSort: (sort) => set({ sort, page: 1 }),
   setPage: (page) => set({ page }),
+  setDrawerOpen: (open) => set({ drawerOpen: open }),
   resetFilters: () => set({ activeTab: 'all', activeCategory: '커뮤니티홈', query: '', sort: 'latest', page: 1 }),
 }));
 

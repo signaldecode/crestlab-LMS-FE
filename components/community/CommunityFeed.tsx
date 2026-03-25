@@ -11,6 +11,7 @@ import { useState } from 'react';
 import type { JSX } from 'react';
 import Image from 'next/image';
 import MyFeedContent from '@/components/community/MyFeedContent';
+import useCommunityStore from '@/stores/useCommunityStore';
 import mainData from '@/data';
 import type { FeedSection } from '@/types';
 
@@ -21,6 +22,7 @@ const {
   noticeBanner,
   qnaLabels,
   verifiedBadge,
+  sidebarDrawer,
   dummyPopularPosts,
   dummySeriesCards,
   dummyArticles,
@@ -29,11 +31,22 @@ const {
 
 export default function CommunityFeed(): JSX.Element {
   const [activeTab, setActiveTab] = useState(feedTabs[0]?.id ?? 'home');
+  const setDrawerOpen = useCommunityStore((s) => s.setDrawerOpen);
 
   return (
     <div className="community-feed">
       {/* 탭 전환 */}
       <div className="community-feed__tabs" role="tablist">
+        {/* 모바일 드로어 트리거 — 탭 바에 통합 */}
+        <button
+          type="button"
+          className="community-feed__drawer-trigger"
+          aria-label={sidebarDrawer.triggerAriaLabel}
+          onClick={() => setDrawerOpen(true)}
+        >
+          <span className="community-feed__hamburger" aria-hidden="true" />
+        </button>
+
         {feedTabs.map((tab) => (
           <button
             key={tab.id}

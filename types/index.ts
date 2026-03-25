@@ -531,8 +531,16 @@ export interface DummyRankingUser {
   likeCount: number;
 }
 
+export interface SidebarDrawerData {
+  triggerAriaLabel: string;
+  triggerLabel: string;
+  closeAriaLabel: string;
+  overlayAriaLabel: string;
+}
+
 export interface CommunityData {
   verifiedBadge: VerifiedBadgeData;
+  sidebarDrawer: SidebarDrawerData;
   sidebarProfile: SidebarProfileData;
   sidebarNav: SidebarNavSection[];
   feedTabs: FeedTabItem[];

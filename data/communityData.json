@@ -6,6 +6,13 @@
     "alt": "인증 뱃지"
   },
 
+  "sidebarDrawer": {
+    "triggerAriaLabel": "커뮤니티 메뉴 열기",
+    "triggerLabel": "메뉴",
+    "closeAriaLabel": "커뮤니티 메뉴 닫기",
+    "overlayAriaLabel": "메뉴 닫기"
+  },
+
   "sidebarProfile": {
     "loginLabel": "로그인해주세요",
     "profileAriaLabel": "프로필 영역",

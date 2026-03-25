@@ -17,12 +17,27 @@ import type { SidebarNavSection } from '@/types';
 const { sidebarProfile, sidebarNav, verifiedBadge } = mainData.community;
 const dummyUser = sidebarProfile.dummyUser;
 
-export default function CommunitySidebar(): JSX.Element {
+interface CommunitySidebarProps {
+  /** 드로어 내부에서 렌더링 여부 */
+  inDrawer?: boolean;
+  /** 드로어 내부 항목 클릭 시 드로어 닫기 콜백 */
+  onNavigate?: () => void;
+}
+
+export default function CommunitySidebar({ inDrawer, onNavigate }: CommunitySidebarProps = {}): JSX.Element {
   const activeCategory = useCommunityStore((s) => s.activeCategory);
   const setActiveCategory = useCommunityStore((s) => s.setActiveCategory);
 
+  const handleSelect = (category: string) => {
+    setActiveCategory(category);
+    onNavigate?.();
+  };
+
   return (
-    <aside className="community-sidebar" aria-label={sidebarProfile.profileAriaLabel}>
+    <aside
+      className={`community-sidebar${inDrawer ? ' community-sidebar--in-drawer' : ''}`}
+      aria-label={sidebarProfile.profileAriaLabel}
+    >
       <div className="community-sidebar__sticky">
         {/* 프로필 카드 */}
         <div className="community-sidebar__profile-card">
@@ -71,7 +86,7 @@ export default function CommunitySidebar(): JSX.Element {
               key={section.id}
               section={section}
               activeCategory={activeCategory}
-              onSelect={setActiveCategory}
+              onSelect={handleSelect}
             />
           ))}
         </nav>
