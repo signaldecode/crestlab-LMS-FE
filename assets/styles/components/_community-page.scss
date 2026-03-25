@@ -170,6 +170,11 @@
   }
 
   // ── 프로필 카드 ──
+  // ProfileCard 컴포넌트가 카드 스타일을 담당하므로 여백만 지정
+  .profile-card {
+    margin-bottom: $spacing-4;
+  }
+
   &__profile-card {
     display: flex;
     flex-direction: column;
@@ -180,86 +185,9 @@
     margin-bottom: $spacing-4;
   }
 
-  &__avatar-wrap {
-    position: relative;
-  }
-
-  &__avatar {
-    width: 4.5rem;
-    height: 4.5rem;
-    border-radius: 50%;
-    object-fit: cover;
-
-    &--placeholder {
-      background: $color-bg-tertiary;
-    }
-  }
-
-  &__user-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: $spacing-1;
-  }
-
-  &__name-row {
-    display: flex;
-    align-items: center;
-    gap: $spacing-1;
-  }
-
-  &__nickname {
-    font-size: $font-size-sm;
-    font-weight: $font-weight-bold;
-    color: $color-text-primary;
-  }
-
-  &__verified-badge {
-    flex-shrink: 0;
-    object-fit: contain;
-  }
-
-  &__follower-count {
-    font-size: $font-size-xs;
-    color: $color-text-secondary;
-  }
-
   &__login-label {
     font-size: $font-size-sm;
     color: $color-text-secondary;
-  }
-
-  // stats (투자등급 / 전문분야 / 투자기간)
-  &__stats {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    gap: $spacing-2;
-    padding-top: $spacing-3;
-    border-top: 1px solid $color-border;
-    margin-top: $spacing-2;
-  }
-
-  &__stat {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: $spacing-1;
-    flex: 1;
-    min-width: 0;
-  }
-
-  &__stat-label {
-    font-size: $font-size-xs;
-    color: $color-text-secondary;
-    white-space: nowrap;
-  }
-
-  &__stat-value {
-    font-size: $font-size-xs;
-    font-weight: $font-weight-bold;
-    color: $color-text-primary;
-    white-space: nowrap;
   }
 
   // ── 네비게이션 ──

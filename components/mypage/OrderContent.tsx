@@ -45,12 +45,17 @@ export default function OrderContent(): JSX.Element {
         ) : (
           <div className={`${SK}__purchase-list`}>
             {ordersWithCourses.map((order) => (
-              <div key={order.id} className={`${SK}__purchase-row`}>
+              <Link
+                key={order.id}
+                href={`/mypage/orders/${order.id}`}
+                className={`${SK}__purchase-row`}
+                aria-label={ordersPageData.detailAriaLabel}
+              >
                 <span className={`${SK}__purchase-date`}>{order.createdAt}</span>
                 <div className={`${SK}__purchase-course`}>
                   {order.courses[0] && (
                     <>
-                      <Link href={`/courses/${order.courses[0].slug}`} className={`${SK}__purchase-thumb-link`}>
+                      <span className={`${SK}__purchase-thumb-link`}>
                         <Image
                           src={order.courses[0].thumbnail}
                           alt={order.courses[0].thumbnailAlt}
@@ -58,11 +63,11 @@ export default function OrderContent(): JSX.Element {
                           height={48}
                           className={`${SK}__purchase-img`}
                         />
-                      </Link>
+                      </span>
                       <div className={`${SK}__purchase-info`}>
-                        <Link href={`/courses/${order.courses[0].slug}`} className={`${SK}__purchase-title`}>
+                        <span className={`${SK}__purchase-title`}>
                           {order.courses[0].title}
-                        </Link>
+                        </span>
                         <span className={`${SK}__purchase-instructor`}>
                           {order.courses[0].instructor}
                           {order.courses.length > 1 && ` 외 ${order.courses.length - 1}${ordersPageData.additionalCountSuffix}`}
@@ -75,7 +80,7 @@ export default function OrderContent(): JSX.Element {
                 <span className={`${SK}__purchase-status ${SK}__purchase-status--${order.status === '환불' ? 'refund' : 'done'}`}>
                   {order.status}
                 </span>
-              </div>
+              </Link>
             ))}
           </div>
         )}

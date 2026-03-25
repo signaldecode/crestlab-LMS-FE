@@ -447,7 +447,9 @@ export interface DummySidebarUser {
   nickname: string;
   profileImage?: string;
   verified: boolean;
+  role?: string;
   followerCount: string;
+  communityLevel?: CommunityLevelData;
   statValues: Record<string, string>;
 }
 
@@ -686,6 +688,34 @@ export interface ProfileCardData {
   otherUserMode: OtherUserModeData;
 }
 
+/* ── 공통 프로필 카드 (ProfileCard) ── */
+
+/** ProfileCard에 표시할 유저 정보 */
+export interface ProfileCardUser {
+  nickname: string;
+  profileImage?: string;
+  verified?: boolean;
+  role?: string;
+  bio?: string;
+  followerCount?: string;
+}
+
+/** ProfileCard 통계 아이템 (key-value 또는 key-statValues 매핑) */
+export interface ProfileCardStat {
+  key: string;
+  label: string;
+  value?: number | string;
+}
+
+/** ProfileCard에서 선택적으로 표시할 요소 옵션 */
+export interface ProfileCardOptions {
+  showCover?: boolean;
+  showRole?: boolean;
+  showFollowerCount?: boolean;
+  showLevel?: boolean;
+  showStats?: boolean;
+}
+
 /* ── 마이페이지 섹션 ── */
 export type MyPageTab = 'classroom' | 'profile';
 
@@ -720,12 +750,24 @@ export interface Order {
   createdAt: string;
 }
 
+export interface OrderItemData {
+  courseSlug: string;
+  price: number;
+}
+
 export interface OrderData {
   id: string;
   courseSlugs: string[];
+  items: OrderItemData[];
   totalAmount: number;
+  coursePrice: number;
+  couponDiscount: number;
+  pointDiscount: number;
+  voucherDiscount: number;
+  paymentMethod: string;
   status: string;
   createdAt: string;
+  receiptUrl?: string;
 }
 
 /* ── 토스페이먼츠 결제 ── */

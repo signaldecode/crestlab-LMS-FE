@@ -137,6 +137,11 @@ export function getOrders(): OrderData[] {
   return data.orders || [];
 }
 
+/** id로 주문 1건 조회 */
+export function findOrderById(orderId: string): OrderData | null {
+  return data.orders?.find((o) => o.id === orderId) || null;
+}
+
 /** 만료된 쿠폰 목록 반환 */
 export function getExpiredCoupons(): ExpiredCouponData[] {
   return data.expiredCoupons || [];

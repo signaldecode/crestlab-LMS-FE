@@ -26,7 +26,16 @@
       "nickname": "고기먹고싶다",
       "profileImage": "/images/testIMG/profile3.jpg",
       "verified": true,
+      "role": "멘토 크리에이터",
       "followerCount": "팔로워 8,562",
+      "communityLevel": {
+        "title": "커뮤니티 레벨",
+        "tooltipText": "활동에 따라 레벨이 올라갑니다",
+        "tooltipAriaLabel": "커뮤니티 레벨 안내",
+        "steps": ["1단계", "2단계", "3단계", "4단계"],
+        "currentStep": 2,
+        "progressPercent": 50
+      },
       "statValues": {
         "investGrade": "퀴시",
         "expertise": "부동산투자",

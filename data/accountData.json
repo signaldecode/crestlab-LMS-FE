@@ -119,7 +119,43 @@
     "ordersPage": {
       "title": "구매 내역",
       "emptyText": "구매 내역이 없습니다.",
-      "additionalCountSuffix": "건"
+      "additionalCountSuffix": "건",
+      "detailAriaLabel": "주문 상세 보기"
+    },
+    "orderDetailPage": {
+      "title": "주문 상세",
+      "backLabel": "구매 내역으로 돌아가기",
+      "backAriaLabel": "구매 내역 목록으로 이동",
+      "orderIdLabel": "주문번호",
+      "orderDateLabel": "주문일시",
+      "statusLabel": "주문상태",
+      "sectionCourses": "주문 강의",
+      "sectionPayment": "결제 정보",
+      "sectionPrice": "결제 금액",
+      "coursePriceLabel": "강의 금액",
+      "couponDiscountLabel": "쿠폰 할인",
+      "pointDiscountLabel": "포인트 사용",
+      "voucherDiscountLabel": "상품권 사용",
+      "totalAmountLabel": "최종 결제 금액",
+      "paymentMethodLabel": "결제 수단",
+      "receiptLabel": "영수증 보기",
+      "receiptAriaLabel": "결제 영수증 확인",
+      "refundLabel": "환불 신청",
+      "refundAriaLabel": "이 주문 환불 신청하기",
+      "statusLabels": {
+        "완료": "결제 완료",
+        "환불": "환불 완료"
+      },
+      "methodLabels": {
+        "card": "신용·체크카드",
+        "kakaopay": "카카오페이",
+        "naverpay": "N Pay",
+        "tosspay": "토스페이",
+        "transfer": "계좌이체"
+      },
+      "notFoundTitle": "주문을 찾을 수 없습니다",
+      "notFoundDescription": "요청하신 주문이 존재하지 않습니다.",
+      "notFoundLinkLabel": "구매 내역으로 돌아가기"
     },
     "couponsPage": {
       "registerTitle": "쿠폰등록",
@@ -331,28 +367,64 @@
     {
       "id": "ORD-20250215-001",
       "courseSlugs": ["real-estate-intermediate"],
+      "items": [
+        { "courseSlug": "real-estate-intermediate", "price": 299000 }
+      ],
+      "coursePrice": 299000,
+      "couponDiscount": 44850,
+      "pointDiscount": 0,
+      "voucherDiscount": 0,
       "totalAmount": 254150,
+      "paymentMethod": "card",
       "status": "완료",
-      "createdAt": "2025-02-15"
+      "createdAt": "2025-02-15",
+      "receiptUrl": "#"
     },
     {
       "id": "ORD-20250128-002",
       "courseSlugs": ["financial-basic-class", "us-stock-basic"],
+      "items": [
+        { "courseSlug": "financial-basic-class", "price": 249000 },
+        { "courseSlug": "us-stock-basic", "price": 199000 }
+      ],
+      "coursePrice": 448000,
+      "couponDiscount": 45500,
+      "pointDiscount": 10000,
+      "voucherDiscount": 10000,
       "totalAmount": 382500,
+      "paymentMethod": "kakaopay",
       "status": "완료",
-      "createdAt": "2025-01-28"
+      "createdAt": "2025-01-28",
+      "receiptUrl": "#"
     },
     {
       "id": "ORD-20250110-003",
       "courseSlugs": ["my-house-basic"],
+      "items": [
+        { "courseSlug": "my-house-basic", "price": 199000 }
+      ],
+      "coursePrice": 199000,
+      "couponDiscount": 29850,
+      "pointDiscount": 0,
+      "voucherDiscount": 0,
       "totalAmount": 169150,
+      "paymentMethod": "tosspay",
       "status": "완료",
-      "createdAt": "2025-01-10"
+      "createdAt": "2025-01-10",
+      "receiptUrl": "#"
     },
     {
       "id": "ORD-20241220-004",
       "courseSlugs": ["auction-basics"],
+      "items": [
+        { "courseSlug": "auction-basics", "price": 249000 }
+      ],
+      "coursePrice": 249000,
+      "couponDiscount": 37350,
+      "pointDiscount": 0,
+      "voucherDiscount": 0,
       "totalAmount": 211650,
+      "paymentMethod": "card",
       "status": "환불",
       "createdAt": "2024-12-20"
     }

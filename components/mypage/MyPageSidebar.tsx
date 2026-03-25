@@ -11,12 +11,12 @@
 import type { JSX } from 'react';
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import useAuthStore from '@/stores/useAuthStore';
 import useCouponStore from '@/stores/useCouponStore';
 import useMyPageStore from '@/stores/useMyPageStore';
 import accountData from '@/data/accountData.json';
-import type { ProfileCardData, MyPageSection } from '@/types';
+import ProfileCard from '@/components/common/ProfileCard';
+import type { ProfileCardData, MyPageSection, ProfileCardUser } from '@/types';
 
 const profileCardData = accountData.profileCard as unknown as ProfileCardData;
 const mypageData = accountData.mypage;
@@ -72,6 +72,14 @@ export default function MyPageSidebar({ isOtherUser = false }: MyPageSidebarProp
   const userName = authUser?.nickname || authUser?.name || mypageData.sidebar.fallbackName;
   const { toggleLabels, profileMode, classroomMode, otherUserMode } = profileCardData;
 
+  const mypageUser: ProfileCardUser = {
+    nickname: userName,
+    profileImage: authUser?.profileImage,
+    verified: true,
+    role: profileMode.roleLabel,
+    bio: authUser?.bio,
+  };
+
   const handleToggle = () => {
     const nextTab = activeTab === 'profile' ? 'classroom' : 'profile';
     setActiveTab(nextTab);
@@ -94,87 +102,50 @@ export default function MyPageSidebar({ isOtherUser = false }: MyPageSidebarProp
   return (
     <aside className="mypage-sidebar">
       <div className="mypage-sidebar__sticky">
-        {/* 프로필 카드 */}
-        <div className="mypage-sidebar__card">
-          {/* 커버 이미지 */}
-          <div className="mypage-sidebar__cover">
-            {authUser?.profileImage ? (
-              <Image
-                src={authUser.profileImage}
-                alt={profileCardData.coverImageAlt}
-                fill
-                sizes="300px"
-                className="mypage-sidebar__cover-img"
-              />
-            ) : (
-              <div className="mypage-sidebar__cover-placeholder" />
-            )}
-
-            {/* 아바타 (커버 하단에 겹침) */}
-            <div className="mypage-sidebar__avatar-wrap">
-              {authUser?.profileImage ? (
-                <Image
-                  src={authUser.profileImage}
-                  alt={profileCardData.avatarAlt}
-                  width={64}
-                  height={64}
-                  className="mypage-sidebar__avatar-img"
-                />
-              ) : (
-                <div className="mypage-sidebar__avatar mypage-sidebar__avatar--default">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                    <circle cx="12" cy="7" r="4" />
-                  </svg>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* 이름 + 인증배지 */}
-          <div className="mypage-sidebar__identity">
-            <div className="mypage-sidebar__name-row">
-              <span className="mypage-sidebar__username">{userName}</span>
-              <Image
-                src={profileCardData.verifiedBadge.src}
-                alt={profileCardData.verifiedBadge.alt}
-                width={18}
-                height={18}
-                className="mypage-sidebar__verified-badge"
-              />
-            </div>
-
-            {/* 역할/소속 + 토글 (같은 줄) */}
-            {!isOtherUser && (
-              <div className="mypage-sidebar__role-row">
-                <span className="mypage-sidebar__role">
-                  {activeTab === 'profile'
-                    ? profileMode.roleLabel
-                    : authUser?.bio
-                      ? `${classroomMode.affiliationPrefix}${authUser.bio}`
-                      : profileMode.roleLabel}
+        {/* 프로필 카드 — 공통 ProfileCard + 마이페이지 전용 하단 콘텐츠 */}
+        <ProfileCard
+          user={mypageUser}
+          options={{
+            showCover: true,
+            showRole: false,
+            showFollowerCount: false,
+            showLevel: false,
+            showStats: false,
+          }}
+          verifiedBadge={profileCardData.verifiedBadge}
+          coverImageAlt={profileCardData.coverImageAlt}
+          avatarAlt={profileCardData.avatarAlt}
+        >
+          {/* 역할 + 토글 (같은 줄) */}
+          {!isOtherUser && (
+            <div className="mypage-sidebar__role-row">
+              <span className="mypage-sidebar__role">
+                {activeTab === 'profile'
+                  ? profileMode.roleLabel
+                  : authUser?.bio
+                    ? `${classroomMode.affiliationPrefix}${authUser.bio}`
+                    : profileMode.roleLabel}
+              </span>
+              <button
+                type="button"
+                role="switch"
+                aria-checked={activeTab === 'classroom'}
+                aria-label={toggleLabels.ariaLabel}
+                className="mypage-sidebar__switch"
+                onClick={handleToggle}
+              >
+                <span className="mypage-sidebar__switch-label">
+                  {activeTab === 'profile' ? toggleLabels.profile : toggleLabels.classroom}
                 </span>
-                <button
-                  type="button"
-                  role="switch"
-                  aria-checked={activeTab === 'classroom'}
-                  aria-label={toggleLabels.ariaLabel}
-                  className="mypage-sidebar__switch"
-                  onClick={handleToggle}
-                >
-                  <span className="mypage-sidebar__switch-label">
-                    {activeTab === 'profile' ? toggleLabels.profile : toggleLabels.classroom}
-                  </span>
-                  <span className="mypage-sidebar__switch-track">
-                    <span className="mypage-sidebar__switch-thumb" />
-                  </span>
-                </button>
-              </div>
-            )}
-            {isOtherUser && (
-              <span className="mypage-sidebar__role">{profileMode.roleLabel}</span>
-            )}
-          </div>
+                <span className="mypage-sidebar__switch-track">
+                  <span className="mypage-sidebar__switch-thumb" />
+                </span>
+              </button>
+            </div>
+          )}
+          {isOtherUser && (
+            <span className="mypage-sidebar__role">{profileMode.roleLabel}</span>
+          )}
 
           {/* 모드별 콘텐츠 (양쪽 모두 렌더, CSS 트랜지션) */}
           {!isOtherUser && (
@@ -302,7 +273,7 @@ export default function MyPageSidebar({ isOtherUser = false }: MyPageSidebarProp
               </div>
             </div>
           )}
-        </div>
+        </ProfileCard>
 
         {/* 메뉴 목록 (본인만) */}
         {!isOtherUser && (
