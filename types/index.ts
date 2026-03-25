@@ -445,6 +445,7 @@ export interface VerifiedBadgeData {
 /** 사이드바 프로필 더미 유저 */
 export interface DummySidebarUser {
   nickname: string;
+  profileImage?: string;
   verified: boolean;
   followerCount: string;
   statValues: Record<string, string>;
@@ -477,6 +478,7 @@ export interface DummyPopularPost {
   id: string;
   title: string;
   authorNickname: string;
+  profileImage?: string;
   category: string;
   date: string;
   viewCount: number;
@@ -496,6 +498,7 @@ export interface DummySeriesCard {
 export interface DummyArticle {
   id: string;
   authorNickname: string;
+  profileImage?: string;
   authorVerified: boolean;
   date: string;
   title: string;
@@ -511,6 +514,7 @@ export interface DummyQnaPost {
   id: string;
   title: string;
   answererNickname: string;
+  profileImage?: string;
   answererVerified: boolean;
 }
 
@@ -518,6 +522,7 @@ export interface DummyQnaPost {
 export interface DummyProfile {
   id: string;
   nickname: string;
+  profileImage?: string;
   verified: boolean;
   followerCount: string;
 }
@@ -526,6 +531,7 @@ export interface DummyProfile {
 export interface DummyRankingUser {
   id: string;
   nickname: string;
+  profileImage?: string;
   verified: boolean;
   commentCount: number;
   likeCount: number;

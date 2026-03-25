@@ -250,6 +250,7 @@
       {
         "id": "r1",
         "nickname": "부동산초보탈출",
+        "profileImage": "/images/testIMG/profile1.jpg",
         "date": "2025.11.02",
         "rating": 5,
         "title": "서울시 강서구 내집마련 성공기",
@@ -260,6 +261,7 @@
       {
         "id": "r2",
         "nickname": "ETF장기투자자",
+        "profileImage": "/images/testIMG/profile3.jpg",
         "date": "2025.10.15",
         "rating": 5,
         "title": "대통령도 산다는 그 ETF, 수익률 150%의 정체는?",
@@ -270,6 +272,7 @@
       {
         "id": "r3",
         "nickname": "사골컨테이너",
+        "profileImage": "/images/testIMG/profile5.jpg",
         "date": "2025.09.22",
         "rating": 5,
         "title": "사골 컨테이너집에서 자란 제가 10억을 만들기까지",
@@ -280,6 +283,7 @@
       {
         "id": "r4",
         "nickname": "직장인투자왕",
+        "profileImage": "/images/testIMG/profile2.jpg",
         "date": "2025.08.30",
         "rating": 5,
         "title": "직장인 10년차, 드디어 내 집 마련했습니다",
@@ -290,6 +294,7 @@
       {
         "id": "r5",
         "nickname": "재테크새싹",
+        "profileImage": "/images/testIMG/profile4.jpg",
         "date": "2025.07.18",
         "rating": 5,
         "title": "처음 접하는 분들도 쉽게 이해할 수 있는 강의",
@@ -300,6 +305,7 @@
       {
         "id": "r6",
         "nickname": "부동산고수도전",
+        "profileImage": "/images/testIMG/profile1.jpg",
         "date": "2025.06.10",
         "rating": 5,
         "title": "투자 마인드셋부터 실전까지, 완벽한 로드맵",
@@ -310,6 +316,7 @@
       {
         "id": "r7",
         "nickname": "아파트분석러",
+        "profileImage": "/images/testIMG/profile3.jpg",
         "date": "2025.05.28",
         "rating": 5,
         "title": "아파트 시장 분석이 이렇게 쉬울 수가 없어요",
@@ -320,6 +327,7 @@
       {
         "id": "r8",
         "nickname": "재테크성공기",
+        "profileImage": "/images/testIMG/profile5.jpg",
         "date": "2025.04.14",
         "rating": 5,
         "title": "재테크를 시작하려는 모든 분에게 강력 추천합니다",
@@ -330,6 +338,7 @@
       {
         "id": "r9",
         "nickname": "월급쟁이투자자",
+        "profileImage": "/images/testIMG/profile2.jpg",
         "date": "2025.03.05",
         "rating": 5,
         "title": "월급쟁이에서 투자자로, 인생을 바꿔준 강의",
@@ -340,6 +349,7 @@
       {
         "id": "r10",
         "nickname": "처음엔반신반의",
+        "profileImage": "/images/testIMG/profile4.jpg",
         "date": "2025.02.22",
         "rating": 5,
         "title": "처음엔 반신반의했는데 결과가 달라졌습니다",
@@ -350,6 +360,7 @@
       {
         "id": "r11",
         "nickname": "알짜정보수집가",
+        "profileImage": "/images/testIMG/profile1.jpg",
         "date": "2025.01.19",
         "rating": 5,
         "title": "실전에서 바로 써먹을 수 있는 알짜 내용만 담겨 있어요",
@@ -360,6 +371,7 @@
       {
         "id": "r12",
         "nickname": "경매시작했어요",
+        "profileImage": "/images/testIMG/profile3.jpg",
         "date": "2024.12.30",
         "rating": 5,
         "title": "경매 입문, 이 강의로 시작하세요",
@@ -382,6 +394,7 @@
       "thumbnailAlt": "서울시 서초구에 내집마련 성공 관련 아티클 이미지",
       "title": "서울시 서초구에 내집마련 성공했습니다!서울시 서초구에 내집마련 성공했습니다!",
       "authorNickname": "진심으로하면",
+      "profileImage": "/images/testIMG/profile2.jpg",
       "category": "님의",
       "date": "26.02.27",
       "readTime": "2.5min",
@@ -394,6 +407,7 @@
         "rank": 2,
         "title": "서울시 서초구에 내집마련 성공했습니다서울시 서초구에 내집마련 성공했습니다",
         "authorNickname": "진심으로하면",
+        "profileImage": "/images/testIMG/profile4.jpg",
         "category": "님의",
         "date": "26.02.27",
         "readTime": "2.5min",
@@ -405,6 +419,7 @@
         "rank": 3,
         "title": "서울시 서초구에 내집마련 성공했습니다요",
         "authorNickname": "진심으로하면",
+        "profileImage": "/images/testIMG/profile1.jpg",
         "category": "님의",
         "date": "26.02.27",
         "readTime": "2.5min",
@@ -416,6 +431,7 @@
         "rank": 4,
         "title": "서울시 강서구 내집마련 성공기",
         "authorNickname": "진심으로하면",
+        "profileImage": "/images/testIMG/profile5.jpg",
         "category": "님의",
         "date": "26.02.27",
         "readTime": "2.5min",
@@ -427,6 +443,7 @@
         "rank": 5,
         "title": "대통령도 산다는 그 ETF, 수익률 150%의 정체는?",
         "authorNickname": "진심으로하면",
+        "profileImage": "/images/testIMG/profile3.jpg",
         "category": "님의",
         "date": "26.02.27",
         "readTime": "2.5min",
@@ -438,6 +455,7 @@
       {
         "id": "pac1",
         "authorNickname": "너바나",
+        "profileImage": "/images/testIMG/profile1.jpg",
         "authorVerified": true,
         "category": "부동산",
         "title": "부자의 변태로 뛰는, 유지만 할뿐 사용 들어 공통적인 3가지 특징",
@@ -452,6 +470,7 @@
       {
         "id": "pac2",
         "authorNickname": "너바나",
+        "profileImage": "/images/testIMG/profile3.jpg",
         "authorVerified": true,
         "category": "부동산",
         "title": "부자의 변태로 뛰는, 6가지 된 돈 사용 들어 공통적인 3가지 특징",
@@ -466,6 +485,7 @@
       {
         "id": "pac3",
         "authorNickname": "너바나",
+        "profileImage": "/images/testIMG/profile5.jpg",
         "authorVerified": true,
         "category": "부동산",
         "title": "부자의 변태로 뛰는, 유지만 할뿐 사용 들어 공통적인 3가지 특징",
@@ -489,6 +509,7 @@
       {
         "id": "hc1",
         "authorNickname": "너바나",
+        "profileImage": "/images/testIMG/profile4.jpg",
         "category": "님의",
         "title": "통장잔고 5000만원의 따단한 분들이 꼭 알아야 하는 자본주의 투자법",
         "content": "일부러스뛰는 뛰는 사람들이네는더글라 뛰는사람들이네는더글라뛰는사사람들이네는더글라 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는",
@@ -502,6 +523,7 @@
       {
         "id": "hc2",
         "authorNickname": "너바나",
+        "profileImage": "/images/testIMG/profile2.jpg",
         "category": "님의",
         "title": "통장잔고 5000만원의 따단한 분들이 꼭 알아야 하는 자본주의 투자법",
         "content": "일부러스뛰는 뛰는 사람들이네는더글라 뛰는사람들이네는더글라뛰는사사람들이네는더글라 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는",
@@ -515,6 +537,7 @@
       {
         "id": "hc3",
         "authorNickname": "너바나",
+        "profileImage": "/images/testIMG/profile5.jpg",
         "category": "님의",
         "title": "통장잔고 5000만원의 따단한 분들이 꼭 알아야 하는 자본주의 투자법",
         "content": "일부러스뛰는 뛰는 사람들이네는더글라 뛰는사람들이네는더글라뛰는사사람들이네는더글라 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는",
@@ -528,6 +551,7 @@
       {
         "id": "hc4",
         "authorNickname": "너바나",
+        "profileImage": "/images/testIMG/profile1.jpg",
         "category": "님의",
         "title": "통장잔고 5000만원의 따단한 분들이 꼭 알아야 하는 자본주의 투자법",
         "content": "일부러스뛰는 뛰는 사람들이네는더글라 뛰는사람들이네는더글라뛰는사사람들이네는더글라 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는",

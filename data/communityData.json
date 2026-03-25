@@ -24,6 +24,7 @@
     ],
     "dummyUser": {
       "nickname": "고기먹고싶다",
+      "profileImage": "/images/testIMG/profile3.jpg",
       "verified": true,
       "followerCount": "팔로워 8,562",
       "statValues": {
@@ -131,6 +132,7 @@
       "id": "pop-1",
       "title": "국제유가 폭등, 내 집 마련 더 서둘러야 할까?국제유가 폭등, 내 집 마련 더 서둘러야 할까요?",
       "authorNickname": "전조아빠",
+      "profileImage": "/images/testIMG/profile1.jpg",
       "category": "전조아빠",
       "date": "26.02.27",
       "viewCount": 217
@@ -139,6 +141,7 @@
       "id": "pop-2",
       "title": "D-day 30일, '다주택자 급매' 잡으려면 이렇게 해야 합니다.",
       "authorNickname": "전조아빠",
+      "profileImage": "/images/testIMG/profile3.jpg",
       "category": "닉네임",
       "date": "26.02.27",
       "viewCount": 217
@@ -147,6 +150,7 @@
       "id": "pop-3",
       "title": "서울 아파트는 지금 투자하기 괜찮은걸까?",
       "authorNickname": "전조아빠",
+      "profileImage": "/images/testIMG/profile5.jpg",
       "category": "전조아빠",
       "date": "26.02.27",
       "viewCount": 217
@@ -155,6 +159,7 @@
       "id": "pop-4",
       "title": "서울시 서초구에 내집마련 성공했습니다!",
       "authorNickname": "전조아빠",
+      "profileImage": "/images/testIMG/profile2.jpg",
       "category": "전조아빠",
       "date": "26.02.27",
       "viewCount": 217
@@ -163,6 +168,7 @@
       "id": "pop-5",
       "title": "강남 30분안에 아직 7억대... 5월 9일 전 마지막 내집마련 기회인 '이곳'",
       "authorNickname": "전조아빠",
+      "profileImage": "/images/testIMG/profile4.jpg",
       "category": "전조아빠",
       "date": "26.02.27",
       "viewCount": 217
@@ -192,6 +198,7 @@
     {
       "id": "article-1",
       "authorNickname": "나누리",
+      "profileImage": "/images/testIMG/profile2.jpg",
       "authorVerified": true,
       "date": "26.05.22",
       "title": "나는 저기 저... 반포에 집을 샀어. - 집들이편 [서달스]",
@@ -204,6 +211,7 @@
     {
       "id": "article-2",
       "authorNickname": "나누리",
+      "profileImage": "/images/testIMG/profile4.jpg",
       "authorVerified": true,
       "date": "26.05.22",
       "title": "\"집은 그렇게 사면 안 됩니다\" 집 사고 반드시 후회하는 사람들",
@@ -216,6 +224,7 @@
     {
       "id": "article-3",
       "authorNickname": "나누리",
+      "profileImage": "/images/testIMG/profile1.jpg",
       "authorVerified": true,
       "date": "26.05.22",
       "title": "[자금공유] 상품 100개 올려도 안 팔린다면 당장 '이 것' 부터",
@@ -228,6 +237,7 @@
     {
       "id": "article-4",
       "authorNickname": "나누리",
+      "profileImage": "/images/testIMG/profile5.jpg",
       "authorVerified": true,
       "date": "26.05.22",
       "title": "D-day 30일, '다주택자 급매' 잡으려면 이렇게 해야 합니다.",
@@ -244,30 +254,35 @@
       "id": "qna-1",
       "title": "제목을 나타내는 임시텍스트입니다.",
       "answererNickname": "나투리",
+      "profileImage": "/images/testIMG/profile3.jpg",
       "answererVerified": true
     },
     {
       "id": "qna-2",
       "title": "제목을 나타내는 임시텍스트입니다.",
       "answererNickname": "나투리",
+      "profileImage": "/images/testIMG/profile1.jpg",
       "answererVerified": true
     },
     {
       "id": "qna-3",
       "title": "제목을 나타내는 임시텍스트입니다.",
       "answererNickname": "나투리",
+      "profileImage": "/images/testIMG/profile5.jpg",
       "answererVerified": true
     },
     {
       "id": "qna-4",
       "title": "제목을 나타내는 임시텍스트입니다.",
       "answererNickname": "나투리",
+      "profileImage": "/images/testIMG/profile2.jpg",
       "answererVerified": true
     },
     {
       "id": "qna-5",
       "title": "제목을 나타내는 임시텍스트입니다.",
       "answererNickname": "나투리",
+      "profileImage": "/images/testIMG/profile4.jpg",
       "answererVerified": true
     }
   ],
@@ -276,30 +291,35 @@
     {
       "id": "profile-1",
       "nickname": "자율과자유",
+      "profileImage": "/images/testIMG/profile1.jpg",
       "verified": true,
       "followerCount": "팔로워 35,502"
     },
     {
       "id": "profile-2",
       "nickname": "이드니형",
+      "profileImage": "/images/testIMG/profile3.jpg",
       "verified": true,
       "followerCount": "팔로워 22,145"
     },
     {
       "id": "profile-3",
       "nickname": "참영이",
+      "profileImage": "/images/testIMG/profile5.jpg",
       "verified": true,
       "followerCount": "팔로워 520"
     },
     {
       "id": "profile-4",
       "nickname": "나누리",
+      "profileImage": "/images/testIMG/profile2.jpg",
       "verified": false,
       "followerCount": "팔로워 62,940"
     },
     {
       "id": "profile-5",
       "nickname": "입실나무는부자나무",
+      "profileImage": "/images/testIMG/profile4.jpg",
       "verified": false,
       "followerCount": "팔로워 442"
     }
@@ -309,6 +329,7 @@
     {
       "id": "rank-1",
       "nickname": "고기먹고싶다",
+      "profileImage": "/images/testIMG/profile4.jpg",
       "verified": true,
       "commentCount": 98,
       "likeCount": 50
@@ -316,6 +337,7 @@
     {
       "id": "rank-2",
       "nickname": "다이어트는 월요일",
+      "profileImage": "/images/testIMG/profile2.jpg",
       "verified": false,
       "commentCount": 50,
       "likeCount": 37
@@ -323,6 +345,7 @@
     {
       "id": "rank-3",
       "nickname": "빛나는금요일",
+      "profileImage": "/images/testIMG/profile5.jpg",
       "verified": true,
       "commentCount": 37,
       "likeCount": 21

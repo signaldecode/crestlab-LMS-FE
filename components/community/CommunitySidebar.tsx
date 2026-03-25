@@ -42,7 +42,17 @@ export default function CommunitySidebar({ inDrawer, onNavigate }: CommunitySide
         {/* 프로필 카드 */}
         <div className="community-sidebar__profile-card">
           <div className="community-sidebar__avatar-wrap">
-            <div className="community-sidebar__avatar community-sidebar__avatar--placeholder" />
+            {dummyUser?.profileImage ? (
+              <Image
+                src={dummyUser.profileImage}
+                alt={`${dummyUser.nickname} 프로필`}
+                width={72}
+                height={72}
+                className="community-sidebar__avatar"
+              />
+            ) : (
+              <div className="community-sidebar__avatar community-sidebar__avatar--placeholder" />
+            )}
           </div>
 
           {dummyUser ? (

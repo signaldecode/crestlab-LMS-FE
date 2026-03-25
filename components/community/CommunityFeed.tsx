@@ -207,7 +207,17 @@ function ArticleSection({ section }: { section: FeedSection }): JSX.Element {
           <div className="community-feed__article-body">
             {/* 작성자 */}
             <div className="community-feed__article-author">
-              <div className="community-feed__article-avatar" />
+              {article.profileImage ? (
+                <Image
+                  src={article.profileImage}
+                  alt={`${article.authorNickname} 프로필`}
+                  width={24}
+                  height={24}
+                  className="community-feed__article-avatar"
+                />
+              ) : (
+                <div className="community-feed__article-avatar" />
+              )}
               <span className="community-feed__article-author-name">{article.authorNickname}</span>
               {article.authorVerified && (
                 <Image

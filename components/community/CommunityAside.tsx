@@ -49,7 +49,17 @@ function ProfileSection({ section }: { section: AsideSection }): JSX.Element {
         {profiles.slice(0, section.itemCount).map((profile) => (
           <li key={profile.id} className="community-aside__member">
             <div className="community-aside__member-left">
-              <div className="community-aside__avatar community-aside__avatar--placeholder" />
+              {profile.profileImage ? (
+                <Image
+                  src={profile.profileImage}
+                  alt={`${profile.nickname} 프로필`}
+                  width={40}
+                  height={40}
+                  className="community-aside__avatar"
+                />
+              ) : (
+                <div className="community-aside__avatar community-aside__avatar--placeholder" />
+              )}
               <div className="community-aside__member-info">
                 <div className="community-aside__name-row">
                   <span className="community-aside__nickname">{profile.nickname}</span>
@@ -91,7 +101,17 @@ function RankingSection({ section }: { section: AsideSection }): JSX.Element {
               {section.showRank && (
                 <span className="community-aside__rank">{i + 1}</span>
               )}
-              <div className="community-aside__avatar community-aside__avatar--placeholder" />
+              {user.profileImage ? (
+                <Image
+                  src={user.profileImage}
+                  alt={`${user.nickname} 프로필`}
+                  width={40}
+                  height={40}
+                  className="community-aside__avatar"
+                />
+              ) : (
+                <div className="community-aside__avatar community-aside__avatar--placeholder" />
+              )}
               <div className="community-aside__member-info">
                 <div className="community-aside__name-row">
                   <span className="community-aside__nickname">{user.nickname}</span>

@@ -188,6 +188,7 @@
     width: 4.5rem;
     height: 4.5rem;
     border-radius: 50%;
+    object-fit: cover;
 
     &--placeholder {
       background: $color-bg-tertiary;
@@ -740,6 +741,7 @@
     height: 1.5rem;
     border-radius: 50%;
     background: $color-bg-tertiary;
+    object-fit: cover;
     flex-shrink: 0;
   }
 
@@ -1089,6 +1091,7 @@
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
+    object-fit: cover;
 
     &--placeholder {
       background: $color-bg-tertiary;
