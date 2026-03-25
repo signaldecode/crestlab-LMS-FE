@@ -6,6 +6,7 @@
 @use '../tokens/colors' as *;
 @use '../tokens/spacing' as *;
 @use '../tokens/typography' as *;
+@use '../tokens/effects' as *;
 @use '../mixins/breakpoints' as *;
 
 @keyframes mypage-pulse {
@@ -43,9 +44,9 @@
   transform: translateY(0.5rem);
   overflow: hidden;
   transition:
-    opacity 0.3s ease,
-    max-height 0.35s ease,
-    transform 0.3s ease;
+    opacity $duration-slow $ease-default,
+    max-height 0.35s $ease-default,
+    transform $duration-slow $ease-default;
   pointer-events: none;
 
   &--active {
@@ -107,9 +108,9 @@
     position: relative;
     width: 2.75rem;
     height: 1.5rem;
-    border-radius: 1rem;
+    border-radius: $radius-xl;
     background: $color-primary;
-    transition: background 0.3s;
+    transition: background $duration-slow;
   }
 
   &__switch-thumb {
@@ -118,9 +119,9 @@
     left: 0.1875rem;
     width: 1.125rem;
     height: 1.125rem;
-    border-radius: 50%;
+    border-radius: $radius-circle;
     background: $color-bg-primary;
-    transition: transform 0.3s;
+    transition: transform $duration-slow;
   }
 
   // 강의실 모드일 때 (aria-checked="true") → thumb 오른쪽
@@ -144,9 +145,9 @@
     transform: translateY(-0.5rem);
     overflow: hidden;
     transition:
-      opacity 0.3s ease,
-      max-height 0.35s ease,
-      transform 0.3s ease;
+      opacity $duration-slow $ease-default,
+      max-height 0.35s $ease-default,
+      transform $duration-slow $ease-default;
     pointer-events: none;
 
     &--active {
@@ -202,15 +203,15 @@
   &__level-bar {
     width: 100%;
     height: 0.375rem;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     background: $color-bg-tertiary;
   }
 
   &__level-fill {
     height: 100%;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     background: $color-primary;
-    transition: width 0.3s;
+    transition: width $duration-slow;
   }
 
   &__level-steps {
@@ -230,7 +231,7 @@
     justify-content: space-between;
     width: 100%;
     padding-top: $spacing-4;
-    border-top: 1px solid $color-border;
+    border-top: $border-thin solid $color-border;
   }
 
   &__stat {
@@ -273,12 +274,12 @@
 
   &__info-badge {
     display: inline-block;
-    padding: 0.125rem $spacing-2;
+    padding: $border-medium $spacing-2;
     font-size: $font-size-xs;
     font-weight: $font-weight-medium;
     color: $color-primary;
     background: rgba($color-primary, 0.1);
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
   }
 
   &__info-value {
@@ -343,12 +344,12 @@
     justify-content: center;
     width: 2.75rem;
     height: 2.75rem;
-    border: 1px solid $color-border;
-    border-radius: 0.5rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
     background: $color-bg-primary;
     color: $color-text-secondary;
     cursor: pointer;
-    transition: background 0.2s, color 0.2s;
+    transition: background $duration-normal, color $duration-normal;
 
     &:hover {
       background: $color-bg-secondary;
@@ -360,13 +361,13 @@
     flex: 1;
     padding: $spacing-3;
     border: none;
-    border-radius: 0.5rem;
+    border-radius: $radius-md;
     background: $color-primary;
     color: $color-text-inverse;
     font-size: $font-size-sm;
     font-weight: $font-weight-bold;
     cursor: pointer;
-    transition: opacity 0.2s;
+    transition: opacity $duration-normal;
 
     &:hover {
       opacity: 0.85;
@@ -387,7 +388,7 @@
 
   &__menu-section {
     padding-bottom: $spacing-4;
-    border-bottom: 1px solid $color-border;
+    border-bottom: $border-thin solid $color-border;
     margin-bottom: $spacing-4;
   }
 
@@ -438,7 +439,7 @@
 
   &__tabs {
     display: flex;
-    border-bottom: 1px solid $color-border;
+    border-bottom: $border-thin solid $color-border;
     margin-bottom: $spacing-8;
   }
 
@@ -446,7 +447,7 @@
     padding: $spacing-3 $spacing-6;
     background: none;
     border: none;
-    border-bottom: 2px solid transparent;
+    border-bottom: $border-medium solid transparent;
     font-size: $font-size-base;
     font-weight: $font-weight-medium;
     color: $color-text-secondary;
@@ -473,7 +474,7 @@
     position: relative;
     width: 100%;
     height: 3rem;
-    border-radius: 0.5rem;
+    border-radius: $radius-md;
     margin-top: 8rem;
     overflow: hidden;
   }
@@ -498,7 +499,7 @@
     color: $color-text-primary;
     margin-bottom: $spacing-6;
     padding-bottom: $spacing-4;
-    border-bottom: 1px solid $color-border;
+    border-bottom: $border-thin solid $color-border;
   }
 
   // ── 강의 카드 리스트 ──
@@ -513,10 +514,10 @@
     align-items: flex-start;
     gap: $spacing-5;
     padding: $spacing-5;
-    border: 1px solid $color-border;
-    border-radius: 0.5rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
     background: $color-bg-primary;
-    transition: box-shadow 0.2s ease;
+    transition: box-shadow $duration-normal $ease-default;
 
     &:hover {
       box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.08);
@@ -534,7 +535,7 @@
   &__course-thumb {
     width: 10rem;
     height: 6.5rem;
-    border-radius: 0.375rem;
+    border-radius: $radius-sm;
     object-fit: cover;
 
     @media (max-width: 639px) {
@@ -593,16 +594,16 @@
   &__course-progress-bar {
     flex: 1;
     height: 0.375rem;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     background: $color-bg-tertiary;
     overflow: hidden;
   }
 
   &__course-progress-fill {
     height: 100%;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     background: $color-primary;
-    transition: width 0.3s ease;
+    transition: width $duration-slow $ease-default;
 
     &--complete {
       background: $color-success;
@@ -631,10 +632,10 @@
     font-weight: $font-weight-medium;
     color: $color-bg-primary;
     background: $color-primary;
-    border-radius: 0.375rem;
+    border-radius: $radius-sm;
     text-decoration: none;
     white-space: nowrap;
-    transition: opacity 0.2s ease;
+    transition: opacity $duration-normal $ease-default;
 
     &:hover {
       opacity: 0.85;
@@ -673,7 +674,7 @@
     display: inline-block;
     width: 2.5rem;
     height: 1.25rem;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     background: $color-bg-tertiary;
     animation: mypage-pulse 1.8s ease-in-out infinite;
 
@@ -684,7 +685,7 @@
 
   &__skel-line {
     display: block;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     background: $color-bg-tertiary;
     animation: mypage-pulse 1.8s ease-in-out infinite;
 
@@ -701,7 +702,7 @@
     display: inline-block;
     width: 1.25rem;
     height: 1.25rem;
-    border-radius: 50%;
+    border-radius: $radius-circle;
     background: $color-bg-tertiary;
     animation: mypage-pulse 1.8s ease-in-out infinite;
   }
@@ -709,14 +710,14 @@
   &__progress-bar {
     flex: 1;
     height: 0.375rem;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     background: $color-bg-tertiary;
   }
 
   &__progress-fill {
     width: 0%;
     height: 100%;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     background: $color-primary;
   }
 
@@ -726,15 +727,15 @@
     align-items: center;
     gap: $spacing-4;
     padding: $spacing-4;
-    border: 1px solid $color-bg-tertiary;
-    border-radius: 0.5rem;
+    border: $border-thin solid $color-bg-tertiary;
+    border-radius: $radius-md;
   }
 
   &__consult-thumb {
     flex-shrink: 0;
     width: 5rem;
     height: 5rem;
-    border-radius: 0.375rem;
+    border-radius: $radius-sm;
     background: $color-bg-tertiary;
     animation: mypage-pulse 1.8s ease-in-out infinite;
   }
@@ -759,7 +760,7 @@
     display: block;
     width: 5rem;
     height: 5rem;
-    border-radius: 0.375rem;
+    border-radius: $radius-sm;
     overflow: hidden;
   }
 
@@ -804,7 +805,7 @@
     padding: $spacing-1 $spacing-3;
     font-size: $font-size-xs;
     font-weight: $font-weight-medium;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
 
     &--done {
       color: $color-success;
@@ -821,8 +822,8 @@
   &__cert-card {
     display: flex;
     flex-direction: column;
-    border: 1px solid $color-bg-tertiary;
-    border-radius: 0.5rem;
+    border: $border-thin solid $color-bg-tertiary;
+    border-radius: $radius-md;
     overflow: hidden;
   }
 
@@ -884,13 +885,13 @@
   &__cert-download-btn {
     padding: $spacing-1 $spacing-3;
     border: none;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     background: $color-primary;
     color: $color-text-inverse;
     font-size: $font-size-xs;
     font-weight: $font-weight-medium;
     cursor: pointer;
-    transition: opacity 0.2s;
+    transition: opacity $duration-normal;
 
     &:hover {
       opacity: 0.85;
@@ -903,7 +904,7 @@
     font-weight: $font-weight-medium;
     color: $color-text-secondary;
     background: $color-bg-tertiary;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
   }
 
   &__skel-badge--status {
@@ -922,15 +923,15 @@
     display: flex;
     gap: $spacing-4;
     padding: $spacing-4;
-    border: 1px solid $color-bg-tertiary;
-    border-radius: 0.5rem;
+    border: $border-thin solid $color-bg-tertiary;
+    border-radius: $radius-md;
   }
 
   &__review-thumb {
     flex-shrink: 0;
     width: 5rem;
     height: 5rem;
-    border-radius: 0.375rem;
+    border-radius: $radius-sm;
     background: $color-bg-tertiary;
     animation: mypage-pulse 1.8s ease-in-out infinite;
   }
@@ -969,7 +970,7 @@
     display: block;
     width: 5rem;
     height: 5rem;
-    border-radius: 0.375rem;
+    border-radius: $radius-sm;
     overflow: hidden;
   }
 
@@ -1023,11 +1024,11 @@
     align-items: center;
     gap: $spacing-4;
     padding: $spacing-4;
-    border: 1px solid $color-bg-tertiary;
-    border-radius: 0.5rem;
+    border: $border-thin solid $color-bg-tertiary;
+    border-radius: $radius-md;
     text-decoration: none;
     color: inherit;
-    transition: border-color 0.15s, background 0.15s;
+    transition: border-color $duration-fast, background $duration-fast;
 
     &:hover {
       border-color: $color-primary;
@@ -1051,7 +1052,7 @@
     flex-shrink: 0;
     width: 4rem;
     height: 3rem;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     background: $color-bg-tertiary;
     animation: mypage-pulse 1.8s ease-in-out infinite;
   }
@@ -1077,7 +1078,7 @@
     display: block;
     width: 4rem;
     height: 3rem;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     overflow: hidden;
   }
 
@@ -1120,7 +1121,7 @@
     padding: $spacing-1 $spacing-3;
     font-size: $font-size-xs;
     font-weight: $font-weight-medium;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
 
     &--done {
       color: $color-success;
@@ -1172,7 +1173,7 @@
     padding: $spacing-1 $spacing-3;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
 
     &--done {
       color: $color-success;
@@ -1190,7 +1191,7 @@
     margin-bottom: $spacing-8;
     padding: $spacing-5;
     background: $color-bg-secondary;
-    border-radius: 0.5rem;
+    border-radius: $radius-md;
   }
 
   &__info-list {
@@ -1229,7 +1230,7 @@
     color: $color-text-primary;
     margin-bottom: $spacing-4;
     padding-bottom: $spacing-3;
-    border-bottom: 1px solid $color-border;
+    border-bottom: $border-thin solid $color-border;
   }
 
   // 강의 목록
@@ -1247,8 +1248,8 @@
     align-items: center;
     gap: $spacing-4;
     padding: $spacing-4;
-    border: 1px solid $color-bg-tertiary;
-    border-radius: 0.5rem;
+    border: $border-thin solid $color-bg-tertiary;
+    border-radius: $radius-md;
 
     @media (max-width: 767px) {
       flex-wrap: wrap;
@@ -1260,7 +1261,7 @@
     display: block;
     width: 5rem;
     height: 3.75rem;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     overflow: hidden;
   }
 
@@ -1331,7 +1332,7 @@
 
     &--total {
       padding-top: $spacing-4;
-      border-top: 1px solid $color-border;
+      border-top: $border-thin solid $color-border;
       font-size: $font-size-base;
       font-weight: $font-weight-bold;
 
@@ -1350,7 +1351,7 @@
     display: flex;
     gap: $spacing-3;
     padding-top: $spacing-6;
-    border-top: 1px solid $color-border;
+    border-top: $border-thin solid $color-border;
   }
 
   &__action-btn {
@@ -1360,11 +1361,11 @@
     padding: $spacing-3 $spacing-5;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
-    border-radius: 0.375rem;
+    border-radius: $radius-sm;
     text-decoration: none;
     cursor: pointer;
     border: none;
-    transition: opacity 0.15s;
+    transition: opacity $duration-fast;
 
     &:hover {
       opacity: 0.85;
@@ -1378,7 +1379,7 @@
     &--outline {
       color: $color-text-secondary;
       background: transparent;
-      border: 1px solid $color-border;
+      border: $border-thin solid $color-border;
 
       &:hover {
         border-color: $color-text-secondary;
@@ -1429,7 +1430,7 @@
 
   &__tabs {
     display: flex;
-    border-bottom: 1px solid $color-border;
+    border-bottom: $border-thin solid $color-border;
     margin-bottom: $spacing-6;
   }
 
@@ -1437,7 +1438,7 @@
     padding: $spacing-3 $spacing-6;
     background: none;
     border: none;
-    border-bottom: 2px solid transparent;
+    border-bottom: $border-medium solid transparent;
     font-size: $font-size-base;
     font-weight: $font-weight-medium;
     color: $color-text-secondary;
@@ -1459,8 +1460,8 @@
 
   &__filter {
     padding: $spacing-2 $spacing-4;
-    border-radius: 2rem;
-    border: 1px solid $color-border;
+    border-radius: $radius-3xl;
+    border: $border-thin solid $color-border;
     background: $color-bg-primary;
     font-size: $font-size-sm;
     color: $color-text-secondary;
@@ -1486,8 +1487,8 @@
 
   &__select {
     padding: $spacing-2 $spacing-3;
-    border: 1px solid $color-border;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
     font-size: $font-size-sm;
     background: $color-bg-primary;
   }
@@ -1495,8 +1496,8 @@
   &__search {
     flex: 1;
     padding: $spacing-2 $spacing-3;
-    border: 1px solid $color-border;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
     font-size: $font-size-sm;
 
     &::placeholder {
@@ -1547,8 +1548,8 @@
   &__write-btn {
     margin-top: $spacing-4;
     padding: $spacing-2 $spacing-6;
-    border: 1px solid $color-border;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
     background: $color-bg-primary;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
@@ -1573,7 +1574,7 @@
     align-items: center;
     text-align: center;
     padding: $spacing-12 0;
-    border-bottom: 1px solid $color-border;
+    border-bottom: $border-thin solid $color-border;
   }
 
   &__bio-title {
@@ -1607,14 +1608,14 @@
   &__bio-edit-btn {
     margin-top: $spacing-4;
     padding: $spacing-2 $spacing-4;
-    border: 1px solid $color-border;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
     background: $color-bg-primary;
     font-size: $font-size-xs;
     font-weight: $font-weight-medium;
     color: $color-text-secondary;
     cursor: pointer;
-    transition: background 0.2s, color 0.2s;
+    transition: background $duration-normal, color $duration-normal;
 
     &:hover {
       background: $color-bg-secondary;
@@ -1625,8 +1626,8 @@
   &__bio-btn {
     margin-top: $spacing-6;
     padding: $spacing-3 $spacing-6;
-    border: 1px solid $color-text-primary;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-text-primary;
+    border-radius: $radius-sm;
     background: $color-bg-primary;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
@@ -1641,8 +1642,8 @@
   &__featured-add-btn {
     margin-top: $spacing-4;
     padding: $spacing-2 $spacing-6;
-    border: 1px solid $color-border;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
     background: $color-bg-primary;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
@@ -1684,8 +1685,8 @@
     flex-direction: column;
     align-items: center;
     padding: $spacing-12 0;
-    border: 1px solid $color-border;
-    border-radius: 0.75rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-lg;
     text-align: center;
   }
 
@@ -1715,8 +1716,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid $color-border;
-    border-radius: 50%;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-circle;
     background: $color-bg-primary;
     font-size: $font-size-base;
     color: $color-text-secondary;
@@ -1747,8 +1748,8 @@
     display: flex;
     flex-direction: column;
     background: $color-bg-primary;
-    border: 1px solid $color-border;
-    border-radius: 0.75rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-lg;
     overflow: hidden;
   }
 
@@ -1785,7 +1786,7 @@
     left: $spacing-6;
     width: 5rem;
     height: 5rem;
-    border-radius: 50%;
+    border-radius: $radius-circle;
     border: 3px solid $color-bg-primary;
     overflow: hidden;
     background: $color-bg-primary;
@@ -1795,13 +1796,13 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 50%;
+    border-radius: $radius-circle;
   }
 
   &__avatar {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
+    border-radius: $radius-circle;
 
     &--default {
       display: flex;
@@ -1827,14 +1828,14 @@
 
   &__image-btn {
     padding: $spacing-2 $spacing-5;
-    border: 1px solid $color-border;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
     background: $color-bg-primary;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
     color: $color-text-primary;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background $duration-normal;
 
     &:hover {
       background: $color-bg-secondary;
@@ -1855,7 +1856,7 @@
   // 섹션 공통
   &__section {
     padding: $spacing-6;
-    border-top: 1px solid $color-border;
+    border-top: $border-thin solid $color-border;
   }
 
   &__section-title {
@@ -1874,13 +1875,13 @@
   &__input {
     flex: 1;
     padding: $spacing-3 $spacing-4;
-    border: 1px solid $color-border;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
     font-size: $font-size-sm;
     font-family: inherit;
     color: $color-text-primary;
     outline: none;
-    transition: border-color 0.2s;
+    transition: border-color $duration-normal;
 
     &::placeholder {
       color: $color-text-secondary;
@@ -1894,15 +1895,15 @@
   &__check-btn {
     flex-shrink: 0;
     padding: $spacing-3 $spacing-5;
-    border: 1px solid $color-border;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
     background: $color-bg-primary;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
     color: $color-text-secondary;
     cursor: pointer;
     white-space: nowrap;
-    transition: background 0.2s, color 0.2s;
+    transition: background $duration-normal, color $duration-normal;
 
     &:hover {
       background: $color-bg-secondary;
@@ -1915,15 +1916,15 @@
     width: 100%;
     min-height: 10rem;
     padding: $spacing-4;
-    border: 1px solid $color-border;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
     font-size: $font-size-sm;
     font-family: inherit;
     color: $color-text-primary;
     line-height: $line-height-base;
     outline: none;
     resize: none;
-    transition: border-color 0.2s;
+    transition: border-color $duration-normal;
 
     &::placeholder {
       color: $color-text-secondary;
@@ -1965,8 +1966,8 @@
     flex-direction: column;
     align-items: center;
     padding: $spacing-10 0;
-    border: 1px solid $color-border;
-    border-radius: 0.75rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-lg;
     text-align: center;
   }
 
@@ -1987,14 +1988,14 @@
   &__featured-add-btn {
     margin-top: $spacing-4;
     padding: $spacing-2 $spacing-6;
-    border: 1px solid $color-border;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
     background: $color-bg-primary;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
     color: $color-text-primary;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background $duration-normal;
 
     &:hover {
       background: $color-bg-secondary;
@@ -2006,8 +2007,8 @@
     position: sticky;
     top: $spacing-8;
     padding: $spacing-6;
-    border: 1px solid $color-border;
-    border-radius: 0.75rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-lg;
     background: $color-bg-primary;
     display: flex;
     flex-direction: column;
@@ -2045,7 +2046,7 @@
 
   &__progress-fill {
     color: $color-text-primary;
-    transition: stroke-dashoffset 0.6s ease;
+    transition: stroke-dashoffset 0.6s $ease-default;
   }
 
   &__progress-text {
@@ -2097,13 +2098,13 @@
     width: 100%;
     padding: $spacing-3;
     border: none;
-    border-radius: 0.375rem;
+    border-radius: $radius-sm;
     background: $color-text-primary;
     color: $color-text-inverse;
     font-size: $font-size-sm;
     font-weight: $font-weight-bold;
     cursor: pointer;
-    transition: opacity 0.2s;
+    transition: opacity $duration-normal;
 
     &:hover {
       opacity: 0.85;
@@ -2124,14 +2125,14 @@
 
   &__sub-tab {
     padding: $spacing-2 $spacing-4;
-    border-radius: 2rem;
-    border: 1px solid $color-border;
+    border-radius: $radius-3xl;
+    border: $border-thin solid $color-border;
     background: $color-bg-primary;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
     color: $color-text-secondary;
     cursor: pointer;
-    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    transition: background $duration-normal, color $duration-normal, border-color $duration-normal;
 
     &--active {
       background: $color-text-primary;
@@ -2176,9 +2177,9 @@
     align-items: center;
     gap: $spacing-4;
     padding: $spacing-4;
-    border: 1px solid $color-bg-tertiary;
-    border-radius: 0.5rem;
-    transition: background 0.2s;
+    border: $border-thin solid $color-bg-tertiary;
+    border-radius: $radius-md;
+    transition: background $duration-normal;
 
     &:hover {
       background: $color-bg-secondary;
@@ -2189,7 +2190,7 @@
     flex-shrink: 0;
     width: 3rem;
     height: 3rem;
-    border-radius: 50%;
+    border-radius: $radius-circle;
     overflow: hidden;
   }
 
@@ -2197,7 +2198,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 50%;
+    border-radius: $radius-circle;
   }
 
   &__user-info {
@@ -2236,12 +2237,12 @@
     padding: $spacing-2 $spacing-4;
     font-size: $font-size-xs;
     font-weight: $font-weight-medium;
-    border: 1px solid $color-primary;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-primary;
+    border-radius: $radius-sm;
     background: $color-primary;
     color: $color-text-inverse;
     cursor: pointer;
-    transition: background 0.2s, color 0.2s;
+    transition: background $duration-normal, color $duration-normal;
 
     &--following {
       background: $color-bg-primary;
@@ -2278,7 +2279,7 @@
   // 구분선
   &__divider {
     border: none;
-    border-top: 2px solid $color-text-primary;
+    border-top: $border-medium solid $color-text-primary;
     margin: 0 0 $spacing-8;
   }
 
@@ -2359,13 +2360,13 @@
   &__input {
     width: 100%;
     padding: $spacing-3 $spacing-4;
-    border: 1px solid $color-border;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
     font-size: $font-size-sm;
     font-family: inherit;
     color: $color-text-primary;
     outline: none;
-    transition: border-color 0.2s;
+    transition: border-color $duration-normal;
 
     &::placeholder {
       color: $color-text-secondary;
@@ -2386,15 +2387,15 @@
   &__verify-btn {
     flex-shrink: 0;
     padding: $spacing-3 $spacing-5;
-    border: 1px solid $color-primary;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-primary;
+    border-radius: $radius-sm;
     background: $color-bg-primary;
     color: $color-primary;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
     cursor: pointer;
     white-space: nowrap;
-    transition: background 0.2s, color 0.2s;
+    transition: background $duration-normal, color $duration-normal;
 
     &:hover {
       background: $color-primary;
@@ -2440,7 +2441,7 @@
     display: inline-block;
     width: 1.25rem;
     height: 1.25rem;
-    border-radius: 50%;
+    border-radius: $radius-circle;
 
     &[data-provider='naver'] { background: #03c75a; }
     &[data-provider='kakao'] { background: #fee500; }
@@ -2468,14 +2469,14 @@
 
   &__social-btn {
     padding: $spacing-2 $spacing-5;
-    border: 1px solid $color-border;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
     background: $color-bg-primary;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
     color: $color-text-secondary;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background $duration-normal;
 
     &:hover {
       background: $color-bg-secondary;
@@ -2544,14 +2545,14 @@
 
   &__withdraw-btn {
     padding: $spacing-3 $spacing-6;
-    border: 1px solid $color-text-primary;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-text-primary;
+    border-radius: $radius-sm;
     background: $color-bg-primary;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
     color: $color-text-primary;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background $duration-normal;
 
     &:hover {
       background: $color-bg-secondary;
@@ -2560,14 +2561,14 @@
 
   &__cancel-btn {
     padding: $spacing-3 $spacing-8;
-    border: 1px solid $color-border;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
     background: $color-bg-primary;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
     color: $color-text-primary;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background $duration-normal;
 
     &:hover {
       background: $color-bg-secondary;
@@ -2577,13 +2578,13 @@
   &__submit-btn {
     padding: $spacing-3 $spacing-8;
     border: none;
-    border-radius: 0.375rem;
+    border-radius: $radius-sm;
     background: $color-text-primary;
     color: $color-text-inverse;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
     cursor: pointer;
-    transition: opacity 0.2s;
+    transition: opacity $duration-normal;
 
     &:hover {
       opacity: 0.85;
@@ -2617,8 +2618,8 @@
 
   &__sort {
     padding: $spacing-2 $spacing-3;
-    border: 1px solid $color-border;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
     font-size: $font-size-sm;
     color: $color-text-primary;
     background: $color-bg-primary;
@@ -2631,7 +2632,7 @@
     padding: $spacing-12 0;
     font-size: $font-size-sm;
     color: $color-text-secondary;
-    border-bottom: 1px solid $color-border;
+    border-bottom: $border-thin solid $color-border;
     margin-bottom: $spacing-8;
   }
 
@@ -2686,7 +2687,7 @@
     border: 0.0625rem solid $color-border;
     border-radius: $spacing-2;
     outline: none;
-    transition: border-color 0.2s;
+    transition: border-color $duration-normal;
 
     &::placeholder {
       color: $color-text-secondary;
@@ -2707,7 +2708,7 @@
     border-radius: $spacing-2;
     cursor: pointer;
     white-space: nowrap;
-    transition: opacity 0.2s;
+    transition: opacity $duration-normal;
 
     &:hover {
       opacity: 0.85;
@@ -2754,7 +2755,7 @@
     border-bottom: 0.125rem solid transparent;
     cursor: pointer;
     white-space: nowrap;
-    transition: color 0.2s, border-color 0.2s;
+    transition: color $duration-normal, border-color $duration-normal;
     margin-bottom: -0.0625rem;
 
     &--active {
@@ -2808,7 +2809,7 @@
     border-radius: $spacing-3;
     overflow: hidden;
     background: $color-bg-primary;
-    transition: border-color 0.2s;
+    transition: border-color $duration-normal;
 
     &:hover {
       border-color: $color-primary;
@@ -2876,7 +2877,7 @@
       left: -0.375rem;
       width: 0.75rem;
       height: 0.75rem;
-      border-radius: 50%;
+      border-radius: $radius-circle;
       background: $color-bg-primary;
     }
 
@@ -2940,7 +2941,7 @@
     border: 0.0625rem solid transparent;
     border-radius: $spacing-1;
     cursor: pointer;
-    transition: color 0.15s, border-color 0.15s;
+    transition: color $duration-fast, border-color $duration-fast;
 
     &:hover:not(:disabled):not(&--active) {
       color: $color-text-primary;
@@ -2985,7 +2986,7 @@
     gap: $spacing-3;
     padding: $spacing-4 $spacing-6;
     background: $color-bg-secondary;
-    border-radius: 0.5rem;
+    border-radius: $radius-md;
     margin-bottom: $spacing-6;
   }
 
@@ -3010,7 +3011,7 @@
     color: $color-text-primary;
     margin: 0 0 $spacing-4;
     padding-bottom: $spacing-4;
-    border-bottom: 1px solid $color-border;
+    border-bottom: $border-thin solid $color-border;
   }
 
   // ── 상품권 목록 ──
@@ -3022,8 +3023,8 @@
   }
 
   &__giftcard-item {
-    border: 1px solid $color-border;
-    border-radius: 0.5rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
     overflow: hidden;
 
     &--inactive {
@@ -3049,7 +3050,7 @@
     font-size: $font-size-xs;
     font-weight: $font-weight-medium;
     padding: $spacing-1 $spacing-2;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
 
     &--active {
       background: $color-bg-tertiary;
@@ -3107,7 +3108,7 @@
     align-items: center;
     gap: $spacing-4;
     padding: $spacing-3 0;
-    border-bottom: 1px solid $color-bg-tertiary;
+    border-bottom: $border-thin solid $color-bg-tertiary;
 
     &:last-child {
       border-bottom: none;
@@ -3153,8 +3154,8 @@
     align-items: flex-start;
     gap: $spacing-4;
     padding: $spacing-4;
-    border: 1px solid $color-bg-tertiary;
-    border-radius: 0.5rem;
+    border: $border-thin solid $color-bg-tertiary;
+    border-radius: $radius-md;
 
     @media (max-width: 767px) {
       flex-wrap: wrap;
@@ -3166,7 +3167,7 @@
     display: block;
     width: 7.5rem;
     height: 5rem;
-    border-radius: 0.375rem;
+    border-radius: $radius-sm;
     overflow: hidden;
   }
 
@@ -3220,15 +3221,15 @@
     flex: 1;
     height: 0.375rem;
     background: $color-bg-tertiary;
-    border-radius: 1rem;
+    border-radius: $radius-xl;
     overflow: hidden;
   }
 
   &__course-progress-fill {
     height: 100%;
     background: $color-primary;
-    border-radius: 1rem;
-    transition: width 0.3s ease;
+    border-radius: $radius-xl;
+    transition: width $duration-slow $ease-default;
 
     &--complete {
       background: $color-success;
@@ -3254,10 +3255,10 @@
     font-weight: $font-weight-medium;
     color: $color-text-inverse;
     background: $color-primary;
-    border-radius: 0.375rem;
+    border-radius: $radius-sm;
     text-decoration: none;
     white-space: nowrap;
-    transition: opacity 0.2s;
+    transition: opacity $duration-normal;
 
     &:hover {
       opacity: 0.85;
@@ -3315,7 +3316,7 @@
     font-weight: $font-weight-regular;
     color: $color-text-secondary;
     cursor: pointer;
-    transition: color 0.2s ease;
+    transition: color $duration-normal $ease-default;
 
     &--active {
       color: $color-primary;
@@ -3335,7 +3336,7 @@
     font-weight: $font-weight-medium;
     background-color: $color-bg-tertiary;
     color: $color-text-secondary;
-    transition: all 0.2s ease;
+    transition: all $duration-normal $ease-default;
 
     .mypage-classroom__point-tab--active & {
       background-color: $color-primary;
@@ -3353,7 +3354,7 @@
     justify-content: space-between;
     align-items: flex-start;
     padding: $spacing-5 0;
-    border-bottom: 1px solid $color-border;
+    border-bottom: $border-thin solid $color-border;
 
     &:last-child {
       border-bottom: none;

@@ -9,6 +9,7 @@
 @use '../tokens/spacing' as *;
 @use '../tokens/typography' as *;
 @use '../tokens/z-index' as *;
+@use '../tokens/effects' as *;
 @use '../mixins/breakpoints' as *;
 
 .global-nav {
@@ -42,9 +43,9 @@
     font-weight: $font-weight-medium;
     color: $color-text-primary;
     text-decoration: none;
-    border-radius: $spacing-1;
+    border-radius: $radius-xs;
     white-space: nowrap;
-    transition: color 0.2s ease, background-color 0.2s ease;
+    transition: color $duration-normal $ease-default, background-color $duration-normal $ease-default;
 
     &:hover {
       color: $color-primary;
@@ -76,9 +77,9 @@
   right: $spacing-0;
   z-index: $z-index-dropdown;
   background-color: $color-bg-primary;
-  border-top: 0.0625rem solid $color-border;
-  border-bottom: 0.0625rem solid $color-border;
-  box-shadow: 0 $spacing-2 $spacing-6 rgba(0, 0, 0, 0.08);
+  border-top: $border-thin solid $color-border;
+  border-bottom: $border-thin solid $color-border;
+  box-shadow: $shadow-sm;
   padding: $spacing-8 $spacing-0;
 
   // hover 브리지
@@ -120,7 +121,7 @@
     font-weight: $font-weight-bold;
     color: $color-text-primary;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color $duration-normal $ease-default;
 
     &:hover {
       color: $color-primary;
@@ -144,7 +145,7 @@
     font-size: $font-size-sm;
     color: $color-text-secondary;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color $duration-normal $ease-default;
 
     &:hover {
       color: $color-primary;

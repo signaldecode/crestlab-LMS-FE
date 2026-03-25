@@ -7,6 +7,7 @@
 @use '../tokens/colors' as *;
 @use '../tokens/spacing' as *;
 @use '../tokens/typography' as *;
+@use '../tokens/effects' as *;
 @use '../mixins/breakpoints' as *;
 
 // ── 스켈레톤 애니메이션 ──
@@ -57,16 +58,16 @@
 
   &__sort-select {
     padding: $spacing-2 $spacing-4;
-    border: 1px solid $color-border;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
     font-size: $font-size-sm;
     color: $color-text-primary;
     background: $color-bg-primary;
     cursor: pointer;
 
     &:focus {
-      outline: 2px solid $color-border-focus;
-      outline-offset: 2px;
+      outline: $border-medium solid $color-border-focus;
+      outline-offset: $border-medium;
     }
   }
 
@@ -89,7 +90,7 @@
   &__skeleton-preview {
     margin-top: $spacing-12;
     padding-top: $spacing-8;
-    border-top: 1px solid $color-border;
+    border-top: $border-thin solid $color-border;
   }
 }
 
@@ -99,7 +100,7 @@
 .upcoming-card {
   display: flex;
   flex-direction: column;
-  border-radius: 0.5rem;
+  border-radius: $radius-md;
   overflow: hidden;
   background-color: $color-bg-primary;
 
@@ -109,7 +110,7 @@
     width: 100%;
     aspect-ratio: 4 / 3;
     background-color: $color-bg-tertiary;
-    border-radius: 0.5rem;
+    border-radius: $radius-md;
     overflow: hidden;
   }
 
@@ -126,7 +127,7 @@
     color: $color-text-inverse;
     font-size: $font-size-xs;
     font-weight: $font-weight-medium;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     line-height: $line-height-base;
   }
 
@@ -141,10 +142,10 @@
     justify-content: center;
     background: rgba(255, 255, 255, 0.8);
     border: none;
-    border-radius: 50%;
+    border-radius: $radius-circle;
     cursor: pointer;
     color: $color-text-secondary;
-    transition: color 0.2s;
+    transition: color $duration-normal;
 
     &:hover {
       color: $color-error;
@@ -209,15 +210,15 @@
   &__notify-btn {
     width: 100%;
     padding: $spacing-2 $spacing-4;
-    border: 1px solid $color-primary;
-    border-radius: 1.5rem;
+    border: $border-thin solid $color-primary;
+    border-radius: $radius-2xl;
     background: $color-bg-primary;
     color: $color-primary;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
     cursor: pointer;
     text-align: center;
-    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    transition: background $duration-normal, color $duration-normal, border-color $duration-normal;
     margin-top: $spacing-1;
 
     &:hover {
@@ -252,7 +253,7 @@
   }
 
   &__skeleton-line {
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     background: $color-bg-tertiary;
     animation: upcoming-skeleton-pulse 1.8s ease-in-out infinite;
 
@@ -279,7 +280,7 @@
     &--btn {
       width: 100%;
       height: 2.25rem;
-      border-radius: 1.5rem;
+      border-radius: $radius-2xl;
       margin-top: $spacing-1;
     }
   }

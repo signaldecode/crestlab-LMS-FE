@@ -8,6 +8,7 @@
 @use '../tokens/spacing' as *;
 @use '../tokens/typography' as *;
 @use '../tokens/z-index' as *;
+@use '../tokens/effects' as *;
 @use '../mixins/breakpoints' as *;
 
 // ── 스켈레톤 펄스 애니메이션 ──
@@ -21,18 +22,18 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background: #1b1b1f;
+  background: $color-dark-surface;
   color: $color-text-inverse;
   overflow: hidden;
 
   // Skeleton 컴포넌트 오버라이드 (어두운 배경용)
   .skeleton {
-    background: #2a2a2e !important;
+    background: $color-dark-border !important;
     animation: lp-skeleton-pulse 1.8s ease-in-out infinite;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
 
     &--circle {
-      border-radius: 50%;
+      border-radius: $radius-circle;
     }
   }
 
@@ -45,8 +46,8 @@
     justify-content: space-between;
     height: 3.25rem;
     padding: 0 $spacing-4;
-    background: #1b1b1f;
-    border-bottom: 1px solid #2a2a2e;
+    background: $color-dark-surface;
+    border-bottom: $border-thin solid $color-dark-border;
     flex-shrink: 0;
   }
 
@@ -63,11 +64,11 @@
   }
 
   &__back-btn {
-    border-radius: 0.375rem;
+    border-radius: $radius-sm;
   }
 
   &__review-btn {
-    border-radius: 0.375rem;
+    border-radius: $radius-sm;
   }
 
   // ========================================
@@ -97,7 +98,7 @@
   &__video-placeholder {
     position: absolute;
     inset: 0;
-    background: #0a0a0a !important;
+    background: $color-dark-bg !important;
     border-radius: 0 !important;
     animation: none !important;
   }
@@ -109,8 +110,8 @@
     justify-content: space-between;
     height: 3rem;
     padding: 0 $spacing-4;
-    background: #1b1b1f;
-    border-top: 1px solid #2a2a2e;
+    background: $color-dark-surface;
+    border-top: $border-thin solid $color-dark-border;
     flex-shrink: 0;
   }
 
@@ -138,8 +139,8 @@
     width: 320px;
     display: none;
     flex-shrink: 0;
-    border-left: 1px solid #2a2a2e;
-    background: #1b1b1f;
+    border-left: $border-thin solid $color-dark-border;
+    background: $color-dark-surface;
 
     @include breakpoint(lg) {
       display: flex;
@@ -154,7 +155,7 @@
     width: 56px;
     padding-top: $spacing-3;
     gap: $spacing-1;
-    border-right: 1px solid #2a2a2e;
+    border-right: $border-thin solid $color-dark-border;
     flex-shrink: 0;
   }
 
@@ -196,7 +197,7 @@
   &__check-icon {
     flex-shrink: 0;
     margin-top: 1px;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
   }
 
   &__curriculum-info {
@@ -209,7 +210,7 @@
 
   &__curriculum-divider {
     height: 1px;
-    background: #2a2a2e;
+    background: $color-dark-border;
     margin: $spacing-3 0;
   }
 
@@ -222,8 +223,8 @@
     justify-content: space-between;
     height: 3.5rem;
     padding: 0 $spacing-4;
-    background: #1b1b1f;
-    border-top: 1px solid #2a2a2e;
+    background: $color-dark-surface;
+    border-top: $border-thin solid $color-dark-border;
     flex-shrink: 0;
   }
 
@@ -239,11 +240,11 @@
   }
 
   &__nav-btn {
-    border-radius: 0.375rem;
+    border-radius: $radius-sm;
   }
 
   &__complete-btn {
-    border-radius: 0.375rem;
+    border-radius: $radius-sm;
   }
 }
 
@@ -294,8 +295,8 @@ body:has(.lecture-player-layout) {
   justify-content: space-between;
   height: 3.25rem;
   padding: 0 $spacing-4;
-  background: #1b1b1f;
-  border-bottom: 1px solid #2a2a2e;
+  background: $color-dark-surface;
+  border-bottom: $border-thin solid $color-dark-border;
   flex-shrink: 0;
 
   &__left {
@@ -311,15 +312,15 @@ body:has(.lecture-player-layout) {
     justify-content: center;
     width: 2.25rem;
     height: 2.25rem;
-    border-radius: 0.375rem;
+    border-radius: $radius-sm;
     color: rgba(255, 255, 255, 0.75);
     text-decoration: none;
-    transition: background 0.15s, color 0.15s;
+    transition: background $duration-fast, color $duration-fast;
     flex-shrink: 0;
 
     &:hover {
       background: rgba(255, 255, 255, 0.08);
-      color: #fff;
+      color: $color-text-inverse;
     }
   }
 
@@ -369,9 +370,9 @@ body:has(.lecture-player-layout) {
   display: none;
   flex-shrink: 0;
   width: 340px;
-  border-left: 1px solid #2a2a2e;
-  background: #1b1b1f;
-  transition: width 0.25s ease;
+  border-left: $border-thin solid $color-dark-border;
+  background: $color-dark-surface;
+  transition: width 0.25s $ease-default;
 
   @include breakpoint(lg) {
     display: flex;
@@ -397,7 +398,7 @@ body:has(.lecture-player-layout) {
     align-items: center;
     width: 56px;
     flex-shrink: 0;
-    border-right: 1px solid #2a2a2e;
+    border-right: $border-thin solid $color-dark-border;
     padding-top: $spacing-2;
     gap: 0;
   }
@@ -414,7 +415,7 @@ body:has(.lecture-player-layout) {
     background: transparent;
     color: rgba(255, 255, 255, 0.4);
     cursor: pointer;
-    transition: color 0.15s, background 0.15s;
+    transition: color $duration-fast, background $duration-fast;
     position: relative;
 
     &:hover {
@@ -423,7 +424,7 @@ body:has(.lecture-player-layout) {
     }
 
     &--active {
-      color: #fff;
+      color: $color-text-inverse;
 
       &::before {
         content: '';
@@ -458,7 +459,7 @@ body:has(.lecture-player-layout) {
       background: transparent;
     }
     &::-webkit-scrollbar-thumb {
-      background: #3a3a3e;
+      background: $color-dark-border-light;
       border-radius: 2px;
     }
   }
@@ -471,19 +472,19 @@ body:has(.lecture-player-layout) {
   // 진행률 헤더
   &__progress-header {
     padding: $spacing-4;
-    border-bottom: 1px solid #2a2a2e;
+    border-bottom: $border-thin solid $color-dark-border;
   }
 
   &__progress-text {
     display: block;
     font-size: $font-size-xs;
-    color: rgba(255, 255, 255, 0.6);
+    color: $overlay-white-strong;
     margin-bottom: $spacing-2;
   }
 
   &__progress-bar {
     height: 4px;
-    background: #2a2a2e;
+    background: $color-dark-border;
     border-radius: 2px;
     overflow: hidden;
   }
@@ -492,12 +493,12 @@ body:has(.lecture-player-layout) {
     height: 100%;
     background: $color-primary;
     border-radius: 2px;
-    transition: width 0.3s ease;
+    transition: width $duration-slow $ease-default;
   }
 
   // 섹션
   &__section {
-    border-bottom: 1px solid #2a2a2e;
+    border-bottom: $border-thin solid $color-dark-border;
   }
 
   &__section-header {
@@ -538,7 +539,7 @@ body:has(.lecture-player-layout) {
     cursor: pointer;
     text-align: left;
     font-family: $font-family-base;
-    transition: background 0.15s;
+    transition: background $duration-fast;
 
     &:hover {
       background: rgba(255, 255, 255, 0.04);
@@ -547,7 +548,7 @@ body:has(.lecture-player-layout) {
     // 현재 재생 중인 강의
     &--active {
       background: rgba($color-primary, 0.1);
-      color: #fff;
+      color: $color-text-inverse;
 
       .lecture-sidebar__item-title {
         color: $color-primary-light;
@@ -612,18 +613,18 @@ body:has(.lecture-player-layout) {
   &__empty-btn {
     margin-top: $spacing-4;
     padding: $spacing-2 $spacing-5;
-    border: 1px solid #3a3a3e;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-dark-border-light;
+    border-radius: $radius-sm;
     background: transparent;
     color: rgba(255, 255, 255, 0.75);
     font-size: $font-size-sm;
     font-family: $font-family-base;
     cursor: pointer;
-    transition: background 0.15s, border-color 0.15s;
+    transition: background $duration-fast, border-color $duration-fast;
 
     &:hover {
       background: rgba(255, 255, 255, 0.06);
-      border-color: #5a5a5e;
+      border-color: $color-dark-text-muted;
     }
   }
 }
@@ -653,10 +654,10 @@ body:has(.lecture-player-layout) {
     right: 0;
     bottom: 3rem; // 하단 탭 바 높이만큼 위에 위치
     height: 60vh;
-    background: #1b1b1f;
-    border-radius: 0.75rem 0.75rem 0 0;
+    background: $color-dark-surface;
+    border-radius: $radius-lg $radius-lg 0 0;
     transform: translateY(100%);
-    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+    transition: transform $duration-slow cubic-bezier(0.32, 0.72, 0, 1);
     z-index: $z-index-modal;
     display: flex;
     flex-direction: column;
@@ -680,7 +681,7 @@ body:has(.lecture-player-layout) {
     align-items: center;
     justify-content: space-between;
     padding: $spacing-3 $spacing-4;
-    border-bottom: 1px solid #2a2a2e;
+    border-bottom: $border-thin solid $color-dark-border;
     flex-shrink: 0;
   }
 
@@ -697,15 +698,15 @@ body:has(.lecture-player-layout) {
     width: 2rem;
     height: 2rem;
     border: none;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     background: transparent;
-    color: rgba(255, 255, 255, 0.6);
+    color: $overlay-white-strong;
     cursor: pointer;
-    transition: background 0.15s, color 0.15s;
+    transition: background $duration-fast, color $duration-fast;
 
     &:hover {
       background: rgba(255, 255, 255, 0.08);
-      color: #fff;
+      color: $color-text-inverse;
     }
   }
 
@@ -719,8 +720,8 @@ body:has(.lecture-player-layout) {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background: #1b1b1f;
-    border-top: 1px solid #2a2a2e;
+    background: $color-dark-surface;
+    border-top: $border-thin solid $color-dark-border;
     z-index: $z-index-modal;
   }
 
@@ -736,7 +737,7 @@ body:has(.lecture-player-layout) {
     background: transparent;
     color: rgba(255, 255, 255, 0.4);
     cursor: pointer;
-    transition: color 0.15s;
+    transition: color $duration-fast;
 
     &:hover {
       color: rgba(255, 255, 255, 0.7);
@@ -768,7 +769,7 @@ body:has(.lecture-player-layout) {
   flex-direction: column;
   justify-content: flex-end;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity $duration-slow $ease-default;
   cursor: default;
   z-index: 10;
 
@@ -785,7 +786,7 @@ body:has(.lecture-player-layout) {
     left: 0;
     right: 0;
     height: 50%;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+    background: linear-gradient(transparent, $overlay-black-intense);
     pointer-events: none;
   }
 
@@ -801,15 +802,15 @@ body:has(.lecture-player-layout) {
     align-items: center;
     justify-content: center;
     border: none;
-    border-radius: 50%;
+    border-radius: $radius-circle;
     background: rgba(0, 0, 0, 0.55);
-    color: #fff;
+    color: $color-text-inverse;
     cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
+    transition: background $duration-normal, transform $duration-fast;
     z-index: 1;
 
     &:hover {
-      background: rgba(0, 0, 0, 0.75);
+      background: $overlay-black-heavy;
       transform: translate(-50%, -50%) scale(1.08);
     }
   }
@@ -838,7 +839,7 @@ body:has(.lecture-player-layout) {
     height: 3px;
     background: rgba(255, 255, 255, 0.25);
     border-radius: 2px;
-    transition: height 0.15s;
+    transition: height $duration-fast;
   }
 
   &__progress-fill {
@@ -847,7 +848,7 @@ body:has(.lecture-player-layout) {
     height: 3px;
     background: $color-primary;
     border-radius: 2px;
-    transition: height 0.15s;
+    transition: height $duration-fast;
   }
 
   &__progress-handle {
@@ -856,9 +857,9 @@ body:has(.lecture-player-layout) {
     width: 0.875rem;
     height: 0.875rem;
     background: $color-primary;
-    border-radius: 50%;
+    border-radius: $radius-circle;
     transform: translate(-50%, -50%) scale(0);
-    transition: transform 0.15s;
+    transition: transform $duration-fast;
   }
 
   &__progress:hover &__progress-bg,
@@ -897,11 +898,11 @@ body:has(.lecture-player-layout) {
     width: 2.25rem;
     height: 2.25rem;
     border: none;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     background: transparent;
-    color: #fff;
+    color: $color-text-inverse;
     cursor: pointer;
-    transition: background 0.15s;
+    transition: background $duration-fast;
 
     &:hover {
       background: rgba(255, 255, 255, 0.12);
@@ -939,8 +940,8 @@ body:has(.lecture-player-layout) {
     width: 2rem;
     height: 7rem;
     padding: $spacing-2 0;
-    background: rgba(28, 28, 32, 0.95);
-    border-radius: 0.375rem;
+    background: $color-dark-surface-raised;
+    border-radius: $radius-sm;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -969,8 +970,8 @@ body:has(.lecture-player-layout) {
     list-style: none;
     margin: 0 0 $spacing-1;
     padding: $spacing-2 0;
-    background: rgba(28, 28, 32, 0.95);
-    border-radius: 0.375rem;
+    background: $color-dark-surface-raised;
+    border-radius: $radius-sm;
     min-width: 5rem;
   }
 
@@ -989,7 +990,7 @@ body:has(.lecture-player-layout) {
 
     &:hover {
       background: rgba(255, 255, 255, 0.08);
-      color: #fff;
+      color: $color-text-inverse;
     }
 
     &--active {
@@ -1009,8 +1010,8 @@ body:has(.lecture-player-layout) {
   justify-content: space-between;
   height: 3.5rem;
   padding: 0 $spacing-4;
-  background: #1b1b1f;
-  border-top: 1px solid #2a2a2e;
+  background: $color-dark-surface;
+  border-top: $border-thin solid $color-dark-border;
   flex-shrink: 0;
 
   // 모바일: 하단 사이드바 탭 바(3rem)만큼 올려서 겹침 방지
@@ -1057,20 +1058,20 @@ body:has(.lecture-player-layout) {
     align-items: center;
     gap: $spacing-1;
     padding: $spacing-2 $spacing-4;
-    border: 1px solid #3a3a3e;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-dark-border-light;
+    border-radius: $radius-sm;
     background: transparent;
     color: rgba(255, 255, 255, 0.85);
     font-size: $font-size-sm;
     font-family: $font-family-base;
     font-weight: $font-weight-medium;
     cursor: pointer;
-    transition: background 0.15s, border-color 0.15s;
+    transition: background $duration-fast, border-color $duration-fast;
     white-space: nowrap;
 
     &:hover:not(:disabled) {
       background: rgba(255, 255, 255, 0.08);
-      border-color: #5a5a5e;
+      border-color: $color-dark-text-muted;
     }
 
     &:disabled {
@@ -1082,7 +1083,7 @@ body:has(.lecture-player-layout) {
     &--complete {
       background: $color-primary;
       border-color: $color-primary;
-      color: #fff;
+      color: $color-text-inverse;
 
       &:hover:not(:disabled) {
         background: $color-primary-dark;
@@ -1110,7 +1111,7 @@ body:has(.lecture-player-layout) {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background: #1b1b1f;
+  background: $color-dark-surface;
 
   &__main {
     flex: 1;
@@ -1121,7 +1122,7 @@ body:has(.lecture-player-layout) {
   &__sidebar {
     width: 320px;
     flex-shrink: 0;
-    border-left: 1px solid #2a2a2e;
+    border-left: $border-thin solid $color-dark-border;
     overflow-y: auto;
     display: none;
 
@@ -1132,7 +1133,7 @@ body:has(.lecture-player-layout) {
 
   &__tabs {
     flex-shrink: 0;
-    border-top: 1px solid #2a2a2e;
+    border-top: $border-thin solid $color-dark-border;
   }
 }
 
@@ -1187,8 +1188,8 @@ body:has(.lecture-player-layout) {
     align-items: center;
     gap: $spacing-4;
     padding: $spacing-4;
-    border: 1px solid $color-border;
-    border-radius: 0.75rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-lg;
     background: $color-bg-secondary;
   }
 
@@ -1196,7 +1197,7 @@ body:has(.lecture-player-layout) {
     flex-shrink: 0;
     width: 4rem;
     height: 4rem;
-    border-radius: 0.375rem;
+    border-radius: $radius-sm;
     overflow: hidden;
   }
 
@@ -1239,8 +1240,8 @@ body:has(.lecture-player-layout) {
 
   // ── 새 문의 폼 ──
   &__form-section {
-    border: 1px solid $color-border;
-    border-radius: 0.75rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-lg;
     padding: $spacing-6;
     background: $color-bg-primary;
   }
@@ -1257,12 +1258,12 @@ body:has(.lecture-player-layout) {
     font-size: $font-size-base;
     color: $color-text-primary;
     background: $color-bg-secondary;
-    border: 1px solid $color-border;
-    border-radius: 0.5rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
     resize: vertical;
     font-family: inherit;
     line-height: $line-height-relaxed;
-    transition: border-color 0.2s ease;
+    transition: border-color $duration-normal $ease-default;
 
     &::placeholder {
       color: $color-text-secondary;
@@ -1286,9 +1287,9 @@ body:has(.lecture-player-layout) {
     color: $color-text-inverse;
     background: $color-primary;
     border: none;
-    border-radius: 0.375rem;
+    border-radius: $radius-sm;
     cursor: pointer;
-    transition: opacity 0.2s ease;
+    transition: opacity $duration-normal $ease-default;
 
     &:hover:not(:disabled) {
       opacity: 0.88;
@@ -1323,8 +1324,8 @@ body:has(.lecture-player-layout) {
   }
 
   &__item {
-    border: 1px solid $color-border;
-    border-radius: 0.75rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-lg;
     padding: $spacing-5;
     background: $color-bg-primary;
     display: flex;
@@ -1355,7 +1356,7 @@ body:has(.lecture-player-layout) {
     padding: $spacing-1 $spacing-3;
     font-size: $font-size-xs;
     font-weight: $font-weight-medium;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
 
     &--done {
       color: $color-success;
@@ -1381,7 +1382,7 @@ body:has(.lecture-player-layout) {
     flex-direction: column;
     gap: $spacing-2;
     padding-top: $spacing-3;
-    border-top: 1px solid $color-border;
+    border-top: $border-thin solid $color-border;
   }
 
   &__answer {

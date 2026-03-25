@@ -8,6 +8,7 @@
 @use '../tokens/spacing' as *;
 @use '../tokens/typography' as *;
 @use '../tokens/z-index' as *;
+@use '../tokens/effects' as *;
 
 // ── 공용 모달 ──
 .modal-overlay {
@@ -17,7 +18,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: $overlay-black-modal;
 }
 
 .modal-content {
@@ -28,7 +29,7 @@
   max-height: 90vh;
   overflow-y: auto;
   background-color: $color-bg-primary;
-  border-radius: $spacing-3;
+  border-radius: $radius-lg;
   box-shadow: 0 $spacing-6 $spacing-16 rgba(0, 0, 0, 0.15);
   padding: $spacing-8;
 }
@@ -47,8 +48,8 @@
   background: none;
   border: none;
   cursor: pointer;
-  border-radius: $spacing-1;
-  transition: color 0.2s ease;
+  border-radius: $radius-xs;
+  transition: color $duration-normal $ease-default;
 
   &:hover {
     color: $color-text-primary;
@@ -63,7 +64,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: $overlay-black-modal;
   animation: confirm-fade-in 0.2s ease;
 }
 
@@ -73,7 +74,7 @@
   width: 100%;
   max-width: 26rem;
   background-color: $color-bg-primary;
-  border-radius: $spacing-3;
+  border-radius: $radius-lg;
   box-shadow: 0 $spacing-6 $spacing-16 rgba(0, 0, 0, 0.15);
   padding: $spacing-12 $spacing-8 $spacing-8;
   text-align: center;
@@ -99,9 +100,9 @@
     font-size: $font-size-base;
     font-weight: $font-weight-semibold;
     border: none;
-    border-radius: $spacing-2;
+    border-radius: $radius-md;
     cursor: pointer;
-    transition: opacity 0.2s ease;
+    transition: opacity $duration-normal $ease-default;
 
     &:hover {
       opacity: 0.85;
@@ -137,7 +138,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: $overlay-black-modal;
   animation: coupon-fade-in 0.2s ease;
 
   &__card {
@@ -146,7 +147,7 @@
     width: 100%;
     max-width: 22rem;
     background-color: $color-bg-primary;
-    border-radius: $spacing-3;
+    border-radius: $radius-lg;
     box-shadow: 0 $spacing-6 $spacing-16 rgba(0, 0, 0, 0.15);
     padding: $spacing-8;
     text-align: center;
@@ -174,7 +175,7 @@
     padding: $spacing-6;
     margin-bottom: $spacing-6;
     background: $color-text-primary;
-    border-radius: $spacing-3;
+    border-radius: $radius-lg;
   }
 
   &__label {
@@ -183,7 +184,7 @@
   }
 
   &__amount {
-    font-size: 2.5rem;
+    font-size: $font-size-3xl;
     font-weight: $font-weight-bold;
     color: #facc15;
     line-height: 1;
@@ -193,13 +194,13 @@
     width: 100%;
     padding: $spacing-3;
     border: none;
-    border-radius: $spacing-2;
+    border-radius: $radius-md;
     background: $color-primary;
     color: $color-text-inverse;
     font-size: $font-size-base;
     font-weight: $font-weight-bold;
     cursor: pointer;
-    transition: opacity 0.2s;
+    transition: opacity $duration-normal $ease-default;
 
     &:hover {
       opacity: 0.9;
@@ -256,10 +257,10 @@
     padding: $spacing-3;
     font-size: $font-size-base;
     font-weight: $font-weight-medium;
-    border: 0.0625rem solid $color-border;
-    border-radius: $spacing-2;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
     cursor: pointer;
-    transition: opacity 0.2s ease;
+    transition: opacity $duration-normal $ease-default;
 
     &:hover {
       opacity: 0.85;
@@ -285,12 +286,12 @@
     justify-content: center;
     width: $spacing-10;
     height: $spacing-10;
-    border-radius: 50%;
+    border-radius: $radius-circle;
     font-size: $font-size-base;
     font-weight: $font-weight-bold;
     cursor: pointer;
-    border: 0.0625rem solid $color-border;
-    transition: opacity 0.2s ease;
+    border: $border-thin solid $color-border;
+    transition: opacity $duration-normal $ease-default;
 
     &:hover {
       opacity: 0.85;
@@ -339,10 +340,10 @@
     font-size: $font-size-base;
     color: $color-text-primary;
     background-color: $color-bg-primary;
-    border: 0.0625rem solid $color-border;
-    border-radius: $spacing-2;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
     outline: none;
-    transition: border-color 0.2s ease;
+    transition: border-color $duration-normal $ease-default;
 
     &::placeholder {
       color: $color-text-secondary;
@@ -371,10 +372,10 @@
     font-weight: $font-weight-medium;
     color: $color-primary;
     background-color: $color-bg-primary;
-    border: 0.0625rem solid $color-primary;
-    border-radius: $spacing-2;
+    border: $border-thin solid $color-primary;
+    border-radius: $radius-md;
     cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: background-color $duration-normal $ease-default, color $duration-normal $ease-default;
     white-space: nowrap;
 
     &:hover {
@@ -421,10 +422,10 @@
     font-weight: $font-weight-medium;
     color: $color-text-secondary;
     background-color: $color-bg-primary;
-    border: 0.0625rem solid $color-border;
-    border-radius: $spacing-2;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
     cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    transition: background-color $duration-normal $ease-default, color $duration-normal $ease-default, border-color $duration-normal $ease-default;
     text-align: center;
 
     &:hover {
@@ -480,9 +481,9 @@
     color: $color-text-inverse;
     background-color: $color-primary;
     border: none;
-    border-radius: $spacing-2;
+    border-radius: $radius-md;
     cursor: pointer;
-    transition: background-color 0.2s ease, opacity 0.2s ease;
+    transition: background-color $duration-normal $ease-default, opacity $duration-normal $ease-default;
     margin-top: $spacing-2;
 
     &:hover:not(:disabled) {
@@ -508,7 +509,7 @@
   &__link {
     color: $color-text-secondary;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color $duration-normal $ease-default;
 
     &:hover {
       color: $color-primary;

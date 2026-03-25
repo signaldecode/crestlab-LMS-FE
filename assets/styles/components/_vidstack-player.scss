@@ -8,6 +8,7 @@
 @use '../tokens/spacing' as *;
 @use '../tokens/typography' as *;
 @use '../tokens/z-index' as *;
+@use '../tokens/effects' as *;
 
 // ── Vidstack 미디어 플레이어 루트 ──
 .vidstack-player {
@@ -18,7 +19,7 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: #000;
+  background: $color-dark-bg;
 
   // vidstack 기본 aspect-ratio 제거 — 부모 flex 컨테이너에 맞춰 채움
   aspect-ratio: unset !important;
@@ -45,11 +46,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.3);
+  background: $overlay-black-light;
   z-index: $z-index-dropdown;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity $duration-normal $ease-default;
 
   &--active {
     opacity: 1;
@@ -59,9 +60,9 @@
 .vidstack-player__spinner {
   width: 3rem;
   height: 3rem;
-  border: 3px solid rgba(255, 255, 255, 0.2);
+  border: $border-thick solid $overlay-white-light;
   border-top-color: $color-primary;
-  border-radius: 50%;
+  border-radius: $radius-circle;
   animation: vidstack-spin 0.8s linear infinite;
 }
 
@@ -78,7 +79,7 @@
   align-items: center;
   justify-content: center;
   gap: $spacing-4;
-  background: rgba(0, 0, 0, 0.85);
+  background: $overlay-black-intense;
   z-index: $z-index-dropdown;
   padding: $spacing-6;
   text-align: center;
@@ -98,7 +99,7 @@
 
 .vidstack-player__error-message {
   font-size: $font-size-sm;
-  color: rgba(255, 255, 255, 0.6);
+  color: $overlay-white-strong;
   max-width: 24rem;
   line-height: $line-height-relaxed;
 }
@@ -108,18 +109,18 @@
   align-items: center;
   gap: $spacing-2;
   padding: $spacing-2 $spacing-5;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 0.375rem;
+  border: $border-thin solid $overlay-white-light;
+  border-radius: $radius-sm;
   background: transparent;
   color: $color-text-inverse;
   font-size: $font-size-sm;
   font-weight: $font-weight-medium;
   font-family: $font-family-base;
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
+  transition: background $duration-fast, border-color $duration-fast;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: $overlay-white-subtle;
     border-color: rgba(255, 255, 255, 0.35);
   }
 
@@ -146,15 +147,15 @@
   align-items: center;
   justify-content: center;
   border: none;
-  border-radius: 50%;
+  border-radius: $radius-circle;
   background: rgba(0, 0, 0, 0.55);
   color: $color-text-inverse;
   cursor: pointer;
-  transition: background 0.2s, transform 0.15s;
+  transition: background $duration-normal, transform $duration-fast;
   z-index: 5;
 
   &:hover {
-    background: rgba(0, 0, 0, 0.75);
+    background: $overlay-black-heavy;
     transform: translate(-50%, -50%) scale(1.08);
   }
 

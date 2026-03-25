@@ -7,12 +7,13 @@
 @use '../tokens/colors' as *;
 @use '../tokens/spacing' as *;
 @use '../tokens/typography' as *;
+@use '../tokens/effects' as *;
 
 .accordion {
   width: 100%;
 
   &__item {
-    border-bottom: 0.0625rem solid $color-border;
+    border-bottom: $border-thin solid $color-border;
 
     &:last-child {
       border-bottom: none;
@@ -41,16 +42,16 @@
     color: $color-text-primary;
     line-height: $line-height-base;
     gap: $spacing-4;
-    transition: color 0.2s ease;
+    transition: color $duration-normal $ease-default;
 
     &:hover {
       color: $color-primary;
     }
 
     &:focus-visible {
-      outline: 0.125rem solid $color-border-focus;
-      outline-offset: 0.125rem;
-      border-radius: 0.25rem;
+      outline: $border-medium solid $color-border-focus;
+      outline-offset: $border-medium;
+      border-radius: $radius-xs;
     }
   }
 
@@ -71,7 +72,7 @@
   &__icon {
     flex-shrink: 0;
     color: $color-text-secondary;
-    transition: transform 0.3s ease;
+    transition: transform $duration-slow $ease-default;
 
     &--open {
       transform: rotate(180deg);
@@ -93,7 +94,7 @@
     margin: 0;
     padding: $spacing-4 $spacing-5;
     background-color: $color-bg-secondary;
-    border-radius: $spacing-2;
+    border-radius: $radius-md;
     font-size: $font-size-sm;
     font-weight: $font-weight-regular;
     color: $color-text-secondary;

@@ -6,6 +6,7 @@
 @use '../tokens/colors' as *;
 @use '../tokens/typography' as *;
 @use '../tokens/spacing' as *;
+@use '../tokens/effects' as *;
 @use '../mixins/breakpoints' as *;
 
 // ── FAQ 페이지 래퍼 ──
@@ -41,15 +42,15 @@
 
   &__chip {
     padding: $spacing-2 $spacing-5;
-    border: 0.0625rem solid $color-border;
-    border-radius: 1.5rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-2xl;
     background: $color-bg-primary;
     color: $color-text-secondary;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
     font-family: $font-family-base;
     cursor: pointer;
-    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    transition: background $duration-normal, color $duration-normal, border-color $duration-normal;
     white-space: nowrap;
 
     &:hover {
@@ -58,8 +59,8 @@
     }
 
     &:focus-visible {
-      outline: 0.125rem solid $color-border-focus;
-      outline-offset: 0.125rem;
+      outline: $border-medium solid $color-border-focus;
+      outline-offset: $border-medium;
     }
 
     &--active {
@@ -117,7 +118,7 @@
     align-items: center;
     justify-content: space-between;
     padding: $spacing-4;
-    border: 0.0625rem solid $color-border;
+    border: $border-thin solid $color-border;
     border-radius: $spacing-2;
   }
 
@@ -153,7 +154,7 @@
     gap: $spacing-4;
     margin-top: $spacing-4;
     padding-top: $spacing-6;
-    border-top: 0.0625rem solid $color-border;
+    border-top: $border-thin solid $color-border;
   }
 
   &__cancel-btn {
@@ -164,10 +165,10 @@
     font-family: $font-family-base;
     color: $color-text-primary;
     background-color: $color-bg-primary;
-    border: 0.0625rem solid $color-border;
+    border: $border-thin solid $color-border;
     border-radius: $spacing-2;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color $duration-normal $ease-default;
 
     &:hover {
       background-color: $color-bg-secondary;
@@ -185,7 +186,7 @@
     border: none;
     border-radius: $spacing-2;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color $duration-normal $ease-default;
 
     &:hover {
       background-color: $color-primary-dark;

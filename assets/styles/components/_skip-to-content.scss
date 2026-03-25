@@ -8,6 +8,7 @@
 @use '../tokens/spacing' as *;
 @use '../tokens/typography' as *;
 @use '../tokens/z-index' as *;
+@use '../tokens/effects' as *;
 
 .skip-to-content {
   position: absolute;
@@ -21,7 +22,7 @@
   background-color: $color-primary;
   border-radius: $spacing-2;
   text-decoration: none;
-  transition: top 0.2s ease;
+  transition: top $duration-normal $ease-default;
 
   &:focus {
     top: $spacing-4;

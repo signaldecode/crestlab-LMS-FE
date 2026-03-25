@@ -5,6 +5,7 @@
 @use '../tokens/colors' as *;
 @use '../tokens/spacing' as *;
 @use '../tokens/typography' as *;
+@use '../tokens/effects' as *;
 
 .global-error-page {
   display: flex;
@@ -53,15 +54,15 @@
     border: none;
     border-radius: $spacing-2;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color $duration-normal;
 
     &:hover {
       background-color: $color-primary-dark;
     }
 
     &:focus-visible {
-      outline: 2px solid $color-border-focus;
-      outline-offset: 2px;
+      outline: $border-medium solid $color-border-focus;
+      outline-offset: $border-medium;
     }
   }
 
@@ -74,18 +75,18 @@
     font-weight: $font-weight-semibold;
     color: $color-text-primary;
     background-color: transparent;
-    border: 1px solid $color-primary;
+    border: $border-thin solid $color-primary;
     border-radius: $spacing-2;
     text-decoration: none;
-    transition: background-color 0.2s;
+    transition: background-color $duration-normal;
 
     &:hover {
       background-color: $color-bg-secondary;
     }
 
     &:focus-visible {
-      outline: 2px solid $color-border-focus;
-      outline-offset: 2px;
+      outline: $border-medium solid $color-border-focus;
+      outline-offset: $border-medium;
     }
   }
 }

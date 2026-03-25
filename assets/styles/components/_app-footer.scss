@@ -7,6 +7,7 @@
 @use '../tokens/colors' as *;
 @use '../tokens/spacing' as *;
 @use '../tokens/typography' as *;
+@use '../tokens/effects' as *;
 @use '../mixins/breakpoints' as *;
 
 .app-footer {
@@ -34,7 +35,7 @@
     font-size: $font-size-xl;
     font-weight: $font-weight-bold;
     color: $color-footer-text-bright;
-    letter-spacing: 0.05em;
+    letter-spacing: $letter-spacing-wide;
     text-transform: uppercase;
     font-family: $font-family-heading;
   }
@@ -44,13 +45,13 @@
     align-items: center;
     justify-content: center;
     padding: $spacing-2 $spacing-6;
-    border: 0.0625rem solid $color-footer-text;
-    border-radius: $spacing-1;
+    border: $border-thin solid $color-footer-text;
+    border-radius: $radius-xs;
     color: $color-footer-text-bright;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
     text-decoration: none;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
+    transition: background-color $duration-normal $ease-default, border-color $duration-normal $ease-default;
 
     &:hover {
       background-color: $color-footer-border;
@@ -79,7 +80,7 @@
     font-weight: $font-weight-medium;
     color: $color-footer-text-bright;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color $duration-normal $ease-default;
 
     &:hover {
       color: $color-footer-accent;
@@ -103,7 +104,7 @@
     font-size: $font-size-xs;
     color: $color-footer-text-muted;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color $duration-normal $ease-default;
 
     &:hover {
       color: $color-footer-text;
@@ -118,14 +119,14 @@
     flex-wrap: wrap;
     gap: $spacing-4;
     padding-top: $spacing-8;
-    border-top: 0.0625rem solid $color-footer-border;
+    border-top: $border-thin solid $color-footer-border;
   }
 
   &__copyright {
     font-size: $font-size-xs;
     color: $color-footer-text-muted;
     margin: $spacing-0;
-    letter-spacing: 0.02em;
+    letter-spacing: $letter-spacing-normal;
   }
 
   &__social-list {
@@ -142,11 +143,11 @@
     justify-content: center;
     width: $spacing-10;
     height: $spacing-10;
-    border: 0.0625rem solid $color-footer-text-muted;
-    border-radius: 50%;
+    border: $border-thin solid $color-footer-text-muted;
+    border-radius: $radius-circle;
     color: $color-footer-text;
     text-decoration: none;
-    transition: color 0.2s ease, border-color 0.2s ease;
+    transition: color $duration-normal $ease-default, border-color $duration-normal $ease-default;
 
     svg {
       width: $spacing-4;

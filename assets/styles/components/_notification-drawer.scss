@@ -7,16 +7,17 @@
 @use '../tokens/spacing' as *;
 @use '../tokens/typography' as *;
 @use '../tokens/z-index' as *;
+@use '../tokens/effects' as *;
 
 // 백드롭 오버레이
 .notification-drawer__overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: $overlay-black-medium;
   z-index: $z-index-modal-backdrop;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: opacity $duration-slow $ease-default, visibility $duration-slow $ease-default;
 
   &--visible {
     opacity: 1;
@@ -35,7 +36,7 @@
   background: $color-bg-primary;
   z-index: $z-index-modal;
   transform: translateX(100%);
-  transition: transform 0.3s ease;
+  transition: transform $duration-slow $ease-default;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -72,14 +73,14 @@
     color: $color-text-secondary;
     cursor: pointer;
     border-radius: $spacing-2;
-    transition: background 0.15s ease;
+    transition: background $duration-fast $ease-default;
 
     &:hover {
       background: $color-bg-tertiary;
     }
 
     &:focus-visible {
-      outline: 2px solid $color-border-focus;
+      outline: $border-medium solid $color-border-focus;
       outline-offset: -2px;
     }
   }
@@ -95,14 +96,14 @@
 
   &__tab {
     padding: $spacing-2 $spacing-4;
-    border: 1px solid $color-border;
+    border: $border-thin solid $color-border;
     border-radius: $spacing-5;
     background: $color-bg-primary;
     color: $color-text-secondary;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: all $duration-fast $ease-default;
     white-space: nowrap;
 
     &:hover {
@@ -111,7 +112,7 @@
     }
 
     &:focus-visible {
-      outline: 2px solid $color-border-focus;
+      outline: $border-medium solid $color-border-focus;
       outline-offset: -2px;
     }
 
@@ -166,14 +167,14 @@
   background: $color-bg-primary;
   cursor: pointer;
   text-align: left;
-  transition: background 0.15s ease;
+  transition: background $duration-fast $ease-default;
 
   &:hover {
     background: $color-bg-secondary;
   }
 
   &:focus-visible {
-    outline: 2px solid $color-border-focus;
+    outline: $border-medium solid $color-border-focus;
     outline-offset: -2px;
   }
 
@@ -192,14 +193,14 @@
   &__avatar-img {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
+    border-radius: $radius-circle;
     object-fit: cover;
   }
 
   &__avatar-default {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
+    border-radius: $radius-circle;
   }
 
   &__badge {
@@ -209,8 +210,8 @@
     width: $spacing-3;
     height: $spacing-3;
     background: $color-error;
-    border-radius: 50%;
-    border: 2px solid $color-bg-primary;
+    border-radius: $radius-circle;
+    border: $border-medium solid $color-bg-primary;
   }
 
   // 본문

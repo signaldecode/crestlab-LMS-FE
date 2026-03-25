@@ -8,6 +8,7 @@
 @use '../tokens/spacing' as *;
 @use '../tokens/typography' as *;
 @use '../tokens/z-index' as *;
+@use '../tokens/effects' as *;
 
 .admin-layout {
   display: flex;
@@ -17,7 +18,7 @@
     width: $spacing-20 * 3;
     flex-shrink: 0;
     background-color: $color-bg-secondary;
-    border-right: 0.0625rem solid $color-border;
+    border-right: $border-thin solid $color-border;
     padding: $spacing-6;
   }
 
@@ -44,7 +45,7 @@
     color: $color-text-secondary;
     text-decoration: none;
     border-radius: $spacing-2;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: background-color $duration-normal $ease-default, color $duration-normal $ease-default;
 
     &:hover {
       background-color: $color-bg-tertiary;

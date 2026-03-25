@@ -38,6 +38,50 @@ $color-error: #dc2626;
 $color-warning: #f59e0b;
 $color-info: #2563eb;
 
+// State — Background Tints (상태 배경색)
+$color-success-bg: #dcfce7;
+$color-error-bg: #fee2e2;
+$color-error-bg-light: #fef2f2;
+$color-warning-bg: #fef9c3;
+$color-secondary-bg: #f3e8ff;
+
+// Overlay — Black (어두운 오버레이)
+$overlay-black-light: rgba(0, 0, 0, 0.3);
+$overlay-black-medium: rgba(0, 0, 0, 0.4);
+$overlay-black-modal: rgba(0, 0, 0, 0.5);
+$overlay-black-dark: rgba(0, 0, 0, 0.6);
+$overlay-black-heavy: rgba(0, 0, 0, 0.75);
+$overlay-black-intense: rgba(0, 0, 0, 0.85);
+
+// Overlay — White (밝은 오버레이)
+$overlay-white-subtle: rgba(255, 255, 255, 0.1);
+$overlay-white-light: rgba(255, 255, 255, 0.2);
+$overlay-white-medium: rgba(255, 255, 255, 0.4);
+$overlay-white-strong: rgba(255, 255, 255, 0.6);
+$overlay-white-heavy: rgba(255, 255, 255, 0.8);
+
+// Social / External Platform
+$color-kakao: #fee500;
+$color-kakao-text: #191919;
+$color-naver: #03c75a;
+$color-google: #4285f4;
+
+// Dark Theme (플레이어/다크모드 전용)
+$color-dark-bg: #0a0a0a;
+$color-dark-surface: #1b1b1f;
+$color-dark-border: #2a2a2e;
+$color-dark-border-light: #3a3a3e;
+$color-dark-text-muted: #5a5a5e;
+$color-dark-surface-raised: rgba(28, 28, 32, 0.95);
+
+// Badge Accent (뱃지 전용)
+$color-badge-urgent: #ea580c;
+$color-badge-urgent-bg: #fff7ed;
+$color-badge-warning-dark: #a16207;
+
+// Star / Rating
+$color-star: #facc15;
+
 // Footer (Dark)
 $color-footer-bg: #1a1a1a;
 $color-footer-text: #a0a0a0;

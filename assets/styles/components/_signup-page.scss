@@ -7,6 +7,7 @@
 @use '../tokens/colors' as *;
 @use '../tokens/spacing' as *;
 @use '../tokens/typography' as *;
+@use '../tokens/effects' as *;
 @use '../mixins/breakpoints' as *;
 
 // ── 페이지 래퍼 ──
@@ -46,15 +47,15 @@
     border: none;
     border-radius: $spacing-2;
     cursor: pointer;
-    transition: opacity 0.2s ease;
+    transition: opacity $duration-normal $ease-default;
 
     &:hover {
       opacity: 0.9;
     }
 
     &--kakao {
-      background-color: #fee500;
-      color: #191919;
+      background-color: $color-kakao;
+      color: $color-kakao-text;
     }
   }
 
@@ -68,8 +69,8 @@
   &__social-icon {
     width: $spacing-12;
     height: $spacing-12;
-    border-radius: 50%;
-    border: 0.0625rem solid $color-border;
+    border-radius: $radius-circle;
+    border: $border-thin solid $color-border;
     background-color: $color-bg-primary;
     font-size: $font-size-base;
     font-weight: $font-weight-bold;
@@ -77,14 +78,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: border-color 0.2s ease, background-color 0.2s ease;
+    transition: border-color $duration-normal $ease-default, background-color $duration-normal $ease-default;
 
     &:hover {
       border-color: $color-primary;
     }
 
     &--naver {
-      color: #03c75a;
+      color: $color-naver;
     }
 
     &--google {
@@ -107,7 +108,7 @@
     &::after {
       content: '';
       flex: 1;
-      height: 0.0625rem;
+      height: $border-thin;
       background-color: $color-border;
     }
   }
@@ -144,10 +145,10 @@
     font-family: $font-family-base;
     color: $color-text-primary;
     background-color: $color-bg-primary;
-    border: 0.0625rem solid $color-border;
+    border: $border-thin solid $color-border;
     border-radius: $spacing-2;
     outline: none;
-    transition: border-color 0.2s ease;
+    transition: border-color $duration-normal $ease-default;
 
     &::placeholder {
       color: $color-text-secondary;
@@ -192,10 +193,10 @@
     font-weight: $font-weight-medium;
     color: $color-primary;
     background-color: $color-bg-primary;
-    border: 0.0625rem solid $color-primary;
+    border: $border-thin solid $color-primary;
     border-radius: $spacing-2;
     cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: background-color $duration-normal $ease-default, color $duration-normal $ease-default;
     white-space: nowrap;
 
     &:hover {
@@ -224,10 +225,10 @@
     font-weight: $font-weight-medium;
     color: $color-text-secondary;
     background-color: $color-bg-primary;
-    border: 0.0625rem solid $color-border;
+    border: $border-thin solid $color-border;
     border-radius: $spacing-2;
     cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    transition: background-color $duration-normal $ease-default, color $duration-normal $ease-default, border-color $duration-normal $ease-default;
     text-align: center;
 
     &:hover {
@@ -286,7 +287,7 @@
     border: none;
     border-radius: $spacing-2;
     cursor: pointer;
-    transition: background-color 0.2s ease, opacity 0.2s ease;
+    transition: background-color $duration-normal $ease-default, opacity $duration-normal $ease-default;
     margin-top: $spacing-2;
 
     &:hover:not(:disabled) {
@@ -322,7 +323,7 @@
     border: none;
     padding: $spacing-0;
     cursor: pointer;
-    transition: opacity 0.2s ease;
+    transition: opacity $duration-normal $ease-default;
 
     &:hover {
       opacity: 0.8;

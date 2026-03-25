@@ -6,6 +6,7 @@
 @use '../tokens/colors' as *;
 @use '../tokens/spacing' as *;
 @use '../tokens/typography' as *;
+@use '../tokens/effects' as *;
 @use '../mixins/breakpoints' as *;
 
 // ── 스켈레톤 애니메이션 ──
@@ -49,7 +50,7 @@
     left: 27%;
     width: 46%;
     z-index: 2;
-    border-radius: 0.75rem;
+    border-radius: $radius-lg;
   }
 
   // 왼쪽 peek
@@ -57,7 +58,7 @@
     left: 0;
     width: 26%;
     z-index: 1;
-    border-radius: 0.75rem;
+    border-radius: $radius-lg;
   }
 
   // 오른쪽 peek
@@ -65,7 +66,7 @@
     right: 0;
     width: 26%;
     z-index: 1;
-    border-radius: 0.75rem;
+    border-radius: $radius-lg;
   }
 
   // 반투명 오버레이 (양쪽 슬라이드)
@@ -90,7 +91,7 @@
     gap: $spacing-2;
     z-index: 10;
     background: rgba(0, 0, 0, 0.45);
-    border-radius: 1.25rem;
+    border-radius: $radius-xl;
     padding: $spacing-1 $spacing-3;
   }
 
@@ -98,7 +99,7 @@
     background: none;
     border: none;
     padding: 0;
-    color: #fff;
+    color: $color-text-inverse;
     font-size: 1rem;
     line-height: 1;
     cursor: pointer;
@@ -120,12 +121,12 @@
   }
 
   &__counter-current {
-    color: #fff;
+    color: $color-text-inverse;
     font-weight: $font-weight-semibold;
   }
 
   &__counter-total {
-    color: rgba(255, 255, 255, 0.6);
+    color: $overlay-white-strong;
   }
 }
 
@@ -159,8 +160,8 @@
   &__icon {
     width: 4rem;
     height: 4rem;
-    border-radius: 50%;
-    transition: transform 0.2s;
+    border-radius: $radius-circle;
+    transition: transform $duration-normal $ease-default;
   }
 
   &__skeleton-circle {
@@ -210,12 +211,12 @@
     justify-content: center;
     width: 2rem;
     height: 2rem;
-    border: 1px solid $color-border;
-    border-radius: 50%;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-circle;
     background: $color-bg-primary;
     color: $color-text-primary;
     cursor: pointer;
-    transition: background 0.2s, border-color 0.2s;
+    transition: background $duration-normal $ease-default, border-color $duration-normal $ease-default;
 
     &:hover:not(:disabled) {
       border-color: $color-primary;
@@ -235,7 +236,7 @@
 
   &__track {
     display: flex;
-    transition: transform 0.4s ease;
+    transition: transform $duration-slower $ease-default;
   }
 
   &__slide {
@@ -263,7 +264,7 @@
     min-height: 16rem;
     padding: $spacing-6;
     background: $color-bg-secondary;
-    border-radius: 0.5rem;
+    border-radius: $radius-md;
     text-align: center;
   }
 
@@ -284,9 +285,9 @@
     color: $color-text-inverse;
     font-size: $font-size-sm;
     font-weight: $font-weight-semibold;
-    border-radius: 1.5rem;
+    border-radius: $radius-2xl;
     text-decoration: none;
-    transition: background 0.2s;
+    transition: background $duration-normal $ease-default;
 
     &:hover {
       background: $color-primary-dark;
@@ -338,7 +339,7 @@
     font-size: $font-size-sm;
     font-weight: $font-weight-semibold;
     color: $color-primary;
-    letter-spacing: 0.06em;
+    letter-spacing: $letter-spacing-wide;
     text-transform: uppercase;
     margin-bottom: $spacing-3;
   }
@@ -444,14 +445,14 @@
     width: 19rem;
     flex-shrink: 0;
     background: $color-bg-primary;
-    border-radius: 0.75rem;
+    border-radius: $radius-lg;
     padding: $spacing-5;
-    border: 1px solid $color-border;
-    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.06);
-    transition: box-shadow 0.2s;
+    border: $border-thin solid $color-border;
+    box-shadow: $shadow-xs;
+    transition: box-shadow $duration-normal $ease-default;
 
     &:hover {
-      box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.1);
+      box-shadow: $shadow-md;
     }
   }
 
@@ -474,7 +475,7 @@
   &__avatar {
     width: 2rem;
     height: 2rem;
-    border-radius: 50%;
+    border-radius: $radius-circle;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -513,7 +514,7 @@
   // ── 별점 ──
   &__stars {
     display: flex;
-    gap: 1px;
+    gap: $border-thin;
     flex-shrink: 0;
   }
 
@@ -557,7 +558,7 @@
 .home-popular {
   margin-bottom: $spacing-16;
   padding-top: $spacing-16;
-  border-top: 1px solid $color-border;
+  border-top: $border-thin solid $color-border;
 
   &__title {
     font-size: $font-size-xl;
@@ -587,7 +588,7 @@
     position: relative;
     width: 100%;
     aspect-ratio: 3 / 2;
-    border-radius: 0.5rem;
+    border-radius: $radius-md;
     overflow: hidden;
     margin-bottom: $spacing-3;
   }
@@ -611,7 +612,7 @@
     color: $color-text-inverse;
     font-size: $font-size-sm;
     font-weight: $font-weight-bold;
-    border-radius: 50%;
+    border-radius: $radius-circle;
   }
 
   &__featured-title {
@@ -646,7 +647,7 @@
     display: inline-block;
     width: 0.25rem;
     height: 0.25rem;
-    border-radius: 50%;
+    border-radius: $radius-circle;
     background: $color-text-secondary;
     vertical-align: middle;
     margin-right: $spacing-1;
@@ -668,7 +669,7 @@
     align-items: flex-start;
     gap: $spacing-3;
     padding: $spacing-4 0;
-    border-bottom: 1px solid $color-border;
+    border-bottom: $border-thin solid $color-border;
 
     &:first-child {
       padding-top: 0;
@@ -716,7 +717,7 @@
     display: flex;
     gap: $spacing-4;
     padding: $spacing-5 0;
-    border-top: 1px solid $color-border;
+    border-top: $border-thin solid $color-border;
   }
 
   &__card-body {
@@ -734,7 +735,7 @@
   &__card-avatar {
     width: 1.5rem;
     height: 1.5rem;
-    border-radius: 50%;
+    border-radius: $radius-circle;
     background: $color-primary;
     flex-shrink: 0;
   }
@@ -790,7 +791,7 @@
     flex-shrink: 0;
     width: 7.5rem;
     height: 5.5rem;
-    border-radius: 0.375rem;
+    border-radius: $radius-sm;
     overflow: hidden;
   }
 
@@ -807,7 +808,7 @@
 .home-community {
   margin-bottom: $spacing-16;
   padding-top: $spacing-16;
-  border-top: 1px solid $color-border;
+  border-top: $border-thin solid $color-border;
 
   &__title {
     font-size: $font-size-xl;
@@ -827,7 +828,7 @@
     display: flex;
     gap: $spacing-6;
     padding: $spacing-6 0;
-    border-bottom: 1px solid $color-border;
+    border-bottom: $border-thin solid $color-border;
 
     &:first-child {
       padding-top: 0;
@@ -850,7 +851,7 @@
   &__avatar {
     width: 1.75rem;
     height: 1.75rem;
-    border-radius: 50%;
+    border-radius: $radius-circle;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -915,7 +916,7 @@
     flex-shrink: 0;
     width: 10rem;
     height: 7.5rem;
-    border-radius: 0.5rem;
+    border-radius: $radius-md;
     overflow: hidden;
 
     @media (max-width: 639px) {
@@ -947,12 +948,12 @@
     height: 2rem;
     padding: 0 $spacing-2;
     border: none;
-    border-radius: 0.375rem;
+    border-radius: $radius-sm;
     background: transparent;
     font-size: $font-size-sm;
     color: $color-text-secondary;
     cursor: pointer;
-    transition: background 0.15s, color 0.15s;
+    transition: background $duration-fast $ease-default, color $duration-fast $ease-default;
 
     &:hover:not(:disabled) {
       background: $color-bg-tertiary;
@@ -989,13 +990,13 @@
 
 // ── 강의 카드 스켈레톤 ──
 .home-course-card {
-  border-radius: 0.5rem;
+  border-radius: $radius-md;
   overflow: hidden;
 
   &__thumb {
     width: 100%;
     aspect-ratio: 4 / 3;
-    border-radius: 0.5rem;
+    border-radius: $radius-md;
   }
 
   &__skeleton {
@@ -1012,7 +1013,7 @@
 
   &__skeleton-line {
     height: 0.875rem;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     background: $color-bg-tertiary;
     animation: skeleton-pulse 1.8s ease-in-out infinite;
 

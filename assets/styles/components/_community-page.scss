@@ -7,6 +7,7 @@
 @use '../tokens/spacing' as *;
 @use '../tokens/typography' as *;
 @use '../tokens/z-index' as *;
+@use '../tokens/effects' as *;
 @use '../mixins/breakpoints' as *;
 
 // ── 스켈레톤 애니메이션 ──
@@ -41,11 +42,11 @@
     font-size: $font-size-sm;
     font-weight: $font-weight-bold;
     border: none;
-    border-radius: 2rem;
+    border-radius: $radius-3xl;
     text-decoration: none;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transition: opacity 0.2s, transform 0.2s;
+    box-shadow: $shadow-md;
+    transition: opacity $duration-normal, transform $duration-normal;
 
     &:hover {
       opacity: 0.9;
@@ -84,10 +85,10 @@
   position: fixed;
   inset: 0;
   z-index: $z-index-modal-backdrop;
-  background: rgba(0, 0, 0, 0.4);
+  background: $overlay-black-medium;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: opacity $duration-slow $ease-default, visibility $duration-slow $ease-default;
 
   &--open {
     opacity: 1;
@@ -105,7 +106,7 @@
   max-width: 80vw;
   background: $color-bg-primary;
   transform: translateX(-100%);
-  transition: transform 0.3s ease;
+  transition: transform $duration-slow $ease-default;
   overflow-y: auto;
   display: none;
 
@@ -122,7 +123,7 @@
     display: flex;
     justify-content: flex-end;
     padding: $spacing-3 $spacing-4;
-    border-bottom: 1px solid $color-border;
+    border-bottom: $border-thin solid $color-border;
   }
 
   &__close {
@@ -137,7 +138,7 @@
     color: $color-text-primary;
     cursor: pointer;
     border-radius: $spacing-1;
-    transition: background 0.2s;
+    transition: background $duration-normal;
 
     &:hover {
       background: $color-bg-tertiary;
@@ -181,7 +182,7 @@
     align-items: center;
     gap: $spacing-3;
     padding: $spacing-6 $spacing-4;
-    border-bottom: 1px solid $color-border;
+    border-bottom: $border-thin solid $color-border;
     margin-bottom: $spacing-4;
   }
 
@@ -213,10 +214,10 @@
     font-size: $font-size-sm;
     font-weight: $font-weight-semibold;
     color: $color-text-primary;
-    border-radius: 0.375rem;
+    border-radius: $radius-sm;
     cursor: pointer;
     text-decoration: none;
-    transition: background 0.15s;
+    transition: background $duration-fast;
 
     &:hover {
       background: $color-bg-secondary;
@@ -245,7 +246,7 @@
   &__chevron {
     flex-shrink: 0;
     font-size: $font-size-sm;
-    transition: transform 0.2s;
+    transition: transform $duration-normal;
 
     &--open {
       transform: rotate(90deg);
@@ -297,7 +298,7 @@
     display: flex;
     align-items: center;
     gap: $spacing-6;
-    border-bottom: 1px solid $color-border;
+    border-bottom: $border-thin solid $color-border;
     margin-bottom: $spacing-6;
   }
 
@@ -315,7 +316,7 @@
     color: $color-text-primary;
     cursor: pointer;
     border-radius: $spacing-1;
-    transition: background 0.2s;
+    transition: background $duration-normal;
     flex-shrink: 0;
 
     &:hover {
@@ -353,7 +354,7 @@
     padding: $spacing-3 0;
     background: none;
     border: none;
-    border-bottom: 2px solid transparent;
+    border-bottom: $border-medium solid transparent;
     font-size: $font-size-base;
     font-weight: $font-weight-medium;
     color: $color-text-secondary;
@@ -373,7 +374,7 @@
     gap: $spacing-3;
     padding: $spacing-3 $spacing-4;
     background: $color-bg-secondary;
-    border-radius: 0.5rem;
+    border-radius: $radius-md;
     margin-bottom: $spacing-4;
     overflow: hidden;
   }
@@ -387,7 +388,7 @@
     color: $color-text-inverse;
     font-size: $font-size-xs;
     font-weight: $font-weight-bold;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     white-space: nowrap;
   }
 
@@ -412,8 +413,8 @@
 
   &__select {
     padding: $spacing-2 $spacing-3;
-    border: 1px solid $color-border;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
     font-size: $font-size-sm;
     color: $color-text-primary;
     background: $color-bg-primary;
@@ -426,8 +427,8 @@
     flex: 1;
     min-width: 0;
     padding: $spacing-2 $spacing-3;
-    border: 1px solid $color-border;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
     font-size: $font-size-sm;
     color: $color-text-primary;
 
@@ -443,8 +444,8 @@
     justify-content: center;
     width: 2.25rem;
     height: 2.25rem;
-    border: 1px solid $color-border;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
     background: $color-bg-primary;
     cursor: pointer;
     font-size: $font-size-sm;
@@ -499,7 +500,7 @@
     align-items: flex-start;
     gap: $spacing-3;
     padding: $spacing-3 0;
-    border-bottom: 1px solid $color-bg-tertiary;
+    border-bottom: $border-thin solid $color-bg-tertiary;
 
     &:last-child {
       border-bottom: none;
@@ -546,7 +547,7 @@
     color: $color-text-secondary;
     padding: $spacing-0 $spacing-1;
     background: $color-bg-tertiary;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
   }
 
   &__popular-date {
@@ -573,10 +574,10 @@
   &__series-card {
     display: flex;
     flex-direction: column;
-    border-radius: 0.75rem;
+    border-radius: $radius-lg;
     overflow: hidden;
-    border: 1px solid $color-border;
-    transition: box-shadow 0.2s;
+    border: $border-thin solid $color-border;
+    transition: box-shadow $duration-normal;
 
     &:hover {
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
@@ -633,8 +634,8 @@
     padding: $spacing-1 $spacing-2;
     font-size: $font-size-xs;
     color: $color-text-secondary;
-    border: 1px solid $color-border;
-    border-radius: 1rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-xl;
   }
 
   // ── 전문가 칼럼 (article) ──
@@ -643,7 +644,7 @@
     justify-content: space-between;
     gap: $spacing-4;
     padding: $spacing-5 0;
-    border-bottom: 1px solid $color-bg-tertiary;
+    border-bottom: $border-thin solid $color-bg-tertiary;
 
     &:last-child {
       border-bottom: none;
@@ -667,7 +668,7 @@
   &__article-avatar {
     width: 1.5rem;
     height: 1.5rem;
-    border-radius: 50%;
+    border-radius: $radius-circle;
     background: $color-bg-tertiary;
     object-fit: cover;
     flex-shrink: 0;
@@ -721,7 +722,7 @@
     flex-shrink: 0;
     width: 8rem;
     height: 6rem;
-    border-radius: 0.5rem;
+    border-radius: $radius-md;
     overflow: hidden;
   }
 
@@ -747,7 +748,7 @@
     align-items: center;
     gap: $spacing-4;
     padding: $spacing-3 0;
-    border-bottom: 1px solid $color-bg-tertiary;
+    border-bottom: $border-thin solid $color-bg-tertiary;
 
     &:last-child {
       border-bottom: none;
@@ -771,7 +772,7 @@
     color: $color-text-inverse;
     font-size: $font-size-xs;
     font-weight: $font-weight-bold;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     white-space: nowrap;
   }
 
@@ -805,13 +806,13 @@
   &__skeleton-line {
     display: inline-block;
     height: 0.875rem;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     background: $color-bg-tertiary;
     animation: community-skeleton-pulse 1.8s ease-in-out infinite;
 
     // 인기글
     &--post-title { width: 85%; height: 1rem; }
-    &--tag { width: 3.5rem; height: 1.25rem; border-radius: 0.25rem; }
+    &--tag { width: 3.5rem; height: 1.25rem; border-radius: $radius-xs; }
     &--date { width: 4rem; }
     &--views { width: 3rem; }
 
@@ -822,7 +823,7 @@
     &--series-title { width: 80%; height: 1rem; }
     &--series-desc { width: 100%; }
     &--series-desc-short { width: 60%; }
-    &--chip { width: 3rem; height: 1.5rem; border-radius: 1rem; }
+    &--chip { width: 3rem; height: 1.5rem; border-radius: $radius-xl; }
 
     // 칼럼
     &--author-name { width: 3.5rem; }
@@ -835,7 +836,7 @@
   }
 
   &__skeleton-circle {
-    border-radius: 50%;
+    border-radius: $radius-circle;
     background: $color-bg-tertiary;
     animation: community-skeleton-pulse 1.8s ease-in-out infinite;
 
@@ -887,7 +888,7 @@
     color: $color-text-primary;
     margin-bottom: $spacing-4;
     padding-bottom: $spacing-3;
-    border-bottom: 1px solid $color-border;
+    border-bottom: $border-thin solid $color-border;
   }
 
   // 스켈레톤 카드 리스트
@@ -902,7 +903,7 @@
     flex-direction: column;
     gap: $spacing-3;
     padding-bottom: $spacing-6;
-    border-bottom: 1px solid $color-bg-tertiary;
+    border-bottom: $border-thin solid $color-bg-tertiary;
   }
 
   &__skeleton-author {
@@ -915,7 +916,7 @@
     flex-shrink: 0;
     width: 2.5rem;
     height: 2.5rem;
-    border-radius: 50%;
+    border-radius: $radius-circle;
     background: $color-bg-tertiary;
     animation: community-skeleton-pulse 1.8s ease-in-out infinite;
   }
@@ -935,7 +936,7 @@
   &__skeleton-thumb {
     width: 100%;
     height: 10rem;
-    border-radius: 0.5rem;
+    border-radius: $radius-md;
     background: $color-bg-tertiary;
     animation: community-skeleton-pulse 1.8s ease-in-out infinite;
   }
@@ -947,7 +948,7 @@
 
   &__skeleton-line {
     height: 0.875rem;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     background: $color-bg-tertiary;
     animation: community-skeleton-pulse 1.8s ease-in-out infinite;
 
@@ -980,7 +981,7 @@
     color: $color-text-primary;
     margin-bottom: $spacing-4;
     padding-bottom: $spacing-3;
-    border-bottom: 1px solid $color-border;
+    border-bottom: $border-thin solid $color-border;
   }
 
   &__member-list {
@@ -1018,7 +1019,7 @@
     flex-shrink: 0;
     width: 2.5rem;
     height: 2.5rem;
-    border-radius: 50%;
+    border-radius: $radius-circle;
     object-fit: cover;
 
     &--placeholder {
@@ -1086,7 +1087,7 @@
   &__skeleton-line {
     display: inline-block;
     height: 0.75rem;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     background: $color-bg-tertiary;
     animation: community-skeleton-pulse 1.8s ease-in-out infinite;
 
@@ -1098,8 +1099,8 @@
   &__follow-btn {
     flex-shrink: 0;
     padding: $spacing-1 $spacing-3;
-    border: 1px solid $color-border;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
     background: $color-bg-primary;
     font-size: $font-size-xs;
     color: $color-text-primary;
@@ -1130,7 +1131,7 @@
     align-items: center;
     padding-bottom: $spacing-5;
     margin-bottom: $spacing-6;
-    border-bottom: 1px solid $color-border;
+    border-bottom: $border-thin solid $color-border;
   }
 
   &__back {
@@ -1156,8 +1157,8 @@
 
   &__draft-btn {
     padding: $spacing-2 $spacing-5;
-    border: 1px solid $color-border;
-    border-radius: 0.5rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
     background: $color-bg-primary;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
@@ -1172,7 +1173,7 @@
   &__submit-btn {
     padding: $spacing-2 $spacing-5;
     border: none;
-    border-radius: 0.5rem;
+    border-radius: $radius-md;
     background: $color-primary;
     font-size: $font-size-sm;
     font-weight: $font-weight-bold;
@@ -1202,8 +1203,8 @@
     flex-direction: column;
     gap: $spacing-5;
     padding: $spacing-6;
-    border: 1px solid $color-border;
-    border-radius: 0.75rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-lg;
     background: $color-bg-primary;
   }
 
@@ -1232,8 +1233,8 @@
   &__select {
     flex: 1;
     padding: $spacing-3 $spacing-4;
-    border: 1px solid $color-border;
-    border-radius: 0.5rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
     font-size: $font-size-sm;
     color: $color-text-primary;
     background: $color-bg-primary;
@@ -1243,7 +1244,7 @@
     background-repeat: no-repeat;
     background-position: right $spacing-3 center;
     padding-right: $spacing-8;
-    transition: border-color 0.2s;
+    transition: border-color $duration-normal;
 
     &:focus {
       border-color: $color-border-focus;
@@ -1264,12 +1265,12 @@
   // 제목 입력
   &__input {
     padding: $spacing-3 $spacing-4;
-    border: 1px solid $color-border;
-    border-radius: 0.5rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
     font-size: $font-size-base;
     color: $color-text-primary;
     outline: none;
-    transition: border-color 0.2s;
+    transition: border-color $duration-normal;
 
     &::placeholder {
       color: $color-text-secondary;
@@ -1288,13 +1289,13 @@
     gap: $spacing-2;
     width: 100%;
     padding: $spacing-3 $spacing-4;
-    border: 1px dashed $color-border;
-    border-radius: 0.5rem;
+    border: $border-thin dashed $color-border;
+    border-radius: $radius-md;
     background: $color-bg-secondary;
     font-size: $font-size-sm;
     color: $color-text-secondary;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all $duration-normal;
 
     &:hover {
       border-color: $color-primary;
@@ -1310,9 +1311,9 @@
     flex-wrap: wrap;
     gap: $spacing-1;
     padding: $spacing-2 $spacing-3;
-    border: 1px solid $color-border;
+    border: $border-thin solid $color-border;
     border-bottom: none;
-    border-radius: 0.5rem 0.5rem 0 0;
+    border-radius: $radius-md $radius-md 0 0;
     background: $color-bg-secondary;
   }
 
@@ -1331,8 +1332,8 @@
 
   &__toolbar-select {
     padding: $spacing-1 $spacing-3;
-    border: 1px solid $color-border;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
     font-size: $font-size-sm;
     color: $color-text-primary;
     background: $color-bg-primary;
@@ -1346,12 +1347,12 @@
     width: 2rem;
     height: 2rem;
     border: none;
-    border-radius: 0.375rem;
+    border-radius: $radius-sm;
     background: none;
     font-size: $font-size-sm;
     color: $color-text-secondary;
     cursor: pointer;
-    transition: all 0.15s;
+    transition: all $duration-fast;
 
     &:hover {
       background: $color-bg-tertiary;
@@ -1360,7 +1361,7 @@
   }
 
   &__toolbar-color {
-    border-bottom: 2px solid;
+    border-bottom: $border-medium solid;
     line-height: 1;
     font-weight: $font-weight-bold;
     font-size: $font-size-sm;
@@ -1378,9 +1379,9 @@
 
   // Tiptap 에디터 본문
   &__content {
-    border: 1px solid $color-border;
-    border-radius: 0 0 0.5rem 0.5rem;
-    transition: border-color 0.2s;
+    border: $border-thin solid $color-border;
+    border-radius: 0 0 $radius-md $radius-md;
+    transition: border-color $duration-normal;
 
     &:focus-within {
       border-color: $color-border-focus;
@@ -1435,14 +1436,14 @@
 
       hr {
         border: none;
-        border-top: 1px solid $color-border;
+        border-top: $border-thin solid $color-border;
         margin: $spacing-6 0;
       }
 
       img {
         max-width: 100%;
         height: auto;
-        border-radius: 0.5rem;
+        border-radius: $radius-md;
         margin: $spacing-4 0;
       }
 
@@ -1467,8 +1468,8 @@
   &__notice {
     padding: $spacing-5;
     background: $color-bg-secondary;
-    border-radius: 0.75rem;
-    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+    border: $border-thin solid $color-border;
   }
 
   &__notice-title {
@@ -1531,8 +1532,8 @@
 // ============================================
 .post-detail {
   padding: $spacing-6;
-  border: 1px solid $color-border;
-  border-radius: 0.75rem;
+  border: $border-thin solid $color-border;
+  border-radius: $radius-lg;
   margin-bottom: $spacing-6;
 
   &__category {
@@ -1543,7 +1544,7 @@
     display: inline-block;
     width: 4.5rem;
     height: 1.5rem;
-    border-radius: 1rem;
+    border-radius: $radius-xl;
     background: $color-bg-tertiary;
     animation: community-skeleton-pulse 1.8s ease-in-out infinite;
   }
@@ -1554,7 +1555,7 @@
 
   &__skel-line {
     display: block;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     background: $color-bg-tertiary;
     animation: community-skeleton-pulse 1.8s ease-in-out infinite;
 
@@ -1570,26 +1571,26 @@
     gap: $spacing-2;
     margin-bottom: $spacing-8;
     padding-bottom: $spacing-4;
-    border-bottom: 1px solid $color-border;
+    border-bottom: $border-thin solid $color-border;
   }
 
   &__meta-dot {
     width: 3px;
     height: 3px;
-    border-radius: 50%;
+    border-radius: $radius-circle;
     background: $color-text-secondary;
   }
 
   &__body {
     margin-bottom: $spacing-8;
     padding-bottom: $spacing-6;
-    border-bottom: 1px solid $color-border;
+    border-bottom: $border-thin solid $color-border;
   }
 
   &__skel-image {
     width: 100%;
     height: 14rem;
-    border-radius: 0.5rem;
+    border-radius: $radius-md;
     background: $color-bg-tertiary;
     animation: community-skeleton-pulse 1.8s ease-in-out infinite;
     margin: $spacing-6 0;
@@ -1610,7 +1611,7 @@
     display: inline-block;
     width: 2rem;
     height: 2rem;
-    border-radius: 0.375rem;
+    border-radius: $radius-sm;
     background: $color-bg-tertiary;
     animation: community-skeleton-pulse 1.8s ease-in-out infinite;
   }
@@ -1621,8 +1622,8 @@
 // ============================================
 .comment-list {
   padding: $spacing-6;
-  border: 1px solid $color-border;
-  border-radius: 0.75rem;
+  border: $border-thin solid $color-border;
+  border-radius: $radius-lg;
 }
 
 // ============================================
@@ -1640,8 +1641,8 @@
 
   &__card {
     padding: $spacing-6;
-    border: 1px solid $color-border;
-    border-radius: 0.75rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-lg;
     display: flex;
     flex-direction: column;
     gap: $spacing-5;
@@ -1657,7 +1658,7 @@
     flex-shrink: 0;
     width: 3.5rem;
     height: 3.5rem;
-    border-radius: 50%;
+    border-radius: $radius-circle;
     background: $color-bg-tertiary;
     animation: community-skeleton-pulse 1.8s ease-in-out infinite;
   }
@@ -1678,7 +1679,7 @@
 
   &__skel-line {
     display: block;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     background: $color-bg-tertiary;
     animation: community-skeleton-pulse 1.8s ease-in-out infinite;
 
@@ -1693,14 +1694,14 @@
 
   &__skel-badge {
     display: inline-block;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     background: $color-bg-tertiary;
     animation: community-skeleton-pulse 1.8s ease-in-out infinite;
 
     &--level {
       width: 2rem;
       height: 1.25rem;
-      border-radius: 0.375rem;
+      border-radius: $radius-sm;
     }
   }
 
@@ -1708,8 +1709,8 @@
     display: flex;
     justify-content: space-between;
     padding: $spacing-4 0;
-    border-top: 1px solid $color-border;
-    border-bottom: 1px solid $color-border;
+    border-top: $border-thin solid $color-border;
+    border-bottom: $border-thin solid $color-border;
   }
 
   &__stat {
@@ -1726,14 +1727,14 @@
 
   &__bio {
     padding: $spacing-3;
-    border: 1px solid $color-border;
-    border-radius: 0.375rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
   }
 
   &__skel-follow-btn {
     width: 100%;
     height: 2.75rem;
-    border-radius: 0.5rem;
+    border-radius: $radius-md;
     background: $color-bg-tertiary;
     animation: community-skeleton-pulse 1.8s ease-in-out infinite;
   }
@@ -1741,14 +1742,14 @@
   &__posts {
     display: flex;
     flex-direction: column;
-    border: 1px solid $color-border;
-    border-radius: 0.75rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-lg;
     overflow: hidden;
   }
 
   &__post-item {
     padding: $spacing-4;
-    border-bottom: 1px solid $color-border;
+    border-bottom: $border-thin solid $color-border;
 
     &:last-child {
       border-bottom: none;

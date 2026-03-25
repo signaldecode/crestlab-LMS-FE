@@ -6,6 +6,7 @@
 @use '../tokens/colors' as *;
 @use '../tokens/spacing' as *;
 @use '../tokens/typography' as *;
+@use '../tokens/effects' as *;
 
 .order-complete {
   display: flex;
@@ -25,9 +26,9 @@
     align-items: center;
     width: 4.5rem;
     height: 4.5rem;
-    border-radius: 50%;
-    background: #dcfce7;
-    color: #16a34a;
+    border-radius: $radius-circle;
+    background: $color-success-bg;
+    color: $color-success;
     font-size: $font-size-xl;
     font-weight: $font-weight-bold;
     margin-bottom: $spacing-6;
@@ -50,8 +51,8 @@
   &__detail {
     text-align: left;
     padding: $spacing-5;
-    border: 1px solid $color-border;
-    border-radius: 0.75rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-lg;
     background: $color-bg-secondary;
     margin-bottom: $spacing-8;
   }
@@ -64,7 +65,7 @@
     font-size: $font-size-sm;
 
     & + & {
-      border-top: 1px solid $color-border;
+      border-top: $border-thin solid $color-border;
     }
   }
 
@@ -97,7 +98,7 @@
     display: block;
     width: 100%;
     padding: $spacing-4;
-    border-radius: 0.5rem;
+    border-radius: $radius-md;
     font-size: $font-size-base;
     font-weight: $font-weight-medium;
     text-align: center;
@@ -117,7 +118,7 @@
     &--secondary {
       background: $color-bg-primary;
       color: $color-text-primary;
-      border: 1px solid $color-border;
+      border: $border-thin solid $color-border;
 
       &:hover {
         background: $color-bg-secondary;

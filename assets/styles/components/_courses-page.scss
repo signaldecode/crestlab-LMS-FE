@@ -7,6 +7,7 @@
 @use '../tokens/colors' as *;
 @use '../tokens/spacing' as *;
 @use '../tokens/typography' as *;
+@use '../tokens/effects' as *;
 @use '../mixins/breakpoints' as *;
 
 // 페이지 전체
@@ -102,7 +103,7 @@
   &__group {
     display: flex;
     flex-direction: column;
-    border-bottom: 0.0625rem solid $color-border;
+    border-bottom: $border-thin solid $color-border;
   }
 
   &__group-title {
@@ -117,7 +118,7 @@
     background: none;
     border: none;
     cursor: pointer;
-    transition: color 0.2s ease;
+    transition: color $duration-normal $ease-default;
 
     &:hover {
       color: $color-primary;
@@ -131,7 +132,7 @@
   &__chevron {
     font-size: $font-size-lg;
     line-height: 1;
-    transition: transform 0.2s ease;
+    transition: transform $duration-normal $ease-default;
     transform: rotate(90deg);
 
     &--open {
@@ -153,7 +154,7 @@
     font-size: $font-size-sm;
     color: $color-text-secondary;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color $duration-normal $ease-default;
 
     &:hover {
       color: $color-primary;
@@ -175,14 +176,14 @@
 .course-card {
   display: flex;
   flex-direction: column;
-  border-radius: $spacing-2;
+  border-radius: $radius-md;
   overflow: hidden;
   background-color: $color-bg-primary;
   text-decoration: none;
   color: inherit;
 
   &:hover &__image {
-    transform: scale(1.05);
+    transform: scale($scale-sm);
   }
 
   &__thumbnail {
@@ -191,12 +192,12 @@
     aspect-ratio: 16 / 9;
     background-color: $color-bg-tertiary;
     overflow: hidden;
-    border-radius: $spacing-2;
+    border-radius: $radius-md;
   }
 
   &__image {
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: transform $duration-slow $ease-default;
   }
 
   &__badge-overlay {
@@ -220,33 +221,33 @@
     width: 2rem;
     height: 2rem;
     border: none;
-    border-radius: 50%;
-    background: rgba(0, 0, 0, 0.4);
-    color: #fff;
-    font-size: 1.125rem;
+    border-radius: $radius-circle;
+    background: $overlay-black-medium;
+    color: $color-text-inverse;
+    font-size: $font-size-md;
     cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
+    transition: background $duration-normal, transform $duration-fast;
     line-height: 1;
 
     &:hover {
-      background: rgba(0, 0, 0, 0.6);
+      background: $overlay-black-dark;
       transform: scale(1.1);
     }
 
     &--active {
-      color: #ef4444;
-      background: rgba(255, 255, 255, 0.9);
+      color: $color-error;
+      background: $overlay-white-heavy;
     }
   }
 
   &__badge {
     display: inline-block;
-    padding: 0.125rem 0.5rem;
-    font-size: 0.6875rem;
+    padding: $border-medium $spacing-2;
+    font-size: $font-size-2xs;
     font-weight: $font-weight-semibold;
-    color: #fff;
+    color: $color-text-inverse;
     background: $color-primary;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     line-height: 1.4;
     white-space: nowrap;
 
@@ -263,7 +264,7 @@
     }
 
     &--urgent {
-      background: #ea580c;
+      background: $color-badge-urgent;
     }
 
     &--level {
@@ -305,7 +306,7 @@
   }
 
   &__stars {
-    color: #f59e0b;
+    color: $color-warning;
     font-weight: $font-weight-semibold;
   }
 

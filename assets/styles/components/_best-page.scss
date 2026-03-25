@@ -6,6 +6,7 @@
 @use '../tokens/colors' as *;
 @use '../tokens/spacing' as *;
 @use '../tokens/typography' as *;
+@use '../tokens/effects' as *;
 @use '../mixins/breakpoints' as *;
 
 // ── 스켈레톤 애니메이션 ──
@@ -66,11 +67,11 @@
     font-size: $font-size-xs;
     font-weight: $font-weight-regular;
     line-height: $line-height-base;
-    border-radius: 0.5rem;
+    border-radius: $radius-md;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-0.25rem);
-    transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
+    transform: translateY(-$spacing-1);
+    transition: opacity $duration-normal, visibility $duration-normal, transform $duration-normal;
     z-index: 10;
     pointer-events: none;
   }
@@ -89,14 +90,14 @@
 
   &__chip {
     padding: $spacing-2 $spacing-4;
-    border: 1px solid $color-border;
-    border-radius: 1.5rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-2xl;
     background: $color-bg-primary;
     color: $color-text-secondary;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
     cursor: pointer;
-    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    transition: background $duration-normal $ease-default, color $duration-normal $ease-default, border-color $duration-normal $ease-default;
     white-space: nowrap;
 
     &:hover {
@@ -123,7 +124,7 @@
     display: inline-block;
     width: 5rem;
     height: 2.25rem;
-    border-radius: 1.5rem;
+    border-radius: $radius-2xl;
     background: $color-bg-tertiary;
     animation: best-skeleton-pulse 1.8s ease-in-out infinite;
 
@@ -156,7 +157,7 @@
   &__skeleton-preview {
     margin-top: $spacing-12;
     padding-top: $spacing-8;
-    border-top: 1px solid $color-border;
+    border-top: $border-thin solid $color-border;
   }
 
   &__section-subtitle {
@@ -173,7 +174,7 @@
 .best-card {
   display: flex;
   flex-direction: column;
-  border-radius: 0.5rem;
+  border-radius: $radius-md;
   overflow: hidden;
   background-color: $color-bg-primary;
   text-decoration: none;
@@ -185,17 +186,17 @@
     width: 100%;
     aspect-ratio: 16 / 9;
     background-color: $color-bg-tertiary;
-    border-radius: 0.5rem;
+    border-radius: $radius-md;
     overflow: hidden;
   }
 
   &:hover &__image {
-    transform: scale(1.05);
+    transform: scale($scale-sm);
   }
 
   &__image {
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: transform $duration-slow $ease-default;
   }
 
   &__category-tag {
@@ -206,11 +207,11 @@
     align-items: center;
     gap: $spacing-1;
     padding: $spacing-1 $spacing-2;
-    background: rgba(0, 0, 0, 0.6);
+    background: $overlay-black-dark;
     color: $color-text-inverse;
     font-size: $font-size-xs;
     font-weight: $font-weight-medium;
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     line-height: $line-height-base;
 
     @media (min-width: 640px) {
@@ -222,16 +223,16 @@
   &__badge {
     display: inline-flex;
     align-items: center;
-    padding: 0.0625rem $spacing-1;
+    padding: $border-thin $spacing-1;
     background: $color-primary;
     color: $color-text-inverse;
-    font-size: 0.625rem;
+    font-size: $font-size-2xs;
     font-weight: $font-weight-bold;
-    border-radius: 0.125rem;
-    letter-spacing: 0.02em;
+    border-radius: $border-medium;
+    letter-spacing: $letter-spacing-normal;
 
     @media (min-width: 640px) {
-      padding: 0.125rem $spacing-2;
+      padding: $border-medium $spacing-2;
       font-size: $font-size-xs;
     }
 
@@ -248,7 +249,7 @@
     }
 
     &--urgent {
-      background: #ea580c;
+      background: $color-badge-urgent;
     }
 
     &--level {
@@ -305,7 +306,7 @@
   &__rating {
     display: flex;
     align-items: center;
-    gap: 0.125rem;
+    gap: $border-medium;
   }
 
   &__star-icon {
@@ -343,7 +344,7 @@
   }
 
   &__skeleton-line {
-    border-radius: 0.25rem;
+    border-radius: $radius-xs;
     background: $color-bg-tertiary;
     animation: best-skeleton-pulse 1.8s ease-in-out infinite;
 
