@@ -5,7 +5,7 @@
  */
 
 import mainData from '@/data';
-import type { MainData, SiteData, NavData, Course, HomeSection, UpcomingCourse, BestCourse, BestChipCategory, FaqItem, TestimonialsSection, FooterData, GeoData, OrderData, CertificateData, ConsultationData, ReviewData, ExpiredCouponData, GiftcardData, GiftcardHistoryData, FollowUserData, EnrolledCourseData } from '@/types';
+import type { MainData, SiteData, NavData, Course, HomeSection, UpcomingCourse, BestCourse, BestChipCategory, FaqItem, TestimonialsSection, FooterData, GeoData, OrderData, CertificateData, ConsultationData, ReviewData, ExpiredCouponData, GiftcardData, GiftcardHistoryData, FollowUserData, EnrolledCourseData, PopularArticlesSection, HomeCommunitySection } from '@/types';
 
 const data: MainData = mainData;
 
@@ -82,6 +82,16 @@ export function getTestimonials(): TestimonialsSection {
   return data.testimonials;
 }
 
+/** 실시간 인기 아티클 섹션 반환 */
+export function getPopularArticles(): PopularArticlesSection {
+  return data.popularArticles;
+}
+
+/** 홈 커뮤니티 섹션 반환 */
+export function getHomeCommunity(): HomeCommunitySection {
+  return data.homeCommunity;
+}
+
 /** GEO 데이터 반환 */
 export function getGeoData(): GeoData | null {
   return data.geo || null;
@@ -97,9 +107,24 @@ export function getConsultations(): ConsultationData[] {
   return data.consultations || [];
 }
 
+/** id로 상담 1건 조회 */
+export function findConsultationById(id: string): ConsultationData | null {
+  return data.consultations?.find((c) => c.id === id) || null;
+}
+
+/** courseSlug로 해당 강의 상담 목록 반환 */
+export function getConsultationsByCourse(courseSlug: string): ConsultationData[] {
+  return data.consultations?.filter((c) => c.courseSlug === courseSlug) || [];
+}
+
 /** 후기 목록 반환 */
 export function getReviews(): ReviewData[] {
   return data.reviews || [];
+}
+
+/** courseSlug로 해당 강의 후기 목록 반환 */
+export function getReviewsByCourse(courseSlug: string): ReviewData[] {
+  return data.reviews?.filter((r) => r.courseSlug === courseSlug) || [];
 }
 
 /** 수료증 목록 반환 */

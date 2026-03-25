@@ -140,6 +140,23 @@
       "title": "후기 관리",
       "emptyText": "작성한 후기가 없습니다."
     },
+    "courseReviewsPage": {
+      "title": "수강 후기",
+      "backLabel": "강의 소개로 돌아가기",
+      "backAriaLabel": "강의 상세 페이지로 돌아가기",
+      "listTitle": "수강생 후기",
+      "emptyText": "아직 등록된 후기가 없습니다. 첫 번째 후기를 남겨보세요!",
+      "ratingLabel": "평점",
+      "ratingAriaLabel": "별점 선택",
+      "formTitle": "후기 작성",
+      "formPlaceholder": "강의에 대한 솔직한 후기를 남겨주세요.",
+      "formAriaLabel": "후기 내용 입력",
+      "submitLabel": "후기 등록",
+      "submitAriaLabel": "후기 등록 제출",
+      "starAriaLabel": "별점 {n}점",
+      "totalRatingLabel": "전체 평점",
+      "reviewCountSuffix": "개의 후기"
+    },
     "pointsPage": {
       "title": "잔여 포인트",
       "unit": "P",
@@ -240,6 +257,23 @@
     "consultationsPage": {
       "title": "강의 상담",
       "emptyText": "강의 상담 내역이 없습니다."
+    },
+    "learnConsultationPage": {
+      "title": "강의 상담",
+      "backLabel": "강의로 돌아가기",
+      "backAriaLabel": "강의 플레이어로 돌아가기",
+      "listTitle": "상담 내역",
+      "emptyText": "이 강의에 대한 상담 내역이 없습니다.",
+      "questionLabel": "질문",
+      "answerLabel": "답변",
+      "dateLabel": "문의 일시",
+      "answeredAtLabel": "답변 일시",
+      "pendingAnswerText": "답변 대기 중입니다. 빠른 시일 내에 답변 드리겠습니다.",
+      "formTitle": "새 상담 문의",
+      "formPlaceholder": "강의와 관련된 궁금한 점을 남겨주세요.",
+      "formAriaLabel": "상담 문의 내용 입력",
+      "submitLabel": "문의하기",
+      "submitAriaLabel": "상담 문의 제출"
     }
   },
 
@@ -330,21 +364,27 @@
       "courseSlug": "real-estate-intermediate",
       "status": "답변완료",
       "question": "강의 수강 기간 연장은 어떻게 하나요?",
-      "createdAt": "2025-02-20"
+      "answer": "수강 기간 연장은 마이페이지 > 강의 상담 또는 1:1 문의를 통해 신청 가능합니다. 연장 가능 여부는 구매 후 180일 이내 수강하지 않은 경우에 한하며, 1회에 한해 30일 연장이 가능합니다.",
+      "createdAt": "2025-02-20",
+      "answeredAt": "2025-02-21"
     },
     {
       "id": "CONSULT-002",
       "courseSlug": "financial-basic-class",
       "status": "대기중",
       "question": "보충 자료 PDF를 어디서 다운받을 수 있나요?",
-      "createdAt": "2025-03-01"
+      "answer": null,
+      "createdAt": "2025-03-01",
+      "answeredAt": null
     },
     {
       "id": "CONSULT-003",
       "courseSlug": "my-house-basic",
       "status": "답변완료",
       "question": "실습 과제 제출 방법이 궁금합니다.",
-      "createdAt": "2025-01-15"
+      "answer": "실습 과제는 각 강의 하단의 '과제 제출' 버튼을 통해 파일 또는 링크 형태로 제출하실 수 있습니다. 제출 후 강사가 확인하면 피드백이 제공됩니다.",
+      "createdAt": "2025-01-15",
+      "answeredAt": "2025-01-17"
     }
   ],
 

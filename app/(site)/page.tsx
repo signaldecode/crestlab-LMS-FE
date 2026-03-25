@@ -8,6 +8,8 @@ import HomeHeroContainer from '@/components/containers/HomeHeroContainer';
 import HomeCategoryNav from '@/components/home/HomeCategoryNav';
 import HomeCourseSection from '@/components/home/HomeCourseSection';
 import TestimonialsContainer from '@/components/containers/TestimonialsContainer';
+import HomePopularArticles from '@/components/home/HomePopularArticles';
+import HomeCommunity from '@/components/home/HomeCommunity';
 import { getHomeSections, getHomeSectionCourses } from '@/lib/data';
 
 export default function HomePage() {
@@ -25,6 +27,8 @@ export default function HomePage() {
         />
       ))}
       <TestimonialsContainer />
+      <HomePopularArticles />
+      <HomeCommunity />
     </main>
   );
 }

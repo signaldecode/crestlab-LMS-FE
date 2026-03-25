@@ -37,9 +37,9 @@ export default function ConsultationContent(): JSX.Element {
         ) : (
           <div className={`${SK}__consult-list`}>
             {consultsWithCourse.map((item) => (
-              <div key={item.id} className={`${SK}__consult-card`}>
+              <Link key={item.id} href={`/learn/${item.courseSlug}/consultation`} className={`${SK}__consult-card`}>
                 {item.course ? (
-                  <Link href={`/courses/${item.course.slug}`} className={`${SK}__consult-thumb-link`}>
+                  <div className={`${SK}__consult-thumb-link`}>
                     <Image
                       src={item.course.thumbnail}
                       alt={item.course.thumbnailAlt}
@@ -47,7 +47,7 @@ export default function ConsultationContent(): JSX.Element {
                       height={80}
                       className={`${SK}__consult-img`}
                     />
-                  </Link>
+                  </div>
                 ) : (
                   <div className={`${SK}__consult-thumb`} />
                 )}
@@ -62,7 +62,7 @@ export default function ConsultationContent(): JSX.Element {
                 <span className={`${SK}__consult-status ${SK}__consult-status--${item.status === '답변완료' ? 'done' : 'pending'}`}>
                   {item.status}
                 </span>
-              </div>
+              </Link>
             ))}
           </div>
         )}

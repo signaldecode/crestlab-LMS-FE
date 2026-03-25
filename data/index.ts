@@ -26,6 +26,8 @@ const mainData: MainData = {
   bestCourses: homeData.bestCourses,
   bestChipCategories: homeData.bestChipCategories,
   testimonials: homeData.testimonials,
+  popularArticles: homeData.popularArticles,
+  homeCommunity: homeData.homeCommunity,
   faq: homeData.faq,
   footer: siteData.footer,
   a11y: siteData.a11y,

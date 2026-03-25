@@ -7,7 +7,7 @@
 
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -51,9 +51,12 @@ const subCategories: Record<string, { value: string; label: string }[]> = {
 
 export default function PostEditor({ slug, isEdit = false }: PostEditorProps) {
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
   const [category, setCategory] = useState('');
   const [subCategory, setSubCategory] = useState('');
   const [title, setTitle] = useState('');
+
+  useEffect(() => { setMounted(true); }, []);
 
   void slug;
 
@@ -191,11 +194,15 @@ export default function PostEditor({ slug, isEdit = false }: PostEditorProps) {
               내용 <span className="post-editor__required">*</span>
             </label>
 
-            {/* 툴바 */}
-            <EditorToolbar editor={editor} />
+            {mounted && (
+              <>
+                {/* 툴바 */}
+                <EditorToolbar editor={editor} />
 
-            {/* Tiptap 에디터 본문 */}
-            <EditorContent editor={editor} className="post-editor__content" />
+                {/* Tiptap 에디터 본문 */}
+                <EditorContent editor={editor} className="post-editor__content" />
+              </>
+            )}
           </div>
         </div>
 

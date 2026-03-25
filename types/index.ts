@@ -200,6 +200,85 @@ export interface TestimonialsSection {
   items: TestimonialItem[];
 }
 
+/* ── 실시간 인기 아티클 ── */
+export interface PopularArticleFeatured {
+  id: string;
+  rank: number;
+  thumbnail: string;
+  thumbnailAlt: string;
+  title: string;
+  authorNickname: string;
+  category: string;
+  date: string;
+  readTime: string;
+  viewCount: number;
+  ariaLabel: string;
+}
+
+export interface PopularArticleRanked {
+  id: string;
+  rank: number;
+  title: string;
+  authorNickname: string;
+  category: string;
+  date: string;
+  readTime: string;
+  viewCount: number;
+  ariaLabel: string;
+}
+
+export interface PopularArticleCard {
+  id: string;
+  authorNickname: string;
+  authorVerified: boolean;
+  category: string;
+  title: string;
+  content: string;
+  thumbnail: string;
+  thumbnailAlt: string;
+  likeCount: number;
+  commentCount: number;
+  date: string;
+  ariaLabel: string;
+}
+
+export interface PopularArticlesSection {
+  meta: {
+    title: string;
+    ariaLabel: string;
+  };
+  featured: PopularArticleFeatured;
+  ranked: PopularArticleRanked[];
+  cards: PopularArticleCard[];
+}
+
+/* ── 홈 커뮤니티 ── */
+export interface HomeCommunityPost {
+  id: string;
+  authorNickname: string;
+  category: string;
+  title: string;
+  content: string;
+  thumbnail: string;
+  thumbnailAlt: string;
+  likeCount: number;
+  commentCount: number;
+  avatarColor: string;
+  ariaLabel: string;
+}
+
+export interface HomeCommunitySection {
+  meta: {
+    title: string;
+    ariaLabel: string;
+  };
+  posts: HomeCommunityPost[];
+  pagination: {
+    totalPages: number;
+    ariaLabel: string;
+  };
+}
+
 /** @deprecated TestimonialsSection 으로 대체됨 */
 export interface Testimonial {
   name: string;
@@ -767,7 +846,9 @@ export interface ConsultationData {
   courseSlug: string;
   status: string;
   question: string;
+  answer?: string | null;
   createdAt: string;
+  answeredAt?: string | null;
 }
 
 export interface ReviewData {
@@ -828,6 +909,8 @@ export interface MainData {
   bestCourses: BestCourse[];
   bestChipCategories: BestChipCategory[];
   testimonials: TestimonialsSection;
+  popularArticles: PopularArticlesSection;
+  homeCommunity: HomeCommunitySection;
   faq: FaqItem[];
   footer: FooterData;
   a11y: Record<string, unknown>;

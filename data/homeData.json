@@ -370,6 +370,181 @@
     ]
   },
 
+  "popularArticles": {
+    "meta": {
+      "title": "실시간 인기 아티클",
+      "ariaLabel": "실시간 인기 아티클 섹션"
+    },
+    "featured": {
+      "id": "pa1",
+      "rank": 1,
+      "thumbnail": "/images/banners/banner1.jpg",
+      "thumbnailAlt": "서울시 서초구에 내집마련 성공 관련 아티클 이미지",
+      "title": "서울시 서초구에 내집마련 성공했습니다!서울시 서초구에 내집마련 성공했습니다!",
+      "authorNickname": "진심으로하면",
+      "category": "님의",
+      "date": "26.02.27",
+      "readTime": "2.5min",
+      "viewCount": 217,
+      "ariaLabel": "1위 인기 아티클: 서울시 서초구에 내집마련 성공했습니다"
+    },
+    "ranked": [
+      {
+        "id": "pa2",
+        "rank": 2,
+        "title": "서울시 서초구에 내집마련 성공했습니다서울시 서초구에 내집마련 성공했습니다",
+        "authorNickname": "진심으로하면",
+        "category": "님의",
+        "date": "26.02.27",
+        "readTime": "2.5min",
+        "viewCount": 217,
+        "ariaLabel": "2위 인기 아티클"
+      },
+      {
+        "id": "pa3",
+        "rank": 3,
+        "title": "서울시 서초구에 내집마련 성공했습니다요",
+        "authorNickname": "진심으로하면",
+        "category": "님의",
+        "date": "26.02.27",
+        "readTime": "2.5min",
+        "viewCount": 217,
+        "ariaLabel": "3위 인기 아티클"
+      },
+      {
+        "id": "pa4",
+        "rank": 4,
+        "title": "서울시 강서구 내집마련 성공기",
+        "authorNickname": "진심으로하면",
+        "category": "님의",
+        "date": "26.02.27",
+        "readTime": "2.5min",
+        "viewCount": 217,
+        "ariaLabel": "4위 인기 아티클"
+      },
+      {
+        "id": "pa5",
+        "rank": 5,
+        "title": "대통령도 산다는 그 ETF, 수익률 150%의 정체는?",
+        "authorNickname": "진심으로하면",
+        "category": "님의",
+        "date": "26.02.27",
+        "readTime": "2.5min",
+        "viewCount": 217,
+        "ariaLabel": "5위 인기 아티클"
+      }
+    ],
+    "cards": [
+      {
+        "id": "pac1",
+        "authorNickname": "너바나",
+        "authorVerified": true,
+        "category": "부동산",
+        "title": "부자의 변태로 뛰는, 유지만 할뿐 사용 들어 공통적인 3가지 특징",
+        "content": "일부러스 뛰는 사람들의에는더글라 뛰는사람들의에는더글라 뛰는사람들의에는더글라 뛰는사람들의에는더 뛰는 사회를좋아하지가 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는",
+        "thumbnail": "/images/banners/banner5.jpg",
+        "thumbnailAlt": "부자의 공통 특징 아티클 이미지",
+        "likeCount": 0,
+        "commentCount": 0,
+        "date": "26.02.27",
+        "ariaLabel": "너바나 님의 아티클: 부자의 변태로 뛰는"
+      },
+      {
+        "id": "pac2",
+        "authorNickname": "너바나",
+        "authorVerified": true,
+        "category": "부동산",
+        "title": "부자의 변태로 뛰는, 6가지 된 돈 사용 들어 공통적인 3가지 특징",
+        "content": "일부러스 뛰는 사람들의에는더글라 뛰는사람들의에는더글라 뛰는사람들의에는더글라 뛰는사람들의에는더 뛰는 사회를좋아하지가 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는",
+        "thumbnail": "/images/banners/banner9.jpg",
+        "thumbnailAlt": "부자의 돈 사용 아티클 이미지",
+        "likeCount": 0,
+        "commentCount": 0,
+        "date": "26.02.27",
+        "ariaLabel": "너바나 님의 아티클: 부자의 변태로 뛰는 6가지"
+      },
+      {
+        "id": "pac3",
+        "authorNickname": "너바나",
+        "authorVerified": true,
+        "category": "부동산",
+        "title": "부자의 변태로 뛰는, 유지만 할뿐 사용 들어 공통적인 3가지 특징",
+        "content": "일부러스 뛰는 사람들의에는더글라 뛰는사람들의에는더글라 뛰는사람들의에는더글라 뛰는사람들의에는더 뛰는 사회를좋아하지가 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는",
+        "thumbnail": "/images/banners/banner10.webp",
+        "thumbnailAlt": "부자의 변태로 뛰는 아티클 이미지",
+        "likeCount": 0,
+        "commentCount": 0,
+        "date": "26.02.27",
+        "ariaLabel": "너바나 님의 아티클: 부자의 변태로 뛰는"
+      }
+    ]
+  },
+
+  "homeCommunity": {
+    "meta": {
+      "title": "찐부자들이 함께하는, 월부 커뮤니티",
+      "ariaLabel": "홈 커뮤니티 섹션"
+    },
+    "posts": [
+      {
+        "id": "hc1",
+        "authorNickname": "너바나",
+        "category": "님의",
+        "title": "통장잔고 5000만원의 따단한 분들이 꼭 알아야 하는 자본주의 투자법",
+        "content": "일부러스뛰는 뛰는 사람들이네는더글라 뛰는사람들이네는더글라뛰는사사람들이네는더글라 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는",
+        "thumbnail": "/images/banners/banner1.jpg",
+        "thumbnailAlt": "자본주의 투자법 커뮤니티 글 이미지",
+        "likeCount": 0,
+        "commentCount": 0,
+        "avatarColor": "1",
+        "ariaLabel": "너바나 님의 커뮤니티 글: 통장잔고 5000만원의 투자법"
+      },
+      {
+        "id": "hc2",
+        "authorNickname": "너바나",
+        "category": "님의",
+        "title": "통장잔고 5000만원의 따단한 분들이 꼭 알아야 하는 자본주의 투자법",
+        "content": "일부러스뛰는 뛰는 사람들이네는더글라 뛰는사람들이네는더글라뛰는사사람들이네는더글라 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는",
+        "thumbnail": "/images/banners/banner7.png",
+        "thumbnailAlt": "자본주의 투자법 커뮤니티 글 이미지",
+        "likeCount": 0,
+        "commentCount": 0,
+        "avatarColor": "2",
+        "ariaLabel": "너바나 님의 커뮤니티 글"
+      },
+      {
+        "id": "hc3",
+        "authorNickname": "너바나",
+        "category": "님의",
+        "title": "통장잔고 5000만원의 따단한 분들이 꼭 알아야 하는 자본주의 투자법",
+        "content": "일부러스뛰는 뛰는 사람들이네는더글라 뛰는사람들이네는더글라뛰는사사람들이네는더글라 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는",
+        "thumbnail": "/images/banners/banner8.png",
+        "thumbnailAlt": "자본주의 투자법 커뮤니티 글 이미지",
+        "likeCount": 0,
+        "commentCount": 0,
+        "avatarColor": "3",
+        "ariaLabel": "너바나 님의 커뮤니티 글"
+      },
+      {
+        "id": "hc4",
+        "authorNickname": "너바나",
+        "category": "님의",
+        "title": "통장잔고 5000만원의 따단한 분들이 꼭 알아야 하는 자본주의 투자법",
+        "content": "일부러스뛰는 뛰는 사람들이네는더글라 뛰는사람들이네는더글라뛰는사사람들이네는더글라 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는",
+        "thumbnail": "/images/banners/banner2.png",
+        "thumbnailAlt": "자본주의 투자법 커뮤니티 글 이미지",
+        "likeCount": 0,
+        "commentCount": 0,
+        "avatarColor": "4",
+        "ariaLabel": "너바나 님의 커뮤니티 글"
+      }
+    ],
+    "pagination": {
+      "totalPages": 6,
+      "ariaLabel": "커뮤니티 글 페이지 이동"
+    }
+  },
+
   "faq": [
     { "question": "결제는 어떻게 하나요?", "answer": "신용카드, 계좌이체, 간편결제를 지원합니다." },
     { "question": "환불 정책은 어떻게 되나요?", "answer": "수강 시작 후 7일 이내 전액 환불이 가능합니다." },

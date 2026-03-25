@@ -37,9 +37,9 @@ export default function ReviewContent(): JSX.Element {
         ) : (
           <div className={`${SK}__review-list`}>
             {reviewsWithCourse.map((item) => (
-              <div key={item.id} className={`${SK}__review-card`}>
+              <Link key={item.id} href={`/courses/${item.courseSlug}/reviews`} className={`${SK}__review-card`}>
                 {item.course ? (
-                  <Link href={`/courses/${item.course.slug}`} className={`${SK}__review-thumb-link`}>
+                  <div className={`${SK}__review-thumb-link`}>
                     <Image
                       src={item.course.thumbnail}
                       alt={item.course.thumbnailAlt}
@@ -47,7 +47,7 @@ export default function ReviewContent(): JSX.Element {
                       height={80}
                       className={`${SK}__review-img`}
                     />
-                  </Link>
+                  </div>
                 ) : (
                   <div className={`${SK}__review-thumb`} />
                 )}
@@ -63,7 +63,7 @@ export default function ReviewContent(): JSX.Element {
                   <p className={`${SK}__review-content`}>{item.content}</p>
                   <span className={`${SK}__review-date`}>{item.createdAt}</span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}
