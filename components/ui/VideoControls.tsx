@@ -42,14 +42,18 @@ export default function VideoControls() {
   const canPictureInPicture = useMediaState('canPictureInPicture');
   const textTrack = useMediaState('textTrack');
 
-  // UI 로컬 상태 (메뉴 토글 등)
+  // UI 로컬 상태
   const [visible, setVisible] = useState(false);
-  const [showVolume, setShowVolume] = useState(false);
-  const [showSpeed, setShowSpeed] = useState(false);
-  const [showQuality, setShowQuality] = useState(false);
   const hideTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const hasRestoredRate = useRef(false);
+
+  // 드롭다운 상태 — 하나만 열림 (null이면 모두 닫힘)
+  type DropdownId = 'speed' | 'quality' | 'volume';
+  const [openDropdown, setOpenDropdown] = useState<DropdownId | null>(null);
+  const speedWrapRef = useRef<HTMLDivElement>(null);
+  const qualityWrapRef = useRef<HTMLDivElement>(null);
+  const volumeWrapRef = useRef<HTMLDivElement>(null);
 
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
   const isMuted = muted || volume === 0;
@@ -75,16 +79,43 @@ export default function VideoControls() {
     hasRestoredRate.current = true;
   }, [remote, player]);
 
+  /** 드롭다운 토글 — 같은 메뉴 클릭 시 닫고, 다른 메뉴 클릭 시 전환 */
+  const toggleDropdown = useCallback((id: DropdownId) => {
+    setOpenDropdown((prev) => (prev === id ? null : id));
+  }, []);
+
+  const closeAllDropdowns = useCallback(() => {
+    setOpenDropdown(null);
+  }, []);
+
+  /** 외부 클릭 감지 — 열린 드롭다운 영역 밖 클릭 시 닫기 */
+  useEffect(() => {
+    if (!openDropdown) return;
+
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as Node;
+      const wrapRef =
+        openDropdown === 'speed' ? speedWrapRef :
+        openDropdown === 'quality' ? qualityWrapRef :
+        volumeWrapRef;
+
+      if (wrapRef.current && !wrapRef.current.contains(target)) {
+        closeAllDropdowns();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [openDropdown, closeAllDropdowns]);
+
   const resetHideTimer = useCallback(() => {
     if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
     setVisible(true);
     hideTimerRef.current = setTimeout(() => {
       setVisible(false);
-      setShowVolume(false);
-      setShowSpeed(false);
-      setShowQuality(false);
+      closeAllDropdowns();
     }, 3000);
-  }, []);
+  }, [closeAllDropdowns]);
 
   const handleMouseMove = useCallback(() => {
     resetHideTimer();
@@ -93,10 +124,8 @@ export default function VideoControls() {
   const handleMouseLeave = useCallback(() => {
     if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
     setVisible(false);
-    setShowVolume(false);
-    setShowSpeed(false);
-    setShowQuality(false);
-  }, []);
+    closeAllDropdowns();
+  }, [closeAllDropdowns]);
 
   useEffect(() => {
     return () => {
@@ -139,7 +168,7 @@ export default function VideoControls() {
   const handleChangeSpeed = (rate: number) => {
     remote.changePlaybackRate(rate);
     savePlaybackRate(rate);
-    setShowSpeed(false);
+    closeAllDropdowns();
   };
 
   const handleToggleFullscreen = () => {
@@ -164,12 +193,12 @@ export default function VideoControls() {
 
   const handleChangeQuality = (index: number) => {
     remote.changeQuality(index);
-    setShowQuality(false);
+    closeAllDropdowns();
   };
 
   const handleAutoQuality = () => {
     remote.requestAutoQuality();
-    setShowQuality(false);
+    closeAllDropdowns();
   };
 
   return (
@@ -244,13 +273,15 @@ export default function VideoControls() {
 
             {/* 볼륨 */}
             <div
+              ref={volumeWrapRef}
               className="video-controls__volume-wrap"
-              onMouseEnter={() => setShowVolume(true)}
-              onMouseLeave={() => setShowVolume(false)}
             >
               <button
                 className="video-controls__btn"
-                onClick={handleToggleMute}
+                onClick={() => {
+                  handleToggleMute();
+                  toggleDropdown('volume');
+                }}
                 aria-label={ariaLabels.muteButton}
               >
                 {isMuted ? (
@@ -263,7 +294,7 @@ export default function VideoControls() {
                   </svg>
                 )}
               </button>
-              {showVolume && (
+              {openDropdown === 'volume' && (
                 <div className="video-controls__volume-slider">
                   <input
                     type="range"
@@ -288,17 +319,18 @@ export default function VideoControls() {
           <div className="video-controls__right">
             {/* 재생속도 */}
             <div
+              ref={speedWrapRef}
               className="video-controls__speed-wrap"
-              onMouseEnter={() => setShowSpeed(true)}
-              onMouseLeave={() => setShowSpeed(false)}
             >
               <button
                 className="video-controls__btn video-controls__btn--text"
+                onClick={() => toggleDropdown('speed')}
                 aria-label={ariaLabels.speedMenu}
+                aria-expanded={openDropdown === 'speed'}
               >
                 {playbackRate}x
               </button>
-              {showSpeed && (
+              {openDropdown === 'speed' && (
                 <ul className="video-controls__speed-menu" role="listbox" aria-label={ariaLabels.speedMenu}>
                   {PLAYBACK_RATES.map((rate) => (
                     <li key={rate}>
@@ -342,20 +374,21 @@ export default function VideoControls() {
               </button>
             )}
 
-            {/* 품질 선택 (배속 메뉴와 동일한 hover 드롭다운) */}
+            {/* 품질 선택 */}
             {hasQualities && (
               <div
+                ref={qualityWrapRef}
                 className="video-controls__speed-wrap"
-                onMouseEnter={() => setShowQuality(true)}
-                onMouseLeave={() => setShowQuality(false)}
               >
                 <button
                   className="video-controls__btn video-controls__btn--text"
+                  onClick={() => toggleDropdown('quality')}
                   aria-label={ariaLabels.qualityMenu}
+                  aria-expanded={openDropdown === 'quality'}
                 >
                   {qualityLabel}
                 </button>
-                {showQuality && (
+                {openDropdown === 'quality' && (
                   <ul className="video-controls__speed-menu" role="listbox" aria-label={ariaLabels.qualityMenu}>
                     <li>
                       <button

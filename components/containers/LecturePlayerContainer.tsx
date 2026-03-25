@@ -144,13 +144,15 @@ export default function LecturePlayerContainer({ courseSlug, lectureId }: Lectur
       <div className="lecture-player-container__body">
         {/* 비디오 영역 */}
         <div className="lecture-player-container__video-wrap">
-          {isSessionLoading ? (
-            // 세션 발급 중 로딩 표시
+          {/* 로딩 오버레이 */}
+          {isSessionLoading && (
             <div className="vidstack-player__buffering vidstack-player__buffering--active">
               <div className="vidstack-player__spinner" />
             </div>
-          ) : sessionError && !sessionManifestUrl ? (
-            // 세션 에러 (manifestUrl 없음) — 에러 오버레이
+          )}
+
+          {/* 세션 에러 오버레이 */}
+          {!isSessionLoading && sessionError && !sessionManifestUrl && (
             <div className="vidstack-player__error" role="alert">
               <svg
                 className="vidstack-player__error-icon"
@@ -175,8 +177,13 @@ export default function LecturePlayerContainer({ courseSlug, lectureId }: Lectur
                 </button>
               )}
             </div>
-          ) : (
-            // 정상 — 플레이어 렌더링
+          )}
+
+          {/* 플레이어 — 항상 마운트 (vidstack 내부 초기화 보장), 로딩/에러 시 숨김 */}
+          <div
+            className="lecture-player-container__player"
+            hidden={isSessionLoading || (!!sessionError && !sessionManifestUrl)}
+          >
             <VidstackPlayer
               manifestUrl={manifestUrl}
               startPosition={lastPosition}
@@ -188,7 +195,7 @@ export default function LecturePlayerContainer({ courseSlug, lectureId }: Lectur
             >
               <VideoControls />
             </VidstackPlayer>
-          )}
+          </div>
         </div>
 
         {/* 오른쪽 사이드바 */}
