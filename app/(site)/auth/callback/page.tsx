@@ -7,7 +7,7 @@
 
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { Suspense, useEffect, useState, useCallback } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import useAuth from '@/hooks/useAuth';
 import { consumeState } from '@/lib/oauth';
@@ -24,6 +24,22 @@ function isValidProvider(value: string | null): value is OAuthProvider {
 }
 
 export default function AuthCallbackPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="auth-callback-page">
+          <p className="auth-callback-page__loading" aria-live="polite">
+            {callbackData.loadingMessage}
+          </p>
+        </div>
+      }
+    >
+      <AuthCallbackContent />
+    </Suspense>
+  );
+}
+
+function AuthCallbackContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const { login } = useAuth();

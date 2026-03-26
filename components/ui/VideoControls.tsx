@@ -48,7 +48,7 @@ export default function VideoControls() {
   const containerRef = useRef<HTMLDivElement>(null);
   const hasRestoredRate = useRef(false);
 
-  // 드롭다운 상태 — 하나만 열림 (null이면 모두 닫힘)
+  // 드롭다운 상태 — 하나만 열림 (null이면 모두 닫힘)ㅎ
   type DropdownId = 'speed' | 'quality' | 'volume';
   const [openDropdown, setOpenDropdown] = useState<DropdownId | null>(null);
   const speedWrapRef = useRef<HTMLDivElement>(null);
