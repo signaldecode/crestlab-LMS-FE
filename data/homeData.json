@@ -1,6 +1,22 @@
 {
   "_comment": "홈 페이지 큐레이션 데이터 — 섹션별 강의 구성, 오픈예정, 베스트, 후기, FAQ",
 
+  "homeCategories": {
+    "meta": { "ariaLabel": "카테고리 바로가기" },
+    "items": [
+      { "icon": "star", "label": "첫강의추천", "href": "/courses?tag=first", "ariaLabel": "첫강의추천 카테고리" },
+      { "icon": "mic", "label": "너나위특강", "href": "/courses?tag=special", "ariaLabel": "너나위특강 카테고리" },
+      { "icon": "crown", "label": "오리지널", "href": "/courses?tag=original", "ariaLabel": "오리지널 카테고리" },
+      { "icon": "pen", "label": "블로그부업", "href": "/courses?tag=blog", "ariaLabel": "블로그부업 카테고리" },
+      { "icon": "briefcase", "label": "직장인부업", "href": "/courses?tag=side-job", "ariaLabel": "직장인부업 카테고리" },
+      { "icon": "ticket", "label": "내쿠폰", "href": "/mypage/coupons", "ariaLabel": "내쿠폰 카테고리" },
+      { "icon": "calendar", "label": "이달의강의", "href": "/courses?tag=monthly", "ariaLabel": "이달의강의 카테고리" },
+      { "icon": "tag", "label": "첫구매특가", "href": "/courses?tag=first-buy", "ariaLabel": "첫구매특가 카테고리" },
+      { "icon": "book", "label": "전문가칼럼", "href": "/community?tab=expert", "ariaLabel": "전문가칼럼 카테고리" },
+      { "icon": "building", "label": "부동산중개", "href": "/courses?category=real-estate", "ariaLabel": "부동산중개 카테고리" }
+    ]
+  },
+
   "homeSections": [
     {
       "title": "지금 가장 주목받는 강의",
@@ -500,6 +516,87 @@
     ]
   },
 
+  "homeBestArticles": {
+    "meta": {
+      "title": "이주의 베스트 인기글",
+      "icon": "🏆",
+      "ariaLabel": "이주의 베스트 인기글 캐러셀"
+    },
+    "articles": [
+      {
+        "id": "hba1",
+        "rank": 1,
+        "thumbnail": "/images/banners/banner2.png",
+        "thumbnailAlt": "오프라인 클래스 비트코인 교육 썸네일",
+        "title": "오프라인 클래스 비트코인 교육",
+        "date": "2025.05.22",
+        "ariaLabel": "1위 베스트 인기글: 오프라인 클래스 비트코인 교육"
+      },
+      {
+        "id": "hba2",
+        "rank": 2,
+        "thumbnail": "/images/banners/banner5.jpg",
+        "thumbnailAlt": "부자와 반대로 하는, 돈이 안 불는 사람들의 공통적인 3가지 특징 썸네일",
+        "title": "부자와 반대로 하는, 돈이 안 불는 사람들의 공통적인 3가지 특징",
+        "date": "26.02.27",
+        "ariaLabel": "2위 베스트 인기글: 부자와 반대로 하는, 돈이 안 불는 사람들의 공통적인 3가지 특징"
+      },
+      {
+        "id": "hba3",
+        "rank": 3,
+        "thumbnail": "/images/banners/banner7.png",
+        "thumbnailAlt": "부자와 반대로 하는, 돈이 안 불는 사람들의 공통적인 3가지 특징 썸네일",
+        "title": "부자와 반대로 하는, 돈이 안 불는 사람들의 공통적인 3가지 특징",
+        "date": "26.02.27",
+        "ariaLabel": "3위 베스트 인기글: 부자와 반대로 하는, 돈이 안 불는 사람들의 공통적인 3가지 특징"
+      },
+      {
+        "id": "hba4",
+        "rank": 4,
+        "thumbnail": "/images/banners/banner8.png",
+        "thumbnailAlt": "부자와 반대로 하는, 돈이 안 불는 사람들의 공통적인 3가지 특징 썸네일",
+        "title": "부자와 반대로 하는, 돈이 안 불는 사람들의 공통적인 3가지 특징",
+        "date": "26.02.27",
+        "ariaLabel": "4위 베스트 인기글: 부자와 반대로 하는, 돈이 안 불는 사람들의 공통적인 3가지 특징"
+      },
+      {
+        "id": "hba5",
+        "rank": 5,
+        "thumbnail": "/images/banners/banner9.jpg",
+        "thumbnailAlt": "부자와 반대로 하는, 돈이 안 불는 사람들의 공통적인 3가지 특징 썸네일",
+        "title": "부자와 반대로 하는, 돈이 안 불는 사람들의 공통적인 3가지 특징",
+        "date": "26.02.27",
+        "ariaLabel": "5위 베스트 인기글: 부자와 반대로 하는, 돈이 안 불는 사람들의 공통적인 3가지 특징"
+      }
+    ]
+  },
+
+  "liveCounter": {
+    "meta": { "ariaLabel": "실시간 수강 통계" },
+    "items": [
+      { "icon": "users", "value": 150000, "suffix": "+", "label": "누적 수강생", "ariaLabel": "누적 수강생 150,000명 이상" },
+      { "icon": "star", "value": 45000, "suffix": "+", "label": "수강평", "ariaLabel": "수강평 45,000개 이상" },
+      { "icon": "play", "value": 320, "suffix": "+", "label": "전체 강의 수", "ariaLabel": "전체 강의 320개 이상" },
+      { "icon": "trophy", "value": 98, "suffix": "%", "label": "만족도", "ariaLabel": "만족도 98%" }
+    ]
+  },
+
+  "homeInstructors": {
+    "meta": {
+      "title": "최고의 전문가에게 배우세요",
+      "description": "각 분야 최고의 전문가들이 직접 강의합니다",
+      "ariaLabel": "인기 강사 소개"
+    },
+    "instructors": [
+      { "id": "inst1", "name": "너바나", "specialty": "부동산 투자", "courseCount": 12, "rating": 4.98, "reviewCount": 17191, "color": "#0077FF", "ariaLabel": "너바나 강사 프로필" },
+      { "id": "inst2", "name": "너나위", "specialty": "내집마련", "courseCount": 8, "rating": 4.97, "reviewCount": 8205, "color": "#7c3aed", "ariaLabel": "너나위 강사 프로필" },
+      { "id": "inst3", "name": "월천대사", "specialty": "재테크", "courseCount": 15, "rating": 4.95, "reviewCount": 12340, "color": "#16a34a", "ariaLabel": "월천대사 강사 프로필" },
+      { "id": "inst4", "name": "자청", "specialty": "자기계발", "courseCount": 6, "rating": 4.93, "reviewCount": 9870, "color": "#f59e0b", "ariaLabel": "자청 강사 프로필" },
+      { "id": "inst5", "name": "김짠부", "specialty": "절약/저축", "courseCount": 4, "rating": 4.96, "reviewCount": 5430, "color": "#dc2626", "ariaLabel": "김짠부 강사 프로필" },
+      { "id": "inst6", "name": "부읽남", "specialty": "부동산 분석", "courseCount": 9, "rating": 4.94, "reviewCount": 7650, "color": "#0ea5e9", "ariaLabel": "부읽남 강사 프로필" }
+    ]
+  },
+
   "homeCommunity": {
     "meta": {
       "title": "찐부자들이 함께하는, 월부 커뮤니티",
@@ -567,6 +664,71 @@
       "totalPages": 6,
       "ariaLabel": "커뮤니티 글 페이지 이동"
     }
+  },
+
+  "homePromoBanners": {
+    "meta": {
+      "ariaLabel": "프로모션 배너 캐러셀"
+    },
+    "banners": [
+      {
+        "id": "pb1",
+        "title": "배너이미지입니다.",
+        "href": "#",
+        "thumbnail": "/images/banners/banner3.jpg",
+        "thumbnailAlt": "프로모션 배너 1",
+        "ariaLabel": "프로모션 배너: 배너이미지입니다"
+      },
+      {
+        "id": "pb2",
+        "title": "배너이미지입니다.",
+        "href": "#",
+        "thumbnail": "/images/banners/banner4.webp",
+        "thumbnailAlt": "프로모션 배너 2",
+        "ariaLabel": "프로모션 배너: 배너이미지입니다"
+      },
+      {
+        "id": "pb3",
+        "title": "배너이미지입니다.",
+        "href": "#",
+        "thumbnail": "/images/banners/banner5.jpg",
+        "thumbnailAlt": "프로모션 배너 3",
+        "ariaLabel": "프로모션 배너: 배너이미지입니다"
+      },
+      {
+        "id": "pb4",
+        "title": "배너이미지입니다.",
+        "href": "#",
+        "thumbnail": "/images/banners/banner6.jpg",
+        "thumbnailAlt": "프로모션 배너 4",
+        "ariaLabel": "프로모션 배너: 배너이미지입니다"
+      },
+      {
+        "id": "pb5",
+        "title": "배너이미지입니다.",
+        "href": "#",
+        "thumbnail": "/images/banners/banner8.png",
+        "thumbnailAlt": "프로모션 배너 5",
+        "ariaLabel": "프로모션 배너: 배너이미지입니다"
+      },
+      {
+        "id": "pb6",
+        "title": "배너이미지입니다.",
+        "href": "#",
+        "thumbnail": "/images/banners/banner9.jpg",
+        "thumbnailAlt": "프로모션 배너 6",
+        "ariaLabel": "프로모션 배너: 배너이미지입니다"
+      }
+    ]
+  },
+
+  "ctaBanner": {
+    "title": "지금 시작하면, 첫 강의 무료",
+    "description": "회원가입만 해도 베스트 강의 1개를 무료로 수강할 수 있습니다",
+    "buttonLabel": "무료로 시작하기",
+    "buttonHref": "/auth/signup",
+    "buttonAriaLabel": "회원가입하고 무료 강의 시작하기",
+    "ariaLabel": "무료 강의 시작 안내 배너"
   },
 
   "faq": [

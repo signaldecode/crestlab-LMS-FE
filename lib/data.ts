@@ -5,7 +5,7 @@
  */
 
 import mainData from '@/data';
-import type { MainData, SiteData, NavData, Course, HomeSection, UpcomingCourse, BestCourse, BestChipCategory, FaqItem, TestimonialsSection, FooterData, GeoData, OrderData, CertificateData, ConsultationData, ReviewData, ExpiredCouponData, GiftcardData, GiftcardHistoryData, FollowUserData, EnrolledCourseData, PopularArticlesSection, HomeCommunitySection } from '@/types';
+import type { MainData, SiteData, NavData, Course, HomeSection, UpcomingCourse, BestCourse, BestChipCategory, FaqItem, TestimonialsSection, FooterData, GeoData, OrderData, CertificateData, ConsultationData, ReviewData, ExpiredCouponData, GiftcardData, GiftcardHistoryData, FollowUserData, EnrolledCourseData, PopularArticlesSection, HomeBestArticlesSection, HomeCommunitySection, HomePromoBannerSection, HomeCategorySection, LiveCounterSection, HomeInstructorsSection, CtaBannerData } from '@/types';
 
 const data: MainData = mainData;
 
@@ -87,9 +87,39 @@ export function getPopularArticles(): PopularArticlesSection {
   return data.popularArticles;
 }
 
+/** 이주의 베스트 인기글 섹션 반환 */
+export function getHomeBestArticles(): HomeBestArticlesSection {
+  return data.homeBestArticles;
+}
+
 /** 홈 커뮤니티 섹션 반환 */
 export function getHomeCommunity(): HomeCommunitySection {
   return data.homeCommunity;
+}
+
+/** 홈 카테고리 네비게이션 반환 */
+export function getHomeCategories(): HomeCategorySection {
+  return data.homeCategories;
+}
+
+/** 실시간 카운터 섹션 반환 */
+export function getLiveCounter(): LiveCounterSection {
+  return data.liveCounter;
+}
+
+/** 인기 강사 섹션 반환 */
+export function getHomeInstructors(): HomeInstructorsSection {
+  return data.homeInstructors;
+}
+
+/** CTA 배너 데이터 반환 */
+export function getCtaBanner(): CtaBannerData {
+  return data.ctaBanner;
+}
+
+/** 홈 프로모 배너 섹션 반환 */
+export function getHomePromoBanners(): HomePromoBannerSection {
+  return data.homePromoBanners;
 }
 
 /** GEO 데이터 반환 */

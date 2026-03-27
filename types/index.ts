@@ -94,6 +94,8 @@ export interface Course {
   instructor: string;
   featured: boolean;
   badges: string[];
+  tags: string[];
+  learningPoints: string[];
   rating?: number;
   reviewCount?: number;
   enrollmentPeriod: string;
@@ -250,6 +252,101 @@ export interface PopularArticlesSection {
   featured: PopularArticleFeatured;
   ranked: PopularArticleRanked[];
   cards: PopularArticleCard[];
+}
+
+/* ── 이주의 베스트 인기글 (캐러셀) ── */
+export interface HomeBestArticle {
+  id: string;
+  rank: number;
+  thumbnail: string;
+  thumbnailAlt: string;
+  title: string;
+  date: string;
+  ariaLabel: string;
+}
+
+export interface HomeBestArticlesSection {
+  meta: {
+    title: string;
+    icon: string;
+    ariaLabel: string;
+  };
+  articles: HomeBestArticle[];
+}
+
+/* ── 홈 카테고리 네비게이션 ── */
+export interface HomeCategoryItem {
+  icon: string;
+  label: string;
+  href: string;
+  ariaLabel: string;
+}
+
+export interface HomeCategorySection {
+  meta: { ariaLabel: string };
+  items: HomeCategoryItem[];
+}
+
+/* ── 실시간 카운터 ── */
+export interface LiveCounterItem {
+  icon: string;
+  value: number;
+  suffix: string;
+  label: string;
+  ariaLabel: string;
+}
+
+export interface LiveCounterSection {
+  meta: { ariaLabel: string };
+  items: LiveCounterItem[];
+}
+
+/* ── 인기 강사 ── */
+export interface HomeInstructor {
+  id: string;
+  name: string;
+  specialty: string;
+  courseCount: number;
+  rating: number;
+  reviewCount: number;
+  color: string;
+  ariaLabel: string;
+}
+
+export interface HomeInstructorsSection {
+  meta: {
+    title: string;
+    description: string;
+    ariaLabel: string;
+  };
+  instructors: HomeInstructor[];
+}
+
+/* ── CTA 배너 ── */
+export interface CtaBannerData {
+  title: string;
+  description: string;
+  buttonLabel: string;
+  buttonHref: string;
+  buttonAriaLabel: string;
+  ariaLabel: string;
+}
+
+/* ── 홈 프로모 배너 ── */
+export interface HomePromoBanner {
+  id: string;
+  title: string;
+  href: string;
+  thumbnail: string;
+  thumbnailAlt: string;
+  ariaLabel: string;
+}
+
+export interface HomePromoBannerSection {
+  meta: {
+    ariaLabel: string;
+  };
+  banners: HomePromoBanner[];
 }
 
 /* ── 홈 커뮤니티 ── */
@@ -961,12 +1058,18 @@ export interface MainData {
   pages: Record<string, unknown>;
   courses: Course[];
   homeSections: HomeSection[];
+  homeCategories: HomeCategorySection;
   upcomingCourses: UpcomingCourse[];
   bestCourses: BestCourse[];
   bestChipCategories: BestChipCategory[];
   testimonials: TestimonialsSection;
   popularArticles: PopularArticlesSection;
+  homeBestArticles: HomeBestArticlesSection;
+  liveCounter: LiveCounterSection;
+  homeInstructors: HomeInstructorsSection;
   homeCommunity: HomeCommunitySection;
+  homePromoBanners: HomePromoBannerSection;
+  ctaBanner: CtaBannerData;
   faq: FaqItem[];
   footer: FooterData;
   a11y: Record<string, unknown>;

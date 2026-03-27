@@ -16,6 +16,16 @@
       "ORIGINAL",
       "BEST"
     ],
+    "tags": [
+      "부동산투자",
+      "입지분석",
+      "실전투자"
+    ],
+    "learningPoints": [
+      "입지 분석으로 유망 지역을 선별하는 방법",
+      "매물 협상과 계약 실전 노하우",
+      "투자 수익률 계산과 리스크 관리"
+    ],
     "rating": 4.98,
     "reviewCount": 106062,
     "faq": [
@@ -178,6 +188,15 @@
       "2026 신규오픈",
       "NEW"
     ],
+    "tags": [
+      "입지분석",
+      "부동산",
+      "데이터분석"
+    ],
+    "learningPoints": [
+      "데이터 기반 입지 분석 프레임워크",
+      "상권·교통·개발호재 분석법"
+    ],
     "rating": 4.96,
     "reviewCount": 4693,
     "faq": [
@@ -335,6 +354,15 @@
     "badges": [
       "선착순한정"
     ],
+    "tags": [
+      "인테리어",
+      "리모델링",
+      "셀프시공"
+    ],
+    "learningPoints": [
+      "셀프 인테리어 비용 절감 전략",
+      "공간 활용을 극대화하는 설계법"
+    ],
     "rating": 4.99,
     "reviewCount": 508,
     "faq": [],
@@ -489,6 +517,15 @@
       "NEW",
       "BEST"
     ],
+    "tags": [
+      "매도전략",
+      "부동산",
+      "세금절세"
+    ],
+    "learningPoints": [
+      "최적의 매도 타이밍 판단법",
+      "양도세 절세 실전 전략"
+    ],
     "rating": 4.95,
     "reviewCount": 59,
     "faq": [],
@@ -641,6 +678,15 @@
     "badges": [
       "ORIGINAL",
       "NEW"
+    ],
+    "tags": [
+      "아파트",
+      "급매물",
+      "시세분석"
+    ],
+    "learningPoints": [
+      "급매물을 빠르게 찾는 실전 방법",
+      "시세 대비 저평가 매물 판별법"
     ],
     "rating": 4.96,
     "reviewCount": 4687,
@@ -801,6 +847,15 @@
     "instructor": "부동산지도사",
     "featured": false,
     "badges": [],
+    "tags": [
+      "강남권",
+      "지역분석",
+      "출퇴근"
+    ],
+    "learningPoints": [
+      "강남 20분 생활권 유망 지역 분석",
+      "교통 개발 호재와 투자 포인트"
+    ],
     "rating": 4.92,
     "reviewCount": 1234,
     "faq": [],
@@ -952,6 +1007,15 @@
     "featured": true,
     "badges": [
       "BEST"
+    ],
+    "tags": [
+      "내집마련",
+      "청약",
+      "대출전략"
+    ],
+    "learningPoints": [
+      "청약 당첨 확률을 높이는 전략",
+      "주택담보대출 최적 설계법"
     ],
     "rating": 4.97,
     "reviewCount": 82059,
@@ -1115,6 +1179,15 @@
       "LV.1",
       "부업 BEST 1위"
     ],
+    "tags": [
+      "절약",
+      "쿠폰활용",
+      "생활비"
+    ],
+    "learningPoints": [
+      "월 생활비 30% 절감 실전법",
+      "쿠폰·포인트 극대화 전략"
+    ],
     "rating": 4.91,
     "reviewCount": 3064,
     "faq": [],
@@ -1265,6 +1338,15 @@
     "instructor": "일하는늘보",
     "featured": false,
     "badges": [],
+    "tags": [
+      "이커머스",
+      "올리브영",
+      "셀러입문"
+    ],
+    "learningPoints": [
+      "올리브영 입점 절차와 전략",
+      "상품 소싱부터 판매까지 A to Z"
+    ],
     "rating": 4.92,
     "reviewCount": 12,
     "faq": [],
@@ -1415,6 +1497,15 @@
     "instructor": "케빈AI",
     "featured": false,
     "badges": [],
+    "tags": [
+      "AI",
+      "웹사이트",
+      "자동화수익"
+    ],
+    "learningPoints": [
+      "AI 도구로 홈페이지 자동 생성",
+      "웹사이트 기반 수익화 모델 구축"
+    ],
     "rating": 4.5,
     "reviewCount": 2,
     "faq": [],
@@ -1569,6 +1660,15 @@
       "NEW",
       "마감임박"
     ],
+    "tags": [
+      "당근마켓",
+      "중고거래",
+      "부업"
+    ],
+    "learningPoints": [
+      "당근마켓으로 월 100만원 수익 내는 법",
+      "효율적인 상품 소싱과 판매 전략"
+    ],
     "rating": 4.92,
     "reviewCount": 51,
     "faq": [],
@@ -1722,6 +1822,15 @@
       "LV.2",
       "월부월백"
     ],
+    "tags": [
+      "블로그",
+      "애드센스",
+      "콘텐츠"
+    ],
+    "learningPoints": [
+      "수익형 블로그 운영 A to Z",
+      "월 고정 수입을 만드는 콘텐츠 전략"
+    ],
     "rating": 4.94,
     "reviewCount": 353,
     "faq": [],
@@ -1872,6 +1981,15 @@
     "instructor": "세금박사",
     "featured": false,
     "badges": [],
+    "tags": [
+      "세금",
+      "종합소득세",
+      "절세"
+    ],
+    "learningPoints": [
+      "종합소득세 신고 실전 가이드",
+      "합법적 절세를 위한 경비 처리법"
+    ],
     "rating": 4.88,
     "reviewCount": 2340,
     "faq": [],
@@ -2023,6 +2141,15 @@
     "featured": true,
     "badges": [
       "2026 NEW"
+    ],
+    "tags": [
+      "재테크",
+      "자산관리",
+      "금융기초"
+    ],
+    "learningPoints": [
+      "초보자를 위한 자산 배분 원칙",
+      "예·적금부터 펀드까지 금융상품 비교"
     ],
     "rating": 4.87,
     "reviewCount": 11265,
@@ -2176,6 +2303,15 @@
     "badges": [
       "LV.1"
     ],
+    "tags": [
+      "미국주식",
+      "ETF",
+      "해외투자"
+    ],
+    "learningPoints": [
+      "미국 주식 계좌 개설부터 매매까지",
+      "ETF 포트폴리오 구성 전략"
+    ],
     "rating": 4.94,
     "reviewCount": 555,
     "faq": [],
@@ -2328,6 +2464,15 @@
     "badges": [
       "NEW"
     ],
+    "tags": [
+      "경매",
+      "부동산",
+      "법원경매"
+    ],
+    "learningPoints": [
+      "법원 경매 절차와 입찰 전략",
+      "권리 분석으로 리스크 최소화"
+    ],
     "rating": 4.93,
     "reviewCount": 1847,
     "faq": [],
@@ -2478,6 +2623,15 @@
     "instructor": "독서리더",
     "featured": false,
     "badges": [],
+    "tags": [
+      "독서",
+      "재테크",
+      "자기계발"
+    ],
+    "learningPoints": [
+      "부자들의 독서법과 실천 전략",
+      "재테크 필독서 핵심 요약"
+    ],
     "rating": 4.94,
     "reviewCount": 2020,
     "faq": [],
@@ -2630,6 +2784,15 @@
     "badges": [
       "NEW"
     ],
+    "tags": [
+      "유튜브",
+      "영상제작",
+      "수익화"
+    ],
+    "learningPoints": [
+      "유튜브 채널 기획부터 수익화까지",
+      "조회수를 높이는 영상 편집 기법"
+    ],
     "rating": 4.89,
     "reviewCount": 421,
     "faq": [],
@@ -2781,6 +2944,15 @@
     "featured": false,
     "badges": [
       "ORIGINAL"
+    ],
+    "tags": [
+      "상가투자",
+      "수익형부동산",
+      "임대"
+    ],
+    "learningPoints": [
+      "상가 투자 수익률 분석법",
+      "공실 리스크 관리와 임대 전략"
     ],
     "rating": 4.91,
     "reviewCount": 876,
@@ -2935,6 +3107,15 @@
       "선착순한정",
       "NEW"
     ],
+    "tags": [
+      "청약",
+      "재개발",
+      "재건축"
+    ],
+    "learningPoints": [
+      "재개발·재건축 투자 핵심 포인트",
+      "조합원 입주권 분석법"
+    ],
     "rating": 4.95,
     "reviewCount": 3210,
     "faq": [],
@@ -3087,6 +3268,15 @@
     "badges": [
       "ORIGINAL",
       "BEST"
+    ],
+    "tags": [
+      "부동산기초",
+      "투자입문",
+      "시장분석"
+    ],
+    "learningPoints": [
+      "부동산 시장 흐름 읽는 법",
+      "첫 투자를 위한 자금 계획 세우기"
     ],
     "rating": 4.98,
     "reviewCount": 171912,
@@ -3249,6 +3439,15 @@
     "badges": [
       "LV.1",
       "마감임박"
+    ],
+    "tags": [
+      "블로그",
+      "자동화",
+      "패시브인컴"
+    ],
+    "learningPoints": [
+      "블로그 자동 수익 시스템 구축",
+      "SEO 최적화로 검색 유입 극대화"
     ],
     "rating": 4.89,
     "reviewCount": 1915,

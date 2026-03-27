@@ -1,35 +1,31 @@
 /**
  * 홈 카테고리 아이콘 네비게이션 (HomeCategoryNav)
- * - 배너 아래 원형 아이콘 + 라벨로 구성된 카테고리 바로가기
- * - 스켈레톤 UI
+ * - 배너 아래 원형 SVG 아이콘 + 라벨로 구성된 카테고리 바로가기
+ * - 데이터는 homeData.json → getHomeCategories()에서 로드
  */
 
 import type { JSX } from 'react';
+import Link from 'next/link';
+import type { HomeCategorySection } from '@/types';
+import CategoryIcon from './CategoryIcon';
 
-const categories = [
-  '첫강의추천',
-  '너나위특강',
-  '오리지널',
-  '블로그부업',
-  '직장인부업',
-  '내쿠폰',
-  '이달의강의',
-  '첫구매특가',
-  '전문가칼럼',
-  '부동산중개',
-];
+interface HomeCategoryNavProps {
+  section: HomeCategorySection;
+}
 
-export default function HomeCategoryNav(): JSX.Element {
+export default function HomeCategoryNav({ section }: HomeCategoryNavProps): JSX.Element {
+  const { meta, items } = section;
+
   return (
-    <section className="home-categories">
+    <nav className="home-categories" aria-label={meta.ariaLabel}>
       <div className="home-categories__inner">
-        {categories.map((label) => (
-          <a key={label} href="#" className="home-categories__item">
-            <div className="home-categories__icon home-categories__skeleton-circle" />
-            <span className="home-categories__label">{label}</span>
-          </a>
+        {items.map((item) => (
+          <Link key={item.label} href={item.href} className="home-categories__item" aria-label={item.ariaLabel}>
+            <CategoryIcon icon={item.icon} className="home-categories__icon" />
+            <span className="home-categories__label">{item.label}</span>
+          </Link>
         ))}
       </div>
-    </section>
+    </nav>
   );
 }
