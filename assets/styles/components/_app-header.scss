@@ -16,6 +16,7 @@
   top: $spacing-0;
   z-index: $z-index-sticky;
   background-color: $color-bg-primary;
+  margin-bottom: $spacing-6;
 
   // ── 상단바 ──
   &__top-bar-inner {

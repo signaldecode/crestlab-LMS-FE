@@ -54,20 +54,21 @@ export default function HomePage() {
         const courses = getHomeSectionCourses(section);
 
         switch (layout) {
-          case 'feature':
-            return <HomeCourseFeature key={section.title} title={section.title} courses={courses} />;
-          case 'ranking':
-            return <HomeCourseRanking key={section.title} title={section.title} courses={courses} />;
+          // case 'feature':
+            // return <HomeCourseFeature key={section.title} title={section.title} courses={courses} />;
+          // case 'ranking':
+            // return <HomeCourseRanking key={section.title} title={section.title} courses={courses} />;
           default:
             return <HomeCourseSection key={section.title} title={section.title} courses={courses} />;
         }
       })}
 
-      {/* 4. 실시간 수강 통계 카운터 */}
-      <LiveCounterBar section={liveCounter} />
-
-      {/* 5. 수강생 베스트 후기 */}
+      
+      {/* 4. 수강생 베스트 후기 */}
       <TestimonialsContainer />
+
+      {/* 5. 실시간 수강 통계 카운터 */}
+      <LiveCounterBar section={liveCounter} />
 
       {/* 6. 이주의 베스트 인기글 */}
       <HomeBestArticles section={bestArticles} />
