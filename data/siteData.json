@@ -5,8 +5,8 @@
     "description": "최고의 온라인 강의 플랫폼",
     "url": "https://example.com",
     "logo": {
-      "src": "/logo.png",
-      "alt": "강의 플랫폼 로고"
+      "text": "SIGNAL DECODE",
+      "alt": "SIGNAL DECODE 홈으로 이동"
     },
     "links": {
       "header": [
@@ -56,16 +56,6 @@
   },
   "nav": {
     "topBar": [
-      {
-        "label": "클래스",
-        "href": "/",
-        "ariaLabel": "클래스(강의) 보기"
-      },
-      {
-        "label": "커뮤니티",
-        "href": "/community",
-        "ariaLabel": "커뮤니티로 이동"
-      }
     ],
     "search": {
       "placeholder": "검색어를 입력하세요",
@@ -73,41 +63,41 @@
     },
     "main": [
       {
-        "label": "카테고리",
+        "label": "드롭다운 메뉴",
         "href": "/courses",
-        "ariaLabel": "카테고리별 강의 보기"
+        "ariaLabel": "드롭다운 메뉴"
       },
       {
-        "label": "프론트엔드",
+        "label": "메뉴 1",
         "href": "/courses/real-estate-basic-class",
-        "ariaLabel": "프론트엔드 입문 강의 상세 보기"
+        "ariaLabel": "메뉴 1"
       },
       {
-        "label": "오리지널",
+        "label": "메뉴 2",
         "href": "/courses?category=original",
-        "ariaLabel": "오리지널 강의 보기"
+        "ariaLabel": "메뉴 2"
       },
       {
-        "label": "베스트",
+        "label": "메뉴 3",
         "href": "/best",
-        "ariaLabel": "베스트 강의 보기"
+        "ariaLabel": "메뉴 3"
       },
       {
-        "label": "커리큘럼",
+        "label": "메뉴 4",
         "href": "/curriculum",
-        "ariaLabel": "커리큘럼 보기"
+        "ariaLabel": "메뉴 4"
       },
       {
-        "label": "오픈예정",
+        "label": "메뉴 5",
         "href": "/upcoming",
         "ariaLabel": "오픈예정 강의 보기"
       }
     ],
     "user": [
       {
-        "label": "강사 지원하기",
+        "label": "추가 메뉴",
         "href": "/instructor/apply",
-        "ariaLabel": "강사 지원 페이지로 이동"
+        "ariaLabel": "추가 메뉴"
       }
     ],
     "auth": {
@@ -119,102 +109,102 @@
       "signupAriaLabel": "회원가입 페이지로 이동"
     },
     "categoryMenu": {
-      "ariaLabel": "전체 카테고리",
+      "ariaLabel": "드롭다운 메뉴",
       "groups": [
         {
-          "label": "오리지널",
+          "label": "드롭다운 1",
           "href": "/courses?category=original",
           "items": [
             {
-              "label": "오리지널 정규",
+              "label": "드롭다운 1.1",
               "href": "/courses?category=original&sub=regular"
             },
             {
-              "label": "프론트엔드 부트캠프",
+              "label": "드롭다운 1.2",
               "href": "/courses?category=original&sub=frontend-bootcamp"
             },
             {
-              "label": "백엔드 부트캠프",
+              "label": "드롭다운 1.3",
               "href": "/courses?category=original&sub=backend-bootcamp"
             },
             {
-              "label": "풀스택 마스터",
+              "label": "드롭다운 1.4",
               "href": "/courses?category=original&sub=fullstack"
             }
           ]
         },
         {
-          "label": "프론트엔드",
+          "label": "드롭다운 2",
           "href": "/courses?category=frontend",
           "items": [
             {
-              "label": "입문 (HTML/CSS/JS)",
+              "label": "드롭다운 2.1",
               "href": "/courses?category=frontend&sub=basic"
             },
             {
-              "label": "React",
+              "label": "드롭다운 2.2",
               "href": "/courses?category=frontend&sub=react"
             },
             {
-              "label": "Vue",
+              "label": "드롭다운 2.3",
               "href": "/courses?category=frontend&sub=vue"
             },
             {
-              "label": "Next.js",
+              "label": "드롭다운 2.4",
               "href": "/courses?category=frontend&sub=nextjs"
             },
             {
-              "label": "TypeScript",
+              "label": "드롭다운 2.5",
               "href": "/courses?category=frontend&sub=typescript"
             }
           ]
         },
         {
-          "label": "백엔드",
+          "label": "드롭다운 3",
           "href": "/courses?category=backend",
           "items": [
             {
-              "label": "Node.js / NestJS",
+              "label": "드롭다운 3.1",
               "href": "/courses?category=backend&sub=node"
             },
             {
-              "label": "Spring",
+              "label": "드롭다운 3.2",
               "href": "/courses?category=backend&sub=spring"
             },
             {
-              "label": "데이터베이스",
+              "label": "드롭다운 3.3",
               "href": "/courses?category=backend&sub=database"
             },
             {
-              "label": "마이크로서비스",
+              "label": "드롭다운 3.4",
               "href": "/courses?category=backend&sub=msa"
             }
           ]
         },
         {
-          "label": "데브옵스 · 클라우드",
+          "label": "드롭다운 4",
           "href": "/courses?category=devops",
           "items": [
             {
-              "label": "Docker · Kubernetes",
+              "label": "드롭다운 4.1",
               "href": "/courses?category=devops&sub=docker"
             },
             {
-              "label": "AWS · GCP",
+              "label": "드롭다운 4.2",
               "href": "/courses?category=devops&sub=cloud"
             },
             {
-              "label": "CI/CD",
+              "label": "드롭다운 4.3",
               "href": "/courses?category=devops&sub=cicd"
             }
           ]
         },
         {
-          "label": "커리어 · 도서모임",
+          "label": "드롭다운 5",
           "href": "/courses?category=career",
           "items": [
             {
-              "label": "개발자 도서모임",
+              "label": "드롭다운 5.1",
               "href": "/courses?category=career&sub=book-club"
             }
           ]

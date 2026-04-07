@@ -46,7 +46,7 @@ export default function HomePage() {
       <HomeHeroContainer />
 
       {/* 2. 카테고리 아이콘 네비게이션 */}
-      <HomeCategoryNav section={categories} />
+      {/* <HomeCategoryNav section={categories} /> */}
 
       {/* 3. 강의 섹션 — 3가지 레이아웃 교차 배치 */}
       {sections.map((section, idx) => {

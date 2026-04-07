@@ -19,7 +19,7 @@ export default function SiteLayout({ children }: SiteLayoutProps): JSX.Element {
   return (
     <>
       <SkipToContent />
-      <TopBanner />
+      {/* <TopBanner /> */}
       <AppHeader />
       <main id="main-content">{children}</main>
       <AppFooter />

@@ -11,7 +11,7 @@ export interface NavItem {
 }
 
 export interface SiteLogo {
-  src: string;
+  text: string;
   alt: string;
 }
 

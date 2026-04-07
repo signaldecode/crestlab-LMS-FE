@@ -15,6 +15,12 @@
   50% { opacity: 0.4; }
 }
 
+// ── 히어로 Ken Burns 줌 (활성 슬라이드 이미지에 적용) ──
+@keyframes home-hero-kenburns {
+  from { transform: scale(1.02); }
+  to   { transform: scale(1.1); }
+}
+
 // ── 홈 페이지 래퍼 ──
 .home-page {
   max-width: $container-max-width;
@@ -23,7 +29,8 @@
 }
 
 // ============================================
-// 1) 히어로 배너 캐러셀 (풀 블리드 peek 스타일)
+// 1) 히어로 배너 — 단일 슬라이드 시네마틱 캐러셀
+//    크로스페이드 + 부드러운 스케일 + Ken Burns 줌
 // ============================================
 .home-hero {
   margin-bottom: $spacing-10;
@@ -33,59 +40,54 @@
   &__viewport {
     position: relative;
     width: 100%;
-    aspect-ratio: 32 / 6;
+    aspect-ratio: 32 / 9;
     overflow: hidden;
+    background: $color-bg-tertiary;
   }
 
-  // 슬라이드 공통
+  // 슬라이드 공통 — 모두 동일 위치에 쌓이고 opacity/transform으로 크로스페이드
   &__slide {
     position: absolute;
-    top: 0;
-    height: 100%;
-    overflow: hidden;
-  }
-
-  // 가운데 (메인)
-  &__slide--center {
-    left: 27%;
-    width: 46%;
-    z-index: 2;
-    border-radius: $radius-lg;
-  }
-
-  // 왼쪽 peek
-  &__slide--prev {
-    left: 0;
-    width: 26%;
-    z-index: 1;
-    border-radius: $radius-lg;
-  }
-
-  // 오른쪽 peek
-  &__slide--next {
-    right: 0;
-    width: 26%;
-    z-index: 1;
-    border-radius: $radius-lg;
-  }
-
-  // 반투명 오버레이 (양쪽 슬라이드)
-  &__overlay {
-    position: absolute;
     inset: 0;
-    background: rgba(255, 255, 255, 0.55);
-    z-index: 1;
+    opacity: 0;
+    transform: scale(1.06) translate3d(3%, 0, 0);
+    filter: blur(6px);
+    transition:
+      opacity 1.1s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 1.6s cubic-bezier(0.22, 1, 0.36, 1),
+      filter 1.1s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    will-change: opacity, transform, filter;
+  }
+
+  // 이전 방향(왼쪽 화살표)일 때는 반대편에서 들어오도록
+  &[data-direction='prev'] &__slide {
+    transform: scale(1.06) translate3d(-3%, 0, 0);
+  }
+
+  // 활성 슬라이드 — 부드럽게 자리에 안착
+  &__slide--active {
+    opacity: 1;
+    transform: scale(1) translate3d(0, 0, 0);
+    filter: blur(0);
+    pointer-events: auto;
+    z-index: 2;
   }
 
   &__image {
     object-fit: cover;
   }
 
+  // Ken Burns: 활성 슬라이드의 이미지가 천천히 줌
+  &__slide--active &__image {
+    animation: home-hero-kenburns 9s ease-out forwards;
+  }
+
   // 하단 우측 컨트롤바
   &__controls {
     position: absolute;
     bottom: $spacing-4;
-    right: 28%;
+    right: $spacing-6;
     display: flex;
     align-items: center;
     gap: $spacing-2;
@@ -93,6 +95,7 @@
     background: rgba(0, 0, 0, 0.45);
     border-radius: $radius-xl;
     padding: $spacing-1 $spacing-3;
+    backdrop-filter: blur(8px);
   }
 
   &__ctrl-btn {

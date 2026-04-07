@@ -1,6 +1,6 @@
 // ============================================
 // 앱 헤더 스타일 (_app-header.scss)
-// - 2줄 구조: 상단바(top-bar) + 하단 탭바(sub-nav)
+// - 1줄 구조: 로고 + 글로벌 내비 + 검색 + 인증
 // - 반응형: 모바일에서 검색/강의실 버튼 숨기고 햄버거 메뉴 표시
 // ============================================
 
@@ -18,37 +18,45 @@
   background-color: $color-bg-primary;
 
   // ── 상단바 ──
-  &__top-bar {
-    border-bottom: $border-thin solid $color-border;
-  }
-
   &__top-bar-inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    max-width: $container-max-width;
+    gap: $spacing-8;
+    max-width: 100rem; // 1600px — 헤더는 컨테이너보다 넓게 사용
     margin: $spacing-0 auto;
-    padding: $spacing-3 $container-padding;
+    padding: $spacing-3 $spacing-8;
+
+    @media (max-width: 1023px) {
+      gap: $spacing-4;
+    }
 
     @media (max-width: 767px) {
       padding: $spacing-2 $spacing-3;
+      gap: $spacing-2;
+      justify-content: space-between;
+    }
+
+    .global-nav {
+      flex: 1 1 auto;
+      min-width: 0;
+
+      @media (max-width: 767px) {
+        display: none;
+      }
     }
   }
 
   &__top-left {
     display: flex;
     align-items: center;
-    gap: $spacing-8;
-
-    @media (max-width: 1023px) {
-      gap: $spacing-4;
-    }
+    flex-shrink: 0;
   }
 
   &__top-right {
     display: flex;
     align-items: center;
     gap: $spacing-4;
+    flex-shrink: 0;
 
     @media (max-width: 767px) {
       gap: $spacing-2;
@@ -217,6 +225,7 @@
     display: flex;
     align-items: center;
     gap: $spacing-2;
+    flex-shrink: 0;
 
     @media (max-width: 767px) {
       display: none;
@@ -232,6 +241,8 @@
     border: none;
     cursor: pointer;
     text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
 
     &--signup {
       background-color: $color-primary;
@@ -270,13 +281,15 @@
   text-decoration: none;
   flex-shrink: 0;
 
-  &__image {
-    height: $spacing-10;
-    width: auto;
-    object-fit: contain;
+  &__text {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
 
     @media (max-width: 767px) {
-      height: $spacing-8;
+      font-size: $font-size-lg;
     }
   }
 }

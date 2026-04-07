@@ -1,7 +1,6 @@
 /**
  * 앱 공통 헤더 (AppHeader)
- * - 2줄 구조: 상단바(로고 + 섹션탭 + 검색 + 인증) / 하단 탭바(GlobalNav)
- * - 하단 탭바는 SubNav로 감싸 /community 경로에서 숨긴다
+ * - 1줄 구조: 로고 + 글로벌 내비게이션 + 검색 + 인증
  * - 모바일: 햄버거 버튼으로 SidebarMenu 토글
  */
 
@@ -12,9 +11,7 @@ import type { JSX } from 'react';
 import Link from 'next/link';
 import AppLogo from '@/components/common/AppLogo';
 import AuthTrigger from '@/components/common/AuthTrigger';
-import TopBarNav from '@/components/layout/TopBarNav';
 import GlobalNav from '@/components/layout/GlobalNav';
-import SubNav from '@/components/layout/SubNav';
 import SidebarMenu from '@/components/layout/SidebarMenu';
 import NotificationDrawer from '@/components/common/NotificationDrawer';
 import useAuthStore from '@/stores/useAuthStore';
@@ -53,13 +50,14 @@ export default function AppHeader(): JSX.Element {
 
   return (
     <header className="app-header" role="banner">
-      {/* 상단바: 로고 + 섹션탭 + 검색 + 인증 */}
+      {/* 단일 행: 로고 + 글로벌 내비 + 검색 + 인증 */}
       <div className="app-header__top-bar">
         <div className="app-header__top-bar-inner">
           <div className="app-header__top-left">
             <AppLogo />
-            <TopBarNav items={nav.topBar} />
           </div>
+
+          <GlobalNav />
 
           <div className="app-header__top-right">
             {/* 검색 — 데스크톱에서만 표시 */}
@@ -137,11 +135,6 @@ export default function AppHeader(): JSX.Element {
           </div>
         </div>
       </div>
-
-      {/* 하단 탭바: 카테고리/부동산기초/오리지널 등 (커뮤니티 경로에서 숨김) */}
-      <SubNav>
-        <GlobalNav />
-      </SubNav>
 
       {/* 모바일 사이드바 메뉴 */}
       <SidebarMenu isOpen={isMobileMenuOpen} onClose={closeMenu} />

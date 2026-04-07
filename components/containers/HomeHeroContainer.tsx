@@ -1,6 +1,7 @@
 /**
  * 홈 히어로 컨테이너 (HomeHeroContainer)
- * - 풀 블리드 peek 캐러셀: 중앙 슬라이드 + 양쪽 반투명 슬라이드
+ * - 풀 블리드 단일 슬라이드 캐러셀 (한 번에 하나의 배너만 노출)
+ * - 슬라이드 전환: 크로스페이드 + 부드러운 스케일 + Ken Burns 줌으로 시네마틱한 인상
  * - 자동 슬라이드 + 일시정지 + 페이지 카운터 + 좌우 화살표
  */
 
@@ -22,21 +23,24 @@ import banner10 from '@/assets/images/banners/banner10.svg';
 import banner11 from '@/assets/images/banners/banner11.svg';
 
 const BANNERS = [banner1, banner2, banner3, banner4, banner5, banner6, banner7, banner8, banner9, banner10, banner11];
-const AUTO_PLAY_INTERVAL = 5000;
+const AUTO_PLAY_INTERVAL = 6000;
+
+type Direction = 'next' | 'prev';
 
 export default function HomeHeroContainer(): JSX.Element {
   const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState<Direction>('next');
   const [paused, setPaused] = useState(false);
 
   const total = BANNERS.length;
-  const prevIdx = (current - 1 + total) % total;
-  const nextIdx = (current + 1) % total;
 
   const prev = useCallback(() => {
+    setDirection('prev');
     setCurrent((c) => (c - 1 + total) % total);
   }, [total]);
 
   const next = useCallback(() => {
+    setDirection('next');
     setCurrent((c) => (c + 1) % total);
   }, [total]);
 
@@ -44,49 +48,34 @@ export default function HomeHeroContainer(): JSX.Element {
   useEffect(() => {
     if (paused) return;
     const timer = setInterval(() => {
+      setDirection('next');
       setCurrent((c) => (c + 1) % total);
     }, AUTO_PLAY_INTERVAL);
     return () => clearInterval(timer);
   }, [paused, total]);
 
   return (
-    <section className="home-hero">
+    <section className="home-hero" data-direction={direction}>
       <div className="home-hero__viewport">
-        {/* 이전 슬라이드 */}
-        <div className="home-hero__slide home-hero__slide--prev">
-          <Image
-            src={BANNERS[prevIdx]}
-            alt={`배너 ${prevIdx + 1}`}
-            fill
-            sizes="100vw"
-            className="home-hero__image"
-          />
-          <div className="home-hero__overlay" />
-        </div>
-
-        {/* 메인 슬라이드 */}
-        <div className="home-hero__slide home-hero__slide--center">
-          <Image
-            src={BANNERS[current]}
-            alt={`배너 ${current + 1}`}
-            fill
-            sizes="100vw"
-            priority
-            className="home-hero__image"
-          />
-        </div>
-
-        {/* 다음 슬라이드 */}
-        <div className="home-hero__slide home-hero__slide--next">
-          <Image
-            src={BANNERS[nextIdx]}
-            alt={`배너 ${nextIdx + 1}`}
-            fill
-            sizes="100vw"
-            className="home-hero__image"
-          />
-          <div className="home-hero__overlay" />
-        </div>
+        {BANNERS.map((banner, idx) => {
+          const isActive = idx === current;
+          return (
+            <div
+              key={idx}
+              className={`home-hero__slide${isActive ? ' home-hero__slide--active' : ''}`}
+              aria-hidden={!isActive}
+            >
+              <Image
+                src={banner}
+                alt={`배너 ${idx + 1}`}
+                fill
+                sizes="100vw"
+                priority={idx === 0}
+                className="home-hero__image"
+              />
+            </div>
+          );
+        })}
 
         {/* 하단 우측 컨트롤바 */}
         <div className="home-hero__controls">

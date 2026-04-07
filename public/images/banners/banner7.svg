@@ -23,6 +23,6 @@
     <text x="80" y="180" font-size="28" font-weight="600" fill="#fed7aa" letter-spacing="6">WEB BASIC</text>
     <text x="80" y="320" font-size="96" font-weight="800" fill="#ffffff">HTML · CSS</text>
     <text x="80" y="380" font-size="26" font-weight="500" fill="#ffffff" opacity="0.85">실무 중심의 온라인 강의 · LectureHub</text>
-    <text x="1050" y="560" font-size="180" font-weight="900" fill="#ffffff" opacity="0.18" text-anchor="middle"></></text>
+    <text x="1050" y="560" font-size="180" font-weight="900" fill="#ffffff" opacity="0.18" text-anchor="middle">&lt;/&gt;</text>
   </g>
 </svg>
