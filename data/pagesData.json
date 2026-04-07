@@ -1,19 +1,18 @@
 {
   "_comment": "페이지별 SEO 메타/콘텐츠 데이터 — 각 페이지의 title, description, OG, 폼 라벨 등",
-
   "home": {
     "seo": {
       "title": "강의 플랫폼 — 최고의 온라인 강의",
-      "description": "실무 중심의 온라인 강의를 만나보세요.",
+      "description": "실무 중심의 IT/개발 강의를 만나보세요.",
       "og": {
         "title": "강의 플랫폼",
-        "description": "실무 중심의 온라인 강의 플랫폼",
-        "image": "/images/banners/og-home.png"
+        "description": "실무 중심의 IT/개발 강의 플랫폼",
+        "image": "/images/banners/og-home.svg"
       }
     },
     "hero": {
       "title": "당신의 성장을 위한 강의",
-      "subtitle": "실무에서 바로 쓰이는 기술을 배워보세요",
+      "subtitle": "실무에서 바로 쓰는 IT/개발 기술을 배워보세요",
       "ctaLabel": "강의 보러가기",
       "ctaHref": "/courses",
       "ctaAriaLabel": "강의 목록 페이지로 이동"
@@ -33,28 +32,96 @@
       "sortLabel": "정렬",
       "sortAriaLabel": "강의 정렬 기준 선택",
       "sortOptions": [
-        { "value": "latest", "label": "최신순" },
-        { "value": "popular", "label": "인기순" },
-        { "value": "price-asc", "label": "가격 낮은순" },
-        { "value": "price-desc", "label": "가격 높은순" }
+        {
+          "value": "latest",
+          "label": "최신순"
+        },
+        {
+          "value": "popular",
+          "label": "인기순"
+        },
+        {
+          "value": "price-asc",
+          "label": "가격 낮은순"
+        },
+        {
+          "value": "price-desc",
+          "label": "가격 높은순"
+        }
       ],
       "categories": [
-        { "value": "", "label": "전체" },
-        { "value": "original", "label": "오리지널" },
-        { "value": "real-estate", "label": "부동산" },
-        { "value": "finance", "label": "재테크/주식" },
-        { "value": "coaching", "label": "코칭" },
-        { "value": "book-club", "label": "돈 버는 독서 모임" }
+        {
+          "value": "",
+          "label": "전체"
+        },
+        {
+          "value": "original",
+          "label": "오리지널"
+        },
+        {
+          "value": "frontend",
+          "label": "프론트엔드"
+        },
+        {
+          "value": "backend",
+          "label": "백엔드"
+        },
+        {
+          "value": "mobile",
+          "label": "모바일"
+        },
+        {
+          "value": "devops",
+          "label": "데브옵스"
+        },
+        {
+          "value": "data",
+          "label": "데이터"
+        },
+        {
+          "value": "ai",
+          "label": "AI"
+        },
+        {
+          "value": "cs",
+          "label": "CS·알고리즘"
+        },
+        {
+          "value": "design",
+          "label": "디자인"
+        },
+        {
+          "value": "career",
+          "label": "커리어"
+        }
       ],
       "levels": [
-        { "value": "", "label": "전체" },
-        { "value": "beginner", "label": "입문" },
-        { "value": "intermediate", "label": "중급" },
-        { "value": "advanced", "label": "고급" }
+        {
+          "value": "",
+          "label": "전체"
+        },
+        {
+          "value": "beginner",
+          "label": "입문"
+        },
+        {
+          "value": "intermediate",
+          "label": "중급"
+        },
+        {
+          "value": "advanced",
+          "label": "고급"
+        }
       ]
     },
     "detail": {
-      "tabs": ["소개", "질문 · 답변", "커리큘럼", "크리에이터", "후기"],
+      "tabs": [
+        "소개",
+        "질문 · 답변",
+        "커리큘럼",
+        "크리에이터",
+        "후기"
+      ],
       "breadcrumb": {
         "homeLabel": "홈",
         "homeHref": "/",
@@ -63,13 +130,15 @@
         "ariaLabel": "경로"
       },
       "categoryLabels": {
-        "real-estate": "부동산",
-        "finance": "재테크/주식",
-        "online-store": "온라인스토어",
-        "side-business": "부업",
-        "coaching": "코칭",
-        "blog": "블로그",
-        "stock": "주식"
+        "frontend": "프론트엔드",
+        "backend": "백엔드",
+        "mobile": "모바일",
+        "devops": "데브옵스",
+        "data": "데이터",
+        "ai": "AI 엔지니어링",
+        "cs": "CS·알고리즘",
+        "design": "디자인",
+        "career": "개발자 커리어"
       },
       "levelLabels": {
         "beginner": "입문·초급",
@@ -120,10 +189,26 @@
         "ariaLabel": "쿠폰 받기 완료"
       },
       "banners": {
-        "": { "src": "/images/banners/course-banner.png", "alt": "강의 프로모션 배너" },
-        "real-estate": { "src": "/images/banners/course-banner.png", "alt": "부동산 강의 배너" },
-        "original": { "src": "/images/banners/course-banner.png", "alt": "오리지널 강의 배너" },
-        "finance": { "src": "/images/banners/course-banner.png", "alt": "재테크 강의 배너" }
+        "": {
+          "src": "/images/banners/course-banner.svg",
+          "alt": "강의 프로모션 배너"
+        },
+        "frontend": {
+          "src": "/images/banners/course-banner.svg",
+          "alt": "프론트엔드 강의 배너"
+        },
+        "backend": {
+          "src": "/images/banners/course-banner.svg",
+          "alt": "백엔드 강의 배너"
+        },
+        "devops": {
+          "src": "/images/banners/course-banner.svg",
+          "alt": "데브옵스 강의 배너"
+        },
+        "original": {
+          "src": "/images/banners/course-banner.svg",
+          "alt": "오리지널 강의 배너"
+        }
       },
       "bannerAriaLabel": "강의 배너",
       "reviewUnit": "개",
@@ -161,54 +246,68 @@
     "steps": [
       {
         "step": 1,
-        "title": "부동산투자 기초클래스",
-        "subtitle": "부동산투자 기초부터 노후준비까지",
+        "title": "입문 클래스",
+        "subtitle": "개발자가 되기 위한 첫 걸음",
         "courseCount": 3
       },
       {
         "step": 2,
-        "title": "부동산투자 중급클래스",
-        "subtitle": "서울부터 지방까지 실전 투자 노하우",
+        "title": "중급 클래스",
+        "subtitle": "실무에서 바로 쓰는 핵심 기술",
         "courseCount": 2
       },
       {
         "step": 3,
-        "title": "부동산투자 실전클래스",
-        "subtitle": "직장인이 부동산 투자자로 성장하는 법",
+        "title": "실전 클래스",
+        "subtitle": "실전 프로젝트로 성장하는 개발자",
         "courseCount": 2
       },
       {
         "step": 4,
-        "title": "부동산투자 마스터클래스",
-        "subtitle": "직장인 투자자로 경제적 자유를 달성!",
+        "title": "마스터 클래스",
+        "subtitle": "시니어 개발자로 도약하는 길",
         "courseCount": 1
       }
     ],
     "stepCardLinkLabel": "강의 보러가기 →",
     "roadmap": [
       {
-        "goal": "내집마련 하고 싶다면?",
+        "goal": "개발자가 되고 싶다면?",
         "highlight": "",
-        "items": ["내집마련 기초반", "내집마련 중급반", "내집마련 실전반"]
+        "items": [
+          "웹 개발 기초반",
+          "자바스크립트 기초반",
+          "프론트엔드 실전반"
+        ]
       },
       {
-        "goal": "투자하고 싶다면?",
-        "highlight": "순자산 10억 달성!",
-        "items": ["열반스쿨 기초반", "실전 준비반", "열반스쿨 중급반", "서울투자 기초반", "지방투자 기초반"]
+        "goal": "실무 개발자로 성장하고 싶다면?",
+        "highlight": "실전 프로젝트 완성!",
+        "items": [
+          "React 고급 패턴",
+          "NestJS 백엔드",
+          "Next.js 풀스택",
+          "TypeScript 심화",
+          "Git 협업 마스터"
+        ]
       },
       {
-        "goal": "경제적자유를 이루고 싶다면",
-        "highlight": "순자산 30억 달성!",
-        "items": ["열반스쿨 실전반", "지방투자 실전반", "월부학교"]
+        "goal": "시니어 개발자로 도약하고 싶다면",
+        "highlight": "아키텍처 설계 역량!",
+        "items": [
+          "마이크로서비스 아키텍처",
+          "도커·쿠버네티스",
+          "CI/CD 데브옵스"
+        ]
       }
     ],
     "footer": {
-      "title": "대한민국 직장인들이 부자가 되는 곳",
+      "title": "실무 개발자가 되는 가장 빠른 길",
       "cards": [
-        "대한민국 흙수저로 시작해\n자수성가한 부자들이 모인 곳",
-        "수강생도 부자로 만드는\n실효적이고 구체적인 강의",
-        "국내유일! 직장인을 위한\n체계적인 재테크 교육 시스템",
-        "서로 독려하며 끝까지\n성장할 수 있는 커뮤니티"
+        "비전공자도 개발자로 성장할 수 있는\n체계적인 학습 시스템",
+        "수강생을 시니어 개발자로 키우는\n실효적이고 구체적인 강의",
+        "국내 유일! 직장인을 위한\n주말·저녁 라이브 코칭",
+        "함께 성장하는 동료가 있는\n프로젝트 기반 커뮤니티"
       ]
     }
   },
@@ -232,7 +331,9 @@
   },
   "auth": {
     "login": {
-      "seo": { "title": "로그인 — 강의 플랫폼" },
+      "seo": {
+        "title": "로그인 — 강의 플랫폼"
+      },
       "title": "로그인",
       "emailLabel": "이메일",
       "emailPlaceholder": "이메일을 입력하세요",
@@ -255,7 +356,9 @@
       "backToLoginLabel": "로그인으로 돌아가기"
     },
     "signup": {
-      "seo": { "title": "회원가입 — 강의 플랫폼" },
+      "seo": {
+        "title": "회원가입 — 강의 플랫폼"
+      },
       "title": "회원가입",
       "nameLabel": "이름",
       "namePlaceholder": "이름을 입력하세요",
@@ -274,9 +377,18 @@
       "birthdayPlaceholder": "YYYY-MM-DD",
       "genderLabel": "성별",
       "genderOptions": [
-        { "value": "male", "label": "남" },
-        { "value": "female", "label": "여" },
-        { "value": "none", "label": "선택 안 함" }
+        {
+          "value": "male",
+          "label": "남"
+        },
+        {
+          "value": "female",
+          "label": "여"
+        },
+        {
+          "value": "none",
+          "label": "선택 안 함"
+        }
       ],
       "genderPlaceholder": "성별을 선택하세요",
       "agreeTerms": "이용약관에 동의합니다",
@@ -295,7 +407,9 @@
     }
   },
   "cart": {
-    "seo": { "title": "장바구니 — 강의 플랫폼" },
+    "seo": {
+      "title": "장바구니 — 강의 플랫폼"
+    },
     "title": "장바구니",
     "subtotalLabel": "합계",
     "discountLabel": "할인",
@@ -389,7 +503,9 @@
     "goCartAriaLabel": "장바구니 페이지로 이동"
   },
   "learn": {
-    "seo": { "title": "내 강의실 — 강의 플랫폼" },
+    "seo": {
+      "title": "내 강의실 — 강의 플랫폼"
+    },
     "title": "내 강의실",
     "continueLabel": "이어보기",
     "progressLabel": "진행률",
@@ -402,7 +518,9 @@
     }
   },
   "serverError": {
-    "seo": { "title": "오류가 발생했습니다" },
+    "seo": {
+      "title": "오류가 발생했습니다"
+    },
     "title": "일시적인 오류가 발생했습니다.",
     "description": "서비스에 문제가 생겼습니다. 잠시 후 다시 시도해 주세요.",
     "retryLabel": "다시 시도",
@@ -412,7 +530,9 @@
     "homeAriaLabel": "홈 페이지로 이동"
   },
   "notFound": {
-    "seo": { "title": "페이지를 찾을 수 없습니다" },
+    "seo": {
+      "title": "페이지를 찾을 수 없습니다"
+    },
     "title": "찾을 수 없는 페이지입니다.",
     "description": "요청하신 페이지가 존재하지 않거나, 주소가 변경되었을 수 있습니다.",
     "homeLabel": "홈으로 돌아가기",
@@ -425,15 +545,37 @@
       "navLabel": "관리자 메뉴",
       "navAriaLabel": "관리자 내비게이션",
       "menuItems": [
-        { "label": "대시보드", "href": "/", "ariaLabel": "관리자 대시보드로 이동" },
-        { "label": "강의 관리", "href": "/courses", "ariaLabel": "강의 관리 페이지로 이동" },
-        { "label": "주문 관리", "href": "/orders", "ariaLabel": "주문 관리 페이지로 이동" },
-        { "label": "유저 관리", "href": "/users", "ariaLabel": "유저 관리 페이지로 이동" },
-        { "label": "커뮤니티 관리", "href": "/community", "ariaLabel": "커뮤니티 관리 페이지로 이동" }
+        {
+          "label": "대시보드",
+          "href": "/",
+          "ariaLabel": "관리자 대시보드로 이동"
+        },
+        {
+          "label": "강의 관리",
+          "href": "/courses",
+          "ariaLabel": "강의 관리 페이지로 이동"
+        },
+        {
+          "label": "주문 관리",
+          "href": "/orders",
+          "ariaLabel": "주문 관리 페이지로 이동"
+        },
+        {
+          "label": "유저 관리",
+          "href": "/users",
+          "ariaLabel": "유저 관리 페이지로 이동"
+        },
+        {
+          "label": "커뮤니티 관리",
+          "href": "/community",
+          "ariaLabel": "커뮤니티 관리 페이지로 이동"
+        }
       ]
     },
     "courseEdit": {
-      "seo": { "title": "강의 편집 — 관리자" },
+      "seo": {
+        "title": "강의 편집 — 관리자"
+      },
       "title": "강의 편집",
       "uploadSectionTitle": "영상 업로드"
     },

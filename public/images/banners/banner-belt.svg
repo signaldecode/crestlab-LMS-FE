@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 80" preserveAspectRatio="xMidYMid slice" role="img" aria-label="프로모션 띠 배너">
+  <defs>
+    <linearGradient id="beltbg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="0.5" stop-color="#1e3a8a"/>
+      <stop offset="1" stop-color="#0ea5e9"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="80" fill="url(#beltbg)"/>
+  <g font-family="ui-sans-serif, system-ui, sans-serif" fill="#ffffff">
+    <text x="800" y="50" font-size="26" font-weight="700" text-anchor="middle">🚀  지금 회원가입하면 첫 강의 무료 — LectureHub  ·  실무 중심 IT/개발 교육</text>
+  </g>
+</svg>

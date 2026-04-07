@@ -1,6 +1,5 @@
 {
   "_comment": "사이트 글로벌 설정 — 사이트 기본 정보, 네비게이션, 푸터, 접근성, GEO, SEO 설정",
-
   "site": {
     "name": "강의 플랫폼",
     "description": "최고의 온라인 강의 플랫폼",
@@ -11,41 +10,105 @@
     },
     "links": {
       "header": [
-        { "label": "홈", "href": "/", "ariaLabel": "홈으로 이동" },
-        { "label": "강의", "href": "/courses", "ariaLabel": "강의 목록으로 이동" },
-        { "label": "커뮤니티", "href": "/community", "ariaLabel": "커뮤니티로 이동" },
-        { "label": "소개", "href": "/about", "ariaLabel": "소개 페이지로 이동" }
+        {
+          "label": "홈",
+          "href": "/",
+          "ariaLabel": "홈으로 이동"
+        },
+        {
+          "label": "강의",
+          "href": "/courses",
+          "ariaLabel": "강의 목록으로 이동"
+        },
+        {
+          "label": "커뮤니티",
+          "href": "/community",
+          "ariaLabel": "커뮤니티로 이동"
+        },
+        {
+          "label": "소개",
+          "href": "/about",
+          "ariaLabel": "소개 페이지로 이동"
+        }
       ],
       "footer": [
-        { "label": "이용약관", "href": "/etc/terms" },
-        { "label": "개인정보처리방침", "href": "/etc/privacy" },
-        { "label": "고객센터", "href": "/support" }
+        {
+          "label": "이용약관",
+          "href": "/etc/terms"
+        },
+        {
+          "label": "개인정보처리방침",
+          "href": "/etc/privacy"
+        },
+        {
+          "label": "고객센터",
+          "href": "/support"
+        }
       ],
       "external": [
-        { "label": "블로그", "href": "https://blog.example.com", "ariaLabel": "공식 블로그 (새 탭)" }
+        {
+          "label": "블로그",
+          "href": "https://blog.example.com",
+          "ariaLabel": "공식 블로그 (새 탭)"
+        }
       ]
     }
   },
-
   "nav": {
     "topBar": [
-      { "label": "클래스", "href": "/", "ariaLabel": "클래스(강의) 보기" },
-      { "label": "커뮤니티", "href": "/community", "ariaLabel": "커뮤니티로 이동" }
+      {
+        "label": "클래스",
+        "href": "/",
+        "ariaLabel": "클래스(강의) 보기"
+      },
+      {
+        "label": "커뮤니티",
+        "href": "/community",
+        "ariaLabel": "커뮤니티로 이동"
+      }
     ],
     "search": {
       "placeholder": "검색어를 입력하세요",
       "ariaLabel": "강의 검색"
     },
     "main": [
-      { "label": "카테고리", "href": "/courses", "ariaLabel": "카테고리별 강의 보기" },
-      { "label": "부동산기초", "href": "/courses/real-estate-sell-strategy", "ariaLabel": "부동산기초 강의 상세 보기" },
-      { "label": "오리지널", "href": "/courses?category=original", "ariaLabel": "오리지널 강의 보기" },
-      { "label": "베스트", "href": "/best", "ariaLabel": "베스트 강의 보기" },
-      { "label": "커리큘럼", "href": "/curriculum", "ariaLabel": "커리큘럼 보기" },
-      { "label": "오픈예정", "href": "/upcoming", "ariaLabel": "오픈예정 강의 보기" }
+      {
+        "label": "카테고리",
+        "href": "/courses",
+        "ariaLabel": "카테고리별 강의 보기"
+      },
+      {
+        "label": "프론트엔드",
+        "href": "/courses/real-estate-basic-class",
+        "ariaLabel": "프론트엔드 입문 강의 상세 보기"
+      },
+      {
+        "label": "오리지널",
+        "href": "/courses?category=original",
+        "ariaLabel": "오리지널 강의 보기"
+      },
+      {
+        "label": "베스트",
+        "href": "/best",
+        "ariaLabel": "베스트 강의 보기"
+      },
+      {
+        "label": "커리큘럼",
+        "href": "/curriculum",
+        "ariaLabel": "커리큘럼 보기"
+      },
+      {
+        "label": "오픈예정",
+        "href": "/upcoming",
+        "ariaLabel": "오픈예정 강의 보기"
+      }
     ],
     "user": [
-      { "label": "강사 지원하기", "href": "/instructor/apply", "ariaLabel": "강사 지원 페이지로 이동" }
+      {
+        "label": "강사 지원하기",
+        "href": "/instructor/apply",
+        "ariaLabel": "강사 지원 페이지로 이동"
+      }
     ],
     "auth": {
       "loginLabel": "로그인",
@@ -62,80 +125,190 @@
           "label": "오리지널",
           "href": "/courses?category=original",
           "items": [
-            { "label": "오리지널 정규", "href": "/courses?category=original&sub=regular" },
-            { "label": "부동산 기초", "href": "/courses?category=original&sub=real-estate-basic" },
-            { "label": "내집마련", "href": "/courses?category=original&sub=my-house" },
-            { "label": "지역 분석", "href": "/courses?category=original&sub=area-analysis" }
+            {
+              "label": "오리지널 정규",
+              "href": "/courses?category=original&sub=regular"
+            },
+            {
+              "label": "프론트엔드 부트캠프",
+              "href": "/courses?category=original&sub=frontend-bootcamp"
+            },
+            {
+              "label": "백엔드 부트캠프",
+              "href": "/courses?category=original&sub=backend-bootcamp"
+            },
+            {
+              "label": "풀스택 마스터",
+              "href": "/courses?category=original&sub=fullstack"
+            }
           ]
         },
         {
-          "label": "부동산",
-          "href": "/courses?category=real-estate",
+          "label": "프론트엔드",
+          "href": "/courses?category=frontend",
           "items": [
-            { "label": "부동산 입문", "href": "/courses?category=real-estate&sub=beginner" },
-            { "label": "경매/공매", "href": "/courses?category=real-estate&sub=auction" },
-            { "label": "청약/재개발", "href": "/courses?category=real-estate&sub=subscription" },
-            { "label": "상가/빌딩/토지", "href": "/courses?category=real-estate&sub=commercial" },
-            { "label": "세금/대출", "href": "/courses?category=real-estate&sub=tax-loan" }
+            {
+              "label": "입문 (HTML/CSS/JS)",
+              "href": "/courses?category=frontend&sub=basic"
+            },
+            {
+              "label": "React",
+              "href": "/courses?category=frontend&sub=react"
+            },
+            {
+              "label": "Vue",
+              "href": "/courses?category=frontend&sub=vue"
+            },
+            {
+              "label": "Next.js",
+              "href": "/courses?category=frontend&sub=nextjs"
+            },
+            {
+              "label": "TypeScript",
+              "href": "/courses?category=frontend&sub=typescript"
+            }
           ]
         },
         {
-          "label": "재테크/주식",
-          "href": "/courses?category=finance",
+          "label": "백엔드",
+          "href": "/courses?category=backend",
           "items": [
-            { "label": "주식/코인", "href": "/courses?category=finance&sub=stock-coin" },
-            { "label": "창업/부업", "href": "/courses?category=finance&sub=business" },
-            { "label": "재테크기초", "href": "/courses?category=finance&sub=basic" },
-            { "label": "자기계발", "href": "/courses?category=finance&sub=self-dev" }
+            {
+              "label": "Node.js / NestJS",
+              "href": "/courses?category=backend&sub=node"
+            },
+            {
+              "label": "Spring",
+              "href": "/courses?category=backend&sub=spring"
+            },
+            {
+              "label": "데이터베이스",
+              "href": "/courses?category=backend&sub=database"
+            },
+            {
+              "label": "마이크로서비스",
+              "href": "/courses?category=backend&sub=msa"
+            }
           ]
         },
         {
-          "label": "코칭",
-          "href": "/courses?category=coaching",
+          "label": "데브옵스 · 클라우드",
+          "href": "/courses?category=devops",
           "items": [
-            { "label": "투자코칭", "href": "/courses?category=coaching&sub=investment" },
-            { "label": "매물코칭", "href": "/courses?category=coaching&sub=property" }
+            {
+              "label": "Docker · Kubernetes",
+              "href": "/courses?category=devops&sub=docker"
+            },
+            {
+              "label": "AWS · GCP",
+              "href": "/courses?category=devops&sub=cloud"
+            },
+            {
+              "label": "CI/CD",
+              "href": "/courses?category=devops&sub=cicd"
+            }
           ]
         },
         {
-          "label": "돈 버는 독서 모임",
-          "href": "/courses?category=book-club",
+          "label": "커리어 · 도서모임",
+          "href": "/courses?category=career",
           "items": [
-            { "label": "돈 버는 독서 모임", "href": "/courses?category=book-club&sub=main" }
+            {
+              "label": "개발자 도서모임",
+              "href": "/courses?category=career&sub=book-club"
+            }
           ]
         }
       ]
     }
   },
-
   "footer": {
-    "copyright": "HEALTHPRO LAB ALL RIGHTS RESERVED.",
+    "copyright": "© LECTUREHUB. ALL RIGHTS RESERVED.",
     "inquiryButton": {
       "label": "문의하기",
       "href": "/support/tickets/new",
       "ariaLabel": "문의하기 페이지로 이동"
     },
     "mainLinks": [
-      { "label": "카테고리", "href": "/courses", "ariaLabel": "카테고리별 강의 보기" },
-      { "label": "부동산기초", "href": "/courses/real-estate-sell-strategy", "ariaLabel": "부동산기초 강의 상세 보기" },
-      { "label": "오리지널", "href": "/courses?category=original", "ariaLabel": "오리지널 강의 보기" },
-      { "label": "베스트", "href": "/best", "ariaLabel": "베스트 강의 보기" },
-      { "label": "커리큘럼", "href": "/curriculum", "ariaLabel": "커리큘럼 보기" },
-      { "label": "오픈예정", "href": "/upcoming", "ariaLabel": "오픈예정 강의 보기" },
-      { "label": "커뮤니티", "href": "/community", "ariaLabel": "커뮤니티로 이동" }
+      {
+        "label": "카테고리",
+        "href": "/courses",
+        "ariaLabel": "카테고리별 강의 보기"
+      },
+      {
+        "label": "프론트엔드",
+        "href": "/courses/real-estate-basic-class",
+        "ariaLabel": "프론트엔드 입문 강의 상세 보기"
+      },
+      {
+        "label": "오리지널",
+        "href": "/courses?category=original",
+        "ariaLabel": "오리지널 강의 보기"
+      },
+      {
+        "label": "베스트",
+        "href": "/best",
+        "ariaLabel": "베스트 강의 보기"
+      },
+      {
+        "label": "커리큘럼",
+        "href": "/curriculum",
+        "ariaLabel": "커리큘럼 보기"
+      },
+      {
+        "label": "오픈예정",
+        "href": "/upcoming",
+        "ariaLabel": "오픈예정 강의 보기"
+      },
+      {
+        "label": "커뮤니티",
+        "href": "/community",
+        "ariaLabel": "커뮤니티로 이동"
+      }
     ],
     "subLinks": [
-      { "label": "이용약관", "href": "/etc/terms", "ariaLabel": "이용약관 보기" },
-      { "label": "개인정보처리방침", "href": "/etc/privacy", "ariaLabel": "개인정보처리방침 보기" },
-      { "label": "환불정책", "href": "/etc/refund", "ariaLabel": "환불정책 보기" },
-      { "label": "고객센터", "href": "/support", "ariaLabel": "고객센터로 이동" },
-      { "label": "회사소개", "href": "/about", "ariaLabel": "회사 소개로 이동" },
-      { "label": "강사 지원하기", "href": "/instructor/apply", "ariaLabel": "강사 지원 페이지로 이동" },
-      { "label": "블로그", "href": "https://blog.example.com", "ariaLabel": "공식 블로그 (새 탭)" },
-      { "label": "제휴 문의", "href": "/support/tickets/new", "ariaLabel": "제휴 문의로 이동" }
+      {
+        "label": "이용약관",
+        "href": "/etc/terms",
+        "ariaLabel": "이용약관 보기"
+      },
+      {
+        "label": "개인정보처리방침",
+        "href": "/etc/privacy",
+        "ariaLabel": "개인정보처리방침 보기"
+      },
+      {
+        "label": "환불정책",
+        "href": "/etc/refund",
+        "ariaLabel": "환불정책 보기"
+      },
+      {
+        "label": "고객센터",
+        "href": "/support",
+        "ariaLabel": "고객센터로 이동"
+      },
+      {
+        "label": "회사소개",
+        "href": "/about",
+        "ariaLabel": "회사 소개로 이동"
+      },
+      {
+        "label": "강사 지원하기",
+        "href": "/instructor/apply",
+        "ariaLabel": "강사 지원 페이지로 이동"
+      },
+      {
+        "label": "블로그",
+        "href": "https://blog.example.com",
+        "ariaLabel": "공식 블로그 (새 탭)"
+      },
+      {
+        "label": "제휴 문의",
+        "href": "/support/tickets/new",
+        "ariaLabel": "제휴 문의로 이동"
+      }
     ]
   },
-
   "a11y": {
     "skipToContent": "본문 바로가기",
     "nav": {
@@ -161,7 +334,6 @@
       "searchSubmit": "검색 실행"
     }
   },
-
   "geo": {
     "countryCode": "KR",
     "city": "서울",
@@ -177,18 +349,29 @@
       "email": "contact@example.com"
     },
     "social": [
-      { "platform": "youtube", "url": "https://youtube.com/@example", "label": "유튜브 채널" },
-      { "platform": "instagram", "url": "https://instagram.com/example", "label": "인스타그램" },
-      { "platform": "x", "url": "https://x.com/example", "label": "X (트위터)" }
+      {
+        "platform": "youtube",
+        "url": "https://youtube.com/@example",
+        "label": "유튜브 채널"
+      },
+      {
+        "platform": "instagram",
+        "url": "https://instagram.com/example",
+        "label": "인스타그램"
+      },
+      {
+        "platform": "x",
+        "url": "https://x.com/example",
+        "label": "X (트위터)"
+      }
     ]
   },
-
   "seo": {
     "siteDefaults": {
       "titleTemplate": "%s — 강의 플랫폼",
       "defaultTitle": "강의 플랫폼 — 최고의 온라인 강의",
       "defaultDescription": "실무 중심의 온라인 강의 플랫폼",
-      "defaultOgImage": "/images/banners/og-default.png",
+      "defaultOgImage": "/images/banners/og-default.svg",
       "locale": "ko_KR",
       "type": "website"
     },

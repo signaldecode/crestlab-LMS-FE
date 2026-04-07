@@ -10,7 +10,7 @@ import type { JSX } from 'react';
 import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import mypageBanner from '@/assets/images/banners/mypage-banner.jpg';
+import mypageBanner from '@/assets/images/banners/mypage-banner.svg';
 import { getEnrolledCourses, getCourses } from '@/lib/data';
 import accountData from '@/data/accountData.json';
 import type { Course } from '@/types';

@@ -11,7 +11,7 @@ import type { JSX } from 'react';
 import Image from 'next/image';
 import { getFollowers, getFollowing } from '@/lib/data';
 import accountData from '@/data/accountData.json';
-import defaultAvatar from '@/assets/images/community/tomoong.png';
+import defaultAvatar from '@/assets/images/community/default-avatar.svg';
 
 const followData = accountData.mypage.profileFollow;
 

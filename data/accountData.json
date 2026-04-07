@@ -1,6 +1,5 @@
 {
   "_comment": "마이페이지/계정 데이터 — 주문 내역, 상담, 후기, 수료증, 만료 쿠폰 (목데이터)",
-
   "mypage": {
     "sidebar": {
       "fallbackName": "회원",
@@ -17,26 +16,72 @@
         "profileEdit": "회원정보관리"
       },
       "externalLinks": [
-        { "key": "tickets", "label": "1:1 문의", "href": "/support/tickets/new" },
-        { "key": "faq", "label": "자주 묻는 질문", "href": "/support" }
+        {
+          "key": "tickets",
+          "label": "1:1 문의",
+          "href": "/support/tickets/new"
+        },
+        {
+          "key": "faq",
+          "label": "자주 묻는 질문",
+          "href": "/support"
+        }
       ],
       "logoutLabel": "로그아웃",
       "menuGroups": {
         "classroom": [
-          { "section": "강의 관련", "items": ["myCourses", "wishlist", "consultations", "certificates", "reviews", "orders"] },
-          { "section": "고객 지원", "items": ["tickets", "faq"] },
-          { "section": "계정 관리", "items": ["profileEdit", "logout"] }
+          {
+            "section": "강의 관련",
+            "items": [
+              "myCourses",
+              "wishlist",
+              "consultations",
+              "certificates",
+              "reviews",
+              "orders"
+            ]
+          },
+          {
+            "section": "고객 지원",
+            "items": [
+              "tickets",
+              "faq"
+            ]
+          },
+          {
+            "section": "계정 관리",
+            "items": [
+              "profileEdit",
+              "logout"
+            ]
+          }
         ],
         "profile": [
-          { "section": "고객 지원", "items": ["tickets", "faq"] },
-          { "section": "계정 관리", "items": ["profileEdit", "logout"] }
+          {
+            "section": "고객 지원",
+            "items": [
+              "tickets",
+              "faq"
+            ]
+          },
+          {
+            "section": "계정 관리",
+            "items": [
+              "profileEdit",
+              "logout"
+            ]
+          }
         ]
       }
     },
     "classroom": {
-      "tabs": ["강의", "과제 관리", "조편성"],
+      "tabs": [
+        "강의",
+        "과제 관리",
+        "조편성"
+      ],
       "emptyText": "아직 수강한 강의가 없어요.",
-      "promoBannerAlt": "프로모션 배너",
+      "promoBannerAlt": "LectureHub 프로모션 배너",
       "progressLabel": "진행률",
       "lastLectureLabel": "최근 수강",
       "continueBtnLabel": "이어서 학습하기",
@@ -44,15 +89,27 @@
       "enrolledAtLabel": "수강 시작"
     },
     "profile": {
-      "tabs": ["소개", "작성 및 활동", "팔로우"],
+      "tabs": [
+        "소개",
+        "작성 및 활동",
+        "팔로우"
+      ],
       "tabsAriaLabel": "프로필 탭",
-      "activityFilters": ["작성한 글", "댓글단 글", "저장한 글", "배지"],
+      "activityFilters": [
+        "작성한 글",
+        "댓글단 글",
+        "저장한 글",
+        "배지"
+      ],
       "filterAriaLabel": "필터",
       "filterAllLabel": "전체",
       "searchPlaceholder": "검색어를 입력하세요",
       "searchAriaLabel": "검색",
       "resultCountTemplate": "글 {count}건",
-      "sortOptions": ["최신순", "오래된순"],
+      "sortOptions": [
+        "최신순",
+        "오래된순"
+      ],
       "emptyActivity": {
         "line1": "아직은 비어있지만, 여기에 내 경험이 쌓일거에요.",
         "line2": "오늘 어떤 이야기를 남겨볼까요?",
@@ -76,10 +133,22 @@
       "coverImageEditLabel": "배경이미지 수정",
       "progressTitle": "당신의 프로필을 작성하세요!",
       "progressItems": [
-        { "key": "profileImage", "label": "프로필 사진" },
-        { "key": "coverImage", "label": "배경 사진" },
-        { "key": "bio", "label": "자기소개" },
-        { "key": "featuredPosts", "label": "대표글" }
+        {
+          "key": "profileImage",
+          "label": "프로필 사진"
+        },
+        {
+          "key": "coverImage",
+          "label": "배경 사진"
+        },
+        {
+          "key": "bio",
+          "label": "자기소개"
+        },
+        {
+          "key": "featuredPosts",
+          "label": "대표글"
+        }
       ],
       "saveLabel": "저장하기",
       "nicknameTitle": "닉네임수정",
@@ -108,9 +177,18 @@
       "title": "관심 클래스",
       "sortAriaLabel": "정렬",
       "sortOptions": [
-        { "value": "recent", "label": "최신순" },
-        { "value": "rating", "label": "평점순" },
-        { "value": "title", "label": "이름순" }
+        {
+          "value": "recent",
+          "label": "최신순"
+        },
+        {
+          "value": "rating",
+          "label": "평점순"
+        },
+        {
+          "value": "title",
+          "label": "이름순"
+        }
       ],
       "emptyText": "관심 클래스가 없습니다.",
       "recentTitle": "최근 본 클래스",
@@ -312,12 +390,11 @@
       "submitAriaLabel": "상담 문의 제출"
     }
   },
-
   "profileCard": {
     "coverImageAlt": "프로필 커버 이미지",
     "avatarAlt": "프로필 사진",
     "verifiedBadge": {
-      "src": "/images/community/Bluecheck.png",
+      "src": "/images/community/Bluecheck.svg",
       "alt": "인증 완료"
     },
     "toggleLabels": {
@@ -331,23 +408,63 @@
         "title": "커뮤니티 레벨",
         "tooltipText": "활동에 따라 레벨이 올라갑니다",
         "tooltipAriaLabel": "커뮤니티 레벨 안내",
-        "steps": ["1단계", "2단계", "3단계", "4단계"],
+        "steps": [
+          "1단계",
+          "2단계",
+          "3단계",
+          "4단계"
+        ],
         "currentStep": 1,
         "progressPercent": 25
       },
       "stats": [
-        { "key": "followers", "label": "팔로워", "value": 0 },
-        { "key": "posts", "label": "작성한 글", "value": 0 },
-        { "key": "comments", "label": "댓글", "value": 0 }
+        {
+          "key": "followers",
+          "label": "팔로워",
+          "value": 0
+        },
+        {
+          "key": "posts",
+          "label": "작성한 글",
+          "value": 0
+        },
+        {
+          "key": "comments",
+          "label": "댓글",
+          "value": 0
+        }
       ]
     },
     "classroomMode": {
       "affiliationPrefix": "@",
       "infoRows": [
-        { "key": "grade", "label": "학습등급", "value": "입문", "type": "badge" },
-        { "key": "coupons", "label": "내 쿠폰", "value": "0장", "href": "/mypage/coupons", "type": "link" },
-        { "key": "giftcards", "label": "상품권", "value": "0원", "href": "/mypage/giftcards", "type": "link" },
-        { "key": "points", "label": "포인트", "value": "0원", "href": "/mypage/points", "type": "link" }
+        {
+          "key": "grade",
+          "label": "학습등급",
+          "value": "입문",
+          "type": "badge"
+        },
+        {
+          "key": "coupons",
+          "label": "내 쿠폰",
+          "value": "0장",
+          "href": "/mypage/coupons",
+          "type": "link"
+        },
+        {
+          "key": "giftcards",
+          "label": "상품권",
+          "value": "0원",
+          "href": "/mypage/giftcards",
+          "type": "link"
+        },
+        {
+          "key": "points",
+          "label": "포인트",
+          "value": "0원",
+          "href": "/mypage/points",
+          "type": "link"
+        }
       ]
     },
     "otherUserMode": {
@@ -356,19 +473,32 @@
       "followingLabel": "팔로잉",
       "followAriaLabel": "팔로우하기",
       "infoRows": [
-        { "key": "followers", "label": "팔로워" },
-        { "key": "specialty", "label": "전문분야" },
-        { "key": "experience", "label": "투자기간" }
+        {
+          "key": "followers",
+          "label": "팔로워"
+        },
+        {
+          "key": "specialty",
+          "label": "전문분야"
+        },
+        {
+          "key": "experience",
+          "label": "개발 경력"
+        }
       ]
     }
   },
-
   "orders": [
     {
       "id": "ORD-20250215-001",
-      "courseSlugs": ["real-estate-intermediate"],
+      "courseSlugs": [
+        "real-estate-intermediate"
+      ],
       "items": [
-        { "courseSlug": "real-estate-intermediate", "price": 299000 }
+        {
+          "courseSlug": "real-estate-intermediate",
+          "price": 299000
+        }
       ],
       "coursePrice": 299000,
       "couponDiscount": 44850,
@@ -382,10 +512,19 @@
     },
     {
       "id": "ORD-20250128-002",
-      "courseSlugs": ["financial-basic-class", "us-stock-basic"],
+      "courseSlugs": [
+        "financial-basic-class",
+        "us-stock-basic"
+      ],
       "items": [
-        { "courseSlug": "financial-basic-class", "price": 249000 },
-        { "courseSlug": "us-stock-basic", "price": 199000 }
+        {
+          "courseSlug": "financial-basic-class",
+          "price": 249000
+        },
+        {
+          "courseSlug": "us-stock-basic",
+          "price": 199000
+        }
       ],
       "coursePrice": 448000,
       "couponDiscount": 45500,
@@ -399,9 +538,14 @@
     },
     {
       "id": "ORD-20250110-003",
-      "courseSlugs": ["my-house-basic"],
+      "courseSlugs": [
+        "my-house-basic"
+      ],
       "items": [
-        { "courseSlug": "my-house-basic", "price": 199000 }
+        {
+          "courseSlug": "my-house-basic",
+          "price": 199000
+        }
       ],
       "coursePrice": 199000,
       "couponDiscount": 29850,
@@ -415,9 +559,14 @@
     },
     {
       "id": "ORD-20241220-004",
-      "courseSlugs": ["auction-basics"],
+      "courseSlugs": [
+        "auction-basics"
+      ],
       "items": [
-        { "courseSlug": "auction-basics", "price": 249000 }
+        {
+          "courseSlug": "auction-basics",
+          "price": 249000
+        }
       ],
       "coursePrice": 249000,
       "couponDiscount": 37350,
@@ -429,7 +578,6 @@
       "createdAt": "2024-12-20"
     }
   ],
-
   "consultations": [
     {
       "id": "CONSULT-001",
@@ -459,31 +607,29 @@
       "answeredAt": "2025-01-17"
     }
   ],
-
   "reviews": [
     {
       "id": "REVIEW-001",
       "courseSlug": "real-estate-intermediate",
       "rating": 5,
-      "content": "부동산 투자에 대해 체계적으로 배울 수 있었습니다. 특히 실전 사례 분석이 매우 유익했어요.",
+      "content": "React 컴포넌트 설계에 대해 체계적으로 배울 수 있었습니다. 특히 실전 패턴 사례가 매우 유익했어요.",
       "createdAt": "2025-02-26"
     },
     {
       "id": "REVIEW-002",
       "courseSlug": "financial-basic-class",
       "rating": 4,
-      "content": "재테크 기초를 잡기에 좋은 강의입니다. 초보자도 이해하기 쉽게 설명해주셔서 좋았습니다.",
+      "content": "코딩테스트 알고리즘 기초를 잡기에 좋은 강의입니다. 초보자도 이해하기 쉽게 설명해주셔서 좋았습니다.",
       "createdAt": "2025-02-09"
     },
     {
       "id": "REVIEW-003",
       "courseSlug": "my-house-basic",
       "rating": 5,
-      "content": "내 집 마련 과정을 A부터 Z까지 알려주는 강의! 덕분에 자신감이 생겼습니다.",
+      "content": "웹 개발 기초를 A부터 Z까지 알려주는 강의! 덕분에 자신감이 생겼습니다.",
       "createdAt": "2025-01-20"
     }
   ],
-
   "certificates": [
     {
       "id": "CERT-001",
@@ -507,12 +653,11 @@
       "completedAt": null
     }
   ],
-
   "expiredCoupons": [
     {
       "id": "cpn-expired-1",
       "amount": 30000,
-      "description": "[오픈알림 혜택] 열반스쿨중급반 단 하루 3만원 쿠폰",
+      "description": "[오픈알림 혜택] 프론트엔드 입문반 단 하루 3만원 쿠폰",
       "validFrom": "2026.02.27",
       "validTo": "2026.02.27",
       "status": "기간만료"
@@ -520,17 +665,16 @@
     {
       "id": "cpn-expired-2",
       "amount": 20000,
-      "description": "[오픈알림 혜택 특별연장] 열반스쿨중급반 2만원 쿠폰",
+      "description": "[오픈알림 혜택 특별연장] 백엔드 기초반 2만원 쿠폰",
       "validFrom": "2026.02.28",
       "validTo": "2026.03.02",
       "status": "기간만료"
     }
   ],
-
   "giftcards": [
     {
       "id": "gc-001",
-      "name": "열반스쿨 수강 상품권",
+      "name": "LectureHub 수강 상품권",
       "balance": 50000,
       "originalAmount": 50000,
       "validFrom": "2026-01-15",
@@ -556,14 +700,13 @@
       "status": "used"
     }
   ],
-
   "giftcardHistory": [
     {
       "id": "gch-001",
       "giftcardId": "gc-002",
       "type": "use",
       "amount": -20000,
-      "description": "[강의 결제] 재테크 기초반 결제 시 사용",
+      "description": "[강의 결제] 코딩테스트 기초반 결제 시 사용",
       "date": "2026-03-10"
     },
     {
@@ -571,7 +714,7 @@
       "giftcardId": "gc-001",
       "type": "charge",
       "amount": 50000,
-      "description": "[상품권 등록] 열반스쿨 수강 상품권 등록",
+      "description": "[상품권 등록] LectureHub 수강 상품권 등록",
       "date": "2026-01-15"
     },
     {
@@ -587,66 +730,63 @@
       "giftcardId": "gc-003",
       "type": "use",
       "amount": -20000,
-      "description": "[강의 결제] 부동산 입문반 결제 시 사용",
+      "description": "[강의 결제] 프론트엔드 입문반 결제 시 사용",
       "date": "2025-12-20"
     }
   ],
-
   "followers": [
     {
       "id": "user-f01",
-      "nickname": "투자왕김사장",
-      "profileImage": "/images/community/tomoong.png",
-      "bio": "10년차 부동산 투자자",
+      "nickname": "리액트장인",
+      "profileImage": "/images/community/default-avatar.svg",
+      "bio": "10년차 프론트엔드 개발자",
       "verified": true
     },
     {
       "id": "user-f02",
-      "nickname": "재테크초보탈출",
-      "profileImage": "/images/community/tomoong.png",
-      "bio": "주식/부동산 공부중인 직장인",
+      "nickname": "백엔드초보탈출",
+      "profileImage": "/images/community/default-avatar.svg",
+      "bio": "Spring/NestJS 공부중인 직장인",
       "verified": false
     },
     {
       "id": "user-f03",
-      "nickname": "경제학도서영",
-      "profileImage": "/images/community/tomoong.png",
-      "bio": "경제학 전공 대학원생",
+      "nickname": "데이터과학생",
+      "profileImage": "/images/community/default-avatar.svg",
+      "bio": "데이터 분석 전공 대학원생",
       "verified": true
     },
     {
       "id": "user-f04",
-      "nickname": "월급쟁이투자기록",
-      "profileImage": "/images/community/tomoong.png",
-      "bio": "매월 소액 투자 실천 기록",
+      "nickname": "주말사이드프로젝트",
+      "profileImage": "/images/community/default-avatar.svg",
+      "bio": "매주 사이드 프로젝트 출시 기록",
       "verified": false
     }
   ],
-
   "following": [
     {
       "id": "user-g01",
-      "nickname": "부동산멘토박코치",
-      "profileImage": "/images/community/tomoong.png",
-      "bio": "부동산 투자 강의 15년차 전문가",
+      "nickname": "시니어개발자박코치",
+      "profileImage": "/images/community/default-avatar.svg",
+      "bio": "풀스택 개발 멘토 15년차",
       "verified": true
     },
     {
       "id": "user-g02",
-      "nickname": "주식고수이대표",
-      "profileImage": "/images/community/tomoong.png",
-      "bio": "미국주식 전문 투자자",
+      "nickname": "클라우드아키텍트이대표",
+      "profileImage": "/images/community/default-avatar.svg",
+      "bio": "AWS 솔루션 아키텍트",
       "verified": true
     },
     {
       "id": "user-g03",
-      "nickname": "절약의신",
-      "profileImage": "/images/community/tomoong.png",
-      "bio": "가계부 작성 & 절약 팁 공유",
+      "nickname": "데브옵스의신",
+      "profileImage": "/images/community/default-avatar.svg",
+      "bio": "CI/CD & 인프라 자동화 팁 공유",
       "verified": false
     }
   ],
-
   "enrolledCourses": [
     {
       "courseSlug": "real-estate-intermediate",
@@ -673,31 +813,88 @@
       "enrolledAt": "2026-01-10"
     }
   ],
-
   "profileEdit": {
     "title": "회원정보관리",
     "fields": {
-      "name": { "label": "이름", "ariaLabel": "이름" },
-      "email": { "label": "아이디", "ariaLabel": "아이디" },
-      "currentPassword": { "label": "현재 비밀번호", "placeholder": "현재 비밀번호를 입력해 주세요.", "ariaLabel": "현재 비밀번호" },
-      "newPassword": { "label": "새 비밀번호", "placeholder": "영문 및 숫자 특수문자 조합 8~20자", "ariaLabel": "새 비밀번호" },
-      "confirmPassword": { "label": "새 비밀번호 확인", "placeholder": "새 비밀번호를 한 번 더 입력해주세요.", "ariaLabel": "새 비밀번호 확인" },
-      "phone": { "label": "휴대폰", "ariaLabel": "휴대폰 번호" },
-      "birthday": { "label": "생년월일", "ariaLabel": "생년월일" },
-      "gender": { "label": "성별", "ariaLabel": "성별 선택" },
-      "socialAccounts": { "label": "소셜연동" },
-      "joinDate": { "label": "가입일", "ariaLabel": "가입일" },
-      "grade": { "label": "등급", "ariaLabel": "회원 등급" }
+      "name": {
+        "label": "이름",
+        "ariaLabel": "이름"
+      },
+      "email": {
+        "label": "아이디",
+        "ariaLabel": "아이디"
+      },
+      "currentPassword": {
+        "label": "현재 비밀번호",
+        "placeholder": "현재 비밀번호를 입력해 주세요.",
+        "ariaLabel": "현재 비밀번호"
+      },
+      "newPassword": {
+        "label": "새 비밀번호",
+        "placeholder": "영문 및 숫자 특수문자 조합 8~20자",
+        "ariaLabel": "새 비밀번호"
+      },
+      "confirmPassword": {
+        "label": "새 비밀번호 확인",
+        "placeholder": "새 비밀번호를 한 번 더 입력해주세요.",
+        "ariaLabel": "새 비밀번호 확인"
+      },
+      "phone": {
+        "label": "휴대폰",
+        "ariaLabel": "휴대폰 번호"
+      },
+      "birthday": {
+        "label": "생년월일",
+        "ariaLabel": "생년월일"
+      },
+      "gender": {
+        "label": "성별",
+        "ariaLabel": "성별 선택"
+      },
+      "socialAccounts": {
+        "label": "소셜연동"
+      },
+      "joinDate": {
+        "label": "가입일",
+        "ariaLabel": "가입일"
+      },
+      "grade": {
+        "label": "등급",
+        "ariaLabel": "회원 등급"
+      }
     },
     "genderOptions": [
-      { "value": "male", "label": "남성" },
-      { "value": "female", "label": "여성" }
+      {
+        "value": "male",
+        "label": "남성"
+      },
+      {
+        "value": "female",
+        "label": "여성"
+      }
     ],
     "socialProviders": [
-      { "id": "naver", "label": "네이버", "color": "#03C75A" },
-      { "id": "kakao", "label": "카카오", "color": "#FEE500" },
-      { "id": "apple", "label": "애플", "color": "#000000" },
-      { "id": "google", "label": "구글", "color": "#4285F4", "note": "*간편로그인 / 회원가입 서비스 종료" }
+      {
+        "id": "naver",
+        "label": "네이버",
+        "color": "#03C75A"
+      },
+      {
+        "id": "kakao",
+        "label": "카카오",
+        "color": "#FEE500"
+      },
+      {
+        "id": "apple",
+        "label": "애플",
+        "color": "#000000"
+      },
+      {
+        "id": "google",
+        "label": "구글",
+        "color": "#4285F4",
+        "note": "*간편로그인 / 회원가입 서비스 종료"
+      }
     ],
     "buttons": {
       "verifyPhone": "인증요청",
@@ -710,9 +907,21 @@
     },
     "marketing": {
       "title": "마케팅 수신 설정",
-      "personalInfo": { "label": "개인정보 동의", "description": "마케팅 목적의 개인정보 수집 및 이용 동의" },
-      "adConsent": { "label": "광고성 정보\n수신 동의", "options": ["SMS 수신", "이메일수신"] },
-      "nightAdConsent": { "label": "광고성 정보\n야간 동의", "description": "광고성 정보 야간(21시 ~ 8시) 수신 동의" }
+      "personalInfo": {
+        "label": "개인정보 동의",
+        "description": "마케팅 목적의 개인정보 수집 및 이용 동의"
+      },
+      "adConsent": {
+        "label": "광고성 정보\n수신 동의",
+        "options": [
+          "SMS 수신",
+          "이메일수신"
+        ]
+      },
+      "nightAdConsent": {
+        "label": "광고성 정보\n야간 동의",
+        "description": "광고성 정보 야간(21시 ~ 8시) 수신 동의"
+      }
     }
   }
 }

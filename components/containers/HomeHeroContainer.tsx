@@ -9,17 +9,17 @@
 import { useState, useEffect, useCallback, type JSX } from 'react';
 import Image from 'next/image';
 
-import banner1 from '@/assets/images/banners/banner1.jpg';
-import banner2 from '@/assets/images/banners/banner2.png';
-import banner3 from '@/assets/images/banners/banner3.jpg';
-import banner4 from '@/assets/images/banners/banner4.webp';
-import banner5 from '@/assets/images/banners/banner5.jpg';
-import banner6 from '@/assets/images/banners/banner6.jpg';
-import banner7 from '@/assets/images/banners/banner7.png';
-import banner8 from '@/assets/images/banners/banner8.png';
-import banner9 from '@/assets/images/banners/banner9.jpg';
-import banner10 from '@/assets/images/banners/banner10.webp';
-import banner11 from '@/assets/images/banners/banner11.webp';
+import banner1 from '@/assets/images/banners/banner1.svg';
+import banner2 from '@/assets/images/banners/banner2.svg';
+import banner3 from '@/assets/images/banners/banner3.svg';
+import banner4 from '@/assets/images/banners/banner4.svg';
+import banner5 from '@/assets/images/banners/banner5.svg';
+import banner6 from '@/assets/images/banners/banner6.svg';
+import banner7 from '@/assets/images/banners/banner7.svg';
+import banner8 from '@/assets/images/banners/banner8.svg';
+import banner9 from '@/assets/images/banners/banner9.svg';
+import banner10 from '@/assets/images/banners/banner10.svg';
+import banner11 from '@/assets/images/banners/banner11.svg';
 
 const BANNERS = [banner1, banner2, banner3, banner4, banner5, banner6, banner7, banner8, banner9, banner10, banner11];
 const AUTO_PLAY_INTERVAL = 5000;

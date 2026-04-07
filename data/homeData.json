@@ -1,54 +1,136 @@
 {
   "_comment": "홈 페이지 큐레이션 데이터 — 섹션별 강의 구성, 오픈예정, 베스트, 후기, FAQ",
-
   "homeCategories": {
-    "meta": { "ariaLabel": "카테고리 바로가기" },
+    "meta": {
+      "ariaLabel": "카테고리 바로가기"
+    },
     "items": [
-      { "icon": "star", "label": "첫강의추천", "href": "/courses?tag=first", "ariaLabel": "첫강의추천 카테고리" },
-      { "icon": "mic", "label": "너나위특강", "href": "/courses?tag=special", "ariaLabel": "너나위특강 카테고리" },
-      { "icon": "crown", "label": "오리지널", "href": "/courses?tag=original", "ariaLabel": "오리지널 카테고리" },
-      { "icon": "pen", "label": "블로그부업", "href": "/courses?tag=blog", "ariaLabel": "블로그부업 카테고리" },
-      { "icon": "briefcase", "label": "직장인부업", "href": "/courses?tag=side-job", "ariaLabel": "직장인부업 카테고리" },
-      { "icon": "ticket", "label": "내쿠폰", "href": "/mypage/coupons", "ariaLabel": "내쿠폰 카테고리" },
-      { "icon": "calendar", "label": "이달의강의", "href": "/courses?tag=monthly", "ariaLabel": "이달의강의 카테고리" },
-      { "icon": "tag", "label": "첫구매특가", "href": "/courses?tag=first-buy", "ariaLabel": "첫구매특가 카테고리" },
-      { "icon": "book", "label": "전문가칼럼", "href": "/community?tab=expert", "ariaLabel": "전문가칼럼 카테고리" },
-      { "icon": "building", "label": "부동산중개", "href": "/courses?category=real-estate", "ariaLabel": "부동산중개 카테고리" }
+      {
+        "icon": "star",
+        "label": "첫강의추천",
+        "href": "/courses?tag=first",
+        "ariaLabel": "첫강의추천 카테고리"
+      },
+      {
+        "icon": "mic",
+        "label": "인기강사특강",
+        "href": "/courses?tag=special",
+        "ariaLabel": "인기강사특강 카테고리"
+      },
+      {
+        "icon": "crown",
+        "label": "오리지널",
+        "href": "/courses?tag=original",
+        "ariaLabel": "오리지널 카테고리"
+      },
+      {
+        "icon": "pen",
+        "label": "프론트엔드",
+        "href": "/courses?category=frontend",
+        "ariaLabel": "프론트엔드 카테고리"
+      },
+      {
+        "icon": "briefcase",
+        "label": "백엔드",
+        "href": "/courses?category=backend",
+        "ariaLabel": "백엔드 카테고리"
+      },
+      {
+        "icon": "ticket",
+        "label": "내쿠폰",
+        "href": "/mypage/coupons",
+        "ariaLabel": "내쿠폰 카테고리"
+      },
+      {
+        "icon": "calendar",
+        "label": "이달의강의",
+        "href": "/courses?tag=monthly",
+        "ariaLabel": "이달의강의 카테고리"
+      },
+      {
+        "icon": "tag",
+        "label": "첫구매특가",
+        "href": "/courses?tag=first-buy",
+        "ariaLabel": "첫구매특가 카테고리"
+      },
+      {
+        "icon": "book",
+        "label": "전문가칼럼",
+        "href": "/community?tab=expert",
+        "ariaLabel": "전문가칼럼 카테고리"
+      },
+      {
+        "icon": "building",
+        "label": "데브옵스",
+        "href": "/courses?category=devops",
+        "ariaLabel": "데브옵스 카테고리"
+      }
     ]
   },
-
   "homeSections": [
     {
       "title": "지금 가장 주목받는 강의",
-      "slugs": ["real-estate-intermediate", "location-analysis", "interior-renovation", "real-estate-sell-strategy", "cheap-apartment-finder"]
+      "slugs": [
+        "real-estate-intermediate",
+        "location-analysis",
+        "interior-renovation",
+        "real-estate-sell-strategy",
+        "cheap-apartment-finder"
+      ]
     },
     {
-      "title": "BEST 재테크 클래스",
-      "slugs": ["financial-basic-class", "us-stock-basic", "tax-income-report", "my-house-basic", "money-book-club"]
+      "title": "BEST 백엔드 클래스",
+      "slugs": [
+        "financial-basic-class",
+        "us-stock-basic",
+        "tax-income-report",
+        "my-house-basic",
+        "money-book-club"
+      ]
     },
     {
       "title": "이번 달 BEST",
-      "slugs": ["real-estate-intermediate", "my-house-basic", "ss-coupon-basic", "cheap-apartment-finder", "financial-basic-class"]
+      "slugs": [
+        "real-estate-intermediate",
+        "my-house-basic",
+        "ss-coupon-basic",
+        "cheap-apartment-finder",
+        "financial-basic-class"
+      ]
     },
     {
-      "title": "요즘 뜨는 부동산 지역 분석 강의",
-      "slugs": ["gangnam-20min", "location-analysis", "cheap-apartment-finder", "auction-basics", "subscription-redevelopment"]
+      "title": "요즘 뜨는 데브옵스·클라우드 강의",
+      "slugs": [
+        "gangnam-20min",
+        "location-analysis",
+        "cheap-apartment-finder",
+        "auction-basics",
+        "subscription-redevelopment"
+      ]
     },
     {
       "title": "새로 나온 강의",
-      "slugs": ["ai-homepage-business", "danggeun-market-100", "olive-young-seller", "youtube-income-start", "commercial-building"]
+      "slugs": [
+        "ai-homepage-business",
+        "danggeun-market-100",
+        "olive-young-seller",
+        "youtube-income-start",
+        "commercial-building"
+      ]
     }
   ],
-
   "upcomingCourses": [
     {
       "slug": "real-estate-basic-class",
-      "title": "[26.5월 규제반영] 2026 부동산 투자 시작하는 법 - 열반스쿨 기초반",
-      "thumbnail": "/images/banners/banner1.jpg",
-      "thumbnailAlt": "열반스쿨 기초반 강의 썸네일",
-      "categoryLabel": "부동산 투자 기초",
-      "instructor": "너바나",
-      "tags": ["자금과외요", "주우이"],
+      "title": "[26.5월 최신문법] 2026 모던 자바스크립트 입문 - 프론트엔드 기초반",
+      "thumbnail": "/images/banners/banner1.svg",
+      "thumbnailAlt": "[26.5월 최신문법] 2026 모던 자바스크립트 입문 - 프론트엔드 기초반 강의 썸네일",
+      "categoryLabel": "프론트엔드",
+      "instructor": "한웹기초",
+      "tags": [
+        "JavaScript",
+        "ES2024"
+      ],
       "rating": 4.98,
       "reviewCount": 171912,
       "openDate": "02/26 (목)",
@@ -56,12 +138,15 @@
     },
     {
       "slug": "my-house-basic",
-      "title": "[3월 오픈] 내집마련 고민이라면? 집사기 전 - 너나위의 내집마련 기초반",
-      "thumbnail": "/images/banners/banner7.png",
-      "thumbnailAlt": "내집마련 기초반 강의 썸네일",
-      "categoryLabel": "내집마련",
-      "instructor": "너나위",
-      "tags": ["용용맘민맘", "자금과외요"],
+      "title": "웹 개발 입문이 고민된다면? 시작 전, 웹 개발 기초반",
+      "thumbnail": "/images/banners/banner7.svg",
+      "thumbnailAlt": "웹 개발 입문이 고민된다면? 시작 전, 웹 개발 기초반 강의 썸네일",
+      "categoryLabel": "프론트엔드",
+      "instructor": "한웹기초",
+      "tags": [
+        "HTML",
+        "CSS"
+      ],
       "rating": 4.97,
       "reviewCount": 82059,
       "openDate": "03/26 (목)",
@@ -69,12 +154,14 @@
     },
     {
       "slug": "real-estate-intermediate",
-      "title": "열반스쿨 중급반 - 직장인이 투자로 10억 달성하는 법",
-      "thumbnail": "/images/banners/banner1.jpg",
-      "thumbnailAlt": "열반스쿨 중급반 강의 썸네일",
-      "categoryLabel": "부동산 기초",
-      "instructor": "딥부엔트",
-      "tags": ["밤발사주는부자마늘"],
+      "title": "React 고급 패턴 - 실전 컴포넌트 설계와 성능 최적화",
+      "thumbnail": "/images/banners/banner1.svg",
+      "thumbnailAlt": "React 고급 패턴 - 실전 컴포넌트 설계와 성능 최적화 강의 썸네일",
+      "categoryLabel": "프론트엔드",
+      "instructor": "김리액트",
+      "tags": [
+        "React"
+      ],
       "rating": 4.98,
       "reviewCount": 106062,
       "openDate": "",
@@ -82,12 +169,15 @@
     },
     {
       "slug": "financial-basic-class",
-      "title": "[4월 오픈] 재테크 기초반 - 같은 월급 2배 더 빨리 모으는 재테크 성공공식",
-      "thumbnail": "/images/banners/banner10.webp",
-      "thumbnailAlt": "재테크 기초반 강의 썸네일",
-      "categoryLabel": "재테크 기초",
-      "instructor": "너나위",
-      "tags": ["광화문금융러", "김인턴"],
+      "title": "코딩테스트 합격 알고리즘 기초반 - 같은 시간 2배 빠르게 푸는 공식",
+      "thumbnail": "/images/banners/banner10.svg",
+      "thumbnailAlt": "코딩테스트 합격 알고리즘 기초반 - 같은 시간 2배 빠르게 푸는 공식 강의 썸네일",
+      "categoryLabel": "CS·알고리즘",
+      "instructor": "한알고리즘",
+      "tags": [
+        "알고리즘",
+        "코딩테스트"
+      ],
       "rating": 4.87,
       "reviewCount": 11265,
       "openDate": "",
@@ -95,12 +185,15 @@
     },
     {
       "slug": "money-book-club",
-      "title": "26년 4월 돈버는 독서모임 <돈의 가격>",
-      "thumbnail": "/images/banners/banner11.webp",
-      "thumbnailAlt": "돈버는 독서모임 강의 썸네일",
-      "categoryLabel": "독서멘토",
-      "instructor": "독서리더",
-      "tags": [],
+      "title": "26년 4월 개발 도서 모임 <소프트웨어 아키텍처의 모든 것>",
+      "thumbnail": "/images/banners/banner11.svg",
+      "thumbnailAlt": "26년 4월 개발 도서 모임 <소프트웨어 아키텍처의 모든 것> 강의 썸네일",
+      "categoryLabel": "개발자 커리어",
+      "instructor": "모더레이터",
+      "tags": [
+        "도서모임",
+        "소프트웨어아키텍처"
+      ],
       "rating": 4.94,
       "reviewCount": 2020,
       "openDate": "",
@@ -108,296 +201,365 @@
     },
     {
       "slug": "us-stock-basic",
-      "title": "[사전 예약] 계좌개설부터 백만원까지, 미국주식 기초반 6기",
-      "thumbnail": "/images/banners/banner9.jpg",
-      "thumbnailAlt": "미국주식 기초반 강의 썸네일",
-      "categoryLabel": "미국주식 직투",
-      "instructor": "광화문금융러",
-      "tags": [],
+      "title": "환경 셋업부터 모델 학습까지, 파이썬 데이터 분석 기초반 6기",
+      "thumbnail": "/images/banners/banner9.svg",
+      "thumbnailAlt": "환경 셋업부터 모델 학습까지, 파이썬 데이터 분석 기초반 6기 강의 썸네일",
+      "categoryLabel": "데이터",
+      "instructor": "강데이터",
+      "tags": [
+        "Python",
+        "Pandas"
+      ],
       "rating": 4.94,
       "reviewCount": 555,
       "openDate": "",
       "featured": false
     }
   ],
-
   "bestChipCategories": [
-    { "value": "all", "label": "전체" },
-    { "value": "real-estate", "label": "부동산투자" },
-    { "value": "my-house", "label": "내집마련" },
-    { "value": "online-store", "label": "온라인스토어" },
-    { "value": "blog", "label": "블로그" },
-    { "value": "youtube", "label": "유튜브" },
-    { "value": "auction", "label": "경매" },
-    { "value": "stock", "label": "주식" },
-    { "value": "finance", "label": "재테크" },
-    { "value": "tax-loan", "label": "세금/대출" },
-    { "value": "commercial", "label": "상가/빌딩" }
+    {
+      "value": "all",
+      "label": "전체"
+    },
+    {
+      "value": "frontend",
+      "label": "프론트엔드"
+    },
+    {
+      "value": "backend",
+      "label": "백엔드"
+    },
+    {
+      "value": "mobile",
+      "label": "모바일"
+    },
+    {
+      "value": "devops",
+      "label": "데브옵스"
+    },
+    {
+      "value": "data",
+      "label": "데이터"
+    },
+    {
+      "value": "ai",
+      "label": "AI"
+    },
+    {
+      "value": "cs",
+      "label": "CS·알고리즘"
+    },
+    {
+      "value": "design",
+      "label": "디자인"
+    },
+    {
+      "value": "career",
+      "label": "커리어"
+    }
   ],
-
   "bestCourses": [
     {
       "slug": "real-estate-basic-class",
-      "title": "[26.5월 규제반영] 2026 부동산 투자 시작하는 법 - 열반스쿨 기초반",
-      "thumbnail": "/images/banners/banner1.jpg",
-      "thumbnailAlt": "열반스쿨 기초반 강의 썸네일",
-      "categoryLabel": "부동산 투자 기초",
-      "instructor": "너바나",
-      "tags": ["자금과외요", "주우이"],
+      "title": "[26.5월 최신문법] 2026 모던 자바스크립트 입문 - 프론트엔드 기초반",
+      "thumbnail": "/images/banners/banner1.svg",
+      "thumbnailAlt": "[26.5월 최신문법] 2026 모던 자바스크립트 입문 - 프론트엔드 기초반 강의 썸네일",
+      "categoryLabel": "프론트엔드",
+      "instructor": "한웹기초",
+      "tags": [
+        "JavaScript",
+        "ES2024"
+      ],
       "rating": 4.98,
       "reviewCount": 171912,
-      "category": "real-estate"
+      "category": "frontend"
     },
     {
       "slug": "ss-coupon-basic",
-      "title": "[3차 얼리버드] 무조건 주문이 들어오는 스스쿠팡 기초반 5기",
-      "thumbnail": "/images/banners/banner8.png",
-      "thumbnailAlt": "스스쿠팡 기초반 강의 썸네일",
-      "categoryLabel": "부업 BEST 1위",
-      "instructor": "민군",
-      "tags": [],
+      "title": "실무에서 바로 쓰는 도커·쿠버네티스 기초반 5기",
+      "thumbnail": "/images/banners/banner8.svg",
+      "thumbnailAlt": "실무에서 바로 쓰는 도커·쿠버네티스 기초반 5기 강의 썸네일",
+      "categoryLabel": "데브옵스",
+      "instructor": "강도커",
+      "tags": [
+        "Docker",
+        "Kubernetes"
+      ],
       "rating": 4.91,
       "reviewCount": 3063,
-      "category": "online-store",
+      "category": "devops",
       "badge": "LV.1"
     },
     {
       "slug": "cheap-apartment-finder",
-      "title": "2026 NEW 부동산 입문 BEST - 너나위의 저평가 아파트 찾는 법",
-      "thumbnail": "/images/banners/banner5.jpg",
-      "thumbnailAlt": "저평가 아파트 찾는 법 강의 썸네일",
-      "categoryLabel": "2026년 NEW",
-      "instructor": "너나위",
-      "tags": [],
+      "title": "2026 NEW 프론트엔드 입문 BEST - 박타입의 Vue 3 입문",
+      "thumbnail": "/images/banners/banner5.svg",
+      "thumbnailAlt": "2026 NEW 프론트엔드 입문 BEST - 박타입의 Vue 3 입문 강의 썸네일",
+      "categoryLabel": "프론트엔드",
+      "instructor": "박타입",
+      "tags": [
+        "Vue3",
+        "Composition API"
+      ],
       "rating": 4.96,
       "reviewCount": 4687,
-      "category": "real-estate"
+      "category": "frontend"
     },
     {
       "slug": "real-estate-intermediate",
-      "title": "열반스쿨 중급반 - 직장인이 투자로 10억 달성하는 법",
-      "thumbnail": "/images/banners/banner2.png",
-      "thumbnailAlt": "열반스쿨 중급반 강의 썸네일",
-      "categoryLabel": "부동산 기초",
-      "instructor": "딥부엔트",
-      "tags": ["밥잘사주는부자마늘"],
+      "title": "React 고급 패턴 - 실전 컴포넌트 설계와 성능 최적화",
+      "thumbnail": "/images/banners/banner2.svg",
+      "thumbnailAlt": "React 고급 패턴 - 실전 컴포넌트 설계와 성능 최적화 강의 썸네일",
+      "categoryLabel": "프론트엔드",
+      "instructor": "김리액트",
+      "tags": [
+        "React"
+      ],
       "rating": 4.98,
       "reviewCount": 106062,
-      "category": "real-estate"
+      "category": "frontend"
     },
     {
       "slug": "my-house-basic",
-      "title": "[3월 오픈] 내집마련 고민이라면? 집사기 전 - 너나위의 내집마련 기초반",
-      "thumbnail": "/images/banners/banner7.png",
-      "thumbnailAlt": "내집마련 기초반 강의 썸네일",
-      "categoryLabel": "내집마련",
-      "instructor": "너나위",
-      "tags": ["용용맘민맘", "자금과외요"],
+      "title": "웹 개발 입문이 고민된다면? 시작 전, 웹 개발 기초반",
+      "thumbnail": "/images/banners/banner7.svg",
+      "thumbnailAlt": "웹 개발 입문이 고민된다면? 시작 전, 웹 개발 기초반 강의 썸네일",
+      "categoryLabel": "프론트엔드",
+      "instructor": "한웹기초",
+      "tags": [
+        "HTML",
+        "CSS"
+      ],
       "rating": 4.97,
       "reviewCount": 82059,
-      "category": "my-house",
+      "category": "frontend",
       "badge": "LV.1"
     },
     {
       "slug": "blog-auto-income",
-      "title": "[이번 주 모집 마감] 월부월백 기초반 - 자는 동안에도 돈 버는 블로그 만들기",
-      "thumbnail": "/images/banners/banner6.jpg",
-      "thumbnailAlt": "월부월백 기초반 강의 썸네일",
-      "categoryLabel": "블로그 부업",
-      "instructor": "메킷",
-      "tags": [],
+      "title": "[이번 주 모집 마감] 개발자 포트폴리오 사이트 만들기 - 첫 채용까지",
+      "thumbnail": "/images/banners/banner6.svg",
+      "thumbnailAlt": "[이번 주 모집 마감] 개발자 포트폴리오 사이트 만들기 - 첫 채용까지 강의 썸네일",
+      "categoryLabel": "개발자 커리어",
+      "instructor": "신블로그",
+      "tags": [
+        "포트폴리오",
+        "Next.js"
+      ],
       "rating": 4.89,
       "reviewCount": 1915,
-      "category": "blog",
+      "category": "career",
       "badge": "LV.1"
     },
     {
       "slug": "us-stock-basic",
-      "title": "[사전 예약] 계좌개설부터 백만원까지, 미국주식 기초반 6기",
-      "thumbnail": "/images/banners/banner9.jpg",
-      "thumbnailAlt": "미국주식 기초반 강의 썸네일",
-      "categoryLabel": "미국주식 직투",
-      "instructor": "광화문금융러",
-      "tags": [],
+      "title": "환경 셋업부터 모델 학습까지, 파이썬 데이터 분석 기초반 6기",
+      "thumbnail": "/images/banners/banner9.svg",
+      "thumbnailAlt": "환경 셋업부터 모델 학습까지, 파이썬 데이터 분석 기초반 6기 강의 썸네일",
+      "categoryLabel": "데이터",
+      "instructor": "강데이터",
+      "tags": [
+        "Python",
+        "Pandas"
+      ],
       "rating": 4.94,
       "reviewCount": 555,
-      "category": "stock",
+      "category": "data",
       "badge": "LV.1"
     },
     {
       "slug": "financial-basic-class",
-      "title": "[4월 오픈] 재테크 기초반 - 같은 월급 2배 더 빨리 모으는 재테크 성공공식",
-      "thumbnail": "/images/banners/banner10.webp",
-      "thumbnailAlt": "재테크 기초반 강의 썸네일",
-      "categoryLabel": "2026 NEW",
-      "instructor": "너나위",
-      "tags": ["광화문금융러", "김인턴"],
+      "title": "코딩테스트 합격 알고리즘 기초반 - 같은 시간 2배 빠르게 푸는 공식",
+      "thumbnail": "/images/banners/banner10.svg",
+      "thumbnailAlt": "코딩테스트 합격 알고리즘 기초반 - 같은 시간 2배 빠르게 푸는 공식 강의 썸네일",
+      "categoryLabel": "CS·알고리즘",
+      "instructor": "한알고리즘",
+      "tags": [
+        "알고리즘",
+        "코딩테스트"
+      ],
       "rating": 4.87,
       "reviewCount": 11265,
-      "category": "finance"
+      "category": "cs"
     },
     {
       "slug": "money-book-club",
-      "title": "26년 4월 돈버는 독서모임 <돈의 가격>",
-      "thumbnail": "/images/banners/banner11.webp",
-      "thumbnailAlt": "돈버는 독서모임 강의 썸네일",
-      "categoryLabel": "독서멘토",
-      "instructor": "독서리더",
-      "tags": ["독서멘트", "독서리더"],
+      "title": "26년 4월 개발 도서 모임 <소프트웨어 아키텍처의 모든 것>",
+      "thumbnail": "/images/banners/banner11.svg",
+      "thumbnailAlt": "26년 4월 개발 도서 모임 <소프트웨어 아키텍처의 모든 것> 강의 썸네일",
+      "categoryLabel": "개발자 커리어",
+      "instructor": "모더레이터",
+      "tags": [
+        "도서모임",
+        "소프트웨어아키텍처"
+      ],
       "rating": 4.94,
       "reviewCount": 2020,
-      "category": "finance"
+      "category": "career"
     }
   ],
-
   "testimonials": {
     "meta": {
       "label": "Review",
-      "title": "월부 수강생 후기",
-      "description": "나도 할 수 있을까? 고민이 된다면 수강생들의 성공 경험을 들어보세요.",
+      "title": "LectureHub 수강생 후기",
+      "description": "나도 할 수 있을까? 고민이 된다면 수강생들의 성장 경험을 들어보세요.",
       "ariaLabel": "수강생 베스트 후기 섹션"
     },
     "stats": [
-      { "label": "누적 수강생", "value": "15,000+", "icon": "✏️", "ariaLabel": "누적 수강생 15,000명 이상" },
-      { "label": "실제 수강평", "value": "3,612+", "icon": "✅", "ariaLabel": "실제 수강평 3,612개 이상" },
-      { "label": "완강률", "value": "92%", "icon": "🔥", "ariaLabel": "완강률 92퍼센트" }
+      {
+        "label": "누적 수강생",
+        "value": "15,000+",
+        "icon": "✏️",
+        "ariaLabel": "누적 수강생 15,000명 이상"
+      },
+      {
+        "label": "실제 수강평",
+        "value": "3,612+",
+        "icon": "✅",
+        "ariaLabel": "실제 수강평 3,612개 이상"
+      },
+      {
+        "label": "완강률",
+        "value": "92%",
+        "icon": "🔥",
+        "ariaLabel": "완강률 92퍼센트"
+      }
     ],
     "items": [
       {
         "id": "r1",
-        "nickname": "부동산초보탈출",
-        "profileImage": "/images/testIMG/profile1.jpg",
+        "nickname": "리액트입문탈출",
+        "profileImage": "/images/testIMG/profile1.svg",
         "date": "2025.11.02",
         "rating": 5,
-        "title": "서울시 강서구 내집마련 성공기",
-        "content": "강의를 듣기 전엔 부동산이 너무 어렵게 느껴졌는데, 이제는 직접 지역 분석을 하고 임장도 다닐 수 있게 됐어요. 내집마련의 꿈을 이뤘습니다!",
+        "title": "비전공자가 첫 프론트엔드 취업 성공기",
+        "content": "강의를 듣기 전엔 React가 너무 어렵게 느껴졌는데, 이제는 직접 컴포넌트를 설계하고 사이드 프로젝트도 만들 수 있게 됐어요. 첫 회사 입사에 성공했습니다!",
         "avatarColor": "1",
-        "ariaLabel": "부동산초보탈출 님의 수강 후기"
+        "ariaLabel": "리액트입문탈출 님의 수강 후기"
       },
       {
         "id": "r2",
-        "nickname": "ETF장기투자자",
-        "profileImage": "/images/testIMG/profile3.jpg",
+        "nickname": "백엔드성장기",
+        "profileImage": "/images/testIMG/profile3.svg",
         "date": "2025.10.15",
         "rating": 5,
-        "title": "대통령도 산다는 그 ETF, 수익률 150%의 정체는?",
-        "content": "막연하게 ETF가 좋다는 건 알았는데, 어떤 ETF를 어떻게 골라야 할지 전혀 몰랐어요. 이 강의 덕분에 제대로 된 포트폴리오를 구성할 수 있었습니다.",
+        "title": "신입 백엔드 개발자가 알아두면 좋은 NestJS 패턴",
+        "content": "막연하게 백엔드는 어렵다고만 생각했는데, 이 강의 덕분에 실무에서 쓰는 NestJS 패턴을 제대로 배울 수 있었습니다.",
         "avatarColor": "2",
-        "ariaLabel": "ETF장기투자자 님의 수강 후기"
+        "ariaLabel": "백엔드성장기 님의 수강 후기"
       },
       {
         "id": "r3",
-        "nickname": "사골컨테이너",
-        "profileImage": "/images/testIMG/profile5.jpg",
+        "nickname": "주니어개발일기",
+        "profileImage": "/images/testIMG/profile5.svg",
         "date": "2025.09.22",
         "rating": 5,
-        "title": "사골 컨테이너집에서 자란 제가 10억을 만들기까지",
-        "content": "흙수저 출신이라 투자는 남의 이야기인 줄 알았어요. 강의에서 알려준 방법대로 꾸준히 실천했더니 자산이 크게 늘었습니다. 정말 감사합니다.",
+        "title": "비전공 주니어가 시니어로 성장하기까지",
+        "content": "비전공이라 개발은 남의 이야기인 줄 알았어요. 강의에서 알려준 학습법을 꾸준히 실천했더니 시니어 트랙에 올라설 수 있었습니다. 정말 감사합니다.",
         "avatarColor": "3",
-        "ariaLabel": "사골컨테이너 님의 수강 후기"
+        "ariaLabel": "주니어개발일기 님의 수강 후기"
       },
       {
         "id": "r4",
-        "nickname": "직장인투자왕",
-        "profileImage": "/images/testIMG/profile2.jpg",
+        "nickname": "직장인개발자",
+        "profileImage": "/images/testIMG/profile2.svg",
         "date": "2025.08.30",
         "rating": 5,
-        "title": "직장인 10년차, 드디어 내 집 마련했습니다",
-        "content": "매달 적금만 넣던 제가 부동산 투자를 시작할 수 있게 됐어요. 강사님의 설명이 너무 명쾌해서 처음 듣는 개념도 쉽게 이해됐습니다.",
+        "title": "직장인 10년차, 드디어 개발자로 전직했습니다",
+        "content": "사무직만 하던 제가 코딩을 시작할 수 있게 됐어요. 강사님의 설명이 너무 명쾌해서 처음 듣는 개념도 쉽게 이해됐습니다.",
         "avatarColor": "4",
-        "ariaLabel": "직장인투자왕 님의 수강 후기"
+        "ariaLabel": "직장인개발자 님의 수강 후기"
       },
       {
         "id": "r5",
-        "nickname": "재테크새싹",
-        "profileImage": "/images/testIMG/profile4.jpg",
+        "nickname": "코드새싹",
+        "profileImage": "/images/testIMG/profile4.svg",
         "date": "2025.07.18",
         "rating": 5,
         "title": "처음 접하는 분들도 쉽게 이해할 수 있는 강의",
-        "content": "재테크를 처음 시작하는 입장에서 기초부터 차근차근 알려줘서 정말 도움이 많이 됐어요. 강의 퀄리티가 기대 이상입니다.",
+        "content": "코딩을 처음 시작하는 입장에서 기초부터 차근차근 알려줘서 정말 도움이 많이 됐어요. 강의 퀄리티가 기대 이상입니다.",
         "avatarColor": "5",
-        "ariaLabel": "재테크새싹 님의 수강 후기"
+        "ariaLabel": "코드새싹 님의 수강 후기"
       },
       {
         "id": "r6",
-        "nickname": "부동산고수도전",
-        "profileImage": "/images/testIMG/profile1.jpg",
+        "nickname": "풀스택도전기",
+        "profileImage": "/images/testIMG/profile1.svg",
         "date": "2025.06.10",
         "rating": 5,
-        "title": "투자 마인드셋부터 실전까지, 완벽한 로드맵",
-        "content": "단순한 투자 방법론이 아니라 마인드셋부터 시작해서 실전 투자까지 체계적으로 가르쳐줘요. 이 강의 하나로 투자 인생이 달라졌습니다.",
+        "title": "마인드셋부터 실전까지, 완벽한 학습 로드맵",
+        "content": "단순한 코딩 강의가 아니라 개발자 마인드셋부터 시작해서 실전 프로젝트까지 체계적으로 가르쳐줘요. 개발 인생이 달라졌습니다.",
         "avatarColor": "6",
-        "ariaLabel": "부동산고수도전 님의 수강 후기"
+        "ariaLabel": "풀스택도전기 님의 수강 후기"
       },
       {
         "id": "r7",
-        "nickname": "아파트분석러",
-        "profileImage": "/images/testIMG/profile3.jpg",
+        "nickname": "코드분석러",
+        "profileImage": "/images/testIMG/profile3.svg",
         "date": "2025.05.28",
         "rating": 5,
-        "title": "아파트 시장 분석이 이렇게 쉬울 수가 없어요",
-        "content": "복잡하게만 보였던 아파트 시세 분석을 이렇게 간단하게 할 수 있다니 놀라웠어요. 매주 임장 다니는 게 즐거워졌습니다.",
+        "title": "복잡한 코드 베이스 분석이 이렇게 쉬울 수가 없어요",
+        "content": "복잡하게만 보였던 오픈소스 코드 읽기를 이렇게 단순하게 할 수 있다니 놀라웠어요. 매주 새로운 라이브러리를 분석하는 게 즐거워졌습니다.",
         "avatarColor": "2",
-        "ariaLabel": "아파트분석러 님의 수강 후기"
+        "ariaLabel": "코드분석러 님의 수강 후기"
       },
       {
         "id": "r8",
-        "nickname": "재테크성공기",
-        "profileImage": "/images/testIMG/profile5.jpg",
+        "nickname": "커리어성공기",
+        "profileImage": "/images/testIMG/profile5.svg",
         "date": "2025.04.14",
         "rating": 5,
-        "title": "재테크를 시작하려는 모든 분에게 강력 추천합니다",
-        "content": "월급을 모으기만 하다가 이 강의를 통해 본격적으로 재테크를 시작했어요. 강의 내용이 실용적이고 따라 하기 쉬워서 바로 적용할 수 있었습니다.",
+        "title": "개발 커리어를 시작하려는 모든 분에게 강력 추천",
+        "content": "연봉 협상부터 포트폴리오 작성까지 이 강의를 통해 본격적으로 개발자 커리어를 시작했어요. 강의 내용이 실용적이고 따라 하기 쉬워서 바로 적용할 수 있었습니다.",
         "avatarColor": "1",
-        "ariaLabel": "재테크성공기 님의 수강 후기"
+        "ariaLabel": "커리어성공기 님의 수강 후기"
       },
       {
         "id": "r9",
-        "nickname": "월급쟁이투자자",
-        "profileImage": "/images/testIMG/profile2.jpg",
+        "nickname": "주니어개발자",
+        "profileImage": "/images/testIMG/profile2.svg",
         "date": "2025.03.05",
         "rating": 5,
-        "title": "월급쟁이에서 투자자로, 인생을 바꿔준 강의",
-        "content": "회사에 다니면서도 투자할 수 있다는 걸 이 강의에서 배웠어요. 지금은 매달 꾸준히 투자하며 자산을 키워가고 있습니다.",
+        "title": "주니어에서 미들로, 인생을 바꿔준 강의",
+        "content": "회사에 다니면서도 꾸준히 성장할 수 있다는 걸 이 강의에서 배웠어요. 지금은 매달 사이드 프로젝트를 출시하며 실력을 키워가고 있습니다.",
         "avatarColor": "4",
-        "ariaLabel": "월급쟁이투자자 님의 수강 후기"
+        "ariaLabel": "주니어개발자 님의 수강 후기"
       },
       {
         "id": "r10",
         "nickname": "처음엔반신반의",
-        "profileImage": "/images/testIMG/profile4.jpg",
+        "profileImage": "/images/testIMG/profile4.svg",
         "date": "2025.02.22",
         "rating": 5,
         "title": "처음엔 반신반의했는데 결과가 달라졌습니다",
-        "content": "솔직히 처음에는 '이게 정말 될까?' 싶었어요. 그런데 강의 내용을 하나하나 실천하다 보니 어느새 통장 잔고가 달라져 있었습니다.",
+        "content": "솔직히 처음에는 \"이게 정말 될까?\" 싶었어요. 그런데 강의 내용을 하나하나 실천하다 보니 어느새 GitHub 잔디가 가득 차 있었습니다.",
         "avatarColor": "3",
         "ariaLabel": "처음엔반신반의 님의 수강 후기"
       },
       {
         "id": "r11",
-        "nickname": "알짜정보수집가",
-        "profileImage": "/images/testIMG/profile1.jpg",
+        "nickname": "실무알짜정보",
+        "profileImage": "/images/testIMG/profile1.svg",
         "date": "2025.01.19",
         "rating": 5,
         "title": "실전에서 바로 써먹을 수 있는 알짜 내용만 담겨 있어요",
-        "content": "다른 강의들은 이론만 많은데, 이 강의는 실제로 투자할 때 필요한 내용만 담겨 있어서 바로 실천에 옮길 수 있었습니다.",
+        "content": "다른 강의들은 이론만 많은데, 이 강의는 실제로 회사에서 쓸 수 있는 내용만 담겨 있어서 바로 실무에 적용할 수 있었습니다.",
         "avatarColor": "5",
-        "ariaLabel": "알짜정보수집가 님의 수강 후기"
+        "ariaLabel": "실무알짜정보 님의 수강 후기"
       },
       {
         "id": "r12",
-        "nickname": "경매시작했어요",
-        "profileImage": "/images/testIMG/profile3.jpg",
+        "nickname": "데브옵스시작",
+        "profileImage": "/images/testIMG/profile3.svg",
         "date": "2024.12.30",
         "rating": 5,
-        "title": "경매 입문, 이 강의로 시작하세요",
-        "content": "경매는 무섭고 어렵다고만 생각했는데 강의를 들으니 생각보다 접근하기 쉬웠어요. 현재 첫 번째 낙찰 도전 중입니다!",
+        "title": "데브옵스 입문, 이 강의로 시작하세요",
+        "content": "인프라는 무섭고 어렵다고만 생각했는데 강의를 들으니 생각보다 접근하기 쉬웠어요. 현재 첫 쿠버네티스 클러스터를 운영 중입니다!",
         "avatarColor": "6",
-        "ariaLabel": "경매시작했어요 님의 수강 후기"
+        "ariaLabel": "데브옵스시작 님의 수강 후기"
       }
     ]
   },
-
   "popularArticles": {
     "meta": {
       "title": "실시간 인기 아티클",
@@ -406,24 +568,24 @@
     "featured": {
       "id": "pa1",
       "rank": 1,
-      "thumbnail": "/images/banners/banner1.jpg",
-      "thumbnailAlt": "서울시 서초구에 내집마련 성공 관련 아티클 이미지",
-      "title": "서울시 서초구에 내집마련 성공했습니다!서울시 서초구에 내집마련 성공했습니다!",
-      "authorNickname": "진심으로하면",
-      "profileImage": "/images/testIMG/profile2.jpg",
+      "thumbnail": "/images/banners/banner1.svg",
+      "thumbnailAlt": "비전공자가 6개월 만에 첫 개발자 취업에 성공한 비결 아티클 이미지",
+      "title": "비전공자가 6개월 만에 첫 개발자 취업에 성공한 비결",
+      "authorNickname": "신블로그",
+      "profileImage": "/images/testIMG/profile2.svg",
       "category": "님의",
       "date": "26.02.27",
       "readTime": "2.5min",
       "viewCount": 217,
-      "ariaLabel": "1위 인기 아티클: 서울시 서초구에 내집마련 성공했습니다"
+      "ariaLabel": "1위 인기 아티클: 비전공자가 6개월 만에 첫 개발자 취업에 성공한 비결"
     },
     "ranked": [
       {
         "id": "pa2",
         "rank": 2,
-        "title": "서울시 서초구에 내집마련 성공했습니다서울시 서초구에 내집마련 성공했습니다",
-        "authorNickname": "진심으로하면",
-        "profileImage": "/images/testIMG/profile4.jpg",
+        "title": "주니어 개발자가 시니어로 성장하기 위한 5가지 습관",
+        "authorNickname": "신블로그",
+        "profileImage": "/images/testIMG/profile4.svg",
         "category": "님의",
         "date": "26.02.27",
         "readTime": "2.5min",
@@ -433,9 +595,9 @@
       {
         "id": "pa3",
         "rank": 3,
-        "title": "서울시 서초구에 내집마련 성공했습니다요",
-        "authorNickname": "진심으로하면",
-        "profileImage": "/images/testIMG/profile1.jpg",
+        "title": "실무에서 자주 쓰이는 React 패턴 베스트 10",
+        "authorNickname": "신블로그",
+        "profileImage": "/images/testIMG/profile1.svg",
         "category": "님의",
         "date": "26.02.27",
         "readTime": "2.5min",
@@ -445,9 +607,9 @@
       {
         "id": "pa4",
         "rank": 4,
-        "title": "서울시 강서구 내집마련 성공기",
-        "authorNickname": "진심으로하면",
-        "profileImage": "/images/testIMG/profile5.jpg",
+        "title": "백엔드 개발자가 알아두면 좋은 데이터베이스 인덱스 정리",
+        "authorNickname": "신블로그",
+        "profileImage": "/images/testIMG/profile5.svg",
         "category": "님의",
         "date": "26.02.27",
         "readTime": "2.5min",
@@ -457,9 +619,9 @@
       {
         "id": "pa5",
         "rank": 5,
-        "title": "대통령도 산다는 그 ETF, 수익률 150%의 정체는?",
-        "authorNickname": "진심으로하면",
-        "profileImage": "/images/testIMG/profile3.jpg",
+        "title": "코드 리뷰가 두려운 주니어를 위한 실전 가이드",
+        "authorNickname": "신블로그",
+        "profileImage": "/images/testIMG/profile3.svg",
         "category": "님의",
         "date": "26.02.27",
         "readTime": "2.5min",
@@ -470,52 +632,51 @@
     "cards": [
       {
         "id": "pac1",
-        "authorNickname": "너바나",
-        "profileImage": "/images/testIMG/profile1.jpg",
+        "authorNickname": "강아키텍트",
+        "profileImage": "/images/testIMG/profile1.svg",
         "authorVerified": true,
-        "category": "부동산",
-        "title": "부자의 변태로 뛰는, 유지만 할뿐 사용 들어 공통적인 3가지 특징",
-        "content": "일부러스 뛰는 사람들의에는더글라 뛰는사람들의에는더글라 뛰는사람들의에는더글라 뛰는사람들의에는더 뛰는 사회를좋아하지가 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는",
-        "thumbnail": "/images/banners/banner5.jpg",
-        "thumbnailAlt": "부자의 공통 특징 아티클 이미지",
+        "category": "개발",
+        "title": "시니어 개발자가 매일 실천하는 3가지 습관",
+        "content": "실력 있는 개발자들이 공통적으로 가지고 있는 습관과 학습 방법, 그리고 코드 리뷰 문화에 대한 인사이트를 공유합니다. 매일 조금씩 실천 가능한 구체적인 가이드를 정리했어요.",
+        "thumbnail": "/images/banners/banner5.svg",
+        "thumbnailAlt": "시니어 개발자가 매일 실천하는 3가지 습관 아티클 이미지",
         "likeCount": 0,
         "commentCount": 0,
         "date": "26.02.27",
-        "ariaLabel": "너바나 님의 아티클: 부자의 변태로 뛰는"
+        "ariaLabel": "강아키텍트 님의 아티클: 시니어 개발자가 매일 실천하는 3가지 습관"
       },
       {
         "id": "pac2",
-        "authorNickname": "너바나",
-        "profileImage": "/images/testIMG/profile3.jpg",
+        "authorNickname": "강아키텍트",
+        "profileImage": "/images/testIMG/profile3.svg",
         "authorVerified": true,
-        "category": "부동산",
-        "title": "부자의 변태로 뛰는, 6가지 된 돈 사용 들어 공통적인 3가지 특징",
-        "content": "일부러스 뛰는 사람들의에는더글라 뛰는사람들의에는더글라 뛰는사람들의에는더글라 뛰는사람들의에는더 뛰는 사회를좋아하지가 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는",
-        "thumbnail": "/images/banners/banner9.jpg",
-        "thumbnailAlt": "부자의 돈 사용 아티클 이미지",
+        "category": "개발",
+        "title": "코드 품질을 높이는 시니어들의 6가지 코드 리뷰 전략",
+        "content": "실력 있는 개발자들이 공통적으로 가지고 있는 습관과 학습 방법, 그리고 코드 리뷰 문화에 대한 인사이트를 공유합니다. 매일 조금씩 실천 가능한 구체적인 가이드를 정리했어요.",
+        "thumbnail": "/images/banners/banner9.svg",
+        "thumbnailAlt": "코드 품질을 높이는 시니어들의 6가지 코드 리뷰 전략 아티클 이미지",
         "likeCount": 0,
         "commentCount": 0,
         "date": "26.02.27",
-        "ariaLabel": "너바나 님의 아티클: 부자의 변태로 뛰는 6가지"
+        "ariaLabel": "강아키텍트 님의 아티클: 코드 품질을 높이는 시니어들의 6가지 코드 리뷰 전략"
       },
       {
         "id": "pac3",
-        "authorNickname": "너바나",
-        "profileImage": "/images/testIMG/profile5.jpg",
+        "authorNickname": "강아키텍트",
+        "profileImage": "/images/testIMG/profile5.svg",
         "authorVerified": true,
-        "category": "부동산",
-        "title": "부자의 변태로 뛰는, 유지만 할뿐 사용 들어 공통적인 3가지 특징",
-        "content": "일부러스 뛰는 사람들의에는더글라 뛰는사람들의에는더글라 뛰는사람들의에는더글라 뛰는사람들의에는더 뛰는 사회를좋아하지가 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는",
-        "thumbnail": "/images/banners/banner10.webp",
-        "thumbnailAlt": "부자의 변태로 뛰는 아티클 이미지",
+        "category": "개발",
+        "title": "주니어가 시니어로 성장하기 위한 학습 로드맵",
+        "content": "실력 있는 개발자들이 공통적으로 가지고 있는 습관과 학습 방법, 그리고 코드 리뷰 문화에 대한 인사이트를 공유합니다. 매일 조금씩 실천 가능한 구체적인 가이드를 정리했어요.",
+        "thumbnail": "/images/banners/banner10.svg",
+        "thumbnailAlt": "주니어가 시니어로 성장하기 위한 학습 로드맵 아티클 이미지",
         "likeCount": 0,
         "commentCount": 0,
         "date": "26.02.27",
-        "ariaLabel": "너바나 님의 아티클: 부자의 변태로 뛰는"
+        "ariaLabel": "강아키텍트 님의 아티클: 주니어가 시니어로 성장하기 위한 학습 로드맵"
       }
     ]
   },
-
   "homeBestArticles": {
     "meta": {
       "title": "이주의 베스트 인기글",
@@ -526,61 +687,85 @@
       {
         "id": "hba1",
         "rank": 1,
-        "thumbnail": "/images/banners/banner2.png",
-        "thumbnailAlt": "오프라인 클래스 비트코인 교육 썸네일",
-        "title": "오프라인 클래스 비트코인 교육",
+        "thumbnail": "/images/banners/banner2.svg",
+        "thumbnailAlt": "오프라인 특강 - 모던 자바스크립트 핵심 썸네일",
+        "title": "오프라인 특강 - 모던 자바스크립트 핵심",
         "date": "2025.05.22",
-        "ariaLabel": "1위 베스트 인기글: 오프라인 클래스 비트코인 교육"
+        "ariaLabel": "1위 베스트 인기글: 오프라인 특강 - 모던 자바스크립트 핵심"
       },
       {
         "id": "hba2",
         "rank": 2,
-        "thumbnail": "/images/banners/banner5.jpg",
-        "thumbnailAlt": "부자와 반대로 하는, 돈이 안 불는 사람들의 공통적인 3가지 특징 썸네일",
-        "title": "부자와 반대로 하는, 돈이 안 불는 사람들의 공통적인 3가지 특징",
+        "thumbnail": "/images/banners/banner5.svg",
+        "thumbnailAlt": "코드 품질을 무너뜨리는 5가지 안티 패턴 썸네일",
+        "title": "코드 품질을 무너뜨리는 5가지 안티 패턴",
         "date": "26.02.27",
-        "ariaLabel": "2위 베스트 인기글: 부자와 반대로 하는, 돈이 안 불는 사람들의 공통적인 3가지 특징"
+        "ariaLabel": "2위 베스트 인기글: 코드 품질을 무너뜨리는 5가지 안티 패턴"
       },
       {
         "id": "hba3",
         "rank": 3,
-        "thumbnail": "/images/banners/banner7.png",
-        "thumbnailAlt": "부자와 반대로 하는, 돈이 안 불는 사람들의 공통적인 3가지 특징 썸네일",
-        "title": "부자와 반대로 하는, 돈이 안 불는 사람들의 공통적인 3가지 특징",
+        "thumbnail": "/images/banners/banner7.svg",
+        "thumbnailAlt": "주니어 개발자가 흔히 빠지는 3가지 함정 썸네일",
+        "title": "주니어 개발자가 흔히 빠지는 3가지 함정",
         "date": "26.02.27",
-        "ariaLabel": "3위 베스트 인기글: 부자와 반대로 하는, 돈이 안 불는 사람들의 공통적인 3가지 특징"
+        "ariaLabel": "3위 베스트 인기글: 주니어 개발자가 흔히 빠지는 3가지 함정"
       },
       {
         "id": "hba4",
         "rank": 4,
-        "thumbnail": "/images/banners/banner8.png",
-        "thumbnailAlt": "부자와 반대로 하는, 돈이 안 불는 사람들의 공통적인 3가지 특징 썸네일",
-        "title": "부자와 반대로 하는, 돈이 안 불는 사람들의 공통적인 3가지 특징",
+        "thumbnail": "/images/banners/banner8.svg",
+        "thumbnailAlt": "리팩터링이 두려운 개발자를 위한 안전 장치 썸네일",
+        "title": "리팩터링이 두려운 개발자를 위한 안전 장치",
         "date": "26.02.27",
-        "ariaLabel": "4위 베스트 인기글: 부자와 반대로 하는, 돈이 안 불는 사람들의 공통적인 3가지 특징"
+        "ariaLabel": "4위 베스트 인기글: 리팩터링이 두려운 개발자를 위한 안전 장치"
       },
       {
         "id": "hba5",
         "rank": 5,
-        "thumbnail": "/images/banners/banner9.jpg",
-        "thumbnailAlt": "부자와 반대로 하는, 돈이 안 불는 사람들의 공통적인 3가지 특징 썸네일",
-        "title": "부자와 반대로 하는, 돈이 안 불는 사람들의 공통적인 3가지 특징",
+        "thumbnail": "/images/banners/banner9.svg",
+        "thumbnailAlt": "대규모 코드 베이스를 처음 만났을 때의 생존 가이드 썸네일",
+        "title": "대규모 코드 베이스를 처음 만났을 때의 생존 가이드",
         "date": "26.02.27",
-        "ariaLabel": "5위 베스트 인기글: 부자와 반대로 하는, 돈이 안 불는 사람들의 공통적인 3가지 특징"
+        "ariaLabel": "5위 베스트 인기글: 대규모 코드 베이스를 처음 만났을 때의 생존 가이드"
       }
     ]
   },
-
   "liveCounter": {
-    "meta": { "ariaLabel": "실시간 수강 통계" },
+    "meta": {
+      "ariaLabel": "실시간 수강 통계"
+    },
     "items": [
-      { "icon": "users", "value": 150000, "suffix": "+", "label": "누적 수강생", "ariaLabel": "누적 수강생 150,000명 이상" },
-      { "icon": "star", "value": 45000, "suffix": "+", "label": "수강평", "ariaLabel": "수강평 45,000개 이상" },
-      { "icon": "play", "value": 320, "suffix": "+", "label": "전체 강의 수", "ariaLabel": "전체 강의 320개 이상" },
-      { "icon": "trophy", "value": 98, "suffix": "%", "label": "만족도", "ariaLabel": "만족도 98%" }
+      {
+        "icon": "users",
+        "value": 150000,
+        "suffix": "+",
+        "label": "누적 수강생",
+        "ariaLabel": "누적 수강생 150,000명 이상"
+      },
+      {
+        "icon": "star",
+        "value": 45000,
+        "suffix": "+",
+        "label": "수강평",
+        "ariaLabel": "수강평 45,000개 이상"
+      },
+      {
+        "icon": "play",
+        "value": 320,
+        "suffix": "+",
+        "label": "전체 강의 수",
+        "ariaLabel": "전체 강의 320개 이상"
+      },
+      {
+        "icon": "trophy",
+        "value": 98,
+        "suffix": "%",
+        "label": "만족도",
+        "ariaLabel": "만족도 98%"
+      }
     ]
   },
-
   "homeInstructors": {
     "meta": {
       "title": "최고의 전문가에게 배우세요",
@@ -588,76 +773,129 @@
       "ariaLabel": "인기 강사 소개"
     },
     "instructors": [
-      { "id": "inst1", "name": "너바나", "specialty": "부동산 투자", "courseCount": 12, "rating": 4.98, "reviewCount": 17191, "color": "#0077FF", "ariaLabel": "너바나 강사 프로필" },
-      { "id": "inst2", "name": "너나위", "specialty": "내집마련", "courseCount": 8, "rating": 4.97, "reviewCount": 8205, "color": "#7c3aed", "ariaLabel": "너나위 강사 프로필" },
-      { "id": "inst3", "name": "월천대사", "specialty": "재테크", "courseCount": 15, "rating": 4.95, "reviewCount": 12340, "color": "#16a34a", "ariaLabel": "월천대사 강사 프로필" },
-      { "id": "inst4", "name": "자청", "specialty": "자기계발", "courseCount": 6, "rating": 4.93, "reviewCount": 9870, "color": "#f59e0b", "ariaLabel": "자청 강사 프로필" },
-      { "id": "inst5", "name": "김짠부", "specialty": "절약/저축", "courseCount": 4, "rating": 4.96, "reviewCount": 5430, "color": "#dc2626", "ariaLabel": "김짠부 강사 프로필" },
-      { "id": "inst6", "name": "부읽남", "specialty": "부동산 분석", "courseCount": 9, "rating": 4.94, "reviewCount": 7650, "color": "#0ea5e9", "ariaLabel": "부읽남 강사 프로필" }
+      {
+        "id": "inst1",
+        "name": "김리액트",
+        "specialty": "프론트엔드",
+        "courseCount": 12,
+        "rating": 4.98,
+        "reviewCount": 17191,
+        "color": "#0ea5e9",
+        "ariaLabel": "김리액트 강사 프로필"
+      },
+      {
+        "id": "inst2",
+        "name": "박타입",
+        "specialty": "타입스크립트",
+        "courseCount": 8,
+        "rating": 4.97,
+        "reviewCount": 8205,
+        "color": "#7c3aed",
+        "ariaLabel": "박타입 강사 프로필"
+      },
+      {
+        "id": "inst3",
+        "name": "최노드",
+        "specialty": "백엔드",
+        "courseCount": 15,
+        "rating": 4.95,
+        "reviewCount": 12340,
+        "color": "#16a34a",
+        "ariaLabel": "최노드 강사 프로필"
+      },
+      {
+        "id": "inst4",
+        "name": "강도커",
+        "specialty": "데브옵스",
+        "courseCount": 6,
+        "rating": 4.93,
+        "reviewCount": 9870,
+        "color": "#f59e0b",
+        "ariaLabel": "강도커 강사 프로필"
+      },
+      {
+        "id": "inst5",
+        "name": "오에이아이",
+        "specialty": "AI 엔지니어링",
+        "courseCount": 4,
+        "rating": 4.96,
+        "reviewCount": 5430,
+        "color": "#dc2626",
+        "ariaLabel": "오에이아이 강사 프로필"
+      },
+      {
+        "id": "inst6",
+        "name": "서모바일",
+        "specialty": "모바일",
+        "courseCount": 9,
+        "rating": 4.94,
+        "reviewCount": 7650,
+        "color": "#06b6d4",
+        "ariaLabel": "서모바일 강사 프로필"
+      }
     ]
   },
-
   "homeCommunity": {
     "meta": {
-      "title": "찐부자들이 함께하는, 월부 커뮤니티",
+      "title": "함께 성장하는 LectureHub 커뮤니티",
       "ariaLabel": "홈 커뮤니티 섹션"
     },
     "posts": [
       {
         "id": "hc1",
-        "authorNickname": "너바나",
-        "profileImage": "/images/testIMG/profile4.jpg",
+        "authorNickname": "강아키텍트",
+        "profileImage": "/images/testIMG/profile4.svg",
         "category": "님의",
-        "title": "통장잔고 5000만원의 따단한 분들이 꼭 알아야 하는 자본주의 투자법",
-        "content": "일부러스뛰는 뛰는 사람들이네는더글라 뛰는사람들이네는더글라뛰는사사람들이네는더글라 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는",
-        "thumbnail": "/images/banners/banner1.jpg",
-        "thumbnailAlt": "자본주의 투자법 커뮤니티 글 이미지",
+        "title": "연차별로 알아두면 좋은 개발자 커리어 로드맵",
+        "content": "시니어 개발자들이 실제로 현장에서 적용하는 코드 리뷰, 리팩터링, 커리어 관리 노하우를 정리했습니다. 신입·주니어 개발자도 바로 적용 가능한 구체적인 사례를 함께 다룹니다.",
+        "thumbnail": "/images/banners/banner1.svg",
+        "thumbnailAlt": "연차별로 알아두면 좋은 개발자 커리어 로드맵 커뮤니티 글 이미지",
         "likeCount": 0,
         "commentCount": 0,
         "avatarColor": "1",
-        "ariaLabel": "너바나 님의 커뮤니티 글: 통장잔고 5000만원의 투자법"
+        "ariaLabel": "강아키텍트 님의 커뮤니티 글: 연차별로 알아두면 좋은 개발자 커리어 로드맵"
       },
       {
         "id": "hc2",
-        "authorNickname": "너바나",
-        "profileImage": "/images/testIMG/profile2.jpg",
+        "authorNickname": "강아키텍트",
+        "profileImage": "/images/testIMG/profile2.svg",
         "category": "님의",
-        "title": "통장잔고 5000만원의 따단한 분들이 꼭 알아야 하는 자본주의 투자법",
-        "content": "일부러스뛰는 뛰는 사람들이네는더글라 뛰는사람들이네는더글라뛰는사사람들이네는더글라 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는",
-        "thumbnail": "/images/banners/banner7.png",
-        "thumbnailAlt": "자본주의 투자법 커뮤니티 글 이미지",
+        "title": "신입 개발자가 첫 회사에서 살아남는 법",
+        "content": "시니어 개발자들이 실제로 현장에서 적용하는 코드 리뷰, 리팩터링, 커리어 관리 노하우를 정리했습니다. 신입·주니어 개발자도 바로 적용 가능한 구체적인 사례를 함께 다룹니다.",
+        "thumbnail": "/images/banners/banner7.svg",
+        "thumbnailAlt": "신입 개발자가 첫 회사에서 살아남는 법 커뮤니티 글 이미지",
         "likeCount": 0,
         "commentCount": 0,
         "avatarColor": "2",
-        "ariaLabel": "너바나 님의 커뮤니티 글"
+        "ariaLabel": "강아키텍트 님의 커뮤니티 글: 신입 개발자가 첫 회사에서 살아남는 법"
       },
       {
         "id": "hc3",
-        "authorNickname": "너바나",
-        "profileImage": "/images/testIMG/profile5.jpg",
+        "authorNickname": "강아키텍트",
+        "profileImage": "/images/testIMG/profile5.svg",
         "category": "님의",
-        "title": "통장잔고 5000만원의 따단한 분들이 꼭 알아야 하는 자본주의 투자법",
-        "content": "일부러스뛰는 뛰는 사람들이네는더글라 뛰는사람들이네는더글라뛰는사사람들이네는더글라 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는",
-        "thumbnail": "/images/banners/banner8.png",
-        "thumbnailAlt": "자본주의 투자법 커뮤니티 글 이미지",
+        "title": "코드 리뷰 문화를 정착시키는 3단계 전략",
+        "content": "시니어 개발자들이 실제로 현장에서 적용하는 코드 리뷰, 리팩터링, 커리어 관리 노하우를 정리했습니다. 신입·주니어 개발자도 바로 적용 가능한 구체적인 사례를 함께 다룹니다.",
+        "thumbnail": "/images/banners/banner8.svg",
+        "thumbnailAlt": "코드 리뷰 문화를 정착시키는 3단계 전략 커뮤니티 글 이미지",
         "likeCount": 0,
         "commentCount": 0,
         "avatarColor": "3",
-        "ariaLabel": "너바나 님의 커뮤니티 글"
+        "ariaLabel": "강아키텍트 님의 커뮤니티 글: 코드 리뷰 문화를 정착시키는 3단계 전략"
       },
       {
         "id": "hc4",
-        "authorNickname": "너바나",
-        "profileImage": "/images/testIMG/profile1.jpg",
+        "authorNickname": "강아키텍트",
+        "profileImage": "/images/testIMG/profile1.svg",
         "category": "님의",
-        "title": "통장잔고 5000만원의 따단한 분들이 꼭 알아야 하는 자본주의 투자법",
-        "content": "일부러스뛰는 뛰는 사람들이네는더글라 뛰는사람들이네는더글라뛰는사사람들이네는더글라 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는 뛰는 사상을좋아하지는 뛰는 새로을좋아하지는",
-        "thumbnail": "/images/banners/banner2.png",
-        "thumbnailAlt": "자본주의 투자법 커뮤니티 글 이미지",
+        "title": "시니어가 알려주는 안전한 리팩터링 가이드",
+        "content": "시니어 개발자들이 실제로 현장에서 적용하는 코드 리뷰, 리팩터링, 커리어 관리 노하우를 정리했습니다. 신입·주니어 개발자도 바로 적용 가능한 구체적인 사례를 함께 다룹니다.",
+        "thumbnail": "/images/banners/banner2.svg",
+        "thumbnailAlt": "시니어가 알려주는 안전한 리팩터링 가이드 커뮤니티 글 이미지",
         "likeCount": 0,
         "commentCount": 0,
         "avatarColor": "4",
-        "ariaLabel": "너바나 님의 커뮤니티 글"
+        "ariaLabel": "강아키텍트 님의 커뮤니티 글: 시니어가 알려주는 안전한 리팩터링 가이드"
       }
     ],
     "pagination": {
@@ -665,7 +903,6 @@
       "ariaLabel": "커뮤니티 글 페이지 이동"
     }
   },
-
   "homePromoBanners": {
     "meta": {
       "ariaLabel": "프로모션 배너 캐러셀"
@@ -673,68 +910,78 @@
     "banners": [
       {
         "id": "pb1",
-        "title": "배너이미지입니다.",
+        "title": "신규 회원 첫 강의 무료 이벤트",
         "href": "#",
-        "thumbnail": "/images/banners/banner3.jpg",
-        "thumbnailAlt": "프로모션 배너 1",
-        "ariaLabel": "프로모션 배너: 배너이미지입니다"
+        "thumbnail": "/images/banners/banner3.svg",
+        "thumbnailAlt": "신규 회원 첫 강의 무료 이벤트",
+        "ariaLabel": "프로모션 배너: 신규 회원 첫 강의 무료 이벤트"
       },
       {
         "id": "pb2",
-        "title": "배너이미지입니다.",
+        "title": "프론트엔드 로드맵 강의 30% 할인",
         "href": "#",
-        "thumbnail": "/images/banners/banner4.webp",
-        "thumbnailAlt": "프로모션 배너 2",
-        "ariaLabel": "프로모션 배너: 배너이미지입니다"
+        "thumbnail": "/images/banners/banner4.svg",
+        "thumbnailAlt": "프론트엔드 로드맵 강의 30% 할인",
+        "ariaLabel": "프로모션 배너: 프론트엔드 로드맵 강의 30% 할인"
       },
       {
         "id": "pb3",
-        "title": "배너이미지입니다.",
+        "title": "백엔드 풀패키지 한정 할인",
         "href": "#",
-        "thumbnail": "/images/banners/banner5.jpg",
-        "thumbnailAlt": "프로모션 배너 3",
-        "ariaLabel": "프로모션 배너: 배너이미지입니다"
+        "thumbnail": "/images/banners/banner5.svg",
+        "thumbnailAlt": "백엔드 풀패키지 한정 할인",
+        "ariaLabel": "프로모션 배너: 백엔드 풀패키지 한정 할인"
       },
       {
         "id": "pb4",
-        "title": "배너이미지입니다.",
+        "title": "데브옵스 입문 강의 오픈 기념",
         "href": "#",
-        "thumbnail": "/images/banners/banner6.jpg",
-        "thumbnailAlt": "프로모션 배너 4",
-        "ariaLabel": "프로모션 배너: 배너이미지입니다"
+        "thumbnail": "/images/banners/banner6.svg",
+        "thumbnailAlt": "데브옵스 입문 강의 오픈 기념",
+        "ariaLabel": "프로모션 배너: 데브옵스 입문 강의 오픈 기념"
       },
       {
         "id": "pb5",
-        "title": "배너이미지입니다.",
+        "title": "AI 사이드 프로젝트 챌린지 모집",
         "href": "#",
-        "thumbnail": "/images/banners/banner8.png",
-        "thumbnailAlt": "프로모션 배너 5",
-        "ariaLabel": "프로모션 배너: 배너이미지입니다"
+        "thumbnail": "/images/banners/banner8.svg",
+        "thumbnailAlt": "AI 사이드 프로젝트 챌린지 모집",
+        "ariaLabel": "프로모션 배너: AI 사이드 프로젝트 챌린지 모집"
       },
       {
         "id": "pb6",
-        "title": "배너이미지입니다.",
+        "title": "커리어 멘토링 프리미엄 개강",
         "href": "#",
-        "thumbnail": "/images/banners/banner9.jpg",
-        "thumbnailAlt": "프로모션 배너 6",
-        "ariaLabel": "프로모션 배너: 배너이미지입니다"
+        "thumbnail": "/images/banners/banner9.svg",
+        "thumbnailAlt": "커리어 멘토링 프리미엄 개강",
+        "ariaLabel": "프로모션 배너: 커리어 멘토링 프리미엄 개강"
       }
     ]
   },
-
   "ctaBanner": {
     "title": "지금 시작하면, 첫 강의 무료",
-    "description": "회원가입만 해도 베스트 강의 1개를 무료로 수강할 수 있습니다",
+    "description": "회원가입만 해도 베스트 IT 강의 1개를 무료로 수강할 수 있습니다",
     "buttonLabel": "무료로 시작하기",
     "buttonHref": "/auth/signup",
     "buttonAriaLabel": "회원가입하고 무료 강의 시작하기",
     "ariaLabel": "무료 강의 시작 안내 배너"
   },
-
   "faq": [
-    { "question": "결제는 어떻게 하나요?", "answer": "신용카드, 계좌이체, 간편결제를 지원합니다." },
-    { "question": "환불 정책은 어떻게 되나요?", "answer": "수강 시작 후 7일 이내 전액 환불이 가능합니다." },
-    { "question": "수강 기간에 제한이 있나요?", "answer": "모든 강의는 구매 후 무제한으로 수강 가능합니다." },
-    { "question": "수료증이 발급되나요?", "answer": "강의 완료 시 수료증을 PDF로 다운로드할 수 있습니다." }
+    {
+      "question": "결제는 어떻게 하나요?",
+      "answer": "신용카드, 계좌이체, 간편결제를 지원합니다."
+    },
+    {
+      "question": "환불 정책은 어떻게 되나요?",
+      "answer": "수강 시작 후 7일 이내 전액 환불이 가능합니다."
+    },
+    {
+      "question": "수강 기간에 제한이 있나요?",
+      "answer": "모든 강의는 구매 후 무제한으로 수강 가능합니다."
+    },
+    {
+      "question": "수료증이 발급되나요?",
+      "answer": "강의 완료 시 수료증을 PDF로 다운로드할 수 있습니다."
+    }
   ]
 }

@@ -19,7 +19,7 @@ export default function TopBanner() {
     <div className="top-banner">
       <Link href="/courses" className="top-banner__link">
         <Image
-          src="/images/banners/banner-belt.jpg"
+          src="/images/banners/banner-belt.svg"
           alt="프로모션 배너"
           fill
           sizes="100vw"
