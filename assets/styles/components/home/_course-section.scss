@@ -16,13 +16,65 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: $spacing-4;
     margin-bottom: $spacing-6;
+    flex-wrap: wrap;
   }
 
   &__title {
     font-size: $font-size-xl;
     font-weight: $font-weight-bold;
     color: $color-text-primary;
+  }
+
+  // 헤더 우측: 칩 + 화살표
+  &__header-right {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    flex-wrap: wrap;
+  }
+
+  // 카테고리 칩 리스트
+  &__chips {
+    display: flex;
+    gap: $spacing-2;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__chip-item {
+    margin: 0;
+  }
+
+  &__chip {
+    display: inline-flex;
+    align-items: center;
+    height: 2rem;
+    padding: 0 $spacing-3;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-2xl;
+    background: $color-bg-primary;
+    color: $color-text-secondary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition:
+      background $duration-normal $ease-default,
+      border-color $duration-normal $ease-default,
+      color $duration-normal $ease-default;
+
+    &:hover:not(.home-course-section__chip--active) {
+      border-color: $color-primary;
+      color: $color-primary;
+    }
+
+    &--active {
+      background: $color-primary;
+      border-color: $color-primary;
+      color: $color-text-inverse;
+    }
   }
 
   // 화살표 컨트롤

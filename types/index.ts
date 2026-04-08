@@ -107,9 +107,25 @@ export interface Course {
   discount: CourseDiscount;
 }
 
+export interface HomeSectionCategory {
+  label: string;
+  slugs: string[];
+}
+
 export interface HomeSection {
   title: string;
-  slugs: string[];
+  categories: HomeSectionCategory[];
+}
+
+/** 칩별로 강의가 미리 resolve된 섹션 뷰 (서버에서 조립, 클라이언트로 전달) */
+export interface HomeSectionChip {
+  label: string;
+  courses: Course[];
+}
+
+export interface HomeSectionView {
+  title: string;
+  chips: HomeSectionChip[];
 }
 
 /* ── 오픈예정 강의 ── */

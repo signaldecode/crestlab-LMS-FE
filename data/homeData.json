@@ -69,53 +69,85 @@
   },
   "homeSections": [
     {
-      "title": "지금 가장 주목받는 강의",
-      "slugs": [
-        "real-estate-intermediate",
-        "location-analysis",
-        "interior-renovation",
-        "real-estate-sell-strategy",
-        "cheap-apartment-finder"
+      "title": "이주의 추천 프로그램",
+      "categories": [
+        {
+          "label": "프론트엔드",
+          "slugs": [
+            "real-estate-intermediate",
+            "location-analysis",
+            "real-estate-sell-strategy",
+            "cheap-apartment-finder",
+            "my-house-basic",
+            "real-estate-basic-class"
+          ]
+        },
+        {
+          "label": "백엔드",
+          "slugs": [
+            "gangnam-20min",
+            "commercial-building",
+            "financial-basic-class"
+          ]
+        },
+        {
+          "label": "데브옵스",
+          "slugs": [
+            "ss-coupon-basic",
+            "olive-young-seller",
+            "auction-basics",
+            "subscription-redevelopment"
+          ]
+        },
+        {
+          "label": "커리어",
+          "slugs": [
+            "monthly-income-blog",
+            "tax-income-report",
+            "money-book-club",
+            "youtube-income-start",
+            "blog-auto-income"
+          ]
+        }
       ]
     },
     {
-      "title": "BEST 백엔드 클래스",
-      "slugs": [
-        "financial-basic-class",
-        "us-stock-basic",
-        "tax-income-report",
-        "my-house-basic",
-        "money-book-club"
-      ]
-    },
-    {
-      "title": "이번 달 BEST",
-      "slugs": [
-        "real-estate-intermediate",
-        "my-house-basic",
-        "ss-coupon-basic",
-        "cheap-apartment-finder",
-        "financial-basic-class"
-      ]
-    },
-    {
-      "title": "요즘 뜨는 데브옵스·클라우드 강의",
-      "slugs": [
-        "gangnam-20min",
-        "location-analysis",
-        "cheap-apartment-finder",
-        "auction-basics",
-        "subscription-redevelopment"
-      ]
-    },
-    {
-      "title": "새로 나온 강의",
-      "slugs": [
-        "ai-homepage-business",
-        "danggeun-market-100",
-        "olive-young-seller",
-        "youtube-income-start",
-        "commercial-building"
+      "title": "이달의 추천 프로그램",
+      "categories": [
+        {
+          "label": "AI / 데이터",
+          "slugs": [
+            "ai-homepage-business",
+            "us-stock-basic",
+            "financial-basic-class"
+          ]
+        },
+        {
+          "label": "모바일",
+          "slugs": [
+            "danggeun-market-100",
+            "real-estate-basic-class",
+            "my-house-basic"
+          ]
+        },
+        {
+          "label": "디자인",
+          "slugs": [
+            "interior-renovation",
+            "real-estate-intermediate",
+            "location-analysis"
+          ]
+        },
+        {
+          "label": "실무 프로젝트",
+          "slugs": [
+            "gangnam-20min",
+            "commercial-building",
+            "ss-coupon-basic",
+            "olive-young-seller",
+            "subscription-redevelopment"
+          ]
+        }
       ]
     }
   ],

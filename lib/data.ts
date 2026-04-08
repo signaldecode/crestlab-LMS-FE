@@ -5,7 +5,7 @@
  */
 
 import mainData from '@/data';
-import type { MainData, SiteData, NavData, Course, HomeSection, UpcomingCourse, BestCourse, BestChipCategory, FaqItem, TestimonialsSection, FooterData, GeoData, OrderData, CertificateData, ConsultationData, ReviewData, ExpiredCouponData, GiftcardData, GiftcardHistoryData, FollowUserData, EnrolledCourseData, PopularArticlesSection, HomeBestArticlesSection, HomeCommunitySection, HomePromoBannerSection, HomeCategorySection, LiveCounterSection, HomeInstructorsSection, CtaBannerData } from '@/types';
+import type { MainData, SiteData, NavData, Course, HomeSection, HomeSectionView, UpcomingCourse, BestCourse, BestChipCategory, FaqItem, TestimonialsSection, FooterData, GeoData, OrderData, CertificateData, ConsultationData, ReviewData, ExpiredCouponData, GiftcardData, GiftcardHistoryData, FollowUserData, EnrolledCourseData, PopularArticlesSection, HomeBestArticlesSection, HomeCommunitySection, HomePromoBannerSection, HomeCategorySection, LiveCounterSection, HomeInstructorsSection, CtaBannerData } from '@/types';
 
 const data: MainData = mainData;
 
@@ -44,17 +44,39 @@ export function getFeaturedCourses(): Course[] {
   return data.courses?.filter((course) => course.featured) || [];
 }
 
-/** 홈 섹션 목록 반환 */
+/** 홈 섹션 목록 반환 (raw 데이터) */
 export function getHomeSections(): HomeSection[] {
   return data.homeSections || [];
 }
 
-/** 홈 섹션별 강의 목록 반환 */
-export function getHomeSectionCourses(section: HomeSection): Course[] {
+/**
+ * 홈 섹션을 칩별로 미리 resolve된 뷰로 변환해 반환한다.
+ * - 첫 칩은 항상 "전체"이며, 섹션 내 모든 카테고리 슬러그의 합집합(중복 제거)이다.
+ * - 이후 칩은 데이터의 카테고리 순서를 그대로 따른다.
+ * - 서버에서 한 번에 조립해 클라이언트로 내려보내기 위한 형태다.
+ */
+export function getHomeSectionViews(): HomeSectionView[] {
   const courses = data.courses || [];
-  return section.slugs
-    .map((slug) => courses.find((c) => c.slug === slug))
-    .filter((c): c is Course => c != null);
+  const findBySlug = (slug: string): Course | undefined =>
+    courses.find((c) => c.slug === slug);
+  const resolve = (slugs: string[]): Course[] =>
+    slugs.map(findBySlug).filter((c): c is Course => Boolean(c));
+
+  return getHomeSections().map((section) => {
+    const allSlugs = Array.from(
+      new Set(section.categories.flatMap((cat) => cat.slugs)),
+    );
+    return {
+      title: section.title,
+      chips: [
+        { label: '전체', courses: resolve(allSlugs) },
+        ...section.categories.map((cat) => ({
+          label: cat.label,
+          courses: resolve(cat.slugs),
+        })),
+      ],
+    };
+  });
 }
 
 /** 오픈예정 강의 목록 반환 */
