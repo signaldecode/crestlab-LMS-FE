@@ -1,0 +1,32 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.checkbox-field {
+  &__label {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    cursor: pointer;
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+    line-height: $line-height-base;
+  }
+
+  &__input {
+    width: $spacing-5;
+    height: $spacing-5;
+    accent-color: $color-primary;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  &__text {
+    flex: 1;
+  }
+}
+
+// ── File Upload ──

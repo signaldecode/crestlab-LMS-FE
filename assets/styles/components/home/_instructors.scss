@@ -1,0 +1,169 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.home-instructors {
+  margin-bottom: $spacing-16;
+  padding-top: $spacing-16;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: $spacing-8;
+
+    @media (max-width: 639px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $spacing-4;
+    }
+  }
+
+  &__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0 0 $spacing-1;
+  }
+
+  &__desc {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    margin: 0;
+  }
+
+  &__controls {
+    display: flex;
+    gap: $spacing-2;
+  }
+
+  &__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-circle;
+    background: $color-bg-primary;
+    color: $color-text-primary;
+    font-size: $font-size-lg;
+    cursor: pointer;
+    transition: border-color $duration-normal $ease-default, color $duration-normal $ease-default;
+
+    &:hover:not(:disabled) {
+      border-color: $color-primary;
+      color: $color-primary;
+    }
+
+    &--disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+  }
+
+  // ── 캐러셀 ──
+  &__carousel {
+    overflow: hidden;
+  }
+
+  &__track {
+    display: flex;
+    transition: transform $duration-slower $ease-default;
+  }
+
+  &__slide {
+    flex: 0 0 25%;
+    min-width: 0;
+    padding: 0 $spacing-2;
+    box-sizing: border-box;
+
+    @media (max-width: 1023px) {
+      flex: 0 0 33.333%;
+    }
+
+    @media (max-width: 639px) {
+      flex: 0 0 50%;
+    }
+  }
+
+  // ── 카드 ──
+  &__card {
+    background: $color-bg-secondary;
+    border-radius: $radius-xl;
+    padding: $spacing-6;
+    text-align: center;
+    transition: box-shadow $duration-normal $ease-default;
+
+    &:hover {
+      box-shadow: $shadow-md;
+    }
+  }
+
+  &__avatar {
+    width: 5rem;
+    height: 5rem;
+    margin: 0 auto $spacing-4;
+  }
+
+  &__name {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0 0 $spacing-1;
+  }
+
+  &__specialty {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    margin: 0 0 $spacing-3;
+  }
+
+  &__stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-2;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    margin-bottom: $spacing-3;
+  }
+
+  &__stat {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+  }
+
+  &__star {
+    width: 0.875rem;
+    height: 0.875rem;
+    color: $color-star;
+  }
+
+  &__divider {
+    width: $border-thin;
+    height: 0.75rem;
+    background: $color-border;
+  }
+
+  &__courses {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: $color-primary;
+    color: $color-text-inverse;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: $radius-circle;
+  }
+}
+
+// ============================================
+// 11) CTA 배너
+// ============================================

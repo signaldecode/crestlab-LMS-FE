@@ -1,0 +1,116 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.my-feed {
+  padding-top: $spacing-4;
+
+  // 빈 상태
+  &__empty {
+    text-align: center;
+    padding: $spacing-10 0 $spacing-8;
+  }
+
+  &__empty-title {
+    font-size: $font-size-md;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0 0 $spacing-2;
+  }
+
+  &__empty-desc {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    margin: 0;
+  }
+
+  // 추천 게시글
+  &__recommend {
+    margin-top: $spacing-6;
+  }
+
+  &__recommend-title {
+    font-size: $font-size-md;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin-bottom: $spacing-4;
+    padding-bottom: $spacing-3;
+    border-bottom: $border-thin solid $color-border;
+  }
+
+  // 스켈레톤 카드 리스트
+  &__skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-6;
+  }
+
+  &__skeleton-card {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+    padding-bottom: $spacing-6;
+    border-bottom: $border-thin solid $color-bg-tertiary;
+  }
+
+  &__skeleton-author {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+  }
+
+  &__skeleton-avatar {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: $radius-circle;
+    background: $color-bg-tertiary;
+    animation: community-skeleton-pulse 1.8s ease-in-out infinite;
+  }
+
+  &__skeleton-author-info {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+  }
+
+  &__skeleton-body {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+  }
+
+  &__skeleton-thumb {
+    width: 100%;
+    height: 10rem;
+    border-radius: $radius-md;
+    background: $color-bg-tertiary;
+    animation: community-skeleton-pulse 1.8s ease-in-out infinite;
+  }
+
+  &__skeleton-stats {
+    display: flex;
+    gap: $spacing-4;
+  }
+
+  &__skeleton-line {
+    height: 0.875rem;
+    border-radius: $radius-xs;
+    background: $color-bg-tertiary;
+    animation: community-skeleton-pulse 1.8s ease-in-out infinite;
+
+    &--name { width: 5rem; height: 0.875rem; }
+    &--date { width: 4rem; height: 0.75rem; }
+    &--title { width: 75%; height: 1.125rem; }
+    &--text { width: 100%; }
+    &--text-short { width: 60%; }
+    &--stat { width: 3rem; }
+  }
+}
+
+// ============================================
+// 오른쪽 사이드 (추천프로필 / 댓글 랭킹)
+// ============================================

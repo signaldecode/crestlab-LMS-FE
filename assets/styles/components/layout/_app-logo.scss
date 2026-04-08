@@ -1,0 +1,29 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.app-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+
+  &__text {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+
+    @media (max-width: 767px) {
+      font-size: $font-size-lg;
+    }
+  }
+}
+
+// ============================================
+// 모바일 사이드바 메뉴
+// ============================================

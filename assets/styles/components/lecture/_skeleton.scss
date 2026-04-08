@@ -1,0 +1,256 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+// ============================================
+// 강의 플레이어 스켈레톤 & 레이아웃 스타일 (_lecture-player.scss)
+// - 상단바 / 비디오 / 사이드바 / 컨트롤바 / 하단 네비게이션
+// ============================================
+
+@use 'sass:color';
+
+// ── 스켈레톤 펄스 애니메이션 ──
+@keyframes lp-skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+// ── 스켈레톤 공통 ──
+.lp-skeleton {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: $color-dark-surface;
+  color: $color-text-inverse;
+  overflow: hidden;
+
+  // Skeleton 컴포넌트 오버라이드 (어두운 배경용)
+  .skeleton {
+    background: $color-dark-border !important;
+    animation: lp-skeleton-pulse 1.8s ease-in-out infinite;
+    border-radius: $radius-xs;
+
+    &--circle {
+      border-radius: $radius-circle;
+    }
+  }
+
+  // ========================================
+  // 상단 헤더바
+  // ========================================
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 3.25rem;
+    padding: 0 $spacing-4;
+    background: $color-dark-surface;
+    border-bottom: $border-thin solid $color-dark-border;
+    flex-shrink: 0;
+  }
+
+  &__header-left {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+  }
+
+  &__header-right {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+  }
+
+  &__back-btn {
+    border-radius: $radius-sm;
+  }
+
+  &__review-btn {
+    border-radius: $radius-sm;
+  }
+
+  // ========================================
+  // 메인 콘텐츠 (비디오 + 사이드바)
+  // ========================================
+  &__body {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+  }
+
+  // ── 비디오 영역 ──
+  &__video-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  &__video {
+    flex: 1;
+    background: #000;
+    position: relative;
+    min-height: 0;
+  }
+
+  &__video-placeholder {
+    position: absolute;
+    inset: 0;
+    background: $color-dark-bg !important;
+    border-radius: 0 !important;
+    animation: none !important;
+  }
+
+  // ── 비디오 컨트롤 바 ──
+  &__controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 3rem;
+    padding: 0 $spacing-4;
+    background: $color-dark-surface;
+    border-top: $border-thin solid $color-dark-border;
+    flex-shrink: 0;
+  }
+
+  &__controls-left {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+  }
+
+  &__controls-center {
+    display: flex;
+    align-items: center;
+  }
+
+  &__controls-right {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+  }
+
+  // ========================================
+  // 오른쪽 사이드바
+  // ========================================
+  &__sidebar {
+    width: 320px;
+    display: none;
+    flex-shrink: 0;
+    border-left: $border-thin solid $color-dark-border;
+    background: $color-dark-surface;
+
+    @include breakpoint(lg) {
+      display: flex;
+    }
+  }
+
+  // ── 사이드바 탭 아이콘 (세로 배치) ──
+  &__sidebar-tabs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 56px;
+    padding-top: $spacing-3;
+    gap: $spacing-1;
+    border-right: $border-thin solid $color-dark-border;
+    flex-shrink: 0;
+  }
+
+  &__sidebar-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-1;
+    padding: $spacing-2 $spacing-1;
+    width: 100%;
+    cursor: default;
+  }
+
+  // ── 사이드바 콘텐츠 (커리큘럼 목록) ──
+  &__sidebar-content {
+    flex: 1;
+    overflow: hidden;
+    padding: $spacing-4;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+  }
+
+  &__curriculum-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $spacing-2 0;
+    margin-bottom: $spacing-1;
+  }
+
+  &__curriculum-item {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing-3;
+    padding: $spacing-2 0;
+  }
+
+  &__check-icon {
+    flex-shrink: 0;
+    margin-top: 1px;
+    border-radius: $radius-xs;
+  }
+
+  &__curriculum-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+    min-width: 0;
+  }
+
+  &__curriculum-divider {
+    height: 1px;
+    background: $color-dark-border;
+    margin: $spacing-3 0;
+  }
+
+  // ========================================
+  // 하단 네비게이션 바
+  // ========================================
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 3.5rem;
+    padding: 0 $spacing-4;
+    background: $color-dark-surface;
+    border-top: $border-thin solid $color-dark-border;
+    flex-shrink: 0;
+  }
+
+  &__footer-center {
+    display: flex;
+    align-items: center;
+  }
+
+  &__footer-right {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+  }
+
+  &__nav-btn {
+    border-radius: $radius-sm;
+  }
+
+  &__complete-btn {
+    border-radius: $radius-sm;
+  }
+}
+
+// ============================================
+// 강의 플레이어 전용 레이아웃
+// - 부모 (site) 레이아웃의 AppHeader / AppFooter를 숨긴다
+// - main 래퍼의 패딩/마진을 제거하고 전체 화면을 채운다
+// ============================================

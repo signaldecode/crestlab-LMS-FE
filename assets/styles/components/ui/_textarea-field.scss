@@ -1,0 +1,63 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.textarea-field {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+
+  &__label {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+  }
+
+  &__required {
+    color: $color-error;
+  }
+
+  &__textarea {
+    width: 100%;
+    padding: $spacing-3;
+    font-size: $font-size-base;
+    font-family: $font-family-base;
+    color: $color-text-primary;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: $spacing-2;
+    outline: none;
+    resize: none;
+    min-height: 8rem;
+    transition: border-color $duration-normal $ease-default;
+
+    &::placeholder {
+      color: $color-text-secondary;
+    }
+
+    &:focus {
+      border-color: $color-border-focus;
+    }
+
+    &--error {
+      border-color: $color-error;
+    }
+  }
+
+  &__error {
+    font-size: $font-size-xs;
+    color: $color-error;
+    margin: 0;
+  }
+
+  &__hint {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    margin: 0;
+  }
+}
+
+// ── Checkbox Field ──

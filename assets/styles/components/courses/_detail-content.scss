@@ -1,0 +1,583 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.course-detail-content {
+  min-width: 0;
+
+  // 브레드크럼
+  &__breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    margin-bottom: $spacing-4;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__breadcrumb-link {
+    color: $color-text-secondary;
+    text-decoration: none;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  &__breadcrumb-sep {
+    color: $color-text-secondary;
+    font-size: $font-size-2xs;
+  }
+
+  &__breadcrumb-current {
+    color: $color-text-primary;
+    font-weight: $font-weight-medium;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 20rem;
+  }
+
+  // 썸네일
+  &__thumb {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: $radius-lg;
+    margin-bottom: $spacing-8;
+    overflow: hidden;
+    background-color: $color-bg-tertiary;
+  }
+
+  &__thumb-image {
+    object-fit: cover;
+  }
+
+  &__badge-overlay {
+    position: absolute;
+    top: $spacing-4;
+    left: $spacing-4;
+    display: flex;
+    gap: $spacing-1;
+    flex-wrap: wrap;
+    z-index: 1;
+  }
+
+  &__badge {
+    display: inline-block;
+    padding: $spacing-1 $spacing-2;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    color: $color-text-inverse;
+    background: $color-primary;
+    border-radius: $radius-xs;
+    line-height: 1.4;
+
+    &--original { background: $color-secondary; }
+    &--best { background: $color-error; }
+    &--new { background: $color-success; }
+    &--urgent { background: $color-badge-urgent; }
+    &--level { background: $color-warning; color: $color-text-primary; }
+  }
+
+  // 모바일용 강의 정보
+  &__mobile-info {
+    display: none;
+    margin-bottom: $spacing-6;
+
+    @media (max-width: 1023px) {
+      display: block;
+    }
+  }
+
+  &__course-title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0 0 $spacing-2;
+    line-height: $line-height-tight;
+  }
+
+  &__course-summary {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    line-height: $line-height-base;
+    margin: 0;
+  }
+
+  // 베스트 수강 후기
+  &__reviews-section {
+    margin-bottom: $spacing-8;
+  }
+
+  &__section-title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin-bottom: $spacing-4;
+  }
+
+  &__review-total {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-regular;
+    color: $color-text-secondary;
+    margin-left: $spacing-1;
+  }
+
+  &__reviews-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-4;
+    margin-bottom: $spacing-4;
+
+    @media (max-width: 639px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__review-card {
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
+    padding: $spacing-4;
+  }
+
+  &__review-header {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    margin-bottom: $spacing-3;
+  }
+
+  &__review-avatar {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: $radius-circle;
+    background: $color-bg-tertiary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__review-avatar-text {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    color: $color-text-secondary;
+  }
+
+  &__review-meta {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+  }
+
+  &__review-name {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+  }
+
+  &__review-stars {
+    font-size: $font-size-xs;
+    color: $color-warning;
+  }
+
+  &__review-body {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+  }
+
+  &__review-text {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    line-height: $line-height-base;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__reviews-all {
+    display: block;
+    width: 100%;
+    padding: $spacing-3;
+    text-align: center;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
+    background: $color-bg-primary;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    cursor: pointer;
+
+    &:hover {
+      background: $color-bg-secondary;
+    }
+  }
+
+  // 앵커 탭
+  &__tabs {
+    display: flex;
+    border-bottom: $border-thin solid $color-border;
+    margin-bottom: $spacing-8;
+    position: sticky;
+    top: 0;
+    background: $color-bg-primary;
+    z-index: 5;
+  }
+
+  &__tab {
+    flex: 1;
+    padding: $spacing-3 $spacing-4;
+    text-align: center;
+    background: none;
+    border: none;
+    border-bottom: $border-medium solid transparent;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    cursor: pointer;
+    white-space: nowrap;
+
+    &--active {
+      color: $color-primary;
+      font-weight: $font-weight-bold;
+      border-bottom-color: $color-primary;
+    }
+
+    &:hover {
+      color: $color-text-primary;
+    }
+  }
+
+  // 탭 콘텐츠 패널
+  &__tab-panel {
+    padding-bottom: $spacing-16;
+  }
+
+  &__info-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $spacing-6;
+    margin-bottom: $spacing-8;
+    padding: $spacing-5;
+    background: $color-bg-secondary;
+    border-radius: $radius-md;
+
+    @media (max-width: 639px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &__info-item {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+  }
+
+  &__info-label {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__info-value {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+  }
+
+  // 강의 설명
+  &__description {
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+    line-height: $line-height-relaxed;
+    margin-bottom: $spacing-8;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  // FAQ
+  &__faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+  }
+
+  &__faq-item {
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
+    overflow: hidden;
+  }
+
+  &__faq-question {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing-3;
+    padding: $spacing-4;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    background: $color-bg-secondary;
+  }
+
+  &__faq-answer {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing-3;
+    padding: $spacing-4;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    line-height: $line-height-base;
+  }
+
+  &__faq-icon {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: $radius-circle;
+    background: $color-primary;
+    color: $color-text-inverse;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+
+    &--answer {
+      background: $color-bg-tertiary;
+      color: $color-text-secondary;
+    }
+  }
+
+  // 크리에이터 탭
+  &__creator {
+    padding: $spacing-4 0;
+  }
+
+  &__creator-profile {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+    margin-bottom: $spacing-6;
+  }
+
+  &__creator-avatar {
+    flex-shrink: 0;
+    width: 4rem;
+    height: 4rem;
+    border-radius: $radius-circle;
+    background: $color-primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__creator-avatar-text {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-inverse;
+  }
+
+  &__creator-info {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+  }
+
+  &__creator-name {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0;
+  }
+
+  &__creator-role {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    margin: 0;
+  }
+
+  &__creator-bio {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    line-height: $line-height-relaxed;
+    margin: 0;
+  }
+
+  // 후기 탭 전체
+  &__all-reviews {
+    padding: $spacing-4 0;
+  }
+
+  &__reviews-summary {
+    margin-bottom: $spacing-8;
+    padding: $spacing-6;
+    background: $color-bg-secondary;
+    border-radius: $radius-md;
+    text-align: center;
+  }
+
+  &__reviews-score {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-3;
+  }
+
+  &__reviews-score-number {
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+  }
+
+  &__reviews-score-stars {
+    font-size: $font-size-lg;
+    color: $color-warning;
+  }
+
+  &__reviews-score-count {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+
+  &__review-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__review-item {
+    padding: $spacing-5 0;
+    border-bottom: $border-thin solid $color-border;
+  }
+
+  &__review-date {
+    margin-left: auto;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    flex-shrink: 0;
+  }
+
+  &__review-full-text {
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+    line-height: $line-height-relaxed;
+    margin: $spacing-3 0 0;
+  }
+
+  // 플레이스홀더
+  &__placeholder {
+    padding: $spacing-16 0;
+    text-align: center;
+    color: $color-text-secondary;
+
+    p {
+      margin: 0;
+    }
+  }
+}
+
+// ============================================
+// 오른쪽 사이드바
+// ============================================
+
+.course-detail-content {
+
+  &__curriculum {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+  }
+
+  &__curriculum-section {
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
+    overflow: hidden;
+  }
+
+  &__curriculum-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $spacing-4;
+    background: $color-bg-secondary;
+  }
+
+  &__curriculum-section-title {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+  }
+
+  &__curriculum-section-count {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__curriculum-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__curriculum-item {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    padding: $spacing-3 $spacing-4;
+    border-top: $border-thin solid $color-border;
+
+    &--locked {
+      opacity: 0.6;
+    }
+  }
+
+  &__curriculum-link {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    width: 100%;
+    color: $color-text-primary;
+    text-decoration: none;
+    transition: color $duration-normal;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  &__curriculum-play {
+    flex-shrink: 0;
+    font-size: $font-size-xs;
+    color: $color-primary;
+  }
+
+  &__curriculum-lock {
+    flex-shrink: 0;
+    font-size: $font-size-xs;
+  }
+
+  &__curriculum-name {
+    flex: 1;
+    font-size: $font-size-sm;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__curriculum-duration {
+    flex-shrink: 0;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+}
+
+// ============================================
+// 강의 후기 페이지 (course-reviews-page / course-reviews)
+// ============================================

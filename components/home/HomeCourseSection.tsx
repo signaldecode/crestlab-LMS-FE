@@ -72,7 +72,7 @@ export default function HomeCourseSection({ title, courses }: HomeCourseSectionP
             ))}
 
             {/* 추천 CTA 카드 */}
-            <div className="home-course-section__slide">
+            {/* <div className="home-course-section__slide">
               <div className="home-course-section__cta-card">
                 <p className="home-course-section__cta-text">
                   나에게 맞는<br />
@@ -84,7 +84,7 @@ export default function HomeCourseSection({ title, courses }: HomeCourseSectionP
                   지금 추천 받기 &gt;
                 </Link>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

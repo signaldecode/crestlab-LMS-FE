@@ -1,0 +1,129 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.curriculum-step {
+  position: relative;
+  padding: 0 $container-padding;
+  padding-bottom: $spacing-16;
+  text-align: center;
+
+  // 세로 타임라인 연결선
+  &__timeline {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: $border-medium;
+    background: $color-border;
+    transform: translateX(-50%);
+    z-index: 0;
+  }
+
+  // 헤더
+  &__header {
+    position: relative;
+    z-index: 1;
+    margin-bottom: $spacing-8;
+  }
+
+  &__badge {
+    display: inline-block;
+    padding: $spacing-1 $spacing-4;
+    border-radius: $radius-xl;
+    background: $color-text-primary;
+    color: $color-text-inverse;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-3;
+  }
+
+  &__title {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin-bottom: $spacing-2;
+  }
+
+  &__subtitle {
+    font-size: $font-size-base;
+    color: $color-text-secondary;
+  }
+
+  // 강의 카드 그리드
+  &__cards {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    gap: $spacing-6;
+    flex-wrap: wrap;
+  }
+
+  &__card {
+    width: 18rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-lg;
+    overflow: hidden;
+    background: $color-bg-primary;
+    text-align: left;
+  }
+
+  &__card-thumb {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+
+  &__skeleton {
+    background: $color-bg-tertiary;
+    animation: curriculum-pulse 1.8s ease-in-out infinite;
+  }
+
+  &__card-body {
+    padding: $spacing-4;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+  }
+
+  &__skeleton-line {
+    height: 0.875rem;
+    border-radius: $radius-xs;
+    background: $color-bg-tertiary;
+    animation: curriculum-pulse 1.8s ease-in-out infinite;
+
+    &--title { width: 80%; height: 1rem; }
+    &--title-sub { width: 60%; height: 1rem; }
+    &--desc { width: 100%; }
+    &--desc-short { width: 75%; }
+  }
+
+  &__card-tags {
+    display: flex;
+    gap: $spacing-2;
+    margin-top: $spacing-2;
+  }
+
+  &__skeleton-tag {
+    width: 3.5rem;
+    height: 1.5rem;
+    border-radius: $radius-xs;
+    background: $color-bg-tertiary;
+    animation: curriculum-pulse 1.8s ease-in-out infinite;
+  }
+
+  &__card-link {
+    display: inline-block;
+    margin-top: $spacing-3;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-primary;
+  }
+}
+
+// ============================================
+// 4) 하단 소개
+// ============================================

@@ -1,0 +1,308 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.auth-modal {
+  &__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    text-align: center;
+    margin: $spacing-0 $spacing-0 $spacing-6;
+  }
+
+  &__subtitle {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    text-align: center;
+    margin: $spacing-0 $spacing-0 $spacing-2;
+  }
+
+  &__highlight {
+    color: $color-primary;
+    font-weight: $font-weight-semibold;
+  }
+
+  // 소셜 로그인
+  &__social {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+    margin-bottom: $spacing-6;
+  }
+
+  &__social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-2;
+    width: 100%;
+    padding: $spacing-3;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
+    cursor: pointer;
+    transition: opacity $duration-normal $ease-default;
+
+    &:hover {
+      opacity: 0.85;
+    }
+
+    &--kakao {
+      background-color: #fee500;
+      color: #191919;
+      border-color: #fee500;
+    }
+  }
+
+  &__social-icons {
+    display: flex;
+    justify-content: center;
+    gap: $spacing-4;
+    margin-bottom: $spacing-6;
+  }
+
+  &__social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $spacing-10;
+    height: $spacing-10;
+    border-radius: $radius-circle;
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    cursor: pointer;
+    border: $border-thin solid $color-border;
+    transition: opacity $duration-normal $ease-default;
+
+    &:hover {
+      opacity: 0.85;
+    }
+
+    &--naver {
+      background-color: #03c75a;
+      color: $color-text-inverse;
+      border-color: #03c75a;
+    }
+
+    &--google {
+      background-color: $color-bg-primary;
+      color: $color-text-primary;
+    }
+
+    &--apple {
+      background-color: $color-text-primary;
+      color: $color-text-inverse;
+      border-color: $color-text-primary;
+    }
+  }
+
+  // 폼
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+  }
+
+  &__label {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+  }
+
+  &__input {
+    width: 100%;
+    padding: $spacing-3;
+    font-size: $font-size-base;
+    color: $color-text-primary;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
+    outline: none;
+    transition: border-color $duration-normal $ease-default;
+
+    &::placeholder {
+      color: $color-text-secondary;
+    }
+
+    &:focus {
+      border-color: $color-border-focus;
+    }
+  }
+
+  // 인풋 + 버튼 조합 (닉네임 중복확인 등)
+  &__input-with-btn {
+    display: flex;
+    gap: $spacing-2;
+
+    .auth-modal__input {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+
+  &__check-btn {
+    flex-shrink: 0;
+    padding: $spacing-2 $spacing-4;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-primary;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-primary;
+    border-radius: $radius-md;
+    cursor: pointer;
+    transition: background-color $duration-normal $ease-default, color $duration-normal $ease-default;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: $color-primary;
+      color: $color-text-inverse;
+    }
+  }
+
+  // 인풋 에러 상태
+  &__input--error {
+    border-color: $color-error;
+
+    &:focus {
+      border-color: $color-error;
+    }
+  }
+
+  // 에러 메시지
+  &__error {
+    display: block;
+    margin-top: $spacing-1;
+    font-size: $font-size-sm;
+    color: $color-error;
+    font-weight: $font-weight-medium;
+  }
+
+  // fieldset 리셋
+  &__fieldset {
+    border: none;
+    padding: $spacing-0;
+    margin: $spacing-0;
+  }
+
+  // 성별 토글 버튼 그룹
+  &__gender-group {
+    display: flex;
+    gap: $spacing-2;
+  }
+
+  &__gender-btn {
+    flex: 1;
+    padding: $spacing-2 $spacing-0;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
+    cursor: pointer;
+    transition: background-color $duration-normal $ease-default, color $duration-normal $ease-default, border-color $duration-normal $ease-default;
+    text-align: center;
+
+    &:hover {
+      border-color: $color-primary;
+      color: $color-primary;
+    }
+
+    &--active {
+      background-color: $color-primary;
+      color: $color-text-inverse;
+      border-color: $color-primary;
+
+      &:hover {
+        color: $color-text-inverse;
+        opacity: 0.9;
+      }
+    }
+  }
+
+  // 약관 동의
+  &__agreements {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+    margin-top: $spacing-1;
+  }
+
+  &__checkbox {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    cursor: pointer;
+
+    input[type='checkbox'] {
+      width: $spacing-4;
+      height: $spacing-4;
+      accent-color: $color-primary;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+  }
+
+  &__checkbox-label {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+
+  &__submit {
+    width: 100%;
+    padding: $spacing-3;
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-text-inverse;
+    background-color: $color-primary;
+    border: none;
+    border-radius: $radius-md;
+    cursor: pointer;
+    transition: background-color $duration-normal $ease-default, opacity $duration-normal $ease-default;
+    margin-top: $spacing-2;
+
+    &:hover:not(:disabled) {
+      background-color: $color-primary-dark;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  // 하단 링크
+  &__links {
+    display: flex;
+    justify-content: center;
+    gap: $spacing-2;
+    margin-top: $spacing-4;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+
+  &__link {
+    color: $color-text-secondary;
+    text-decoration: none;
+    transition: color $duration-normal $ease-default;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  &__divider {
+    color: $color-border;
+  }
+}

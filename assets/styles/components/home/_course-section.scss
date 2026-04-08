@@ -1,0 +1,126 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.home-course-section {
+  margin-bottom: $spacing-12;
+
+  &__inner {
+    width: 100%;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-6;
+  }
+
+  &__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+  }
+
+  // 화살표 컨트롤
+  &__controls {
+    display: flex;
+    gap: $spacing-2;
+  }
+
+  &__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-circle;
+    background: $color-bg-primary;
+    color: $color-text-primary;
+    cursor: pointer;
+    transition: background $duration-normal $ease-default, border-color $duration-normal $ease-default;
+
+    &:hover:not(:disabled) {
+      border-color: $color-primary;
+      color: $color-primary;
+    }
+
+    &--disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+  }
+
+  // 캐러셀
+  &__carousel {
+    overflow: hidden;
+  }
+
+  &__track {
+    display: flex;
+    transition: transform $duration-slower $ease-default;
+  }
+
+  &__slide {
+    flex: 0 0 25%;
+    min-width: 0;
+    padding: 0 $spacing-2;
+    box-sizing: border-box;
+
+    @media (max-width: 1023px) {
+      flex: 0 0 33.333%;
+    }
+
+    @media (max-width: 639px) {
+      flex: 0 0 50%;
+    }
+  }
+
+  // CTA 추천 카드
+  &__cta-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 16rem;
+    padding: $spacing-6;
+    background: $color-bg-secondary;
+    border-radius: $radius-md;
+    text-align: center;
+  }
+
+  &__cta-text {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    line-height: $line-height-relaxed;
+    margin: 0 0 $spacing-5;
+    font-weight: $font-weight-medium;
+  }
+
+  &__cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-1;
+    padding: $spacing-2 $spacing-5;
+    background: $color-primary;
+    color: $color-text-inverse;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    border-radius: $radius-2xl;
+    text-decoration: none;
+    transition: background $duration-normal $ease-default;
+
+    &:hover {
+      background: $color-primary-dark;
+    }
+  }
+}
+
+// ============================================
+// 3-B) 피처드 강의 레이아웃
+// ============================================

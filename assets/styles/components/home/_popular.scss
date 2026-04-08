@@ -1,0 +1,257 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.home-popular {
+  margin-bottom: $spacing-16;
+  padding-top: $spacing-16;
+  border-top: $border-thin solid $color-border;
+
+  &__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0 0 $spacing-8;
+  }
+
+  // ── 상단 (피처드 + 순위 리스트) ──
+  &__top {
+    display: flex;
+    gap: $spacing-8;
+    margin-bottom: $spacing-10;
+
+    @media (max-width: 767px) {
+      flex-direction: column;
+    }
+  }
+
+  // ── 피처드 아티클 ──
+  &__featured {
+    flex: 0 0 48%;
+    min-width: 0;
+  }
+
+  &__featured-thumb {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    border-radius: $radius-md;
+    overflow: hidden;
+    margin-bottom: $spacing-3;
+  }
+
+  &__featured-image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__featured-badge {
+    position: absolute;
+    bottom: $spacing-3;
+    left: $spacing-3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    background: $color-primary;
+    color: $color-text-inverse;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    border-radius: $radius-circle;
+  }
+
+  &__featured-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    margin: 0 0 $spacing-2;
+    line-height: $line-height-tight;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  // ── 공통 메타 정보 ──
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    flex-wrap: wrap;
+  }
+
+  &__author {
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+  }
+
+  &__views::before {
+    content: '';
+    display: inline-block;
+    width: 0.25rem;
+    height: 0.25rem;
+    border-radius: $radius-circle;
+    background: $color-text-secondary;
+    vertical-align: middle;
+    margin-right: $spacing-1;
+  }
+
+  // ── 순위 리스트 ──
+  &__ranked-list {
+    flex: 1;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  &__ranked-item {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing-3;
+    padding: $spacing-4 0;
+    border-bottom: $border-thin solid $color-border;
+
+    &:first-child {
+      padding-top: 0;
+    }
+  }
+
+  &__rank {
+    flex-shrink: 0;
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-primary;
+    min-width: 1.25rem;
+    text-align: center;
+  }
+
+  &__ranked-info {
+    min-width: 0;
+    flex: 1;
+  }
+
+  &__ranked-title {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    margin: 0 0 $spacing-1;
+    line-height: $line-height-tight;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  // ── 하단 카드 ──
+  &__cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-6;
+
+    @media (max-width: 767px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__card {
+    display: flex;
+    gap: $spacing-4;
+    padding: $spacing-5 0;
+    border-top: $border-thin solid $color-border;
+  }
+
+  &__card-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__card-author {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    margin-bottom: $spacing-2;
+  }
+
+  &__card-avatar {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: $radius-circle;
+    background: $color-primary;
+    flex-shrink: 0;
+  }
+
+  &__card-nickname {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+  }
+
+  &__card-category {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__card-title {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    margin: 0 0 $spacing-1;
+    line-height: $line-height-tight;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__card-content {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    line-height: $line-height-relaxed;
+    margin: 0 0 $spacing-2;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__card-stats {
+    display: flex;
+    gap: $spacing-3;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__card-stat {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+  }
+
+  &__card-thumb {
+    flex-shrink: 0;
+    width: 7.5rem;
+    height: 5.5rem;
+    border-radius: $radius-sm;
+    overflow: hidden;
+  }
+
+  &__card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// ============================================
+// 6) 홈 커뮤니티 섹션
+// ============================================

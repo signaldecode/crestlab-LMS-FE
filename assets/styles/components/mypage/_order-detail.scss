@@ -1,0 +1,287 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.order-detail {
+  width: 100%;
+
+  // 뒤로가기
+  &__back {
+    display: inline-block;
+    margin-bottom: $spacing-6;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    text-decoration: none;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  // 헤더
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $spacing-6;
+  }
+
+  &__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+  }
+
+  &__status {
+    display: inline-block;
+    padding: $spacing-1 $spacing-3;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    border-radius: $radius-xs;
+
+    &--done {
+      color: $color-success;
+      background: rgba($color-success, 0.1);
+    }
+
+    &--refund {
+      color: $color-error;
+      background: rgba($color-error, 0.1);
+    }
+  }
+
+  // 기본 정보
+  &__info {
+    margin-bottom: $spacing-8;
+    padding: $spacing-5;
+    background: $color-bg-secondary;
+    border-radius: $radius-md;
+  }
+
+  &__info-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+  }
+
+  &__info-row {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+  }
+
+  &__info-label {
+    flex-shrink: 0;
+    width: 6rem;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+  }
+
+  &__info-value {
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+  }
+
+  // 섹션
+  &__section {
+    margin-bottom: $spacing-8;
+  }
+
+  &__section-title {
+    font-size: $font-size-md;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    margin-bottom: $spacing-4;
+    padding-bottom: $spacing-3;
+    border-bottom: $border-thin solid $color-border;
+  }
+
+  // 강의 목록
+  &__course-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+  }
+
+  &__course-item {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+    padding: $spacing-4;
+    border: $border-thin solid $color-bg-tertiary;
+    border-radius: $radius-md;
+
+    @media (max-width: 767px) {
+      flex-wrap: wrap;
+    }
+  }
+
+  &__course-thumb-link {
+    flex-shrink: 0;
+    display: block;
+    width: 5rem;
+    height: 3.75rem;
+    border-radius: $radius-xs;
+    overflow: hidden;
+  }
+
+  &__course-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &__course-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+    min-width: 0;
+  }
+
+  &__course-title {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  &__course-instructor {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__course-price {
+    flex-shrink: 0;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+  }
+
+  // 결제 금액
+  &__price-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+  }
+
+  &__price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+
+    dt {
+      color: $color-text-secondary;
+    }
+
+    &--discount {
+      dd {
+        color: $color-error;
+      }
+    }
+
+    &--total {
+      padding-top: $spacing-4;
+      border-top: $border-thin solid $color-border;
+      font-size: $font-size-base;
+      font-weight: $font-weight-bold;
+
+      dt {
+        color: $color-text-primary;
+      }
+
+      dd {
+        color: $color-primary;
+      }
+    }
+  }
+
+  // 액션 버튼
+  &__actions {
+    display: flex;
+    gap: $spacing-3;
+    padding-top: $spacing-6;
+    border-top: $border-thin solid $color-border;
+  }
+
+  &__action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-3 $spacing-5;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    border-radius: $radius-sm;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: opacity $duration-fast;
+
+    &:hover {
+      opacity: 0.85;
+    }
+
+    &--secondary {
+      color: $color-text-inverse;
+      background: $color-primary;
+    }
+
+    &--outline {
+      color: $color-text-secondary;
+      background: transparent;
+      border: $border-thin solid $color-border;
+
+      &:hover {
+        border-color: $color-text-secondary;
+      }
+    }
+  }
+
+  // Not found
+  &__not-found {
+    text-align: center;
+    padding: $spacing-16 0;
+  }
+
+  &__not-found-title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin-bottom: $spacing-3;
+  }
+
+  &__not-found-desc {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    margin-bottom: $spacing-6;
+  }
+
+  &__not-found-link {
+    font-size: $font-size-sm;
+    color: $color-primary;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// full-width content (no sidebar)

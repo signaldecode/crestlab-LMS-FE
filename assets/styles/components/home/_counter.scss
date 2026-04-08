@@ -1,0 +1,73 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.home-counter {
+  position: relative;
+  padding: $spacing-12 0;
+  margin-bottom: 0;
+
+  // 풀 블리드 배경
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 100%;
+    background: $color-text-primary;
+    z-index: -1;
+  }
+
+  &__inner {
+    display: flex;
+    justify-content: center;
+    gap: $spacing-16;
+
+    @media (max-width: 767px) {
+      gap: $spacing-8;
+      flex-wrap: wrap;
+    }
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-2;
+  }
+
+  &__icon {
+    color: $color-primary-light;
+    margin-bottom: $spacing-1;
+
+    svg {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+  }
+
+  &__value {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-inverse;
+    line-height: $line-height-tight;
+
+    @media (max-width: 639px) {
+      font-size: $font-size-xl;
+    }
+  }
+
+  &__label {
+    font-size: $font-size-sm;
+    color: $overlay-white-strong;
+  }
+}
+
+// ============================================
+// 10) 인기 강사 소개
+// ============================================

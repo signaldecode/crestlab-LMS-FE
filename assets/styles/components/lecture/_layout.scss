@@ -1,0 +1,43 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.lecture-player-layout {
+  // 부모 main#main-content 에서 이 레이아웃까지 높이 채우기
+  height: 100vh;
+  overflow: hidden;
+
+  // (site) 레이아웃의 헤더/푸터 숨기기
+  // :has()로 부모를 선택할 수 없으므로 전역 선택자 사용
+}
+
+// .lecture-player-layout이 존재할 때 부모 요소들 숨김 처리
+body:has(.lecture-player-layout) {
+  overflow: hidden;
+
+  .top-banner,
+  .app-header,
+  .app-footer {
+    display: none;
+  }
+
+  #main-content {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+// ============================================
+// 강의 플레이어 페이지 래퍼
+// ============================================
+.lecture-player-page {
+  height: 100vh;
+  overflow: hidden;
+}
+
+// ============================================
+// 강의 플레이어 상단 헤더바
+// ============================================

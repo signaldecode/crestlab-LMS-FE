@@ -1,0 +1,106 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+// ============================================
+// 아코디언 컴포넌트 스타일 (_accordion.scss)
+// - FAQ Accordion UI의 스타일을 정의한다
+// - 토큰 변수를 참조하며, HEX/px 직접 사용을 금지한다
+// ============================================
+
+
+.accordion {
+  width: 100%;
+
+  &__item {
+    border-bottom: $border-thin solid $color-border;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__heading {
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  &__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: $spacing-5 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: $font-family-base;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    line-height: $line-height-base;
+    gap: $spacing-4;
+    transition: color $duration-normal $ease-default;
+
+    &:hover {
+      color: $color-primary;
+    }
+
+    &:focus-visible {
+      outline: $border-medium solid $color-border-focus;
+      outline-offset: $border-medium;
+      border-radius: $radius-xs;
+    }
+  }
+
+  &__question-text {
+    display: flex;
+    align-items: baseline;
+    gap: $spacing-2;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__prefix {
+    font-weight: $font-weight-semibold;
+    color: $color-primary;
+    flex-shrink: 0;
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    color: $color-text-secondary;
+    transition: transform $duration-slow $ease-default;
+
+    &--open {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__panel {
+    overflow: hidden;
+
+    &--open {
+      padding-bottom: $spacing-5;
+    }
+  }
+
+  &__answer {
+    display: flex;
+    align-items: baseline;
+    gap: $spacing-2;
+    margin: 0;
+    padding: $spacing-4 $spacing-5;
+    background-color: $color-bg-secondary;
+    border-radius: $radius-md;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-regular;
+    color: $color-text-secondary;
+    line-height: $line-height-relaxed;
+  }
+}

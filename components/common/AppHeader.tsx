@@ -77,7 +77,7 @@ export default function AppHeader(): JSX.Element {
             {isLoggedIn ? (
               <>
                 {/* 알림 아이콘 */}
-                <button
+                {/* <button
                   type="button"
                   className="app-header__icon-btn app-header__notification-btn"
                   aria-label={a11yHeader.notificationAriaLabel}
@@ -93,7 +93,7 @@ export default function AppHeader(): JSX.Element {
                       aria-label={notifUi.badgeAriaLabel.replace('{count}', String(unreadCount()))}
                     />
                   )}
-                </button>
+                </button> */}
 
                 {/* 내 강의실 버튼 — 데스크톱에서만 표시 */}
                 <Link href="/mypage" className="app-header__classroom-btn">
@@ -140,7 +140,7 @@ export default function AppHeader(): JSX.Element {
       <SidebarMenu isOpen={isMobileMenuOpen} onClose={closeMenu} />
 
       {/* 알림 드로어 */}
-      <NotificationDrawer />
+      {/* <NotificationDrawer /> */}
     </header>
   );
 }

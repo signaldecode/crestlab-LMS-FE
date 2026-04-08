@@ -1,0 +1,53 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.curriculum-hero {
+  margin-bottom: $spacing-12;
+
+  &__banner {
+    width: 100%;
+    aspect-ratio: 16 / 4;
+    border-radius: 0 0 $radius-lg $radius-lg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: $spacing-3;
+  }
+
+  &__skeleton {
+    background: $color-bg-tertiary;
+    animation: curriculum-pulse 1.8s ease-in-out infinite;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-3;
+  }
+
+  &__skeleton-line {
+    border-radius: $radius-xs;
+    background: rgba(255, 255, 255, 0.3);
+    animation: curriculum-pulse 1.8s ease-in-out infinite;
+
+    &--sub {
+      width: 14rem;
+      height: 1rem;
+    }
+
+    &--title {
+      width: 20rem;
+      height: 1.75rem;
+    }
+  }
+}
+
+// ============================================
+// 2) 로드맵 다이어그램
+// ============================================

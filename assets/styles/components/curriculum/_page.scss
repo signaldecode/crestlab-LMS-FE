@@ -1,0 +1,27 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+// ============================================
+// 커리큘럼 페이지 스타일 (_curriculum-page.scss)
+// - 배너 → 로드맵 → STEP별 강의 → 하단 소개
+// ============================================
+
+
+@keyframes curriculum-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+// ── 페이지 래퍼 ──
+.curriculum-page {
+  max-width: $container-max-width;
+  margin: 0 auto;
+}
+
+// ============================================
+// 1) 히어로 배너
+// ============================================

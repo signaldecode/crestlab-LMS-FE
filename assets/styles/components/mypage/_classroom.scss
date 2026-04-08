@@ -1,0 +1,1128 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.mypage-classroom {
+
+  &__tabs {
+    display: flex;
+    border-bottom: $border-thin solid $color-border;
+    margin-bottom: $spacing-8;
+  }
+
+  &__tab {
+    padding: $spacing-3 $spacing-6;
+    background: none;
+    border: none;
+    border-bottom: $border-medium solid transparent;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    cursor: pointer;
+
+    &--active {
+      color: $color-text-primary;
+      font-weight: $font-weight-bold;
+      border-bottom-color: $color-text-primary;
+    }
+  }
+
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-16 0;
+    color: $color-text-secondary;
+    font-size: $font-size-sm;
+  }
+
+  &__promo {
+    position: relative;
+    width: 100%;
+    height: 3rem;
+    border-radius: $radius-md;
+    margin-top: 8rem;
+    overflow: hidden;
+  }
+
+  &__promo-img {
+    object-fit: cover;
+  }
+
+  &__skeleton {
+    background: $color-bg-tertiary;
+    animation: mypage-pulse 1.8s ease-in-out infinite;
+  }
+
+  // 메뉴 탭 콘텐츠
+  &__menu-content {
+    padding-top: $spacing-2;
+  }
+
+  &__menu-title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin-bottom: $spacing-6;
+    padding-bottom: $spacing-4;
+    border-bottom: $border-thin solid $color-border;
+  }
+
+  // ── 강의 카드 리스트 ──
+  &__course-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+  }
+
+  &__course-card {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing-5;
+    padding: $spacing-5;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
+    background: $color-bg-primary;
+    transition: box-shadow $duration-normal $ease-default;
+
+    &:hover {
+      box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.08);
+    }
+
+    @media (max-width: 639px) {
+      flex-direction: column;
+    }
+  }
+
+  &__course-thumb-link {
+    flex-shrink: 0;
+  }
+
+  &__course-thumb {
+    width: 10rem;
+    height: 6.5rem;
+    border-radius: $radius-sm;
+    object-fit: cover;
+
+    @media (max-width: 639px) {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+    }
+  }
+
+  &__course-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+    min-width: 0;
+  }
+
+  &__course-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    text-decoration: none;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__course-instructor {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+
+  &__course-meta {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+  }
+
+  &__course-last-lecture {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__course-progress {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    margin-top: $spacing-1;
+  }
+
+  &__course-progress-bar {
+    flex: 1;
+    height: 0.375rem;
+    border-radius: $radius-xs;
+    background: $color-bg-tertiary;
+    overflow: hidden;
+  }
+
+  &__course-progress-fill {
+    height: 100%;
+    border-radius: $radius-xs;
+    background: $color-primary;
+    transition: width $duration-slow $ease-default;
+
+    &--complete {
+      background: $color-success;
+    }
+  }
+
+  &__course-progress-text {
+    flex-shrink: 0;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+  }
+
+  &__course-actions {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  &__course-continue-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-2 $spacing-4;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-bg-primary;
+    background: $color-primary;
+    border-radius: $radius-sm;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: opacity $duration-normal $ease-default;
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+
+  // 강의 카드 그리드 (스켈레톤용)
+  &__course-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-6;
+
+    @media (max-width: 767px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 479px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  // 스켈레톤
+  &__course-body {
+    padding: $spacing-4;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+  }
+
+  &__course-badges {
+    display: flex;
+    gap: $spacing-1;
+  }
+
+  &__skel-badge {
+    display: inline-block;
+    width: 2.5rem;
+    height: 1.25rem;
+    border-radius: $radius-xs;
+    background: $color-bg-tertiary;
+    animation: mypage-pulse 1.8s ease-in-out infinite;
+
+    &--wide {
+      width: 3.5rem;
+    }
+  }
+
+  &__skel-line {
+    display: block;
+    border-radius: $radius-xs;
+    background: $color-bg-tertiary;
+    animation: mypage-pulse 1.8s ease-in-out infinite;
+
+    &--title { width: 85%; height: 1rem; }
+    &--instructor { width: 4rem; height: 0.75rem; }
+    &--percent { width: 2rem; height: 0.75rem; }
+    &--date { width: 5rem; height: 0.75rem; }
+    &--text-long { width: 100%; height: 0.75rem; }
+    &--text-short { width: 60%; height: 0.75rem; }
+    &--price { width: 4.5rem; height: 1rem; }
+  }
+
+  &__skel-circle {
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: $radius-circle;
+    background: $color-bg-tertiary;
+    animation: mypage-pulse 1.8s ease-in-out infinite;
+  }
+
+  &__progress-bar {
+    flex: 1;
+    height: 0.375rem;
+    border-radius: $radius-xs;
+    background: $color-bg-tertiary;
+  }
+
+  &__progress-fill {
+    width: 0%;
+    height: 100%;
+    border-radius: $radius-xs;
+    background: $color-primary;
+  }
+
+  // ── 강의 상담 카드 ──
+  &__consult-card {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+    padding: $spacing-4;
+    border: $border-thin solid $color-bg-tertiary;
+    border-radius: $radius-md;
+  }
+
+  &__consult-thumb {
+    flex-shrink: 0;
+    width: 5rem;
+    height: 5rem;
+    border-radius: $radius-sm;
+    background: $color-bg-tertiary;
+    animation: mypage-pulse 1.8s ease-in-out infinite;
+  }
+
+  &__consult-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+    min-width: 0;
+  }
+
+  // ── 강의 상담 실데이터 ──
+  &__consult-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+  }
+
+  &__consult-thumb-link {
+    flex-shrink: 0;
+    display: block;
+    width: 5rem;
+    height: 5rem;
+    border-radius: $radius-sm;
+    overflow: hidden;
+  }
+
+  &__consult-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &__consult-question {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__consult-course-name {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__consult-instructor {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+
+    &::before {
+      content: '·';
+      margin: 0 $spacing-1;
+    }
+  }
+
+  &__consult-date {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__consult-status {
+    flex-shrink: 0;
+    padding: $spacing-1 $spacing-3;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    border-radius: $radius-xs;
+
+    &--done {
+      color: $color-success;
+      background: rgba($color-success, 0.1);
+    }
+
+    &--pending {
+      color: $color-warning;
+      background: rgba($color-warning, 0.1);
+    }
+  }
+
+  // ── 수료증 카드 ──
+  &__cert-card {
+    display: flex;
+    flex-direction: column;
+    border: $border-thin solid $color-bg-tertiary;
+    border-radius: $radius-md;
+    overflow: hidden;
+  }
+
+  &__cert-thumb {
+    width: 100%;
+    height: 7rem;
+    background: $color-bg-tertiary;
+    animation: mypage-pulse 1.8s ease-in-out infinite;
+  }
+
+  &__cert-body {
+    padding: $spacing-4;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+  }
+
+  &__cert-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: $spacing-2;
+  }
+
+  // ── 수료증 실데이터 ──
+  &__cert-thumb-link {
+    display: block;
+    width: 100%;
+    height: 7rem;
+    overflow: hidden;
+  }
+
+  &__cert-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &__cert-title {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__cert-instructor {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__cert-date {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__cert-download-btn {
+    padding: $spacing-1 $spacing-3;
+    border: none;
+    border-radius: $radius-xs;
+    background: $color-primary;
+    color: $color-text-inverse;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition: opacity $duration-normal;
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+
+  &__cert-status {
+    padding: $spacing-1 $spacing-3;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    background: $color-bg-tertiary;
+    border-radius: $radius-xs;
+  }
+
+  &__skel-badge--status {
+    width: 4rem;
+    height: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  &__skel-badge--download {
+    width: 4.5rem;
+    height: 1.75rem;
+  }
+
+  // ── 후기 관리 카드 ──
+  &__review-card {
+    display: flex;
+    gap: $spacing-4;
+    padding: $spacing-4;
+    border: $border-thin solid $color-bg-tertiary;
+    border-radius: $radius-md;
+  }
+
+  &__review-thumb {
+    flex-shrink: 0;
+    width: 5rem;
+    height: 5rem;
+    border-radius: $radius-sm;
+    background: $color-bg-tertiary;
+    animation: mypage-pulse 1.8s ease-in-out infinite;
+  }
+
+  &__review-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+    min-width: 0;
+  }
+
+  &__review-stars {
+    display: flex;
+    gap: $spacing-1;
+  }
+
+  &__skel-star {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 0.125rem;
+    background: $color-bg-tertiary;
+    animation: mypage-pulse 1.8s ease-in-out infinite;
+  }
+
+  // ── 후기 관리 실데이터 ──
+  &__review-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+  }
+
+  &__review-thumb-link {
+    flex-shrink: 0;
+    display: block;
+    width: 5rem;
+    height: 5rem;
+    border-radius: $radius-sm;
+    overflow: hidden;
+  }
+
+  &__review-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &__review-course-name {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+  }
+
+  &__review-star {
+    font-size: $font-size-sm;
+    color: $color-bg-tertiary;
+
+    &--filled {
+      color: #f59e0b;
+    }
+  }
+
+  &__review-content {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    line-height: $line-height-base;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__review-date {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  // ── 구매 내역 ──
+  &__purchase-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+  }
+
+  &__purchase-row {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+    padding: $spacing-4;
+    border: $border-thin solid $color-bg-tertiary;
+    border-radius: $radius-md;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color $duration-fast, background $duration-fast;
+
+    &:hover {
+      border-color: $color-primary;
+      background: $color-bg-secondary;
+    }
+
+    @media (max-width: 767px) {
+      flex-wrap: wrap;
+    }
+  }
+
+  &__purchase-course {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    min-width: 0;
+  }
+
+  &__purchase-thumb {
+    flex-shrink: 0;
+    width: 4rem;
+    height: 3rem;
+    border-radius: $radius-xs;
+    background: $color-bg-tertiary;
+    animation: mypage-pulse 1.8s ease-in-out infinite;
+  }
+
+  &__purchase-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+    min-width: 0;
+  }
+
+  // ── 구매 내역 실데이터 ──
+  &__purchase-date {
+    flex-shrink: 0;
+    width: 6rem;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__purchase-thumb-link {
+    flex-shrink: 0;
+    display: block;
+    width: 4rem;
+    height: 3rem;
+    border-radius: $radius-xs;
+    overflow: hidden;
+  }
+
+  &__purchase-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &__purchase-title {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  &__purchase-instructor {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__purchase-price {
+    flex-shrink: 0;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+  }
+
+  &__purchase-status {
+    flex-shrink: 0;
+    display: inline-block;
+    padding: $spacing-1 $spacing-3;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    border-radius: $radius-xs;
+
+    &--done {
+      color: $color-success;
+      background: rgba($color-success, 0.1);
+    }
+
+    &--refund {
+      color: $color-error;
+      background: rgba($color-error, 0.1);
+    }
+  }
+}
+
+// ============================================
+// 주문 상세
+// ============================================
+
+.mypage-classroom {
+
+  // ── 상품권 페이지 ──
+  &__giftcard-summary {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    padding: $spacing-4 $spacing-6;
+    background: $color-bg-secondary;
+    border-radius: $radius-md;
+    margin-bottom: $spacing-6;
+  }
+
+  &__giftcard-summary-label {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+
+  &__giftcard-summary-value {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+  }
+
+  &__giftcard-history {
+    margin-top: $spacing-8;
+  }
+
+  &__giftcard-history-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0 0 $spacing-4;
+    padding-bottom: $spacing-4;
+    border-bottom: $border-thin solid $color-border;
+  }
+
+  // ── 상품권 목록 ──
+  &__giftcard-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+    margin-bottom: $spacing-6;
+  }
+
+  &__giftcard-item {
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
+    overflow: hidden;
+
+    &--inactive {
+      opacity: 0.6;
+    }
+  }
+
+  &__giftcard-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $spacing-4 $spacing-5;
+    background: $color-bg-secondary;
+  }
+
+  &__giftcard-item-name {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+  }
+
+  &__giftcard-item-status {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    padding: $spacing-1 $spacing-2;
+    border-radius: $radius-xs;
+
+    &--active {
+      background: $color-bg-tertiary;
+      color: $color-success;
+    }
+
+    &--used {
+      background: $color-bg-tertiary;
+      color: $color-text-secondary;
+    }
+
+    &--expired {
+      background: $color-bg-tertiary;
+      color: $color-text-secondary;
+    }
+  }
+
+  &__giftcard-item-body {
+    padding: $spacing-4 $spacing-5;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+  }
+
+  &__giftcard-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__giftcard-item-label {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+
+  &__giftcard-item-value {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    color: $color-primary;
+  }
+
+  &__giftcard-item-date {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+
+  // ── 상품권 이용내역 ──
+  &__giftcard-history-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__giftcard-history-row {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+    padding: $spacing-3 0;
+    border-bottom: $border-thin solid $color-bg-tertiary;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__giftcard-history-date {
+    flex-shrink: 0;
+    width: 6rem;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+
+  &__giftcard-history-desc {
+    flex: 1;
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+  }
+
+  &__giftcard-history-amount {
+    flex-shrink: 0;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+
+    &--charge {
+      color: $color-primary;
+    }
+
+    &--use {
+      color: $color-text-secondary;
+    }
+  }
+
+  // ── 내 강의실 강의 목록 ──
+  &__course-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+  }
+
+  &__course-card {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing-4;
+    padding: $spacing-4;
+    border: $border-thin solid $color-bg-tertiary;
+    border-radius: $radius-md;
+
+    @media (max-width: 767px) {
+      flex-wrap: wrap;
+    }
+  }
+
+  &__course-thumb-link {
+    flex-shrink: 0;
+    display: block;
+    width: 7.5rem;
+    height: 5rem;
+    border-radius: $radius-sm;
+    overflow: hidden;
+  }
+
+  &__course-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__course-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__course-title {
+    display: block;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    text-decoration: none;
+    margin-bottom: $spacing-1;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__course-instructor {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    display: block;
+    margin-bottom: $spacing-2;
+  }
+
+  &__course-meta {
+    margin-bottom: $spacing-2;
+  }
+
+  &__course-last-lecture {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__course-progress {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+  }
+
+  &__course-progress-bar {
+    flex: 1;
+    height: 0.375rem;
+    background: $color-bg-tertiary;
+    border-radius: $radius-xl;
+    overflow: hidden;
+  }
+
+  &__course-progress-fill {
+    height: 100%;
+    background: $color-primary;
+    border-radius: $radius-xl;
+    transition: width $duration-slow $ease-default;
+
+    &--complete {
+      background: $color-success;
+    }
+  }
+
+  &__course-progress-text {
+    flex-shrink: 0;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+  }
+
+  &__course-actions {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  &__course-continue-btn {
+    padding: $spacing-2 $spacing-4;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    color: $color-text-inverse;
+    background: $color-primary;
+    border-radius: $radius-sm;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: opacity $duration-normal;
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+
+  // ── 포인트 페이지 ──
+  &__point-summary {
+    display: flex;
+    align-items: baseline;
+    gap: $spacing-4;
+    margin-bottom: $spacing-8;
+    padding: $spacing-6;
+    background-color: $color-bg-secondary;
+    border-radius: $spacing-2;
+  }
+
+  &__point-summary-value {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $color-primary;
+  }
+
+  &__point-summary-expire {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+
+    strong {
+      font-weight: $font-weight-bold;
+    }
+  }
+
+  &__point-history-title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin-bottom: $spacing-4;
+  }
+
+  &__point-tabs {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+    margin-bottom: $spacing-6;
+  }
+
+  &__point-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-2;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-regular;
+    color: $color-text-secondary;
+    cursor: pointer;
+    transition: color $duration-normal $ease-default;
+
+    &--active {
+      color: $color-primary;
+      font-weight: $font-weight-bold;
+    }
+  }
+
+  &__point-tab-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: $spacing-10;
+    height: $spacing-6;
+    padding: 0 $spacing-2;
+    border-radius: 9999px;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    background-color: $color-bg-tertiary;
+    color: $color-text-secondary;
+    transition: all $duration-normal $ease-default;
+
+    .mypage-classroom__point-tab--active & {
+      background-color: $color-primary;
+      color: $color-bg-primary;
+    }
+  }
+
+  &__point-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__point-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: $spacing-5 0;
+    border-bottom: $border-thin solid $color-border;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__point-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+  }
+
+  &__point-item-desc {
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    line-height: 1.5;
+  }
+
+  &__point-item-date {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+
+  &__point-item-amount {
+    flex-shrink: 0;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    margin-left: $spacing-4;
+
+    &--earn {
+      color: $color-primary;
+    }
+
+    &--use {
+      color: $color-text-secondary;
+    }
+  }
+}

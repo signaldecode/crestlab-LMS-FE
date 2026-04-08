@@ -1,0 +1,339 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.member-edit {
+  max-width: 50rem;
+  margin: 0 auto;
+  padding: $spacing-10 0 $spacing-16;
+
+  // 타이틀
+  &__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0 0 $spacing-4;
+  }
+
+  // 구분선
+  &__divider {
+    border: none;
+    border-top: $border-medium solid $color-text-primary;
+    margin: 0 0 $spacing-8;
+  }
+
+  // 폼 영역
+  &__form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: $spacing-12;
+  }
+
+  // 행 (label + field)
+  &__row {
+    display: flex;
+    align-items: flex-start;
+    padding: $spacing-4 0;
+
+    @media (max-width: 767px) {
+      flex-direction: column;
+      gap: $spacing-2;
+    }
+  }
+
+  &__row--social {
+    align-items: flex-start;
+  }
+
+  // 레이블
+  &__label {
+    flex-shrink: 0;
+    width: 8rem;
+    padding-top: $spacing-3;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+
+    @media (max-width: 767px) {
+      width: 100%;
+      padding-top: 0;
+    }
+  }
+
+  &__label--multiline {
+    white-space: pre-line;
+    line-height: $line-height-base;
+  }
+
+  // 필드
+  &__field {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__field--with-btn {
+    display: flex;
+    gap: $spacing-3;
+  }
+
+  &__field--radio {
+    display: flex;
+    align-items: center;
+    gap: $spacing-6;
+    padding-top: $spacing-3;
+  }
+
+  &__field--social {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+  }
+
+  &__field--checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: $spacing-6;
+  }
+
+  // 인풋
+  &__input {
+    width: 100%;
+    padding: $spacing-3 $spacing-4;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
+    font-size: $font-size-sm;
+    font-family: inherit;
+    color: $color-text-primary;
+    outline: none;
+    transition: border-color $duration-normal;
+
+    &::placeholder {
+      color: $color-text-secondary;
+    }
+
+    &:focus {
+      border-color: $color-border-focus;
+    }
+
+    &--readonly {
+      background: $color-bg-secondary;
+      color: $color-text-secondary;
+      cursor: default;
+    }
+  }
+
+  // 인증요청 버튼
+  &__verify-btn {
+    flex-shrink: 0;
+    padding: $spacing-3 $spacing-5;
+    border: $border-thin solid $color-primary;
+    border-radius: $radius-sm;
+    background: $color-bg-primary;
+    color: $color-primary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background $duration-normal, color $duration-normal;
+
+    &:hover {
+      background: $color-primary;
+      color: $color-text-inverse;
+    }
+  }
+
+  // 라디오
+  &__radio-label {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    cursor: pointer;
+  }
+
+  &__radio {
+    width: 1.125rem;
+    height: 1.125rem;
+    accent-color: $color-primary;
+    cursor: pointer;
+  }
+
+  &__radio-text {
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+  }
+
+  // 소셜연동
+  &__social-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $spacing-3 0;
+  }
+
+  &__social-info {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+  }
+
+  &__social-dot {
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: $radius-circle;
+
+    &[data-provider='naver'] { background: #03c75a; }
+    &[data-provider='kakao'] { background: #fee500; }
+    &[data-provider='apple'] { background: $color-text-primary; }
+    &[data-provider='google'] { background: #4285f4; }
+  }
+
+  &__social-logo {
+    display: block;
+    width: 1.25rem;
+    height: 1.25rem;
+    object-fit: contain;
+  }
+
+  &__social-name {
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+  }
+
+  &__social-note {
+    margin-left: $spacing-2;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__social-btn {
+    padding: $spacing-2 $spacing-5;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
+    background: $color-bg-primary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    cursor: pointer;
+    transition: background $duration-normal;
+
+    &:hover {
+      background: $color-bg-secondary;
+    }
+
+    &--connected {
+      background: $color-text-primary;
+      color: $color-text-inverse;
+      border-color: $color-text-primary;
+
+      &:hover {
+        opacity: 0.85;
+      }
+    }
+  }
+
+  // 마케팅 수신 설정
+  &__marketing {
+    margin-bottom: $spacing-12;
+  }
+
+  &__marketing-title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0 0 $spacing-4;
+  }
+
+  // 체크박스
+  &__checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    cursor: pointer;
+  }
+
+  &__checkbox {
+    width: 1.125rem;
+    height: 1.125rem;
+    accent-color: $color-primary;
+    cursor: pointer;
+  }
+
+  &__checkbox-text {
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+  }
+
+  // 하단 버튼
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: $spacing-8;
+
+    @media (max-width: 767px) {
+      flex-direction: column;
+      gap: $spacing-4;
+    }
+  }
+
+  &__actions-right {
+    display: flex;
+    gap: $spacing-3;
+  }
+
+  &__withdraw-btn {
+    padding: $spacing-3 $spacing-6;
+    border: $border-thin solid $color-text-primary;
+    border-radius: $radius-sm;
+    background: $color-bg-primary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    cursor: pointer;
+    transition: background $duration-normal;
+
+    &:hover {
+      background: $color-bg-secondary;
+    }
+  }
+
+  &__cancel-btn {
+    padding: $spacing-3 $spacing-8;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
+    background: $color-bg-primary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    cursor: pointer;
+    transition: background $duration-normal;
+
+    &:hover {
+      background: $color-bg-secondary;
+    }
+  }
+
+  &__submit-btn {
+    padding: $spacing-3 $spacing-8;
+    border: none;
+    border-radius: $radius-sm;
+    background: $color-text-primary;
+    color: $color-text-inverse;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition: opacity $duration-normal;
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+}
+
+// ============================================
+// 관심 클래스 (위시리스트) 페이지
+// ============================================

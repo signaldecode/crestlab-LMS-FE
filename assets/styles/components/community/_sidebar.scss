@@ -1,0 +1,134 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.community-sidebar {
+
+  &__sticky {
+    position: sticky;
+    top: $spacing-8;
+  }
+
+  // ── 프로필 카드 ──
+  // ProfileCard 컴포넌트가 카드 스타일을 담당하므로 여백만 지정
+  .profile-card {
+    margin-bottom: $spacing-4;
+  }
+
+  &__profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-3;
+    padding: $spacing-6 $spacing-4;
+    border-bottom: $border-thin solid $color-border;
+    margin-bottom: $spacing-4;
+  }
+
+  &__login-label {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+
+  // ── 네비게이션 ──
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+  }
+
+  &__section {
+    margin-bottom: $spacing-1;
+  }
+
+  &__section-title {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    width: 100%;
+    padding: $spacing-2 $spacing-3;
+    border: none;
+    background: none;
+    text-align: left;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    border-radius: $radius-sm;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background $duration-fast;
+
+    &:hover {
+      background: $color-bg-secondary;
+    }
+
+    &--active {
+      background: $color-primary;
+      color: $color-text-inverse;
+
+      &:hover {
+        background: $color-primary-dark;
+      }
+    }
+  }
+
+  &__section-icon {
+    font-size: $font-size-base;
+    flex-shrink: 0;
+  }
+
+  &__section-label {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__chevron {
+    flex-shrink: 0;
+    font-size: $font-size-sm;
+    transition: transform $duration-normal;
+
+    &--open {
+      transform: rotate(90deg);
+    }
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding-left: $spacing-10;
+  }
+
+  &__list-item {
+    margin-bottom: $spacing-1;
+  }
+
+  &__link {
+    display: block;
+    width: 100%;
+    padding: $spacing-1 0;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover {
+      color: $color-text-primary;
+    }
+
+    &--active {
+      color: $color-primary;
+      font-weight: $font-weight-semibold;
+    }
+  }
+}
+
+// ============================================
+// 가운데 피드
+// ============================================

@@ -1,0 +1,557 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.profile-intro {
+
+  // 소개글 섹션
+  &__bio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: $spacing-12 0;
+    border-bottom: $border-thin solid $color-border;
+  }
+
+  &__bio-title {
+    font-size: $font-size-md;
+    font-weight: $font-weight-bold;
+    color: $color-primary;
+    margin-bottom: $spacing-3;
+  }
+
+  &__bio-desc {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    line-height: $line-height-base;
+    margin: 0;
+  }
+
+  &__bio--filled {
+    align-items: flex-start;
+    text-align: left;
+    padding: $spacing-8 0;
+  }
+
+  &__bio-text {
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+    line-height: $line-height-base;
+    margin: 0;
+    white-space: pre-wrap;
+  }
+
+  &__bio-edit-btn {
+    margin-top: $spacing-4;
+    padding: $spacing-2 $spacing-4;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
+    background: $color-bg-primary;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    cursor: pointer;
+    transition: background $duration-normal, color $duration-normal;
+
+    &:hover {
+      background: $color-bg-secondary;
+      color: $color-text-primary;
+    }
+  }
+
+  &__bio-btn {
+    margin-top: $spacing-6;
+    padding: $spacing-3 $spacing-6;
+    border: $border-thin solid $color-text-primary;
+    border-radius: $radius-sm;
+    background: $color-bg-primary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    cursor: pointer;
+
+    &:hover {
+      background: $color-bg-secondary;
+    }
+  }
+
+  &__featured-add-btn {
+    margin-top: $spacing-4;
+    padding: $spacing-2 $spacing-6;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
+    background: $color-bg-primary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    cursor: pointer;
+
+    &:hover {
+      background: $color-bg-secondary;
+    }
+  }
+
+  // 대표글 섹션
+  &__featured {
+    padding-top: $spacing-8;
+  }
+
+  &__featured-header {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    margin-bottom: $spacing-6;
+  }
+
+  &__featured-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0;
+  }
+
+  &__featured-count {
+    font-size: $font-size-sm;
+    color: $color-primary;
+    font-weight: $font-weight-bold;
+  }
+
+  &__featured-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: $spacing-12 0;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-lg;
+    text-align: center;
+  }
+
+  &__featured-icon {
+    font-size: $font-size-2xl;
+    margin-bottom: $spacing-4;
+  }
+
+  &__featured-label {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0 0 $spacing-2;
+  }
+
+  &__featured-desc {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    line-height: $line-height-base;
+    margin: 0;
+  }
+
+  &__featured-add {
+    margin-top: $spacing-4;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-circle;
+    background: $color-bg-primary;
+    font-size: $font-size-base;
+    color: $color-text-secondary;
+    cursor: pointer;
+
+    &:hover {
+      background: $color-bg-secondary;
+      color: $color-text-primary;
+    }
+  }
+}
+
+// ============================================
+// 프로필 소개글 편집
+// ============================================
+.profile-intro-edit {
+  display: grid;
+  grid-template-columns: 1fr 18rem;
+  gap: $spacing-8;
+  align-items: flex-start;
+
+  @media (max-width: 1023px) {
+    grid-template-columns: 1fr;
+  }
+
+  // ── 좌측 메인 영역 ──
+  &__main {
+    display: flex;
+    flex-direction: column;
+    background: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-lg;
+    overflow: hidden;
+  }
+
+  // 커버 + 아바타
+  &__cover-area {
+    position: relative;
+  }
+
+  &__cover {
+    position: relative;
+    width: 100%;
+    height: 14rem;
+    background: $color-bg-tertiary;
+    overflow: hidden;
+
+    @media (max-width: 767px) {
+      height: 10rem;
+    }
+  }
+
+  &__cover-img {
+    object-fit: cover;
+  }
+
+  &__cover-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, $color-bg-tertiary 0%, $color-bg-secondary 100%);
+  }
+
+  &__avatar-wrap {
+    position: absolute;
+    bottom: -2.5rem;
+    left: $spacing-6;
+    width: 5rem;
+    height: 5rem;
+    border-radius: $radius-circle;
+    border: 3px solid $color-bg-primary;
+    overflow: hidden;
+    background: $color-bg-primary;
+  }
+
+  &__avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: $radius-circle;
+  }
+
+  &__avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: $radius-circle;
+
+    &--default {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: $color-bg-tertiary;
+      color: $color-text-secondary;
+    }
+  }
+
+  // 이미지 편집 버튼
+  &__image-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: $spacing-3;
+    padding: $spacing-4 $spacing-6;
+    padding-top: $spacing-6;
+  }
+
+  &__file-input {
+    display: none;
+  }
+
+  &__image-btn {
+    padding: $spacing-2 $spacing-5;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
+    background: $color-bg-primary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    cursor: pointer;
+    transition: background $duration-normal;
+
+    &:hover {
+      background: $color-bg-secondary;
+    }
+
+    &--primary {
+      background: $color-text-primary;
+      color: $color-text-inverse;
+      border-color: $color-text-primary;
+
+      &:hover {
+        opacity: 0.85;
+        background: $color-text-primary;
+      }
+    }
+  }
+
+  // 섹션 공통
+  &__section {
+    padding: $spacing-6;
+    border-top: $border-thin solid $color-border;
+  }
+
+  &__section-title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0 0 $spacing-4;
+  }
+
+  // 닉네임 필드
+  &__nickname-field {
+    display: flex;
+    gap: $spacing-3;
+  }
+
+  &__input {
+    flex: 1;
+    padding: $spacing-3 $spacing-4;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
+    font-size: $font-size-sm;
+    font-family: inherit;
+    color: $color-text-primary;
+    outline: none;
+    transition: border-color $duration-normal;
+
+    &::placeholder {
+      color: $color-text-secondary;
+    }
+
+    &:focus {
+      border-color: $color-border-focus;
+    }
+  }
+
+  &__check-btn {
+    flex-shrink: 0;
+    padding: $spacing-3 $spacing-5;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
+    background: $color-bg-primary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background $duration-normal, color $duration-normal;
+
+    &:hover {
+      background: $color-bg-secondary;
+      color: $color-text-primary;
+    }
+  }
+
+  // 소개문구 textarea
+  &__textarea {
+    width: 100%;
+    min-height: 10rem;
+    padding: $spacing-4;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
+    font-size: $font-size-sm;
+    font-family: inherit;
+    color: $color-text-primary;
+    line-height: $line-height-base;
+    outline: none;
+    resize: none;
+    transition: border-color $duration-normal;
+
+    &::placeholder {
+      color: $color-text-secondary;
+    }
+
+    &:focus {
+      border-color: $color-border-focus;
+    }
+  }
+
+  // 대표글
+  &__featured-header {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    margin-bottom: $spacing-4;
+
+    .profile-intro-edit__section-title {
+      margin-bottom: 0;
+    }
+  }
+
+  &__featured-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: $spacing-6;
+    height: $spacing-6;
+    padding: 0 $spacing-2;
+    border-radius: 9999px;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    background: $color-bg-tertiary;
+    color: $color-primary;
+  }
+
+  &__featured-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: $spacing-10 0;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-lg;
+    text-align: center;
+  }
+
+  &__featured-label {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0 0 $spacing-2;
+  }
+
+  &__featured-desc {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    line-height: $line-height-base;
+    margin: 0;
+  }
+
+  &__featured-add-btn {
+    margin-top: $spacing-4;
+    padding: $spacing-2 $spacing-6;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
+    background: $color-bg-primary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    cursor: pointer;
+    transition: background $duration-normal;
+
+    &:hover {
+      background: $color-bg-secondary;
+    }
+  }
+
+  // ── 우측 프로필 완성도 카드 ──
+  &__progress-card {
+    position: sticky;
+    top: $spacing-8;
+    padding: $spacing-6;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-lg;
+    background: $color-bg-primary;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media (max-width: 1023px) {
+      order: -1;
+    }
+  }
+
+  &__progress-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0 0 $spacing-6;
+    text-align: center;
+  }
+
+  // 원형 진행률
+  &__progress-circle {
+    position: relative;
+    width: 8rem;
+    height: 8rem;
+    margin-bottom: $spacing-6;
+  }
+
+  &__progress-svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__progress-track {
+    color: $color-bg-tertiary;
+  }
+
+  &__progress-fill {
+    color: $color-text-primary;
+    transition: stroke-dashoffset 0.6s $ease-default;
+  }
+
+  &__progress-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+  }
+
+  // 체크리스트
+  &__checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 $spacing-6;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+  }
+
+  &__checklist-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+
+    &--done {
+      color: $color-text-primary;
+    }
+  }
+
+  &__checklist-icon {
+    display: flex;
+    align-items: center;
+    color: $color-text-secondary;
+
+    .profile-intro-edit__checklist-item--done & {
+      color: $color-primary;
+    }
+  }
+
+  // 저장 버튼
+  &__save-btn {
+    width: 100%;
+    padding: $spacing-3;
+    border: none;
+    border-radius: $radius-sm;
+    background: $color-text-primary;
+    color: $color-text-inverse;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    cursor: pointer;
+    transition: opacity $duration-normal;
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+}
+
+// ============================================
+// 프로필 팔로우 탭
+// ============================================

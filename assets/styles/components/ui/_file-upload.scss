@@ -1,0 +1,110 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.file-upload {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+
+  &__label {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+  }
+
+  &__area {
+    position: relative;
+  }
+
+  &__input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+  }
+
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: $spacing-3;
+    font-size: $font-size-sm;
+    font-family: $font-family-base;
+    color: $color-text-secondary;
+    background-color: $color-bg-primary;
+    border: $border-thin dashed $color-border;
+    border-radius: $spacing-2;
+    cursor: pointer;
+    transition: border-color $duration-normal $ease-default, color $duration-normal $ease-default;
+
+    &:hover {
+      border-color: $color-primary;
+      color: $color-primary;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &__hint {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    margin: 0;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $spacing-2 $spacing-3;
+    background-color: $color-bg-secondary;
+    border-radius: $spacing-1;
+  }
+
+  &__filename {
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+  }
+
+  &__remove {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $spacing-6;
+    height: $spacing-6;
+    font-size: $font-size-md;
+    color: $color-text-secondary;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: $radius-circle;
+    transition: color $duration-normal $ease-default, background-color $duration-normal $ease-default;
+
+    &:hover {
+      color: $color-error;
+      background-color: $color-bg-tertiary;
+    }
+  }
+}

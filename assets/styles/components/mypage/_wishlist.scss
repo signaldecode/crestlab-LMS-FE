@@ -1,0 +1,68 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.wishlist {
+
+  // 섹션
+  &__section {
+    margin-bottom: $spacing-12;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-6;
+  }
+
+  &__title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0;
+  }
+
+  &__sort {
+    padding: $spacing-2 $spacing-3;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+    background: $color-bg-primary;
+    cursor: pointer;
+  }
+
+  // 빈 상태
+  &__empty {
+    text-align: center;
+    padding: $spacing-12 0;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    border-bottom: $border-thin solid $color-border;
+    margin-bottom: $spacing-8;
+  }
+
+  // 3열 카드 그리드
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-6;
+
+    @media (max-width: 767px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 479px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+// ============================================
+// 쿠폰 페이지 (mypage-coupon)
+// - 쿠폰 등록 / 보유·사용완료 탭 / 티켓 카드 그리드 / 페이지네이션
+// ============================================

@@ -1,0 +1,40 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.video-player-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: $color-dark-surface;
+
+  &__main {
+    flex: 1;
+    display: flex;
+    min-height: 0;
+  }
+
+  &__sidebar {
+    width: 320px;
+    flex-shrink: 0;
+    border-left: $border-thin solid $color-dark-border;
+    overflow-y: auto;
+    display: none;
+
+    @include breakpoint(lg) {
+      display: block;
+    }
+  }
+
+  &__tabs {
+    flex-shrink: 0;
+    border-top: $border-thin solid $color-dark-border;
+  }
+}
+
+// ============================================
+// 강의별 상담 페이지 (course-consultation-page / course-consultation)
+// ============================================

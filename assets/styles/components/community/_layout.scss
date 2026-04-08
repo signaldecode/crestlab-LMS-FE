@@ -1,0 +1,84 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+// ============================================
+// 커뮤니티 페이지 스타일 (_community-page.scss)
+// - 3칸 레이아웃: 사이드바 / 피드 / 랭킹 사이드
+// ============================================
+
+
+// ── 스켈레톤 애니메이션 ──
+@keyframes community-skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+// ============================================
+// 전체 레이아웃
+// ============================================
+.community-page {
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 $container-padding;
+}
+
+.community-shell {
+  position: relative;
+
+  &__write-fab {
+    position: fixed;
+    right: $spacing-8;
+    bottom: $spacing-8;
+    z-index: $z-index-sticky;
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-1;
+    padding: $spacing-3 $spacing-6;
+    background: $color-primary;
+    color: $color-text-inverse;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    border: none;
+    border-radius: $radius-3xl;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: $shadow-md;
+    transition: opacity $duration-normal, transform $duration-normal;
+
+    &:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.community-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr 280px;
+  gap: $spacing-8;
+  padding: $spacing-8 0;
+
+  @media (max-width: 1023px) {
+    grid-template-columns: 200px 1fr;
+
+    .community-aside {
+      display: none;
+    }
+  }
+
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr;
+
+    .community-sidebar:not(.community-sidebar--in-drawer) {
+      display: none;
+    }
+  }
+}
+
+// ============================================
+// 모바일 사이드바 드로어
+// ============================================

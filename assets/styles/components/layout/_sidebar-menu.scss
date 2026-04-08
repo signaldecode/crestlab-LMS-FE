@@ -1,0 +1,148 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.sidebar-menu {
+  position: fixed;
+  top: $spacing-0;
+  right: $spacing-0;
+  bottom: $spacing-0;
+  width: 18rem;
+  z-index: $z-index-sticky + 10;
+  background-color: $color-bg-primary;
+  transform: translateX(100%);
+  transition: transform $duration-slow $ease-default;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: $spacing-6 $spacing-4;
+
+  &--open {
+    transform: translateX(0);
+  }
+
+  &__overlay {
+    position: fixed;
+    inset: $spacing-0;
+    z-index: $z-index-sticky + 9;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  // 검색
+  &__search {
+    position: relative;
+    margin-bottom: $spacing-6;
+  }
+
+  &__search-icon {
+    position: absolute;
+    left: $spacing-3;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $color-text-secondary;
+    pointer-events: none;
+  }
+
+  &__search-input {
+    width: 100%;
+    padding: $spacing-3 $spacing-3;
+    padding-left: $spacing-8;
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+    background-color: $color-bg-secondary;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
+    outline: none;
+
+    &::placeholder {
+      color: $color-text-secondary;
+    }
+
+    &:focus {
+      border-color: $color-border-focus;
+    }
+  }
+
+  // 섹션
+  &__section {
+    margin-bottom: $spacing-4;
+    padding-bottom: $spacing-4;
+    border-bottom: $border-thin solid $color-border;
+  }
+
+  &__list {
+    list-style: none;
+    margin: $spacing-0;
+    padding: $spacing-0;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+  }
+
+  &__item {
+    display: flex;
+  }
+
+  &__link {
+    display: block;
+    width: 100%;
+    padding: $spacing-3 $spacing-2;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    text-decoration: none;
+    border-radius: $radius-xs;
+    transition: background-color $duration-fast $ease-default;
+
+    &:hover {
+      background-color: $color-bg-secondary;
+    }
+
+    &--section {
+      font-size: $font-size-base;
+      font-weight: $font-weight-bold;
+    }
+  }
+
+  // 인증
+  &__auth {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+    padding-top: $spacing-4;
+  }
+
+  &__auth-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-3 $spacing-4;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    text-decoration: none;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
+    text-align: center;
+    transition: background-color $duration-fast $ease-default;
+
+    &:hover {
+      background-color: $color-bg-secondary;
+    }
+
+    &--primary {
+      background-color: $color-primary;
+      color: $color-text-inverse;
+      border-color: $color-primary;
+
+      &:hover {
+        opacity: 0.9;
+        background-color: $color-primary;
+      }
+    }
+  }
+}

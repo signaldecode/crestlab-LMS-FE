@@ -1,0 +1,35 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+// ============================================
+// 강의 상세 페이지 스타일 (_course-detail.scss)
+// - 2칸 레이아웃: 왼쪽 콘텐츠 / 오른쪽 구매 사이드바
+// ============================================
+
+
+// ── 페이지 래퍼 ──
+.course-detail-page {
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 $container-padding;
+}
+
+// ── 2칸 레이아웃 ──
+.course-detail-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: $spacing-10;
+  padding: $spacing-8 0;
+
+  @media (max-width: 1023px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ============================================
+// 왼쪽 콘텐츠
+// ============================================

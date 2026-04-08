@@ -1,0 +1,32 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+// ============================================
+// 본문 바로가기 스타일 (_skip-to-content.scss)
+// - 키보드 포커스 시에만 보이는 접근성 링크
+// - 토큰 변수를 참조하며, HEX/px 직접 사용을 금지한다
+// ============================================
+
+
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: $spacing-4;
+  z-index: $z-index-skip-to-content;
+  padding: $spacing-3 $spacing-6;
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  color: $color-text-inverse;
+  background-color: $color-primary;
+  border-radius: $spacing-2;
+  text-decoration: none;
+  transition: top $duration-normal $ease-default;
+
+  &:focus {
+    top: $spacing-4;
+  }
+}

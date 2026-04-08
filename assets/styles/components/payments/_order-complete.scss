@@ -1,0 +1,142 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+// ============================================
+// 결제 완료 페이지 스타일 (_order-complete.scss)
+// - 결제 성공 후 주문 정보 + CTA 표시
+// ============================================
+
+
+.order-complete {
+  display: flex;
+  justify-content: center;
+  padding: $spacing-10 $spacing-4;
+  min-height: 60vh;
+
+  &__card {
+    max-width: 520px;
+    width: 100%;
+    text-align: center;
+  }
+
+  &__icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: $radius-circle;
+    background: $color-success-bg;
+    color: $color-success;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-6;
+  }
+
+  &__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin-bottom: $spacing-3;
+  }
+
+  &__subtitle {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    line-height: $line-height-base;
+    margin-bottom: $spacing-8;
+  }
+
+  &__detail {
+    text-align: left;
+    padding: $spacing-5;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-lg;
+    background: $color-bg-secondary;
+    margin-bottom: $spacing-8;
+  }
+
+  &__detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $spacing-3 0;
+    font-size: $font-size-sm;
+
+    & + & {
+      border-top: $border-thin solid $color-border;
+    }
+  }
+
+  &__detail-label {
+    color: $color-text-secondary;
+  }
+
+  &__detail-value {
+    color: $color-text-primary;
+    font-weight: $font-weight-medium;
+  }
+
+  &__receipt-link {
+    color: $color-primary;
+    font-size: $font-size-sm;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+  }
+
+  &__btn {
+    display: block;
+    width: 100%;
+    padding: $spacing-4;
+    border-radius: $radius-md;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+
+    &--primary {
+      background: $color-primary;
+      color: $color-text-inverse;
+      border: none;
+
+      &:hover {
+        background: $color-primary-dark;
+      }
+    }
+
+    &--secondary {
+      background: $color-bg-primary;
+      color: $color-text-primary;
+      border: $border-thin solid $color-border;
+
+      &:hover {
+        background: $color-bg-secondary;
+      }
+    }
+
+    &--text {
+      background: none;
+      border: none;
+      color: $color-text-secondary;
+      font-size: $font-size-sm;
+
+      &:hover {
+        color: $color-text-primary;
+      }
+    }
+  }
+}

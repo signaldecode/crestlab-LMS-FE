@@ -1,0 +1,254 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.course-detail-sidebar {
+  @media (max-width: 1023px) {
+    order: -1;
+  }
+
+  &__sticky {
+    position: sticky;
+    top: $spacing-8;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+    padding: $spacing-6;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-lg;
+    background: $color-bg-primary;
+  }
+
+  // 강의명
+  &__title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    line-height: $line-height-tight;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  // 평점
+  &__rating {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+  }
+
+  &__stars {
+    color: $color-warning;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__review-count {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  // 가격
+  &__price-section {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+  }
+
+  &__original-price {
+    text-decoration: line-through;
+    color: $color-text-secondary;
+    font-size: $font-size-sm;
+  }
+
+  &__discount-price {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+  }
+
+  &__discount-rate {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-error;
+  }
+
+  &__final-price {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+  }
+
+  &__first-buy {
+    font-size: $font-size-xs;
+    color: $color-primary;
+    border: $border-thin solid $color-primary;
+    border-radius: $radius-xs;
+    padding: $spacing-1 $spacing-2;
+  }
+
+  // 쿠폰
+  &__coupon-btn {
+    width: 100%;
+    padding: $spacing-2 $spacing-4;
+    border: $border-thin solid $color-primary;
+    border-radius: $radius-sm;
+    background: $color-bg-primary;
+    color: $color-primary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    text-align: center;
+    transition: background $duration-normal, color $duration-normal, border-color $duration-normal;
+
+    &:hover:not(:disabled) {
+      background: rgba($color-primary, 0.05);
+    }
+
+    &--claimed {
+      border-color: $color-success;
+      color: $color-success;
+      cursor: default;
+      background: rgba($color-success, 0.05);
+    }
+  }
+
+  // 수강 옵션
+  &__options {
+    border-top: $border-thin solid $color-border;
+    padding-top: $spacing-4;
+  }
+
+  &__options-title {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    margin-bottom: $spacing-3;
+  }
+
+  &__option-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $spacing-3;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
+    background: $color-bg-secondary;
+
+    &--selected {
+      border-color: $color-text-secondary;
+    }
+  }
+
+  &__option-info {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+    min-width: 0;
+    flex: 1;
+  }
+
+  &__option-name {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__option-duration {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__option-price {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    flex-shrink: 0;
+    margin-left: $spacing-3;
+  }
+
+  // 총 상품 금액
+  &__total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: $border-thin solid $color-border;
+    padding-top: $spacing-4;
+  }
+
+  &__total-label {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+  }
+
+  &__total-price {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-primary;
+  }
+
+  // CTA 버튼
+  &__actions {
+    display: flex;
+    gap: $spacing-3;
+  }
+
+  &__wish-btn {
+    flex-shrink: 0;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
+    background: $color-bg-primary;
+    font-size: $font-size-xl;
+    cursor: pointer;
+    color: $color-text-secondary;
+    transition: border-color $duration-normal, color $duration-normal;
+
+    &:hover {
+      border-color: $color-error;
+      color: $color-error;
+    }
+
+    &--active {
+      border-color: $color-error;
+      color: $color-error;
+    }
+  }
+
+  &__buy-btn {
+    flex: 1;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: $radius-md;
+    background: $color-primary;
+    color: $color-text-inverse;
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover {
+      background: $color-primary-dark;
+    }
+  }
+}
+
+// ============================================
+// 커리큘럼 탭 콘텐츠
+// ============================================

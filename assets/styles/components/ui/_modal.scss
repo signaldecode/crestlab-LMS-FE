@@ -1,0 +1,61 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+// ============================================
+// 모달 스타일 (_modal.scss)
+// - 공용 모달(.modal-*) + 인증 모달(.auth-modal__*)
+// - 토큰 변수를 참조하며, HEX/px 직접 사용을 금지한다
+// ============================================
+
+
+// ── 공용 모달 ──
+.modal-overlay {
+  position: fixed;
+  inset: $spacing-0;
+  z-index: $z-index-modal-backdrop;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $overlay-black-modal;
+}
+
+.modal-content {
+  position: relative;
+  z-index: $z-index-modal;
+  width: 100%;
+  max-width: 28rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  background-color: $color-bg-primary;
+  border-radius: $radius-lg;
+  box-shadow: 0 $spacing-6 $spacing-16 rgba(0, 0, 0, 0.15);
+  padding: $spacing-8;
+}
+
+.modal-close {
+  position: absolute;
+  top: $spacing-4;
+  right: $spacing-4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $spacing-8;
+  height: $spacing-8;
+  font-size: $font-size-xl;
+  color: $color-text-secondary;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: $radius-xs;
+  transition: color $duration-normal $ease-default;
+
+  &:hover {
+    color: $color-text-primary;
+  }
+}
+
+// ── 확인 모달 (ConfirmModal) ──

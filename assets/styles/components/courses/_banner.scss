@@ -1,0 +1,22 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.course-banner {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(-1 * (100vw - 100%) / 2);
+  height: 10rem;
+  overflow: hidden;
+  margin-top: $spacing-6;
+  margin-bottom: $spacing-2;
+
+  &__image {
+    object-fit: cover;
+  }
+}
+
+// 사이드바

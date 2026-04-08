@@ -1,0 +1,120 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.home-promo {
+  margin-bottom: $spacing-16;
+  padding-top: $spacing-10;
+
+  // ── 캐러셀 ──
+  &__carousel {
+    overflow: hidden;
+  }
+
+  &__track {
+    display: flex;
+    transition: transform $duration-slower $ease-default;
+  }
+
+  &__slide {
+    flex: 0 0 50%;
+    min-width: 0;
+    padding: 0 $spacing-2;
+    box-sizing: border-box;
+
+    @media (max-width: 639px) {
+      flex: 0 0 100%;
+    }
+  }
+
+  &__link {
+    display: block;
+    text-decoration: none;
+    border-radius: $radius-xl;
+    overflow: hidden;
+
+    &:focus-visible {
+      outline: 2px solid $color-primary;
+      outline-offset: 2px;
+    }
+  }
+
+  &__image-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 59 / 20;
+    border-radius: $radius-xl;
+    overflow: hidden;
+  }
+
+  &__image {
+    object-fit: cover;
+  }
+
+  // ── 하단 네비게이션 (도트 + 화살표) ──
+  &__nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-3;
+    margin-top: $spacing-6;
+  }
+
+  &__dots {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+  }
+
+  &__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: $radius-circle;
+    border: none;
+    background: $color-border;
+    cursor: pointer;
+    padding: 0;
+    transition: background $duration-normal $ease-default, transform $duration-normal $ease-default;
+
+    &:hover {
+      background: $color-text-secondary;
+    }
+
+    &--active {
+      background: $color-text-primary;
+      transform: scale(1.25);
+    }
+  }
+
+  &__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-circle;
+    background: $color-bg-primary;
+    color: $color-text-primary;
+    font-size: $font-size-lg;
+    cursor: pointer;
+    transition: border-color $duration-normal $ease-default, color $duration-normal $ease-default;
+
+    &:hover:not(:disabled) {
+      border-color: $color-primary;
+      color: $color-primary;
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+  }
+}
+
+// ============================================
+// 9) 실시간 카운터 바
+// ============================================

@@ -1,0 +1,249 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.video-controls {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  opacity: 0;
+  transition: opacity $duration-slow $ease-default;
+  cursor: default;
+  z-index: 10;
+
+  // 호버 시 보이기
+  &--visible {
+    opacity: 1;
+  }
+
+  // 그라데이션 배경 (하단)
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(transparent, $overlay-black-intense);
+    pointer-events: none;
+  }
+
+  // ── 중앙 재생 버튼 ──
+  &__center-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 4.5rem;
+    height: 4.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: $radius-circle;
+    background: rgba(0, 0, 0, 0.55);
+    color: $color-text-inverse;
+    cursor: pointer;
+    transition: background $duration-normal, transform $duration-fast;
+    z-index: 1;
+
+    &:hover {
+      background: $overlay-black-heavy;
+      transform: translate(-50%, -50%) scale(1.08);
+    }
+  }
+
+  // ── 하단 컨트롤 바 ──
+  &__bar {
+    position: relative;
+    z-index: 1;
+    padding: 0 $spacing-4 $spacing-2;
+  }
+
+  // ── 프로그레스 바 ──
+  &__progress {
+    position: relative;
+    height: 1.25rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: $spacing-1;
+  }
+
+  &__progress-bg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 2px;
+    transition: height $duration-fast;
+  }
+
+  &__progress-fill {
+    position: absolute;
+    left: 0;
+    height: 3px;
+    background: $color-primary;
+    border-radius: 2px;
+    transition: height $duration-fast;
+  }
+
+  &__progress-handle {
+    position: absolute;
+    top: 50%;
+    width: 0.875rem;
+    height: 0.875rem;
+    background: $color-primary;
+    border-radius: $radius-circle;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform $duration-fast;
+  }
+
+  &__progress:hover &__progress-bg,
+  &__progress:hover &__progress-fill {
+    height: 5px;
+  }
+
+  &__progress:hover &__progress-handle {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  // ── 컨트롤 버튼 영역 ──
+  &__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+  }
+
+  // ── 공통 버튼 ──
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: none;
+    border-radius: $radius-xs;
+    background: transparent;
+    color: $color-text-inverse;
+    cursor: pointer;
+    transition: background $duration-fast;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    &--text {
+      width: auto;
+      padding: 0 $spacing-2;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-medium;
+      font-family: $font-family-base;
+    }
+  }
+
+  // ── 시간 표시 ──
+  &__time {
+    font-size: $font-size-sm;
+    color: rgba(255, 255, 255, 0.85);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  // ── 볼륨 슬라이더 ──
+  &__volume-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  &__volume-slider {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2rem;
+    height: 7rem;
+    padding: $spacing-2 0;
+    background: $color-dark-surface-raised;
+    border-radius: $radius-sm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__volume-input {
+    writing-mode: vertical-lr;
+    direction: rtl;
+    appearance: slider-vertical;
+    width: 4px;
+    height: 100%;
+    accent-color: $color-primary;
+    cursor: pointer;
+  }
+
+  // ── 재생 속도 메뉴 ──
+  &__speed-wrap {
+    position: relative;
+  }
+
+  &__speed-menu {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    list-style: none;
+    margin: 0 0 $spacing-1;
+    padding: $spacing-2 0;
+    background: $color-dark-surface-raised;
+    border-radius: $radius-sm;
+    min-width: 5rem;
+  }
+
+  &__speed-option {
+    display: block;
+    width: 100%;
+    padding: $spacing-2 $spacing-4;
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: $font-size-sm;
+    font-family: $font-family-base;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: $color-text-inverse;
+    }
+
+    &--active {
+      color: $color-primary-light;
+      font-weight: $font-weight-semibold;
+    }
+  }
+
+}
+
+// ============================================
+// 하단 강의 네비게이션 푸터 (LectureNavFooter)
+// ============================================

@@ -76,29 +76,29 @@ export default function HomeHeroContainer(): JSX.Element {
             </div>
           );
         })}
+      </div>
 
-        {/* 하단 우측 컨트롤바 */}
-        <div className="home-hero__controls">
-          <button
-            type="button"
-            className="home-hero__ctrl-btn"
-            aria-label={paused ? '재생' : '일시정지'}
-            onClick={() => setPaused((p) => !p)}
-          >
-            {paused ? '▶' : '❚❚'}
-          </button>
-          <span className="home-hero__counter">
-            <span className="home-hero__counter-current">{current + 1}</span>
-            {' / '}
-            <span className="home-hero__counter-total">{total}</span>
-          </span>
-          <button type="button" className="home-hero__ctrl-btn" aria-label="이전 배너" onClick={prev}>
-            ‹
-          </button>
-          <button type="button" className="home-hero__ctrl-btn" aria-label="다음 배너" onClick={next}>
-            ›
-          </button>
-        </div>
+      {/* 배너 하단 중앙 컨트롤바 */}
+      <div className="home-hero__controls">
+        <button type="button" className="home-hero__ctrl-btn" aria-label="이전 배너" onClick={prev}>
+          ‹
+        </button>
+        <span className="home-hero__counter">
+          <span className="home-hero__counter-current">{current + 1}</span>
+          {' / '}
+          <span className="home-hero__counter-total">{total}</span>
+        </span>
+        <button type="button" className="home-hero__ctrl-btn" aria-label="다음 배너" onClick={next}>
+          ›
+        </button>
+        <button
+          type="button"
+          className="home-hero__ctrl-btn"
+          aria-label={paused ? '재생' : '일시정지'}
+          onClick={() => setPaused((p) => !p)}
+        >
+          {paused ? '▶' : '❚❚'}
+        </button>
       </div>
     </section>
   );

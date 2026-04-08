@@ -1,0 +1,199 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.course-popover {
+  // Portal로 body에 마운트, position: fixed는 인라인으로 적용
+  width: 18rem;
+  padding: $spacing-5;
+  background: $color-bg-primary;
+  border: $border-thin solid $color-border;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-lg;
+  pointer-events: auto;
+
+  &--right {
+    animation: popover-in-right $duration-normal $ease-default;
+  }
+
+  &--left {
+    animation: popover-in-left $duration-normal $ease-default;
+  }
+
+  // 모바일에서 숨김
+  @media (max-width: 639px) {
+    display: none;
+  }
+
+  &__title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0 0 $spacing-2;
+    line-height: $line-height-tight;
+  }
+
+  &__desc {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    line-height: $line-height-relaxed;
+    margin: 0 0 $spacing-3;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    margin-bottom: $spacing-2;
+    flex-wrap: wrap;
+  }
+
+  &__level {
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+  }
+
+  &__dot {
+    width: 0.25rem;
+    height: 0.25rem;
+    border-radius: $radius-circle;
+    background: $color-text-secondary;
+    flex-shrink: 0;
+  }
+
+  &__tags {
+    color: $color-primary;
+    font-weight: $font-weight-medium;
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    margin-bottom: $spacing-4;
+    padding-bottom: $spacing-3;
+    border-bottom: $border-thin solid $color-border;
+  }
+
+  // ── 이런 걸 배울 수 있어요 ──
+  &__learn {
+    margin-bottom: $spacing-4;
+  }
+
+  &__learn-title {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0 0 $spacing-2;
+  }
+
+  &__learn-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+  }
+
+  &__learn-item {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing-2;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    line-height: $line-height-relaxed;
+  }
+
+  &__check {
+    width: 0.875rem;
+    height: 0.875rem;
+    color: $color-success;
+    flex-shrink: 0;
+    margin-top: $spacing-1;
+  }
+
+  // ── 하단 액션 ──
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    padding-top: $spacing-3;
+    border-top: $border-thin solid $color-border;
+  }
+
+  &__wish {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
+    background: $color-bg-primary;
+    font-size: $font-size-lg;
+    color: $color-text-secondary;
+    cursor: pointer;
+    transition: border-color $duration-normal $ease-default, color $duration-normal $ease-default;
+
+    &:hover {
+      border-color: $color-error;
+      color: $color-error;
+    }
+
+    &--active {
+      color: $color-error;
+      border-color: $color-error;
+    }
+  }
+
+  &__cart-btn {
+    flex: 1;
+    padding: $spacing-3 0;
+    background: $color-primary;
+    color: $color-text-inverse;
+    border: none;
+    border-radius: $radius-md;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    cursor: pointer;
+    transition: background $duration-normal $ease-default;
+
+    &:hover {
+      background: $color-primary-dark;
+    }
+  }
+}
+
+@keyframes popover-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(-$spacing-2);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes popover-in-left {
+  from {
+    opacity: 0;
+    transform: translateX($spacing-2);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

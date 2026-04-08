@@ -1,0 +1,82 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+// ============================================
+// 고객센터 스타일 (_support-page.scss)
+// - FAQ 페이지 + 1:1 문의 페이지
+// ============================================
+
+
+// ── FAQ 페이지 래퍼 ──
+.support-page {
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 $container-padding;
+}
+
+.faq-page {
+  padding-top: $spacing-10;
+  padding-bottom: $spacing-16;
+
+  &__header {
+    margin-bottom: $spacing-8;
+  }
+
+  &__title {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0;
+    line-height: $line-height-tight;
+  }
+
+  // ── 칩 필터 ──
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-2;
+    margin-bottom: $spacing-8;
+  }
+
+  &__chip {
+    padding: $spacing-2 $spacing-5;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-2xl;
+    background: $color-bg-primary;
+    color: $color-text-secondary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    font-family: $font-family-base;
+    cursor: pointer;
+    transition: background $duration-normal, color $duration-normal, border-color $duration-normal;
+    white-space: nowrap;
+
+    &:hover {
+      border-color: $color-primary;
+      color: $color-primary;
+    }
+
+    &:focus-visible {
+      outline: $border-medium solid $color-border-focus;
+      outline-offset: $border-medium;
+    }
+
+    &--active {
+      background: $color-text-primary;
+      border-color: $color-text-primary;
+      color: $color-text-inverse;
+
+      &:hover {
+        background: $color-text-primary;
+        border-color: $color-text-primary;
+        color: $color-text-inverse;
+      }
+    }
+  }
+}
+
+// ── 1:1 문의 페이지 ──

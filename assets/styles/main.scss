@@ -20,36 +20,19 @@
 @use 'base/typography';
 
 // 4) Component Styles
-@use 'components/skip-to-content';
-@use 'components/top-banner';
-@use 'components/app-header';
-@use 'components/global-nav';
-@use 'components/app-footer';
-@use 'components/courses-page';
-@use 'components/accordion';
-@use 'components/admin-layout';
-@use 'components/video-upload';
-@use 'components/upload-progress';
-@use 'components/modal';
-@use 'components/home-page';
-@use 'components/community-page';
-@use 'components/course-detail';
-@use 'components/curriculum-page';
-@use 'components/profile-card';
+@use 'components/common';
+@use 'components/layout';
+@use 'components/ui';
+@use 'components/home';
+@use 'components/courses';
+@use 'components/curriculum';
+@use 'components/community';
+@use 'components/lecture';
 @use 'components/mypage';
-@use 'components/upcoming-page';
-@use 'components/best-page';
-@use 'components/lecture-player';
-@use 'components/vidstack-player';
-@use 'components/checkout-page';
-@use 'components/checkout-result';
-@use 'components/order-complete';
-@use 'components/not-found';
-@use 'components/global-error';
-@use 'components/form-fields';
-@use 'components/support-page';
-@use 'components/signup-page';
-@use 'components/notification-drawer';
+@use 'components/auth';
+@use 'components/payments';
+@use 'components/support';
+@use 'components/admin';
 
 // 5) Themes
 @use 'themes/default';

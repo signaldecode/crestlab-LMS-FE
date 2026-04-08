@@ -1,0 +1,93 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.course-sidebar {
+  width: $spacing-20 * 3;
+  flex-shrink: 0;
+
+  &__nav {
+    position: sticky;
+    top: $spacing-20;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+    list-style: none;
+    margin: $spacing-0;
+    padding: $spacing-0;
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    border-bottom: $border-thin solid $color-border;
+  }
+
+  &__group-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: $spacing-3;
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color $duration-normal $ease-default;
+
+    &:hover {
+      color: $color-primary;
+    }
+
+    &--active {
+      color: $color-primary;
+    }
+  }
+
+  &__chevron {
+    font-size: $font-size-lg;
+    line-height: 1;
+    transition: transform $duration-normal $ease-default;
+    transform: rotate(90deg);
+
+    &--open {
+      transform: rotate(-90deg);
+    }
+  }
+
+  &__sub-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    margin: $spacing-0;
+    padding: $spacing-0 $spacing-0 $spacing-3 $spacing-3;
+  }
+
+  &__sub-link {
+    display: block;
+    padding: $spacing-2 $spacing-3;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    text-decoration: none;
+    transition: color $duration-normal $ease-default;
+
+    &:hover {
+      color: $color-primary;
+    }
+
+    &--active {
+      font-weight: $font-weight-bold;
+      color: $color-primary;
+    }
+  }
+}
+
+// 정렬

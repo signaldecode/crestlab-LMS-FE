@@ -1,0 +1,171 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+// ============================================
+// 앱 푸터 스타일 (_app-footer.scss)
+// - 다크 배경 3단 구조: 로고+문의 / 네비링크 / 카피라이트+소셜
+// - 토큰 변수를 참조하며, HEX/px 직접 사용을 금지한다
+// ============================================
+
+
+.app-footer {
+  background-color: $color-footer-bg;
+  padding: $section-padding-y $spacing-0;
+
+  &__inner {
+    max-width: $container-max-width;
+    margin: $spacing-0 auto;
+    padding: $spacing-0 $container-padding;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-10;
+  }
+
+  // ── 상단: 로고 + 문의하기 ──
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing-4;
+  }
+
+  &__logo {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-footer-text-bright;
+    letter-spacing: $letter-spacing-wide;
+    text-transform: uppercase;
+    font-family: $font-family-heading;
+  }
+
+  &__inquiry-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-2 $spacing-6;
+    border: $border-thin solid $color-footer-text;
+    border-radius: $radius-xs;
+    color: $color-footer-text-bright;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    text-decoration: none;
+    transition: background-color $duration-normal $ease-default, border-color $duration-normal $ease-default;
+
+    &:hover {
+      background-color: $color-footer-border;
+      border-color: $color-footer-text-bright;
+    }
+  }
+
+  // ── 중단: 네비게이션 ──
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-5;
+  }
+
+  &__main-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-8;
+    list-style: none;
+    margin: $spacing-0;
+    padding: $spacing-0;
+  }
+
+  &__main-link {
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $color-footer-text-bright;
+    text-decoration: none;
+    transition: color $duration-normal $ease-default;
+
+    &:hover {
+      color: $color-footer-accent;
+    }
+
+    &--accent {
+      color: $color-footer-accent;
+    }
+  }
+
+  &__sub-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-2 $spacing-5;
+    list-style: none;
+    margin: $spacing-0;
+    padding: $spacing-0;
+  }
+
+  &__sub-link {
+    font-size: $font-size-xs;
+    color: $color-footer-text-muted;
+    text-decoration: none;
+    transition: color $duration-normal $ease-default;
+
+    &:hover {
+      color: $color-footer-text;
+    }
+  }
+
+  // ── 하단: 카피라이트 + 소셜 ──
+  &__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: $spacing-4;
+    padding-top: $spacing-8;
+    border-top: $border-thin solid $color-footer-border;
+  }
+
+  &__copyright {
+    font-size: $font-size-xs;
+    color: $color-footer-text-muted;
+    margin: $spacing-0;
+    letter-spacing: $letter-spacing-normal;
+  }
+
+  &__social-list {
+    display: flex;
+    gap: $spacing-3;
+    list-style: none;
+    margin: $spacing-0;
+    padding: $spacing-0;
+  }
+
+  &__social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: $spacing-10;
+    height: $spacing-10;
+    border: $border-thin solid $color-footer-text-muted;
+    border-radius: $radius-circle;
+    color: $color-footer-text;
+    text-decoration: none;
+    transition: color $duration-normal $ease-default, border-color $duration-normal $ease-default;
+
+    svg {
+      width: $spacing-4;
+      height: $spacing-4;
+    }
+
+    &:hover {
+      color: $color-footer-text-bright;
+      border-color: $color-footer-text-bright;
+    }
+  }
+
+  // ── 반응형 ──
+  @include breakpoint(md) {
+    &__main-links {
+      gap: $spacing-10;
+    }
+  }
+}

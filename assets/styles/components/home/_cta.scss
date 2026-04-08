@@ -1,0 +1,93 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.home-cta {
+  position: relative;
+  padding: $spacing-16 0;
+  margin-bottom: 0;
+  text-align: center;
+  overflow: hidden;
+
+  // 풀 블리드 배경
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 100%;
+    background: linear-gradient(135deg, $color-primary 0%, $color-primary-dark 100%);
+    z-index: -1;
+  }
+
+  &__deco {
+    position: absolute;
+    width: 12.5rem;
+    height: 12.5rem;
+    color: $color-text-inverse;
+    pointer-events: none;
+
+    &--left {
+      top: 0;
+      left: 5%;
+    }
+
+    &--right {
+      bottom: 0;
+      right: 5%;
+    }
+
+    @media (max-width: 767px) {
+      display: none;
+    }
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__title {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-inverse;
+    margin: 0 0 $spacing-3;
+    line-height: $line-height-tight;
+
+    @media (max-width: 639px) {
+      font-size: $font-size-xl;
+    }
+  }
+
+  &__desc {
+    font-size: $font-size-base;
+    color: $overlay-white-heavy;
+    margin: 0 0 $spacing-8;
+  }
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-2;
+    padding: $spacing-3 $spacing-8;
+    background: $color-text-inverse;
+    color: $color-primary;
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    border-radius: $radius-full;
+    text-decoration: none;
+    transition: transform $duration-normal $ease-default, box-shadow $duration-normal $ease-default;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: $shadow-lg;
+    }
+  }
+}
+
+// ── 강의 카드 스켈레톤 ──

@@ -1,0 +1,80 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+// ============================================
+// 관리자 레이아웃 스타일 (_admin-layout.scss)
+// - 관리자 영역 사이드바 + 콘텐츠 레이아웃
+// - 토큰 변수를 참조하며, HEX/px 직접 사용을 금지한다
+// ============================================
+
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+
+  &__sidebar {
+    width: $spacing-20 * 3;
+    flex-shrink: 0;
+    background-color: $color-bg-secondary;
+    border-right: $border-thin solid $color-border;
+    padding: $spacing-6;
+  }
+
+  &__sidebar-title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin-bottom: $spacing-6;
+  }
+
+  &__nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+    list-style: none;
+    padding: $spacing-0;
+    margin: $spacing-0;
+  }
+
+  &__nav-link {
+    display: block;
+    padding: $spacing-3 $spacing-4;
+    font-size: $font-size-base;
+    color: $color-text-secondary;
+    text-decoration: none;
+    border-radius: $spacing-2;
+    transition: background-color $duration-normal $ease-default, color $duration-normal $ease-default;
+
+    &:hover {
+      background-color: $color-bg-tertiary;
+      color: $color-text-primary;
+    }
+  }
+
+  &__content {
+    flex: 1;
+    padding: $spacing-8;
+  }
+}
+
+.admin-course-edit {
+  max-width: $container-max-width;
+
+  &__title {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin-bottom: $spacing-8;
+  }
+
+  &__section-title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    margin-bottom: $spacing-4;
+  }
+}

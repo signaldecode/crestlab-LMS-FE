@@ -1,0 +1,101 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+// ============================================
+// 오픈예정 강의 페이지 스타일 (_upcoming-page.scss)
+// - 인기 오픈예정 피쳐드 + 오픈예정 카드 그리드
+// - 스켈레톤 로딩 UI 포함
+// ============================================
+
+
+// ── 스켈레톤 애니메이션 ──
+@keyframes upcoming-skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+// ── 페이지 래퍼 ──
+.upcoming-page-wrapper {
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 $container-padding;
+}
+
+.upcoming-page {
+  padding-top: $spacing-8;
+  padding-bottom: $spacing-16;
+
+  // ── 섹션 공통 ──
+  &__section-title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: $spacing-0 $spacing-0 $spacing-6;
+  }
+
+  // ── 인기 오픈 예정 강의 (피쳐드) ──
+  &__featured {
+    margin-bottom: $spacing-12;
+  }
+
+  // ── 오픈 예정 리스트 ──
+  &__list {
+    margin-bottom: $spacing-12;
+  }
+
+  &__list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-6;
+  }
+
+  &__list-header &__section-title {
+    margin-bottom: $spacing-0;
+  }
+
+  &__sort-select {
+    padding: $spacing-2 $spacing-4;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+    background: $color-bg-primary;
+    cursor: pointer;
+
+    &:focus {
+      outline: $border-medium solid $color-border-focus;
+      outline-offset: $border-medium;
+    }
+  }
+
+  // ── 3열 그리드 ──
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-6;
+
+    @media (max-width: 1023px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 639px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  // ── 스켈레톤 미리보기 섹션 ──
+  &__skeleton-preview {
+    margin-top: $spacing-12;
+    padding-top: $spacing-8;
+    border-top: $border-thin solid $color-border;
+  }
+}
+
+// ============================================
+// 오픈예정 강의 카드
+// ============================================

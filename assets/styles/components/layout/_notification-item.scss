@@ -1,0 +1,95 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.notification-item {
+  display: flex;
+  gap: $spacing-3;
+  width: 100%;
+  padding: $spacing-4 $spacing-6;
+  border: none;
+  background: $color-bg-primary;
+  cursor: pointer;
+  text-align: left;
+  transition: background $duration-fast $ease-default;
+
+  &:hover {
+    background: $color-bg-secondary;
+  }
+
+  &:focus-visible {
+    outline: $border-medium solid $color-border-focus;
+    outline-offset: -2px;
+  }
+
+  &--unread {
+    background: $color-bg-secondary;
+  }
+
+  // 아바타
+  &__avatar {
+    position: relative;
+    flex-shrink: 0;
+    width: $spacing-10;
+    height: $spacing-10;
+  }
+
+  &__avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: $radius-circle;
+    object-fit: cover;
+  }
+
+  &__avatar-default {
+    width: 100%;
+    height: 100%;
+    border-radius: $radius-circle;
+  }
+
+  &__badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: $spacing-3;
+    height: $spacing-3;
+    background: $color-error;
+    border-radius: $radius-circle;
+    border: $border-medium solid $color-bg-primary;
+  }
+
+  // 본문
+  &__body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__time {
+    display: block;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    margin-bottom: $spacing-1;
+  }
+
+  &__title {
+    display: block;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    margin-bottom: $spacing-1;
+    line-height: $line-height-tight;
+  }
+
+  &__message {
+    margin: 0;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    line-height: $line-height-base;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

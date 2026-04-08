@@ -504,9 +504,9 @@
   },
   "learn": {
     "seo": {
-      "title": "내 강의실 — 강의 플랫폼"
+      "title": "My Page — 강의 플랫폼"
     },
-    "title": "내 강의실",
+    "title": "마이페이지",
     "continueLabel": "이어보기",
     "progressLabel": "진행률",
     "completedLabel": "수강 완료",

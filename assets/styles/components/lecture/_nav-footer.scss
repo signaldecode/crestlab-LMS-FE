@@ -1,0 +1,111 @@
+@use 'sass:color';
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.lecture-nav-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 3.5rem;
+  padding: 0 $spacing-4;
+  background: $color-dark-surface;
+  border-top: $border-thin solid $color-dark-border;
+  flex-shrink: 0;
+
+  // 모바일: 하단 사이드바 탭 바(3rem)만큼 올려서 겹침 방지
+  margin-bottom: 3rem;
+
+  @include breakpoint(lg) {
+    margin-bottom: 0;
+  }
+
+  &__left,
+  &__center,
+  &__right {
+    display: flex;
+    align-items: center;
+  }
+
+  &__left {
+    flex: 0 0 auto;
+  }
+
+  &__center {
+    flex: 1;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  &__right {
+    flex: 0 0 auto;
+    gap: $spacing-3;
+  }
+
+  &__next-info {
+    font-size: $font-size-sm;
+    color: rgba(255, 255, 255, 0.5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 20rem;
+  }
+
+  // ── 공통 버튼 ──
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-1;
+    padding: $spacing-2 $spacing-4;
+    border: $border-thin solid $color-dark-border-light;
+    border-radius: $radius-sm;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: $font-size-sm;
+    font-family: $font-family-base;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition: background $duration-fast, border-color $duration-fast;
+    white-space: nowrap;
+
+    &:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: $color-dark-text-muted;
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    // 봤어요 버튼
+    &--complete {
+      background: $color-primary;
+      border-color: $color-primary;
+      color: $color-text-inverse;
+
+      &:hover:not(:disabled) {
+        background: $color-primary-dark;
+        border-color: $color-primary-dark;
+      }
+    }
+
+    // 완료된 상태
+    &--completed {
+      background: $color-success;
+      border-color: $color-success;
+
+      &:hover:not(:disabled) {
+        background: color.adjust($color-success, $lightness: -8%);
+        border-color: color.adjust($color-success, $lightness: -8%);
+      }
+    }
+  }
+}
+
+// ============================================
+// 비디오 플레이어 셸 레이아웃
+// ============================================

@@ -1,0 +1,36 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+// ============================================
+// 홈페이지 스켈레톤 스타일 (_home-page.scss)
+// - 배너 캐러셀, 카테고리 아이콘, 강의 카드 그리드
+// ============================================
+
+
+// ── 스켈레톤 애니메이션 ──
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+// ── 히어로 Ken Burns 줌 (활성 슬라이드 이미지에 적용) ──
+@keyframes home-hero-kenburns {
+  from { transform: scale(1.02); }
+  to   { transform: scale(1.1); }
+}
+
+// ── 홈 페이지 래퍼 ──
+.home-page {
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 $container-padding;
+}
+
+// ============================================
+// 1) 히어로 배너 — 단일 슬라이드 시네마틱 캐러셀
+//    크로스페이드 + 부드러운 스케일 + Ken Burns 줌
+// ============================================

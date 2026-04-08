@@ -1,0 +1,175 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+// ============================================
+// 베스트 강의 페이지 스타일 (_best-page.scss)
+// - 칩 필터 + 강의 카드 그리드 + 스켈레톤 UI
+// ============================================
+
+
+// ── 스켈레톤 애니메이션 ──
+@keyframes best-skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+// ── 페이지 래퍼 ──
+.best-page-wrapper {
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 $container-padding;
+}
+
+.best-page {
+  padding-top: $spacing-8;
+  padding-bottom: $spacing-16;
+
+  // ── 헤더 (타이틀 + 안내 아이콘) ──
+  &__header {
+    margin-bottom: $spacing-6;
+  }
+
+  &__title {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-2;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: $spacing-0;
+  }
+
+  // ── 안내 아이콘 + 툴팁 ──
+  &__info-icon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    color: $color-text-secondary;
+    cursor: help;
+
+    &:hover .best-page__tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  }
+
+  &__tooltip {
+    position: absolute;
+    top: calc(100% + #{$spacing-2});
+    left: 0;
+    width: 18rem;
+    padding: $spacing-3 $spacing-4;
+    background: $color-text-primary;
+    color: $color-text-inverse;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-regular;
+    line-height: $line-height-base;
+    border-radius: $radius-md;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-$spacing-1);
+    transition: opacity $duration-normal, visibility $duration-normal, transform $duration-normal;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  // ── 칩 필터 ──
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-2;
+    margin-bottom: $spacing-8;
+
+    &--skeleton {
+      margin-bottom: $spacing-6;
+    }
+  }
+
+  &__chip {
+    padding: $spacing-2 $spacing-4;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-2xl;
+    background: $color-bg-primary;
+    color: $color-text-secondary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition: background $duration-normal $ease-default, color $duration-normal $ease-default, border-color $duration-normal $ease-default;
+    white-space: nowrap;
+
+    &:hover {
+      border-color: $color-primary;
+      color: $color-primary;
+    }
+
+    // 활성 상태
+    &--active {
+      background: $color-primary;
+      border-color: $color-primary;
+      color: $color-text-inverse;
+
+      &:hover {
+        background: $color-primary-dark;
+        border-color: $color-primary-dark;
+        color: $color-text-inverse;
+      }
+    }
+  }
+
+  // 칩 스켈레톤
+  &__chip-skeleton {
+    display: inline-block;
+    width: 5rem;
+    height: 2.25rem;
+    border-radius: $radius-2xl;
+    background: $color-bg-tertiary;
+    animation: best-skeleton-pulse 1.8s ease-in-out infinite;
+
+    &:nth-child(1) { width: 3.5rem; }
+    &:nth-child(2) { width: 5.5rem; }
+    &:nth-child(3) { width: 4.5rem; }
+    &:nth-child(4) { width: 6rem; }
+    &:nth-child(5) { width: 4rem; }
+    &:nth-child(6) { width: 5rem; }
+  }
+
+  // ── 3열 그리드 ──
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-6;
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: $spacing-6;
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: $spacing-8;
+    }
+  }
+
+  // ── 스켈레톤 미리보기 섹션 ──
+  &__skeleton-preview {
+    margin-top: $spacing-12;
+    padding-top: $spacing-8;
+    border-top: $border-thin solid $color-border;
+  }
+
+  &__section-subtitle {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: $spacing-0 $spacing-0 $spacing-6;
+  }
+}
+
+// ============================================
+// 베스트 강의 카드
+// ============================================
