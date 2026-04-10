@@ -30,8 +30,6 @@ type Direction = 'next' | 'prev';
 export default function HomeHeroContainer(): JSX.Element {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState<Direction>('next');
-  const [paused, setPaused] = useState(false);
-
   const total = BANNERS.length;
 
   const prev = useCallback(() => {
@@ -46,13 +44,12 @@ export default function HomeHeroContainer(): JSX.Element {
 
   // 자동 슬라이드
   useEffect(() => {
-    if (paused) return;
     const timer = setInterval(() => {
       setDirection('next');
       setCurrent((c) => (c + 1) % total);
     }, AUTO_PLAY_INTERVAL);
     return () => clearInterval(timer);
-  }, [paused, total]);
+  }, [total]);
 
   return (
     <section className="home-hero" data-direction={direction}>
@@ -76,29 +73,22 @@ export default function HomeHeroContainer(): JSX.Element {
             </div>
           );
         })}
-      </div>
 
-      {/* 배너 하단 중앙 컨트롤바 */}
-      <div className="home-hero__controls">
-        <button type="button" className="home-hero__ctrl-btn" aria-label="이전 배너" onClick={prev}>
-          ‹
-        </button>
-        <span className="home-hero__counter">
-          <span className="home-hero__counter-current">{current + 1}</span>
-          {' / '}
-          <span className="home-hero__counter-total">{total}</span>
-        </span>
-        <button type="button" className="home-hero__ctrl-btn" aria-label="다음 배너" onClick={next}>
-          ›
-        </button>
-        <button
-          type="button"
-          className="home-hero__ctrl-btn"
-          aria-label={paused ? '재생' : '일시정지'}
-          onClick={() => setPaused((p) => !p)}
-        >
-          {paused ? '▶' : '❚❚'}
-        </button>
+        {/* 배너 우측 하단 오버레이 컨트롤바 */}
+        <div className="home-hero__controls">
+          <span className="home-hero__counter">
+            <span className="home-hero__counter-current">{current + 1}</span>
+            {' / '}
+            <span className="home-hero__counter-total">{total}</span>
+          </span>
+          <span className="home-hero__controls-divider" />
+          <button type="button" className="home-hero__ctrl-btn" aria-label="이전 배너" onClick={prev}>
+            ‹
+          </button>
+          <button type="button" className="home-hero__ctrl-btn" aria-label="다음 배너" onClick={next}>
+            ›
+          </button>
+        </div>
       </div>
     </section>
   );
