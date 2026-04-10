@@ -6,145 +6,111 @@
     },
     "items": [
       {
-        "icon": "star",
-        "label": "첫강의추천",
+        "icon": "document",
+        "label": "테스트",
         "href": "/courses?tag=first",
-        "ariaLabel": "첫강의추천 카테고리"
+        "ariaLabel": "테스트 카테고리"
       },
       {
-        "icon": "mic",
-        "label": "인기강사특강",
+        "icon": "settings",
+        "label": "테스트",
         "href": "/courses?tag=special",
-        "ariaLabel": "인기강사특강 카테고리"
+        "ariaLabel": "테스트 카테고리"
       },
       {
-        "icon": "crown",
-        "label": "오리지널",
+        "icon": "pin",
+        "label": "테스트",
         "href": "/courses?tag=original",
-        "ariaLabel": "오리지널 카테고리"
+        "ariaLabel": "테스트 카테고리"
       },
       {
-        "icon": "pen",
-        "label": "프론트엔드",
+        "icon": "play",
+        "label": "테스트",
         "href": "/courses?category=frontend",
-        "ariaLabel": "프론트엔드 카테고리"
+        "ariaLabel": "테스트 카테고리"
       },
       {
-        "icon": "briefcase",
-        "label": "백엔드",
+        "icon": "verify",
+        "label": "테스트",
         "href": "/courses?category=backend",
-        "ariaLabel": "백엔드 카테고리"
+        "ariaLabel": "테스트 카테고리"
       },
       {
-        "icon": "ticket",
-        "label": "내쿠폰",
+        "icon": "add",
+        "label": "테스트",
         "href": "/mypage/coupons",
-        "ariaLabel": "내쿠폰 카테고리"
+        "ariaLabel": "테스트 카테고리"
       },
       {
-        "icon": "calendar",
-        "label": "이달의강의",
+        "icon": "chat",
+        "label": "테스트",
         "href": "/courses?tag=monthly",
-        "ariaLabel": "이달의강의 카테고리"
+        "ariaLabel": "테스트 카테고리"
       },
       {
-        "icon": "tag",
-        "label": "첫구매특가",
+        "icon": "circle",
+        "label": "테스트",
         "href": "/courses?tag=first-buy",
-        "ariaLabel": "첫구매특가 카테고리"
-      },
-      {
-        "icon": "book",
-        "label": "전문가칼럼",
-        "href": "/community?tab=expert",
-        "ariaLabel": "전문가칼럼 카테고리"
-      },
-      {
-        "icon": "building",
-        "label": "데브옵스",
-        "href": "/courses?category=devops",
-        "ariaLabel": "데브옵스 카테고리"
+        "ariaLabel": "테스트 카테고리"
       }
     ]
   },
   "homeSections": [
     {
       "title": "이주의 추천 프로그램",
+      "subtitle": "program",
       "categories": [
         {
-          "label": "프론트엔드",
+          "label": "주식",
+          "slugs": [
+            "us-stock-basic",
+            "financial-basic-class",
+            "tax-income-report"
+          ]
+        },
+        {
+          "label": "가상 자산",
           "slugs": [
             "real-estate-intermediate",
             "location-analysis",
-            "real-estate-sell-strategy",
-            "cheap-apartment-finder",
-            "my-house-basic",
-            "real-estate-basic-class"
+            "real-estate-sell-strategy"
           ]
         },
         {
-          "label": "백엔드",
+          "label": "부동산",
           "slugs": [
             "gangnam-20min",
             "commercial-building",
-            "financial-basic-class"
-          ]
-        },
-        {
-          "label": "데브옵스",
-          "slugs": [
-            "ss-coupon-basic",
-            "olive-young-seller",
-            "auction-basics",
-            "subscription-redevelopment"
-          ]
-        },
-        {
-          "label": "커리어",
-          "slugs": [
-            "monthly-income-blog",
-            "tax-income-report",
-            "money-book-club",
-            "youtube-income-start",
-            "blog-auto-income"
+            "cheap-apartment-finder"
           ]
         }
       ]
     },
     {
-      "title": "이달의 추천 프로그램",
+      "title": "이주의 추천 프로그램",
+      "subtitle": "program",
       "categories": [
         {
-          "label": "AI / 데이터",
+          "label": "주식",
+          "slugs": [
+            "monthly-income-blog",
+            "money-book-club",
+            "blog-auto-income"
+          ]
+        },
+        {
+          "label": "가상 자산",
           "slugs": [
             "ai-homepage-business",
-            "us-stock-basic",
-            "financial-basic-class"
-          ]
-        },
-        {
-          "label": "모바일",
-          "slugs": [
-            "danggeun-market-100",
-            "real-estate-basic-class",
-            "my-house-basic"
-          ]
-        },
-        {
-          "label": "디자인",
-          "slugs": [
-            "interior-renovation",
-            "real-estate-intermediate",
-            "location-analysis"
-          ]
-        },
-        {
-          "label": "실무 프로젝트",
-          "slugs": [
-            "gangnam-20min",
-            "commercial-building",
             "ss-coupon-basic",
-            "olive-young-seller",
+            "olive-young-seller"
+          ]
+        },
+        {
+          "label": "부동산",
+          "slugs": [
+            "real-estate-basic-class",
+            "my-house-basic",
             "subscription-redevelopment"
           ]
         }

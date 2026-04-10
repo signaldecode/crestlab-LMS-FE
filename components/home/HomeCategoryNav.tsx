@@ -20,7 +20,7 @@ export default function HomeCategoryNav({ section }: HomeCategoryNavProps): JSX.
     <nav className="home-categories" aria-label={meta.ariaLabel}>
       <div className="home-categories__inner">
         {items.map((item) => (
-          <Link key={item.label} href={item.href} className="home-categories__item" aria-label={item.ariaLabel}>
+          <Link key={item.icon} href={item.href} className="home-categories__item" aria-label={item.ariaLabel}>
             <CategoryIcon icon={item.icon} className="home-categories__icon" />
             <span className="home-categories__label">{item.label}</span>
           </Link>

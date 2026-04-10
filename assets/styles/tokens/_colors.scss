@@ -28,6 +28,8 @@ $color-bg-primary: #ffffff;
 $color-bg-secondary: #f9fafb;
 $color-bg-tertiary: #f3f4f6;
 $color-bg-basic: #f6f7fb;
+$color-bg-gradient-review: linear-gradient(180deg, #0C0E13 0%, #830028 100%);
+
 
 // Border
 $color-border: #e5e7eb;
@@ -79,6 +81,9 @@ $color-dark-surface-raised: rgba(28, 28, 32, 0.95);
 $color-badge-urgent: #ea580c;
 $color-badge-urgent-bg: #fff7ed;
 $color-badge-warning-dark: #a16207;
+
+// Accent Gradient (텍스트 그라데이션용)
+$gradient-accent: linear-gradient(90deg, #FB1B49 16.16%, #D0173B 44.43%, #A0112D 66.45%, #FB1B49 93.54%);
 
 // Star / Rating
 $color-star: #facc15;

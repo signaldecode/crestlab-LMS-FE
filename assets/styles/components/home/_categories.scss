@@ -11,7 +11,7 @@
   &__inner {
     display: flex;
     justify-content: center;
-    gap: $spacing-6;
+    gap: $spacing-8;
     flex-wrap: wrap;
   }
 
@@ -30,29 +30,22 @@
     }
 
     &:hover .home-categories__icon {
-      transform: translateY(-2px);
-      background: $color-primary;
-      color: $color-text-inverse;
-      box-shadow: $shadow-md;
+      transform: translateY(-$spacing-1);
     }
   }
 
   &__icon {
     width: 3.5rem;
     height: 3.5rem;
-    border-radius: $radius-circle;
-    background: $color-bg-tertiary;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform $duration-normal $ease-default,
-                background $duration-normal $ease-default,
-                color $duration-normal $ease-default,
-                box-shadow $duration-normal $ease-default;
+    border-radius: $radius-lg;
+    transition: transform $duration-normal $ease-default;
 
     svg {
-      width: 1.5rem;
-      height: 1.5rem;
+      width: 1.75rem;
+      height: 1.75rem;
     }
   }
 

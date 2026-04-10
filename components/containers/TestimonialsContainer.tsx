@@ -78,11 +78,22 @@ export default function TestimonialsContainer(): JSX.Element {
       <div className="home-testimonials__stats">
         {stats.map((stat) => (
           <div key={stat.label} className="home-testimonials__stat" aria-label={stat.ariaLabel}>
-            <span className="home-testimonials__stat-icon" aria-hidden="true">
-              {stat.icon}
-            </span>
-            <span className="home-testimonials__stat-value">{stat.value}</span>
             <span className="home-testimonials__stat-label">{stat.label}</span>
+            <div className="home-testimonials__stat-value-wrap">
+              <img
+                className="home-testimonials__stat-wing"
+                src="/images/main/leftwing.svg"
+                alt=""
+                aria-hidden="true"
+              />
+              <span className="home-testimonials__stat-value">{stat.value}</span>
+              <img
+                className="home-testimonials__stat-wing"
+                src="/images/main/rightwing.svg"
+                alt=""
+                aria-hidden="true"
+              />
+            </div>
           </div>
         ))}
       </div>

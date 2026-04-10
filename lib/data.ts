@@ -68,6 +68,7 @@ export function getHomeSectionViews(): HomeSectionView[] {
     );
     return {
       title: section.title,
+      subtitle: section.subtitle,
       chips: [
         { label: '전체', courses: resolve(allSlugs) },
         ...section.categories.map((cat) => ({

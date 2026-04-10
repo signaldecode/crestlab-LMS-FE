@@ -114,6 +114,7 @@ export interface HomeSectionCategory {
 
 export interface HomeSection {
   title: string;
+  subtitle?: string;
   categories: HomeSectionCategory[];
 }
 
@@ -125,6 +126,7 @@ export interface HomeSectionChip {
 
 export interface HomeSectionView {
   title: string;
+  subtitle?: string;
   chips: HomeSectionChip[];
 }
 

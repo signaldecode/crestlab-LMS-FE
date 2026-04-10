@@ -15,66 +15,28 @@
   &__header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     gap: $spacing-4;
     margin-bottom: $spacing-6;
-    flex-wrap: wrap;
+  }
+
+  &__header-left {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+  }
+
+  &__subtitle {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-primary;
+    letter-spacing: $letter-spacing-wide;
   }
 
   &__title {
     font-size: $font-size-xl;
     font-weight: $font-weight-bold;
     color: $color-text-primary;
-  }
-
-  // 헤더 우측: 칩 + 화살표
-  &__header-right {
-    display: flex;
-    align-items: center;
-    gap: $spacing-3;
-    flex-wrap: wrap;
-  }
-
-  // 카테고리 칩 리스트
-  &__chips {
-    display: flex;
-    gap: $spacing-2;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  &__chip-item {
-    margin: 0;
-  }
-
-  &__chip {
-    display: inline-flex;
-    align-items: center;
-    height: 2rem;
-    padding: 0 $spacing-3;
-    border: $border-thin solid $color-border;
-    border-radius: $radius-2xl;
-    background: $color-bg-primary;
-    color: $color-text-secondary;
-    font-size: $font-size-sm;
-    font-weight: $font-weight-medium;
-    cursor: pointer;
-    transition:
-      background $duration-normal $ease-default,
-      border-color $duration-normal $ease-default,
-      color $duration-normal $ease-default;
-
-    &:hover:not(.home-course-section__chip--active) {
-      border-color: $color-primary;
-      color: $color-primary;
-    }
-
-    &--active {
-      background: $color-primary;
-      border-color: $color-primary;
-      color: $color-text-inverse;
-    }
   }
 
   // 화살표 컨트롤
@@ -107,69 +69,23 @@
     }
   }
 
-  // 캐러셀
-  &__carousel {
-    overflow: hidden;
-  }
-
-  &__track {
-    display: flex;
-    transition: transform $duration-slower $ease-default;
-  }
-
-  &__slide {
-    flex: 0 0 25%;
-    min-width: 0;
-    padding: 0 $spacing-2;
-    box-sizing: border-box;
+  // 3열 그리드
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-6;
 
     @media (max-width: 1023px) {
-      flex: 0 0 33.333%;
+      grid-template-columns: repeat(2, 1fr);
     }
 
     @media (max-width: 639px) {
-      flex: 0 0 50%;
+      grid-template-columns: 1fr;
     }
   }
 
-  // CTA 추천 카드
-  &__cta-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    min-height: 16rem;
-    padding: $spacing-6;
-    background: $color-bg-secondary;
-    border-radius: $radius-md;
-    text-align: center;
-  }
-
-  &__cta-text {
-    font-size: $font-size-sm;
-    color: $color-text-secondary;
-    line-height: $line-height-relaxed;
-    margin: 0 0 $spacing-5;
-    font-weight: $font-weight-medium;
-  }
-
-  &__cta-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: $spacing-1;
-    padding: $spacing-2 $spacing-5;
-    background: $color-primary;
-    color: $color-text-inverse;
-    font-size: $font-size-sm;
-    font-weight: $font-weight-semibold;
-    border-radius: $radius-2xl;
-    text-decoration: none;
-    transition: background $duration-normal $ease-default;
-
-    &:hover {
-      background: $color-primary-dark;
-    }
+  &__card {
+    min-width: 0;
   }
 }
 

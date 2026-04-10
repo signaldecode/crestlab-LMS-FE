@@ -6,6 +6,7 @@
  */
 
 import HomeHeroContainer from '@/components/containers/HomeHeroContainer';
+import HomeCategoryNav from '@/components/home/HomeCategoryNav';
 import HomeCourseSection from '@/components/home/HomeCourseSection';
 import LiveCounterBar from '@/components/home/LiveCounterBar';
 import TestimonialsContainer from '@/components/containers/TestimonialsContainer';
@@ -15,6 +16,7 @@ import HomePromoBanners from '@/components/home/HomePromoBanners';
 import HomeCtaBanner from '@/components/home/HomeCtaBanner';
 import HomeCommunity from '@/components/home/HomeCommunity';
 import {
+  getHomeCategories,
   getHomeSectionViews,
   getLiveCounter,
   getHomeBestArticles,
@@ -24,6 +26,7 @@ import {
 } from '@/lib/data';
 
 export default function HomePage() {
+  const categories = getHomeCategories();
   const sectionViews = getHomeSectionViews();
   const liveCounter = getLiveCounter();
   const bestArticles = getHomeBestArticles();
@@ -36,7 +39,10 @@ export default function HomePage() {
       {/* 1. 히어로 배너 캐러셀 */}
       <HomeHeroContainer />
 
-      {/* 2. 강의 섹션 — 카테고리 칩 캐러셀 (이주/이달의 추천) */}
+      {/* 2. 카테고리 퀵메뉴 */}
+      <HomeCategoryNav section={categories} />
+
+      {/* 3. 강의 섹션 — 카테고리 칩 캐러셀 (이주/이달의 추천) */}
       {sectionViews.map((view) => (
         <HomeCourseSection key={view.title} view={view} />
       ))}
