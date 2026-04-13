@@ -227,6 +227,8 @@
     border: $border-thin solid $color-border;
     border-radius: $radius-xs;
     cursor: pointer;
+    max-width: 30rem;
+    padding: $spacing-4;
 
     @media (max-width: 639px) {
       width: 100%;
@@ -252,6 +254,7 @@
 
   &__input {
     flex: 1;
+    max-width: 23.25rem;
     padding: $spacing-4;
     border: $border-thin solid $color-border;
     border-radius: $radius-xs;
