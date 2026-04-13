@@ -17,7 +17,7 @@
     justify-content: space-between;
     align-items: flex-end;
     gap: $spacing-4;
-    margin-bottom: $spacing-6;
+    margin-bottom: $spacing-8;
   }
 
   &__header-left {
@@ -27,16 +27,18 @@
   }
 
   &__subtitle {
-    font-size: $font-size-sm;
-    font-weight: $font-weight-semibold;
+    font-family: $font-family-accent;
+    font-size: $font-size-md;
+    font-weight: $font-weight-regular;
     color: $color-primary;
-    letter-spacing: $letter-spacing-wide;
+    letter-spacing: 0;
   }
 
   &__title {
-    font-size: $font-size-xl;
+    font-size: 2.125rem;
     font-weight: $font-weight-bold;
-    color: $color-text-primary;
+    color: $color-text-black;
+    letter-spacing: $letter-spacing-normal;
   }
 
   // 화살표 컨트롤

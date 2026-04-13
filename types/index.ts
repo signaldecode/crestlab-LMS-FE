@@ -191,7 +191,7 @@ export interface SupportFaqData {
 }
 
 /* ── 후기 ── */
-export interface TestimonialItem {
+export interface BestReviewItem {
   id: string;
   nickname: string;
   date: string;
@@ -202,22 +202,22 @@ export interface TestimonialItem {
   ariaLabel: string;
 }
 
-export interface TestimonialStat {
+export interface BestReviewStat {
   label: string;
   value: string;
   icon: string;
   ariaLabel: string;
 }
 
-export interface TestimonialsSection {
+export interface BestReviewSection {
   meta: {
     label: string;
     title: string;
     description: string;
     ariaLabel: string;
   };
-  stats: TestimonialStat[];
-  items: TestimonialItem[];
+  stats: BestReviewStat[];
+  items: BestReviewItem[];
 }
 
 /* ── 실시간 인기 아티클 ── */
@@ -1080,7 +1080,7 @@ export interface MainData {
   upcomingCourses: UpcomingCourse[];
   bestCourses: BestCourse[];
   bestChipCategories: BestChipCategory[];
-  testimonials: TestimonialsSection;
+  bestReviews: BestReviewSection;
   popularArticles: PopularArticlesSection;
   homeBestArticles: HomeBestArticlesSection;
   liveCounter: LiveCounterSection;

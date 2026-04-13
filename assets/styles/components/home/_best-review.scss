@@ -5,7 +5,7 @@
 @use '../../tokens/z-index' as *;
 @use '../../mixins/breakpoints' as *;
 
-.home-testimonials {
+.home-best-review {
   position: relative;
   margin-bottom: 0;
   padding-top: $spacing-16;
@@ -41,8 +41,8 @@
   }
 
   &__title {
-    font-size: $font-size-2xl;
-    font-weight: $font-weight-bold;
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-semibold;
     color: $color-text-inverse;
     margin: 0 0 $spacing-3;
     line-height: $line-height-tight;
@@ -53,7 +53,7 @@
   }
 
   &__desc {
-    font-size: $font-size-base;
+    font-size: $font-size-md;
     color: $color-text-inverse;
     margin: 0;
     line-height: $line-height-base;
@@ -64,7 +64,7 @@
   &__stats {
     display: flex;
     justify-content: center;
-    gap: $spacing-16;
+    gap: $spacing-15;
     margin-bottom: $spacing-10;
 
     @media (max-width: 639px) {
@@ -76,7 +76,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: $spacing-2;
+  }
+
+  &__stat-value-wrap {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+  }
+
+  &__stat-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-1;
   }
 
   &__stat-label {
@@ -85,15 +97,9 @@
     white-space: nowrap;
   }
 
-  &__stat-value-wrap {
-    display: flex;
-    align-items: center;
-    gap: $spacing-3;
-  }
-  
   &__stat-wing {
     width: auto;
-    height: 3.5rem;
+    height: 5.6875rem;
     flex-shrink: 0;
 
     @media (max-width: 639px) {
@@ -102,7 +108,7 @@
   }
 
   &__stat-value {
-    font-size: $font-size-3xl;
+    font-size: $font-size-4xl;
     font-weight: $font-weight-bold;
     line-height: $line-height-tight;
     background: $gradient-accent;
@@ -130,7 +136,7 @@
     cursor: default;
 
     // hover 시 해당 행 애니메이션 일시정지
-    &:hover .home-testimonials__track {
+    &:hover .home-best-review__track {
       animation-play-state: paused;
     }
   }
@@ -155,8 +161,8 @@
     width: 29rem;
     flex-shrink: 0;
     background: $color-bg-primary;
-    border-radius: $radius-lg;
-    padding: $spacing-5;
+    border-radius: $radius-xl;
+    padding: $spacing-8;
     border: $border-thin solid $color-border;
     box-shadow: $shadow-xs;
     transition: box-shadow $duration-normal $ease-default;
@@ -170,7 +176,7 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    margin-bottom: $spacing-4;
+    margin-bottom: $spacing-3;
     gap: $spacing-3;
   }
 
@@ -183,8 +189,8 @@
 
   // ── 아바타 ──
   &__avatar {
-    width: 2rem;
-    height: 2rem;
+    width: 1.875rem;
+    height: 1.875rem;
     border-radius: $radius-circle;
     display: flex;
     align-items: center;
@@ -240,8 +246,8 @@
   // ── 카드 본문 ──
   &__card-title {
     font-size: $font-size-base;
-    font-weight: $font-weight-semibold;
-    color: $color-text-primary;
+    font-weight: $font-weight-medium;
+    color: $color-text-black;
     margin: 0 0 $spacing-2;
     line-height: $line-height-tight;
     display: -webkit-box;
@@ -252,7 +258,7 @@
 
   &__card-text {
     font-size: $font-size-sm;
-    color: $color-text-secondary;
+    color: $color-text-body;
     line-height: $line-height-relaxed;
     margin: 0;
     display: -webkit-box;
@@ -261,7 +267,3 @@
     overflow: hidden;
   }
 }
-
-// ============================================
-// 5) 실시간 인기 아티클
-// ============================================

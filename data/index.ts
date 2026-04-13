@@ -26,7 +26,7 @@ const mainData: MainData = {
   upcomingCourses: homeData.upcomingCourses,
   bestCourses: homeData.bestCourses,
   bestChipCategories: homeData.bestChipCategories,
-  testimonials: homeData.testimonials,
+  bestReviews: homeData.bestReviews,
   popularArticles: homeData.popularArticles,
   homeBestArticles: homeData.homeBestArticles,
   liveCounter: homeData.liveCounter,

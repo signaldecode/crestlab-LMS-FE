@@ -4,7 +4,9 @@
       "Bash(grep \"\\\\.ts$\")",
       "Bash(find \"/c/Users/YHPARK/Desktop/lecture_frontend/app/\\(site\\)/learn\" -type f -name \"*.tsx\")",
       "Bash(wc -l /c/Users/YHPARK/Desktop/lecture_frontend/components/containers/*.tsx)",
-      "Bash(wc -l /c/Users/YHPARK/Desktop/lecture_frontend/stores/* /c/Users/YHPARK/Desktop/lecture_frontend/hooks/*)"
+      "Bash(wc -l /c/Users/YHPARK/Desktop/lecture_frontend/stores/* /c/Users/YHPARK/Desktop/lecture_frontend/hooks/*)",
+      "Bash(node -e ':*)",
+      "mcp__figma__get_figma_data"
     ]
   }
 }

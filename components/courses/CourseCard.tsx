@@ -20,10 +20,6 @@ interface CourseCardProps {
   course: Course;
 }
 
-function formatPrice(price: number): string {
-  return price.toLocaleString('ko-KR') + uiData.priceUnit;
-}
-
 function formatReviewCount(count: number): string {
   if (count >= 10000) return (count / 10000).toFixed(1).replace(/\.0$/, '') + '만';
   if (count >= 1000) return (count / 1000).toFixed(1).replace(/\.0$/, '') + '천';
@@ -258,15 +254,40 @@ export default function CourseCard({ course }: CourseCardProps): JSX.Element {
           </button>
         </div>
         <div className="course-card__body">
-          <h3 className="course-card__title">{course.title}</h3>
-          <p className="course-card__instructor">{course.instructor}</p>
-          {course.rating != null && (
-            <div className="course-card__rating">
-              <span className="course-card__stars">★ {course.rating.toFixed(2)}</span>
-              <span className="course-card__review-count">({formatReviewCount(course.reviewCount ?? 0)})</span>
+          <div className="course-card__info">
+            <div className="course-card__info-top">
+              <h3 className="course-card__title">{course.title}</h3>
+              <div className="course-card__meta">
+                {course.rating != null && (
+                  <div className="course-card__rating">
+                    <svg className="course-card__star-icon" viewBox="0 0 20 20" aria-hidden="true">
+                      <path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 13.87 5.06 16.7l.94-5.49-4-3.9 5.53-.8z" fill="currentColor" />
+                    </svg>
+                    <span className="course-card__rating-value">{course.rating.toFixed(1)}</span>
+                    <span className="course-card__review-count">({formatReviewCount(course.reviewCount ?? 0)})</span>
+                  </div>
+                )}
+                <div className="course-card__instructor-row">
+                  <svg className="course-card__instructor-icon" viewBox="0 0 20 20" aria-hidden="true">
+                    <circle cx="10" cy="7" r="4" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                    <path d="M3 18c0-3.87 3.13-7 7-7s7 3.13 7 7" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  </svg>
+                  <span className="course-card__instructor-name">{course.instructor}</span>
+                </div>
+              </div>
             </div>
-          )}
-          <span className="course-card__price">{formatPrice(course.price)}</span>
+            {(course.badges.length > 0 || course.tags.length > 0) && (
+              <div className="course-card__tags">
+                {course.badges.includes('BEST') && (
+                  <span className="course-card__tag course-card__tag--best">BEST</span>
+                )}
+                {course.tags.map((tag) => (
+                  <span key={tag} className="course-card__tag course-card__tag--keyword">#{tag}</span>
+                ))}
+              </div>
+            )}
+          </div>
+          <span className="course-card__cta">바로가기</span>
         </div>
       </Link>
 

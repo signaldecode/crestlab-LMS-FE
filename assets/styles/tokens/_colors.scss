@@ -19,20 +19,23 @@ $color-secondary: #7c3aed;
 $color-secondary-light: #a78bfa;
 
 // Text
-$color-text-primary: #111827;
-$color-text-secondary: #6b7280;
+$color-text-primary: #222222;
+$color-text-secondary: #767676;
 $color-text-inverse: #ffffff;
+$color-text-black: #000000;
+$color-text-muted: #999999;
+$color-text-body: #505050;
 
 // Background
 $color-bg-primary: #ffffff;
 $color-bg-secondary: #f9fafb;
-$color-bg-tertiary: #f3f4f6;
+$color-bg-tertiary: #F4F4F4;
 $color-bg-basic: #f6f7fb;
 $color-bg-gradient-review: linear-gradient(180deg, #0C0E13 0%, #830028 100%);
 
 
 // Border
-$color-border: #e5e7eb;
+$color-border: #E5E5EC;
 $color-border-focus: #2563eb;
 
 // State
@@ -83,10 +86,10 @@ $color-badge-urgent-bg: #fff7ed;
 $color-badge-warning-dark: #a16207;
 
 // Accent Gradient (텍스트 그라데이션용)
-$gradient-accent: linear-gradient(90deg, #FB1B49 16.16%, #D0173B 44.43%, #A0112D 66.45%, #FB1B49 93.54%);
+$gradient-accent: linear-gradient(93.35deg, rgba(255, 255, 255, 0.8) 17.6%, rgba(255, 255, 255, 0.798077) 38.97%, rgba(255, 255, 255, 0.694231) 59.13%, rgba(255, 255, 255, 0.6) 80.2%);
 
 // Star / Rating
-$color-star: #facc15;
+$color-star: #F6C509;
 
 // Footer (Dark)
 $color-footer-bg: #1a1a1a;

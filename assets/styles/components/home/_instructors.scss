@@ -22,11 +22,21 @@
     }
   }
 
-  &__title {
-    font-size: $font-size-xl;
-    font-weight: $font-weight-bold;
-    color: $color-text-primary;
+  &__subtitle {
+    font-family: $font-family-accent;
+    font-size: $font-size-md;
+    font-weight: $font-weight-regular;
+    color: $color-primary;
+    letter-spacing: 0;
     margin: 0 0 $spacing-1;
+  }
+
+  &__title {
+    font-size: 2.125rem;
+    font-weight: $font-weight-bold;
+    color: $color-text-black;
+    letter-spacing: $letter-spacing-normal;
+    margin: 0;
   }
 
   &__desc {
@@ -92,7 +102,7 @@
 
   // ── 카드 ──
   &__card {
-    background: $color-bg-secondary;
+    background: $color-bg-basic;
     border-radius: $radius-xl;
     padding: $spacing-6;
     text-align: center;

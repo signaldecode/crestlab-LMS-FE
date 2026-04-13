@@ -74,19 +74,18 @@ export default function HomeHeroContainer(): JSX.Element {
           );
         })}
 
-        {/* 배너 우측 하단 오버레이 컨트롤바 */}
+        {/* 배너 컨트롤바 */}
         <div className="home-hero__controls">
-          <span className="home-hero__counter">
-            <span className="home-hero__counter-current">{current + 1}</span>
-            {' / '}
-            <span className="home-hero__counter-total">{total}</span>
-          </span>
-          <span className="home-hero__controls-divider" />
+          <span className="home-hero__counter">{current + 1}/{total}</span>
           <button type="button" className="home-hero__ctrl-btn" aria-label="이전 배너" onClick={prev}>
-            ‹
+            <svg width="7" height="14" viewBox="0 0 7 14" fill="none" aria-hidden="true">
+              <path d="M6 1L1 7L6 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </button>
           <button type="button" className="home-hero__ctrl-btn" aria-label="다음 배너" onClick={next}>
-            ›
+            <svg width="7" height="14" viewBox="0 0 7 14" fill="none" aria-hidden="true">
+              <path d="M1 1L6 7L1 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </button>
         </div>
       </div>

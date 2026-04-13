@@ -11,7 +11,7 @@
   &__inner {
     display: flex;
     justify-content: center;
-    gap: $spacing-8;
+    gap: $spacing-12;
     flex-wrap: wrap;
   }
 
@@ -35,22 +35,23 @@
   }
 
   &__icon {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 6.25rem;
+    height: 6.25rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: $radius-lg;
+    border-radius: $radius-xl2;
+    padding: $spacing-6;
     transition: transform $duration-normal $ease-default;
 
     svg {
-      width: 1.75rem;
-      height: 1.75rem;
+      width: 3.75rem;
+      height: 3.75rem;
     }
   }
 
   &__label {
-    font-size: $font-size-xs;
+    font-size: $font-size-md;
     font-weight: $font-weight-medium;
     white-space: nowrap;
     transition: color $duration-normal $ease-default;

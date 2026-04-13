@@ -5,7 +5,7 @@
  */
 
 import mainData from '@/data';
-import type { MainData, SiteData, NavData, Course, HomeSection, HomeSectionView, UpcomingCourse, BestCourse, BestChipCategory, FaqItem, TestimonialsSection, FooterData, GeoData, OrderData, CertificateData, ConsultationData, ReviewData, ExpiredCouponData, GiftcardData, GiftcardHistoryData, FollowUserData, EnrolledCourseData, PopularArticlesSection, HomeBestArticlesSection, HomeCommunitySection, HomePromoBannerSection, HomeCategorySection, LiveCounterSection, HomeInstructorsSection, CtaBannerData } from '@/types';
+import type { MainData, SiteData, NavData, Course, HomeSection, HomeSectionView, UpcomingCourse, BestCourse, BestChipCategory, FaqItem, BestReviewSection, FooterData, GeoData, OrderData, CertificateData, ConsultationData, ReviewData, ExpiredCouponData, GiftcardData, GiftcardHistoryData, FollowUserData, EnrolledCourseData, PopularArticlesSection, HomeBestArticlesSection, HomeCommunitySection, HomePromoBannerSection, HomeCategorySection, LiveCounterSection, HomeInstructorsSection, CtaBannerData } from '@/types';
 
 const data: MainData = mainData;
 
@@ -100,9 +100,9 @@ export function getFaq(): FaqItem[] {
   return data.faq || [];
 }
 
-/** 후기/추천사 섹션 반환 */
-export function getTestimonials(): TestimonialsSection {
-  return data.testimonials;
+/** 베스트 후기 섹션 반환 */
+export function getBestReviews(): BestReviewSection {
+  return data.bestReviews;
 }
 
 /** 실시간 인기 아티클 섹션 반환 */

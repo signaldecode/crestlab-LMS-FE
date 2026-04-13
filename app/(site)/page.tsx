@@ -9,7 +9,7 @@ import HomeHeroContainer from '@/components/containers/HomeHeroContainer';
 import HomeCategoryNav from '@/components/home/HomeCategoryNav';
 import HomeCourseSection from '@/components/home/HomeCourseSection';
 import LiveCounterBar from '@/components/home/LiveCounterBar';
-import TestimonialsContainer from '@/components/containers/TestimonialsContainer';
+import BestReviewContainer from '@/components/containers/BestReviewContainer';
 import HomeBestArticles from '@/components/home/HomeBestArticles';
 import HomeInstructors from '@/components/home/HomeInstructors';
 import HomePromoBanners from '@/components/home/HomePromoBanners';
@@ -47,24 +47,23 @@ export default function HomePage() {
         <HomeCourseSection key={view.title} view={view} />
       ))}
 
-      
-      {/* 4. 수강생 베스트 후기 */}
-      <TestimonialsContainer />
-
-      {/* 5. 실시간 수강 통계 카운터 */}
-      <LiveCounterBar section={liveCounter} />
-
-      {/* 6. 이주의 베스트 인기글 */}
-      {/* <HomeBestArticles section={bestArticles} /> */}
-
-      {/* 7. 인기 강사 소개 */}
+      {/* 4. 인기 강사 소개 */}
       <HomeInstructors section={instructors} />
 
+      {/* 5. 수강생 베스트 후기 */}
+      <BestReviewContainer />
+
+      {/* 6. 실시간 수강 통계 카운터 */}
+      {/* <LiveCounterBar section={liveCounter} /> */}
+
+      {/* 7. 이주의 베스트 인기글 */}
+      {/* <HomeBestArticles section={bestArticles} /> */}
+
       {/* 8. 프로모 배너 */}
-      <HomePromoBanners section={promoBanners} />
+      {/* <HomePromoBanners section={promoBanners} /> */}
 
       {/* 9. CTA 전환 배너 */}
-      <HomeCtaBanner data={ctaBanner} />
+      {/* <HomeCtaBanner data={ctaBanner} /> */}
 
       {/* 10. 커뮤니티 피드 */}
       <HomeCommunity />
