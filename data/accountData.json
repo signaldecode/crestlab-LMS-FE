@@ -4,195 +4,136 @@
     "sidebar": {
       "fallbackName": "회원",
       "menuItems": {
-        "myCourses": "내 강의 목록",
-        "wishlist": "관심 클래스",
-        "coupons": "내 쿠폰",
-        "giftcards": "상품권",
-        "points": "포인트",
-        "consultations": "강의 상담",
-        "certificates": "수료증",
-        "reviews": "후기 관리",
-        "orders": "구매 내역",
-        "profileEdit": "회원정보관리"
+        "myCourses": { "label": "내 강의 목록", "href": "/mypage" },
+        "wishlist": { "label": "찜한 강의", "href": "/mypage/wishlist" },
+        "consultations": { "label": "강의 상담", "href": "/mypage/consultations" },
+        "reviews": { "label": "강의 후기 관리", "href": "/mypage/reviews" },
+        "orders": { "label": "구매 내역", "href": "/mypage/orders" },
+        "coupons": { "label": "쿠폰", "href": "/mypage/coupons" },
+        "points": { "label": "포인트", "href": "/mypage/points" },
+        "profileEdit": { "label": "회원정보관리", "href": "/mypage/settings" }
       },
       "externalLinks": [
         {
           "key": "tickets",
           "label": "1:1 문의",
           "href": "/support/tickets/new"
-        },
-        {
-          "key": "faq",
-          "label": "자주 묻는 질문",
-          "href": "/support"
         }
       ],
       "logoutLabel": "로그아웃",
-      "menuGroups": {
-        "classroom": [
-          {
-            "section": "강의 관련",
-            "items": [
-              "myCourses",
-              "wishlist",
-              "consultations",
-              "certificates",
-              "reviews",
-              "orders"
-            ]
-          },
-          {
-            "section": "고객 지원",
-            "items": [
-              "tickets",
-              "faq"
-            ]
-          },
-          {
-            "section": "계정 관리",
-            "items": [
-              "profileEdit",
-              "logout"
-            ]
-          }
-        ],
-        "profile": [
-          {
-            "section": "고객 지원",
-            "items": [
-              "tickets",
-              "faq"
-            ]
-          },
-          {
-            "section": "계정 관리",
-            "items": [
-              "profileEdit",
-              "logout"
-            ]
-          }
-        ]
-      }
+      "menuGroups": [
+        {
+          "section": "강의 관련",
+          "items": [
+            "myCourses",
+            "wishlist",
+            "consultations",
+            "reviews",
+            "orders"
+          ]
+        },
+        {
+          "section": "고객센터",
+          "items": [
+            "tickets"
+          ]
+        },
+        {
+          "section": "계정 관리",
+          "items": [
+            "coupons",
+            "points",
+            "profileEdit",
+            "logout"
+          ]
+        }
+      ]
     },
     "classroom": {
-      "tabs": [
-        "강의",
-        "과제 관리",
-        "조편성"
-      ],
+      "title": "내 강의 목록",
       "emptyText": "아직 수강한 강의가 없어요.",
-      "promoBannerAlt": "LectureHub 프로모션 배너",
+      "emptySubText": "관심 있는 강의를 둘러보세요.",
+      "emptyBrowseLabel": "강의 둘러보기",
+      "heroResumeLabel": "이어서 학습하기",
+      "heroLastAccessPrefix": "마지막 학습",
+      "filterAll": "전체",
+      "filterInProgress": "수강중",
+      "filterCompleted": "수강완료",
       "progressLabel": "진행률",
       "lastLectureLabel": "최근 수강",
       "continueBtnLabel": "이어서 학습하기",
       "completedLabel": "수강 완료",
-      "enrolledAtLabel": "수강 시작"
+      "completedBadge": "완료",
+      "enrolledAtLabel": "수강 시작",
+      "totalCountSuffix": "개의 강의"
     },
-    "profile": {
-      "tabs": [
-        "소개",
-        "작성 및 활동",
-        "팔로우"
-      ],
-      "tabsAriaLabel": "프로필 탭",
-      "activityFilters": [
-        "작성한 글",
-        "댓글단 글",
-        "저장한 글",
-        "배지"
-      ],
-      "filterAriaLabel": "필터",
-      "filterAllLabel": "전체",
-      "searchPlaceholder": "검색어를 입력하세요",
-      "searchAriaLabel": "검색",
-      "resultCountTemplate": "글 {count}건",
-      "sortOptions": [
-        "최신순",
-        "오래된순"
-      ],
-      "emptyActivity": {
-        "line1": "아직은 비어있지만, 여기에 내 경험이 쌓일거에요.",
-        "line2": "오늘 어떤 이야기를 남겨볼까요?",
-        "writeLabel": "+ 글쓰기"
-      }
-    },
-    "profileIntro": {
-      "bioEmptyTitle": "소개글이 없어요",
-      "bioEmptyDescTemplate": "{userName}님을 다 잘 이해할 수 있도록 소개를 남겨주세요.",
-      "bioEmptySubDesc": "이루고 싶은 목표나 현재의 고민, 관심사를 나눠주시면 좋아요.",
-      "bioWriteLabel": "내 소개 작성하기",
-      "featuredTitle": "대표글",
-      "featuredAddLabel": "글 추가하기",
-      "featuredAddDescLine1": "아직은 비워졌지만, 여기에 내 경험이 빛날거예요.",
-      "featuredAddDescLine2": "오늘 어떤 이야기를 남겨볼까요?",
-      "featuredAddAriaLabel": "대표글 추가",
-      "featuredAddBtnLabel": "추가하기"
-    },
-    "profileIntroEdit": {
-      "profileImageEditLabel": "프로필이미지 수정",
-      "coverImageEditLabel": "배경이미지 수정",
-      "progressTitle": "당신의 프로필을 작성하세요!",
-      "progressItems": [
-        {
-          "key": "profileImage",
-          "label": "프로필 사진"
-        },
-        {
-          "key": "coverImage",
-          "label": "배경 사진"
-        },
-        {
-          "key": "bio",
-          "label": "자기소개"
-        },
-        {
-          "key": "featuredPosts",
-          "label": "대표글"
-        }
-      ],
-      "saveLabel": "저장하기",
-      "nicknameTitle": "닉네임수정",
-      "nicknamePlaceholder": "닉네임을 수정해주세요",
-      "nicknameDuplicateCheckLabel": "중복확인",
-      "bioTitle": "소개문구",
-      "bioPlaceholder": "소개문구를 작성해주세요",
-      "featuredTitle": "대표글",
-      "featuredAddLabel": "글 추가하기",
-      "featuredAddDescLine1": "아직은 비워졌지만, 여기에 내 경험이 빛날거예요.",
-      "featuredAddDescLine2": "오늘 어떤 이야기를 남겨볼까요?",
-      "featuredAddBtnLabel": "추가하기"
-    },
-    "profileFollow": {
-      "tabsAriaLabel": "팔로우 탭",
-      "followersLabel": "팔로워",
-      "followingLabel": "팔로잉",
-      "emptyFollowers": "나를 팔로우한 사용자가 없습니다.",
-      "emptyFollowing": "팔로잉 중인 사용자가 없습니다.",
-      "followBtnLabel": "팔로우",
-      "followingBtnLabel": "팔로잉",
-      "profileAriaLabel": "프로필 보기",
-      "defaultAvatarAlt": "프로필 사진"
-    },
-    "wishlist": {
-      "title": "관심 클래스",
+    "wishlistPage": {
+      "title": "찜한 강의",
+      "emptyText": "찜한 강의가 없습니다.",
+      "totalCountSuffix": "개의 강의",
       "sortAriaLabel": "정렬",
       "sortOptions": [
-        {
-          "value": "recent",
-          "label": "최신순"
-        },
-        {
-          "value": "rating",
-          "label": "평점순"
-        },
-        {
-          "value": "title",
-          "label": "이름순"
-        }
+        { "value": "recent", "label": "최신순" },
+        { "value": "title", "label": "이름순" }
       ],
-      "emptyText": "관심 클래스가 없습니다.",
-      "recentTitle": "최근 본 클래스",
-      "recentEmptyText": "최근 본 클래스가 없습니다."
+      "viewCourseLabel": "강의 보기",
+      "removeAriaLabel": "찜 목록에서 제거",
+      "wishedAtPrefix": "찜한 날짜"
+    },
+    "wishlist": [
+      {
+        "courseSlug": "real-estate-intermediate",
+        "wishedAt": "2026-03-28"
+      },
+      {
+        "courseSlug": "financial-basic-class",
+        "wishedAt": "2026-04-02"
+      },
+      {
+        "courseSlug": "us-stock-basic",
+        "wishedAt": "2026-04-10"
+      }
+    ],
+    "reviewsPage": {
+      "title": "강의 후기 관리",
+      "emptyText": "작성한 후기가 없습니다."
+    },
+    "couponsPage": {
+      "registerTitle": "쿠폰등록",
+      "registerPlaceholder": "쿠폰을 등록해주세요",
+      "registerButton": "쿠폰등록",
+      "registerNote": "반드시 비트코인에서 발행한 쿠폰번호만 입력해주세요(10~35자 일련번호 \"-\"제외)",
+      "listTitle": "쿠폰리스트",
+      "tabActive": "보유중인 쿠폰",
+      "tabUsed": "사용완료 쿠폰",
+      "discountSuffix": "%",
+      "emptyText": "쿠폰이 없습니다.",
+      "emptyUsedText": "사용완료된 쿠폰이 없습니다.",
+      "perPage": 8,
+      "paginationPrev": "이전 페이지",
+      "paginationNext": "다음 페이지"
+    },
+    "pointsPage": {
+      "title": "잔여 포인트",
+      "unit": "P",
+      "expireNotice": "30일 이내 소멸 예정",
+      "emptyText": "포인트 이력이 없습니다.",
+      "historyTitle": "포인트 사용 내역",
+      "dateLabel": "날짜",
+      "tabs": {
+        "earn": "적립",
+        "use": "사용"
+      },
+      "mockHistory": [
+        { "id": "pt-001", "type": "earn", "description": "[수강평 작성] 100포인트가 적립되었습니다.", "amount": 600, "date": "26.05.22" },
+        { "id": "pt-002", "type": "use", "description": "[강의 사용] 100포인트가 차감되었습니다.", "amount": -200, "date": "26.05.22" },
+        { "id": "pt-003", "type": "use", "description": "[강의 사용] 100포인트가 차감되었습니다.", "amount": -200, "date": "26.05.22" },
+        { "id": "pt-004", "type": "earn", "description": "[수강평 작성] 100포인트가 적립되었습니다.", "amount": 600, "date": "26.05.22" },
+        { "id": "pt-005", "type": "use", "description": "[강의 사용] 100포인트가 차감되었습니다.", "amount": -200, "date": "26.05.22" },
+        { "id": "pt-006", "type": "earn", "description": "[수강평 작성] 100포인트가 적립되었습니다.", "amount": 600, "date": "26.05.22" },
+        { "id": "pt-007", "type": "earn", "description": "[수강평 작성] 100포인트가 적립되었습니다.", "amount": 600, "date": "26.05.22" },
+        { "id": "pt-008", "type": "earn", "description": "[수강평 작성] 100포인트가 적립되었습니다.", "amount": 600, "date": "26.05.22" }
+      ]
     },
     "ordersPage": {
       "title": "구매 내역",
@@ -234,25 +175,6 @@
       "notFoundDescription": "요청하신 주문이 존재하지 않습니다.",
       "notFoundLinkLabel": "구매 내역으로 돌아가기"
     },
-    "couponsPage": {
-      "registerTitle": "쿠폰등록",
-      "registerPlaceholder": "쿠폰을 등록해주세요",
-      "registerButton": "쿠폰등록",
-      "registerNote": "반드시 비트코인에서 발행한 쿠폰번호만 입력해주세요(10~35자 일련번호 \"-\"제외)",
-      "listTitle": "쿠폰리스트",
-      "tabActive": "보유중인 쿠폰",
-      "tabUsed": "사용완료 쿠폰",
-      "discountSuffix": "%",
-      "emptyText": "쿠폰이 없습니다.",
-      "emptyUsedText": "사용완료된 쿠폰이 없습니다.",
-      "perPage": 8,
-      "paginationPrev": "이전 페이지",
-      "paginationNext": "다음 페이지"
-    },
-    "reviewsPage": {
-      "title": "후기 관리",
-      "emptyText": "작성한 후기가 없습니다."
-    },
     "courseReviewsPage": {
       "title": "수강 후기",
       "backLabel": "강의 소개로 돌아가기",
@@ -269,103 +191,6 @@
       "starAriaLabel": "별점 {n}점",
       "totalRatingLabel": "전체 평점",
       "reviewCountSuffix": "개의 후기"
-    },
-    "pointsPage": {
-      "title": "잔여 포인트",
-      "unit": "P",
-      "expireNotice": "30일 이내 소멸 예정",
-      "emptyText": "포인트 이력이 없습니다.",
-      "historyTitle": "포인트 사용 내역",
-      "dateLabel": "날짜",
-      "tabs": {
-        "earn": "적립",
-        "use": "사용"
-      },
-      "mockHistory": [
-        {
-          "id": "pt-001",
-          "type": "earn",
-          "description": "[수강평 작성] 100포인트가 적립되었습니다.",
-          "amount": 600,
-          "date": "26.05.22"
-        },
-        {
-          "id": "pt-002",
-          "type": "use",
-          "description": "[강의 사용] 100포인트가 차감되었습니다.",
-          "amount": -200,
-          "date": "26.05.22"
-        },
-        {
-          "id": "pt-003",
-          "type": "use",
-          "description": "[강의 사용] 100포인트가 차감되었습니다.",
-          "amount": -200,
-          "date": "26.05.22"
-        },
-        {
-          "id": "pt-004",
-          "type": "earn",
-          "description": "[수강평 작성] 100포인트가 적립되었습니다.",
-          "amount": 600,
-          "date": "26.05.22"
-        },
-        {
-          "id": "pt-005",
-          "type": "use",
-          "description": "[강의 사용] 100포인트가 차감되었습니다.",
-          "amount": -200,
-          "date": "26.05.22"
-        },
-        {
-          "id": "pt-006",
-          "tye": "earn",
-          "description": "[수강평 작성] 100포인트가 적립되었습니다.",
-          "amount": 600,
-          "date": "26.05.22"
-        },
-        {
-          "id": "pt-007",
-          "type": "earn",
-          "description": "[수강평 작성] 100포인트가 적립되었습니다.",
-          "amount": 600,
-          "date": "26.05.22"
-        },
-        {
-          "id": "pt-008",
-          "type": "earn",
-          "description": "[수강평 작성] 100포인트가 적립되었습니다.",
-          "amount": 600,
-          "date": "26.05.22"
-        }
-      ]
-    },
-    "giftcardsPage": {
-      "title": "상품권",
-      "totalLabel": "총 사용가능",
-      "defaultValue": "0원",
-      "emptyText": "보유중인 상품권이 없습니다.",
-      "historyTitle": "이용내역",
-      "historyEmptyText": "최근 이용내역이 없습니다.",
-      "balanceLabel": "잔액",
-      "expiryLabel": "유효기간",
-      "statusLabels": {
-        "active": "사용가능",
-        "used": "사용완료",
-        "expired": "기간만료"
-      },
-      "historyTypeLabels": {
-        "charge": "충전",
-        "use": "사용"
-      }
-    },
-    "certificatesPage": {
-      "title": "수료증",
-      "emptyText": "수료증이 없습니다.",
-      "unknownCourse": "알 수 없는 강의",
-      "issueDatePrefix": "발급일",
-      "inProgressLabel": "수강 진행중",
-      "downloadLabel": "다운로드"
     },
     "consultationsPage": {
       "title": "강의 상담",
@@ -390,102 +215,7 @@
     }
   },
   "profileCard": {
-    "coverImageAlt": "프로필 커버 이미지",
-    "avatarAlt": "프로필 사진",
-    "verifiedBadge": {
-      "src": "/images/community/Bluecheck.svg",
-      "alt": "인증 완료"
-    },
-    "toggleLabels": {
-      "profile": "프로필",
-      "classroom": "강의실",
-      "ariaLabel": "프로필과 강의실 전환"
-    },
-    "profileMode": {
-      "roleLabel": "멘토 크리에이터",
-      "communityLevel": {
-        "title": "커뮤니티 레벨",
-        "tooltipText": "활동에 따라 레벨이 올라갑니다",
-        "tooltipAriaLabel": "커뮤니티 레벨 안내",
-        "steps": [
-          "1단계",
-          "2단계",
-          "3단계",
-          "4단계"
-        ],
-        "currentStep": 1,
-        "progressPercent": 25
-      },
-      "stats": [
-        {
-          "key": "followers",
-          "label": "팔로워",
-          "value": 0
-        },
-        {
-          "key": "posts",
-          "label": "작성한 글",
-          "value": 0
-        },
-        {
-          "key": "comments",
-          "label": "댓글",
-          "value": 0
-        }
-      ]
-    },
-    "classroomMode": {
-      "affiliationPrefix": "@",
-      "infoRows": [
-        {
-          "key": "grade",
-          "label": "학습등급",
-          "value": "입문",
-          "type": "badge"
-        },
-        {
-          "key": "coupons",
-          "label": "내 쿠폰",
-          "value": "0장",
-          "href": "/mypage/coupons",
-          "type": "link"
-        },
-        {
-          "key": "giftcards",
-          "label": "상품권",
-          "value": "0원",
-          "href": "/mypage/giftcards",
-          "type": "link"
-        },
-        {
-          "key": "points",
-          "label": "포인트",
-          "value": "0원",
-          "href": "/mypage/points",
-          "type": "link"
-        }
-      ]
-    },
-    "otherUserMode": {
-      "shareAriaLabel": "프로필 공유",
-      "followLabel": "팔로우",
-      "followingLabel": "팔로잉",
-      "followAriaLabel": "팔로우하기",
-      "infoRows": [
-        {
-          "key": "followers",
-          "label": "팔로워"
-        },
-        {
-          "key": "specialty",
-          "label": "전문분야"
-        },
-        {
-          "key": "experience",
-          "label": "개발 경력"
-        }
-      ]
-    }
+    "avatarAlt": "프로필 사진"
   },
   "orders": [
     {
@@ -814,6 +544,14 @@
   ],
   "profileEdit": {
     "title": "회원정보관리",
+    "profileSection": {
+      "avatarAlt": "프로필 사진",
+      "changeAvatarLabel": "이미지 변경",
+      "removeAvatarLabel": "이미지 삭제",
+      "nicknameLabel": "닉네임",
+      "nicknamePlaceholder": "닉네임을 입력하세요",
+      "nicknameAriaLabel": "닉네임"
+    },
     "fields": {
       "name": {
         "label": "이름",

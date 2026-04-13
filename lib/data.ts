@@ -5,7 +5,7 @@
  */
 
 import mainData from '@/data';
-import type { MainData, SiteData, NavData, Course, HomeSection, HomeSectionView, UpcomingCourse, BestCourse, BestChipCategory, FaqItem, BestReviewSection, FooterData, GeoData, OrderData, CertificateData, ConsultationData, ReviewData, ExpiredCouponData, GiftcardData, GiftcardHistoryData, FollowUserData, EnrolledCourseData, PopularArticlesSection, HomeBestArticlesSection, HomeCommunitySection, HomePromoBannerSection, HomeCategorySection, LiveCounterSection, HomeInstructorsSection, HomeNewsSection, CtaBannerData } from '@/types';
+import type { MainData, SiteData, NavData, Course, HomeSection, HomeSectionView, UpcomingCourse, BestCourse, BestChipCategory, FaqItem, BestReviewSection, FooterData, GeoData, OrderData, CertificateData, ConsultationData, ReviewData, ExpiredCouponData, GiftcardData, GiftcardHistoryData, FollowUserData, EnrolledCourseData, PopularArticlesSection, HomeBestArticlesSection, HomeCommunitySection, HomePromoBannerSection, HomeCategorySection, LiveCounterSection, HomeInstructorsSection, HomeNewsSection, CtaBannerData, BoardNotice, BoardData } from '@/types';
 
 const data: MainData = mainData;
 
@@ -246,6 +246,23 @@ export function getFollowing(): FollowUserData[] {
 /** 수강중 강의 목록 반환 */
 export function getEnrolledCourses(): EnrolledCourseData[] {
   return data.enrolledCourses || [];
+}
+
+/* ── 게시판(공지사항) ── */
+
+/** 게시판 페이지 데이터 반환 */
+export function getBoardData(): BoardData {
+  return data.board;
+}
+
+/** 전체 공지 목록 반환 */
+export function getBoardNotices(): BoardNotice[] {
+  return data.board?.notices || [];
+}
+
+/** slug로 공지 1건 조회 */
+export function findNoticeBySlug(slug: string): BoardNotice | null {
+  return data.board?.notices?.find((n) => n.slug === slug) || null;
 }
 
 /* ── 커리큘럼 / 플레이어 헬퍼 ── */

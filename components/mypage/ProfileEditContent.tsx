@@ -8,7 +8,7 @@
 
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import type { JSX, ChangeEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -23,11 +23,35 @@ import googleLogo from '@/assets/images/logo/google.png';
 import appleLogo from '@/assets/images/logo/apple.png';
 
 const profileEdit = accountData.profileEdit;
+const ps = profileEdit.profileSection;
 
 export default function ProfileEditContent(): JSX.Element {
   const router = useRouter();
   const user = useAuthStore((s) => s.user);
   const setUser = useAuthStore((s) => s.setUser);
+
+  // 프로필 이미지
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(user?.profileImage ?? null);
+
+  const handleAvatarChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // 클라이언트 미리보기
+    const objectUrl = URL.createObjectURL(file);
+    setAvatarPreview(objectUrl);
+
+    // TODO: 실제 업로드 API 호출 후 서버 URL로 교체
+  }, []);
+
+  const handleAvatarRemove = useCallback(() => {
+    setAvatarPreview(null);
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  }, []);
+
+  // 닉네임
+  const [nickname, setNickname] = useState(user?.nickname ?? user?.name ?? '');
 
   // 비밀번호
   const [currentPassword, setCurrentPassword] = useState('');
@@ -65,6 +89,7 @@ export default function ProfileEditContent(): JSX.Element {
     if (!user) return;
     setUser({
       ...user,
+      nickname,
       phone,
       birthday,
       gender,
@@ -76,7 +101,7 @@ export default function ProfileEditContent(): JSX.Element {
       },
     });
     router.push('/mypage');
-  }, [user, phone, birthday, gender, personalInfoConsent, smsConsent, emailConsent, nightAdConsent, setUser, router]);
+  }, [user, nickname, phone, birthday, gender, personalInfoConsent, smsConsent, emailConsent, nightAdConsent, setUser, router]);
 
   const handleCancel = useCallback(() => {
     router.back();
@@ -98,6 +123,73 @@ export default function ProfileEditContent(): JSX.Element {
   return (
     <div className="member-edit">
       <h2 className="member-edit__title">{profileEdit.title}</h2>
+      <hr className="member-edit__divider" />
+
+      {/* 프로필 이미지 + 닉네임 */}
+      <div className="member-edit__profile">
+        <div className="member-edit__avatar-wrap">
+          {avatarPreview ? (
+            <Image
+              src={avatarPreview}
+              alt={ps.avatarAlt}
+              width={80}
+              height={80}
+              className="member-edit__avatar-img"
+            />
+          ) : (
+            <div className="member-edit__avatar-default">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </div>
+          )}
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            className="member-edit__avatar-file"
+            onChange={handleAvatarChange}
+            aria-label={ps.changeAvatarLabel}
+          />
+          <div className="member-edit__avatar-actions">
+            <button
+              type="button"
+              className="member-edit__avatar-btn"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              {ps.changeAvatarLabel}
+            </button>
+            {avatarPreview && (
+              <button
+                type="button"
+                className="member-edit__avatar-btn member-edit__avatar-btn--remove"
+                onClick={handleAvatarRemove}
+              >
+                {ps.removeAvatarLabel}
+              </button>
+            )}
+          </div>
+        </div>
+
+        <div className="member-edit__row">
+          <label className="member-edit__label" htmlFor="member-nickname">
+            {ps.nicknameLabel}
+          </label>
+          <div className="member-edit__field">
+            <input
+              id="member-nickname"
+              type="text"
+              className="member-edit__input"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+              placeholder={ps.nicknamePlaceholder}
+              aria-label={ps.nicknameAriaLabel}
+            />
+          </div>
+        </div>
+      </div>
+
       <hr className="member-edit__divider" />
 
       {/* 회원 기본정보 폼 */}

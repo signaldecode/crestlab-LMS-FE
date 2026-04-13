@@ -1,0 +1,206 @@
+- generic [active] [ref=e1]:
+  - link "본문 바로가기" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - link "SIGNAL DECODE 홈으로 이동" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e8]: SIGNAL DECODE
+        - button "메뉴 열기" [ref=e9] [cursor=pointer]:
+          - img [ref=e10]
+        - navigation "주요 메뉴" [ref=e11]:
+          - list [ref=e12]:
+            - listitem [ref=e13]:
+              - link "회사소개 페이지" [ref=e14] [cursor=pointer]:
+                - /url: /about
+                - text: 회사소개
+            - listitem [ref=e15]:
+              - link "주식 강의 목록" [ref=e16] [cursor=pointer]:
+                - /url: /courses?category=stock
+                - text: 주식
+            - listitem [ref=e17]:
+              - link "가상자산 강의 목록" [ref=e18] [cursor=pointer]:
+                - /url: /courses?category=crypto
+                - text: 가상자산
+            - listitem [ref=e19]:
+              - link "부동산 강의 목록" [ref=e20] [cursor=pointer]:
+                - /url: /courses?category=real-estate
+                - text: 부동산
+            - listitem [ref=e21]:
+              - link "강사 소개 페이지" [ref=e22] [cursor=pointer]:
+                - /url: /instructors
+                - text: 강사
+      - generic [ref=e23]:
+        - generic [ref=e24]:
+          - searchbox "강의 검색" [ref=e25]
+          - img [ref=e26]
+        - generic [ref=e29]:
+          - button "로그인" [ref=e30] [cursor=pointer]
+          - link "회원가입" [ref=e32] [cursor=pointer]:
+            - /url: /auth/signup
+    - dialog [ref=e33]:
+      - generic [ref=e34]:
+        - img
+        - searchbox [ref=e35]
+      - navigation [ref=e36]
+      - navigation [ref=e37]:
+        - list [ref=e38]:
+          - listitem [ref=e39]:
+            - link [ref=e40] [cursor=pointer]:
+              - /url: /about
+              - text: 회사소개
+          - listitem [ref=e41]:
+            - link [ref=e42] [cursor=pointer]:
+              - /url: /courses?category=stock
+              - text: 주식
+          - listitem [ref=e43]:
+            - link [ref=e44] [cursor=pointer]:
+              - /url: /courses?category=crypto
+              - text: 가상자산
+          - listitem [ref=e45]:
+            - link [ref=e46] [cursor=pointer]:
+              - /url: /courses?category=real-estate
+              - text: 부동산
+          - listitem [ref=e47]:
+            - link [ref=e48] [cursor=pointer]:
+              - /url: /instructors
+              - text: 강사
+      - navigation [ref=e49]:
+        - list [ref=e50]:
+          - listitem [ref=e51]:
+            - link [ref=e52] [cursor=pointer]:
+              - /url: /instructor/apply
+              - text: 강사 지원하기
+      - generic [ref=e53]:
+        - link [ref=e54] [cursor=pointer]:
+          - /url: /auth/login
+          - text: 로그인
+        - link [ref=e55] [cursor=pointer]:
+          - /url: /auth/signup
+          - text: 회원가입
+  - main [ref=e56]:
+    - main [ref=e57]:
+      - generic [ref=e58]:
+        - heading "공지사항" [level=1] [ref=e59]
+        - generic [ref=e60]:
+          - generic [ref=e61]:
+            - link "전체" [ref=e62] [cursor=pointer]:
+              - /url: /board
+            - link "공지사항" [ref=e63] [cursor=pointer]:
+              - /url: /board?category=notice
+            - link "이벤트" [ref=e64] [cursor=pointer]:
+              - /url: /board?category=event
+            - link "업데이트" [ref=e65] [cursor=pointer]:
+              - /url: /board?category=update
+          - generic [ref=e66]:
+            - generic [ref=e67]: 정렬
+            - combobox "정렬" [ref=e68] [cursor=pointer]:
+              - option "최신순" [selected]
+              - option "조회순"
+        - list [ref=e69]:
+          - listitem [ref=e70]:
+            - link "고정 이벤트 오픈 기념 전 강의 30% 할인 이벤트 2026-04-10" [ref=e71] [cursor=pointer]:
+              - /url: /board/open-event-discount
+              - generic [ref=e72]: 고정
+              - generic [ref=e73]: 이벤트
+              - generic [ref=e74]: 오픈 기념 전 강의 30% 할인 이벤트
+              - generic [ref=e75]: 2026-04-10
+        - list [ref=e76]:
+          - listitem [ref=e77]:
+            - link "이벤트 친구 추천 이벤트 — 추천할수록 혜택이! 2026-04-01 조회 543" [ref=e78] [cursor=pointer]:
+              - /url: /board/referral-event
+              - generic [ref=e79]: 이벤트
+              - generic [ref=e80]: 친구 추천 이벤트 — 추천할수록 혜택이!
+              - generic [ref=e81]:
+                - generic [ref=e82]: 2026-04-01
+                - generic [ref=e83]: 조회 543
+  - contentinfo [ref=e84]:
+    - generic [ref=e85]:
+      - generic [ref=e86]:
+        - generic [ref=e87]: 강의 플랫폼
+        - link "문의하기 페이지로 이동" [ref=e88] [cursor=pointer]:
+          - /url: /support/tickets/new
+          - text: 문의하기
+      - navigation "하단 메뉴" [ref=e89]:
+        - list [ref=e90]:
+          - listitem [ref=e91]:
+            - link "카테고리별 강의 보기" [ref=e92] [cursor=pointer]:
+              - /url: /courses
+              - text: 카테고리
+          - listitem [ref=e93]:
+            - link "프론트엔드 입문 강의 상세 보기" [ref=e94] [cursor=pointer]:
+              - /url: /courses/real-estate-basic-class
+              - text: 프론트엔드
+          - listitem [ref=e95]:
+            - link "오리지널 강의 보기" [ref=e96] [cursor=pointer]:
+              - /url: /courses?category=original
+              - text: 오리지널
+          - listitem [ref=e97]:
+            - link "베스트 강의 보기" [ref=e98] [cursor=pointer]:
+              - /url: /best
+              - text: 베스트
+          - listitem [ref=e99]:
+            - link "커리큘럼 보기" [ref=e100] [cursor=pointer]:
+              - /url: /curriculum
+              - text: 커리큘럼
+          - listitem [ref=e101]:
+            - link "오픈예정 강의 보기" [ref=e102] [cursor=pointer]:
+              - /url: /upcoming
+              - text: 오픈예정
+          - listitem [ref=e103]:
+            - link "커뮤니티로 이동" [ref=e104] [cursor=pointer]:
+              - /url: /community
+              - text: 커뮤니티
+        - list [ref=e105]:
+          - listitem [ref=e106]:
+            - link "이용약관 보기" [ref=e107] [cursor=pointer]:
+              - /url: /etc/terms
+              - text: 이용약관
+          - listitem [ref=e108]:
+            - link "개인정보처리방침 보기" [ref=e109] [cursor=pointer]:
+              - /url: /etc/privacy
+              - text: 개인정보처리방침
+          - listitem [ref=e110]:
+            - link "환불정책 보기" [ref=e111] [cursor=pointer]:
+              - /url: /etc/refund
+              - text: 환불정책
+          - listitem [ref=e112]:
+            - link "고객센터로 이동" [ref=e113] [cursor=pointer]:
+              - /url: /support
+              - text: 고객센터
+        - list [ref=e114]:
+          - listitem [ref=e115]:
+            - link "회사 소개로 이동" [ref=e116] [cursor=pointer]:
+              - /url: /about
+              - text: 회사소개
+          - listitem [ref=e117]:
+            - link "강사 지원 페이지로 이동" [ref=e118] [cursor=pointer]:
+              - /url: /instructor/apply
+              - text: 강사 지원하기
+          - listitem [ref=e119]:
+            - link "공식 블로그 (새 탭)" [ref=e120] [cursor=pointer]:
+              - /url: https://blog.example.com
+              - text: 블로그
+          - listitem [ref=e121]:
+            - link "제휴 문의로 이동" [ref=e122] [cursor=pointer]:
+              - /url: /support/tickets/new
+              - text: 제휴 문의
+      - generic [ref=e123]:
+        - paragraph [ref=e124]: © LECTUREHUB. ALL RIGHTS RESERVED.
+        - list [ref=e125]:
+          - listitem [ref=e126]:
+            - link "유튜브 채널" [ref=e127] [cursor=pointer]:
+              - /url: https://youtube.com/@example
+              - img [ref=e128]
+          - listitem [ref=e130]:
+            - link "인스타그램" [ref=e131] [cursor=pointer]:
+              - /url: https://instagram.com/example
+              - img [ref=e132]
+          - listitem [ref=e134]:
+            - link "X (트위터)" [ref=e135] [cursor=pointer]:
+              - /url: https://x.com/example
+              - img [ref=e136]
+  - button "Open Next.js Dev Tools" [ref=e143] [cursor=pointer]:
+    - img [ref=e144]
+  - alert [ref=e147]

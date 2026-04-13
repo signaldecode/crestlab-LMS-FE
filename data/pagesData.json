@@ -335,24 +335,17 @@
         "title": "로그인 — 강의 플랫폼"
       },
       "title": "로그인",
-      "emailLabel": "이메일",
-      "emailPlaceholder": "이메일을 입력하세요",
+      "usernameLabel": "아이디",
+      "usernamePlaceholder": "아이디를 입력하세요",
       "passwordLabel": "비밀번호",
       "passwordPlaceholder": "비밀번호를 입력하세요",
       "submitLabel": "로그인",
-      "signupLink": "아직 회원이 아니신가요?",
-      "socialKakao": "카카오로 시작하기",
-      "socialGoogle": "Google로 시작하기"
+      "signupLink": "아직 회원이 아니신가요?"
     },
     "modal": {
-      "subtitle": "지금 가입 하고",
-      "highlight": "ㅇㅇㅇ님 칼럼과 자료를 무료로 받으세요!",
-      "socialKakaoLabel": "카카오로 3초만에 시작하기",
-      "socialNaverAriaLabel": "네이버 로그인",
-      "socialGoogleAriaLabel": "구글 로그인",
-      "socialAppleAriaLabel": "애플 로그인",
-      "findAccountLabel": "아이디(계정)·비밀번호 찾기",
-      "emailSignupLabel": "이메일 회원가입",
+      "subtitle": "강의 플랫폼에 오신 것을 환영합니다",
+      "findAccountLabel": "아이디·비밀번호 찾기",
+      "signupLabel": "회원가입",
       "backToLoginLabel": "로그인으로 돌아가기"
     },
     "signup": {

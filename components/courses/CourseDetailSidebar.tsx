@@ -113,7 +113,7 @@ export default function CourseDetailSidebar({ course }: CourseDetailSidebarProps
             href={`/checkout?slug=${course.slug}`}
             className="course-detail-sidebar__buy-btn"
           >
-            수강신청하기
+            강의 구매하기
           </Link>
         </div>
       </div>

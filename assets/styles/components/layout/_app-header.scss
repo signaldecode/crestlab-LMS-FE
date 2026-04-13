@@ -36,40 +36,63 @@
     }
   }
 
-  // ── 좌측: 로고 + 햄버거 + 네비 ──
+  // ── 좌측: 로고 + 네비 ──
   &__left {
     display: flex;
     align-items: center;
-    gap: $spacing-3;
+    gap: $spacing-10;
 
-    .global-nav {
-      @media (max-width: 767px) {
+    .global-nav:not(.global-nav--course-trigger) {
+      @media (max-width: 1023px) {
         display: none;
       }
     }
   }
 
-  // ── 햄버거 버튼 ──
+  // ── 햄버거 버튼 (태블릿 이하에서만 표시) ──
   &__hamburger {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
-    width: 1.75rem;
-    height: 1.75rem;
+    width: 2.5rem;
+    height: 2.5rem;
     background: none;
     border: none;
     color: $color-text-primary;
     cursor: pointer;
     padding: $spacing-0;
     flex-shrink: 0;
+    border-radius: $radius-md;
+    transition: background-color $duration-normal $ease-default;
+
+    &:hover {
+      background-color: $color-bg-secondary;
+    }
+
+    @media (max-width: 1023px) {
+      display: flex;
+    }
   }
 
-  // ── 우측: 검색 + 인증 ──
+  // ── 강의 드롭다운 트리거 래퍼 ──
+  .global-nav--course-trigger {
+    flex-shrink: 0;
+
+    @media (max-width: 1023px) {
+      display: none;
+    }
+  }
+
+  // ── 우측: 검색 + 인증 (데스크톱) / 햄버거 (태블릿 이하) ──
   &__right {
     display: flex;
     align-items: center;
     gap: $spacing-5;
     flex-shrink: 0;
+
+    @media (max-width: 1023px) {
+      gap: $spacing-0;
+    }
   }
 
   // ── 검색 ──
@@ -84,11 +107,6 @@
     border-radius: $radius-full;
 
     @media (max-width: 1023px) {
-      width: 14rem;
-      padding: $spacing-3 $spacing-5;
-    }
-
-    @media (max-width: 767px) {
       display: none;
     }
   }
@@ -119,7 +137,7 @@
     gap: $spacing-2;
     flex-shrink: 0;
 
-    @media (max-width: 767px) {
+    @media (max-width: 1023px) {
       display: none;
     }
   }
@@ -170,7 +188,7 @@
       background-color: $color-bg-secondary;
     }
 
-    @media (max-width: 767px) {
+    @media (max-width: 1023px) {
       display: none;
     }
   }

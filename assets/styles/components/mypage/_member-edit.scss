@@ -25,6 +25,78 @@
     margin: 0 0 $spacing-8;
   }
 
+  // ── 프로필 이미지 + 닉네임 ──
+  &__profile {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-6;
+    margin-bottom: $spacing-8;
+  }
+
+  &__avatar-wrap {
+    display: flex;
+    align-items: center;
+    gap: $spacing-5;
+  }
+
+  &__avatar-img {
+    width: 5rem;
+    height: 5rem;
+    border-radius: $radius-circle;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  &__avatar-default {
+    width: 5rem;
+    height: 5rem;
+    border-radius: $radius-circle;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $color-bg-tertiary;
+    color: $color-text-secondary;
+  }
+
+  &__avatar-file {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  &__avatar-actions {
+    display: flex;
+    gap: $spacing-2;
+  }
+
+  &__avatar-btn {
+    padding: $spacing-2 $spacing-4;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
+    background: $color-bg-primary;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    cursor: pointer;
+    transition: background $duration-normal;
+
+    &:hover {
+      background: $color-bg-tertiary;
+    }
+
+    &--remove {
+      color: $color-text-secondary;
+
+      &:hover {
+        color: $color-error;
+        border-color: $color-error;
+      }
+    }
+  }
+
   // 폼 영역
   &__form {
     display: flex;

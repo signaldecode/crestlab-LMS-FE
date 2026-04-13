@@ -15,6 +15,7 @@ interface CategoryMenuTriggerProps {
   label: string;
   href: string;
   ariaLabel?: string;
+  showHamburger?: boolean;
   children: ReactNode;
 }
 
@@ -22,6 +23,7 @@ export default function CategoryMenuTrigger({
   label,
   href,
   ariaLabel,
+  showHamburger,
   children,
 }: CategoryMenuTriggerProps): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
@@ -68,12 +70,19 @@ export default function CategoryMenuTrigger({
     >
       <Link
         href={href}
-        className="global-nav__link"
+        className={`global-nav__link${showHamburger ? ' global-nav__link--with-icon' : ''}`}
         aria-label={ariaLabel}
         aria-haspopup="true"
         aria-expanded={isOpen}
         onClick={handleClick}
       >
+        {showHamburger && (
+          <svg width="20" height="20" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <path d="M5.33 7h17.33" />
+            <path d="M5.33 14h17.33" />
+            <path d="M5.33 21h17.33" />
+          </svg>
+        )}
         {label}
       </Link>
       {isOpen && (

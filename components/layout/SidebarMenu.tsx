@@ -8,7 +8,7 @@
 
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import type { JSX } from 'react';
 import Link from 'next/link';
 import { getNavData } from '@/lib/data';
@@ -23,6 +23,19 @@ export default function SidebarMenu({ isOpen, onClose }: SidebarMenuProps): JSX.
   const nav = getNavData();
   const isLoggedIn = useAuthStore((s) => s.isLoggedIn);
   const user = useAuthStore((s) => s.user);
+  const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set());
+
+  const toggleGroup = (href: string) => {
+    setExpandedGroups((prev) => {
+      const next = new Set(prev);
+      if (next.has(href)) {
+        next.delete(href);
+      } else {
+        next.add(href);
+      }
+      return next;
+    });
+  };
 
   // Escape 키로 닫기
   useEffect(() => {
@@ -90,6 +103,67 @@ export default function SidebarMenu({ isOpen, onClose }: SidebarMenuProps): JSX.
                 </Link>
               </li>
             ))}
+          </ul>
+        </nav>
+
+        {/* 강의 카테고리 (아코디언) */}
+        <nav className="sidebar-menu__section">
+          <p className="sidebar-menu__section-title">{nav.courseDropdown.label}</p>
+          <ul className="sidebar-menu__list">
+            {nav.categoryMenu.groups.map((group) => {
+              const isExpanded = expandedGroups.has(group.href);
+              return (
+                <li key={group.href} className="sidebar-menu__item sidebar-menu__item--accordion">
+                  <div className="sidebar-menu__accordion-header">
+                    <Link
+                      href={group.href}
+                      className="sidebar-menu__accordion-link"
+                      onClick={onClose}
+                      tabIndex={isOpen ? 0 : -1}
+                    >
+                      {group.label}
+                    </Link>
+                    <button
+                      type="button"
+                      className="sidebar-menu__accordion-toggle"
+                      aria-expanded={isExpanded}
+                      aria-label={`${group.label} 하위 메뉴 ${isExpanded ? '접기' : '펼치기'}`}
+                      onClick={() => toggleGroup(group.href)}
+                      tabIndex={isOpen ? 0 : -1}
+                    >
+                      <svg
+                        className={`sidebar-menu__accordion-icon${isExpanded ? ' sidebar-menu__accordion-icon--open' : ''}`}
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        aria-hidden="true"
+                      >
+                        <path d="M6 9l6 6 6-6" />
+                      </svg>
+                    </button>
+                  </div>
+                  {isExpanded && (
+                    <ul className="sidebar-menu__sublist">
+                      {group.items.map((item) => (
+                        <li key={item.href} className="sidebar-menu__subitem">
+                          <Link
+                            href={item.href}
+                            className="sidebar-menu__sublink"
+                            onClick={onClose}
+                            tabIndex={isOpen ? 0 : -1}
+                          >
+                            {item.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </nav>
 

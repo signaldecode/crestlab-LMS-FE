@@ -12,8 +12,9 @@ import homeData from './homeData.json';
 import communityData from './communityData.json';
 import accountData from './accountData.json';
 import supportData from './supportData.json';
+import boardData from './boardData.json';
 
-import type { MainData, CommunityData, GiftcardData, GiftcardHistoryData, FollowUserData, EnrolledCourseData } from '@/types';
+import type { MainData, CommunityData, GiftcardData, GiftcardHistoryData, FollowUserData, EnrolledCourseData, BoardData } from '@/types';
 
 const mainData: MainData = {
   site: siteData.site,
@@ -52,6 +53,7 @@ const mainData: MainData = {
   followers: accountData.followers as unknown as FollowUserData[],
   following: accountData.following as unknown as FollowUserData[],
   enrolledCourses: accountData.enrolledCourses as unknown as EnrolledCourseData[],
+  board: boardData as unknown as BoardData,
 };
 
 export { uiData, supportData };

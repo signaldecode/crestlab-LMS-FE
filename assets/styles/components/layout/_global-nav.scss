@@ -53,6 +53,12 @@
       color: $color-primary;
     }
 
+    &--with-icon {
+      display: flex;
+      align-items: center;
+      gap: $spacing-2;
+    }
+
     @media (max-width: 1023px) {
       font-size: $font-size-sm;
     }

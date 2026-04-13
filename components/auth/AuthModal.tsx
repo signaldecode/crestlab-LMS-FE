@@ -2,8 +2,7 @@
  * 인증 모달 (AuthModal)
  * - 로그인 버튼 클릭 시 표시되는 모달 (로그인 전용)
  * - 회원가입은 /auth/signup 페이지로 분리
- * - 소셜 로그인(카카오, 네이버, 구글, 애플) + 이메일/비밀번호 폼
- * - 기존 Modal 컴포넌트를 래핑한다
+ * - 아이디/비밀번호 자체 로그인
  */
 
 'use client';
@@ -13,7 +12,6 @@ import Link from 'next/link';
 import Modal from '@/components/layout/Modal';
 import useAuth from '@/hooks/useAuth';
 import { getMainData } from '@/lib/data';
-import { redirectToOAuth } from '@/lib/oauth';
 import pagesData from '@/data/pagesData.json';
 
 interface AuthModalProps {
@@ -27,14 +25,14 @@ const modalData = pagesData.auth.modal;
  * 임시 로그인 처리 — 나중에 실제 API 호출로 교체한다
  * TODO: POST /api/auth/login 으로 교체
  */
-async function mockLogin(email: string, _password: string) {
+async function mockLogin(username: string, _password: string) {
   return {
     user: {
       id: 'user-' + Date.now(),
-      username: email.split('@')[0],
-      name: email.split('@')[0],
-      nickname: email.split('@')[0],
-      email,
+      username,
+      name: username,
+      nickname: username,
+      email: '',
       bio: '',
     },
     token: 'mock-token-' + Date.now(),
@@ -48,11 +46,11 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps): JSX.Elem
 
   const { login } = useAuth();
 
-  const [loginEmail, setLoginEmail] = useState('');
+  const [loginUsername, setLoginUsername] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
 
   const resetForm = useCallback(() => {
-    setLoginEmail('');
+    setLoginUsername('');
     setLoginPassword('');
   }, []);
 
@@ -63,11 +61,11 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps): JSX.Elem
 
   const handleLogin: React.FormEventHandler<HTMLFormElement> = useCallback(async (e) => {
     e.preventDefault();
-    const result = await mockLogin(loginEmail, loginPassword);
+    const result = await mockLogin(loginUsername, loginPassword);
     login(result.user, result.token);
     resetForm();
     onClose();
-  }, [loginEmail, loginPassword, login, resetForm, onClose]);
+  }, [loginUsername, loginPassword, login, resetForm, onClose]);
 
   return (
     <Modal isOpen={isOpen} onClose={handleClose} title="" closeOnOverlayClick={false}>
@@ -77,48 +75,16 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps): JSX.Elem
         <p className="auth-modal__subtitle">
           {modalData.subtitle}
         </p>
-        <p className="auth-modal__subtitle">
-          <span className="auth-modal__highlight">{modalData.highlight}</span>
-        </p>
 
-        {/* 카카오 로그인 버튼 */}
-        <div className="auth-modal__social">
-          <button
-            type="button"
-            className="auth-modal__social-btn auth-modal__social-btn--kakao"
-            onClick={() => redirectToOAuth('kakao')}
-          >
-            {loginData?.socialKakao ?? modalData.socialKakaoLabel}
-          </button>
-        </div>
-
-        {/* 소셜 아이콘 (네이버, 구글, 애플) */}
-        <div className="auth-modal__social-icons">
-          <button type="button" className="auth-modal__social-icon auth-modal__social-icon--naver" aria-label={modalData.socialNaverAriaLabel}>
-            N
-          </button>
-          <button
-            type="button"
-            className="auth-modal__social-icon auth-modal__social-icon--google"
-            aria-label={modalData.socialGoogleAriaLabel}
-            onClick={() => redirectToOAuth('google')}
-          >
-            G
-          </button>
-          <button type="button" className="auth-modal__social-icon auth-modal__social-icon--apple" aria-label={modalData.socialAppleAriaLabel}>
-            A
-          </button>
-        </div>
-
-        {/* 이메일/비밀번호 폼 */}
+        {/* 아이디/비밀번호 폼 */}
         <form className="auth-modal__form" onSubmit={handleLogin}>
           <input
-            type="email"
+            type="text"
             className="auth-modal__input"
-            placeholder={loginData?.emailPlaceholder}
-            aria-label={loginData?.emailLabel}
-            value={loginEmail}
-            onChange={(e) => setLoginEmail(e.target.value)}
+            placeholder={loginData?.usernamePlaceholder}
+            aria-label={loginData?.usernameLabel}
+            value={loginUsername}
+            onChange={(e) => setLoginUsername(e.target.value)}
           />
           <input
             type="password"
@@ -140,7 +106,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps): JSX.Elem
           </button>
           <span className="auth-modal__divider">|</span>
           <Link href="/auth/signup" className="auth-modal__link" onClick={handleClose}>
-            {modalData.emailSignupLabel}
+            {modalData.signupLabel}
           </Link>
         </div>
       </div>

@@ -1,7 +1,7 @@
 /**
  * 앱 공통 헤더 (AppHeader)
- * - 1줄 구조: 로고 + 글로벌 내비게이션 + 검색 + 인증
- * - 모바일: 햄버거 버튼으로 SidebarMenu 토글
+ * - 1줄 구조: 로고 + 강의 드롭다운(메가메뉴) + 글로벌 내비게이션 + 검색 + 인증
+ * - 모바일: 사이드바 메뉴
  */
 
 'use client';
@@ -12,6 +12,8 @@ import Link from 'next/link';
 import AppLogo from '@/components/common/AppLogo';
 import AuthTrigger from '@/components/common/AuthTrigger';
 import GlobalNav from '@/components/layout/GlobalNav';
+import CategoryMenuTrigger from '@/components/layout/CategoryMenuTrigger';
+import CategoryMegaMenu from '@/components/layout/CategoryMegaMenu';
 import SidebarMenu from '@/components/layout/SidebarMenu';
 import NotificationDrawer from '@/components/common/NotificationDrawer';
 import useAuthStore from '@/stores/useAuthStore';
@@ -52,11 +54,31 @@ export default function AppHeader(): JSX.Element {
     <header className="app-header" role="banner">
       <div className="app-header__top-bar">
         <div className="app-header__top-bar-inner">
-          {/* 좌측: 로고 + 햄버거 + 네비 */}
+          {/* 좌측: 로고 + 강의 드롭다운 + 네비 (데스크톱) / 로고만 (태블릿 이하) */}
           <div className="app-header__left">
             <AppLogo />
 
-            {/* 햄버거 메뉴 버튼 */}
+            {/* 강의 카테고리 드롭다운 (메가 메뉴) — 데스크톱에서만 표시 */}
+            <nav className="global-nav global-nav--course-trigger" aria-label={nav.courseDropdown.ariaLabel}>
+              <ul className="global-nav__list">
+                <CategoryMenuTrigger
+                  label={nav.courseDropdown.label}
+                  href={nav.courseDropdown.href}
+                  ariaLabel={nav.courseDropdown.ariaLabel}
+                  showHamburger
+                >
+                  <CategoryMegaMenu />
+                </CategoryMenuTrigger>
+              </ul>
+            </nav>
+
+            {/* 글로벌 네비게이션 — 데스크톱에서만 표시 */}
+            <GlobalNav />
+          </div>
+
+          {/* 우측: 검색 + 인증 (데스크톱) / 햄버거 (태블릿 이하) */}
+          <div className="app-header__right">
+            {/* 햄버거 버튼 — 태블릿 이하에서만 표시 */}
             <button
               type="button"
               className="app-header__hamburger"
@@ -65,12 +87,12 @@ export default function AppHeader(): JSX.Element {
               onClick={isMobileMenuOpen ? closeMenu : openMenu}
             >
               {isMobileMenuOpen ? (
-                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg width="24" height="24" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                   <path d="M20 8L8 20" />
                   <path d="M8 8l12 12" />
                 </svg>
               ) : (
-                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#111111" strokeWidth="2">
+                <svg width="24" height="24" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                   <path d="M5.33 7h17.33" />
                   <path d="M5.33 14h17.33" />
                   <path d="M5.33 21h17.33" />
@@ -78,11 +100,6 @@ export default function AppHeader(): JSX.Element {
               )}
             </button>
 
-            <GlobalNav />
-          </div>
-
-          {/* 우측: 검색 + 인증 */}
-          <div className="app-header__right">
             <div className="app-header__search">
               <input
                 type="search"
@@ -114,7 +131,7 @@ export default function AppHeader(): JSX.Element {
         </div>
       </div>
 
-      {/* 모바일 사이드바 메뉴 */}
+      {/* 사이드바 오버레이 메뉴 — 태블릿 이하 */}
       <SidebarMenu isOpen={isMobileMenuOpen} onClose={closeMenu} />
     </header>
   );

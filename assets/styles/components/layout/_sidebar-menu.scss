@@ -73,6 +73,16 @@
     border-bottom: $border-thin solid $color-border;
   }
 
+  &__section-title {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    color: $color-text-secondary;
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-normal;
+    margin: $spacing-0 $spacing-0 $spacing-2 $spacing-2;
+    padding: $spacing-0;
+  }
+
   &__list {
     list-style: none;
     margin: $spacing-0;
@@ -84,6 +94,92 @@
 
   &__item {
     display: flex;
+
+    &--accordion {
+      flex-direction: column;
+    }
+  }
+
+  // 아코디언 헤더 (링크 + 토글 버튼 분리)
+  &__accordion-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  &__accordion-link {
+    flex: 1;
+    padding: $spacing-3 $spacing-2;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    text-decoration: none;
+    border-radius: $radius-xs;
+    transition: background-color $duration-fast $ease-default;
+
+    &:hover {
+      background-color: $color-bg-secondary;
+    }
+  }
+
+  &__accordion-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    border-radius: $radius-xs;
+    color: $color-text-secondary;
+    cursor: pointer;
+    transition: background-color $duration-fast $ease-default, color $duration-fast $ease-default;
+
+    &:hover {
+      background-color: $color-bg-secondary;
+      color: $color-text-primary;
+    }
+  }
+
+  &__accordion-icon {
+    flex-shrink: 0;
+    transition: transform $duration-normal $ease-default;
+
+    &--open {
+      transform: rotate(180deg);
+    }
+  }
+
+  // 하위 목록
+  &__sublist {
+    list-style: none;
+    margin: $spacing-0;
+    padding: $spacing-1 $spacing-0 $spacing-1 $spacing-4;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-0;
+  }
+
+  &__subitem {
+    display: flex;
+  }
+
+  &__sublink {
+    display: block;
+    width: 100%;
+    padding: $spacing-3 $spacing-3;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-regular;
+    color: $color-text-secondary;
+    text-decoration: none;
+    border-radius: $radius-xs;
+    transition: background-color $duration-fast $ease-default, color $duration-fast $ease-default;
+
+    &:hover {
+      background-color: $color-bg-secondary;
+      color: $color-primary;
+    }
   }
 
   &__link {

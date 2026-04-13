@@ -458,10 +458,17 @@ export interface NavSearchData {
   ariaLabel: string;
 }
 
+export interface CourseDropdownData {
+  label: string;
+  href: string;
+  ariaLabel: string;
+}
+
 export interface NavData {
   topBar: NavItem[];
   search: NavSearchData;
   main: NavItem[];
+  courseDropdown: CourseDropdownData;
   user: NavItem[];
   auth: NavAuthData;
   categoryMenu: CategoryMenu;
@@ -857,23 +864,6 @@ export interface ProfileCardOptions {
   showStats?: boolean;
 }
 
-/* ── 마이페이지 섹션 ── */
-export type MyPageTab = 'classroom' | 'profile';
-
-export type MyPageSection =
-  | 'classroom'
-  | 'profile'
-  | 'wishlist'
-  | 'orders'
-  | 'coupons'
-  | 'points'
-  | 'giftcards'
-  | 'reviews'
-  | 'certificates'
-  | 'consultations'
-  | 'profileEdit'
-  | 'profileIntroEdit';
-
 /* ── 장바구니 / 주문 ── */
 export interface CartItem extends Course {}
 
@@ -1132,6 +1122,45 @@ export interface MainData {
   followers: FollowUserData[];
   following: FollowUserData[];
   enrolledCourses: EnrolledCourseData[];
+  board: BoardData;
+}
+
+/* ── 게시판(공지사항) ── */
+export interface BoardNotice {
+  id: string;
+  slug: string;
+  title: string;
+  summary: string;
+  content: string;
+  category: 'notice' | 'event' | 'update';
+  author: string;
+  date: string;
+  isPinned: boolean;
+  viewCount: number;
+}
+
+export interface BoardData {
+  page: {
+    title: string;
+    seo: { title: string; description: string };
+    categories: { value: string; label: string }[];
+    sortOptions: { value: string; label: string }[];
+    defaultCategory: string;
+    filterLabel: string;
+    sortLabel: string;
+    emptyText: string;
+    pinnedLabel: string;
+    viewCountUnit: string;
+    backLabel: string;
+    breadcrumb: {
+      ariaLabel: string;
+      homeLabel: string;
+      homeHref: string;
+      boardLabel: string;
+      boardHref: string;
+    };
+  };
+  notices: BoardNotice[];
 }
 
 /* ── Breadcrumb ── */
