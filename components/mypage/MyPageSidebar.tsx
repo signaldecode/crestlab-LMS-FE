@@ -6,9 +6,12 @@
 'use client';
 
 import type { JSX } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import accountData from '@/data/accountData.json';
+import ConfirmModal from '../layout/ConfirmModal';
+
 
 const mypageData = accountData.mypage;
 
@@ -41,6 +44,14 @@ function isActive(pathname: string, href: string): boolean {
 export default function MyPageSidebar(): JSX.Element {
   const pathname = usePathname();
   const menuGroups = mypageData.sidebar.menuGroups;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  
+  function handleResetProgress() {
+    setIsModalOpen(true);
+  }
+
+  
 
   return (
     <aside className="mypage-sidebar">
@@ -91,6 +102,15 @@ export default function MyPageSidebar(): JSX.Element {
             </div>
           ))}
         </nav>
+        <ConfirmModal
+          isOpen={isModalOpen}
+          message={mypageData.sidebar.logoutModalMessage}
+          onCancel={() => setIsModalOpen(false)}
+          onConfirm={() => {
+            setIsModalOpen(false);
+          }}
+        />
+
       </div>
     </aside>
   );

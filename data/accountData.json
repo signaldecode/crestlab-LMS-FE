@@ -21,6 +21,7 @@
         }
       ],
       "logoutLabel": "로그아웃",
+      "logoutModalMessage": "정말 로그아웃 하시겠습니까?",
       "menuGroups": [
         {
           "section": "강의 관련",
