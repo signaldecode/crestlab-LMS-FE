@@ -63,34 +63,29 @@
     },
     "main": [
       {
-        "label": "드롭다운 메뉴",
-        "href": "/courses",
-        "ariaLabel": "드롭다운 메뉴"
-      },
-      {
         "label": "회사소개",
-        "href": "/courses/real-estate-basic-class",
-        "ariaLabel": "회사소개"
+        "href": "/about",
+        "ariaLabel": "회사소개 페이지"
       },
       {
         "label": "주식",
-        "href": "/courses?category=original",
-        "ariaLabel": "주식"
+        "href": "/courses?category=stock",
+        "ariaLabel": "주식 강의 목록"
       },
       {
         "label": "가상자산",
-        "href": "/best",
-        "ariaLabel": "가상자산"
+        "href": "/courses?category=crypto",
+        "ariaLabel": "가상자산 강의 목록"
       },
       {
         "label": "부동산",
-        "href": "/curriculum",
-        "ariaLabel": "부동산"
+        "href": "/courses?category=real-estate",
+        "ariaLabel": "부동산 강의 목록"
       },
       {
         "label": "강사",
-        "href": "/upcoming",
-        "ariaLabel": "강사"
+        "href": "/instructors",
+        "ariaLabel": "강사 소개 페이지"
       }
     ],
     "user": [

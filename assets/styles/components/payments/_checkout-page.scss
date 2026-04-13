@@ -5,323 +5,316 @@
 @use '../../tokens/z-index' as *;
 @use '../../mixins/breakpoints' as *;
 
-// ============================================
-// 결제 페이지 스타일 (_checkout-page.scss)
-// - 2칸 레이아웃: 왼쪽 주문 정보 / 오른쪽 결제 요약
-// ============================================
-
-
-@keyframes checkout-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-
-// ── 메인 컨테이너 ──
-.checkout-container {
+// ── 결제 페이지 ──
+.checkout {
   max-width: $container-max-width;
   margin: 0 auto;
-  padding: $spacing-8 $container-padding;
+  padding: $spacing-0 $container-padding $spacing-20;
 
-  &__title {
-    font-size: $font-size-xl;
-    font-weight: $font-weight-bold;
-    color: $color-text-primary;
-    margin-bottom: $spacing-8;
-  }
-
-  // ── 2칸 레이아웃 ──
+  // ── 2열 레이아웃 ──
   &__layout {
-    display: grid;
-    grid-template-columns: 1fr 340px;
-    gap: $spacing-10;
+    display: flex;
+    gap: 4.5rem;
     align-items: flex-start;
 
     @media (max-width: 1023px) {
-      grid-template-columns: 1fr;
+      flex-direction: column;
+      gap: $spacing-10;
     }
   }
 
-  // ── 왼쪽 메인 ──
+  // ── 좌측 메인 (860px) ──
   &__main {
+    flex: 1;
     min-width: 0;
     display: flex;
     flex-direction: column;
+    gap: $spacing-15;
   }
 
-  // ── 섹션 공통 ──
-  &__section {
-    padding: $spacing-6 0;
+  &__title {
+    font-size: 2rem;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    letter-spacing: $letter-spacing-normal;
+    line-height: 1.3125em;
+    margin: 0;
+
+    @media (max-width: 639px) {
+      font-size: $font-size-xl;
+    }
+  }
+
+  // ── 주문 강의 ──
+  &__order-section {
     border-bottom: $border-thin solid $color-border;
+    padding-bottom: $spacing-8;
+  }
 
-    &:first-child {
-      padding-top: 0;
-    }
+  &__course-row {
+    display: flex;
+    gap: $spacing-5;
 
-    &:last-child {
-      border-bottom: none;
+    @media (max-width: 639px) {
+      flex-direction: column;
     }
+  }
+
+  &__course-thumb {
+    flex-shrink: 0;
+    width: 17.5rem;
+    height: 10rem;
+    border-radius: $radius-md;
+    overflow: hidden;
+    background: $color-bg-tertiary;
+
+    @media (max-width: 639px) {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+    }
+  }
+
+  &__course-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__course-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-5;
+  }
+
+  &__course-text {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+    min-width: 0;
+  }
+
+  &__course-name {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    letter-spacing: $letter-spacing-normal;
+    line-height: $line-height-base;
+    margin: 0;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+
+    @media (max-width: 639px) {
+      font-size: $font-size-base;
+    }
+  }
+
+  &__course-desc {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-regular;
+    color: $color-text-secondary;
+    letter-spacing: $letter-spacing-normal;
+    line-height: 1.429em;
+    margin: 0;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  &__course-price {
+    font-size: 1.75rem;
+    font-weight: $font-weight-semibold;
+    color: $color-text-black;
+    letter-spacing: $letter-spacing-normal;
+
+    @media (max-width: 639px) {
+      font-size: $font-size-xl;
+    }
+  }
+
+  // ── 섹션 공통 (쿠폰/적립금/결제수단) ──
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
   }
 
   &__section-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: $spacing-4;
+    align-items: flex-end;
   }
 
   &__section-title {
-    font-size: $font-size-md;
-    font-weight: $font-weight-bold;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
     color: $color-text-primary;
-    margin-bottom: $spacing-4;
-
-    .checkout-container__section-header & {
-      margin-bottom: 0;
-    }
+    letter-spacing: $letter-spacing-normal;
+    margin: 0;
   }
 
-  &__section-note {
-    font-size: $font-size-xs;
-    font-weight: $font-weight-regular;
-    color: $color-text-secondary;
-    margin-left: $spacing-2;
-  }
-
-  // ── 주문 강의 아이템 ──
-  &__course-item {
-    display: flex;
-    gap: $spacing-4;
-    padding: $spacing-3 0;
-  }
-
-  &__course-thumb {
-    flex-shrink: 0;
-    border-radius: $radius-sm;
-  }
-
-  &__course-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-2;
-    min-width: 0;
-  }
-
-  &__course-badges {
-    display: flex;
-    gap: $spacing-1;
-  }
-
-  &__course-badge {
-    display: inline-block;
-    padding: $border-medium $spacing-2;
-    border-radius: $radius-xs;
-    font-size: $font-size-xs;
-    font-weight: $font-weight-bold;
-    line-height: 1.4;
-    background: $color-bg-tertiary;
-    color: $color-text-secondary;
-
-    &--original { background: #f3e8ff; color: #7c3aed; }
-    &--best     { background: #fee2e2; color: #dc2626; }
-    &--new      { background: #dcfce7; color: #16a34a; }
-    &--urgent   { background: #fff7ed; color: #ea580c; }
-    &--level    { background: #fef9c3; color: #a16207; }
-  }
-
-  &__course-title {
-    font-size: $font-size-base;
-    font-weight: $font-weight-bold;
-    color: $color-text-primary;
-    line-height: $line-height-base;
-  }
-
-  &__course-meta {
-    display: flex;
-    align-items: center;
-    gap: $spacing-2;
-    font-size: $font-size-sm;
-    color: $color-text-secondary;
-  }
-
-  &__course-meta-dot {
-    width: 3px;
-    height: 3px;
-    border-radius: $radius-circle;
-    background: $color-text-secondary;
-  }
-
-  &__course-price {
-    display: flex;
-    align-items: center;
-    gap: $spacing-2;
-    margin-top: $spacing-1;
-  }
-
-  &__course-price-original {
-    font-size: $font-size-sm;
-    text-decoration: line-through;
-    color: $color-text-secondary;
-  }
-
-  &__course-price-discount {
-    font-size: $font-size-sm;
-    font-weight: $font-weight-bold;
-    color: $color-primary;
-  }
-
-  &__course-price-final {
-    font-size: $font-size-md;
-    font-weight: $font-weight-bold;
-    color: $color-text-primary;
-  }
-
-  // ── 쿠폰 ──
-  &__coupon-link {
+  &__section-link {
     background: none;
     border: none;
-    color: $color-primary;
-    font-size: $font-size-sm;
+    font-size: $font-size-base;
+    color: $color-text-secondary;
+    letter-spacing: $letter-spacing-normal;
     cursor: pointer;
 
     &:hover {
-      text-decoration: underline;
+      color: $color-primary;
     }
   }
 
-  &__select-wrap {
-    position: relative;
-  }
-
-  &__select {
-    width: 100%;
-    padding: $spacing-3 $spacing-4;
-    padding-right: $spacing-8;
-    border: $border-thin solid $color-border;
-    border-radius: $radius-sm;
-    background: $color-bg-primary;
-    font-size: $font-size-sm;
-    color: $color-text-secondary;
-    appearance: none;
-    cursor: pointer;
-
-    &:disabled {
-      background: $color-bg-secondary;
-      cursor: default;
-    }
-  }
-
-  &__select-arrow {
-    position: absolute;
-    right: $spacing-3;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    color: $color-text-secondary;
-  }
-
-  // ── 상품권 · 포인트 ──
-  &__voucher-row {
-    margin-bottom: $spacing-4;
-
-    &:last-of-type {
-      margin-bottom: $spacing-2;
-    }
-  }
-
-  &__radio-label {
+  &__section-meta {
     display: flex;
     align-items: center;
-    gap: $spacing-2;
-    margin-bottom: $spacing-2;
-    cursor: pointer;
+    gap: $spacing-1;
   }
 
-  &__radio {
-    accent-color: $color-primary;
+  &__section-note {
+    font-size: $font-size-base;
+    color: $color-text-secondary;
+    letter-spacing: $letter-spacing-normal;
   }
 
-  &__radio-text {
+  &__section-value {
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    letter-spacing: $letter-spacing-normal;
+  }
+
+  // ── 필드 행 (쿠폰/적립금 입력) ──
+  &__section-body {
+    border-top: $border-thin solid $color-text-primary;
+    padding-top: $spacing-6;
+  }
+
+  &__field {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+
+    @media (max-width: 639px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $spacing-2;
+    }
+  }
+
+  &__field-label {
+    width: 7.5rem;
+    flex-shrink: 0;
+
+    @media (max-width: 639px) {
+      width: auto;
+    }
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
     color: $color-text-primary;
+    letter-spacing: $letter-spacing-normal;
   }
 
-  &__available {
-    font-size: $font-size-xs;
+  &__select {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $spacing-4;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-xs;
+    cursor: pointer;
+
+    @media (max-width: 639px) {
+      width: 100%;
+    }
+  }
+
+  &__select-text {
+    font-size: $font-size-sm;
     color: $color-text-secondary;
-    margin-left: auto;
+    letter-spacing: $letter-spacing-normal;
   }
 
-  &__input-row {
+  &__input-group {
+    flex: 1;
+    min-width: 0;
     display: flex;
     gap: $spacing-2;
-    align-items: center;
+
+    @media (max-width: 639px) {
+      width: 100%;
+    }
   }
 
   &__input {
     flex: 1;
-    padding: $spacing-2 $spacing-3;
+    padding: $spacing-4;
     border: $border-thin solid $color-border;
-    border-radius: $radius-sm;
+    border-radius: $radius-xs;
     font-size: $font-size-sm;
     color: $color-text-primary;
     text-align: right;
-
-    &:disabled {
-      background: $color-bg-secondary;
-      color: $color-text-secondary;
-    }
+    letter-spacing: $letter-spacing-normal;
 
     &:focus {
       outline: none;
-      border-color: $color-border-focus;
+      border-color:  $color-border-focus;
     }
   }
 
   &__apply-btn {
     flex-shrink: 0;
-    padding: $spacing-2 $spacing-3;
-    border: $border-thin solid $color-border;
-    border-radius: $radius-sm;
-    background: $color-bg-primary;
+    padding: $spacing-4;
+    width: 6.25rem;
+    border: none;
+    border-radius: $radius-xs;
+    background: $color-bg-tertiary;
     font-size: $font-size-sm;
-    color: $color-text-primary;
-    cursor: pointer;
-    white-space: nowrap;
-
-    &:hover:not(:disabled) {
-      background: $color-bg-secondary;
-    }
-
-    &:disabled {
-      color: $color-text-secondary;
-      cursor: default;
-    }
-  }
-
-  &__point-note {
-    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
     color: $color-text-secondary;
-    margin-top: $spacing-2;
+    letter-spacing: $letter-spacing-normal;
+    cursor: pointer;
+    text-align: center;
+
+    &:hover {
+      background: $color-border;
+    }
   }
 
   // ── 결제 수단 ──
-  &__payment-methods {
-    display: flex;
-    flex-wrap: wrap;
-    gap: $spacing-2;
+  &__methods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-4;
+
+    @media (max-width: 767px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
   }
 
-  &__payment-option {
-    padding: $spacing-3 $spacing-5;
+  &__method {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: $spacing-1;
+    padding: $spacing-6 $spacing-4;
     border: $border-thin solid $color-border;
-    border-radius: $radius-sm;
+    border-radius: $radius-md;
     background: $color-bg-primary;
-    font-size: $font-size-sm;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
     color: $color-text-primary;
+    letter-spacing: $letter-spacing-normal;
     cursor: pointer;
-    white-space: nowrap;
+    transition: border-color $duration-normal $ease-default;
 
     &:hover {
       border-color: $color-primary;
@@ -329,74 +322,120 @@
 
     &--active {
       border-color: $color-primary;
-      background: rgba($color-primary, 0.04);
-      color: $color-primary;
-      font-weight: $font-weight-medium;
+      background: rgba(0, 119, 255, 0.04);
     }
   }
 
-  // ── 토스 위젯 컨테이너 ──
-  &__toss-widget {
-    min-height: $spacing-8;
-  }
+  // ── 우측 사이드바 (508px) ──
+  &__sidebar {
+    width: 31.75rem;
+    flex-shrink: 0;
 
-  // ── 오른쪽 결제 요약 ──
-  &__summary {
     @media (max-width: 1023px) {
+      width: 100%;
       order: -1;
     }
   }
 
-  &__summary-sticky {
+  &__sidebar-inner {
     position: sticky;
     top: $spacing-8;
-    padding: $spacing-6;
+    padding: $spacing-8;
     border: $border-thin solid $color-border;
-    border-radius: $radius-lg;
+    border-radius: $radius-xl;
     background: $color-bg-primary;
     display: flex;
     flex-direction: column;
-    gap: $spacing-3;
   }
 
-  &__summary-row {
+  // ── 결제 금액 상세 ──
+  &__price-section {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-6;
+    padding-bottom: 2.25rem;
+    border-bottom: $border-thin solid $color-border;
+  }
+
+  &__price-title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    letter-spacing: $letter-spacing-normal;
+    line-height: 1.417em;
+    margin: 0;
+  }
+
+  &__price-rows {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-6;
+  }
+
+  &__price-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: $font-size-sm;
+  }
+
+  &__price-label {
+    font-size: $font-size-md;
+    font-weight: $font-weight-regular;
     color: $color-text-secondary;
-
-    &--total {
-      font-size: $font-size-lg;
-      font-weight: $font-weight-bold;
-      color: $color-text-primary;
-      padding-top: $spacing-3;
-    }
+    letter-spacing: $letter-spacing-normal;
+    line-height: 1.444em;
   }
 
-  &__summary-discount {
-    color: $color-primary;
+  &__price-value {
+    font-size: $font-size-md;
     font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    letter-spacing: $letter-spacing-normal;
+    line-height: 1.444em;
   }
 
-  &__summary-divider {
-    height: 1px;
-    background: $color-border;
-    margin: $spacing-1 0;
+  // ── 총 결제 금액 + 결제 버튼 ──
+  &__total-section {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+    padding-top: 2.25rem;
   }
 
-  // ── 결제 버튼 ──
+  &__total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  &__total-label {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-regular;
+    color: $color-text-primary;
+    letter-spacing: $letter-spacing-normal;
+  }
+
+  &__total-value {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    letter-spacing: $letter-spacing-normal;
+    line-height: 1.417em;
+  }
+
   &__pay-btn {
     width: 100%;
-    padding: $spacing-4;
+    padding: $spacing-4 $spacing-2;
     border: none;
-    border-radius: $radius-md;
+    border-radius: $radius-xs;
     background: $color-primary;
     color: $color-text-inverse;
     font-size: $font-size-base;
-    font-weight: $font-weight-bold;
+    font-weight: $font-weight-medium;
+    letter-spacing: $letter-spacing-normal;
     cursor: pointer;
-    margin-top: $spacing-2;
+    text-align: center;
+    transition: background $duration-normal $ease-default;
 
     &:hover:not(:disabled) {
       background: $color-primary-dark;
@@ -408,56 +447,9 @@
     }
   }
 
-  // ── 에러 메시지 ──
-  &__error {
-    font-size: $font-size-sm;
-    color: #dc2626;
-    padding: $spacing-3;
-    border-radius: $radius-sm;
-    background: #fef2f2;
-    text-align: center;
-  }
-
-  // ── 빈 상태 ──
   &__empty {
     padding: $spacing-8 0;
     color: $color-text-secondary;
-    font-size: $font-size-sm;
-  }
-
-  // ── 동의 체크 ──
-  &__agree-label {
-    display: flex;
-    align-items: flex-start;
-    gap: $spacing-2;
-    cursor: pointer;
-  }
-
-  &__agree-checkbox {
-    flex-shrink: 0;
-    margin-top: 2px;
-    accent-color: $color-primary;
-  }
-
-  &__agree-text {
-    font-size: $font-size-xs;
-    color: $color-text-secondary;
-    line-height: $line-height-base;
-  }
-}
-
-// ── Skeleton 컴포넌트 base + pulse ──
-.skeleton {
-  display: inline-block;
-  background: $color-bg-tertiary;
-  border-radius: $radius-xs;
-  animation: checkout-pulse 1.8s ease-in-out infinite;
-
-  &--circle {
-    border-radius: $radius-circle;
-  }
-
-  &--text {
-    border-radius: $border-medium;
+    font-size: $font-size-base;
   }
 }

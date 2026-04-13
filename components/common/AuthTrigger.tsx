@@ -40,9 +40,10 @@ export default function AuthTrigger({ loginLabel, signupLabel }: AuthTriggerProp
         >
           {loginLabel}
         </button>
+        <span className="app-header__auth-dot" aria-hidden="true" />
         <Link
           href="/auth/signup"
-          className="app-header__auth-link app-header__auth-link--signup"
+          className="app-header__auth-link"
         >
           {signupLabel}
         </Link>

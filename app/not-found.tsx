@@ -10,7 +10,6 @@ import Link from 'next/link';
 import AppHeader from '@/components/common/AppHeader';
 import AppFooter from '@/components/common/AppFooter';
 import SkipToContent from '@/components/common/SkipToContent';
-import TopBanner from '@/components/common/TopBanner';
 import pagesData from '@/data/pagesData.json';
 
 const notFoundData = (pagesData as unknown as Record<string, Record<string, string>>).notFound;
@@ -19,7 +18,6 @@ export default function NotFoundPage(): JSX.Element {
   return (
     <>
       <SkipToContent />
-      <TopBanner />
       <AppHeader />
       <main id="main-content" className="not-found-page">
         <section className="not-found-page__content">

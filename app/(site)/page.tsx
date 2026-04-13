@@ -15,13 +15,17 @@ import HomeInstructors from '@/components/home/HomeInstructors';
 import HomePromoBanners from '@/components/home/HomePromoBanners';
 import HomeCtaBanner from '@/components/home/HomeCtaBanner';
 import HomeCommunity from '@/components/home/HomeCommunity';
+import HomeTabbedSection from '@/components/home/HomeTabbedSection';
+import HomeNewsContainer from '@/components/containers/HomeNewsContainer';
 import {
   getHomeCategories,
   getHomeSectionViews,
+  getHomeTabbedViews,
   getLiveCounter,
   getHomeBestArticles,
   getHomeInstructors,
   getHomePromoBanners,
+  getHomeNews,
   getCtaBanner,
 } from '@/lib/data';
 
@@ -32,6 +36,8 @@ export default function HomePage() {
   const bestArticles = getHomeBestArticles();
   const instructors = getHomeInstructors();
   const promoBanners = getHomePromoBanners();
+  const tabbedViews = getHomeTabbedViews();
+  const homeNews = getHomeNews();
   const ctaBanner = getCtaBanner();
 
   return (
@@ -53,20 +59,16 @@ export default function HomePage() {
       {/* 5. 수강생 베스트 후기 */}
       <BestReviewContainer />
 
-      {/* 6. 실시간 수강 통계 카운터 */}
-      {/* <LiveCounterBar section={liveCounter} /> */}
+      {/* 6. 탭 필터 강의 섹션 */}
+      {tabbedViews.map((view, idx) => (
+        <HomeTabbedSection key={`tabbed-${idx}`} view={view} />
+      ))}
 
-      {/* 7. 이주의 베스트 인기글 */}
-      {/* <HomeBestArticles section={bestArticles} /> */}
+      {/* 7. 이주의 추천 뉴스 */}
+      <HomeNewsContainer section={homeNews} />
 
-      {/* 8. 프로모 배너 */}
-      {/* <HomePromoBanners section={promoBanners} /> */}
-
-      {/* 9. CTA 전환 배너 */}
-      {/* <HomeCtaBanner data={ctaBanner} /> */}
-
-      {/* 10. 커뮤니티 피드 */}
-      <HomeCommunity />
+      {/* 11. 커뮤니티 피드 */}
+      {/* <HomeCommunity /> */}
     </main>
   );
 }

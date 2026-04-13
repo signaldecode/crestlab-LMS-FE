@@ -149,7 +149,7 @@ export default function OrderDetailContent({ orderId }: OrderDetailContentProps)
           )}
           {order.voucherDiscount > 0 && (
             <div className={`${SK}__price-row ${SK}__price-row--discount`}>
-              <dt>{pageData.voucherDiscountLabel}</dt>
+              <dt>상품권 할인</dt>
               <dd>-{formatPrice(order.voucherDiscount)}</dd>
             </div>
           )}

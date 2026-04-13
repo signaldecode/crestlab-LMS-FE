@@ -456,7 +456,6 @@
       "coursePrice": "강의 금액",
       "couponDiscount": "쿠폰 할인",
       "pointDiscount": "포인트 사용",
-      "voucherDiscount": "상품권 사용",
       "totalLabel": "최종 결제 금액",
       "submitLabel": "결제하기",
       "submitAriaLabel": "최종 결제 금액으로 결제 진행"

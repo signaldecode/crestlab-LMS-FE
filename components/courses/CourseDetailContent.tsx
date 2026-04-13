@@ -92,33 +92,6 @@ export default function CourseDetailContent({ course }: CourseDetailContentProps
         <span className="course-detail-content__breadcrumb-current">{course.title}</span>
       </nav>
 
-      {/* 강의 썸네일 */}
-      <div className="course-detail-content__thumb">
-        <Image
-          src={course.thumbnail}
-          alt={course.thumbnailAlt}
-          fill
-          sizes="(max-width: 1023px) 100vw, 60vw"
-          className="course-detail-content__thumb-image"
-          priority
-        />
-        {course.badges.length > 0 && (
-          <div className="course-detail-content__badge-overlay">
-            {course.badges.map((badge) => (
-              <span key={badge} className={`course-detail-content__badge course-detail-content__badge--${getBadgeVariant(badge)}`}>
-                {badge}
-              </span>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* 모바일용 강의 기본 정보 */}
-      <div className="course-detail-content__mobile-info">
-        <h1 className="course-detail-content__course-title">{course.title}</h1>
-        <p className="course-detail-content__course-summary">{course.summary}</p>
-      </div>
-
       {/* 베스트 수강 후기 */}
       {course.bestReviews.length > 0 && (
         <div className="course-detail-content__reviews-section">

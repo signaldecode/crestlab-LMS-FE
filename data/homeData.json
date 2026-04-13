@@ -117,6 +117,100 @@
       ]
     }
   ],
+  "homeTabbedSections": [
+    {
+      "title": "이주의 베스트 프로그램",
+      "subtitle": "program",
+      "categories": [
+        {
+          "label": "전체",
+          "slugs": [
+            "us-stock-basic",
+            "financial-basic-class",
+            "tax-income-report"
+          ]
+        },
+        {
+          "label": "주식",
+          "slugs": [
+            "us-stock-basic",
+            "financial-basic-class",
+            "tax-income-report"
+          ]
+        },
+        {
+          "label": "가상 자산",
+          "slugs": [
+            "real-estate-intermediate",
+            "location-analysis",
+            "real-estate-sell-strategy"
+          ]
+        },
+        {
+          "label": "부동산",
+          "slugs": [
+            "gangnam-20min",
+            "commercial-building",
+            "cheap-apartment-finder"
+          ]
+        },
+        {
+          "label": "재테크",
+          "slugs": [
+            "monthly-income-blog",
+            "money-book-club",
+            "blog-auto-income"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "이주의 베스트 프로그램",
+      "subtitle": "program",
+      "categories": [
+        {
+          "label": "전체",
+          "slugs": [
+            "monthly-income-blog",
+            "money-book-club",
+            "blog-auto-income"
+          ]
+        },
+        {
+          "label": "주식",
+          "slugs": [
+            "monthly-income-blog",
+            "money-book-club",
+            "blog-auto-income"
+          ]
+        },
+        {
+          "label": "가상 자산",
+          "slugs": [
+            "ai-homepage-business",
+            "ss-coupon-basic",
+            "olive-young-seller"
+          ]
+        },
+        {
+          "label": "부동산",
+          "slugs": [
+            "real-estate-basic-class",
+            "my-house-basic",
+            "subscription-redevelopment"
+          ]
+        },
+        {
+          "label": "재테크",
+          "slugs": [
+            "us-stock-basic",
+            "financial-basic-class",
+            "tax-income-report"
+          ]
+        }
+      ]
+    }
+  ],
   "upcomingCourses": [
     {
       "slug": "real-estate-basic-class",
@@ -981,5 +1075,99 @@
       "question": "수료증이 발급되나요?",
       "answer": "강의 완료 시 수료증을 PDF로 다운로드할 수 있습니다."
     }
-  ]
+  ],
+  "homeNews": {
+    "meta": {
+      "label": "program",
+      "title": "이주의 추천 뉴스",
+      "ariaLabel": "이주의 추천 뉴스 섹션"
+    },
+    "items": [
+      {
+        "id": "news-1",
+        "thumbnail": "/images/testIMG/news1.svg",
+        "thumbnailAlt": "투자 뉴스 썸네일",
+        "date": "2026.04.10",
+        "title": "투자하기전 꼭 알아둬야 할 모든것투자하기전 꼭 알아둬야 할 모든것",
+        "tags": ["투자", "투자"],
+        "href": "/community/invest-basics",
+        "ariaLabel": "투자하기전 꼭 알아둬야 할 모든것 뉴스 보기"
+      },
+      {
+        "id": "news-2",
+        "thumbnail": "/images/testIMG/news2.svg",
+        "thumbnailAlt": "투자 뉴스 썸네일",
+        "date": "2026.04.10",
+        "title": "투자하기전 꼭 알아둬야 할 모든것투자하기전 꼭 알아둬야 할 모든것",
+        "tags": ["투자", "투자"],
+        "href": "/community/invest-basics-2",
+        "ariaLabel": "투자하기전 꼭 알아둬야 할 모든것 뉴스 보기"
+      },
+      {
+        "id": "news-3",
+        "thumbnail": "/images/testIMG/news3.svg",
+        "thumbnailAlt": "투자 뉴스 썸네일",
+        "date": "2026.04.10",
+        "title": "투자하기전 꼭 알아둬야 할 모든것투자하기전 꼭 알아둬야 할 모든것",
+        "tags": ["투자", "투자"],
+        "href": "/community/invest-basics-3",
+        "ariaLabel": "투자하기전 꼭 알아둬야 할 모든것 뉴스 보기"
+      },
+      {
+        "id": "news-4",
+        "thumbnail": "/images/testIMG/news4.svg",
+        "thumbnailAlt": "투자 뉴스 썸네일",
+        "date": "2026.04.10",
+        "title": "투자하기전 꼭 알아둬야 할 모든것투자하기전 꼭 알아둬야 할 모든것",
+        "tags": ["투자", "투자"],
+        "href": "/community/invest-basics-4",
+        "ariaLabel": "투자하기전 꼭 알아둬야 할 모든것 뉴스 보기"
+      },
+      {
+        "id": "news-5",
+        "thumbnail": "/images/testIMG/news5.svg",
+        "thumbnailAlt": "투자 뉴스 썸네일",
+        "date": "2026.04.10",
+        "title": "투자하기전 꼭 알아둬야 할 모든것투자하기전 꼭 알아둬야 할 모든것",
+        "tags": ["투자", "투자"],
+        "href": "/community/invest-basics-5",
+        "ariaLabel": "투자하기전 꼭 알아둬야 할 모든것 뉴스 보기"
+      },
+      {
+        "id": "news-6",
+        "thumbnail": "/images/testIMG/news6.svg",
+        "thumbnailAlt": "투자 뉴스 썸네일",
+        "date": "2026.04.10",
+        "title": "투자하기전 꼭 알아둬야 할 모든것투자하기전 꼭 알아둬야 할 모든것",
+        "tags": ["투자", "투자"],
+        "href": "/community/invest-basics-6",
+        "ariaLabel": "투자하기전 꼭 알아둬야 할 모든것 뉴스 보기"
+      },
+      {
+        "id": "news-7",
+        "thumbnail": "/images/testIMG/news7.svg",
+        "thumbnailAlt": "투자 뉴스 썸네일",
+        "date": "2026.04.10",
+        "title": "투자하기전 꼭 알아둬야 할 모든것투자하기전 꼭 알아둬야 할 모든것",
+        "tags": ["투자", "투자"],
+        "href": "/community/invest-basics-7",
+        "ariaLabel": "투자하기전 꼭 알아둬야 할 모든것 뉴스 보기"
+      },
+      {
+        "id": "news-8",
+        "thumbnail": "/images/testIMG/news8.svg",
+        "thumbnailAlt": "투자 뉴스 썸네일",
+        "date": "2026.04.10",
+        "title": "투자하기전 꼭 알아둬야 할 모든것투자하기전 꼭 알아둬야 할 모든것",
+        "tags": ["투자", "투자"],
+        "href": "/community/invest-basics-8",
+        "ariaLabel": "투자하기전 꼭 알아둬야 할 모든것 뉴스 보기"
+      }
+    ],
+    "pagination": {
+      "perPage": 6,
+      "totalPages": 6,
+      "ariaLabel": "뉴스 페이지 네비게이션"
+    }
+  }
 }

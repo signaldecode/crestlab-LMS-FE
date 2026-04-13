@@ -5,31 +5,40 @@
 @use '../../tokens/z-index' as *;
 @use '../../mixins/breakpoints' as *;
 
-// ============================================
-// 강의 상세 페이지 스타일 (_course-detail.scss)
-// - 2칸 레이아웃: 왼쪽 콘텐츠 / 오른쪽 구매 사이드바
-// ============================================
-
-
 // ── 페이지 래퍼 ──
 .course-detail-page {
   max-width: $container-max-width;
   margin: 0 auto;
-  padding: 0 $container-padding;
+  padding: 0 $container-padding $spacing-20;
+}
+
+// ── 히어로 배너 ──
+.course-detail-hero {
+  position: relative;
+  width: 100%;
+  height: 36.25rem;
+  border-radius: $radius-xl;
+  overflow: hidden;
+  background: $color-bg-tertiary;
+  margin-bottom: $spacing-10;
+
+  &__image {
+    object-fit: cover;
+  }
+
+  @media (max-width: 767px) {
+    height: 15rem;
+    border-radius: $radius-lg;
+  }
 }
 
 // ── 2칸 레이아웃 ──
 .course-detail-layout {
   display: grid;
-  grid-template-columns: 1fr 340px;
+  grid-template-columns: 1fr 31.75rem;
   gap: $spacing-10;
-  padding: $spacing-8 0;
 
   @media (max-width: 1023px) {
     grid-template-columns: 1fr;
   }
 }
-
-// ============================================
-// 왼쪽 콘텐츠
-// ============================================

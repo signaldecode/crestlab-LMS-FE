@@ -1,0 +1,169 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.course-list-card {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+  text-decoration: none;
+  color: inherit;
+
+  &:hover .course-list-card__image {
+    transform: scale(1.05);
+  }
+
+  // ── 썸네일 ──
+  &__thumb {
+    position: relative;
+    width: 100%;
+    height: 11.875rem;
+    border-radius: $radius-md;
+    overflow: hidden;
+    background: $color-bg-tertiary;
+  }
+
+  &__image {
+    object-fit: cover;
+    transition: transform $duration-slow $ease-default;
+  }
+
+  &__wish {
+    position: absolute;
+    top: $spacing-3;
+    right: $spacing-4;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: none;
+    border: none;
+    color: $color-text-inverse;
+    cursor: pointer;
+    filter: drop-shadow(0 0.0625rem 0.125rem rgba(0, 0, 0, 0.3));
+    transition: transform $duration-fast $ease-default;
+
+    &:hover {
+      transform: scale(1.15);
+    }
+
+    &--active {
+      color: $color-error;
+    }
+  }
+
+  // ── 본문 ──
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-6;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+  }
+
+  &__title {
+    font-size: $font-size-md;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    line-height: 1.444em;
+    letter-spacing: $letter-spacing-normal;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  // ── 메타 (별점 + 강사) ──
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+  }
+
+  &__rating {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  &__star {
+    color: $color-star;
+    flex-shrink: 0;
+  }
+
+  &__rating-value {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    letter-spacing: $letter-spacing-normal;
+  }
+
+  &__review-count {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-regular;
+    color: $color-text-secondary;
+    letter-spacing: $letter-spacing-normal;
+  }
+
+  &__instructor {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    letter-spacing: $letter-spacing-normal;
+
+    svg {
+      color: $color-text-secondary;
+      flex-shrink: 0;
+    }
+  }
+
+  // ── 태그 행 ──
+  &__tags {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    flex-wrap: wrap;
+  }
+
+  &__tag {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: $spacing-2 $spacing-4;
+    border-radius: $radius-xs;
+    background: $color-bg-tertiary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    letter-spacing: $letter-spacing-normal;
+    white-space: nowrap;
+
+    &--accent {
+      background: #FFF3E0;
+      color: #FF8800;
+    }
+
+    &--new {
+      background: $color-success-bg;
+      color: $color-success;
+    }
+  }
+}
+
+.course-list-card-wrap {
+  position: relative;
+  height: 100%;
+}

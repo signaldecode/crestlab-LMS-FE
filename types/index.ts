@@ -104,7 +104,7 @@ export interface Course {
   allReviews: CourseReview[];
   curriculum: CurriculumSection[];
   creator: CourseCreator;
-  discount: CourseDiscount;
+  discount?: CourseDiscount;
 }
 
 export interface HomeSectionCategory {
@@ -389,6 +389,32 @@ export interface HomeCommunitySection {
   };
   posts: HomeCommunityPost[];
   pagination: {
+    totalPages: number;
+    ariaLabel: string;
+  };
+}
+
+/* ── 홈 뉴스 섹션 ── */
+export interface HomeNewsItem {
+  id: string;
+  thumbnail: string;
+  thumbnailAlt: string;
+  date: string;
+  title: string;
+  tags: string[];
+  href: string;
+  ariaLabel: string;
+}
+
+export interface HomeNewsSection {
+  meta: {
+    label: string;
+    title: string;
+    ariaLabel: string;
+  };
+  items: HomeNewsItem[];
+  pagination: {
+    perPage: number;
     totalPages: number;
     ariaLabel: string;
   };
@@ -1076,6 +1102,7 @@ export interface MainData {
   pages: Record<string, unknown>;
   courses: Course[];
   homeSections: HomeSection[];
+  homeTabbedSections: HomeSection[];
   homeCategories: HomeCategorySection;
   upcomingCourses: UpcomingCourse[];
   bestCourses: BestCourse[];
@@ -1087,6 +1114,7 @@ export interface MainData {
   homeInstructors: HomeInstructorsSection;
   homeCommunity: HomeCommunitySection;
   homePromoBanners: HomePromoBannerSection;
+  homeNews: HomeNewsSection;
   ctaBanner: CtaBannerData;
   faq: FaqItem[];
   footer: FooterData;

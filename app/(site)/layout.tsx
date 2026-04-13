@@ -9,7 +9,6 @@ import type { JSX, ReactNode } from 'react';
 import AppHeader from '@/components/common/AppHeader';
 import AppFooter from '@/components/common/AppFooter';
 import SkipToContent from '@/components/common/SkipToContent';
-import TopBanner from '@/components/common/TopBanner';
 
 interface SiteLayoutProps {
   children: ReactNode;
@@ -19,7 +18,6 @@ export default function SiteLayout({ children }: SiteLayoutProps): JSX.Element {
   return (
     <>
       <SkipToContent />
-      {/* <TopBanner /> */}
       <AppHeader />
       <main id="main-content">{children}</main>
       <AppFooter />

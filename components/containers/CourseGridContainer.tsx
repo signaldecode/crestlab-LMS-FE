@@ -1,112 +1,175 @@
 /**
  * 강의 그리드 컨테이너 (CourseGridContainer)
- * - 배너 + 2단 레이아웃(사이드바 필터 + 강의 카드 그리드)을 조립한다
- * - URL searchParams의 category/sub 파라미터로 강의를 필터링한다
+ * - 피그마: 섹션 타이틀 + 셀렉트 필터 행 + 4열 카드 그리드 + 페이지네이션
+ * - URL searchParams의 category 파라미터로 강의를 필터링한다
  */
 
 'use client';
 
-import { useMemo, type JSX } from 'react';
+import { useMemo, useState, type JSX } from 'react';
 import { useSearchParams } from 'next/navigation';
-import CourseBanner from '@/components/courses/CourseBanner';
-import CourseSidebar from '@/components/courses/CourseSidebar';
-import CourseSort from '@/components/courses/CourseSort';
-import CourseCard from '@/components/courses/CourseCard';
+import CourseListCard from '@/components/courses/CourseListCard';
 import { getCourses } from '@/lib/data';
 import type { Course } from '@/types';
 
-/** 사이드바 category 값 → 강의 데이터 category 매핑 */
+const ITEMS_PER_PAGE = 16;
+
+const CATEGORY_LABELS: Record<string, string> = {
+  stock: '주식',
+  crypto: '가상자산',
+  'real-estate': '부동산',
+};
+
+const SORT_OPTIONS = [
+  { value: 'popular', label: '인기순' },
+  { value: 'latest', label: '최신순' },
+  { value: 'rating', label: '평점순' },
+  { value: 'price-low', label: '가격 낮은순' },
+  { value: 'price-high', label: '가격 높은순' },
+];
+
 function matchCategory(course: Course, category: string): boolean {
   switch (category) {
+    case 'stock':
+      return course.category === 'stock' || course.category === 'finance';
+    case 'crypto':
+      return course.category === 'crypto' || course.category === 'online-store';
     case 'real-estate':
       return course.category === 'real-estate' || course.category === 'my-house';
-    case 'finance':
-      return course.category === 'finance' || course.category === 'stock';
-    case 'original':
-      return course.badges.some((b) => b === 'ORIGINAL');
-    case 'coaching':
-      return course.category === 'coaching';
-    case 'book-club':
-      return course.category === 'book-club';
     default:
-      return course.category === category;
+      return true;
+  }
+}
+
+function sortCourses(courses: Course[], sort: string): Course[] {
+  const sorted = [...courses];
+  switch (sort) {
+    case 'latest':
+      return sorted.reverse();
+    case 'rating':
+      return sorted.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
+    case 'price-low':
+      return sorted.sort((a, b) => a.price - b.price);
+    case 'price-high':
+      return sorted.sort((a, b) => b.price - a.price);
+    default:
+      return sorted.sort((a, b) => (b.reviewCount ?? 0) - (a.reviewCount ?? 0));
   }
 }
 
 export default function CourseGridContainer(): JSX.Element {
   const searchParams = useSearchParams();
   const category = searchParams.get('category') ?? '';
-  const sub = searchParams.get('sub') ?? '';
+  const [sort, setSort] = useState('popular');
+  const [currentPage, setCurrentPage] = useState(1);
 
   const allCourses = getCourses();
 
   const filteredCourses = useMemo(() => {
-    if (!category) return allCourses;
+    const filtered = category
+      ? allCourses.filter((c) => matchCategory(c, category))
+      : allCourses;
+    return sortCourses(filtered, sort);
+  }, [allCourses, category, sort]);
 
-    let results = allCourses.filter((c) => matchCategory(c, category));
+  const totalPages = Math.max(1, Math.ceil(filteredCourses.length / ITEMS_PER_PAGE));
+  const pageCourses = filteredCourses.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE,
+  );
 
-    // sub 필터: level 기반 매핑
-    if (sub) {
-      const subLevelMap: Record<string, string> = {
-        beginner: 'beginner',
-        intermediate: 'intermediate',
-        advanced: 'advanced',
-      };
+  const pageTitle = category
+    ? `${CATEGORY_LABELS[category] ?? category} 강의`
+    : '전체 강의';
 
-      const subCategoryMap: Record<string, string> = {
-        'real-estate-basic': 'real-estate',
-        'my-house': 'my-house',
-        'stock-coin': 'stock',
-        auction: 'real-estate',
-        subscription: 'real-estate',
-        commercial: 'real-estate',
-        'tax-loan': 'real-estate',
-        business: 'online-store',
-        basic: 'finance',
-      };
-
-      if (subLevelMap[sub]) {
-        results = results.filter((c) => c.level === subLevelMap[sub]);
-      } else if (subCategoryMap[sub]) {
-        results = results.filter((c) => c.category === subCategoryMap[sub]);
-      }
-    }
-
-    return results;
-  }, [allCourses, category, sub]);
+  const goToPage = (page: number) => {
+    if (page >= 1 && page <= totalPages) setCurrentPage(page);
+  };
 
   return (
     <section className="courses-page">
-      <CourseBanner category={category} />
+      {/* 섹션 타이틀 */}
+      <h1 className="courses-page__title">{pageTitle}</h1>
 
-      <div className="courses-page__content">
-        <CourseSidebar />
+      {/* 필터 + 정렬 행 */}
+      <div className="courses-page__toolbar">
+        <div className="courses-page__filters">
+          <span className="courses-page__count">
+            전체 <strong>{filteredCourses.length}</strong>개
+          </span>
+        </div>
 
-        <div className="courses-page__main">
-          <div className="courses-page__toolbar">
-            <span className="courses-page__count">
-              전체 <strong>{filteredCourses.length}</strong>개
-            </span>
-            <CourseSort />
-          </div>
-
-          {filteredCourses.length > 0 ? (
-            <div className="courses-page__grid">
-              {filteredCourses.map((course) => (
-                <CourseCard key={course.slug} course={course} />
-              ))}
-            </div>
-          ) : (
-            <div className="courses-page__empty">
-              해당 카테고리에 강의가 없습니다.
-            </div>
-          )}
-
-          <div className="courses-page__pagination">
-            {/* Pagination 컴포넌트가 렌더링될 영역 */}
-          </div>
+        <div className="courses-page__sort">
+          <select
+            className="courses-page__sort-select"
+            value={sort}
+            onChange={(e) => { setSort(e.target.value); setCurrentPage(1); }}
+            aria-label="정렬 기준"
+          >
+            {SORT_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>{opt.label}</option>
+            ))}
+          </select>
+          <svg className="courses-page__sort-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M5 8l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
         </div>
       </div>
+
+      {/* 4열 카드 그리드 */}
+      {pageCourses.length > 0 ? (
+        <div className="courses-page__grid">
+          {pageCourses.map((course) => (
+            <CourseListCard key={course.slug} course={course} />
+          ))}
+        </div>
+      ) : (
+        <div className="courses-page__empty">
+          해당 카테고리에 강의가 없습니다.
+        </div>
+      )}
+
+      {/* 페이지네이션 */}
+      {totalPages > 1 && (
+        <nav className="courses-page__pagination" aria-label="강의 목록 페이지 네비게이션">
+          <button
+            type="button"
+            className="courses-page__page-btn courses-page__page-btn--arrow"
+            onClick={() => goToPage(currentPage - 1)}
+            disabled={currentPage === 1}
+            aria-label="이전 페이지"
+          >
+            <svg width="8" height="14" viewBox="0 0 8 14" fill="none" aria-hidden="true">
+              <path d="M7 1L1 7l6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <button
+              key={page}
+              type="button"
+              className={`courses-page__page-btn${page === currentPage ? ' courses-page__page-btn--active' : ''}`}
+              onClick={() => goToPage(page)}
+              aria-current={page === currentPage ? 'page' : undefined}
+              aria-label={`${page} 페이지`}
+            >
+              {page}
+            </button>
+          ))}
+
+          <button
+            type="button"
+            className="courses-page__page-btn courses-page__page-btn--arrow"
+            onClick={() => goToPage(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            aria-label="다음 페이지"
+          >
+            <svg width="8" height="14" viewBox="0 0 8 14" fill="none" aria-hidden="true">
+              <path d="M1 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        </nav>
+      )}
     </section>
   );
 }

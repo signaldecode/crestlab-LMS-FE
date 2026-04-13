@@ -67,7 +67,7 @@ export default function HomeHeroContainer(): JSX.Element {
                 alt={`배너 ${idx + 1}`}
                 fill
                 sizes="100vw"
-                priority={idx === 0}
+                priority={idx === 0}  
                 className="home-hero__image"
               />
             </div>

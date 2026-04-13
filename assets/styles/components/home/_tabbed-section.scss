@@ -1,0 +1,118 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.home-tabbed-section {
+  margin-bottom: $spacing-12;
+
+  // ── 헤더 ──
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: $spacing-4;
+    margin-bottom: $spacing-8;
+    margin-top: $spacing-12;
+  }
+
+  &__header-left {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+  }
+
+  &__label {
+    font-family: $font-family-accent;
+    font-size: $font-size-md;
+    font-weight: $font-weight-regular;
+    color: $color-primary;
+    letter-spacing: 0;
+  }
+
+  &__title {
+    font-size: 2.125rem;
+    font-weight: $font-weight-bold;
+    color: $color-text-black;
+    letter-spacing: $letter-spacing-normal;
+    margin: 0;
+    line-height: 1.118em;
+
+    @media (max-width: 639px) {
+      font-size: $font-size-xl;
+    }
+  }
+
+  // ── 콘텐츠 (탭 + 그리드) ──
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-5;
+  }
+
+  // ── 탭 필터 ──
+  &__tabs {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    flex-wrap: wrap;
+  }
+
+  &__tab {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: $spacing-3 $spacing-6;
+    border-radius: $radius-full;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    letter-spacing: $letter-spacing-normal;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background $duration-normal $ease-default, color $duration-normal $ease-default, border-color $duration-normal $ease-default;
+
+    // 기본 (비활성)
+    background: none;
+    border: $border-thin solid $color-border;
+    color: $color-text-muted;
+
+    &:hover {
+      border-color: $color-primary;
+      color: $color-primary;
+    }
+
+    // 활성
+    &--active {
+      background: $color-primary;
+      border-color: $color-primary;
+      color: $color-text-inverse;
+
+      &:hover {
+        background: $color-primary-dark;
+        border-color: $color-primary-dark;
+        color: $color-text-inverse;
+      }
+    }
+  }
+
+  // ── 3열 그리드 ──
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-6;
+
+    @media (max-width: 1023px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 639px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__card {
+    min-width: 0;
+  }
+}

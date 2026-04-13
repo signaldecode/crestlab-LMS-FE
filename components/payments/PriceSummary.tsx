@@ -45,10 +45,6 @@ export default function PriceSummary({
         </span>
       </div>
       <div className="checkout-container__summary-row">
-        <span>{labels.voucherDiscount ?? '상품권 사용'}</span>
-        <span>{voucherUsed > 0 ? `-${formatPrice(voucherUsed)}` : formatPrice(0)}</span>
-      </div>
-      <div className="checkout-container__summary-row">
         <span>{labels.pointDiscount ?? '포인트 사용'}</span>
         <span>{pointUsed > 0 ? `-${formatPrice(pointUsed)}` : formatPrice(0)}</span>
       </div>

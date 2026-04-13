@@ -5,7 +5,7 @@
  */
 
 import mainData from '@/data';
-import type { MainData, SiteData, NavData, Course, HomeSection, HomeSectionView, UpcomingCourse, BestCourse, BestChipCategory, FaqItem, BestReviewSection, FooterData, GeoData, OrderData, CertificateData, ConsultationData, ReviewData, ExpiredCouponData, GiftcardData, GiftcardHistoryData, FollowUserData, EnrolledCourseData, PopularArticlesSection, HomeBestArticlesSection, HomeCommunitySection, HomePromoBannerSection, HomeCategorySection, LiveCounterSection, HomeInstructorsSection, CtaBannerData } from '@/types';
+import type { MainData, SiteData, NavData, Course, HomeSection, HomeSectionView, UpcomingCourse, BestCourse, BestChipCategory, FaqItem, BestReviewSection, FooterData, GeoData, OrderData, CertificateData, ConsultationData, ReviewData, ExpiredCouponData, GiftcardData, GiftcardHistoryData, FollowUserData, EnrolledCourseData, PopularArticlesSection, HomeBestArticlesSection, HomeCommunitySection, HomePromoBannerSection, HomeCategorySection, LiveCounterSection, HomeInstructorsSection, HomeNewsSection, CtaBannerData } from '@/types';
 
 const data: MainData = mainData;
 
@@ -80,6 +80,24 @@ export function getHomeSectionViews(): HomeSectionView[] {
   });
 }
 
+/** 홈 탭 섹션 뷰 반환 (베스트 후기 아래 탭 필터 강의 섹션) */
+export function getHomeTabbedViews(): HomeSectionView[] {
+  const courses = data.courses || [];
+  const findBySlug = (slug: string): Course | undefined =>
+    courses.find((c) => c.slug === slug);
+  const resolve = (slugs: string[]): Course[] =>
+    slugs.map(findBySlug).filter((c): c is Course => Boolean(c));
+
+  return (data.homeTabbedSections || []).map((section) => ({
+    title: section.title,
+    subtitle: section.subtitle,
+    chips: section.categories.map((cat) => ({
+      label: cat.label,
+      courses: resolve(cat.slugs),
+    })),
+  }));
+}
+
 /** 오픈예정 강의 목록 반환 */
 export function getUpcomingCourses(): UpcomingCourse[] {
   return data.upcomingCourses || [];
@@ -133,6 +151,11 @@ export function getLiveCounter(): LiveCounterSection {
 /** 인기 강사 섹션 반환 */
 export function getHomeInstructors(): HomeInstructorsSection {
   return data.homeInstructors;
+}
+
+/** 홈 뉴스 섹션 반환 */
+export function getHomeNews(): HomeNewsSection {
+  return data.homeNews;
 }
 
 /** CTA 배너 데이터 반환 */

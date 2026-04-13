@@ -16,16 +16,18 @@
 .global-nav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: $spacing-2 $spacing-0;
 
   &__list {
     display: flex;
     align-items: center;
-    gap: $spacing-1;
+    gap: $spacing-12;
     list-style: none;
     margin: $spacing-0;
     padding: $spacing-0;
+
+    @media (max-width: 1023px) {
+      gap: $spacing-6;
+    }
   }
 
   &__item {
@@ -39,34 +41,25 @@
 
   &__link {
     display: block;
-    padding: $spacing-2 $spacing-3;
-    font-size: $font-size-sm;
+    font-size: $font-size-base;
     font-weight: $font-weight-medium;
     color: $color-text-primary;
     text-decoration: none;
-    border-radius: $radius-xs;
     white-space: nowrap;
-    transition: color $duration-normal $ease-default, background-color $duration-normal $ease-default;
+    letter-spacing: $letter-spacing-normal;
+    transition: color $duration-normal $ease-default;
 
     &:hover {
       color: $color-primary;
-      background-color: $color-bg-secondary;
     }
 
     @media (max-width: 1023px) {
-      padding: $spacing-2;
-      font-size: $font-size-xs;
+      font-size: $font-size-sm;
     }
   }
 
   &__right {
-    display: flex;
-    align-items: center;
-    gap: $spacing-4;
-
-    @media (max-width: 1023px) {
-      gap: $spacing-2;
-    }
+    display: none;
   }
 }
 

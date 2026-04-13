@@ -1,0 +1,181 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
+
+.home-news {
+  padding-top: $spacing-16;
+  padding-bottom: $spacing-16;
+
+  // ── 헤더 ──
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+    margin-bottom: $spacing-8;
+  }
+
+  &__label {
+    font-family: $font-family-accent;
+    font-size: $font-size-md;
+    font-weight: $font-weight-regular;
+    color: $color-primary;
+    letter-spacing: 0;
+  }
+
+  &__title {
+    font-size: 2.125rem;
+    font-weight: $font-weight-bold;
+    color: $color-text-black;
+    letter-spacing: $letter-spacing-normal;
+    margin: 0;
+    line-height: 1.118em;
+
+    @media (max-width: 639px) {
+      font-size: $font-size-xl;
+    }
+  }
+
+  // ── 2열 그리드 ──
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-10 $spacing-6;
+    margin-bottom: $spacing-10;
+
+    @media (max-width: 767px) {
+      grid-template-columns: 1fr;
+      gap: $spacing-8;
+    }
+  }
+
+  // ── 뉴스 카드 (가로 배치) ──
+  &__card {
+    display: flex;
+    gap: $spacing-6;
+    text-decoration: none;
+    color: inherit;
+
+    &:hover .home-news__thumb-img {
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 639px) {
+      flex-direction: column;
+      gap: $spacing-4;
+    }
+  }
+
+  &__thumb {
+    position: relative;
+    width: 16.5rem;
+    height: 11.25rem;
+    border-radius: $radius-lg;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: $color-bg-tertiary;
+
+    @media (max-width: 639px) {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      height: auto;
+    }
+  }
+
+  &__thumb-img {
+    object-fit: cover;
+    transition: transform $duration-slow $ease-default;
+  }
+
+  // ── 카드 콘텐츠 ──
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-5;
+    padding-top: $spacing-1;
+  }
+
+  &__date {
+    font-size: $font-size-base;
+    font-weight: $font-weight-regular;
+    color: $color-text-secondary;
+    letter-spacing: $letter-spacing-normal;
+  }
+
+  &__card-title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    letter-spacing: $letter-spacing-normal;
+    line-height: $line-height-base;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__tags {
+    display: flex;
+    gap: $spacing-2;
+    flex-wrap: wrap;
+  }
+
+  &__tag {
+    display: inline-flex;
+    align-items: center;
+    padding: $spacing-2 $spacing-4;
+    background: $color-bg-tertiary;
+    border-radius: $radius-full;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    letter-spacing: $letter-spacing-normal;
+    white-space: nowrap;
+  }
+
+  // ── 페이지네이션 ──
+  &__pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-1;
+  }
+
+  &__page-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: none;
+    border-radius: $radius-xs;
+    background: none;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    cursor: pointer;
+    transition: background $duration-normal $ease-default, color $duration-normal $ease-default;
+
+    &:hover:not(:disabled) {
+      background: $color-bg-tertiary;
+    }
+
+    &--active {
+      background: $color-bg-basic;
+      color: $color-text-primary;
+      font-weight: $font-weight-semibold;
+    }
+
+    &--arrow {
+      color: $color-text-secondary;
+
+      &:disabled {
+        opacity: 0.35;
+        cursor: default;
+      }
+    }
+  }
+}

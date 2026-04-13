@@ -5,44 +5,95 @@
 @use '../../tokens/z-index' as *;
 @use '../../mixins/breakpoints' as *;
 
-// ============================================
-// 강의 목록 페이지 스타일 (_courses-page.scss)
-// - 배너 + 2단 레이아웃(사이드바 + 카드 그리드)
-// - 토큰 변수를 참조하며, HEX/px 직접 사용을 금지한다
-// ============================================
-
-
-// 페이지 전체
 .courses-page {
   max-width: $container-max-width;
   margin: $spacing-0 auto;
-  padding: $spacing-0 $container-padding;
+  padding: $spacing-0 $container-padding $spacing-20;
 
-  &__content {
-    display: flex;
-    gap: $spacing-8;
-    margin-top: $spacing-8;
+  // ── 섹션 타이틀 ──
+  &__title {
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    letter-spacing: $letter-spacing-normal;
+    line-height: 1.25em;
+    margin: $spacing-0 $spacing-0 $spacing-8;
+
+    @media (max-width: 639px) {
+      font-size: $font-size-xl;
+      margin-bottom: $spacing-6;
+    }
   }
 
-  &__main {
-    flex: 1;
-    min-width: 0;
-  }
-
+  // ── 필터 + 정렬 행 ──
   &__toolbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: $spacing-6;
+    margin-bottom: $spacing-5;
+  }
+
+  &__filters {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
   }
 
   &__count {
     font-size: $font-size-sm;
     color: $color-text-secondary;
+    letter-spacing: $letter-spacing-normal;
 
     strong {
       font-weight: $font-weight-bold;
       color: $color-text-primary;
+    }
+  }
+
+  &__sort {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+    position: relative;
+  }
+
+  &__sort-select {
+    appearance: none;
+    background: none;
+    border: none;
+    outline: none;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-regular;
+    color: $color-text-primary;
+    letter-spacing: $letter-spacing-normal;
+    cursor: pointer;
+    padding-right: $spacing-6;
+  }
+
+  &__sort-icon {
+    position: absolute;
+    right: 0;
+    color: $color-text-secondary;
+    pointer-events: none;
+  }
+
+  // ── 4열 카드 그리드 ──
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $spacing-10 $spacing-6;
+
+    @media (max-width: 1023px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width: 767px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: $spacing-6 $spacing-4;
+    }
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
     }
   }
 
@@ -55,17 +106,47 @@
     color: $color-text-secondary;
   }
 
-  &__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: $spacing-6;
+  // ── 페이지네이션 ──
+  &__pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-3;
+    margin-top: $spacing-15;
   }
 
-  &__pagination {
-    margin-top: $spacing-10;
+  &__page-btn {
     display: flex;
+    align-items: center;
     justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: none;
+    border-radius: $radius-xs;
+    background: none;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    cursor: pointer;
+    transition: background $duration-normal $ease-default, color $duration-normal $ease-default;
+
+    &:hover:not(:disabled) {
+      background: $color-bg-tertiary;
+    }
+
+    &--active {
+      background: $color-bg-basic;
+      color: $color-text-primary;
+      font-weight: $font-weight-semibold;
+    }
+
+    &--arrow {
+      color: $color-text-secondary;
+
+      &:disabled {
+        opacity: 0.35;
+        cursor: default;
+      }
+    }
   }
 }
-
-// 배너

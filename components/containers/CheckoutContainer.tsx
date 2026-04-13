@@ -1,9 +1,6 @@
 /**
  * 결제 컨테이너 (CheckoutContainer)
- * - 결제 페이지의 메인 조립 레이어
- * - 주문 정보 확인, 쿠폰/상품권·포인트 적용, 결제 수단 선택, 최종 결제 버튼
- * - 2칸 레이아웃: 왼쪽 주문 정보 / 오른쪽 결제 요약
- * - API 개별 연동 키로 토스 결제창을 직접 띄운다
+ * - 피그마: 2열 레이아웃 (좌 860px: 주문정보+쿠폰+적립금+결제수단 / 우 508px: 결제금액)
  */
 
 'use client';
@@ -12,52 +9,18 @@ import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import type { Course } from '@/types';
-import { getPageData } from '@/lib/data';
 import { formatPrice } from '@/lib/payments';
-import { createOrder } from '@/lib/api';
-import { getTossPayment, resetTossPayment, TOSS_ANONYMOUS } from '@/lib/toss';
 import useCouponStore from '@/stores/useCouponStore';
-import useOrderStore from '@/stores/useOrderStore';
-import useAuthStore from '@/stores/useAuthStore';
-import CouponSelect from '@/components/payments/CouponSelect';
-import PaymentMethodSelect from '@/components/payments/PaymentMethodSelect';
-import type { PaymentMethodKey } from '@/components/payments/PaymentMethodSelect';
-import PriceSummary from '@/components/payments/PriceSummary';
 
-function getBadgeVariant(badge: string): string {
-  if (badge === 'ORIGINAL') return 'original';
-  if (badge === 'BEST') return 'best';
-  if (badge === 'NEW' || badge.includes('신규')) return 'new';
-  if (badge.includes('선착순') || badge.includes('마감')) return 'urgent';
-  if (badge.startsWith('LV.')) return 'level';
-  return 'default';
-}
+const PAYMENT_METHODS = [
+  { key: 'card', label: '카드결제', icon: '/images/payment/icon-card.svg' },
+  { key: 'naverpay', label: '네이버페이', icon: '/images/payment/icon-naverpay.svg' },
+  { key: 'kakaopay', label: '카카오페이', icon: '/images/payment/icon-kakaopay.svg' },
+  { key: 'tosspay', label: '토스페이', icon: '/images/payment/icon-tosspay.svg' },
+  { key: 'cash', label: '계좌이체', icon: '/images/payment/icon-cash.svg' },
+] as const;
 
-function getLevelLabel(level: string): string {
-  const map: Record<string, string> = { beginner: '입문', intermediate: '초급', advanced: '중급이상' };
-  return map[level] ?? level;
-}
-
-/** 선택된 결제수단으로 토스 결제창을 호출한다 */
-async function requestTossPayment(
-  payment: Awaited<ReturnType<typeof getTossPayment>>,
-  method: PaymentMethodKey,
-  base: { amount: { currency: 'KRW'; value: number }; orderId: string; orderName: string; customerEmail: string; customerName: string; successUrl: string; failUrl: string },
-) {
-  if (method === 'transfer') {
-    return payment.requestPayment({ ...base, method: 'TRANSFER' });
-  }
-  /* 간편결제(카카오/네이버/토스)는 CARD + easyPay 조합 */
-  if (method === 'kakaopay' || method === 'naverpay' || method === 'tosspay') {
-    const easyPayMap = { kakaopay: 'KAKAOPAY', naverpay: 'NAVERPAY', tosspay: 'TOSSPAY' } as const;
-    return payment.requestPayment({
-      ...base,
-      method: 'CARD',
-      card: { flowMode: 'DIRECT', easyPay: easyPayMap[method] },
-    });
-  }
-  return payment.requestPayment({ ...base, method: 'CARD' });
-}
+type PaymentKey = (typeof PAYMENT_METHODS)[number]['key'];
 
 interface CheckoutContainerProps {
   course: Course | null;
@@ -65,302 +28,164 @@ interface CheckoutContainerProps {
 
 export default function CheckoutContainer({ course }: CheckoutContainerProps) {
   const router = useRouter();
-
-  /* ── data 기반 라벨 ── */
-  const pageData = getPageData('checkout') as Record<string, unknown> | null;
-  const title = (pageData?.title as string) ?? '주문결제';
-  const sections = (pageData?.sections as Record<string, string>) ?? {};
-  const agreement = (pageData?.agreement as Record<string, string>) ?? {};
-  const summary = (pageData?.summary as Record<string, string>) ?? {};
-  const errors = (pageData?.errors as Record<string, string>) ?? {};
-
-  /* ── 상태 ── */
-  const [selectedMethod, setSelectedMethod] = useState<PaymentMethodKey>('card');
-  const [couponOpen, setCouponOpen] = useState(false);
-  const [couponApplied, setCouponApplied] = useState(false);
-  const [voucherType, setVoucherType] = useState<'voucher' | 'point'>('voucher');
-  const [voucherAmount, setVoucherAmount] = useState('0');
-  const [pointAmount, setPointAmount] = useState('0');
-  const [agreed, setAgreed] = useState(false);
+  const [selectedMethod, setSelectedMethod] = useState<PaymentKey>('card');
   const [isProcessing, setIsProcessing] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  /* ── 스토어 ── */
   const coupon = useCouponStore((s) =>
     s.coupons.find((c) => c.courseSlug === (course?.slug ?? '')) ?? null
   );
-  const user = useAuthStore((s) => s.user);
-  const { setPendingOrder, setPaymentStatus, setError } = useOrderStore();
 
-  /* ── 금액 계산 ── */
   const coursePrice = course?.price ?? 0;
-  const couponDiscount =
-    couponApplied && coupon
-      ? Math.round(coursePrice * (coupon.discountRate / 100))
-      : 0;
-  const finalPrice = Math.max(coursePrice - couponDiscount, 0);
+  const finalPrice = coursePrice;
 
-  /* ── 결제 실행 ── */
-  const handlePayment = useCallback(async () => {
-    if (!course || !agreed || isProcessing) return;
-
+  const handlePayment = useCallback(() => {
+    if (!course || isProcessing) return;
     setIsProcessing(true);
-    setErrorMessage(null);
-    setPaymentStatus('creating');
+    setTimeout(() => {
+      router.push(`/order/complete?orderId=ORD-${Date.now()}`);
+    }, 1000);
+  }, [course, isProcessing, router]);
 
-    try {
-      /* 1. 백엔드에 주문 생성 */
-      const orderResponse = await createOrder({
-        courseSlugs: [course.slug],
-        couponId: couponApplied && coupon ? coupon.id : undefined,
-      });
-
-      setPendingOrder(orderResponse);
-      setPaymentStatus('paying');
-
-      /* 2. 0원 결제인 경우 바로 완료 처리 */
-      if (orderResponse.totalAmount === 0) {
-        setPaymentStatus('done');
-        router.push(`/order/complete?orderId=${orderResponse.orderId}`);
-        return;
-      }
-
-      /* 3. 토스페이먼츠 결제창 호출 (API 개별 연동 키 방식) */
-      const customerKey = user?.id ?? TOSS_ANONYMOUS;
-      const payment = await getTossPayment(customerKey);
-
-      await requestTossPayment(payment, selectedMethod, {
-        amount: { currency: 'KRW', value: orderResponse.totalAmount },
-        orderId: orderResponse.orderId,
-        orderName: orderResponse.orderName,
-        customerEmail: orderResponse.customerEmail,
-        customerName: orderResponse.customerName,
-        successUrl: `${window.location.origin}/checkout/success`,
-        failUrl: `${window.location.origin}/checkout/fail`,
-      });
-    } catch (err) {
-      setPaymentStatus('failed');
-      const message =
-        err instanceof Error ? err.message : (errors.paymentFailed ?? '결제에 실패했습니다.');
-      setErrorMessage(message);
-      setError({ code: 'PAYMENT_ERROR', message });
-      resetTossPayment();
-    } finally {
-      setIsProcessing(false);
-    }
-  }, [
-    course, agreed, isProcessing, couponApplied, coupon, user,
-    selectedMethod, errors, setPendingOrder, setPaymentStatus, setError, router,
-  ]);
-
-  /* ── 강의 없음 ── */
   if (!course) {
     return (
-      <section className="checkout-container">
-        <h1 className="checkout-container__title">
-          {title}
-        </h1>
-        <p className="checkout-container__empty">강의 정보를 찾을 수 없습니다.</p>
+      <section className="checkout">
+        <h1 className="checkout__title">주문결제</h1>
+        <p className="checkout__empty">강의 정보를 찾을 수 없습니다.</p>
       </section>
     );
   }
 
   return (
-    <section className="checkout-container">
-      <h1 className="checkout-container__title">
-        {title}
-      </h1>
+    <section className="checkout">
+      <div className="checkout__layout">
+        {/* ── 좌측: 주문 정보 ── */}
+        <div className="checkout__main">
+          {/* 타이틀 */}
+          <h1 className="checkout__title">주문결제</h1>
 
-      <div className="checkout-container__layout">
-        {/* ── 왼쪽: 주문 정보 ── */}
-        <div className="checkout-container__main">
-
-          {/* 주문 강의 정보 */}
-          <div className="checkout-container__section">
-            <h2 className="checkout-container__section-title">
-              {sections.orderInfo ?? '주문 강의'}
-            </h2>
-            <div className="checkout-container__course-item">
-              <div className="checkout-container__course-thumb">
+          {/* 주문 강의 */}
+          <div className="checkout__order-section">
+            <div className="checkout__course-row">
+              <div className="checkout__course-thumb">
                 <Image
                   src={course.thumbnail}
-                  alt={course.thumbnailAlt || course.title}
-                  width={180}
-                  height={100}
-                  style={{ objectFit: 'cover', borderRadius: '0.375rem' }}
+                  alt={course.thumbnailAlt}
+                  width={280}
+                  height={160}
+                  className="checkout__course-image"
                 />
               </div>
-              <div className="checkout-container__course-info">
-                {course.badges.length > 0 && (
-                  <div className="checkout-container__course-badges">
-                    {course.badges.map((badge) => (
-                      <span
-                        key={badge}
-                        className={`checkout-container__course-badge checkout-container__course-badge--${getBadgeVariant(badge)}`}
-                      >
-                        {badge}
-                      </span>
-                    ))}
-                  </div>
-                )}
-                <span className="checkout-container__course-title">{course.title}</span>
-                <div className="checkout-container__course-meta">
-                  <span className="checkout-container__course-instructor">{course.instructor}</span>
-                  <span className="checkout-container__course-meta-dot" />
-                  <span className="checkout-container__course-level">{getLevelLabel(course.level)}</span>
-                  <span className="checkout-container__course-meta-dot" />
-                  <span className="checkout-container__course-duration">{course.duration}</span>
+              <div className="checkout__course-info">
+                <div className="checkout__course-text">
+                  <h2 className="checkout__course-name">{course.title}</h2>
+                  <p className="checkout__course-desc">{course.summary}</p>
                 </div>
-                <div className="checkout-container__course-price">
-                  <span className="checkout-container__course-price-final">
-                    {formatPrice(coursePrice)}
-                  </span>
-                </div>
+                <span className="checkout__course-price">{formatPrice(coursePrice)}</span>
               </div>
             </div>
           </div>
 
           {/* 쿠폰 */}
-          <CouponSelect
-            coupon={coupon}
-            applied={couponApplied}
-            onApply={setCouponApplied}
-            onToggleCode={() => setCouponOpen(!couponOpen)}
-          />
-
-          {/* 상품권 · 포인트 */}
-          <div className="checkout-container__section">
-            <h2 className="checkout-container__section-title">
-              {sections.voucher ?? '상품권 · 포인트'}
-              <span className="checkout-container__section-note">
-                *{sections.voucherNotice ?? '상품권과 포인트 중 하나만 적용 가능합니다.'}
-              </span>
-            </h2>
-
-            {/* 상품권 */}
-            <div className="checkout-container__voucher-row">
-              <label className="checkout-container__radio-label">
-                <input
-                  type="radio"
-                  name="voucherType"
-                  checked={voucherType === 'voucher'}
-                  onChange={() => setVoucherType('voucher')}
-                  className="checkout-container__radio"
-                />
-                <span className="checkout-container__radio-text">
-                  {sections.voucherLabel ?? '상품권'}
-                </span>
-                <span className="checkout-container__available">
-                  {sections.availablePrefix ?? '사용 가능'} 0
-                </span>
-              </label>
-              <div className="checkout-container__input-row">
-                <input
-                  type="text"
-                  className="checkout-container__input"
-                  value={voucherAmount}
-                  onChange={(e) => setVoucherAmount(e.target.value)}
-                  disabled={voucherType !== 'voucher'}
-                  aria-label={sections.voucherLabel ?? '상품권 금액 입력'}
-                />
-                <button
-                  type="button"
-                  className="checkout-container__apply-btn"
-                  disabled={voucherType !== 'voucher'}
-                >
-                  {sections.useAll ?? '전액 사용'}
-                </button>
+          <div className="checkout__section">
+            <div className="checkout__section-header">
+              <h3 className="checkout__section-title">쿠폰</h3>
+              <button type="button" className="checkout__section-link">쿠폰코드 보기</button>
+            </div>
+            <div className="checkout__section-body">
+              <div className="checkout__field">
+                <span className="checkout__field-label">쿠폰</span>
+                <div className="checkout__select">
+                  <span className="checkout__select-text">쿠폰을 선택해주세요</span>
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                    <path d="M5 8l5 5 5-5" stroke="#767676" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
               </div>
             </div>
+          </div>
 
-            {/* 포인트 */}
-            <div className="checkout-container__voucher-row">
-              <label className="checkout-container__radio-label">
-                <input
-                  type="radio"
-                  name="voucherType"
-                  checked={voucherType === 'point'}
-                  onChange={() => setVoucherType('point')}
-                  className="checkout-container__radio"
-                />
-                <span className="checkout-container__radio-text">
-                  {sections.pointLabel ?? '포인트'}
-                </span>
-                <span className="checkout-container__available">
-                  {sections.availablePrefix ?? '사용 가능'} 0
-                </span>
-              </label>
-              <div className="checkout-container__input-row">
-                <input
-                  type="text"
-                  className="checkout-container__input"
-                  value={pointAmount}
-                  onChange={(e) => setPointAmount(e.target.value)}
-                  disabled={voucherType !== 'point'}
-                  aria-label={sections.pointLabel ?? '포인트 금액 입력'}
-                />
-                <button
-                  type="button"
-                  className="checkout-container__apply-btn"
-                  disabled={voucherType !== 'point'}
-                >
-                  {sections.useAll ?? '전액 사용'}
-                </button>
+          {/* 적립금 */}
+          <div className="checkout__section">
+            <div className="checkout__section-header">
+              <h3 className="checkout__section-title">적립금</h3>
+              <div className="checkout__section-meta">
+                <span className="checkout__section-note">사용가능</span>
+                <span className="checkout__section-value">0</span>
               </div>
             </div>
-
-            <p className="checkout-container__point-note">
-              *실 결제 금액의 50%까지 사용 가능
-            </p>
+            <div className="checkout__section-body">
+              <div className="checkout__field">
+                <span className="checkout__field-label">적립금</span>
+                <div className="checkout__input-group">
+                  <input
+                    type="text"
+                    className="checkout__input"
+                    defaultValue="0"
+                    aria-label="적립금 입력"
+                  />
+                  <button type="button" className="checkout__apply-btn">전액사용</button>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* 결제 수단 */}
-          <PaymentMethodSelect
-            selected={selectedMethod}
-            onSelect={setSelectedMethod}
-          />
+          <div className="checkout__section">
+            <h3 className="checkout__section-title">결제 수단</h3>
+            <div className="checkout__methods">
+              {PAYMENT_METHODS.map((method) => (
+                <button
+                  key={method.key}
+                  type="button"
+                  className={`checkout__method${selectedMethod === method.key ? ' checkout__method--active' : ''}`}
+                  onClick={() => setSelectedMethod(method.key)}
+                  aria-pressed={selectedMethod === method.key}
+                >
+                  <Image src={method.icon} alt="" width={28} height={19} aria-hidden="true" />
+                  <span>{method.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
-        {/* ── 오른쪽: 결제 요약 ── */}
-        <aside className="checkout-container__summary">
-          <div className="checkout-container__summary-sticky">
-            <PriceSummary
-              coursePrice={coursePrice}
-              couponDiscount={couponDiscount}
-              pointUsed={0}
-              voucherUsed={0}
-            />
+        {/* ── 우측: 결제금액 사이드바 ── */}
+        <aside className="checkout__sidebar">
+          <div className="checkout__sidebar-inner">
+            {/* 결제금액 상세 */}
+            <div className="checkout__price-section">
+              <h3 className="checkout__price-title">결제금액</h3>
+              <div className="checkout__price-rows">
+                <div className="checkout__price-row">
+                  <span className="checkout__price-label">총 클래스 결제 금액</span>
+                  <span className="checkout__price-value">{formatPrice(coursePrice)}</span>
+                </div>
+                <div className="checkout__price-row">
+                  <span className="checkout__price-label">쿠폰 사용</span>
+                  <span className="checkout__price-value">0원</span>
+                </div>
+                <div className="checkout__price-row">
+                  <span className="checkout__price-label">포인트 사용</span>
+                  <span className="checkout__price-value">0원</span>
+                </div>
+              </div>
+            </div>
 
-            {errorMessage && (
-              <p className="checkout-container__error" role="alert">
-                {errorMessage}
-              </p>
-            )}
-
-            <button
-              type="button"
-              className="checkout-container__pay-btn"
-              disabled={!agreed || isProcessing}
-              onClick={handlePayment}
-              aria-label={summary.submitAriaLabel ?? '최종 결제 금액으로 결제 진행'}
-            >
-              {isProcessing
-                ? '처리 중...'
-                : `${formatPrice(finalPrice)} ${summary.submitLabel ?? '결제하기'}`}
-            </button>
-
-            <label className="checkout-container__agree-label">
-              <input
-                type="checkbox"
-                checked={agreed}
-                onChange={(e) => setAgreed(e.target.checked)}
-                className="checkout-container__agree-checkbox"
-                aria-label={agreement.ariaLabel ?? '구매 조건 및 환불 규정 동의'}
-              />
-              <span className="checkout-container__agree-text">
-                {agreement.text ?? '강의 및 결제 정보를 확인하였으며, 구매 조건 및 환불 규정에 동의합니다.'}
-              </span>
-            </label>
+            {/* 총 결제 금액 + 결제 버튼 */}
+            <div className="checkout__total-section">
+              <div className="checkout__total-row">
+                <span className="checkout__total-label">총 결제 금액</span>
+                <span className="checkout__total-value">{formatPrice(finalPrice)}</span>
+              </div>
+              <button
+                type="button"
+                className="checkout__pay-btn"
+                disabled={isProcessing}
+                onClick={handlePayment}
+              >
+                {isProcessing ? '처리 중...' : '결제하기'}
+              </button>
+            </div>
           </div>
         </aside>
       </div>

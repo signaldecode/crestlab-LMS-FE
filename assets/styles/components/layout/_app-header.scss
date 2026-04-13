@@ -7,175 +7,146 @@
 
 // ============================================
 // 앱 헤더 스타일 (_app-header.scss)
-// - 1줄 구조: 로고 + 글로벌 내비 + 검색 + 인증
-// - 반응형: 모바일에서 검색/강의실 버튼 숨기고 햄버거 메뉴 표시
+// - 1줄 구조: (로고 + 햄버거 + 네비) | (검색 + 인증)
 // ============================================
-
 
 .app-header {
   position: sticky;
   top: $spacing-0;
   z-index: $z-index-sticky;
   background-color: $color-bg-primary;
-  margin-bottom: $spacing-6;
+  border-bottom: $border-thin solid $color-border;
+  margin-bottom: $spacing-8;
+
+  @media (max-width: 767px) {
+    margin-bottom: $spacing-4;
+  }
 
   // ── 상단바 ──
   &__top-bar-inner {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: $spacing-8;
-    max-width: 100rem; // 1600px — 헤더는 컨테이너보다 넓게 사용
+    max-width: $container-max-width;
     margin: $spacing-0 auto;
-    padding: $spacing-3 $spacing-8;
-
-    @media (max-width: 1023px) {
-      gap: $spacing-4;
-    }
+    padding: $spacing-6 $container-padding;
 
     @media (max-width: 767px) {
-      padding: $spacing-2 $spacing-3;
-      gap: $spacing-2;
-      justify-content: space-between;
+      padding: $spacing-3;
     }
+  }
+
+  // ── 좌측: 로고 + 햄버거 + 네비 ──
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
 
     .global-nav {
-      flex: 1 1 auto;
-      min-width: 0;
-
       @media (max-width: 767px) {
         display: none;
       }
     }
   }
 
-  &__top-left {
+  // ── 햄버거 버튼 ──
+  &__hamburger {
     display: flex;
     align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    background: none;
+    border: none;
+    color: $color-text-primary;
+    cursor: pointer;
+    padding: $spacing-0;
     flex-shrink: 0;
   }
 
-  &__top-right {
+  // ── 우측: 검색 + 인증 ──
+  &__right {
     display: flex;
     align-items: center;
-    gap: $spacing-4;
+    gap: $spacing-5;
     flex-shrink: 0;
-
-    @media (max-width: 767px) {
-      gap: $spacing-2;
-    }
-  }
-
-  // ── 섹션 탭 (클래스 / 커뮤니티) ──
-  &__sections {
-    display: flex;
-    align-items: center;
-    gap: $spacing-4;
-
-    @media (max-width: 767px) {
-      display: none;
-    }
-  }
-
-  &__section-link {
-    font-size: $font-size-base;
-    font-weight: $font-weight-medium;
-    color: $color-text-secondary;
-    text-decoration: none;
-    transition: color $duration-normal $ease-default;
-    white-space: nowrap;
-
-    &:hover {
-      color: $color-text-primary;
-    }
-
-    &--active {
-      font-weight: $font-weight-bold;
-      color: $color-text-primary;
-    }
-
-    @media (max-width: 1023px) {
-      font-size: $font-size-sm;
-    }
   }
 
   // ── 검색 ──
   &__search {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    position: relative;
+    width: 18.75rem;
+    padding: $spacing-4 $spacing-6;
+    background: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-full;
+
+    @media (max-width: 1023px) {
+      width: 14rem;
+      padding: $spacing-3 $spacing-5;
+    }
 
     @media (max-width: 767px) {
       display: none;
     }
   }
 
-  &__search-icon {
-    position: absolute;
-    left: $spacing-3;
-    color: $color-text-secondary;
-    pointer-events: none;
-  }
-
   &__search-input {
-    width: 15rem;
-    padding: $spacing-2 $spacing-3;
-    padding-left: $spacing-8;
-    font-size: $font-size-sm;
-    color: $color-text-primary;
-    background-color: $color-bg-secondary;
-    border: $border-thin solid $color-border;
-    border-radius: $radius-md;
+    flex: 1;
+    border: none;
     outline: none;
-    transition: border-color $duration-normal $ease-default;
+    background: none;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-regular;
+    color: $color-text-primary;
+    letter-spacing: $letter-spacing-normal;
 
     &::placeholder {
       color: $color-text-secondary;
     }
+  }
 
-    &:focus {
-      border-color: $color-border-focus;
-    }
+  &__search-icon {
+    flex-shrink: 0;
+  }
 
-    @media (max-width: 1023px) {
-      width: 12rem;
+  // ── 인증 버튼 ──
+  &__auth {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    flex-shrink: 0;
+
+    @media (max-width: 767px) {
+      display: none;
     }
   }
 
-  // ── 아이콘 버튼 (알림) ──
-  &__icon-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.25rem;
-    height: 2.25rem;
-    background: none;
-    border: $border-thin solid $color-border;
-    border-radius: $radius-circle;
+  &__auth-link {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
     color: $color-text-secondary;
+    background: none;
+    border: none;
     cursor: pointer;
     text-decoration: none;
-    transition: background-color $duration-normal $ease-default, color $duration-normal $ease-default;
+    white-space: nowrap;
+    letter-spacing: $letter-spacing-normal;
+    transition: color $duration-normal $ease-default;
 
     &:hover {
-      background-color: $color-bg-secondary;
       color: $color-text-primary;
     }
   }
 
-  // ── 알림 버튼 (배지 포함) ──
-  &__notification-btn {
-    position: relative;
-  }
-
-  &__notification-badge {
-    position: absolute;
-    top: $spacing-0;
-    right: $spacing-0;
-    width: $spacing-2;
-    height: $spacing-2;
-    background: $color-error;
+  &__auth-dot {
+    width: 0.25rem;
+    height: 0.25rem;
     border-radius: $radius-circle;
-    border: $border-medium solid $color-bg-primary;
+    background: $color-border;
+    flex-shrink: 0;
   }
 
   // ── 내 강의실 버튼 ──
@@ -201,59 +172,6 @@
 
     @media (max-width: 767px) {
       display: none;
-    }
-  }
-
-  // ── 모바일 햄버거 토글 ──
-  &__mobile-toggle {
-    display: none;
-    align-items: center;
-    justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    background: none;
-    border: none;
-    color: $color-text-primary;
-    cursor: pointer;
-    padding: $spacing-0;
-
-    @media (max-width: 767px) {
-      display: flex;
-    }
-  }
-
-  // ── 인증 버튼 ──
-  &__auth {
-    display: flex;
-    align-items: center;
-    gap: $spacing-2;
-    flex-shrink: 0;
-
-    @media (max-width: 767px) {
-      display: none;
-    }
-  }
-
-  &__auth-link {
-    padding: $spacing-2 $spacing-4;
-    font-size: $font-size-sm;
-    font-weight: $font-weight-medium;
-    color: $color-text-primary;
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    white-space: nowrap;
-    flex-shrink: 0;
-
-    &--signup {
-      background-color: $color-primary;
-      color: $color-text-inverse;
-      border-radius: $radius-md;
-
-      &:hover {
-        opacity: 0.9;
-      }
     }
   }
 

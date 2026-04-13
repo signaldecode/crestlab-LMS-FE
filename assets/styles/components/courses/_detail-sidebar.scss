@@ -15,206 +15,154 @@
     top: $spacing-8;
     display: flex;
     flex-direction: column;
-    gap: $spacing-4;
-    padding: $spacing-6;
+    gap: $spacing-6;
+    padding: $spacing-8;
     border: $border-thin solid $color-border;
-    border-radius: $radius-lg;
+    border-radius: $radius-xl;
     background: $color-bg-primary;
   }
 
-  // 강의명
-  &__title {
-    font-size: $font-size-base;
-    font-weight: $font-weight-bold;
-    color: $color-text-primary;
-    line-height: $line-height-tight;
-    margin: 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  // 평점
-  &__rating {
+  // ── 뱃지 ──
+  &__badges {
     display: flex;
-    align-items: center;
     gap: $spacing-2;
   }
 
-  &__stars {
-    color: $color-warning;
-    font-size: $font-size-sm;
-    font-weight: $font-weight-semibold;
-  }
-
-  &__review-count {
-    font-size: $font-size-xs;
-    color: $color-text-secondary;
-  }
-
-  // 가격
-  &__price-section {
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-1;
-  }
-
-  &__original-price {
-    text-decoration: line-through;
-    color: $color-text-secondary;
-    font-size: $font-size-sm;
-  }
-
-  &__discount-price {
-    display: flex;
+  &__badge {
+    display: inline-flex;
+    justify-content: center;
     align-items: center;
-    gap: $spacing-2;
-  }
-
-  &__discount-rate {
-    font-size: $font-size-lg;
-    font-weight: $font-weight-bold;
-    color: $color-error;
-  }
-
-  &__final-price {
-    font-size: $font-size-lg;
-    font-weight: $font-weight-bold;
-    color: $color-text-primary;
-  }
-
-  &__first-buy {
-    font-size: $font-size-xs;
-    color: $color-primary;
-    border: $border-thin solid $color-primary;
+    padding: $spacing-2 $spacing-6;
     border-radius: $radius-xs;
-    padding: $spacing-1 $spacing-2;
-  }
-
-  // 쿠폰
-  &__coupon-btn {
-    width: 100%;
-    padding: $spacing-2 $spacing-4;
-    border: $border-thin solid $color-primary;
-    border-radius: $radius-sm;
-    background: $color-bg-primary;
-    color: $color-primary;
+    background: #EAF3FF;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
-    cursor: pointer;
-    text-align: center;
-    transition: background $duration-normal, color $duration-normal, border-color $duration-normal;
-
-    &:hover:not(:disabled) {
-      background: rgba($color-primary, 0.05);
-    }
-
-    &--claimed {
-      border-color: $color-success;
-      color: $color-success;
-      cursor: default;
-      background: rgba($color-success, 0.05);
-    }
+    color: $color-primary;
+    letter-spacing: $letter-spacing-normal;
   }
 
-  // 수강 옵션
-  &__options {
-    border-top: $border-thin solid $color-border;
-    padding-top: $spacing-4;
-  }
-
-  &__options-title {
-    font-size: $font-size-sm;
-    font-weight: $font-weight-semibold;
-    color: $color-text-primary;
-    margin-bottom: $spacing-3;
-  }
-
-  &__option-item {
+  // ── 제목 + 공유 ──
+  &__header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: $spacing-3;
-    border: $border-thin solid $color-border;
-    border-radius: $radius-sm;
-    background: $color-bg-secondary;
-
-    &--selected {
-      border-color: $color-text-secondary;
-    }
+    align-items: flex-start;
+    gap: $spacing-4;
   }
 
-  &__option-info {
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-1;
-    min-width: 0;
+  &__title {
+    font-size: 1.75rem;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    line-height: 1.357em;
+    letter-spacing: $letter-spacing-normal;
+    margin: 0;
     flex: 1;
   }
 
-  &__option-name {
-    font-size: $font-size-xs;
+  &__share {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-xl2;
+    background: $color-bg-primary;
+    color: $color-text-secondary;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: border-color $duration-normal $ease-default;
+
+    &:hover {
+      border-color: $color-text-primary;
+    }
+  }
+
+  // ── 설명 ──
+  &__desc {
+    font-size: $font-size-base;
+    font-weight: $font-weight-regular;
+    color: $color-text-secondary;
+    line-height: $line-height-base;
+    letter-spacing: $letter-spacing-normal;
+    margin: 0;
+  }
+
+  // ── 수강 정보 ──
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+    border-top: $border-thin solid $color-border;
+    border-bottom: $border-thin solid $color-border;
+    padding: $spacing-5 0;
+  }
+
+  &__info-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__info-label {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-regular;
+    color: $color-text-secondary;
+    letter-spacing: $letter-spacing-normal;
+  }
+
+  &__info-value {
+    font-size: $font-size-sm;
     font-weight: $font-weight-medium;
     color: $color-text-primary;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    letter-spacing: $letter-spacing-normal;
   }
 
-  &__option-duration {
-    font-size: $font-size-xs;
-    color: $color-text-secondary;
-  }
-
-  &__option-price {
-    font-size: $font-size-sm;
-    font-weight: $font-weight-bold;
-    color: $color-text-primary;
-    flex-shrink: 0;
-    margin-left: $spacing-3;
-  }
-
-  // 총 상품 금액
-  &__total {
+  // ── 가격 ──
+  &__price {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    border-top: $border-thin solid $color-border;
-    padding-top: $spacing-4;
+    align-items: flex-end;
   }
 
-  &__total-label {
+  &__price-label {
     font-size: $font-size-sm;
+    font-weight: $font-weight-regular;
+    color: $color-text-primary;
+    letter-spacing: $letter-spacing-normal;
+  }
+
+  &__price-value {
+    font-size: $font-size-xl;
     font-weight: $font-weight-semibold;
     color: $color-text-primary;
+    letter-spacing: $letter-spacing-normal;
+    line-height: 1.417em;
   }
 
-  &__total-price {
-    font-size: $font-size-lg;
-    font-weight: $font-weight-bold;
-    color: $color-primary;
-  }
-
-  // CTA 버튼
+  // ── CTA 버튼 ──
   &__actions {
     display: flex;
-    gap: $spacing-3;
+    gap: $spacing-2;
   }
 
   &__wish-btn {
     flex-shrink: 0;
-    width: 3rem;
-    height: 3rem;
+    width: 3.625rem;
+    height: 3.625rem;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     border: $border-thin solid $color-border;
-    border-radius: $radius-md;
+    border-radius: $radius-xs;
     background: $color-bg-primary;
-    font-size: $font-size-xl;
     cursor: pointer;
     color: $color-text-secondary;
+    gap: $spacing-1;
     transition: border-color $duration-normal, color $duration-normal;
 
     &:hover {
@@ -228,27 +176,31 @@
     }
   }
 
+  &__wish-count {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    letter-spacing: $letter-spacing-normal;
+  }
+
   &__buy-btn {
     flex: 1;
-    height: 3rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: $spacing-4 $spacing-2;
     border: none;
-    border-radius: $radius-md;
+    border-radius: $radius-xs;
     background: $color-primary;
     color: $color-text-inverse;
     font-size: $font-size-base;
-    font-weight: $font-weight-bold;
+    font-weight: $font-weight-medium;
+    letter-spacing: $letter-spacing-normal;
     text-decoration: none;
     cursor: pointer;
+    transition: background $duration-normal $ease-default;
 
     &:hover {
       background: $color-primary-dark;
     }
   }
 }
-
-// ============================================
-// 커리큘럼 탭 콘텐츠
-// ============================================
