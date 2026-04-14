@@ -9,12 +9,11 @@ import uiData from './uiData.json';
 import pagesData from './pagesData.json';
 import coursesData from './coursesData.json';
 import homeData from './homeData.json';
-import communityData from './communityData.json';
 import accountData from './accountData.json';
 import supportData from './supportData.json';
 import boardData from './boardData.json';
 
-import type { MainData, CommunityData, GiftcardData, GiftcardHistoryData, FollowUserData, EnrolledCourseData, BoardData } from '@/types';
+import type { MainData, GiftcardData, GiftcardHistoryData, EnrolledCourseData, BoardData } from '@/types';
 
 const mainData: MainData = {
   site: siteData.site,
@@ -33,7 +32,6 @@ const mainData: MainData = {
   homeBestArticles: homeData.homeBestArticles,
   liveCounter: homeData.liveCounter,
   homeInstructors: homeData.homeInstructors,
-  homeCommunity: homeData.homeCommunity,
   homePromoBanners: homeData.homePromoBanners,
   homeNews: homeData.homeNews,
   ctaBanner: homeData.ctaBanner,
@@ -42,7 +40,6 @@ const mainData: MainData = {
   a11y: siteData.a11y,
   geo: siteData.geo,
   seo: siteData.seo,
-  community: communityData as unknown as CommunityData,
   consultations: accountData.consultations,
   reviews: accountData.reviews,
   certificates: accountData.certificates,
@@ -50,8 +47,6 @@ const mainData: MainData = {
   expiredCoupons: accountData.expiredCoupons,
   giftcards: accountData.giftcards as unknown as GiftcardData[],
   giftcardHistory: accountData.giftcardHistory as unknown as GiftcardHistoryData[],
-  followers: accountData.followers as unknown as FollowUserData[],
-  following: accountData.following as unknown as FollowUserData[],
   enrolledCourses: accountData.enrolledCourses as unknown as EnrolledCourseData[],
   board: boardData as unknown as BoardData,
 };

@@ -317,12 +317,6 @@
       "description": "강의 플랫폼 소개 및 비전"
     }
   },
-  "community": {
-    "seo": {
-      "title": "커뮤니티 — 강의 플랫폼",
-      "description": "수강생들과 자유롭게 소통하는 커뮤니티"
-    }
-  },
   "support": {
     "seo": {
       "title": "고객센터 — 강의 플랫폼",
@@ -536,33 +530,559 @@
       "title": "관리자",
       "navLabel": "관리자 메뉴",
       "navAriaLabel": "관리자 내비게이션",
-      "menuItems": [
+      "backToSiteLabel": "사이트로 돌아가기",
+      "backToSiteHref": "/",
+      "backToSiteAriaLabel": "일반 사이트로 이동",
+      "accessDeniedTitle": "접근 권한이 없습니다",
+      "accessDeniedMessage": "관리자 권한이 필요한 페이지입니다.",
+      "accessDeniedActionLabel": "홈으로 돌아가기",
+      "menuGroups": [
         {
-          "label": "대시보드",
-          "href": "/",
-          "ariaLabel": "관리자 대시보드로 이동"
+          "label": "운영",
+          "items": [
+            { "label": "대시보드", "href": "/admin/dashboard", "ariaLabel": "관리자 대시보드로 이동" },
+            { "label": "사용자 관리", "href": "/admin/users", "ariaLabel": "사용자 관리 페이지로 이동" },
+            { "label": "결제 관리", "href": "/admin/payments", "ariaLabel": "결제 관리 페이지로 이동" }
+          ]
         },
         {
-          "label": "강의 관리",
-          "href": "/courses",
-          "ariaLabel": "강의 관리 페이지로 이동"
+          "label": "콘텐츠",
+          "items": [
+            { "label": "강의 관리", "href": "/admin/courses", "ariaLabel": "강의 관리 페이지로 이동" },
+            { "label": "리뷰 관리", "href": "/admin/reviews", "ariaLabel": "리뷰 관리 페이지로 이동" }
+          ]
         },
         {
-          "label": "주문 관리",
-          "href": "/orders",
-          "ariaLabel": "주문 관리 페이지로 이동"
-        },
-        {
-          "label": "유저 관리",
-          "href": "/users",
-          "ariaLabel": "유저 관리 페이지로 이동"
-        },
-        {
-          "label": "커뮤니티 관리",
-          "href": "/community",
-          "ariaLabel": "커뮤니티 관리 페이지로 이동"
+          "label": "사이트 구성",
+          "items": [
+            { "label": "배너 관리", "href": "/admin/banners", "ariaLabel": "배너 관리 페이지로 이동" },
+            { "label": "메인 섹션", "href": "/admin/main-sections", "ariaLabel": "메인 섹션 관리 페이지로 이동" },
+            { "label": "성공 사례", "href": "/admin/success-stories", "ariaLabel": "성공 사례 관리 페이지로 이동" },
+            { "label": "쿠폰 관리", "href": "/admin/coupons", "ariaLabel": "쿠폰 관리 페이지로 이동" },
+            { "label": "FAQ 관리", "href": "/admin/faqs", "ariaLabel": "FAQ 관리 페이지로 이동" },
+            { "label": "약관 관리", "href": "/admin/terms", "ariaLabel": "약관 관리 페이지로 이동" },
+            { "label": "레벨 기준", "href": "/admin/levels", "ariaLabel": "레벨 기준 관리 페이지로 이동" }
+          ]
         }
       ]
+    },
+    "dashboard": {
+      "seo": {
+        "title": "관리자 대시보드",
+        "description": "운영 현황 한눈에 보기"
+      },
+      "title": "대시보드",
+      "subtitle": "운영 지표를 한눈에 확인하세요.",
+      "currencyUnit": "원",
+      "countUnit": "건",
+      "personUnit": "명",
+      "ratingUnit": "점",
+      "periodLabels": {
+        "today": "오늘",
+        "monthly": "이번 달",
+        "total": "누적"
+      },
+      "sections": {
+        "revenue": {
+          "title": "매출",
+          "description": "오늘·이번 달·누적 매출과 최근 30일 추이입니다.",
+          "trendTitle": "최근 30일 매출 추이",
+          "trendAriaLabel": "최근 30일 일별 매출 막대 차트"
+        },
+        "newUsers": {
+          "title": "신규 가입자",
+          "description": "오늘·이번 달·누적 가입자 수와 최근 30일 추이입니다.",
+          "trendTitle": "최근 30일 가입자 추이",
+          "trendAriaLabel": "최근 30일 일별 신규 가입자 막대 차트"
+        },
+        "courseEnrollments": {
+          "title": "인기 강의 (수강 등록 기준)",
+          "description": "활성 수강 등록이 많은 강의 상위 10개입니다.",
+          "columnRank": "순위",
+          "columnTitle": "강의명",
+          "columnEnrollment": "수강생",
+          "columnProgress": "평균 진도율",
+          "emptyText": "표시할 데이터가 없습니다."
+        },
+        "reviews": {
+          "title": "리뷰 현황",
+          "description": "전체 평균 평점과 누적·이번 달 리뷰 수, 최근 리뷰입니다.",
+          "avgRatingLabel": "전체 평균 평점",
+          "totalLabel": "누적 리뷰",
+          "monthlyLabel": "이번 달 리뷰",
+          "recentTitle": "최근 리뷰",
+          "emptyText": "표시할 리뷰가 없습니다."
+        },
+        "payments": {
+          "title": "결제 현황",
+          "description": "오늘과 이번 달의 결제·환불 처리 건수입니다.",
+          "todayOrderLabel": "오늘 결제",
+          "todayRefundLabel": "오늘 환불",
+          "monthlyOrderLabel": "이번 달 결제",
+          "monthlyRefundLabel": "이번 달 환불"
+        }
+      }
+    },
+    "banners": {
+      "seo": { "title": "배너 관리 — 관리자", "description": "메인 배너 CRUD 및 순서 관리" },
+      "title": "배너 관리",
+      "subtitle": "메인 페이지에 노출되는 배너를 관리합니다.",
+      "createButtonLabel": "배너 등록",
+      "createButtonHref": "/admin/banners/new",
+      "createButtonAriaLabel": "새 배너 등록",
+      "columns": { "sortOrder": "순서", "title": "제목", "linkUrl": "링크", "period": "노출 기간", "isActive": "활성", "actions": "액션" },
+      "activeLabels": { "true": "활성", "false": "비활성" },
+      "actionLabels": { "edit": "수정", "delete": "삭제" },
+      "deleteModal": {
+        "title": "배너 삭제",
+        "descriptionTemplate": "{title} 배너를 삭제합니다. 이 작업은 되돌릴 수 없습니다.",
+        "confirmLabel": "삭제",
+        "cancelLabel": "취소"
+      },
+      "emptyText": "등록된 배너가 없습니다."
+    },
+    "mainSections": {
+      "seo": { "title": "메인 섹션 관리 — 관리자", "description": "홈 페이지 섹션 구성" },
+      "title": "메인 섹션 관리",
+      "subtitle": "홈 페이지에 표시되는 강의 섹션을 구성합니다.",
+      "createButtonLabel": "섹션 등록",
+      "createButtonHref": "/admin/main-sections/new",
+      "createButtonAriaLabel": "새 섹션 등록",
+      "columns": { "sortOrder": "순서", "title": "제목", "type": "타입", "filterValue": "필터", "isActive": "활성", "actions": "액션" },
+      "typeLabels": { "NEW": "신규", "POPULAR": "인기", "LEVEL": "난이도", "CUSTOM": "커스텀" },
+      "activeLabels": { "true": "활성", "false": "비활성" },
+      "actionLabels": { "edit": "수정", "delete": "삭제" },
+      "deleteModal": {
+        "title": "메인 섹션 삭제",
+        "descriptionTemplate": "{title} 섹션을 삭제합니다. 홈 페이지에서 즉시 사라지며 되돌릴 수 없습니다.",
+        "confirmLabel": "삭제",
+        "cancelLabel": "취소"
+      },
+      "emptyText": "등록된 섹션이 없습니다."
+    },
+    "successStories": {
+      "seo": { "title": "성공 사례 관리 — 관리자", "description": "수강생 성공 사례 CRUD" },
+      "title": "성공 사례 관리",
+      "subtitle": "홈 페이지에 노출되는 수강생 후기·인터뷰를 관리합니다.",
+      "createButtonLabel": "사례 등록",
+      "createButtonHref": "/admin/success-stories/new",
+      "createButtonAriaLabel": "새 성공 사례 등록",
+      "columns": { "sortOrder": "순서", "title": "제목", "authorName": "주인공", "isActive": "활성", "createdAt": "등록일", "actions": "액션" },
+      "activeLabels": { "true": "활성", "false": "비활성" },
+      "actionLabels": { "edit": "수정", "delete": "삭제" },
+      "deleteModal": {
+        "title": "성공 사례 삭제",
+        "descriptionTemplate": "{title} 사례를 삭제합니다. 이 작업은 되돌릴 수 없습니다.",
+        "confirmLabel": "삭제",
+        "cancelLabel": "취소"
+      },
+      "emptyText": "등록된 성공 사례가 없습니다."
+    },
+    "coupons": {
+      "seo": { "title": "쿠폰 관리 — 관리자", "description": "쿠폰 생성·비활성화·사용 통계" },
+      "title": "쿠폰 관리",
+      "subtitle": "할인 쿠폰을 발행하고 사용 현황을 확인합니다.",
+      "createButtonLabel": "쿠폰 발행",
+      "createButtonHref": "/admin/coupons/new",
+      "createButtonAriaLabel": "새 쿠폰 발행",
+      "columns": { "code": "코드", "name": "이름", "discount": "할인", "minOrder": "최소 결제", "usage": "사용량", "period": "유효 기간", "isActive": "상태", "actions": "액션" },
+      "discountTypeLabels": { "PERCENT": "%", "FIXED": "원" },
+      "activeLabels": { "true": "활성", "false": "비활성" },
+      "actionLabels": { "deactivate": "비활성화" },
+      "deactivateModal": {
+        "title": "쿠폰 비활성화",
+        "descriptionTemplate": "{name} ({code}) 쿠폰을 비활성화합니다. 기존 발급분은 사용할 수 없게 되며 이 작업은 되돌릴 수 없습니다.",
+        "confirmLabel": "비활성화",
+        "cancelLabel": "취소"
+      },
+      "emptyText": "등록된 쿠폰이 없습니다."
+    },
+    "faqs": {
+      "seo": { "title": "FAQ 관리 — 관리자", "description": "FAQ CRUD 및 카테고리별 관리" },
+      "title": "FAQ 관리",
+      "subtitle": "자주 묻는 질문을 관리합니다.",
+      "createButtonLabel": "FAQ 등록",
+      "createButtonHref": "/admin/faqs/new",
+      "createButtonAriaLabel": "새 FAQ 등록",
+      "filters": { "categoryLabel": "카테고리", "categoryAllLabel": "전체" },
+      "columns": { "sortOrder": "순서", "category": "카테고리", "question": "질문", "updatedAt": "수정일", "actions": "액션" },
+      "actionLabels": { "edit": "수정", "delete": "삭제" },
+      "deleteModal": {
+        "title": "FAQ 삭제",
+        "descriptionTemplate": "{question}\n위 FAQ를 삭제합니다. 이 작업은 되돌릴 수 없습니다.",
+        "confirmLabel": "삭제",
+        "cancelLabel": "취소"
+      },
+      "emptyText": "등록된 FAQ가 없습니다."
+    },
+    "terms": {
+      "seo": { "title": "약관 관리 — 관리자", "description": "약관 버전 이력 및 새 버전 등록" },
+      "title": "약관 관리",
+      "subtitle": "약관 종류별 버전 이력을 확인하고 새 버전을 발행합니다.",
+      "createButtonLabel": "새 버전 등록",
+      "createButtonAriaLabel": "현재 약관의 새 버전 등록",
+      "typeLabels": {
+        "TERMS_OF_SERVICE": "서비스 이용약관",
+        "PRIVACY_POLICY": "개인정보 처리방침",
+        "LEARNING_POLICY": "학습 운영 정책",
+        "REFUND_POLICY": "환불 정책"
+      },
+      "columns": { "version": "버전", "effectiveDate": "시행일", "isCurrent": "현재", "createdAt": "등록일", "actions": "액션" },
+      "currentBadgeLabel": "현재",
+      "actionLabels": { "view": "내용 보기" },
+      "emptyText": "이 약관 유형의 이력이 없습니다."
+    },
+    "levels": {
+      "seo": { "title": "레벨 기준 관리 — 관리자", "description": "사용자 레벨 승급 기준 설정" },
+      "title": "레벨 기준 관리",
+      "subtitle": "사용자 레벨 승급 기준을 설정하고 수동 갱신할 수 있습니다.",
+      "refreshButtonLabel": "수동 갱신 실행",
+      "refreshButtonAriaLabel": "전체 사용자 레벨 수동 갱신",
+      "refreshHelpText": "매일 새벽 3시에 자동 갱신됩니다.",
+      "columns": { "level": "레벨", "minEnrollmentCount": "최소 수강 강의", "minReviewCount": "최소 리뷰 작성", "minTotalSpent": "최소 누적 결제액", "actions": "액션" },
+      "actionLabels": { "edit": "기준 수정" },
+      "currencyUnit": "원",
+      "courseUnit": "개",
+      "reviewUnit": "건"
+    },
+    "reviews": {
+      "seo": { "title": "리뷰 관리 — 관리자", "description": "리뷰 검색 및 부적절 리뷰 삭제" },
+      "title": "리뷰 관리",
+      "subtitle": "강의별·사용자별로 리뷰를 검색하고 부적절한 리뷰를 삭제합니다.",
+      "filters": {
+        "keywordLabel": "검색",
+        "keywordPlaceholder": "강의명·닉네임·이메일·내용으로 검색",
+        "keywordAriaLabel": "리뷰 검색어 입력",
+        "ratingLabel": "평점",
+        "ratingAllLabel": "전체",
+        "resetLabel": "초기화",
+        "resetAriaLabel": "필터 초기화"
+      },
+      "columns": { "rating": "평점", "course": "강의", "user": "작성자", "content": "내용", "likeCount": "좋아요", "createdAt": "작성일", "actions": "액션" },
+      "actionLabels": { "delete": "삭제" },
+      "deleteModal": {
+        "title": "리뷰 삭제",
+        "descriptionTemplate": "{nickname}님이 {course}에 작성한 리뷰를 삭제합니다. 이 작업은 되돌릴 수 없습니다.",
+        "confirmLabel": "삭제",
+        "cancelLabel": "취소"
+      },
+      "emptyText": "조건에 맞는 리뷰가 없습니다.",
+      "pagination": { "previousLabel": "이전", "previousAriaLabel": "이전 페이지", "nextLabel": "다음", "nextAriaLabel": "다음 페이지", "pageInfoTemplate": "{current} / {total} 페이지 (총 {totalCount}건)", "pageSize": 10 }
+    },
+    "manualEnroll": {
+      "seo": {
+        "title": "수동 수강 등록 — 관리자",
+        "description": "결제 없이 사용자에게 강의 수강권 발급"
+      },
+      "title": "수동 수강 등록",
+      "subtitle": "결제 없이 특정 사용자에게 강의 수강권을 발급합니다. 발급 즉시 수강이 활성화됩니다.",
+      "backLinkLabel": "결제 관리로",
+      "backLinkHref": "/admin/payments",
+      "fields": {
+        "userLabel": "사용자",
+        "userPlaceholder": "닉네임 또는 이메일로 검색",
+        "userAriaLabel": "수강 등록할 사용자 검색",
+        "userNotFoundText": "일치하는 사용자가 없습니다.",
+        "courseLabel": "강의",
+        "coursePlaceholder": "강의 선택",
+        "courseAriaLabel": "수강 등록할 강의 선택"
+      },
+      "summary": {
+        "title": "등록 내용 확인",
+        "userLabel": "사용자",
+        "courseLabel": "강의",
+        "noSelectionText": "사용자와 강의를 모두 선택하면 내용이 표시됩니다."
+      },
+      "actions": {
+        "submitLabel": "수강 등록 실행",
+        "submitAriaLabel": "선택한 사용자에게 수강권 발급",
+        "cancelLabel": "취소"
+      },
+      "errors": {
+        "userRequired": "사용자를 선택해 주세요.",
+        "courseRequired": "강의를 선택해 주세요."
+      }
+    },
+    "paymentDetail": {
+      "seo": {
+        "title": "결제 상세 — 관리자",
+        "description": "주문 상세 및 환불 처리"
+      },
+      "notFoundText": "해당 주문을 찾을 수 없습니다.",
+      "backLinkLabel": "결제 목록으로",
+      "backLinkHref": "/admin/payments",
+      "sections": {
+        "orderTitle": "주문 정보",
+        "userTitle": "사용자",
+        "amountTitle": "금액",
+        "refundInfoTitle": "환불 정보"
+      },
+      "labels": {
+        "orderNumber": "주문번호",
+        "courseTitle": "강의",
+        "status": "상태",
+        "createdAt": "주문일시",
+        "nickname": "닉네임",
+        "email": "이메일",
+        "originalAmount": "정가",
+        "discountAmount": "할인",
+        "finalAmount": "최종 결제 금액",
+        "refundReason": "환불 사유",
+        "refundedAt": "환불 처리일시"
+      },
+      "actions": {
+        "refundLabel": "환불 처리",
+        "refundAriaLabel": "환불 처리 모달 열기",
+        "refundDisabledLabel": "환불 불가",
+        "viewUserLabel": "사용자 상세 보기"
+      },
+      "currencyUnit": "원",
+      "refundModal": {
+        "title": "환불 처리",
+        "description": "환불 사유를 입력하면 결제가 즉시 취소되고 수강이 해제됩니다. 이 작업은 되돌릴 수 없습니다.",
+        "reasonLabel": "환불 사유",
+        "reasonPlaceholder": "환불 사유를 500자 이내로 입력하세요.",
+        "reasonMaxLength": 500,
+        "reasonRequiredError": "환불 사유를 입력해 주세요.",
+        "confirmLabel": "환불 처리 실행",
+        "cancelLabel": "취소"
+      }
+    },
+    "payments": {
+      "seo": {
+        "title": "결제 관리 — 관리자",
+        "description": "주문/환불 관리 및 수동 수강 등록"
+      },
+      "title": "결제 관리",
+      "subtitle": "주문 검색, 환불 처리, 수동 수강 등록을 처리합니다.",
+      "manualEnrollButtonLabel": "수동 수강 등록",
+      "manualEnrollButtonAriaLabel": "수동 수강 등록 페이지로 이동",
+      "manualEnrollButtonHref": "/admin/payments/manual-enroll",
+      "filters": {
+        "statusLabel": "상태",
+        "statusAllLabel": "전체",
+        "keywordLabel": "검색",
+        "keywordPlaceholder": "주문번호·닉네임·이메일·강의명으로 검색",
+        "keywordAriaLabel": "결제 검색어 입력",
+        "resetLabel": "초기화",
+        "resetAriaLabel": "필터 초기화"
+      },
+      "statusLabels": {
+        "PENDING": "대기",
+        "PAID": "결제완료",
+        "CANCELLED": "취소",
+        "REFUNDED": "환불완료"
+      },
+      "columns": {
+        "orderNumber": "주문번호",
+        "user": "사용자",
+        "course": "강의",
+        "originalAmount": "정가",
+        "discountAmount": "할인",
+        "finalAmount": "결제금액",
+        "status": "상태",
+        "createdAt": "주문일",
+        "actions": "액션"
+      },
+      "actions": {
+        "viewLabel": "상세",
+        "viewAriaLabelTemplate": "주문 {orderNumber} 상세 페이지로 이동"
+      },
+      "currencyUnit": "원",
+      "emptyText": "조건에 맞는 주문이 없습니다.",
+      "pagination": {
+        "previousLabel": "이전",
+        "previousAriaLabel": "이전 페이지",
+        "nextLabel": "다음",
+        "nextAriaLabel": "다음 페이지",
+        "pageInfoTemplate": "{current} / {total} 페이지 (총 {totalCount}건)",
+        "pageSize": 10
+      }
+    },
+    "userDetail": {
+      "seo": {
+        "title": "사용자 상세 — 관리자",
+        "description": "사용자 기본 정보, 수강·결제 이력, 역할 변경 및 비활성화"
+      },
+      "notFoundText": "해당 사용자를 찾을 수 없습니다.",
+      "backLinkLabel": "사용자 목록으로",
+      "backLinkHref": "/admin/users",
+      "sections": {
+        "basicTitle": "기본 정보",
+        "enrollmentsTitle": "수강 현황",
+        "paymentsTitle": "결제 내역"
+      },
+      "labels": {
+        "id": "ID",
+        "email": "이메일",
+        "nickname": "닉네임",
+        "role": "역할",
+        "level": "레벨",
+        "status": "상태",
+        "emailVerified": "이메일 인증",
+        "createdAt": "가입일",
+        "verified": "인증됨",
+        "notVerified": "미인증"
+      },
+      "actions": {
+        "changeRoleLabel": "역할 변경",
+        "changeRoleAriaLabel": "사용자 역할 변경 모달 열기",
+        "deactivateLabel": "강제 탈퇴",
+        "deactivateAriaLabel": "사용자 강제 탈퇴 모달 열기",
+        "deactivateDisabledLabel": "이미 탈퇴됨"
+      },
+      "enrollmentColumns": {
+        "courseTitle": "강의",
+        "progressPercent": "진도율",
+        "startedAt": "수강 시작"
+      },
+      "enrollmentEmpty": "수강 중인 강의가 없습니다.",
+      "paymentColumns": {
+        "orderId": "주문 ID",
+        "courseTitle": "강의",
+        "amount": "금액",
+        "status": "상태",
+        "paidAt": "결제일"
+      },
+      "paymentEmpty": "결제 내역이 없습니다.",
+      "changeRoleModal": {
+        "title": "역할 변경",
+        "description": "새로운 역할을 선택한 뒤 확인 버튼을 눌러주세요.",
+        "currentRoleLabel": "현재 역할",
+        "newRoleLabel": "변경할 역할",
+        "confirmLabel": "변경",
+        "cancelLabel": "취소",
+        "sameRoleError": "현재 역할과 동일합니다."
+      },
+      "deactivateModal": {
+        "title": "강제 탈퇴",
+        "description": "이 계정은 즉시 탈퇴 상태로 전환되며 이후 로그인과 API 접근이 차단됩니다. 이 작업은 되돌릴 수 없습니다.",
+        "confirmLabel": "강제 탈퇴 처리",
+        "cancelLabel": "취소",
+        "confirmTextLabel": "확인을 위해 닉네임을 입력하세요",
+        "confirmTextMismatchError": "닉네임이 일치하지 않습니다."
+      }
+    },
+    "users": {
+      "seo": {
+        "title": "사용자 관리 — 관리자",
+        "description": "사용자 검색·역할·상태 관리"
+      },
+      "title": "사용자 관리",
+      "subtitle": "사용자 검색, 역할 변경, 비활성화를 처리합니다.",
+      "filters": {
+        "roleLabel": "역할",
+        "roleAllLabel": "전체",
+        "statusLabel": "상태",
+        "statusAllLabel": "전체",
+        "keywordLabel": "검색",
+        "keywordPlaceholder": "닉네임·이메일로 검색",
+        "keywordAriaLabel": "사용자 검색어 입력",
+        "resetLabel": "초기화",
+        "resetAriaLabel": "필터 초기화"
+      },
+      "roleLabels": {
+        "STUDENT": "학생",
+        "INSTRUCTOR": "강사",
+        "ADMIN": "관리자"
+      },
+      "statusLabels": {
+        "ACTIVE": "정상",
+        "SUSPENDED": "정지",
+        "WITHDRAWN": "탈퇴"
+      },
+      "levelLabels": {
+        "LV1": "Lv1",
+        "LV2": "Lv2",
+        "LV3": "Lv3",
+        "LV4": "Lv4"
+      },
+      "columns": {
+        "id": "ID",
+        "email": "이메일",
+        "nickname": "닉네임",
+        "role": "역할",
+        "level": "레벨",
+        "status": "상태",
+        "createdAt": "가입일",
+        "actions": "액션"
+      },
+      "actions": {
+        "viewLabel": "상세",
+        "viewAriaLabelTemplate": "{nickname} 상세 페이지로 이동"
+      },
+      "emptyText": "조건에 맞는 사용자가 없습니다.",
+      "pagination": {
+        "previousLabel": "이전",
+        "previousAriaLabel": "이전 페이지",
+        "nextLabel": "다음",
+        "nextAriaLabel": "다음 페이지",
+        "pageInfoTemplate": "{current} / {total} 페이지 (총 {totalCount}명)",
+        "pageSize": 10
+      }
+    },
+    "courses": {
+      "seo": {
+        "title": "강의 관리 — 관리자",
+        "description": "강의 목록 및 상태 관리"
+      },
+      "title": "강의 관리",
+      "subtitle": "강의 등록·상태 변경·검색을 한곳에서 처리하세요.",
+      "createButtonLabel": "강의 등록",
+      "createButtonAriaLabel": "새 강의 등록 페이지로 이동",
+      "createButtonHref": "/admin/courses/new",
+      "filters": {
+        "statusLabel": "상태",
+        "statusAllLabel": "전체",
+        "categoryLabel": "카테고리",
+        "categoryAllLabel": "전체",
+        "keywordLabel": "검색",
+        "keywordPlaceholder": "강의명·강사명으로 검색",
+        "keywordAriaLabel": "강의 검색어 입력",
+        "resetLabel": "초기화",
+        "resetAriaLabel": "필터 초기화"
+      },
+      "statusLabels": {
+        "DRAFT": "초안",
+        "PUBLISHED": "공개",
+        "HIDDEN": "숨김",
+        "DELETED": "삭제"
+      },
+      "levelLabels": {
+        "BEGINNER": "입문",
+        "BASIC": "초급",
+        "INTERMEDIATE": "중급",
+        "ADVANCED": "고급"
+      },
+      "columns": {
+        "id": "ID",
+        "title": "강의명",
+        "category": "카테고리",
+        "instructor": "강사",
+        "level": "난이도",
+        "price": "가격",
+        "status": "상태",
+        "enrollment": "수강생",
+        "createdAt": "등록일",
+        "actions": "액션"
+      },
+      "actions": {
+        "viewLabel": "상세",
+        "viewAriaLabelTemplate": "{title} 상세 페이지로 이동",
+        "statusChangeLabel": "상태 변경",
+        "statusChangeAriaLabelTemplate": "{title} 상태 변경"
+      },
+      "currencyUnit": "원",
+      "personUnit": "명",
+      "emptyText": "조건에 맞는 강의가 없습니다.",
+      "pagination": {
+        "previousLabel": "이전",
+        "previousAriaLabel": "이전 페이지",
+        "nextLabel": "다음",
+        "nextAriaLabel": "다음 페이지",
+        "pageInfoTemplate": "{current} / {total} 페이지 (총 {totalCount}건)",
+        "pageSize": 10
+      }
     },
     "courseEdit": {
       "seo": {

@@ -5,7 +5,8 @@
  */
 
 import mainData from '@/data';
-import type { MainData, SiteData, NavData, Course, HomeSection, HomeSectionView, UpcomingCourse, BestCourse, BestChipCategory, FaqItem, BestReviewSection, FooterData, GeoData, OrderData, CertificateData, ConsultationData, ReviewData, ExpiredCouponData, GiftcardData, GiftcardHistoryData, FollowUserData, EnrolledCourseData, PopularArticlesSection, HomeBestArticlesSection, HomeCommunitySection, HomePromoBannerSection, HomeCategorySection, LiveCounterSection, HomeInstructorsSection, HomeNewsSection, CtaBannerData, BoardNotice, BoardData } from '@/types';
+import adminMockData from '@/data/adminMockData.json';
+import type { MainData, SiteData, NavData, Course, HomeSection, HomeSectionView, UpcomingCourse, BestCourse, BestChipCategory, FaqItem, BestReviewSection, FooterData, GeoData, OrderData, CertificateData, ConsultationData, ReviewData, ExpiredCouponData, GiftcardData, GiftcardHistoryData, EnrolledCourseData, PopularArticlesSection, HomeBestArticlesSection, HomePromoBannerSection, HomeCategorySection, LiveCounterSection, HomeInstructorsSection, HomeNewsSection, CtaBannerData, BoardNotice, BoardData, AdminDashboardData, AdminCoursesData, AdminUsersData, AdminPaymentsData, AdminExtraData, AdminUserDetail, AdminUserListItem } from '@/types';
 
 const data: MainData = mainData;
 
@@ -27,6 +28,73 @@ export function getNavData(): NavData {
 /** 페이지별 SEO/콘텐츠 데이터 반환 */
 export function getPageData(pageKey: string): unknown {
   return (data.pages as Record<string, unknown>)?.[pageKey] || null;
+}
+
+/** 관리자 대시보드 mock 데이터 (백엔드 GET /api/v1/admin/dashboard 응답 형태) */
+export function getAdminDashboardData(): AdminDashboardData {
+  return adminMockData.dashboard as AdminDashboardData;
+}
+
+/** 관리자 강의 관리 mock 데이터 (백엔드 GET /api/v1/admin/courses 응답 형태) */
+export function getAdminCoursesData(): AdminCoursesData {
+  return adminMockData.courses as AdminCoursesData;
+}
+
+/** 관리자 사용자 관리 mock 데이터 (백엔드 GET /api/v1/admin/users 응답 형태) */
+export function getAdminUsersData(): AdminUsersData {
+  return adminMockData.users as AdminUsersData;
+}
+
+/** 관리자 사용자 상세 mock 데이터 (GET /api/v1/admin/users/{id}) */
+export function getAdminUserDetail(userId: number): AdminUserDetail | null {
+  const users = (adminMockData.users as AdminUsersData).users as AdminUserListItem[];
+  const user = users.find((u) => u.id === userId);
+  if (!user) return null;
+
+  // mock: 학생만 수강/결제 내역 가짐. 관리자/강사는 빈 배열
+  const isStudent = user.role === 'STUDENT';
+  const orders = (adminMockData.payments as AdminPaymentsData).orders;
+  const userOrders = isStudent ? orders.filter((o) => o.email === user.email) : [];
+
+  return {
+    id: user.id,
+    email: user.email,
+    nickname: user.nickname,
+    profileImageUrl: '',
+    role: user.role,
+    level: user.level,
+    status: user.status,
+    emailVerified: true,
+    createdAt: user.createdAt,
+    enrollments: userOrders.slice(0, 3).map((o, idx) => ({
+      enrollmentId: o.id * 10 + idx,
+      courseTitle: o.courseTitle,
+      progressPercent: Math.floor(Math.random() * 100),
+      startedAt: o.createdAt,
+    })),
+    payments: userOrders.map((o) => ({
+      orderId: o.id,
+      courseTitle: o.courseTitle,
+      amount: o.finalAmount,
+      status: o.status,
+      paidAt: o.createdAt,
+    })),
+  };
+}
+
+/** 관리자 결제 관리 mock 데이터 (백엔드 GET /api/v1/admin/payments 응답 형태) */
+export function getAdminPaymentsData(): AdminPaymentsData {
+  return adminMockData.payments as AdminPaymentsData;
+}
+
+/** 관리자 결제 단건 조회 (id 기준) */
+export function findAdminOrderById(orderId: number) {
+  return (adminMockData.payments as AdminPaymentsData).orders.find((o) => o.id === orderId) ?? null;
+}
+
+/** 관리자 부가 페이지 통합 mock 데이터 (배너/메인섹션/성공사례/쿠폰/FAQ/약관/레벨/리뷰) */
+export function getAdminExtraData(): AdminExtraData {
+  return adminMockData.extra as AdminExtraData;
 }
 
 /** 전체 강의 목록 반환 */
@@ -133,11 +201,6 @@ export function getHomeBestArticles(): HomeBestArticlesSection {
   return data.homeBestArticles;
 }
 
-/** 홈 커뮤니티 섹션 반환 */
-export function getHomeCommunity(): HomeCommunitySection {
-  return data.homeCommunity;
-}
-
 /** 홈 카테고리 네비게이션 반환 */
 export function getHomeCategories(): HomeCategorySection {
   return data.homeCategories;
@@ -231,16 +294,6 @@ export function getGiftcards(): GiftcardData[] {
 /** 상품권 이용내역 반환 */
 export function getGiftcardHistory(): GiftcardHistoryData[] {
   return data.giftcardHistory || [];
-}
-
-/** 팔로워 목록 반환 */
-export function getFollowers(): FollowUserData[] {
-  return data.followers || [];
-}
-
-/** 팔로잉 목록 반환 */
-export function getFollowing(): FollowUserData[] {
-  return data.following || [];
 }
 
 /** 수강중 강의 목록 반환 */

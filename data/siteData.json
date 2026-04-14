@@ -21,11 +21,6 @@
           "ariaLabel": "강의 목록으로 이동"
         },
         {
-          "label": "커뮤니티",
-          "href": "/community",
-          "ariaLabel": "커뮤니티로 이동"
-        },
-        {
           "label": "소개",
           "href": "/about",
           "ariaLabel": "소개 페이지로 이동"
@@ -209,11 +204,6 @@
         "label": "오픈예정",
         "href": "/upcoming",
         "ariaLabel": "오픈예정 강의 보기"
-      },
-      {
-        "label": "커뮤니티",
-        "href": "/community",
-        "ariaLabel": "커뮤니티로 이동"
       }
     ],
     "subLinks": [
@@ -270,11 +260,34 @@
       "prevPage": "이전 페이지",
       "nextPage": "다음 페이지"
     },
+    "adminQuickActions": {
+      "label": "관리자",
+      "courseEditLabel": "이 강의 편집",
+      "courseEditAriaLabelTemplate": "관리자 페이지에서 {title} 강의 편집"
+    },
     "header": {
       "notificationAriaLabel": "알림",
       "myClassroomLabel": "마이 페이지",
       "mobileMenuOpenLabel": "메뉴 열기",
-      "mobileMenuCloseLabel": "메뉴 닫기"
+      "mobileMenuCloseLabel": "메뉴 닫기",
+      "profileMenu": {
+        "triggerAriaLabel": "내 계정 메뉴 열기",
+        "triggerLabel": "내 계정",
+        "items": [
+          { "label": "마이 페이지", "href": "/mypage", "ariaLabel": "마이 페이지로 이동" },
+          { "label": "주문 내역", "href": "/mypage/orders", "ariaLabel": "주문 내역으로 이동" },
+          { "label": "찜한 강의", "href": "/mypage/wishlist", "ariaLabel": "찜한 강의로 이동" },
+          { "label": "설정", "href": "/mypage/settings", "ariaLabel": "설정으로 이동" }
+        ],
+        "adminItem": {
+          "label": "관리자 페이지",
+          "href": "/admin/dashboard",
+          "ariaLabel": "관리자 페이지로 이동",
+          "sectionLabel": "관리"
+        },
+        "logoutLabel": "로그아웃",
+        "logoutAriaLabel": "로그아웃"
+      }
     },
     "forms": {
       "required": "(필수)",

@@ -27,6 +27,13 @@ function AuthInitializer({ children }: { children: ReactNode }): JSX.Element {
     }
   }, [isLoggedIn, logout]);
 
+  // 개발 환경에서만 콘솔 디버깅용으로 store를 window에 노출
+  useEffect(() => {
+    if (process.env.NODE_ENV !== 'production') {
+      (window as unknown as { useAuthStore: typeof useAuthStore }).useAuthStore = useAuthStore;
+    }
+  }, []);
+
   return <>{children}</>;
 }
 

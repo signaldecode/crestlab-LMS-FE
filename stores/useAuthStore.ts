@@ -5,7 +5,7 @@
  */
 
 import { create } from 'zustand';
-import type { User } from '@/types';
+import type { User, UserRole } from '@/types';
 
 interface AuthState {
   isLoggedIn: boolean;
@@ -17,6 +17,8 @@ interface AuthState {
   setUser: (user: User) => void;
   openLoginModal: () => void;
   closeLoginModal: () => void;
+  /** 목 데이터 환경에서 역할 전환 (백엔드 연동 후 제거 예정) */
+  mockSwitchRole: (role: UserRole) => void;
 }
 
 const defaultUser: User = {
@@ -33,6 +35,7 @@ const defaultUser: User = {
   gender: 'male',
   joinDate: '2026-03-06',
   grade: '사원',
+  role: 'STUDENT',
   socialAccounts: [
     { provider: 'naver', connected: true },
     { provider: 'kakao', connected: false },
@@ -47,7 +50,7 @@ const defaultUser: User = {
   },
 };
 
-const useAuthStore = create<AuthState>((set) => ({
+const useAuthStore = create<AuthState>((set, get) => ({
   isLoggedIn: false,
   user: null,
   token: null,
@@ -58,6 +61,14 @@ const useAuthStore = create<AuthState>((set) => ({
   setUser: (user) => set({ user }),
   openLoginModal: () => set({ isLoginModalOpen: true }),
   closeLoginModal: () => set({ isLoginModalOpen: false }),
+  mockSwitchRole: (role) => {
+    const current = get().user ?? defaultUser;
+    set({ isLoggedIn: true, user: { ...current, role }, token: get().token ?? 'mock-token' });
+  },
 }));
+
+/** 현재 로그인한 유저가 ADMIN 역할인지 판별 */
+export const selectIsAdmin = (state: AuthState): boolean =>
+  state.isLoggedIn && state.user?.role === 'ADMIN';
 
 export default useAuthStore;

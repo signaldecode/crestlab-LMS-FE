@@ -5,10 +5,13 @@
 
 import type { JSX } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import type { Course } from '@/types';
 import CourseDetailContent from '@/components/courses/CourseDetailContent';
 import CourseDetailSidebar from '@/components/courses/CourseDetailSidebar';
+import AdminQuickActions from '@/components/admin/AdminQuickActions';
 import uiData from '@/data/uiData.json';
+import siteData from '@/data/siteData.json';
 
 interface CourseDetailContainerProps {
   course: Course | null;
@@ -25,8 +28,21 @@ export default function CourseDetailContainer({ course }: CourseDetailContainerP
     );
   }
 
+  const adminActions = siteData.a11y.adminQuickActions;
+  const editAriaLabel = adminActions.courseEditAriaLabelTemplate.replaceAll('{title}', course.title);
+
   return (
     <>
+      <AdminQuickActions label={adminActions.label}>
+        <Link
+          href={`/admin/courses/${course.slug}`}
+          aria-label={editAriaLabel}
+          className="admin-quick-actions__link"
+        >
+          {adminActions.courseEditLabel}
+        </Link>
+      </AdminQuickActions>
+
       {/* 히어로 배너 */}
       <div className="course-detail-hero">
         <Image

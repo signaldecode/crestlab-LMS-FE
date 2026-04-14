@@ -464,59 +464,6 @@
       "date": "2025-12-20"
     }
   ],
-  "followers": [
-    {
-      "id": "user-f01",
-      "nickname": "리액트장인",
-      "profileImage": "/images/community/default-avatar.svg",
-      "bio": "10년차 프론트엔드 개발자",
-      "verified": true
-    },
-    {
-      "id": "user-f02",
-      "nickname": "백엔드초보탈출",
-      "profileImage": "/images/community/default-avatar.svg",
-      "bio": "Spring/NestJS 공부중인 직장인",
-      "verified": false
-    },
-    {
-      "id": "user-f03",
-      "nickname": "데이터과학생",
-      "profileImage": "/images/community/default-avatar.svg",
-      "bio": "데이터 분석 전공 대학원생",
-      "verified": true
-    },
-    {
-      "id": "user-f04",
-      "nickname": "주말사이드프로젝트",
-      "profileImage": "/images/community/default-avatar.svg",
-      "bio": "매주 사이드 프로젝트 출시 기록",
-      "verified": false
-    }
-  ],
-  "following": [
-    {
-      "id": "user-g01",
-      "nickname": "시니어개발자박코치",
-      "profileImage": "/images/community/default-avatar.svg",
-      "bio": "풀스택 개발 멘토 15년차",
-      "verified": true
-    },
-    {
-      "id": "user-g02",
-      "nickname": "클라우드아키텍트이대표",
-      "profileImage": "/images/community/default-avatar.svg",
-      "bio": "AWS 솔루션 아키텍트",
-      "verified": true
-    },
-    {
-      "id": "user-g03",
-      "nickname": "데브옵스의신",
-      "profileImage": "/images/community/default-avatar.svg",
-      "bio": "CI/CD & 인프라 자동화 팁 공유",
-      "verified": false
-    }
-  ],
   "enrolledCourses": [
     {
       "courseSlug": "real-estate-intermediate",

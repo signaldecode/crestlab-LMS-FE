@@ -7,7 +7,8 @@
       "Bash(wc -l /c/Users/YHPARK/Desktop/lecture_frontend/stores/* /c/Users/YHPARK/Desktop/lecture_frontend/hooks/*)",
       "Bash(node -e ':*)",
       "mcp__figma__get_figma_data",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(npx tsc:*)"
     ]
   }
 }

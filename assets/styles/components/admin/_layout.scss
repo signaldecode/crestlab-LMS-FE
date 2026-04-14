@@ -22,13 +22,32 @@
     background-color: $color-bg-secondary;
     border-right: $border-thin solid $color-border;
     padding: $spacing-6;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-6;
   }
 
   &__sidebar-title {
     font-size: $font-size-lg;
     font-weight: $font-weight-bold;
     color: $color-text-primary;
-    margin-bottom: $spacing-6;
+    margin: $spacing-0;
+  }
+
+  &__nav-group {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+    margin-bottom: $spacing-4;
+  }
+
+  &__nav-group-label {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    color: $color-text-muted;
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-normal;
+    margin: $spacing-0 $spacing-0 $spacing-1 $spacing-2;
   }
 
   &__nav-list {
@@ -53,11 +72,62 @@
       background-color: $color-bg-tertiary;
       color: $color-text-primary;
     }
+
+    &.is-active {
+      background-color: $color-bg-tertiary;
+      color: $color-text-primary;
+      font-weight: $font-weight-semibold;
+    }
+  }
+
+  &__back-link {
+    margin-top: auto;
+    padding: $spacing-3 $spacing-4;
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+    text-decoration: none;
+    border-top: $border-thin solid $color-border;
+
+    &:hover {
+      color: $color-text-primary;
+    }
   }
 
   &__content {
     flex: 1;
     padding: $spacing-8;
+  }
+
+  &__denied {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-4;
+    min-height: 60vh;
+    text-align: center;
+  }
+
+  &__denied-title {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: $spacing-0;
+  }
+
+  &__denied-message {
+    font-size: $font-size-base;
+    color: $color-text-secondary;
+    margin: $spacing-0;
+  }
+
+  &__denied-action {
+    padding: $spacing-3 $spacing-6;
+    background-color: $color-text-primary;
+    color: $color-bg-primary;
+    text-decoration: none;
+    border-radius: $spacing-2;
+    font-weight: $font-weight-semibold;
   }
 }
 

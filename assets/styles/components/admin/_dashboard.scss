@@ -1,0 +1,298 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+
+// ============================================
+// 관리자 대시보드 (_dashboard.scss)
+// - 매출/신규가입자/인기강의/리뷰/결제 섹션 스타일
+// ============================================
+
+.admin-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-10;
+  max-width: $container-max-width;
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+    padding-bottom: $spacing-6;
+    border-bottom: $border-thin solid $color-border;
+  }
+
+  &__title {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: $spacing-0;
+  }
+
+  &__subtitle {
+    font-size: $font-size-base;
+    color: $color-text-secondary;
+    margin: $spacing-0;
+  }
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-5;
+  }
+
+  &__section-head {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+  }
+
+  &__section-title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    margin: $spacing-0;
+  }
+
+  &__section-desc {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    margin: $spacing-0;
+  }
+
+  // ── Stat Card Grid ──
+  &__stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-4;
+
+    &--four {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  &__stat-card {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+    padding: $spacing-5 $spacing-6;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: $spacing-2;
+  }
+
+  &__stat-label {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+
+  &__stat-value {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    line-height: 1.2;
+  }
+
+  &__stat-unit {
+    margin-left: $spacing-1;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+  }
+
+  // ── Bar Chart ──
+  &__trend {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+    padding: $spacing-5;
+    background-color: $color-bg-secondary;
+    border-radius: $spacing-2;
+  }
+
+  &__trend-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    margin: $spacing-0;
+  }
+
+  &__bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: $spacing-1;
+    height: 12rem;
+    list-style: none;
+    padding: $spacing-0;
+    margin: $spacing-0;
+  }
+
+  &__bar-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-1;
+    height: 100%;
+    min-width: 0;
+  }
+
+  &__bar {
+    width: 100%;
+    background-color: $color-primary;
+    border-radius: $spacing-1 $spacing-1 $spacing-0 $spacing-0;
+    transition: opacity $duration-normal $ease-default;
+    min-height: 0.125rem;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &--alt {
+      background-color: $color-secondary;
+    }
+  }
+
+  &__bar-label {
+    font-size: $font-size-xs;
+    color: $color-text-muted;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    text-align: center;
+  }
+
+  // ── Table ──
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: $spacing-2;
+    overflow: hidden;
+  }
+
+  &__th {
+    padding: $spacing-3 $spacing-4;
+    text-align: left;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text-secondary;
+    background-color: $color-bg-secondary;
+    border-bottom: $border-thin solid $color-border;
+
+    &--narrow {
+      width: $spacing-12;
+    }
+
+    &--num {
+      text-align: right;
+      width: $spacing-20;
+    }
+  }
+
+  &__td {
+    padding: $spacing-3 $spacing-4;
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+    border-bottom: $border-thin solid $color-border;
+
+    &--rank {
+      font-weight: $font-weight-semibold;
+      color: $color-text-secondary;
+    }
+
+    &--num {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+  }
+
+  &__table tbody tr:last-child &__td {
+    border-bottom: none;
+  }
+
+  // ── Recent Reviews ──
+  &__recent {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+    margin-top: $spacing-2;
+  }
+
+  &__recent-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    margin: $spacing-0;
+  }
+
+  &__review-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+    list-style: none;
+    padding: $spacing-0;
+    margin: $spacing-0;
+  }
+
+  &__review-item {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+    padding: $spacing-4;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: $spacing-2;
+  }
+
+  &__review-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: $spacing-3;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__review-rating {
+    color: $color-star;
+    font-size: $font-size-sm;
+    letter-spacing: 0.05em;
+  }
+
+  &__review-rating-empty {
+    color: $color-border;
+  }
+
+  &__review-course {
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+  }
+
+  &__review-author {
+    color: $color-text-secondary;
+  }
+
+  &__review-date {
+    margin-left: auto;
+    color: $color-text-muted;
+  }
+
+  &__review-content {
+    font-size: $font-size-sm;
+    color: $color-text-body;
+    margin: $spacing-0;
+    line-height: 1.6;
+  }
+
+  &__empty {
+    padding: $spacing-8;
+    text-align: center;
+    color: $color-text-muted;
+    font-size: $font-size-sm;
+    background-color: $color-bg-secondary;
+    border-radius: $spacing-2;
+  }
+}

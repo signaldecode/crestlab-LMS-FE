@@ -14,7 +14,6 @@ import HomeBestArticles from '@/components/home/HomeBestArticles';
 import HomeInstructors from '@/components/home/HomeInstructors';
 import HomePromoBanners from '@/components/home/HomePromoBanners';
 import HomeCtaBanner from '@/components/home/HomeCtaBanner';
-import HomeCommunity from '@/components/home/HomeCommunity';
 import HomeTabbedSection from '@/components/home/HomeTabbedSection';
 import HomeNewsContainer from '@/components/containers/HomeNewsContainer';
 import {
@@ -66,9 +65,6 @@ export default function HomePage() {
 
       {/* 7. 이주의 추천 뉴스 */}
       <HomeNewsContainer section={homeNews} />
-
-      {/* 11. 커뮤니티 피드 */}
-      {/* <HomeCommunity /> */}
     </main>
   );
 }

@@ -8,9 +8,9 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import type { JSX } from 'react';
-import Link from 'next/link';
 import AppLogo from '@/components/common/AppLogo';
 import AuthTrigger from '@/components/common/AuthTrigger';
+import ProfileMenu from '@/components/common/ProfileMenu';
 import GlobalNav from '@/components/layout/GlobalNav';
 import CategoryMenuTrigger from '@/components/layout/CategoryMenuTrigger';
 import CategoryMegaMenu from '@/components/layout/CategoryMegaMenu';
@@ -21,6 +21,23 @@ import useNotificationStore from '@/stores/useNotificationStore';
 import { getNavData, getMainData } from '@/lib/data';
 import type { NotificationData } from '@/types';
 
+interface ProfileMenuItem {
+  label: string;
+  href: string;
+  ariaLabel: string;
+}
+interface ProfileMenuAdminItem extends ProfileMenuItem {
+  sectionLabel: string;
+}
+interface ProfileMenuData {
+  triggerAriaLabel: string;
+  triggerLabel: string;
+  items: ProfileMenuItem[];
+  adminItem: ProfileMenuAdminItem;
+  logoutLabel: string;
+  logoutAriaLabel: string;
+}
+
 export default function AppHeader(): JSX.Element {
   const nav = getNavData();
   const mainData = getMainData();
@@ -29,6 +46,7 @@ export default function AppHeader(): JSX.Element {
     myClassroomLabel: string;
     mobileMenuOpenLabel: string;
     mobileMenuCloseLabel: string;
+    profileMenu: ProfileMenuData;
   };
   const notifUi = mainData.ui.notification as {
     badgeAriaLabel: string;
@@ -114,13 +132,7 @@ export default function AppHeader(): JSX.Element {
             </div>
 
             {isLoggedIn ? (
-              <Link href="/mypage" className="app-header__classroom-btn">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                  <circle cx="12" cy="7" r="4" />
-                </svg>
-                {a11yHeader.myClassroomLabel}
-              </Link>
+              <ProfileMenu data={a11yHeader.profileMenu} />
             ) : (
               <AuthTrigger
                 loginLabel={nav.auth.loginLabel}

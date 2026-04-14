@@ -555,23 +555,6 @@ const TESTIMONIALS = [
 
   home.homeInstructors.instructors = HOME_INSTRUCTORS;
 
-  home.homeCommunity.meta.title = '함께 성장하는 LectureHub 커뮤니티';
-  const COMMUNITY_TITLES = [
-    '연차별로 알아두면 좋은 개발자 커리어 로드맵',
-    '신입 개발자가 첫 회사에서 살아남는 법',
-    '코드 리뷰 문화를 정착시키는 3단계 전략',
-    '시니어가 알려주는 안전한 리팩터링 가이드',
-  ];
-  home.homeCommunity.posts = home.homeCommunity.posts.map((p, i) => ({
-    ...p,
-    authorNickname: '강아키텍트',
-    category: '님의',
-    title: COMMUNITY_TITLES[i] || COMMUNITY_TITLES[0],
-    content: '시니어 개발자들이 실제로 현장에서 적용하는 코드 리뷰, 리팩터링, 커리어 관리 노하우를 정리했습니다. 신입·주니어 개발자도 바로 적용 가능한 구체적인 사례를 함께 다룹니다.',
-    thumbnailAlt: `${COMMUNITY_TITLES[i] || COMMUNITY_TITLES[0]} 커뮤니티 글 이미지`,
-    ariaLabel: `강아키텍트 님의 커뮤니티 글: ${COMMUNITY_TITLES[i] || COMMUNITY_TITLES[0]}`,
-  }));
-
   // Promo banners — give them meaningful titles
   const PROMO_TITLES = [
     '신규 회원 첫 강의 무료 이벤트',

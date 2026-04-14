@@ -367,33 +367,6 @@ export interface HomePromoBannerSection {
   banners: HomePromoBanner[];
 }
 
-/* ── 홈 커뮤니티 ── */
-export interface HomeCommunityPost {
-  id: string;
-  authorNickname: string;
-  category: string;
-  title: string;
-  content: string;
-  thumbnail: string;
-  thumbnailAlt: string;
-  likeCount: number;
-  commentCount: number;
-  avatarColor: string;
-  ariaLabel: string;
-}
-
-export interface HomeCommunitySection {
-  meta: {
-    title: string;
-    ariaLabel: string;
-  };
-  posts: HomeCommunityPost[];
-  pagination: {
-    totalPages: number;
-    ariaLabel: string;
-  };
-}
-
 /* ── 홈 뉴스 섹션 ── */
 export interface HomeNewsItem {
   id: string;
@@ -512,236 +485,292 @@ export interface GeoData {
   social: SocialLink[];
 }
 
-/* ── 커뮤니티 ── */
-export interface CategoryOption {
-  value: string;
-  label: string;
-}
-
-/** 사이드바 네비게이션 하위 아이템 */
-export interface SidebarNavItem {
-  id: string;
-  label: string;
-}
-
-/** 사이드바 네비게이션 섹션 (상위 탭) */
-export interface SidebarNavSection {
-  id: string;
-  icon: string;
-  title: string;
-  href?: string;
-  collapsible?: boolean;
-  items: SidebarNavItem[];
-}
-
-/** 피드 탭 */
-export interface FeedTabItem {
-  id: string;
-  label: string;
-}
-
-/** 피드 섹션 (인기글, 시리즈, 전문가칼럼, Q&A 등) */
-export interface FeedSection {
-  id: string;
-  title: string;
-  type: 'popular' | 'article' | 'series' | 'qna';
-  itemCount: number;
-  showMore?: boolean;
-  moreLabel?: string;
-}
-
-/** Aside 섹션 stat 라벨 */
-export interface AsideStatLabel {
-  key: string;
-  label: string;
-}
-
-/** Aside 섹션 (추천프로필, 댓글 랭킹 등) */
-export interface AsideSection {
-  id: string;
-  title: string;
-  type: 'profile' | 'ranking';
-  itemCount: number;
-  showRank: boolean;
-  showFollowerCount?: boolean;
-  statLabels?: AsideStatLabel[];
-}
-
-/** 검색 필터 UI 텍스트 */
-export interface SearchFilters {
-  categoryLabel: string;
-  categoryDefault: string;
-  scopeLabel: string;
-  scopeDefault: string;
-  searchPlaceholder: string;
-  searchAriaLabel: string;
-  searchButtonAriaLabel?: string;
-}
-
-/** 사이드바 프로필 stat 아이템 */
-export interface SidebarProfileStat {
-  key: string;
-  label: string;
-}
-
-/** 인증 뱃지 이미지 */
-export interface VerifiedBadgeData {
-  src: string;
-  alt: string;
-}
-
-/** 사이드바 프로필 더미 유저 */
-export interface DummySidebarUser {
-  nickname: string;
-  profileImage?: string;
-  verified: boolean;
-  role?: string;
-  followerCount: string;
-  communityLevel?: CommunityLevelData;
-  statValues: Record<string, string>;
-}
-
-/** 사이드바 프로필 UI 텍스트 */
-export interface SidebarProfileData {
-  loginLabel: string;
-  profileAriaLabel: string;
-  myPostsLabel: string;
-  stats: SidebarProfileStat[];
-  dummyUser?: DummySidebarUser;
-}
-
-/** 공지 배너 UI 텍스트 */
-export interface NoticeBannerData {
-  badgeLabel: string;
-  ariaLabel: string;
-  dummyText?: string;
-}
-
-/** Q&A 라벨 */
-export interface QnaLabels {
-  answeredBadge: string;
-  answeredSuffix: string;
-}
-
-/** 더미 인기글 */
-export interface DummyPopularPost {
-  id: string;
-  title: string;
-  authorNickname: string;
-  profileImage?: string;
-  category: string;
+/* ── 관리자 대시보드 ──
+ * 백엔드 GET /api/v1/admin/dashboard 응답 구조와 1:1 매칭
+ */
+export interface AdminDailyRevenue {
   date: string;
-  viewCount: number;
+  amount: number;
 }
 
-/** 더미 시리즈 카드 */
-export interface DummySeriesCard {
-  id: string;
-  thumbnail: string;
-  thumbnailAlt: string;
-  title: string;
-  description: string;
-  tags: string[];
+export interface AdminRevenueStats {
+  todayRevenue: number;
+  monthlyRevenue: number;
+  totalRevenue: number;
+  dailyRevenues: AdminDailyRevenue[];
 }
 
-/** 더미 전문가 칼럼 */
-export interface DummyArticle {
-  id: string;
-  authorNickname: string;
-  profileImage?: string;
-  authorVerified: boolean;
+export interface AdminDailyUserCount {
   date: string;
-  title: string;
-  description: string;
-  thumbnail: string;
-  thumbnailAlt: string;
-  likeCount: number;
-  commentCount: number;
+  count: number;
 }
 
-/** 더미 Q&A 게시글 */
-export interface DummyQnaPost {
-  id: string;
-  title: string;
-  answererNickname: string;
-  profileImage?: string;
-  answererVerified: boolean;
+export interface AdminNewUserStats {
+  todayCount: number;
+  monthlyCount: number;
+  totalCount: number;
+  dailyCounts: AdminDailyUserCount[];
 }
 
-/** 더미 추천 프로필 */
-export interface DummyProfile {
-  id: string;
+export interface AdminCourseEnrollmentStats {
+  courseId: number;
+  title: string;
+  enrollmentCount: number;
+  avgProgressPercent: number;
+}
+
+export interface AdminRecentReview {
+  id: number;
+  courseTitle: string;
   nickname: string;
-  profileImage?: string;
-  verified: boolean;
-  followerCount: string;
-}
-
-/** 더미 댓글 랭킹 */
-export interface DummyRankingUser {
-  id: string;
-  nickname: string;
-  profileImage?: string;
-  verified: boolean;
-  commentCount: number;
-  likeCount: number;
-}
-
-export interface SidebarDrawerData {
-  triggerAriaLabel: string;
-  triggerLabel: string;
-  closeAriaLabel: string;
-  overlayAriaLabel: string;
-}
-
-export interface CommunityData {
-  verifiedBadge: VerifiedBadgeData;
-  sidebarDrawer: SidebarDrawerData;
-  sidebarProfile: SidebarProfileData;
-  sidebarNav: SidebarNavSection[];
-  feedTabs: FeedTabItem[];
-  feedSections: FeedSection[];
-  asideSections: AsideSection[];
-  searchFilters: SearchFilters;
-  noticeBanner: NoticeBannerData;
-  qnaLabels: QnaLabels;
-  categories: CategoryOption[];
-  reportReasons: CategoryOption[];
-  writeButtonLabel: string;
-  writeButtonAriaLabel: string;
-  dummyPopularPosts?: DummyPopularPost[];
-  dummySeriesCards?: DummySeriesCard[];
-  dummyArticles?: DummyArticle[];
-  dummyQnaPosts?: DummyQnaPost[];
-  dummyRecommendedProfiles?: DummyProfile[];
-  dummyCommentRanking?: DummyRankingUser[];
-}
-
-export interface Post {
-  id: string;
-  slug: string;
-  title: string;
+  rating: number;
   content: string;
-  category: string;
-  author: User;
-  tags: string[];
-  likeCount: number;
-  commentCount: number;
-  viewCount: number;
   createdAt: string;
+}
+
+export interface AdminReviewStats {
+  overallAvgRating: number;
+  totalReviewCount: number;
+  monthlyReviewCount: number;
+  recentReviews: AdminRecentReview[];
+}
+
+export interface AdminPaymentStats {
+  todayOrderCount: number;
+  todayRefundCount: number;
+  monthlyOrderCount: number;
+  monthlyRefundCount: number;
+}
+
+export interface AdminDashboardData {
+  revenue: AdminRevenueStats;
+  newUsers: AdminNewUserStats;
+  courseEnrollments: AdminCourseEnrollmentStats[];
+  reviews: AdminReviewStats;
+  payments: AdminPaymentStats;
+}
+
+/* ── 관리자 강의 관리 ──
+ * 백엔드 GET /api/v1/admin/courses 응답과 매칭
+ */
+export type AdminCourseStatus = 'DRAFT' | 'PUBLISHED' | 'HIDDEN' | 'DELETED';
+export type AdminCourseLevel = 'BEGINNER' | 'BASIC' | 'INTERMEDIATE' | 'ADVANCED';
+
+export interface AdminCourseListItem {
+  id: number;
+  title: string;
+  categoryId: number;
+  categoryName: string;
+  instructorNames: string[];
+  level: AdminCourseLevel;
+  price: number;
+  status: AdminCourseStatus;
+  enrollmentCount: number;
+  createdAt: string;
+}
+
+export interface AdminCourseCategory {
+  id: number;
+  name: string;
+}
+
+export interface AdminCoursesPage {
+  items: AdminCourseListItem[];
+  totalCount: number;
+  page: number;
+  size: number;
+}
+
+export interface AdminCoursesData {
+  categories: AdminCourseCategory[];
+  courses: AdminCourseListItem[];
+}
+
+/* ── 관리자 사용자 관리 ──
+ * 백엔드 GET /api/v1/admin/users 응답과 매칭
+ */
+export type AdminUserStatus = 'ACTIVE' | 'SUSPENDED' | 'WITHDRAWN';
+export type AdminUserLevel = 'LV1' | 'LV2' | 'LV3' | 'LV4';
+
+export interface AdminUserListItem {
+  id: number;
+  email: string;
+  nickname: string;
+  role: UserRole;
+  level: AdminUserLevel;
+  status: AdminUserStatus;
+  createdAt: string;
+}
+
+export interface AdminUsersData {
+  users: AdminUserListItem[];
+}
+
+/** 사용자 상세 — 수강 정보 */
+export interface AdminUserEnrollmentInfo {
+  enrollmentId: number;
+  courseTitle: string;
+  progressPercent: number;
+  startedAt: string;
+}
+
+/** 사용자 상세 — 결제 정보 */
+export interface AdminUserPaymentInfo {
+  orderId: number;
+  courseTitle: string;
+  amount: number;
+  status: string;
+  paidAt: string;
+}
+
+export interface AdminUserDetail {
+  id: number;
+  email: string;
+  nickname: string;
+  profileImageUrl: string;
+  role: UserRole;
+  level: AdminUserLevel;
+  status: AdminUserStatus;
+  emailVerified: boolean;
+  createdAt: string;
+  enrollments: AdminUserEnrollmentInfo[];
+  payments: AdminUserPaymentInfo[];
+}
+
+/* ── 관리자 결제 관리 ──
+ * 백엔드 GET /api/v1/admin/payments 응답과 매칭
+ */
+export type AdminOrderStatus = 'PENDING' | 'PAID' | 'CANCELLED' | 'REFUNDED';
+
+export interface AdminOrderListItem {
+  id: number;
+  orderNumber: string;
+  nickname: string;
+  email: string;
+  courseTitle: string;
+  originalAmount: number;
+  discountAmount: number;
+  finalAmount: number;
+  status: AdminOrderStatus;
+  refundReason?: string;
+  refundedAt?: string;
+  createdAt: string;
+}
+
+export interface AdminPaymentsData {
+  orders: AdminOrderListItem[];
+}
+
+/* ── 관리자 배너 ── */
+export interface AdminBannerListItem {
+  id: number;
+  title: string;
+  pcImageUrl: string;
+  mobileImageUrl: string;
+  linkUrl: string;
+  sortOrder: number;
+  isActive: boolean;
+  startDate: string;
+  endDate: string;
+  createdAt: string;
+}
+
+/* ── 관리자 메인 섹션 ── */
+export type AdminMainSectionType = 'NEW' | 'POPULAR' | 'LEVEL' | 'CUSTOM';
+export interface AdminMainSectionListItem {
+  id: number;
+  title: string;
+  type: AdminMainSectionType;
+  filterValue: string | null;
+  sortOrder: number;
+  isActive: boolean;
+}
+
+/* ── 관리자 성공 사례 ── */
+export interface AdminSuccessStoryListItem {
+  id: number;
+  title: string;
+  authorName: string;
+  imageUrl: string;
+  sortOrder: number;
+  isActive: boolean;
+  createdAt: string;
+}
+
+/* ── 관리자 쿠폰 ── */
+export type AdminCouponDiscountType = 'PERCENT' | 'FIXED';
+export interface AdminCouponListItem {
+  id: number;
+  code: string;
+  name: string;
+  discountType: AdminCouponDiscountType;
+  discountValue: number;
+  minOrderAmount: number;
+  maxDiscountAmount: number;
+  totalQuantity: number;
+  usedCount: number;
+  isActive: boolean;
+  startsAt: string;
+  expiresAt: string;
+}
+
+/* ── 관리자 FAQ ── */
+export interface AdminFaqListItem {
+  id: number;
+  category: string;
+  question: string;
+  answer: string;
+  sortOrder: number;
   updatedAt: string;
 }
 
-export interface Comment {
-  id: string;
-  postId: string;
-  content: string;
-  author: User;
+/* ── 관리자 약관 ── */
+export type AdminTermsType = 'TERMS_OF_SERVICE' | 'PRIVACY_POLICY' | 'LEARNING_POLICY' | 'REFUND_POLICY';
+export interface AdminTermsListItem {
+  id: number;
+  type: AdminTermsType;
+  version: number;
+  isCurrent: boolean;
+  effectiveDate: string;
   createdAt: string;
-  updatedAt: string;
+}
+
+/* ── 관리자 레벨 기준 ── */
+export interface AdminLevelCriteriaItem {
+  level: AdminUserLevel;
+  minEnrollmentCount: number;
+  minReviewCount: number;
+  minTotalSpent: number;
+}
+
+/* ── 관리자 리뷰 ── */
+export interface AdminReviewListItem {
+  id: number;
+  courseTitle: string;
+  nickname: string;
+  email: string;
+  rating: number;
+  content: string;
+  likeCount: number;
+  createdAt: string;
+}
+
+/* ── 관리자 추가 데이터 통합 ── */
+export interface AdminExtraData {
+  banners: AdminBannerListItem[];
+  mainSections: AdminMainSectionListItem[];
+  successStories: AdminSuccessStoryListItem[];
+  coupons: AdminCouponListItem[];
+  faqs: AdminFaqListItem[];
+  terms: AdminTermsListItem[];
+  levels: AdminLevelCriteriaItem[];
+  reviews: AdminReviewListItem[];
 }
 
 /* ── 유저 ── */
+/** 백엔드 UserRole enum과 매칭 (lecture-api: STUDENT/INSTRUCTOR/ADMIN) */
+export type UserRole = 'STUDENT' | 'INSTRUCTOR' | 'ADMIN';
+
 export interface User {
   id: string;
   username: string;
@@ -756,6 +785,7 @@ export interface User {
   gender?: 'male' | 'female' | 'none';
   joinDate?: string;
   grade?: string;
+  role?: UserRole;
   socialAccounts?: SocialAccount[];
   marketingConsent?: MarketingConsent;
 }
@@ -992,15 +1022,6 @@ export interface GiftcardHistoryData {
   date: string;
 }
 
-/* ── 팔로우 유저 ── */
-export interface FollowUserData {
-  id: string;
-  nickname: string;
-  profileImage: string;
-  bio: string;
-  verified: boolean;
-}
-
 /* ── 수강중 강의 ── */
 export interface EnrolledCourseData {
   courseSlug: string;
@@ -1102,7 +1123,6 @@ export interface MainData {
   homeBestArticles: HomeBestArticlesSection;
   liveCounter: LiveCounterSection;
   homeInstructors: HomeInstructorsSection;
-  homeCommunity: HomeCommunitySection;
   homePromoBanners: HomePromoBannerSection;
   homeNews: HomeNewsSection;
   ctaBanner: CtaBannerData;
@@ -1111,7 +1131,6 @@ export interface MainData {
   a11y: Record<string, unknown>;
   geo: GeoData;
   seo: Record<string, unknown>;
-  community: CommunityData;
   consultations: ConsultationData[];
   reviews: ReviewData[];
   certificates: CertificateData[];
@@ -1119,8 +1138,6 @@ export interface MainData {
   expiredCoupons: ExpiredCouponData[];
   giftcards: GiftcardData[];
   giftcardHistory: GiftcardHistoryData[];
-  followers: FollowUserData[];
-  following: FollowUserData[];
   enrolledCourses: EnrolledCourseData[];
   board: BoardData;
 }

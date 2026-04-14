@@ -1,0 +1,309 @@
+{
+  "extra": {
+    "banners": [
+      { "id": 1, "title": "신규 가입 30% 할인 이벤트", "pcImageUrl": "/images/banners/event-pc-1.jpg", "mobileImageUrl": "/images/banners/event-mo-1.jpg", "linkUrl": "/events/welcome", "sortOrder": 1, "isActive": true, "startDate": "2026-04-01", "endDate": "2026-05-31", "createdAt": "2026-03-25T10:00:00" },
+      { "id": 2, "title": "프론트엔드 마스터 패키지 출시", "pcImageUrl": "/images/banners/frontend-pc.jpg", "mobileImageUrl": "/images/banners/frontend-mo.jpg", "linkUrl": "/courses?category=frontend", "sortOrder": 2, "isActive": true, "startDate": "2026-04-10", "endDate": "2026-06-30", "createdAt": "2026-04-05T14:30:00" },
+      { "id": 3, "title": "백엔드 부트캠프 얼리버드", "pcImageUrl": "/images/banners/backend-pc.jpg", "mobileImageUrl": "/images/banners/backend-mo.jpg", "linkUrl": "/courses?category=backend", "sortOrder": 3, "isActive": true, "startDate": "2026-04-15", "endDate": "2026-05-15", "createdAt": "2026-04-10T09:00:00" },
+      { "id": 4, "title": "지난 시즌 종료 이벤트", "pcImageUrl": "/images/banners/old-pc.jpg", "mobileImageUrl": "/images/banners/old-mo.jpg", "linkUrl": "/events/old", "sortOrder": 4, "isActive": false, "startDate": "2026-01-01", "endDate": "2026-02-28", "createdAt": "2025-12-20T11:00:00" }
+    ],
+    "mainSections": [
+      { "id": 1, "title": "신규 강의", "type": "NEW", "filterValue": null, "sortOrder": 1, "isActive": true },
+      { "id": 2, "title": "이번 주 인기 강의", "type": "POPULAR", "filterValue": null, "sortOrder": 2, "isActive": true },
+      { "id": 3, "title": "초급자 추천", "type": "LEVEL", "filterValue": "BEGINNER", "sortOrder": 3, "isActive": true },
+      { "id": 4, "title": "프론트엔드 강의", "type": "CUSTOM", "filterValue": "frontend", "sortOrder": 4, "isActive": true },
+      { "id": 5, "title": "AI/데이터 강의", "type": "CUSTOM", "filterValue": "data", "sortOrder": 5, "isActive": false }
+    ],
+    "successStories": [
+      { "id": 1, "title": "비전공자에서 프론트엔드 개발자로", "authorName": "박현지", "imageUrl": "/images/stories/hyunji.jpg", "sortOrder": 1, "isActive": true, "createdAt": "2026-02-12T10:00:00" },
+      { "id": 2, "title": "1년 만에 백엔드 시니어로 성장한 이야기", "authorName": "최승호", "imageUrl": "/images/stories/seungho.jpg", "sortOrder": 2, "isActive": true, "createdAt": "2026-01-28T13:00:00" },
+      { "id": 3, "title": "데이터 분석가로 커리어 전환", "authorName": "김서연", "imageUrl": "/images/stories/seoyeon.jpg", "sortOrder": 3, "isActive": true, "createdAt": "2025-12-15T09:30:00" },
+      { "id": 4, "title": "스타트업 CTO가 된 수강생 인터뷰", "authorName": "정우진", "imageUrl": "/images/stories/woojin.jpg", "sortOrder": 4, "isActive": false, "createdAt": "2025-09-10T14:00:00" }
+    ],
+    "coupons": [
+      { "id": 1, "code": "WELCOME30", "name": "신규 가입 30% 할인", "discountType": "PERCENT", "discountValue": 30, "minOrderAmount": 50000, "maxDiscountAmount": 50000, "totalQuantity": 1000, "usedCount": 287, "isActive": true, "startsAt": "2026-04-01T00:00:00", "expiresAt": "2026-05-31T23:59:59" },
+      { "id": 2, "code": "SPRING20K", "name": "봄맞이 2만원 할인", "discountType": "FIXED", "discountValue": 20000, "minOrderAmount": 100000, "maxDiscountAmount": 20000, "totalQuantity": 500, "usedCount": 142, "isActive": true, "startsAt": "2026-04-01T00:00:00", "expiresAt": "2026-04-30T23:59:59" },
+      { "id": 3, "code": "FRONTEND15", "name": "프론트엔드 카테고리 15% 할인", "discountType": "PERCENT", "discountValue": 15, "minOrderAmount": 0, "maxDiscountAmount": 30000, "totalQuantity": 2000, "usedCount": 856, "isActive": true, "startsAt": "2026-03-15T00:00:00", "expiresAt": "2026-06-30T23:59:59" },
+      { "id": 4, "code": "VIP50K", "name": "VIP 5만원 할인", "discountType": "FIXED", "discountValue": 50000, "minOrderAmount": 200000, "maxDiscountAmount": 50000, "totalQuantity": 100, "usedCount": 38, "isActive": true, "startsAt": "2026-02-01T00:00:00", "expiresAt": "2026-12-31T23:59:59" },
+      { "id": 5, "code": "WINTER10", "name": "겨울 시즌 10% 할인 (종료)", "discountType": "PERCENT", "discountValue": 10, "minOrderAmount": 0, "maxDiscountAmount": 20000, "totalQuantity": 5000, "usedCount": 4823, "isActive": false, "startsAt": "2025-12-01T00:00:00", "expiresAt": "2026-02-28T23:59:59" }
+    ],
+    "faqs": [
+      { "id": 1, "category": "결제", "question": "결제 후 환불이 가능한가요?", "answer": "수강 시작 후 7일 이내, 진도율 10% 미만일 때 환불 가능합니다.", "sortOrder": 1, "updatedAt": "2026-03-15T10:00:00" },
+      { "id": 2, "category": "결제", "question": "어떤 결제 수단을 사용할 수 있나요?", "answer": "신용카드, 계좌이체, 카카오페이, 토스페이를 지원합니다.", "sortOrder": 2, "updatedAt": "2026-03-15T10:00:00" },
+      { "id": 3, "category": "수강", "question": "수강 기간은 얼마나 되나요?", "answer": "강의별로 다르며, 일반적으로 6개월입니다. 상세는 강의 페이지를 확인해 주세요.", "sortOrder": 3, "updatedAt": "2026-02-20T14:00:00" },
+      { "id": 4, "category": "수강", "question": "수강 후 수료증을 받을 수 있나요?", "answer": "진도율 80% 이상 완료 시 수료증이 자동 발급됩니다.", "sortOrder": 4, "updatedAt": "2026-02-20T14:00:00" },
+      { "id": 5, "category": "계정", "question": "비밀번호를 잊어버렸어요.", "answer": "로그인 페이지의 '비밀번호 찾기'를 통해 SMS 인증으로 재설정할 수 있습니다.", "sortOrder": 5, "updatedAt": "2026-01-10T09:00:00" },
+      { "id": 6, "category": "계정", "question": "이메일을 변경할 수 있나요?", "answer": "마이페이지 > 설정에서 이메일 변경이 가능합니다.", "sortOrder": 6, "updatedAt": "2026-01-10T09:00:00" },
+      { "id": 7, "category": "기타", "question": "강의 요청은 어떻게 하나요?", "answer": "고객센터 1:1 문의로 요청해 주시면 검토 후 답변드립니다.", "sortOrder": 7, "updatedAt": "2025-12-05T16:00:00" }
+    ],
+    "terms": [
+      { "id": 1, "type": "TERMS_OF_SERVICE", "version": 3, "isCurrent": true, "effectiveDate": "2026-03-01", "createdAt": "2026-02-20T10:00:00" },
+      { "id": 2, "type": "TERMS_OF_SERVICE", "version": 2, "isCurrent": false, "effectiveDate": "2025-09-01", "createdAt": "2025-08-25T11:00:00" },
+      { "id": 3, "type": "TERMS_OF_SERVICE", "version": 1, "isCurrent": false, "effectiveDate": "2024-03-01", "createdAt": "2024-02-25T09:00:00" },
+      { "id": 4, "type": "PRIVACY_POLICY", "version": 2, "isCurrent": true, "effectiveDate": "2026-03-01", "createdAt": "2026-02-20T10:00:00" },
+      { "id": 5, "type": "PRIVACY_POLICY", "version": 1, "isCurrent": false, "effectiveDate": "2024-03-01", "createdAt": "2024-02-25T09:00:00" },
+      { "id": 6, "type": "LEARNING_POLICY", "version": 1, "isCurrent": true, "effectiveDate": "2024-03-01", "createdAt": "2024-02-25T09:00:00" },
+      { "id": 7, "type": "REFUND_POLICY", "version": 2, "isCurrent": true, "effectiveDate": "2025-06-01", "createdAt": "2025-05-25T14:00:00" },
+      { "id": 8, "type": "REFUND_POLICY", "version": 1, "isCurrent": false, "effectiveDate": "2024-03-01", "createdAt": "2024-02-25T09:00:00" }
+    ],
+    "levels": [
+      { "level": "LV1", "minEnrollmentCount": 0, "minReviewCount": 0, "minTotalSpent": 0 },
+      { "level": "LV2", "minEnrollmentCount": 3, "minReviewCount": 1, "minTotalSpent": 200000 },
+      { "level": "LV3", "minEnrollmentCount": 7, "minReviewCount": 3, "minTotalSpent": 500000 },
+      { "level": "LV4", "minEnrollmentCount": 15, "minReviewCount": 7, "minTotalSpent": 1500000 }
+    ],
+    "reviews": [
+      { "id": 5001, "courseTitle": "실전 React 마스터 클래스", "nickname": "개발하는토끼", "email": "user002@gmail.com", "rating": 5, "content": "실무에 바로 적용할 수 있는 내용이 많아서 너무 좋았습니다. 강의 진행도 깔끔합니다.", "likeCount": 24, "createdAt": "2026-04-14T09:23:00" },
+      { "id": 5002, "courseTitle": "TypeScript 심화 과정", "nickname": "타입러버", "email": "user003@gmail.com", "rating": 5, "content": "제네릭 부분 설명이 정말 명쾌했어요. 그동안 헷갈리던 부분이 해소됐습니다.", "likeCount": 18, "createdAt": "2026-04-14T08:11:00" },
+      { "id": 5003, "courseTitle": "Next.js 풀스택 부트캠프", "nickname": "프론트새내기", "email": "user004@naver.com", "rating": 4, "content": "App Router 위주로 설명해주셔서 최신 트렌드를 따라가기 좋습니다.", "likeCount": 12, "createdAt": "2026-04-13T22:45:00" },
+      { "id": 5004, "courseTitle": "데이터 분석 with Python", "nickname": "데이터덕후", "email": "user005@naver.com", "rating": 5, "content": "예제 데이터셋이 풍부해서 실습이 즐거웠어요. 추천합니다.", "likeCount": 30, "createdAt": "2026-04-13T18:30:00" },
+      { "id": 5005, "courseTitle": "AWS 클라우드 아키텍처 설계", "nickname": "클라우드초보", "email": "user006@kakao.com", "rating": 4, "content": "초반에 IAM 부분이 좀 어려웠는데 다시 보니 이해가 됩니다.", "likeCount": 9, "createdAt": "2026-04-13T15:12:00" },
+      { "id": 5006, "courseTitle": "Spring Boot 백엔드 실무", "nickname": "백엔드지망생", "email": "user007@gmail.com", "rating": 3, "content": "내용은 좋은데 영상 음질이 일부 구간 들쭉날쭉해요.", "likeCount": 5, "createdAt": "2026-04-12T11:30:00" },
+      { "id": 5007, "courseTitle": "Flutter 모바일 앱 개발", "nickname": "모바일개발자", "email": "user009@naver.com", "rating": 5, "content": "초보자도 따라할 수 있도록 친절하게 설명해주셔서 좋았어요.", "likeCount": 21, "createdAt": "2026-04-11T16:45:00" },
+      { "id": 5008, "courseTitle": "디자인 시스템 구축 실무", "nickname": "디자이너준", "email": "user008@gmail.com", "rating": 4, "content": "토큰 설계 부분이 가장 도움됐습니다. 실무에 바로 적용 중이에요.", "likeCount": 14, "createdAt": "2026-04-10T10:00:00" },
+      { "id": 5009, "courseTitle": "Docker & Kubernetes 입문", "nickname": "데브옵스러", "email": "user014@gmail.com", "rating": 2, "content": "예제가 너무 단순해서 실무에선 부족함이 있습니다.", "likeCount": 3, "createdAt": "2026-04-09T14:20:00" },
+      { "id": 5010, "courseTitle": "프로덕트 매니지먼트 기초", "nickname": "UX기획자", "email": "user013@gmail.com", "rating": 5, "content": "PM 입문자에게 이만한 강의가 없는 것 같아요.", "likeCount": 27, "createdAt": "2026-04-08T09:00:00" }
+    ]
+  },
+  "payments": {
+    "orders": [
+      { "id": 1001, "orderNumber": "ORD-20260414093015-A1B2C3", "nickname": "신규유저C", "email": "user019@gmail.com", "courseTitle": "실전 React 마스터 클래스", "originalAmount": 132000, "discountAmount": 13200, "finalAmount": 118800, "status": "PAID", "createdAt": "2026-04-14T09:30:15" },
+      { "id": 1002, "orderNumber": "ORD-20260414102233-D4E5F6", "nickname": "코드러버", "email": "user001@gmail.com", "courseTitle": "Next.js 풀스택 부트캠프", "originalAmount": 198000, "discountAmount": 0, "finalAmount": 198000, "status": "PAID", "createdAt": "2026-04-14T10:22:33" },
+      { "id": 1003, "orderNumber": "ORD-20260414114501-G7H8I9", "nickname": "타입러버", "email": "user003@gmail.com", "courseTitle": "TypeScript 심화 과정", "originalAmount": 99000, "discountAmount": 9900, "finalAmount": 89100, "status": "PAID", "createdAt": "2026-04-14T11:45:01" },
+      { "id": 1004, "orderNumber": "ORD-20260414132012-J1K2L3", "nickname": "프론트새내기", "email": "user004@naver.com", "courseTitle": "Vue 3 Composition API 실전", "originalAmount": 121000, "discountAmount": 0, "finalAmount": 121000, "status": "PAID", "createdAt": "2026-04-14T13:20:12" },
+      { "id": 1005, "orderNumber": "ORD-20260414145523-M4N5O6", "nickname": "데이터덕후", "email": "user005@naver.com", "courseTitle": "ML 입문 - scikit-learn", "originalAmount": 132000, "discountAmount": 26400, "finalAmount": 105600, "status": "PENDING", "createdAt": "2026-04-14T14:55:23" },
+      { "id": 1006, "orderNumber": "ORD-20260413083045-P7Q8R9", "nickname": "클라우드초보", "email": "user006@kakao.com", "courseTitle": "AWS 클라우드 아키텍처 설계", "originalAmount": 220000, "discountAmount": 22000, "finalAmount": 198000, "status": "PAID", "createdAt": "2026-04-13T08:30:45" },
+      { "id": 1007, "orderNumber": "ORD-20260413091534-S1T2U3", "nickname": "백엔드지망생", "email": "user007@gmail.com", "courseTitle": "Spring Boot 백엔드 실무", "originalAmount": 165000, "discountAmount": 0, "finalAmount": 165000, "status": "PAID", "createdAt": "2026-04-13T09:15:34" },
+      { "id": 1008, "orderNumber": "ORD-20260413105612-V4W5X6", "nickname": "디자이너준", "email": "user008@gmail.com", "courseTitle": "Figma 실무 마스터", "originalAmount": 99000, "discountAmount": 9900, "finalAmount": 89100, "status": "REFUNDED", "refundReason": "강의 내용 불만족 - 환불 요청", "refundedAt": "2026-04-13T15:20:00", "createdAt": "2026-04-13T10:56:12" },
+      { "id": 1009, "orderNumber": "ORD-20260413121845-Y7Z8A9", "nickname": "모바일개발자", "email": "user009@naver.com", "courseTitle": "Flutter 모바일 앱 개발", "originalAmount": 110000, "discountAmount": 0, "finalAmount": 110000, "status": "PAID", "createdAt": "2026-04-13T12:18:45" },
+      { "id": 1010, "orderNumber": "ORD-20260413134523-B1C2D3", "nickname": "퍼블리셔현지", "email": "user010@gmail.com", "courseTitle": "디자인 시스템 구축 실무", "originalAmount": 145000, "discountAmount": 14500, "finalAmount": 130500, "status": "PAID", "createdAt": "2026-04-13T13:45:23" },
+      { "id": 1011, "orderNumber": "ORD-20260413161034-E4F5G6", "nickname": "QA엔지니어", "email": "user011@naver.com", "courseTitle": "Docker & Kubernetes 입문", "originalAmount": 99000, "discountAmount": 0, "finalAmount": 99000, "status": "PAID", "createdAt": "2026-04-13T16:10:34" },
+      { "id": 1012, "orderNumber": "ORD-20260412095012-H7I8J9", "nickname": "신입개발자", "email": "user012@kakao.com", "courseTitle": "Node.js 백엔드 입문", "originalAmount": 66000, "discountAmount": 0, "finalAmount": 66000, "status": "PAID", "createdAt": "2026-04-12T09:50:12" },
+      { "id": 1013, "orderNumber": "ORD-20260412112334-K1L2M3", "nickname": "UX기획자", "email": "user013@gmail.com", "courseTitle": "프로덕트 매니지먼트 기초", "originalAmount": 77000, "discountAmount": 7700, "finalAmount": 69300, "status": "PAID", "createdAt": "2026-04-12T11:23:34" },
+      { "id": 1014, "orderNumber": "ORD-20260412140523-N4O5P6", "nickname": "데브옵스러", "email": "user014@gmail.com", "courseTitle": "Terraform 인프라 자동화", "originalAmount": 165000, "discountAmount": 16500, "finalAmount": 148500, "status": "PAID", "createdAt": "2026-04-12T14:05:23" },
+      { "id": 1015, "orderNumber": "ORD-20260412160145-Q7R8S9", "nickname": "스프링부트", "email": "user015@naver.com", "courseTitle": "GraphQL API 설계와 구현", "originalAmount": 175000, "discountAmount": 0, "finalAmount": 175000, "status": "CANCELLED", "createdAt": "2026-04-12T16:01:45" },
+      { "id": 1016, "orderNumber": "ORD-20260411082356-T1U2V3", "nickname": "리액트마니아", "email": "user016@gmail.com", "courseTitle": "프론트엔드 성능 최적화", "originalAmount": 187000, "discountAmount": 18700, "finalAmount": 168300, "status": "PAID", "createdAt": "2026-04-11T08:23:56" },
+      { "id": 1017, "orderNumber": "ORD-20260411103412-W4X5Y6", "nickname": "신규유저A", "email": "user017@gmail.com", "courseTitle": "Kotlin 안드로이드 개발", "originalAmount": 121000, "discountAmount": 0, "finalAmount": 121000, "status": "PAID", "createdAt": "2026-04-11T10:34:12" },
+      { "id": 1018, "orderNumber": "ORD-20260411124523-Z7A8B9", "nickname": "신규유저B", "email": "user018@naver.com", "courseTitle": "사용자 리서치 방법론", "originalAmount": 110000, "discountAmount": 11000, "finalAmount": 99000, "status": "PAID", "createdAt": "2026-04-11T12:45:23" },
+      { "id": 1019, "orderNumber": "ORD-20260411150634-C1D2E3", "nickname": "개발하는토끼", "email": "user002@gmail.com", "courseTitle": "Redis 캐싱 전략", "originalAmount": 154000, "discountAmount": 0, "finalAmount": 154000, "status": "REFUNDED", "refundReason": "중복 결제 - 환불 처리", "refundedAt": "2026-04-12T09:00:00", "createdAt": "2026-04-11T15:06:34" },
+      { "id": 1020, "orderNumber": "ORD-20260410091245-F4G5H6", "nickname": "코드러버", "email": "user001@gmail.com", "courseTitle": "데이터 분석 with Python", "originalAmount": 88000, "discountAmount": 8800, "finalAmount": 79200, "status": "PAID", "createdAt": "2026-04-10T09:12:45" },
+      { "id": 1021, "orderNumber": "ORD-20260410111034-I7J8K9", "nickname": "타입러버", "email": "user003@gmail.com", "courseTitle": "Tailwind CSS 디자인 시스템", "originalAmount": 88000, "discountAmount": 0, "finalAmount": 88000, "status": "PENDING", "createdAt": "2026-04-10T11:10:34" },
+      { "id": 1022, "orderNumber": "ORD-20260410130456-L1M2N3", "nickname": "스프링부트", "email": "user015@naver.com", "courseTitle": "Python FastAPI 실전", "originalAmount": 143000, "discountAmount": 14300, "finalAmount": 128700, "status": "PAID", "createdAt": "2026-04-10T13:04:56" },
+      { "id": 1023, "orderNumber": "ORD-20260410152312-O4P5Q6", "nickname": "프론트새내기", "email": "user004@naver.com", "courseTitle": "iOS Swift 앱 개발 입문", "originalAmount": 99000, "discountAmount": 9900, "finalAmount": 89100, "status": "PAID", "createdAt": "2026-04-10T15:23:12" },
+      { "id": 1024, "orderNumber": "ORD-20260409084523-R7S8T9", "nickname": "QA엔지니어", "email": "user011@naver.com", "courseTitle": "Spring Boot 백엔드 실무", "originalAmount": 165000, "discountAmount": 0, "finalAmount": 165000, "status": "REFUNDED", "refundReason": "기술적 문제로 수강 불가 처리", "refundedAt": "2026-04-10T11:30:00", "createdAt": "2026-04-09T08:45:23" },
+      { "id": 1025, "orderNumber": "ORD-20260409110034-U1V2W3", "nickname": "리액트마니아", "email": "user016@gmail.com", "courseTitle": "Vue 3 Composition API 실전", "originalAmount": 121000, "discountAmount": 12100, "finalAmount": 108900, "status": "PAID", "createdAt": "2026-04-09T11:00:34" }
+    ]
+  },
+  "users": {
+    "users": [
+      { "id": 1, "email": "admin@crestlab.com", "nickname": "운영자", "role": "ADMIN", "level": "LV4", "status": "ACTIVE", "createdAt": "2024-03-01T09:00:00" },
+      { "id": 2, "email": "kim.minsu@crestlab.com", "nickname": "김민수강사", "role": "INSTRUCTOR", "level": "LV4", "status": "ACTIVE", "createdAt": "2024-04-15T10:30:00" },
+      { "id": 3, "email": "park.jihoon@crestlab.com", "nickname": "박지훈강사", "role": "INSTRUCTOR", "level": "LV4", "status": "ACTIVE", "createdAt": "2024-05-22T11:15:00" },
+      { "id": 4, "email": "lee.seoyeon@crestlab.com", "nickname": "이서연강사", "role": "INSTRUCTOR", "level": "LV3", "status": "ACTIVE", "createdAt": "2024-06-10T14:00:00" },
+      { "id": 5, "email": "choi.yujin@crestlab.com", "nickname": "최유진강사", "role": "INSTRUCTOR", "level": "LV4", "status": "ACTIVE", "createdAt": "2024-07-08T09:45:00" },
+      { "id": 6, "email": "jung.hyunwoo@crestlab.com", "nickname": "정현우강사", "role": "INSTRUCTOR", "level": "LV3", "status": "ACTIVE", "createdAt": "2024-08-19T13:20:00" },
+      { "id": 7, "email": "han.soyoung@crestlab.com", "nickname": "한소영강사", "role": "INSTRUCTOR", "level": "LV3", "status": "ACTIVE", "createdAt": "2024-09-25T16:00:00" },
+      { "id": 8, "email": "user001@gmail.com", "nickname": "코드러버", "role": "STUDENT", "level": "LV3", "status": "ACTIVE", "createdAt": "2025-01-12T08:30:00" },
+      { "id": 9, "email": "user002@gmail.com", "nickname": "개발하는토끼", "role": "STUDENT", "level": "LV2", "status": "ACTIVE", "createdAt": "2025-02-04T11:00:00" },
+      { "id": 10, "email": "user003@gmail.com", "nickname": "타입러버", "role": "STUDENT", "level": "LV3", "status": "ACTIVE", "createdAt": "2025-02-18T14:45:00" },
+      { "id": 11, "email": "user004@naver.com", "nickname": "프론트새내기", "role": "STUDENT", "level": "LV1", "status": "ACTIVE", "createdAt": "2025-03-22T10:15:00" },
+      { "id": 12, "email": "user005@naver.com", "nickname": "데이터덕후", "role": "STUDENT", "level": "LV2", "status": "ACTIVE", "createdAt": "2025-04-08T15:30:00" },
+      { "id": 13, "email": "user006@kakao.com", "nickname": "클라우드초보", "role": "STUDENT", "level": "LV1", "status": "ACTIVE", "createdAt": "2025-05-14T09:00:00" },
+      { "id": 14, "email": "user007@gmail.com", "nickname": "백엔드지망생", "role": "STUDENT", "level": "LV2", "status": "ACTIVE", "createdAt": "2025-06-21T13:45:00" },
+      { "id": 15, "email": "user008@gmail.com", "nickname": "디자이너준", "role": "STUDENT", "level": "LV1", "status": "ACTIVE", "createdAt": "2025-07-09T11:20:00" },
+      { "id": 16, "email": "user009@naver.com", "nickname": "모바일개발자", "role": "STUDENT", "level": "LV2", "status": "ACTIVE", "createdAt": "2025-08-15T16:30:00" },
+      { "id": 17, "email": "user010@gmail.com", "nickname": "퍼블리셔현지", "role": "STUDENT", "level": "LV3", "status": "ACTIVE", "createdAt": "2025-09-02T10:00:00" },
+      { "id": 18, "email": "user011@naver.com", "nickname": "QA엔지니어", "role": "STUDENT", "level": "LV2", "status": "ACTIVE", "createdAt": "2025-09-28T14:00:00" },
+      { "id": 19, "email": "user012@kakao.com", "nickname": "신입개발자", "role": "STUDENT", "level": "LV1", "status": "ACTIVE", "createdAt": "2025-10-15T09:30:00" },
+      { "id": 20, "email": "user013@gmail.com", "nickname": "UX기획자", "role": "STUDENT", "level": "LV2", "status": "ACTIVE", "createdAt": "2025-11-04T13:15:00" },
+      { "id": 21, "email": "user014@gmail.com", "nickname": "데브옵스러", "role": "STUDENT", "level": "LV3", "status": "ACTIVE", "createdAt": "2025-12-08T11:00:00" },
+      { "id": 22, "email": "user015@naver.com", "nickname": "스프링부트", "role": "STUDENT", "level": "LV2", "status": "ACTIVE", "createdAt": "2026-01-12T15:00:00" },
+      { "id": 23, "email": "user016@gmail.com", "nickname": "리액트마니아", "role": "STUDENT", "level": "LV2", "status": "ACTIVE", "createdAt": "2026-02-03T10:45:00" },
+      { "id": 24, "email": "user017@gmail.com", "nickname": "신규유저A", "role": "STUDENT", "level": "LV1", "status": "ACTIVE", "createdAt": "2026-03-18T09:00:00" },
+      { "id": 25, "email": "user018@naver.com", "nickname": "신규유저B", "role": "STUDENT", "level": "LV1", "status": "ACTIVE", "createdAt": "2026-04-05T14:30:00" },
+      { "id": 26, "email": "user019@gmail.com", "nickname": "신규유저C", "role": "STUDENT", "level": "LV1", "status": "ACTIVE", "createdAt": "2026-04-12T11:15:00" },
+      { "id": 27, "email": "spam.user@gmail.com", "nickname": "스팸의심계정", "role": "STUDENT", "level": "LV1", "status": "SUSPENDED", "createdAt": "2025-08-20T08:00:00" },
+      { "id": 28, "email": "abuse.report@gmail.com", "nickname": "신고누적유저", "role": "STUDENT", "level": "LV1", "status": "SUSPENDED", "createdAt": "2025-10-30T12:00:00" },
+      { "id": 29, "email": "withdrawn001@gmail.com", "nickname": "탈퇴회원1", "role": "STUDENT", "level": "LV2", "status": "WITHDRAWN", "createdAt": "2025-04-22T10:00:00" },
+      { "id": 30, "email": "withdrawn002@gmail.com", "nickname": "탈퇴회원2", "role": "STUDENT", "level": "LV1", "status": "WITHDRAWN", "createdAt": "2025-06-18T14:30:00" }
+    ]
+  },
+  "courses": {
+    "categories": [
+      { "id": 1, "name": "프론트엔드" },
+      { "id": 2, "name": "백엔드" },
+      { "id": 3, "name": "데이터" },
+      { "id": 4, "name": "모바일" },
+      { "id": 5, "name": "DevOps" },
+      { "id": 6, "name": "디자인" },
+      { "id": 7, "name": "기획" }
+    ],
+    "courses": [
+      { "id": 1, "title": "실전 React 마스터 클래스", "categoryId": 1, "categoryName": "프론트엔드", "instructorNames": ["김민수"], "level": "INTERMEDIATE", "price": 132000, "status": "PUBLISHED", "enrollmentCount": 1842, "createdAt": "2025-09-12T14:23:00" },
+      { "id": 2, "title": "Next.js 풀스택 부트캠프", "categoryId": 1, "categoryName": "프론트엔드", "instructorNames": ["박지훈", "이서연"], "level": "ADVANCED", "price": 198000, "status": "PUBLISHED", "enrollmentCount": 1567, "createdAt": "2025-10-04T11:00:00" },
+      { "id": 3, "title": "TypeScript 심화 과정", "categoryId": 1, "categoryName": "프론트엔드", "instructorNames": ["최유진"], "level": "INTERMEDIATE", "price": 99000, "status": "PUBLISHED", "enrollmentCount": 1248, "createdAt": "2025-08-20T09:15:00" },
+      { "id": 4, "title": "Spring Boot 백엔드 실무", "categoryId": 2, "categoryName": "백엔드", "instructorNames": ["정현우"], "level": "INTERMEDIATE", "price": 165000, "status": "PUBLISHED", "enrollmentCount": 982, "createdAt": "2025-07-18T16:40:00" },
+      { "id": 5, "title": "데이터 분석 with Python", "categoryId": 3, "categoryName": "데이터", "instructorNames": ["한소영"], "level": "BASIC", "price": 88000, "status": "PUBLISHED", "enrollmentCount": 876, "createdAt": "2025-06-05T13:25:00" },
+      { "id": 6, "title": "AWS 클라우드 아키텍처 설계", "categoryId": 5, "categoryName": "DevOps", "instructorNames": ["오재석"], "level": "ADVANCED", "price": 220000, "status": "PUBLISHED", "enrollmentCount": 745, "createdAt": "2025-05-22T10:00:00" },
+      { "id": 7, "title": "Flutter 모바일 앱 개발", "categoryId": 4, "categoryName": "모바일", "instructorNames": ["윤다은"], "level": "BASIC", "price": 110000, "status": "PUBLISHED", "enrollmentCount": 689, "createdAt": "2025-11-12T08:50:00" },
+      { "id": 8, "title": "디자인 시스템 구축 실무", "categoryId": 6, "categoryName": "디자인", "instructorNames": ["임도윤"], "level": "INTERMEDIATE", "price": 145000, "status": "PUBLISHED", "enrollmentCount": 612, "createdAt": "2025-12-01T15:30:00" },
+      { "id": 9, "title": "Docker & Kubernetes 입문", "categoryId": 5, "categoryName": "DevOps", "instructorNames": ["강태현"], "level": "BASIC", "price": 99000, "status": "PUBLISHED", "enrollmentCount": 548, "createdAt": "2026-01-08T12:00:00" },
+      { "id": 10, "title": "프로덕트 매니지먼트 기초", "categoryId": 7, "categoryName": "기획", "instructorNames": ["송하늘"], "level": "BEGINNER", "price": 77000, "status": "PUBLISHED", "enrollmentCount": 487, "createdAt": "2026-02-15T17:20:00" },
+      { "id": 11, "title": "Vue 3 Composition API 실전", "categoryId": 1, "categoryName": "프론트엔드", "instructorNames": ["김민수"], "level": "INTERMEDIATE", "price": 121000, "status": "PUBLISHED", "enrollmentCount": 421, "createdAt": "2026-02-22T09:00:00" },
+      { "id": 12, "title": "GraphQL API 설계와 구현", "categoryId": 2, "categoryName": "백엔드", "instructorNames": ["박지훈"], "level": "ADVANCED", "price": 175000, "status": "PUBLISHED", "enrollmentCount": 312, "createdAt": "2026-03-01T14:00:00" },
+      { "id": 13, "title": "Node.js 백엔드 입문", "categoryId": 2, "categoryName": "백엔드", "instructorNames": ["이서연"], "level": "BEGINNER", "price": 66000, "status": "PUBLISHED", "enrollmentCount": 254, "createdAt": "2026-03-10T11:45:00" },
+      { "id": 14, "title": "ML 입문 - scikit-learn", "categoryId": 3, "categoryName": "데이터", "instructorNames": ["한소영"], "level": "BASIC", "price": 132000, "status": "DRAFT", "enrollmentCount": 0, "createdAt": "2026-04-02T10:30:00" },
+      { "id": 15, "title": "iOS Swift 앱 개발 입문", "categoryId": 4, "categoryName": "모바일", "instructorNames": ["윤다은"], "level": "BEGINNER", "price": 99000, "status": "DRAFT", "enrollmentCount": 0, "createdAt": "2026-04-08T16:15:00" },
+      { "id": 16, "title": "Tailwind CSS 디자인 시스템", "categoryId": 6, "categoryName": "디자인", "instructorNames": ["임도윤"], "level": "BASIC", "price": 88000, "status": "DRAFT", "enrollmentCount": 0, "createdAt": "2026-04-11T13:00:00" },
+      { "id": 17, "title": "Redis 캐싱 전략", "categoryId": 2, "categoryName": "백엔드", "instructorNames": ["정현우"], "level": "ADVANCED", "price": 154000, "status": "HIDDEN", "enrollmentCount": 198, "createdAt": "2025-04-18T09:30:00" },
+      { "id": 18, "title": "프론트엔드 성능 최적화", "categoryId": 1, "categoryName": "프론트엔드", "instructorNames": ["최유진"], "level": "ADVANCED", "price": 187000, "status": "HIDDEN", "enrollmentCount": 156, "createdAt": "2025-03-25T15:00:00" },
+      { "id": 19, "title": "지난 시즌 SQL 입문", "categoryId": 3, "categoryName": "데이터", "instructorNames": ["한소영"], "level": "BEGINNER", "price": 55000, "status": "DELETED", "enrollmentCount": 87, "createdAt": "2024-11-10T10:00:00" },
+      { "id": 20, "title": "Webpack 구버전 가이드", "categoryId": 1, "categoryName": "프론트엔드", "instructorNames": ["김민수"], "level": "INTERMEDIATE", "price": 77000, "status": "DELETED", "enrollmentCount": 42, "createdAt": "2024-08-22T14:30:00" },
+      { "id": 21, "title": "Kotlin 안드로이드 개발", "categoryId": 4, "categoryName": "모바일", "instructorNames": ["윤다은"], "level": "INTERMEDIATE", "price": 121000, "status": "PUBLISHED", "enrollmentCount": 358, "createdAt": "2026-01-25T11:30:00" },
+      { "id": 22, "title": "Terraform 인프라 자동화", "categoryId": 5, "categoryName": "DevOps", "instructorNames": ["오재석"], "level": "INTERMEDIATE", "price": 165000, "status": "PUBLISHED", "enrollmentCount": 287, "createdAt": "2026-02-08T13:45:00" },
+      { "id": 23, "title": "Figma 실무 마스터", "categoryId": 6, "categoryName": "디자인", "instructorNames": ["임도윤"], "level": "BASIC", "price": 99000, "status": "PUBLISHED", "enrollmentCount": 524, "createdAt": "2025-10-30T16:00:00" },
+      { "id": 24, "title": "사용자 리서치 방법론", "categoryId": 7, "categoryName": "기획", "instructorNames": ["송하늘"], "level": "INTERMEDIATE", "price": 110000, "status": "PUBLISHED", "enrollmentCount": 218, "createdAt": "2025-12-15T10:00:00" },
+      { "id": 25, "title": "Python FastAPI 실전", "categoryId": 2, "categoryName": "백엔드", "instructorNames": ["정현우"], "level": "INTERMEDIATE", "price": 143000, "status": "DRAFT", "enrollmentCount": 0, "createdAt": "2026-04-12T09:30:00" }
+    ]
+  },
+  "dashboard": {
+    "revenue": {
+      "todayRevenue": 4280000,
+      "monthlyRevenue": 87650000,
+      "totalRevenue": 1284750000,
+      "dailyRevenues": [
+        { "date": "2026-03-16", "amount": 2150000 },
+        { "date": "2026-03-17", "amount": 1980000 },
+        { "date": "2026-03-18", "amount": 2640000 },
+        { "date": "2026-03-19", "amount": 3120000 },
+        { "date": "2026-03-20", "amount": 2890000 },
+        { "date": "2026-03-21", "amount": 1750000 },
+        { "date": "2026-03-22", "amount": 1420000 },
+        { "date": "2026-03-23", "amount": 2980000 },
+        { "date": "2026-03-24", "amount": 3560000 },
+        { "date": "2026-03-25", "amount": 4120000 },
+        { "date": "2026-03-26", "amount": 3870000 },
+        { "date": "2026-03-27", "amount": 2950000 },
+        { "date": "2026-03-28", "amount": 1880000 },
+        { "date": "2026-03-29", "amount": 1620000 },
+        { "date": "2026-03-30", "amount": 3340000 },
+        { "date": "2026-03-31", "amount": 4580000 },
+        { "date": "2026-04-01", "amount": 5120000 },
+        { "date": "2026-04-02", "amount": 4890000 },
+        { "date": "2026-04-03", "amount": 3760000 },
+        { "date": "2026-04-04", "amount": 2540000 },
+        { "date": "2026-04-05", "amount": 2180000 },
+        { "date": "2026-04-06", "amount": 3920000 },
+        { "date": "2026-04-07", "amount": 4470000 },
+        { "date": "2026-04-08", "amount": 5230000 },
+        { "date": "2026-04-09", "amount": 4810000 },
+        { "date": "2026-04-10", "amount": 3640000 },
+        { "date": "2026-04-11", "amount": 2890000 },
+        { "date": "2026-04-12", "amount": 2470000 },
+        { "date": "2026-04-13", "amount": 3950000 },
+        { "date": "2026-04-14", "amount": 4280000 }
+      ]
+    },
+    "newUsers": {
+      "todayCount": 47,
+      "monthlyCount": 892,
+      "totalCount": 24783,
+      "dailyCounts": [
+        { "date": "2026-03-16", "count": 28 },
+        { "date": "2026-03-17", "count": 32 },
+        { "date": "2026-03-18", "count": 41 },
+        { "date": "2026-03-19", "count": 38 },
+        { "date": "2026-03-20", "count": 45 },
+        { "date": "2026-03-21", "count": 22 },
+        { "date": "2026-03-22", "count": 19 },
+        { "date": "2026-03-23", "count": 36 },
+        { "date": "2026-03-24", "count": 42 },
+        { "date": "2026-03-25", "count": 51 },
+        { "date": "2026-03-26", "count": 48 },
+        { "date": "2026-03-27", "count": 39 },
+        { "date": "2026-03-28", "count": 25 },
+        { "date": "2026-03-29", "count": 21 },
+        { "date": "2026-03-30", "count": 44 },
+        { "date": "2026-03-31", "count": 56 },
+        { "date": "2026-04-01", "count": 62 },
+        { "date": "2026-04-02", "count": 58 },
+        { "date": "2026-04-03", "count": 47 },
+        { "date": "2026-04-04", "count": 33 },
+        { "date": "2026-04-05", "count": 29 },
+        { "date": "2026-04-06", "count": 49 },
+        { "date": "2026-04-07", "count": 54 },
+        { "date": "2026-04-08", "count": 61 },
+        { "date": "2026-04-09", "count": 57 },
+        { "date": "2026-04-10", "count": 46 },
+        { "date": "2026-04-11", "count": 38 },
+        { "date": "2026-04-12", "count": 31 },
+        { "date": "2026-04-13", "count": 50 },
+        { "date": "2026-04-14", "count": 47 }
+      ]
+    },
+    "courseEnrollments": [
+      { "courseId": 1, "title": "실전 React 마스터 클래스", "enrollmentCount": 1842, "avgProgressPercent": 67.4 },
+      { "courseId": 2, "title": "Next.js 풀스택 부트캠프", "enrollmentCount": 1567, "avgProgressPercent": 58.2 },
+      { "courseId": 3, "title": "TypeScript 심화 과정", "enrollmentCount": 1248, "avgProgressPercent": 71.8 },
+      { "courseId": 4, "title": "백엔드 개발자를 위한 Spring Boot", "enrollmentCount": 982, "avgProgressPercent": 49.3 },
+      { "courseId": 5, "title": "데이터 분석 with Python", "enrollmentCount": 876, "avgProgressPercent": 62.1 },
+      { "courseId": 6, "title": "AWS 클라우드 아키텍처 설계", "enrollmentCount": 745, "avgProgressPercent": 44.7 },
+      { "courseId": 7, "title": "모바일 앱 개발 - Flutter", "enrollmentCount": 689, "avgProgressPercent": 55.9 },
+      { "courseId": 8, "title": "디자인 시스템 구축 실무", "enrollmentCount": 612, "avgProgressPercent": 38.4 },
+      { "courseId": 9, "title": "Docker & Kubernetes 입문", "enrollmentCount": 548, "avgProgressPercent": 42.6 },
+      { "courseId": 10, "title": "프로덕트 매니지먼트 기초", "enrollmentCount": 487, "avgProgressPercent": 51.2 }
+    ],
+    "reviews": {
+      "overallAvgRating": 4.6,
+      "totalReviewCount": 8472,
+      "monthlyReviewCount": 312,
+      "recentReviews": [
+        {
+          "id": 1001,
+          "courseTitle": "실전 React 마스터 클래스",
+          "nickname": "개발하는토끼",
+          "rating": 5,
+          "content": "실무에 바로 적용할 수 있는 내용이 많아서 너무 좋았습니다. 강의 진행도 깔끔합니다.",
+          "createdAt": "2026-04-14T09:23:00"
+        },
+        {
+          "id": 1002,
+          "courseTitle": "TypeScript 심화 과정",
+          "nickname": "타입러버",
+          "rating": 5,
+          "content": "제네릭 부분 설명이 정말 명쾌했어요. 그동안 헷갈리던 부분이 해소됐습니다.",
+          "createdAt": "2026-04-14T08:11:00"
+        },
+        {
+          "id": 1003,
+          "courseTitle": "Next.js 풀스택 부트캠프",
+          "nickname": "프론트새내기",
+          "rating": 4,
+          "content": "App Router 위주로 설명해주셔서 최신 트렌드를 따라가기 좋습니다.",
+          "createdAt": "2026-04-13T22:45:00"
+        },
+        {
+          "id": 1004,
+          "courseTitle": "데이터 분석 with Python",
+          "nickname": "데이터덕후",
+          "rating": 5,
+          "content": "예제 데이터셋이 풍부해서 실습이 즐거웠어요. 추천합니다.",
+          "createdAt": "2026-04-13T18:30:00"
+        },
+        {
+          "id": 1005,
+          "courseTitle": "AWS 클라우드 아키텍처 설계",
+          "nickname": "클라우드초보",
+          "rating": 4,
+          "content": "초반에 IAM 부분이 좀 어려웠는데 다시 보니 이해가 됩니다.",
+          "createdAt": "2026-04-13T15:12:00"
+        }
+      ]
+    },
+    "payments": {
+      "todayOrderCount": 38,
+      "todayRefundCount": 2,
+      "monthlyOrderCount": 754,
+      "monthlyRefundCount": 31
+    }
+  }
+}
