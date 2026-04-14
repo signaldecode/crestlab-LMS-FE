@@ -177,6 +177,14 @@
     font-weight: $font-weight-medium;
   }
 
+  &__info {
+    display: block;
+    margin-top: $spacing-1;
+    font-size: $font-size-sm;
+    color: $color-success;
+    font-weight: $font-weight-medium;
+  }
+
   // ── 인풋 + 버튼 조합 ──
   &__input-with-btn {
     display: flex;
@@ -329,6 +337,42 @@
 
     &:hover {
       opacity: 0.8;
+    }
+  }
+
+  /* 중복 확인 결과 메시지 */
+  &__dup-msg {
+    display: inline-block;
+    margin-top: $spacing-1;
+    font-size: $font-size-xs;
+
+    &--ok {
+      color: $color-success;
+    }
+
+    &--ng {
+      color: $color-error;
+    }
+  }
+
+  /* 성별 라디오 그룹 */
+  &__gender-group {
+    display: flex;
+    gap: $spacing-4;
+    align-items: center;
+  }
+
+  &__radio {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-2;
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+    cursor: pointer;
+
+    input[type='radio'] {
+      accent-color: $color-primary;
+      cursor: pointer;
     }
   }
 }

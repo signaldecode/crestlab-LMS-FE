@@ -81,6 +81,7 @@ export interface CourseDiscount {
 }
 
 export interface Course {
+  id: number;
   slug: string;
   title: string;
   summary: string;
@@ -132,6 +133,7 @@ export interface HomeSectionView {
 
 /* ── 오픈예정 강의 ── */
 export interface UpcomingCourse {
+  id: number;
   slug: string;
   title: string;
   thumbnail: string;
@@ -147,6 +149,7 @@ export interface UpcomingCourse {
 
 /* ── 베스트 강의 ── */
 export interface BestCourse {
+  id: number;
   slug: string;
   title: string;
   thumbnail: string;
@@ -556,10 +559,13 @@ export interface AdminDashboardData {
 export type AdminCourseStatus = 'DRAFT' | 'PUBLISHED' | 'HIDDEN' | 'DELETED';
 export type AdminCourseLevel = 'BEGINNER' | 'BASIC' | 'INTERMEDIATE' | 'ADVANCED';
 
+/**
+ * 관리자 강좌 목록 항목 (백엔드 `AdminCourseListResponse`).
+ * - 목록은 요약만 제공 — 상세는 `fetchAdminCourse` → `AdminCourseDetail`
+ */
 export interface AdminCourseListItem {
   id: number;
   title: string;
-  categoryId: number;
   categoryName: string;
   instructorNames: string[];
   level: AdminCourseLevel;
@@ -627,7 +633,7 @@ export interface AdminUserDetail {
   id: number;
   email: string;
   nickname: string;
-  profileImageUrl: string;
+  profileImageUrl: string | null;
   role: UserRole;
   level: AdminUserLevel;
   status: AdminUserStatus;

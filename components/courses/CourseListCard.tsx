@@ -12,7 +12,7 @@ import Link from 'next/link';
 import { createPortal } from 'react-dom';
 import { useState, useRef, useCallback, useEffect, type JSX } from 'react';
 import type { Course } from '@/types';
-import useWishlistStore from '@/stores/useWishlistStore';
+import useCourseFavorite from '@/hooks/useCourseFavorite';
 import useCartStore from '@/stores/useCartStore';
 import uiData from '@/data/uiData.json';
 
@@ -135,8 +135,7 @@ function ListCardPopover({ course, wished, onWishToggle, position, onMouseEnter,
 }
 
 export default function CourseListCard({ course }: CourseListCardProps): JSX.Element {
-  const toggleWish = useWishlistStore((s) => s.toggleWish);
-  const wished = useWishlistStore((s) => s.slugs.includes(course.slug));
+  const { wished, toggle } = useCourseFavorite(course.id, course.slug);
   const [showPopover, setShowPopover] = useState(false);
   const [position, setPosition] = useState<PopoverPosition>({ top: 0, left: 0, direction: 'right' });
   const cardRef = useRef<HTMLDivElement>(null);
@@ -200,7 +199,7 @@ export default function CourseListCard({ course }: CourseListCardProps): JSX.Ele
   const handleWish = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    toggleWish(course.slug);
+    void toggle();
   };
 
   return (
@@ -210,7 +209,7 @@ export default function CourseListCard({ course }: CourseListCardProps): JSX.Ele
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <Link href={`/courses/${course.slug}`} className="course-list-card" aria-label={course.title}>
+      <Link href={`/courses/${course.id}`} className="course-list-card" aria-label={course.title}>
         {/* 썸네일 */}
         <div className="course-list-card__thumb">
           <Image
@@ -275,7 +274,7 @@ export default function CourseListCard({ course }: CourseListCardProps): JSX.Ele
         <ListCardPopover
           course={course}
           wished={wished}
-          onWishToggle={() => toggleWish(course.slug)}
+          onWishToggle={() => { void toggle(); }}
           position={position}
           onMouseEnter={handlePopoverEnter}
           onMouseLeave={handlePopoverLeave}

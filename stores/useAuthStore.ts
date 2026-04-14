@@ -8,6 +8,8 @@ import { create } from 'zustand';
 import type { User, UserRole } from '@/types';
 
 interface AuthState {
+  /** 첫 프로필 조회가 끝나기 전에는 false. UI가 로그인 여부에 따라 깜빡이지 않도록 사용. */
+  authReady: boolean;
   isLoggedIn: boolean;
   user: User | null;
   token: string | null;
@@ -15,6 +17,7 @@ interface AuthState {
   login: (user: User, token: string) => void;
   logout: () => void;
   setUser: (user: User) => void;
+  setAuthReady: (ready: boolean) => void;
   openLoginModal: () => void;
   closeLoginModal: () => void;
   /** 목 데이터 환경에서 역할 전환 (백엔드 연동 후 제거 예정) */
@@ -51,14 +54,16 @@ const defaultUser: User = {
 };
 
 const useAuthStore = create<AuthState>((set, get) => ({
+  authReady: false,
   isLoggedIn: false,
   user: null,
   token: null,
   isLoginModalOpen: false,
 
-  login: (user, token) => set({ isLoggedIn: true, user, token }),
-  logout: () => set({ isLoggedIn: false, user: null, token: null }),
+  login: (user, token) => set({ isLoggedIn: true, user, token, authReady: true }),
+  logout: () => set({ isLoggedIn: false, user: null, token: null, authReady: true }),
   setUser: (user) => set({ user }),
+  setAuthReady: (authReady) => set({ authReady }),
   openLoginModal: () => set({ isLoginModalOpen: true }),
   closeLoginModal: () => set({ isLoginModalOpen: false }),
   mockSwitchRole: (role) => {

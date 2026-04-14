@@ -24,7 +24,7 @@ export default function BestCourseCard({ course }: BestCourseCardProps) {
   const formattedReviewCount = course.reviewCount.toLocaleString();
 
   return (
-    <Link href={`/courses/${course.slug}`} className="best-card">
+    <Link href={`/courses/${course.id}`} className="best-card">
       <div className="best-card__thumbnail">
         <Image
           src={course.thumbnail}

@@ -756,4 +756,12 @@
       color: $color-text-secondary;
     }
   }
+
+  /* 카드에 남은 수강 기간 표시 */
+  &__card-period {
+    display: inline-block;
+    margin-top: $spacing-1;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
 }

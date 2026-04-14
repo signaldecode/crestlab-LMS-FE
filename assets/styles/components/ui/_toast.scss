@@ -1,0 +1,60 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
+
+/**
+ * 토스트 알림
+ * - 화면 우상단 고정 (모바일에서는 좌우 여백 적용)
+ * - type 에 따라 색상 분기
+ */
+.toast {
+  position: fixed;
+  top: $spacing-8;
+  right: $spacing-6;
+  z-index: $z-index-toast;
+  min-width: 16rem;
+  max-width: min(24rem, calc(100vw - #{$spacing-6} * 2));
+  padding: $spacing-3 $spacing-5;
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  letter-spacing: $letter-spacing-normal;
+  box-shadow: $shadow-md;
+  pointer-events: none;
+  animation: toast-in $duration-normal $ease-smooth;
+
+  @media (max-width: 39.99rem) {
+    right: $spacing-4;
+    left: $spacing-4;
+    top: $spacing-4;
+    min-width: 0;
+  }
+
+  &__message {
+    margin: $spacing-0;
+    line-height: $line-height-base;
+    word-break: keep-all;
+  }
+
+  &--success {
+    background-color: $color-success;
+    color: $color-text-inverse;
+  }
+
+  &--error {
+    background-color: $color-error;
+    color: $color-text-inverse;
+  }
+
+  &--info {
+    background-color: $color-text-primary;
+    color: $color-text-inverse;
+  }
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(-0.5rem); }
+  to   { opacity: 1; transform: translateY(0); }
+}

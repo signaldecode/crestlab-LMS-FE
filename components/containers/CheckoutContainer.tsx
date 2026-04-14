@@ -1,56 +1,98 @@
 /**
  * 결제 컨테이너 (CheckoutContainer)
- * - 피그마: 2열 레이아웃 (좌 860px: 주문정보+쿠폰+적립금+결제수단 / 우 508px: 결제금액)
+ * - 백엔드 /v1/payments/orders 로 주문 생성 → 토스 SDK 결제창 호출
+ * - 결제 성공 시 /checkout/success 로 리다이렉트되어 승인 처리 수행
  */
 
 'use client';
 
-import { useState, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import { useCallback, useState, type JSX } from 'react';
 import Image from 'next/image';
-import type { Course } from '@/types';
 import { formatPrice } from '@/lib/payments';
-import useCouponStore from '@/stores/useCouponStore';
+import { createOrder, fetchUserCourseById, UserApiError } from '@/lib/userApi';
+import { resolveThumb } from '@/lib/images';
+import { getTossPayment, TOSS_ANONYMOUS } from '@/lib/toss';
+import { useAdminQuery } from '@/hooks/useAdminQuery';
+import useAuth from '@/hooks/useAuth';
 
+/**
+ * 토스 SDK의 method 타입은 'CARD' | 'TRANSFER' | 'VIRTUAL_ACCOUNT' | 'MOBILE_PHONE' 등
+ * easy-pay(네이버/카카오/토스페이)는 provider 파라미터로 구분됨. MVP는 CARD/TRANSFER만 직접 지원.
+ */
 const PAYMENT_METHODS = [
-  { key: 'card', label: '카드결제', icon: '/images/payment/icon-card.svg' },
-  { key: 'naverpay', label: '네이버페이', icon: '/images/payment/icon-naverpay.svg' },
-  { key: 'kakaopay', label: '카카오페이', icon: '/images/payment/icon-kakaopay.svg' },
-  { key: 'tosspay', label: '토스페이', icon: '/images/payment/icon-tosspay.svg' },
-  { key: 'cash', label: '계좌이체', icon: '/images/payment/icon-cash.svg' },
+  { key: 'card', label: '카드결제', icon: '/images/payment/icon-card.svg', tossMethod: 'CARD' as const },
+  { key: 'cash', label: '계좌이체', icon: '/images/payment/icon-cash.svg', tossMethod: 'TRANSFER' as const },
 ] as const;
 
 type PaymentKey = (typeof PAYMENT_METHODS)[number]['key'];
 
 interface CheckoutContainerProps {
-  course: Course | null;
+  courseId: number | null;
 }
 
-export default function CheckoutContainer({ course }: CheckoutContainerProps) {
-  const router = useRouter();
+export default function CheckoutContainer({ courseId }: CheckoutContainerProps): JSX.Element {
+  const { user } = useAuth();
   const [selectedMethod, setSelectedMethod] = useState<PaymentKey>('card');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const coupon = useCouponStore((s) =>
-    s.coupons.find((c) => c.courseSlug === (course?.slug ?? '')) ?? null
+  const { data: detail, loading } = useAdminQuery(
+    () => (courseId != null ? fetchUserCourseById(courseId) : Promise.resolve(null)),
+    [courseId],
   );
 
-  const coursePrice = course?.price ?? 0;
+  const info = detail?.courseInfo;
+  const hasDiscount = info?.discountPrice != null && info.discountPrice < info.price;
+  const coursePrice = info ? (hasDiscount ? (info.discountPrice as number) : info.price) : 0;
   const finalPrice = coursePrice;
 
-  const handlePayment = useCallback(() => {
-    if (!course || isProcessing) return;
+  const handlePayment = useCallback(async () => {
+    if (!info || isProcessing) return;
     setIsProcessing(true);
-    setTimeout(() => {
-      router.push(`/order/complete?orderId=ORD-${Date.now()}`);
-    }, 1000);
-  }, [course, isProcessing, router]);
+    setErrorMessage('');
+    try {
+      // 1) 주문 생성 → orderNumber / finalAmount 확보
+      const order = await createOrder({ courseId: info.id });
 
-  if (!course) {
+      // 2) 토스 SDK 결제창 호출
+      const customerKey = user?.id ? String(user.id) : TOSS_ANONYMOUS;
+      const payment = await getTossPayment(customerKey);
+
+      const origin = typeof window !== 'undefined' ? window.location.origin : '';
+      const common = {
+        amount: { currency: 'KRW' as const, value: order.finalAmount },
+        orderId: order.orderNumber,
+        orderName: order.courseName,
+        customerEmail: user?.email,
+        customerName: user?.name,
+        successUrl: `${origin}/checkout/success`,
+        failUrl: `${origin}/checkout/fail`,
+      };
+
+      if (selectedMethod === 'cash') {
+        await payment.requestPayment({ ...common, method: 'TRANSFER', transfer: { cashReceipt: { type: '소득공제' } } });
+      } else {
+        await payment.requestPayment({ ...common, method: 'CARD', card: { useEscrow: false, flowMode: 'DEFAULT', useCardPoint: false, useAppCardOnly: false } });
+      }
+      // 결제창이 열리면 이후 success/fail 페이지로 리다이렉트됨 → 여기 이후 코드는 실행 안 됨
+    } catch (err) {
+      const msg = err instanceof UserApiError
+        ? err.message
+        : err instanceof Error
+          ? err.message
+          : '결제 요청에 실패했습니다.';
+      setErrorMessage(msg);
+      setIsProcessing(false);
+    }
+  }, [info, isProcessing, selectedMethod, user]);
+
+  if (!info) {
     return (
       <section className="checkout">
         <h1 className="checkout__title">주문결제</h1>
-        <p className="checkout__empty">강의 정보를 찾을 수 없습니다.</p>
+        <p className="checkout__empty">
+          {loading ? '불러오는 중...' : '강의 정보를 찾을 수 없습니다.'}
+        </p>
       </section>
     );
   }
@@ -58,18 +100,15 @@ export default function CheckoutContainer({ course }: CheckoutContainerProps) {
   return (
     <section className="checkout">
       <div className="checkout__layout">
-        {/* ── 좌측: 주문 정보 ── */}
         <div className="checkout__main">
-          {/* 타이틀 */}
           <h1 className="checkout__title">주문결제</h1>
 
-          {/* 주문 강의 */}
           <div className="checkout__order-section">
             <div className="checkout__course-row">
               <div className="checkout__course-thumb">
                 <Image
-                  src={course.thumbnail}
-                  alt={course.thumbnailAlt}
+                  src={resolveThumb(info.thumbnailUrl)}
+                  alt={info.title}
                   width={280}
                   height={160}
                   className="checkout__course-image"
@@ -77,59 +116,14 @@ export default function CheckoutContainer({ course }: CheckoutContainerProps) {
               </div>
               <div className="checkout__course-info">
                 <div className="checkout__course-text">
-                  <h2 className="checkout__course-name">{course.title}</h2>
-                  <p className="checkout__course-desc">{course.summary}</p>
+                  <h2 className="checkout__course-name">{info.title}</h2>
+                  <p className="checkout__course-desc">{info.description}</p>
                 </div>
                 <span className="checkout__course-price">{formatPrice(coursePrice)}</span>
               </div>
             </div>
           </div>
 
-          {/* 쿠폰 */}
-          <div className="checkout__section">
-            <div className="checkout__section-header">
-              <h3 className="checkout__section-title">쿠폰</h3>
-              <button type="button" className="checkout__section-link">쿠폰코드 보기</button>
-            </div>
-            <div className="checkout__section-body">
-              <div className="checkout__field">
-                <span className="checkout__field-label">쿠폰</span>
-                <div className="checkout__select">
-                  <span className="checkout__select-text">쿠폰을 선택해주세요</span>
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                    <path d="M5 8l5 5 5-5" stroke="#767676" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* 적립금 */}
-          <div className="checkout__section">
-            <div className="checkout__section-header">
-              <h3 className="checkout__section-title">적립금</h3>
-              <div className="checkout__section-meta">
-                <span className="checkout__section-note">사용가능</span>
-                <span className="checkout__section-value">0</span>
-              </div>
-            </div>
-            <div className="checkout__section-body">
-              <div className="checkout__field">
-                <span className="checkout__field-label">적립금</span>
-                <div className="checkout__input-group">
-                  <input
-                    type="text"
-                    className="checkout__input"
-                    defaultValue="0"
-                    aria-label="적립금 입력"
-                  />
-                  <button type="button" className="checkout__apply-btn">전액사용</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* 결제 수단 */}
           <div className="checkout__section">
             <h3 className="checkout__section-title">결제 수단</h3>
             <div className="checkout__methods">
@@ -149,10 +143,8 @@ export default function CheckoutContainer({ course }: CheckoutContainerProps) {
           </div>
         </div>
 
-        {/* ── 우측: 결제금액 사이드바 ── */}
         <aside className="checkout__sidebar">
           <div className="checkout__sidebar-inner">
-            {/* 결제금액 상세 */}
             <div className="checkout__price-section">
               <h3 className="checkout__price-title">결제금액</h3>
               <div className="checkout__price-rows">
@@ -160,23 +152,17 @@ export default function CheckoutContainer({ course }: CheckoutContainerProps) {
                   <span className="checkout__price-label">총 클래스 결제 금액</span>
                   <span className="checkout__price-value">{formatPrice(coursePrice)}</span>
                 </div>
-                <div className="checkout__price-row">
-                  <span className="checkout__price-label">쿠폰 사용</span>
-                  <span className="checkout__price-value">0원</span>
-                </div>
-                <div className="checkout__price-row">
-                  <span className="checkout__price-label">포인트 사용</span>
-                  <span className="checkout__price-value">0원</span>
-                </div>
               </div>
             </div>
 
-            {/* 총 결제 금액 + 결제 버튼 */}
             <div className="checkout__total-section">
               <div className="checkout__total-row">
                 <span className="checkout__total-label">총 결제 금액</span>
                 <span className="checkout__total-value">{formatPrice(finalPrice)}</span>
               </div>
+              {errorMessage && (
+                <p className="checkout__error" role="alert">{errorMessage}</p>
+              )}
               <button
                 type="button"
                 className="checkout__pay-btn"

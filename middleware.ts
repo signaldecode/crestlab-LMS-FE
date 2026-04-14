@@ -1,54 +1,22 @@
 /**
- * Next.js Middleware — 인증 가드
- * - 보호 경로 접근 시 auth_token 쿠키 존재 여부를 확인한다
- * - 미인증 사용자는 /auth/login으로 리다이렉트하며, 원래 경로를 callbackUrl로 전달한다
- * - 관리자 경로(/admin)는 별도 권한 체크를 수행할 수 있다
+ * Next.js Middleware
+ *
+ * 백엔드가 access_token 쿠키를 `Path=/api` 로 발급하므로,
+ * `/admin`, `/mypage` 등 일반 경로에서는 미들웨어에서 쿠키를 읽을 수 없다.
+ * 따라서 서버 레벨 인증 가드는 실효성이 없어 활성화하지 않는다.
+ *
+ * 인증/인가는 다음 두 레이어에서 처리한다.
+ *   1) 프론트: AdminAccessGuard / 로그인 모달 (클라이언트 상태 기반)
+ *   2) 백엔드: @PreAuthorize + JWT 필터 (API 호출 시 차단)
  */
 
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
-// TODO: 개발 단계에서는 인증 가드 비활성화 — 배포 전 주석 해제할 것
-//
-// /** 인증이 필요한 경로 패턴 */
-// const PROTECTED_PATHS = [
-//   '/learn',
-//   '/account',
-//   '/checkout',
-//   '/cart',
-// ];
-//
-// /** 관리자 인증이 필요한 경로 패턴 */
-// const ADMIN_PATHS = ['/admin'];
-//
-// /** 로그인 페이지 경로 */
-// const LOGIN_PATH = '/auth/login';
-//
-// function isProtectedPath(pathname: string): boolean {
-//   return PROTECTED_PATHS.some((path) => pathname === path || pathname.startsWith(`${path}/`));
-// }
-//
-// function isAdminPath(pathname: string): boolean {
-//   return ADMIN_PATHS.some((path) => pathname === path || pathname.startsWith(`${path}/`));
-// }
-
-export function middleware(_request: NextRequest): NextResponse | undefined {
-  // if (isProtectedPath(pathname) || isAdminPath(pathname)) {
-  //   if (!token) {
-  //     const loginUrl = new URL(LOGIN_PATH, _request.url);
-  //     loginUrl.searchParams.set('callbackUrl', pathname);
-  //     return NextResponse.redirect(loginUrl);
-  //   }
-  // }
-
+export function middleware(): NextResponse {
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: [
-    '/learn/:path*',
-    '/account/:path*',
-    '/checkout',
-    '/cart',
-    '/admin/:path*',
-  ],
+  matcher: [],
 };
+

@@ -1,15 +1,13 @@
 /**
  * 관리자 사용자 상세 페이지 (/admin/users/[id])
- * - 기본 정보 + 수강/결제 이력 + 역할 변경/비활성화 모달
  */
 
 import type { JSX } from 'react';
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import AdminUserDetailContainer, {
   type UserDetailCopy,
 } from '@/components/admin/users/AdminUserDetailContainer';
-import { getAdminUserDetail, getPageData } from '@/lib/data';
+import { getPageData } from '@/lib/data';
 import type { AdminUserLevel, AdminUserStatus, UserRole } from '@/types';
 
 interface AdminUserDetailPageProps {
@@ -27,14 +25,23 @@ interface UsersCopy {
   levelLabels: Record<AdminUserLevel, string>;
 }
 
+interface CommonCopy {
+  loadingText: string;
+  errorTitle: string;
+  errorRetryLabel: string;
+}
+
 function getDetailCopy(): UserDetailPageData | null {
   const adminPage = getPageData('admin') as { userDetail?: UserDetailPageData } | null;
   return adminPage?.userDetail ?? null;
 }
-
 function getUsersCopy(): UsersCopy | null {
   const adminPage = getPageData('admin') as { users?: UsersCopy } | null;
   return adminPage?.users ?? null;
+}
+function getCommonCopy(): CommonCopy | null {
+  const adminPage = getPageData('admin') as { common?: CommonCopy } | null;
+  return adminPage?.common ?? null;
 }
 
 export async function generateMetadata({ params }: AdminUserDetailPageProps): Promise<Metadata> {
@@ -47,21 +54,10 @@ export default async function AdminUserDetailPage({ params }: AdminUserDetailPag
   const { id } = await params;
   const detailCopy = getDetailCopy();
   const usersCopy = getUsersCopy();
-  const user = getAdminUserDetail(Number(id));
+  const common = getCommonCopy();
 
-  if (!detailCopy || !usersCopy) {
+  if (!detailCopy || !usersCopy || !common) {
     return <main>데이터를 불러올 수 없습니다.</main>;
-  }
-
-  if (!user) {
-    return (
-      <div className="admin-user-detail">
-        <Link href={detailCopy.backLinkHref} className="admin-user-detail__back">
-          ← {detailCopy.backLinkLabel}
-        </Link>
-        <p className="admin-list__empty">{detailCopy.notFoundText}</p>
-      </div>
-    );
   }
 
   const copy: UserDetailCopy = {
@@ -71,5 +67,12 @@ export default async function AdminUserDetailPage({ params }: AdminUserDetailPag
     levelLabels: usersCopy.levelLabels,
   };
 
-  return <AdminUserDetailContainer user={user} copy={copy} />;
+  return (
+    <AdminUserDetailContainer
+      userId={Number(id)}
+      copy={copy}
+      common={common}
+      notFoundText={detailCopy.notFoundText}
+    />
+  );
 }

@@ -8,12 +8,21 @@
 
 'use client';
 
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import type { JSX, ChangeEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import useAuthStore from '@/stores/useAuthStore';
 import ConfirmModal from '@/components/layout/ConfirmModal';
+import {
+  checkNicknameAvailability,
+  fetchMyInfo,
+  updateMyInfo,
+  updateMyProfile,
+  withdrawAccount,
+  UserApiError,
+  type Gender,
+} from '@/lib/userApi';
 import accountData from '@/data/accountData.json';
 
 // Social Logos
@@ -51,7 +60,43 @@ export default function ProfileEditContent(): JSX.Element {
   }, []);
 
   // 닉네임
-  const [nickname, setNickname] = useState(user?.nickname ?? user?.name ?? '');
+  const initialNickname = user?.nickname ?? user?.name ?? '';
+  const [nickname, setNickname] = useState(initialNickname);
+
+  /**
+   * 닉네임 중복 확인 상태.
+   * - 저장 시점에 현재 닉네임이 기존과 동일하면 중복확인 불필요
+   * - 값이 바뀌면 자동 무효화
+   */
+  type DupState = { checkedValue: string; available: boolean | null; message: string };
+  const [nicknameDup, setNicknameDup] = useState<DupState>({ checkedValue: '', available: null, message: '' });
+  const [checkingNickname, setCheckingNickname] = useState(false);
+
+  const nicknameUnchanged = nickname.trim() === initialNickname.trim();
+  const nicknameChecked = nicknameUnchanged
+    || (nicknameDup.available === true && nicknameDup.checkedValue === nickname.trim());
+
+  const handleCheckNickname = useCallback(async () => {
+    const value = nickname.trim();
+    if (!value) return;
+    setCheckingNickname(true);
+    try {
+      const { available } = await checkNicknameAvailability(value);
+      setNicknameDup({
+        checkedValue: value,
+        available,
+        message: available ? profileEdit.nicknameAvailableMessage : profileEdit.nicknameUnavailableMessage,
+      });
+    } catch (e) {
+      setNicknameDup({
+        checkedValue: value,
+        available: false,
+        message: e instanceof UserApiError ? e.message : '중복 확인에 실패했습니다.',
+      });
+    } finally {
+      setCheckingNickname(false);
+    }
+  }, [nickname]);
 
   // 비밀번호
   const [currentPassword, setCurrentPassword] = useState('');
@@ -76,32 +121,109 @@ export default function ProfileEditContent(): JSX.Element {
   // 회원탈퇴 확인 모달
   const [isWithdrawOpen, setIsWithdrawOpen] = useState(false);
 
-  const handleWithdrawConfirm = useCallback(() => {
+  const handleWithdrawConfirm = useCallback(async () => {
     setIsWithdrawOpen(false);
-    // TODO: 실제 회원탈퇴 API 호출
+    if (!currentPassword) {
+      setSubmitError('탈퇴 진행을 위해 현재 비밀번호를 입력해주세요.');
+      return;
+    }
+    try {
+      await withdrawAccount({ password: currentPassword });
+      router.push('/');
+    } catch (err) {
+      setSubmitError(err instanceof UserApiError ? err.message : '회원 탈퇴에 실패했습니다.');
+    }
+  }, [currentPassword, router]);
+
+  // 회원정보(/me/info)를 초기 로드 후 폼에 반영
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const info = await fetchMyInfo();
+        if (cancelled) return;
+        if (info.birthDate) setBirthday(info.birthDate);
+        if (info.phone) setPhone(info.phone);
+        const g = info.gender;
+        if (g === 'MALE') setGender('male');
+        else if (g === 'FEMALE') setGender('female');
+        setEmailConsent(info.consent.marketingEmailAgreed);
+        setSmsConsent(info.consent.marketingSmsAgreed);
+      } catch {
+        // 회원정보 로드 실패는 조용히 무시 (기존 user 값 유지)
+      }
+    })();
+    return () => { cancelled = true; };
   }, []);
 
   const handlePhoneChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setPhone(e.target.value);
   }, []);
 
-  const handleSubmit = useCallback(() => {
-    if (!user) return;
-    setUser({
-      ...user,
-      nickname,
-      phone,
-      birthday,
-      gender,
-      marketingConsent: {
-        personalInfo: personalInfoConsent,
-        sms: smsConsent,
-        email: emailConsent,
-        nightAd: nightAdConsent,
-      },
-    });
-    router.push('/mypage');
-  }, [user, nickname, phone, birthday, gender, personalInfoConsent, smsConsent, emailConsent, nightAdConsent, setUser, router]);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+
+  const handleSubmit = useCallback(async () => {
+    if (!user || submitting) return;
+    if (!nicknameChecked) {
+      setSubmitError(profileEdit.nicknameDuplicateCheckRequiredError);
+      return;
+    }
+    if (newPassword && newPassword !== confirmPassword) {
+      setSubmitError('새 비밀번호가 일치하지 않습니다.');
+      return;
+    }
+    setSubmitting(true);
+    setSubmitError('');
+    try {
+      // 1) 닉네임/프로필 이미지 수정 (PUT /v1/users/me/profile)
+      await updateMyProfile({
+        nickname,
+        profileImageUrl: avatarPreview ?? undefined,
+      });
+
+      // 2) 회원정보(휴대폰/생년월일/성별/수신동의) + 비밀번호 변경 (PATCH /v1/users/me/info)
+      const genderMap: Record<'male' | 'female' | 'none', Gender | undefined> = {
+        male: 'MALE',
+        female: 'FEMALE',
+        none: undefined,
+      };
+      await updateMyInfo({
+        currentPassword: currentPassword || undefined,
+        newPassword: newPassword || undefined,
+        gender: genderMap[gender],
+        phone: phone || undefined,
+        birthDate: birthday || undefined,
+        marketingEmailAgreed: emailConsent,
+        marketingSmsAgreed: smsConsent,
+      });
+
+      // 3) 클라이언트 스토어 동기화
+      setUser({
+        ...user,
+        nickname,
+        phone,
+        profileImage: avatarPreview ?? user.profileImage,
+        birthday,
+        gender,
+        marketingConsent: {
+          personalInfo: personalInfoConsent,
+          sms: smsConsent,
+          email: emailConsent,
+          nightAd: nightAdConsent,
+        },
+      });
+      router.push('/mypage');
+    } catch (err) {
+      setSubmitError(err instanceof UserApiError ? err.message : '프로필 저장에 실패했습니다.');
+    } finally {
+      setSubmitting(false);
+    }
+  }, [
+    user, submitting, nicknameChecked, nickname, phone, currentPassword, newPassword, confirmPassword,
+    birthday, gender, personalInfoConsent, smsConsent, emailConsent, nightAdConsent,
+    avatarPreview, setUser, router,
+  ]);
 
   const handleCancel = useCallback(() => {
     router.back();
@@ -176,17 +298,37 @@ export default function ProfileEditContent(): JSX.Element {
           <label className="member-edit__label" htmlFor="member-nickname">
             {ps.nicknameLabel}
           </label>
-          <div className="member-edit__field">
+          <div className="member-edit__field member-edit__field--with-btn">
             <input
               id="member-nickname"
               type="text"
               className="member-edit__input"
               value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
+              onChange={(e) => {
+                setNickname(e.target.value);
+                setNicknameDup({ checkedValue: '', available: null, message: '' });
+              }}
               placeholder={ps.nicknamePlaceholder}
               aria-label={ps.nicknameAriaLabel}
             />
+            <button
+              type="button"
+              className="member-edit__verify-btn"
+              aria-label={profileEdit.nicknameDuplicateCheckAriaLabel}
+              onClick={handleCheckNickname}
+              disabled={checkingNickname || !nickname.trim() || nicknameUnchanged}
+            >
+              {profileEdit.nicknameDuplicateCheckLabel}
+            </button>
           </div>
+          {!nicknameUnchanged && nicknameDup.message && nicknameDup.checkedValue === nickname.trim() && (
+            <span
+              className={`member-edit__dup-msg${nicknameDup.available ? ' member-edit__dup-msg--ok' : ' member-edit__dup-msg--ng'}`}
+              role="status"
+            >
+              {nicknameDup.message}
+            </span>
+          )}
         </div>
       </div>
 
@@ -517,10 +659,14 @@ export default function ProfileEditContent(): JSX.Element {
           {profileEdit.buttons.withdraw}
         </button>
         <div className="member-edit__actions-right">
+          {submitError && (
+            <p className="member-edit__submit-error" role="alert">{submitError}</p>
+          )}
           <button
             type="button"
             className="member-edit__cancel-btn"
             onClick={handleCancel}
+            disabled={submitting}
           >
             {profileEdit.buttons.cancel}
           </button>
@@ -528,6 +674,7 @@ export default function ProfileEditContent(): JSX.Element {
             type="button"
             className="member-edit__submit-btn"
             onClick={handleSubmit}
+            disabled={submitting}
           >
             {profileEdit.buttons.submit}
           </button>

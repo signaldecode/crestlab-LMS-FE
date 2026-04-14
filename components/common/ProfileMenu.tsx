@@ -11,6 +11,8 @@ import type { JSX } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import useAuthStore, { selectIsAdmin } from '@/stores/useAuthStore';
+import useAuth from '@/hooks/useAuth';
+import useToastStore from '@/stores/useToastStore';
 
 interface ProfileMenuItem {
   label: string;
@@ -39,7 +41,8 @@ export default function ProfileMenu({ data }: ProfileMenuProps): JSX.Element {
   const router = useRouter();
   const user = useAuthStore((s) => s.user);
   const isAdmin = useAuthStore(selectIsAdmin);
-  const logout = useAuthStore((s) => s.logout);
+  const { logout } = useAuth();
+  const showToast = useToastStore((s) => s.show);
 
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -63,11 +66,13 @@ export default function ProfileMenu({ data }: ProfileMenuProps): JSX.Element {
     };
   }, [isOpen, close]);
 
-  const handleLogout = useCallback(() => {
-    logout();
+  const handleLogout = useCallback(async () => {
     close();
+    await logout();
     router.push('/');
-  }, [logout, close, router]);
+    router.refresh();
+    showToast('로그아웃되었습니다.', 'info');
+  }, [logout, close, router, showToast]);
 
   const displayName = user?.nickname || user?.name || data.triggerLabel;
 

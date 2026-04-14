@@ -8,18 +8,32 @@
 
 import type { JSX } from 'react';
 import { useState, useMemo } from 'react';
-import useCouponStore from '@/stores/useCouponStore';
-import { getExpiredCoupons } from '@/lib/data';
+import { useAdminMutation, useAdminQuery } from '@/hooks/useAdminQuery';
+import { fetchMyCoupons, registerCouponCode, UserApiError, type UserCoupon } from '@/lib/userApi';
 import accountData from '@/data/accountData.json';
-import type { CouponItem } from '@/stores/useCouponStore';
 
 const pageData = accountData.mypage.couponsPage;
 const SK = 'mypage-coupon';
 const PER_PAGE = pageData.perPage ?? 8;
 
 export default function CouponContent(): JSX.Element {
-  const activeCoupons = useCouponStore((s) => s.coupons);
-  const expiredCoupons = getExpiredCoupons();
+  const { data, loading, error, refetch } = useAdminQuery(fetchMyCoupons, []);
+  const allCoupons = data ?? [];
+
+  const [registerError, setRegisterError] = useState('');
+  const [registerOk, setRegisterOk] = useState('');
+  const registerMutation = useAdminMutation(
+    (code: string) => registerCouponCode(code),
+    () => {
+      setRegisterOk('쿠폰이 등록되었습니다.');
+      setRegisterError('');
+      setCouponCode('');
+      void refetch();
+    },
+  );
+  const now = Date.now();
+  const activeCoupons = allCoupons.filter((c) => !c.isUsed && new Date(c.expiresAt).getTime() > now);
+  const expiredCoupons = allCoupons.filter((c) => c.isUsed || new Date(c.expiresAt).getTime() <= now);
 
   const [couponCode, setCouponCode] = useState('');
   const [activeTab, setActiveTab] = useState<'active' | 'used'>('active');
@@ -70,10 +84,25 @@ export default function CouponContent(): JSX.Element {
             onChange={(e) => setCouponCode(e.target.value)}
             aria-label={pageData.registerPlaceholder}
           />
-          <button type="button" className={`${SK}__register-btn`}>
+          <button
+            type="button"
+            className={`${SK}__register-btn`}
+            disabled={!couponCode.trim() || registerMutation.submitting}
+            onClick={async () => {
+              setRegisterOk('');
+              setRegisterError('');
+              const result = await registerMutation.run(couponCode.trim());
+              if (!result && registerMutation.error) {
+                const err = registerMutation.error;
+                setRegisterError(err instanceof UserApiError ? err.message : '쿠폰 등록에 실패했습니다.');
+              }
+            }}
+          >
             {pageData.registerButton}
           </button>
         </div>
+        {registerOk && <p className={`${SK}__register-success`} role="status">{registerOk}</p>}
+        {registerError && <p className={`${SK}__register-error`} role="alert">{registerError}</p>}
         <p className={`${SK}__register-note`}>{pageData.registerNote}</p>
       </section>
 
@@ -108,11 +137,19 @@ export default function CouponContent(): JSX.Element {
         </div>
 
         {/* 카드 그리드 */}
-        {pagedList.length > 0 ? (
+        {loading && !data ? (
+          <div className={`${SK}__empty`}>
+            <p className={`${SK}__empty-text`}>불러오는 중…</p>
+          </div>
+        ) : error && !data ? (
+          <div className={`${SK}__empty`}>
+            <p className={`${SK}__empty-text`}>{error.message}</p>
+          </div>
+        ) : pagedList.length > 0 ? (
           <div className={`${SK}__grid`}>
             {pagedList.map((coupon) => (
               <CouponCard
-                key={'id' in coupon ? coupon.id : (coupon as { id: string }).id}
+                key={coupon.userCouponId}
                 coupon={coupon}
                 isExpired={activeTab === 'used'}
               />
@@ -175,23 +212,23 @@ export default function CouponContent(): JSX.Element {
 
 /* ── 쿠폰 카드 ── */
 interface CouponCardProps {
-  coupon: CouponItem | { id: string; amount: number; description: string; validFrom: string; validTo: string; status: string };
+  coupon: UserCoupon;
   isExpired: boolean;
 }
 
-function CouponCard({ coupon, isExpired }: CouponCardProps) {
-  const discountRate = 'discountRate' in coupon ? coupon.discountRate : 0;
-  const displayDiscount = discountRate > 0
-    ? `${discountRate}${pageData.discountSuffix}`
-    : `${(coupon.amount ?? 0).toLocaleString('ko-KR')}`;
+function formatDate(iso: string): string {
+  const d = new Date(iso);
+  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+}
 
+function CouponCard({ coupon, isExpired }: CouponCardProps) {
   return (
     <div className={`${SK}__card ${isExpired ? `${SK}__card--expired` : ''}`}>
       <div className={`${SK}__card-body`}>
-        <span className={`${SK}__card-discount`}>{displayDiscount}</span>
-        <p className={`${SK}__card-name`}>{coupon.description}</p>
+        <span className={`${SK}__card-discount`}>{coupon.discountInfo}</span>
+        <p className={`${SK}__card-name`}>{coupon.couponName}</p>
         <span className={`${SK}__card-date`}>
-          {coupon.validFrom} ~ {coupon.validTo}
+          ~ {formatDate(coupon.expiresAt)}
         </span>
       </div>
       <div className={`${SK}__card-ticket`}>

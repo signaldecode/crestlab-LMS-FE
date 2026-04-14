@@ -22,6 +22,7 @@ interface SidebarMenuProps {
 export default function SidebarMenu({ isOpen, onClose }: SidebarMenuProps): JSX.Element {
   const nav = getNavData();
   const isLoggedIn = useAuthStore((s) => s.isLoggedIn);
+  const authReady = useAuthStore((s) => s.authReady);
   const user = useAuthStore((s) => s.user);
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set());
 
@@ -203,9 +204,9 @@ export default function SidebarMenu({ isOpen, onClose }: SidebarMenuProps): JSX.
           </ul>
         </nav>
 
-        {/* 인증 */}
+        {/* 인증 — 세션 복구가 끝나기 전에는 렌더하지 않음 */}
         <div className="sidebar-menu__auth">
-          {isLoggedIn ? (
+          {!authReady ? null : isLoggedIn ? (
             <>
               <Link
                 href="/mypage"

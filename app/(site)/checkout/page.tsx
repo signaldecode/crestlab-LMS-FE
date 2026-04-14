@@ -1,23 +1,21 @@
 /**
  * 결제 페이지
- * - 주문 정보 확인, 결제 수단 선택, 최종 결제를 처리한다
- * - URL searchParams의 slug로 강의를 조회하여 CheckoutContainer에 전달한다
+ * - `?courseId=` 로 강의 id 를 받고 클라이언트에서 API 로 조회
  */
 
 import CheckoutContainer from '@/components/containers/CheckoutContainer';
-import { findCourseBySlug } from '@/lib/data';
 
 interface CheckoutPageProps {
-  searchParams: Promise<{ slug?: string }>;
+  searchParams: Promise<{ courseId?: string }>;
 }
 
 export default async function CheckoutPage({ searchParams }: CheckoutPageProps) {
-  const params = await searchParams;
-  const course = params.slug ? findCourseBySlug(params.slug) : null;
+  const { courseId } = await searchParams;
+  const numericId = courseId ? Number(courseId) : NaN;
 
   return (
     <section className="checkout-page">
-      <CheckoutContainer course={course} />
+      <CheckoutContainer courseId={Number.isFinite(numericId) ? numericId : null} />
     </section>
   );
 }

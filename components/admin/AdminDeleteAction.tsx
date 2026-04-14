@@ -1,7 +1,7 @@
 /**
  * 관리자 삭제/비활성화 액션 버튼 + 확인 모달 (AdminDeleteAction)
- * - 상태와 모달이 버튼 내부에 캡슐화되어 있어 서버 페이지에서도 그대로 사용 가능
- * - 실제 API 호출은 onConfirm 콜백에서 처리
+ * - 리소스 타입에 따라 적절한 admin API를 호출한다
+ * - 성공 시 onDeleted 콜백으로 상위 Container에서 refetch를 트리거
  */
 
 'use client';
@@ -9,22 +9,50 @@
 import { useState, useCallback } from 'react';
 import type { JSX } from 'react';
 import AdminModal from '@/components/admin/AdminModal';
+import {
+  deactivateAdminCoupon,
+  deleteAdminBanner,
+  deleteAdminFaq,
+  deleteAdminMainSection,
+  deleteAdminNotice,
+  deleteAdminReview,
+  deleteAdminSuccessStory,
+} from '@/lib/adminApi';
+
+export type AdminDeleteResource =
+  | 'banner'
+  | 'mainSection'
+  | 'successStory'
+  | 'faq'
+  | 'review'
+  | 'notice'
+  | 'coupon'; // coupon은 실제로 비활성화 (deactivate)
 
 interface AdminDeleteActionProps {
-  /** 버튼 라벨 (예: "삭제") */
   buttonLabel: string;
-  /** 모달 제목 */
   modalTitle: string;
-  /** 모달 설명 (이미 치환된 문자열) */
   modalDescription: string;
-  /** 확인 버튼 라벨 */
   confirmLabel: string;
-  /** 취소 버튼 라벨 */
   cancelLabel: string;
-  /** 삭제 대상 식별자 (API 연동 시 사용) */
-  targetId: string | number;
-  /** 모달 종류 시각적 구분 (danger 기본) */
+  /** 삭제 대상 식별자 */
+  targetId: number;
+  /** 리소스 종류 */
+  resource: AdminDeleteResource;
+  /** 삭제 성공 후 콜백 (보통 상위 Container refetch) */
+  onDeleted?: () => void;
   variant?: 'danger' | 'primary';
+}
+
+function executeDelete(resource: AdminDeleteResource, id: number): Promise<void> {
+  switch (resource) {
+    case 'banner': return deleteAdminBanner(id);
+    case 'mainSection': return deleteAdminMainSection(id);
+    case 'successStory': return deleteAdminSuccessStory(id);
+    case 'faq': return deleteAdminFaq(id);
+    case 'review': return deleteAdminReview(id);
+    case 'notice': return deleteAdminNotice(id);
+    case 'coupon': return deactivateAdminCoupon(id);
+  }
 }
 
 export default function AdminDeleteAction({
@@ -34,16 +62,27 @@ export default function AdminDeleteAction({
   confirmLabel,
   cancelLabel,
   targetId,
+  resource,
+  onDeleted,
   variant = 'danger',
 }: AdminDeleteActionProps): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleConfirm = useCallback(() => {
-    // TODO: 실제 API 호출은 백엔드 연동 시 server action 또는 client fetch로 교체
-    // targetId를 endpoint path parameter로 사용
-    void targetId;
-    setIsOpen(false);
-  }, [targetId]);
+  const handleConfirm = useCallback(async () => {
+    setSubmitting(true);
+    setError(null);
+    try {
+      await executeDelete(resource, targetId);
+      setIsOpen(false);
+      onDeleted?.();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setSubmitting(false);
+    }
+  }, [resource, targetId, onDeleted]);
 
   return (
     <>
@@ -61,6 +100,7 @@ export default function AdminDeleteAction({
         title={modalTitle}
         description={modalDescription}
       >
+        {error && <p className="admin-modal__error" role="alert">{error}</p>}
         <footer className="admin-modal__footer">
           <button type="button" onClick={() => setIsOpen(false)} className="admin-modal__btn admin-modal__btn--ghost">
             {cancelLabel}
@@ -68,6 +108,7 @@ export default function AdminDeleteAction({
           <button
             type="button"
             onClick={handleConfirm}
+            disabled={submitting}
             className={`admin-modal__btn admin-modal__btn--${variant}`}
           >
             {confirmLabel}

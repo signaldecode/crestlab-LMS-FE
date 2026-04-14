@@ -8,7 +8,7 @@
 
 'use client';
 
-import { useEffect, useCallback, useMemo, type JSX } from 'react';
+import { useEffect, useCallback, useMemo, useRef, useState, type JSX } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import VidstackPlayer from '@/components/player/VidstackPlayer';
@@ -17,12 +17,26 @@ import LectureNavFooter from '@/components/ui/LectureNavFooter';
 import LectureSidebar from '@/components/ui/LectureSidebar';
 import usePlayer from '@/hooks/usePlayer';
 import useStreamingSession from '@/hooks/useStreamingSession';
+import { useAdminQuery } from '@/hooks/useAdminQuery';
 import { uiData } from '@/data';
-import { getCurriculumForSidebar, findLessonNav } from '@/lib/data';
+import {
+  fetchEnrollmentDetail,
+  fetchMyEnrollments,
+  fetchPlaybackPosition,
+  fetchUserCourseById,
+  markLectureProgress,
+  savePlaybackPosition,
+} from '@/lib/userApi';
 import type { PlayerError } from '@/types';
+import type { CurriculumSection as SidebarSection } from '@/components/ui/LectureSidebar';
+
+/** 진도율 서버 저장 최소 간격 (ms) */
+const PROGRESS_SAVE_INTERVAL_MS = 10_000;
+/** 재생 위치(초) 서버 저장 최소 간격 (ms) */
+const POSITION_SAVE_INTERVAL_MS = 10_000;
 
 interface LecturePlayerContainerProps {
-  courseSlug: string;
+  courseId: number;
   lectureId: string;
 }
 
@@ -32,8 +46,25 @@ interface LecturePlayerContainerProps {
  */
 const DEV_MANIFEST_URL = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8';
 
-export default function LecturePlayerContainer({ courseSlug, lectureId }: LecturePlayerContainerProps): JSX.Element {
+/** 초 단위 영상 길이 포맷 */
+function formatDuration(seconds: number): string {
+  if (!Number.isFinite(seconds) || seconds <= 0) return '';
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = Math.floor(seconds % 60);
+  if (h > 0) return `${h}시간 ${m}분`;
+  if (m > 0) return `${m}분 ${s ? `${s}초` : ''}`.trim();
+  return `${s}초`;
+}
+
+export default function LecturePlayerContainer({ courseId, lectureId }: LecturePlayerContainerProps): JSX.Element {
   const router = useRouter();
+
+  // 강의 상세로부터 커리큘럼/네비게이션 구성
+  const { data: courseDetail } = useAdminQuery(
+    () => fetchUserCourseById(courseId),
+    [courseId],
+  );
 
   const {
     isCompleted,
@@ -44,48 +75,150 @@ export default function LecturePlayerContainer({ courseSlug, lectureId }: Lectur
     markCompleted,
   } = usePlayer();
 
-  // 스트리밍 세션 발급
+  // 스트리밍 세션 발급 — courseSlug 는 레거시 파라미터이므로 courseId 문자열로 대체
   const {
     manifestUrl: sessionManifestUrl,
     isLoading: isSessionLoading,
     error: sessionError,
     refresh: refreshSession,
-  } = useStreamingSession(courseSlug, lectureId);
+  } = useStreamingSession(String(courseId), lectureId);
 
   // 세션 URL이 있으면 사용, 없으면 개발용 폴백
   const manifestUrl = sessionManifestUrl ?? DEV_MANIFEST_URL;
 
-  // 커리큘럼 데이터 로딩 (coursesData.json 기반)
-  const sidebarSections = useMemo(
-    () => getCurriculumForSidebar(courseSlug) ?? [],
-    [courseSlug]
+  // 현재 course 의 enrollment 조회 (진도율 저장용)
+  const { data: enrollments } = useAdminQuery(() => fetchMyEnrollments(), []);
+  const enrollmentId = useMemo(
+    () => enrollments?.find((e) => e.courseId === courseId)?.id ?? null,
+    [enrollments, courseId],
   );
 
-  const lessonNav = useMemo(
-    () => findLessonNav(courseSlug, lectureId),
-    [courseSlug, lectureId]
+  /** 진도율 서버 저장: 10초 간격 디바운싱 + 마지막 저장 진도 추적 */
+  const lastSentAtRef = useRef(0);
+  const lastSentProgressRef = useRef(-1);
+  const lectureIdNum = Number(lectureId);
+
+  const saveProgress = useCallback(
+    (progressPercent: number, { force = false } = {}) => {
+      if (!enrollmentId || !Number.isFinite(lectureIdNum)) return;
+      const clamped = Math.max(0, Math.min(100, Math.round(progressPercent)));
+      const now = Date.now();
+      const progressChanged = clamped !== lastSentProgressRef.current;
+      const intervalPassed = now - lastSentAtRef.current >= PROGRESS_SAVE_INTERVAL_MS;
+      if (!force && (!progressChanged || !intervalPassed)) return;
+      lastSentAtRef.current = now;
+      lastSentProgressRef.current = clamped;
+      void markLectureProgress(enrollmentId, lectureIdNum, clamped).catch(() => {});
+    },
+    [enrollmentId, lectureIdNum],
   );
 
-  // 현재 강의 제목 (data 기반)
+  /** 재생 위치(초) 서버 저장: 10초 간격 디바운싱 */
+  const lastPositionSentAtRef = useRef(0);
+
+  const savePosition = useCallback(
+    (positionSeconds: number, { force = false } = {}) => {
+      if (!Number.isFinite(lectureIdNum)) return;
+      const now = Date.now();
+      if (!force && now - lastPositionSentAtRef.current < POSITION_SAVE_INTERVAL_MS) return;
+      lastPositionSentAtRef.current = now;
+      void savePlaybackPosition(lectureIdNum, positionSeconds).catch(() => {});
+    },
+    [lectureIdNum],
+  );
+
+  /** 서버에서 이어보기 위치 조회 → usePlayer에 반영 */
+  const [resumePosition, setResumePosition] = useState(0);
+  useEffect(() => {
+    if (!Number.isFinite(lectureIdNum)) return;
+    let cancelled = false;
+    void fetchPlaybackPosition(lectureIdNum)
+      .then((pos) => { if (!cancelled) setResumePosition(pos.lastPositionSeconds); })
+      .catch(() => {});
+    return () => { cancelled = true; };
+  }, [lectureIdNum]);
+
+  // 완료 여부는 enrollment detail 에서 lectureId → isCompleted 매핑으로 조회
+  const { data: enrollmentDetail } = useAdminQuery(
+    () => (enrollmentId != null ? fetchEnrollmentDetail(enrollmentId) : Promise.resolve(null)),
+    [enrollmentId],
+  );
+  const completionMap = useMemo(() => {
+    const map = new Map<string, boolean>();
+    for (const p of enrollmentDetail?.progresses ?? []) {
+      map.set(String(p.lectureId), !!p.isCompleted);
+    }
+    return map;
+  }, [enrollmentDetail]);
+
+  const sidebarSections = useMemo<SidebarSection[]>(() => {
+    const sections = courseDetail?.curriculum.sections ?? [];
+    return sections.map((s) => ({
+      title: s.title,
+      items: s.lectures.map((lec) => ({
+        id: String(lec.id),
+        title: lec.title,
+        duration: formatDuration(lec.durationSeconds),
+        isCompleted: completionMap.get(String(lec.id)) ?? false,
+      })),
+    }));
+  }, [courseDetail, completionMap]);
+
+  // 이전/현재/다음 강의 — 모든 섹션을 순회해서 평면화된 lectures 기준으로 계산
+  const lessonNav = useMemo(() => {
+    const flat: { id: string; title: string }[] = [];
+    for (const s of courseDetail?.curriculum.sections ?? []) {
+      for (const lec of s.lectures) {
+        flat.push({ id: String(lec.id), title: lec.title });
+      }
+    }
+    const idx = flat.findIndex((l) => l.id === lectureId);
+    if (idx < 0) return null;
+    return {
+      prev: idx > 0 ? flat[idx - 1] : null,
+      current: flat[idx],
+      next: idx < flat.length - 1 ? flat[idx + 1] : null,
+    };
+  }, [courseDetail, lectureId]);
+
   const lectureTitle = lessonNav?.current.title ?? '';
 
   /** 컴포넌트 마운트 시 강의 시작 + 이어보기 위치 복원 */
   useEffect(() => {
-    startLecture(courseSlug, lectureId);
-  }, [courseSlug, lectureId, startLecture]);
+    startLecture(String(courseId), lectureId);
+  }, [courseId, lectureId, startLecture]);
 
-  /** VidstackPlayer → usePlayer 진행률 동기화 */
+  /** 일시정지 시점에 최근 duration을 참조하기 위한 ref */
+  const lastDurationRef = useRef(0);
+
+  /** VidstackPlayer → usePlayer 진행률 동기화 + 서버 저장 (진도/위치) */
   const handleTimeUpdate = useCallback(
     (currentTime: number, duration: number) => {
+      lastDurationRef.current = duration;
       onTimeUpdate(currentTime, duration);
+      if (duration > 0) saveProgress((currentTime / duration) * 100);
+      savePosition(currentTime);
     },
-    [onTimeUpdate]
+    [onTimeUpdate, saveProgress, savePosition]
   );
 
-  /** 재생 완료 시 수료 처리 */
+  /** 일시정지 시 현재 진도/위치 즉시 저장 */
+  const handlePause = useCallback(
+    (currentTime: number) => {
+      onPause(currentTime);
+      const duration = lastDurationRef.current;
+      if (duration > 0) saveProgress((currentTime / duration) * 100, { force: true });
+      savePosition(currentTime, { force: true });
+    },
+    [onPause, saveProgress, savePosition],
+  );
+
+  /** 재생 완료 시 수료 처리 + 100% 저장 + 위치 0 으로 리셋 */
   const handleComplete = useCallback(() => {
     markCompleted();
-  }, [markCompleted]);
+    saveProgress(100, { force: true });
+    savePosition(0, { force: true });
+  }, [markCompleted, saveProgress, savePosition]);
 
   /** 플레이어 에러 처리 */
   const handleError = useCallback((_error: PlayerError) => {
@@ -102,25 +235,25 @@ export default function LecturePlayerContainer({ courseSlug, lectureId }: Lectur
   const handleSelectLecture = useCallback(
     (selectedLectureId: string) => {
       if (selectedLectureId !== lectureId) {
-        router.push(`/learn/${courseSlug}/${selectedLectureId}`);
+        router.push(`/learn/${courseId}/${selectedLectureId}`);
       }
     },
-    [courseSlug, lectureId, router]
+    [lectureId, courseId, router]
   );
 
   /** 이전 강의로 이동 */
   const handlePrev = useCallback(() => {
     if (lessonNav?.prev) {
-      router.push(`/learn/${courseSlug}/${lessonNav.prev.id}`);
+      router.push(`/learn/${courseId}/${lessonNav.prev.id}`);
     }
-  }, [courseSlug, lessonNav, router]);
+  }, [lessonNav, courseId, router]);
 
   /** 다음 강의로 이동 */
   const handleNext = useCallback(() => {
     if (lessonNav?.next) {
-      router.push(`/learn/${courseSlug}/${lessonNav.next.id}`);
+      router.push(`/learn/${courseId}/${lessonNav.next.id}`);
     }
-  }, [courseSlug, lessonNav, router]);
+  }, [lessonNav, courseId, router]);
 
   return (
     <div className="lecture-player-container">
@@ -128,7 +261,7 @@ export default function LecturePlayerContainer({ courseSlug, lectureId }: Lectur
       <header className="lecture-player-header">
         <div className="lecture-player-header__left">
           <Link
-            href={`/courses/${courseSlug}?tab=커리큘럼`}
+            href={`/courses/${courseId}?tab=커리큘럼`}
             className="lecture-player-header__back"
             aria-label={uiData.lectureNav.backAriaLabel}
           >
@@ -186,10 +319,10 @@ export default function LecturePlayerContainer({ courseSlug, lectureId }: Lectur
           >
             <VidstackPlayer
               manifestUrl={manifestUrl}
-              startPosition={lastPosition}
+              startPosition={resumePosition || lastPosition}
               title={lectureTitle}
               onTimeUpdate={handleTimeUpdate}
-              onPause={onPause}
+              onPause={handlePause}
               onComplete={handleComplete}
               onError={handleError}
             >

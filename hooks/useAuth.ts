@@ -14,6 +14,8 @@ import {
   removeToken,
   getAuthHeader,
 } from '@/lib/auth';
+import { logoutApi } from '@/lib/userApi';
+import { useWishlistStoreBase } from '@/stores/useWishlistStore';
 import type { User } from '@/types';
 
 export default function useAuth() {
@@ -33,10 +35,16 @@ export default function useAuth() {
     [storeLogin]
   );
 
-  /** 로그아웃: store 상태 + localStorage 토큰 동시 제거 */
-  const logout = useCallback(() => {
+  /** 로그아웃: 서버 쿠키 무효화 + 클라이언트 상태 초기화 */
+  const logout = useCallback(async () => {
+    try {
+      await logoutApi();
+    } catch {
+      // 서버 호출 실패해도 클라이언트는 로그아웃 처리
+    }
     removeToken();
     storeLogout();
+    useWishlistStoreBase.getState().setWishSlugs([]);
   }, [storeLogout]);
 
   return {

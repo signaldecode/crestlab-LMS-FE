@@ -54,6 +54,8 @@ export default function AppHeader(): JSX.Element {
   };
 
   const isLoggedIn = useAuthStore((s) => s.isLoggedIn);
+  // 첫 세션 확인이 끝나기 전에는 로그인/로그아웃 UI 를 보류해서 깜빡임을 막는다
+  const authReady = useAuthStore((s) => s.authReady);
   const toggleNotification = useNotificationStore((s) => s.toggle);
   const setNotifications = useNotificationStore((s) => s.setNotifications);
   const unreadCount = useNotificationStore((s) => s.unreadCount);
@@ -131,7 +133,10 @@ export default function AppHeader(): JSX.Element {
               </svg>
             </div>
 
-            {isLoggedIn ? (
+            {!authReady ? (
+              // 세션 복구 중 — 자리만 차지하고 버튼은 노출하지 않음
+              <div className="app-header__auth app-header__auth--pending" aria-hidden="true" />
+            ) : isLoggedIn ? (
               <ProfileMenu data={a11yHeader.profileMenu} />
             ) : (
               <AuthTrigger

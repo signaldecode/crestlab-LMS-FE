@@ -4,7 +4,6 @@
  * - 컴포넌트에서 `import { useCourses, useCart } from '@/hooks'`로 사용
  */
 
-export { default as useCourses } from './useCourses';
 export { default as useCart } from './useCart';
 export { default as usePlayer } from './usePlayer';
 export { default as useAuth } from './useAuth';

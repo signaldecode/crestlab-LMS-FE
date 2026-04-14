@@ -213,6 +213,7 @@
   ],
   "upcomingCourses": [
     {
+      "id": 21,
       "slug": "real-estate-basic-class",
       "title": "[26.5월 최신문법] 2026 모던 자바스크립트 입문 - 프론트엔드 기초반",
       "thumbnail": "/images/banners/banner1.svg",
@@ -229,6 +230,7 @@
       "featured": true
     },
     {
+      "id": 7,
       "slug": "my-house-basic",
       "title": "웹 개발 입문이 고민된다면? 시작 전, 웹 개발 기초반",
       "thumbnail": "/images/banners/banner7.svg",
@@ -245,6 +247,7 @@
       "featured": false
     },
     {
+      "id": 1,
       "slug": "real-estate-intermediate",
       "title": "React 고급 패턴 - 실전 컴포넌트 설계와 성능 최적화",
       "thumbnail": "/images/banners/banner1.svg",
@@ -260,6 +263,7 @@
       "featured": false
     },
     {
+      "id": 14,
       "slug": "financial-basic-class",
       "title": "코딩테스트 합격 알고리즘 기초반 - 같은 시간 2배 빠르게 푸는 공식",
       "thumbnail": "/images/banners/banner10.svg",
@@ -276,6 +280,7 @@
       "featured": false
     },
     {
+      "id": 17,
       "slug": "money-book-club",
       "title": "26년 4월 개발 도서 모임 <소프트웨어 아키텍처의 모든 것>",
       "thumbnail": "/images/banners/banner11.svg",
@@ -292,6 +297,7 @@
       "featured": false
     },
     {
+      "id": 15,
       "slug": "us-stock-basic",
       "title": "환경 셋업부터 모델 학습까지, 파이썬 데이터 분석 기초반 6기",
       "thumbnail": "/images/banners/banner9.svg",
@@ -352,6 +358,7 @@
   ],
   "bestCourses": [
     {
+      "id": 21,
       "slug": "real-estate-basic-class",
       "title": "[26.5월 최신문법] 2026 모던 자바스크립트 입문 - 프론트엔드 기초반",
       "thumbnail": "/images/banners/banner1.svg",
@@ -367,6 +374,7 @@
       "category": "frontend"
     },
     {
+      "id": 8,
       "slug": "ss-coupon-basic",
       "title": "실무에서 바로 쓰는 도커·쿠버네티스 기초반 5기",
       "thumbnail": "/images/banners/banner8.svg",
@@ -383,6 +391,7 @@
       "badge": "LV.1"
     },
     {
+      "id": 5,
       "slug": "cheap-apartment-finder",
       "title": "2026 NEW 프론트엔드 입문 BEST - 박타입의 Vue 3 입문",
       "thumbnail": "/images/banners/banner5.svg",
@@ -398,6 +407,7 @@
       "category": "frontend"
     },
     {
+      "id": 1,
       "slug": "real-estate-intermediate",
       "title": "React 고급 패턴 - 실전 컴포넌트 설계와 성능 최적화",
       "thumbnail": "/images/banners/banner2.svg",
@@ -412,6 +422,7 @@
       "category": "frontend"
     },
     {
+      "id": 7,
       "slug": "my-house-basic",
       "title": "웹 개발 입문이 고민된다면? 시작 전, 웹 개발 기초반",
       "thumbnail": "/images/banners/banner7.svg",
@@ -428,6 +439,7 @@
       "badge": "LV.1"
     },
     {
+      "id": 22,
       "slug": "blog-auto-income",
       "title": "[이번 주 모집 마감] 개발자 포트폴리오 사이트 만들기 - 첫 채용까지",
       "thumbnail": "/images/banners/banner6.svg",
@@ -444,6 +456,7 @@
       "badge": "LV.1"
     },
     {
+      "id": 15,
       "slug": "us-stock-basic",
       "title": "환경 셋업부터 모델 학습까지, 파이썬 데이터 분석 기초반 6기",
       "thumbnail": "/images/banners/banner9.svg",
@@ -460,6 +473,7 @@
       "badge": "LV.1"
     },
     {
+      "id": 14,
       "slug": "financial-basic-class",
       "title": "코딩테스트 합격 알고리즘 기초반 - 같은 시간 2배 빠르게 푸는 공식",
       "thumbnail": "/images/banners/banner10.svg",
@@ -475,6 +489,7 @@
       "category": "cs"
     },
     {
+      "id": 17,
       "slug": "money-book-club",
       "title": "26년 4월 개발 도서 모임 <소프트웨어 아키텍처의 모든 것>",
       "thumbnail": "/images/banners/banner11.svg",
@@ -1010,7 +1025,7 @@
   ],
   "homeNews": {
     "meta": {
-      "label": "program",
+      "label": "News",
       "title": "이주의 추천 뉴스",
       "ariaLabel": "이주의 추천 뉴스 섹션"
     },
@@ -1021,7 +1036,10 @@
         "thumbnailAlt": "투자 뉴스 썸네일",
         "date": "2026.04.10",
         "title": "투자하기전 꼭 알아둬야 할 모든것투자하기전 꼭 알아둬야 할 모든것",
-        "tags": ["투자", "투자"],
+        "tags": [
+          "투자",
+          "투자"
+        ],
         "href": "/community/invest-basics",
         "ariaLabel": "투자하기전 꼭 알아둬야 할 모든것 뉴스 보기"
       },
@@ -1031,7 +1049,10 @@
         "thumbnailAlt": "투자 뉴스 썸네일",
         "date": "2026.04.10",
         "title": "투자하기전 꼭 알아둬야 할 모든것투자하기전 꼭 알아둬야 할 모든것",
-        "tags": ["투자", "투자"],
+        "tags": [
+          "투자",
+          "투자"
+        ],
         "href": "/community/invest-basics-2",
         "ariaLabel": "투자하기전 꼭 알아둬야 할 모든것 뉴스 보기"
       },
@@ -1041,7 +1062,10 @@
         "thumbnailAlt": "투자 뉴스 썸네일",
         "date": "2026.04.10",
         "title": "투자하기전 꼭 알아둬야 할 모든것투자하기전 꼭 알아둬야 할 모든것",
-        "tags": ["투자", "투자"],
+        "tags": [
+          "투자",
+          "투자"
+        ],
         "href": "/community/invest-basics-3",
         "ariaLabel": "투자하기전 꼭 알아둬야 할 모든것 뉴스 보기"
       },
@@ -1051,7 +1075,10 @@
         "thumbnailAlt": "투자 뉴스 썸네일",
         "date": "2026.04.10",
         "title": "투자하기전 꼭 알아둬야 할 모든것투자하기전 꼭 알아둬야 할 모든것",
-        "tags": ["투자", "투자"],
+        "tags": [
+          "투자",
+          "투자"
+        ],
         "href": "/community/invest-basics-4",
         "ariaLabel": "투자하기전 꼭 알아둬야 할 모든것 뉴스 보기"
       },
@@ -1061,7 +1088,10 @@
         "thumbnailAlt": "투자 뉴스 썸네일",
         "date": "2026.04.10",
         "title": "투자하기전 꼭 알아둬야 할 모든것투자하기전 꼭 알아둬야 할 모든것",
-        "tags": ["투자", "투자"],
+        "tags": [
+          "투자",
+          "투자"
+        ],
         "href": "/community/invest-basics-5",
         "ariaLabel": "투자하기전 꼭 알아둬야 할 모든것 뉴스 보기"
       },
@@ -1071,7 +1101,10 @@
         "thumbnailAlt": "투자 뉴스 썸네일",
         "date": "2026.04.10",
         "title": "투자하기전 꼭 알아둬야 할 모든것투자하기전 꼭 알아둬야 할 모든것",
-        "tags": ["투자", "투자"],
+        "tags": [
+          "투자",
+          "투자"
+        ],
         "href": "/community/invest-basics-6",
         "ariaLabel": "투자하기전 꼭 알아둬야 할 모든것 뉴스 보기"
       },
@@ -1081,7 +1114,10 @@
         "thumbnailAlt": "투자 뉴스 썸네일",
         "date": "2026.04.10",
         "title": "투자하기전 꼭 알아둬야 할 모든것투자하기전 꼭 알아둬야 할 모든것",
-        "tags": ["투자", "투자"],
+        "tags": [
+          "투자",
+          "투자"
+        ],
         "href": "/community/invest-basics-7",
         "ariaLabel": "투자하기전 꼭 알아둬야 할 모든것 뉴스 보기"
       },
@@ -1091,7 +1127,10 @@
         "thumbnailAlt": "투자 뉴스 썸네일",
         "date": "2026.04.10",
         "title": "투자하기전 꼭 알아둬야 할 모든것투자하기전 꼭 알아둬야 할 모든것",
-        "tags": ["투자", "투자"],
+        "tags": [
+          "투자",
+          "투자"
+        ],
         "href": "/community/invest-basics-8",
         "ariaLabel": "투자하기전 꼭 알아둬야 할 모든것 뉴스 보기"
       }

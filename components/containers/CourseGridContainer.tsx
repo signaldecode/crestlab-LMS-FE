@@ -1,15 +1,23 @@
 /**
  * 강의 그리드 컨테이너 (CourseGridContainer)
- * - 피그마: 섹션 타이틀 + 셀렉트 필터 행 + 4열 카드 그리드 + 페이지네이션
- * - URL searchParams의 category 파라미터로 강의를 필터링한다
+ * - 백엔드 `GET /v1/courses` 실 API 기반 목록
+ * - 서버 페이지네이션/정렬, 카테고리 slug→id 매핑은 `/v1/categories` 조회 후 적용
  */
 
 'use client';
 
-import { useMemo, useState, type JSX } from 'react';
+import { useEffect, useMemo, useState, type JSX } from 'react';
+import { useWishlistStoreBase } from '@/stores/useWishlistStore';
 import { useSearchParams } from 'next/navigation';
 import CourseListCard from '@/components/courses/CourseListCard';
-import { getCourses } from '@/lib/data';
+import { useAdminQuery } from '@/hooks/useAdminQuery';
+import {
+  fetchUserCourses,
+  fetchUserCategories,
+  type CourseSortType,
+  type UserCourseListItem,
+  type UserCategory,
+} from '@/lib/userApi';
 import type { Course } from '@/types';
 
 const ITEMS_PER_PAGE = 16;
@@ -20,41 +28,55 @@ const CATEGORY_LABELS: Record<string, string> = {
   'real-estate': '부동산',
 };
 
-const SORT_OPTIONS = [
-  { value: 'popular', label: '인기순' },
-  { value: 'latest', label: '최신순' },
-  { value: 'rating', label: '평점순' },
-  { value: 'price-low', label: '가격 낮은순' },
-  { value: 'price-high', label: '가격 높은순' },
+const SORT_OPTIONS: { value: string; label: string; api: CourseSortType }[] = [
+  { value: 'popular', label: '인기순', api: 'POPULAR' },
+  { value: 'latest', label: '최신순', api: 'LATEST' },
+  { value: 'rating', label: '평점순', api: 'RATING' },
+  { value: 'price-low', label: '가격 낮은순', api: 'PRICE_LOW' },
+  { value: 'price-high', label: '가격 높은순', api: 'PRICE_HIGH' },
 ];
 
-function matchCategory(course: Course, category: string): boolean {
-  switch (category) {
-    case 'stock':
-      return course.category === 'stock' || course.category === 'finance';
-    case 'crypto':
-      return course.category === 'crypto' || course.category === 'online-store';
-    case 'real-estate':
-      return course.category === 'real-estate' || course.category === 'my-house';
-    default:
-      return true;
-  }
+function findCategoryId(categories: UserCategory[] | null, label: string): number | undefined {
+  if (!categories) return undefined;
+  const walk = (list: UserCategory[]): UserCategory | undefined => {
+    for (const c of list) {
+      if (c.name === label) return c;
+      const found = walk(c.children ?? []);
+      if (found) return found;
+    }
+    return undefined;
+  };
+  return walk(categories)?.id;
 }
 
-function sortCourses(courses: Course[], sort: string): Course[] {
-  const sorted = [...courses];
-  switch (sort) {
-    case 'latest':
-      return sorted.reverse();
-    case 'rating':
-      return sorted.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
-    case 'price-low':
-      return sorted.sort((a, b) => a.price - b.price);
-    case 'price-high':
-      return sorted.sort((a, b) => b.price - a.price);
-    default:
-      return sorted.sort((a, b) => (b.reviewCount ?? 0) - (a.reviewCount ?? 0));
-  }
+function adaptCourse(item: UserCourseListItem): Course {
+  const instructor = item.instructorNames[0] ?? '';
+  return {
+    id: item.id,
+    slug: String(item.id),
+    title: item.title,
+    summary: '',
+    description: '',
+    thumbnail: item.thumbnailUrl,
+    thumbnailAlt: item.title,
+    category: '',
+    level: '',
+    duration: '',
+    price: 0,
+    instructor,
+    featured: false,
+    badges: item.tags ?? [],
+    tags: item.tags ?? [],
+    learningPoints: [],
+    rating: item.averageRating,
+    reviewCount: item.reviewCount,
+    enrollmentPeriod: '',
+    faq: [],
+    bestReviews: [],
+    allReviews: [],
+    curriculum: [],
+    creator: { name: instructor, role: '', bio: '' },
+  };
 }
 
 export default function CourseGridContainer(): JSX.Element {
@@ -63,20 +85,49 @@ export default function CourseGridContainer(): JSX.Element {
   const [sort, setSort] = useState('popular');
   const [currentPage, setCurrentPage] = useState(1);
 
-  const allCourses = getCourses();
-
-  const filteredCourses = useMemo(() => {
-    const filtered = category
-      ? allCourses.filter((c) => matchCategory(c, category))
-      : allCourses;
-    return sortCourses(filtered, sort);
-  }, [allCourses, category, sort]);
-
-  const totalPages = Math.max(1, Math.ceil(filteredCourses.length / ITEMS_PER_PAGE));
-  const pageCourses = filteredCourses.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE,
+  // 카테고리 목록은 slug→id 매핑용으로 1회 조회
+  const { data: categories } = useAdminQuery<UserCategory[]>(
+    () => fetchUserCategories(),
+    [],
   );
+
+  const categoryId = useMemo(() => {
+    if (!category) return undefined;
+    const label = CATEGORY_LABELS[category] ?? category;
+    return findCategoryId(categories, label);
+  }, [categories, category]);
+
+  const sortApi = SORT_OPTIONS.find((o) => o.value === sort)?.api ?? 'POPULAR';
+
+  useEffect(() => { setCurrentPage(1); }, [category, sort]);
+
+  const { data, loading, error } = useAdminQuery(
+    () => fetchUserCourses({
+      categoryId,
+      sort: sortApi,
+      page: currentPage,
+      size: ITEMS_PER_PAGE,
+    }),
+    [categoryId, sortApi, currentPage],
+  );
+
+  const totalElements = data?.totalElements ?? 0;
+  const totalPages = Math.max(1, data?.totalPages ?? 1);
+  const pageCourses = (data?.content ?? []).map(adaptCourse);
+
+  // 백엔드가 내려주는 isFavorited 를 로컬 찜 스토어에 반영 (페이지에 있는 항목만 병합)
+  useEffect(() => {
+    const items = data?.content ?? [];
+    if (items.length === 0) return;
+    const store = useWishlistStoreBase.getState();
+    const current = new Set(store.slugs);
+    for (const item of items) {
+      const slug = String(item.id);
+      if (item.isFavorited) current.add(slug);
+      else current.delete(slug);
+    }
+    store.setWishSlugs([...current]);
+  }, [data]);
 
   const pageTitle = category
     ? `${CATEGORY_LABELS[category] ?? category} 강의`
@@ -88,14 +139,12 @@ export default function CourseGridContainer(): JSX.Element {
 
   return (
     <section className="courses-page">
-      {/* 섹션 타이틀 */}
       <h1 className="courses-page__title">{pageTitle}</h1>
 
-      {/* 필터 + 정렬 행 */}
       <div className="courses-page__toolbar">
         <div className="courses-page__filters">
           <span className="courses-page__count">
-            전체 <strong>{filteredCourses.length}</strong>개
+            전체 <strong>{totalElements}</strong>개
           </span>
         </div>
 
@@ -103,7 +152,7 @@ export default function CourseGridContainer(): JSX.Element {
           <select
             className="courses-page__sort-select"
             value={sort}
-            onChange={(e) => { setSort(e.target.value); setCurrentPage(1); }}
+            onChange={(e) => setSort(e.target.value)}
             aria-label="정렬 기준"
           >
             {SORT_OPTIONS.map((opt) => (
@@ -116,11 +165,14 @@ export default function CourseGridContainer(): JSX.Element {
         </div>
       </div>
 
-      {/* 4열 카드 그리드 */}
-      {pageCourses.length > 0 ? (
+      {loading ? (
+        <div className="courses-page__empty">강의를 불러오는 중입니다...</div>
+      ) : error ? (
+        <div className="courses-page__empty">강의를 불러오지 못했습니다.</div>
+      ) : pageCourses.length > 0 ? (
         <div className="courses-page__grid">
           {pageCourses.map((course) => (
-            <CourseListCard key={course.slug} course={course} />
+            <CourseListCard key={course.id} course={course} />
           ))}
         </div>
       ) : (
@@ -129,7 +181,6 @@ export default function CourseGridContainer(): JSX.Element {
         </div>
       )}
 
-      {/* 페이지네이션 */}
       {totalPages > 1 && (
         <nav className="courses-page__pagination" aria-label="강의 목록 페이지 네비게이션">
           <button

@@ -25,7 +25,7 @@ export async function POST(): Promise<NextResponse> {
       );
     }
 
-    const backendRes = await fetch(`${BACKEND_BASE}/api/auth/refresh`, {
+    const backendRes = await fetch(`${BACKEND_BASE}/api/v1/auth/refresh`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

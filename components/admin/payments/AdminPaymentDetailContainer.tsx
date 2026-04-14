@@ -10,7 +10,10 @@ import { useState, useCallback } from 'react';
 import type { JSX } from 'react';
 import Link from 'next/link';
 import AdminModal from '@/components/admin/AdminModal';
-import type { AdminOrderListItem, AdminOrderStatus } from '@/types';
+import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
+import { useAdminMutation, useAdminQuery } from '@/hooks/useAdminQuery';
+import { fetchAdminPayments, refundAdminPayment } from '@/lib/adminApi';
+import type { AdminOrderStatus } from '@/types';
 
 interface SectionTitles {
   orderTitle: string; userTitle: string; amountTitle: string; refundInfoTitle: string;
@@ -46,9 +49,17 @@ export interface PaymentDetailCopy {
   statusLabels: Record<AdminOrderStatus, string>;
 }
 
+interface CommonCopy {
+  loadingText: string;
+  errorTitle: string;
+  errorRetryLabel: string;
+}
+
 interface AdminPaymentDetailContainerProps {
-  order: AdminOrderListItem;
+  orderId: number;
   copy: PaymentDetailCopy;
+  common: CommonCopy;
+  notFoundText: string;
 }
 
 const formatNumber = (n: number): string => n.toLocaleString('ko-KR');
@@ -58,12 +69,27 @@ const formatDateTime = (iso: string): string => {
 };
 
 export default function AdminPaymentDetailContainer({
-  order,
+  orderId,
   copy,
+  common,
+  notFoundText,
 }: AdminPaymentDetailContainerProps): JSX.Element {
+  // 백엔드에 단건 조회 엔드포인트가 별도로 없어서 페이지네이션 없이 전체 조회 후 id로 찾는 방식
+  const { data, loading, error, refetch } = useAdminQuery(
+    () => fetchAdminPayments({ size: 500 }),
+    [orderId],
+  );
+
+  const order = data?.content.find((o) => o.id === orderId) ?? null;
+
   const [isRefundModalOpen, setRefundModalOpen] = useState(false);
   const [reason, setReason] = useState('');
   const [reasonError, setReasonError] = useState('');
+
+  const refundMutation = useAdminMutation(
+    (args: { orderNumber: string; reason: string }) => refundAdminPayment(args.orderNumber, args.reason),
+    () => { setRefundModalOpen(false); refetch(); },
+  );
 
   const openRefundModal = useCallback(() => {
     setReason('');
@@ -72,13 +98,26 @@ export default function AdminPaymentDetailContainer({
   }, []);
 
   const handleRefundSubmit = useCallback(() => {
+    if (!order) return;
     if (!reason.trim()) {
       setReasonError(copy.refundModal.reasonRequiredError);
       return;
     }
-    // TODO: POST /api/v1/admin/payments/refund { orderNumber, reason }
-    setRefundModalOpen(false);
-  }, [reason, copy.refundModal.reasonRequiredError]);
+    void refundMutation.run({ orderNumber: order.orderNumber, reason: reason.trim() });
+  }, [reason, order, copy.refundModal.reasonRequiredError, refundMutation]);
+
+  if (loading && !data) return <AdminLoading label={common.loadingText} />;
+  if (error && !data) {
+    return (
+      <AdminError
+        title={common.errorTitle}
+        message={error.message}
+        retryLabel={common.errorRetryLabel}
+        onRetry={refetch}
+      />
+    );
+  }
+  if (!order) return <p className="admin-list__empty">{notFoundText}</p>;
 
   const isRefundable = order.status === 'PAID';
 
@@ -187,12 +226,13 @@ export default function AdminPaymentDetailContainer({
           </span>
         </label>
         {reasonError && <p className="admin-modal__error" role="alert">{reasonError}</p>}
+        {refundMutation.error && <p className="admin-modal__error" role="alert">{refundMutation.error.message}</p>}
         <footer className="admin-modal__footer">
           <button type="button" onClick={() => setRefundModalOpen(false)} className="admin-modal__btn admin-modal__btn--ghost">
             {copy.refundModal.cancelLabel}
           </button>
-          <button type="button" onClick={handleRefundSubmit} className="admin-modal__btn admin-modal__btn--danger">
-            {copy.refundModal.confirmLabel}
+          <button type="button" onClick={handleRefundSubmit} disabled={refundMutation.submitting} className="admin-modal__btn admin-modal__btn--danger">
+            {refundMutation.submitting ? common.loadingText : copy.refundModal.confirmLabel}
           </button>
         </footer>
       </AdminModal>

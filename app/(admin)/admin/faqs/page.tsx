@@ -1,6 +1,5 @@
 /**
  * 관리자 FAQ 관리 페이지 (/admin/faqs)
- * - 카테고리 필터 + 목록
  */
 
 'use client';
@@ -9,7 +8,10 @@ import { useMemo, useState } from 'react';
 import type { JSX, ChangeEvent } from 'react';
 import Link from 'next/link';
 import AdminDeleteAction from '@/components/admin/AdminDeleteAction';
-import { getAdminExtraData, getPageData } from '@/lib/data';
+import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
+import { useAdminQuery } from '@/hooks/useAdminQuery';
+import { fetchAdminFaqs } from '@/lib/adminApi';
+import { getPageData } from '@/lib/data';
 
 interface FaqsCopy {
   seo: { title: string; description: string };
@@ -28,9 +30,15 @@ interface FaqsCopy {
   emptyText: string;
 }
 
+interface CommonCopy { loadingText: string; errorTitle: string; errorRetryLabel: string; }
+
 function getCopy(): FaqsCopy | null {
   const adminPage = getPageData('admin') as { faqs?: FaqsCopy } | null;
   return adminPage?.faqs ?? null;
+}
+function getCommonCopy(): CommonCopy | null {
+  const adminPage = getPageData('admin') as { common?: CommonCopy } | null;
+  return adminPage?.common ?? null;
 }
 
 const formatDate = (iso: string): string => {
@@ -40,19 +48,35 @@ const formatDate = (iso: string): string => {
 
 export default function AdminFaqsPage(): JSX.Element {
   const copy = getCopy();
-  const faqs = getAdminExtraData().faqs;
+  const common = getCommonCopy();
   const [categoryFilter, setCategoryFilter] = useState<string>('ALL');
 
+  const { data, loading, error, refetch } = useAdminQuery(
+    () => fetchAdminFaqs(categoryFilter === 'ALL' ? undefined : categoryFilter),
+    [categoryFilter],
+  );
+
   const categories = useMemo(() => {
-    return Array.from(new Set(faqs.map((f) => f.category)));
-  }, [faqs]);
+    return Array.from(new Set((data ?? []).map((f) => f.category)));
+  }, [data]);
 
   const filtered = useMemo(() => {
-    const list = categoryFilter === 'ALL' ? faqs : faqs.filter((f) => f.category === categoryFilter);
-    return [...list].sort((a, b) => a.sortOrder - b.sortOrder);
-  }, [faqs, categoryFilter]);
+    return [...(data ?? [])].sort((a, b) => a.sortOrder - b.sortOrder);
+  }, [data]);
 
-  if (!copy) return <main>데이터를 불러올 수 없습니다.</main>;
+  if (!copy || !common) return <main>데이터를 불러올 수 없습니다.</main>;
+
+  if (loading && !data) return <AdminLoading label={common.loadingText} />;
+  if (error && !data) {
+    return (
+      <AdminError
+        title={common.errorTitle}
+        message={error.message}
+        retryLabel={common.errorRetryLabel}
+        onRetry={refetch}
+      />
+    );
+  }
 
   return (
     <div className="admin-list">
@@ -111,6 +135,8 @@ export default function AdminFaqsPage(): JSX.Element {
                     </Link>
                     <AdminDeleteAction
                       targetId={f.id}
+                      resource="faq"
+                      onDeleted={refetch}
                       buttonLabel={copy.actionLabels.delete}
                       modalTitle={copy.deleteModal.title}
                       modalDescription={copy.deleteModal.descriptionTemplate.replaceAll('{question}', f.question)}

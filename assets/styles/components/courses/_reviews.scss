@@ -271,4 +271,80 @@
     line-height: $line-height-relaxed;
     margin: 0;
   }
+
+  /* 본인 리뷰 액션 버튼 */
+  &__item-actions {
+    display: inline-flex;
+    gap: $spacing-2;
+    margin-left: auto;
+  }
+
+  &__item-btn {
+    padding: $spacing-1 $spacing-2;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
+    cursor: pointer;
+    transition: background-color $duration-fast $ease-default;
+
+    &:hover {
+      background-color: $color-bg-secondary;
+    }
+
+    &--danger {
+      color: $color-error;
+      border-color: $color-error;
+
+      &:hover {
+        background-color: $color-error-bg;
+      }
+    }
+  }
+
+  /* 리뷰 좋아요 */
+  &__item-like {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-1;
+    padding: $spacing-1 $spacing-2;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    background: none;
+    border: $border-thin solid $color-border;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: color $duration-fast $ease-default, border-color $duration-fast $ease-default;
+
+    &:hover {
+      color: $color-error;
+      border-color: $color-error;
+    }
+
+    &--active {
+      color: $color-error;
+      border-color: $color-error;
+    }
+  }
+
+  /* 수정 취소 버튼 */
+  &__cancel-btn {
+    padding: $spacing-2 $spacing-4;
+    margin-right: $spacing-2;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
+    cursor: pointer;
+    transition: background-color $duration-fast $ease-default;
+
+    &:hover {
+      background-color: $color-bg-secondary;
+    }
+  }
 }

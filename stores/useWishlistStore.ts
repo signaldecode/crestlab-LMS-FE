@@ -18,6 +18,8 @@ interface WishlistState {
   toggleWish: (slug: string) => void;
   isWished: (slug: string) => boolean;
   addRecent: (slug: string) => void;
+  /** 서버 찜 목록과 동기화 (로그인 복구 시 호출) */
+  setWishSlugs: (slugs: string[]) => void;
 }
 
 function load(key: string): string[] {
@@ -60,6 +62,11 @@ const useWishlistStoreBase = create<WishlistState>((set, get) => ({
   },
 
   isWished: (slug) => get().slugs.includes(slug),
+
+  setWishSlugs: (slugs) => {
+    save('wishlist', slugs);
+    set({ slugs });
+  },
 
   addRecent: (slug) => {
     const current = get().recentSlugs;

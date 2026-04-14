@@ -217,4 +217,55 @@
     padding-top: $spacing-4;
     border-top: $border-thin solid $color-border;
   }
+
+  &__checkbox-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(#{$spacing-20 * 2.5}, 1fr));
+    gap: $spacing-2;
+    padding: $spacing-3;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: $spacing-2;
+    max-height: $spacing-20 * 3;
+    overflow-y: auto;
+  }
+
+  &__checkbox {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    padding: $spacing-2 $spacing-3;
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+    cursor: pointer;
+    border-radius: $spacing-1;
+
+    &:hover {
+      background-color: $color-bg-secondary;
+    }
+
+    input[type='checkbox'] {
+      flex-shrink: 0;
+    }
+
+    &--standalone {
+      padding: $spacing-2 $spacing-0;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(#{$spacing-20 * 2.5}, 1fr));
+    gap: $spacing-4;
+  }
+}
+
+.admin-course-edit-entry {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: $spacing-6;
 }

@@ -35,7 +35,7 @@ export default function HomeCourseFeature({ title, courses }: HomeCourseFeatureP
 
       <div className="home-course-feature__grid">
         {/* 왼쪽 대형 카드 */}
-        <Link href={`/courses/${featured.slug}`} className="home-course-feature__hero" aria-label={featured.title}>
+        <Link href={`/courses/${featured.id}`} className="home-course-feature__hero" aria-label={featured.title}>
           <Image
             src={featured.thumbnail}
             alt={featured.thumbnailAlt}
@@ -65,7 +65,7 @@ export default function HomeCourseFeature({ title, courses }: HomeCourseFeatureP
         {/* 오른쪽 2개 스택 */}
         <div className="home-course-feature__side">
           {side.map((course) => (
-            <Link key={course.slug} href={`/courses/${course.slug}`} className="home-course-feature__side-card">
+            <Link key={course.id} href={`/courses/${course.id}`} className="home-course-feature__side-card">
               <div className="home-course-feature__side-thumb">
                 <Image
                   src={course.thumbnail}

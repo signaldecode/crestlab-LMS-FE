@@ -1,0 +1,173 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+
+.instructor-apply {
+  padding: $spacing-10 $section-padding-x $spacing-16;
+  letter-spacing: $letter-spacing-normal;
+
+  &__inner {
+    max-width: 40rem;
+    margin: $spacing-0 auto;
+  }
+
+  &__title {
+    font-family: $font-family-heading;
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: $spacing-0 $spacing-0 $spacing-3;
+    line-height: $line-height-tight;
+  }
+
+  &__subtitle {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    line-height: $line-height-relaxed;
+    margin: $spacing-0 $spacing-0 $spacing-8;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-5;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+  }
+
+  &__label {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+  }
+
+  &__input,
+  &__textarea {
+    width: 100%;
+    padding: $spacing-3;
+    font-family: $font-family-base;
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
+    outline: none;
+    transition: border-color $duration-normal $ease-default;
+
+    &:focus {
+      border-color: $color-border-focus;
+    }
+  }
+
+  &__textarea {
+    resize: vertical;
+    min-height: 7rem;
+    line-height: $line-height-base;
+  }
+
+  &__error {
+    font-size: $font-size-sm;
+    color: $color-error;
+    margin: $spacing-0;
+  }
+
+  &__submit {
+    margin-top: $spacing-3;
+    padding: $spacing-4 $spacing-5;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $color-text-inverse;
+    background-color: $color-primary;
+    border: none;
+    border-radius: $radius-md;
+    cursor: pointer;
+    transition: background-color $duration-normal $ease-default;
+
+    &:hover:not(:disabled) {
+      background-color: $color-primary-dark;
+    }
+
+    &:disabled {
+      opacity: $opacity-disabled;
+      cursor: not-allowed;
+    }
+  }
+
+  /* 지원 현황 카드 */
+  &__status-card {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+    padding: $spacing-6;
+    margin-bottom: $spacing-6;
+    background-color: $color-bg-secondary;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-lg;
+  }
+
+  &__status-row {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing-4;
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+  }
+
+  &__status-label {
+    flex-shrink: 0;
+    width: 5rem;
+    color: $color-text-secondary;
+    font-weight: $font-weight-medium;
+  }
+
+  &__status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: $spacing-1 $spacing-3;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    border-radius: $radius-sm;
+
+    &--pending {
+      color: $color-warning;
+      background-color: $color-error-bg;
+    }
+
+    &--approved {
+      color: $color-success;
+      background-color: $color-success-bg;
+    }
+
+    &--rejected {
+      color: $color-error;
+      background-color: $color-error-bg;
+    }
+  }
+
+  &__reject-reason {
+    color: $color-error;
+    white-space: pre-wrap;
+  }
+
+  &__home-link {
+    display: inline-block;
+    padding: $spacing-3 $spacing-5;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
+    text-decoration: none;
+    transition: background-color $duration-fast $ease-default;
+
+    &:hover {
+      background-color: $color-bg-secondary;
+    }
+  }
+}

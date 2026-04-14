@@ -1,13 +1,11 @@
 /**
  * 백엔드 API catch-all 프록시 Route Handler
- * - 클라이언트 요청을 백엔드로 중계하며, httpOnly 쿠키의 토큰을
- *   Authorization 헤더로 변환하여 전달한다
- * - 민감한 토큰이 클라이언트에 노출되지 않도록 보호한다
- * - GET, POST, PUT, PATCH, DELETE 메서드를 지원한다
+ * - 브라우저 요청을 백엔드로 중계
+ * - 브라우저 Cookie 헤더를 백엔드로 그대로 포워딩 → 백엔드 JWT 필터가 쿠키에서 access_token 추출
+ * - 백엔드 Set-Cookie(리프레시/재발급 등)도 클라이언트에 그대로 전달
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getAccessToken } from '@/lib/cookies';
 
 const BACKEND_BASE = process.env.BACKEND_API_BASE || 'http://localhost:8080';
 
@@ -18,20 +16,23 @@ async function proxyRequest(
   try {
     const { path } = await params;
     const backendPath = `/api/${path.join('/')}`;
-
     const url = new URL(backendPath, BACKEND_BASE);
     url.search = request.nextUrl.search;
 
-    const accessToken = await getAccessToken();
-
     const headers: Record<string, string> = {};
+
+    // Content-Type 전달
     const contentType = request.headers.get('content-type');
-    if (contentType) {
-      headers['Content-Type'] = contentType;
-    }
-    if (accessToken) {
-      headers['Authorization'] = `Bearer ${accessToken}`;
-    }
+    if (contentType) headers['Content-Type'] = contentType;
+
+    // 브라우저 쿠키를 그대로 백엔드로 포워딩
+    // 백엔드 JWT 필터는 access_token 쿠키를 기본적으로 사용한다
+    const cookieHeader = request.headers.get('cookie');
+    if (cookieHeader) headers['cookie'] = cookieHeader;
+
+    // Authorization 헤더가 명시적으로 있으면 함께 전달 (API 클라이언트 호환)
+    const authHeader = request.headers.get('authorization');
+    if (authHeader) headers['Authorization'] = authHeader;
 
     const fetchOptions: RequestInit = {
       method: request.method,
@@ -43,20 +44,24 @@ async function proxyRequest(
     }
 
     const backendRes = await fetch(url.toString(), fetchOptions);
-
     const responseBody = await backendRes.text();
 
-    return new NextResponse(responseBody, {
+    const response = new NextResponse(responseBody, {
       status: backendRes.status,
       headers: {
         'Content-Type': backendRes.headers.get('Content-Type') || 'application/json',
       },
     });
+
+    // 백엔드가 내려준 Set-Cookie 도 그대로 전달 (토큰 재발급 등)
+    const setCookies = backendRes.headers.getSetCookie?.() ?? [];
+    for (const cookie of setCookies) {
+      response.headers.append('set-cookie', cookie);
+    }
+
+    return response;
   } catch {
-    return NextResponse.json(
-      { error: 'PROXY_ERROR' },
-      { status: 502 }
-    );
+    return NextResponse.json({ error: 'PROXY_ERROR' }, { status: 502 });
   }
 }
 

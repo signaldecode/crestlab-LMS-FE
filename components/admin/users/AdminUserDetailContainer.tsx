@@ -10,8 +10,10 @@ import { useState, useCallback } from 'react';
 import type { JSX } from 'react';
 import Link from 'next/link';
 import AdminModal from '@/components/admin/AdminModal';
+import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
+import { useAdminMutation, useAdminQuery } from '@/hooks/useAdminQuery';
+import { deactivateAdminUser, fetchAdminUserDetail, updateAdminUserRole } from '@/lib/adminApi';
 import type {
-  AdminUserDetail,
   AdminUserLevel,
   AdminUserStatus,
   UserRole,
@@ -72,9 +74,17 @@ export interface UserDetailCopy {
   levelLabels: Record<AdminUserLevel, string>;
 }
 
+interface CommonCopy {
+  loadingText: string;
+  errorTitle: string;
+  errorRetryLabel: string;
+}
+
 interface AdminUserDetailContainerProps {
-  user: AdminUserDetail;
+  userId: number;
   copy: UserDetailCopy;
+  common: CommonCopy;
+  notFoundText: string;
 }
 
 const ROLE_VALUES: UserRole[] = ['STUDENT', 'INSTRUCTOR', 'ADMIN'];
@@ -86,21 +96,39 @@ const formatDate = (iso: string): string => {
 };
 
 export default function AdminUserDetailContainer({
-  user,
+  userId,
   copy,
+  common,
+  notFoundText,
 }: AdminUserDetailContainerProps): JSX.Element {
+  const { data: user, loading, error, refetch } = useAdminQuery(
+    () => fetchAdminUserDetail(userId),
+    [userId],
+  );
+
   const [isRoleModalOpen, setRoleModalOpen] = useState(false);
   const [isDeactivateModalOpen, setDeactivateModalOpen] = useState(false);
-  const [selectedRole, setSelectedRole] = useState<UserRole>(user.role);
+  const [selectedRole, setSelectedRole] = useState<UserRole>('STUDENT');
   const [roleError, setRoleError] = useState('');
   const [confirmText, setConfirmText] = useState('');
   const [deactivateError, setDeactivateError] = useState('');
 
+  const roleMutation = useAdminMutation(
+    (role: UserRole) => updateAdminUserRole(userId, role),
+    () => { setRoleModalOpen(false); refetch(); },
+  );
+
+  const deactivateMutation = useAdminMutation(
+    () => deactivateAdminUser(userId),
+    () => { setDeactivateModalOpen(false); refetch(); },
+  );
+
   const openRoleModal = useCallback(() => {
+    if (!user) return;
     setSelectedRole(user.role);
     setRoleError('');
     setRoleModalOpen(true);
-  }, [user.role]);
+  }, [user]);
 
   const openDeactivateModal = useCallback(() => {
     setConfirmText('');
@@ -109,22 +137,35 @@ export default function AdminUserDetailContainer({
   }, []);
 
   const handleRoleSubmit = useCallback(() => {
+    if (!user) return;
     if (selectedRole === user.role) {
       setRoleError(copy.changeRoleModal.sameRoleError);
       return;
     }
-    // TODO: PUT /api/v1/admin/users/{id}/role
-    setRoleModalOpen(false);
-  }, [selectedRole, user.role, copy.changeRoleModal.sameRoleError]);
+    void roleMutation.run(selectedRole);
+  }, [selectedRole, user, copy.changeRoleModal.sameRoleError, roleMutation]);
 
   const handleDeactivateSubmit = useCallback(() => {
+    if (!user) return;
     if (confirmText.trim() !== user.nickname) {
       setDeactivateError(copy.deactivateModal.confirmTextMismatchError);
       return;
     }
-    // TODO: POST /api/v1/admin/users/{id}/deactivate
-    setDeactivateModalOpen(false);
-  }, [confirmText, user.nickname, copy.deactivateModal.confirmTextMismatchError]);
+    void deactivateMutation.run();
+  }, [confirmText, user, copy.deactivateModal.confirmTextMismatchError, deactivateMutation]);
+
+  if (loading && !user) return <AdminLoading label={common.loadingText} />;
+  if (error && !user) {
+    return (
+      <AdminError
+        title={common.errorTitle}
+        message={error.message}
+        retryLabel={common.errorRetryLabel}
+        onRetry={refetch}
+      />
+    );
+  }
+  if (!user) return <p className="admin-list__empty">{notFoundText}</p>;
 
   const alreadyWithdrawn = user.status === 'WITHDRAWN';
 
@@ -268,12 +309,13 @@ export default function AdminUserDetailContainer({
           </select>
         </label>
         {roleError && <p className="admin-modal__error" role="alert">{roleError}</p>}
+        {roleMutation.error && <p className="admin-modal__error" role="alert">{roleMutation.error.message}</p>}
         <footer className="admin-modal__footer">
           <button type="button" onClick={() => setRoleModalOpen(false)} className="admin-modal__btn admin-modal__btn--ghost">
             {copy.changeRoleModal.cancelLabel}
           </button>
-          <button type="button" onClick={handleRoleSubmit} className="admin-modal__btn admin-modal__btn--primary">
-            {copy.changeRoleModal.confirmLabel}
+          <button type="button" onClick={handleRoleSubmit} disabled={roleMutation.submitting} className="admin-modal__btn admin-modal__btn--primary">
+            {roleMutation.submitting ? common.loadingText : copy.changeRoleModal.confirmLabel}
           </button>
         </footer>
       </AdminModal>
@@ -297,6 +339,7 @@ export default function AdminUserDetailContainer({
           />
         </label>
         {deactivateError && <p className="admin-modal__error" role="alert">{deactivateError}</p>}
+        {deactivateMutation.error && <p className="admin-modal__error" role="alert">{deactivateMutation.error.message}</p>}
         <footer className="admin-modal__footer">
           <button type="button" onClick={() => setDeactivateModalOpen(false)} className="admin-modal__btn admin-modal__btn--ghost">
             {copy.deactivateModal.cancelLabel}
@@ -304,10 +347,10 @@ export default function AdminUserDetailContainer({
           <button
             type="button"
             onClick={handleDeactivateSubmit}
-            disabled={confirmText.trim() !== user.nickname}
+            disabled={confirmText.trim() !== user.nickname || deactivateMutation.submitting}
             className="admin-modal__btn admin-modal__btn--danger"
           >
-            {copy.deactivateModal.confirmLabel}
+            {deactivateMutation.submitting ? common.loadingText : copy.deactivateModal.confirmLabel}
           </button>
         </footer>
       </AdminModal>

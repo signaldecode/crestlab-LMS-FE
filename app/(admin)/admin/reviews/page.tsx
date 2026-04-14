@@ -8,7 +8,10 @@
 import { useMemo, useState, useCallback } from 'react';
 import type { JSX, ChangeEvent } from 'react';
 import AdminModal from '@/components/admin/AdminModal';
-import { getAdminExtraData, getPageData } from '@/lib/data';
+import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
+import { useAdminMutation, useAdminQuery } from '@/hooks/useAdminQuery';
+import { deleteAdminReview, fetchAdminReviews } from '@/lib/adminApi';
+import { getPageData } from '@/lib/data';
 import type { AdminReviewListItem } from '@/types';
 
 interface ReviewsCopy {
@@ -34,6 +37,8 @@ interface ReviewsCopy {
   };
 }
 
+interface CommonCopy { loadingText: string; errorTitle: string; errorRetryLabel: string; }
+
 function getCopy(): ReviewsCopy | null {
   const adminPage = getPageData('admin') as { reviews?: ReviewsCopy } | null;
   return adminPage?.reviews ?? null;
@@ -47,23 +52,40 @@ const formatDateTime = (iso: string): string => {
 const fillTemplate = (template: string, vars: Record<string, string | number>): string =>
   Object.entries(vars).reduce((acc, [key, value]) => acc.replaceAll(`{${key}}`, String(value)), template);
 
+function getCommonCopy(): CommonCopy | null {
+  const adminPage = getPageData('admin') as { common?: CommonCopy } | null;
+  return adminPage?.common ?? null;
+}
+
 export default function AdminReviewsPage(): JSX.Element {
   const copy = getCopy();
-  const reviews = getAdminExtraData().reviews;
-
+  const common = getCommonCopy();
   const [keyword, setKeyword] = useState('');
   const [ratingFilter, setRatingFilter] = useState<string>('ALL');
   const [page, setPage] = useState(1);
   const [deleteTarget, setDeleteTarget] = useState<AdminReviewListItem | null>(null);
 
+  const pageSize = copy?.pagination.pageSize ?? 10;
+
+  const { data, loading, error, refetch } = useAdminQuery(
+    () => fetchAdminReviews({ page, size: pageSize }),
+    [page, pageSize],
+  );
+
+  const deleteMutation = useAdminMutation(
+    (id: number) => deleteAdminReview(id),
+    () => { setDeleteTarget(null); refetch(); },
+  );
+
   const handleDelete = useCallback(() => {
-    // TODO: DELETE /api/v1/admin/reviews/{id}
-    setDeleteTarget(null);
-  }, []);
+    if (!deleteTarget) return;
+    void deleteMutation.run(deleteTarget.id);
+  }, [deleteTarget, deleteMutation]);
 
   const filtered = useMemo(() => {
+    const content = data?.content ?? [];
     const k = keyword.trim().toLowerCase();
-    return reviews.filter((r) => {
+    return content.filter((r) => {
       if (ratingFilter !== 'ALL' && r.rating !== Number(ratingFilter)) return false;
       if (k) {
         const haystack = [r.courseTitle, r.nickname, r.email, r.content].join(' ').toLowerCase();
@@ -71,7 +93,7 @@ export default function AdminReviewsPage(): JSX.Element {
       }
       return true;
     });
-  }, [reviews, keyword, ratingFilter]);
+  }, [data, keyword, ratingFilter]);
 
   const handleReset = useCallback(() => {
     setKeyword('');
@@ -79,13 +101,23 @@ export default function AdminReviewsPage(): JSX.Element {
     setPage(1);
   }, []);
 
-  if (!copy) return <main>데이터를 불러올 수 없습니다.</main>;
+  if (!copy || !common) return <main>데이터를 불러올 수 없습니다.</main>;
+  if (loading && !data) return <AdminLoading label={common.loadingText} />;
+  if (error && !data) {
+    return (
+      <AdminError
+        title={common.errorTitle}
+        message={error.message}
+        retryLabel={common.errorRetryLabel}
+        onRetry={refetch}
+      />
+    );
+  }
 
-  const pageSize = copy.pagination.pageSize;
-  const totalCount = filtered.length;
-  const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
+  const totalCount = data?.totalElements ?? 0;
+  const totalPages = Math.max(1, data?.totalPages ?? 1);
   const safePage = Math.min(page, totalPages);
-  const paged = filtered.slice((safePage - 1) * pageSize, safePage * pageSize);
+  const paged = filtered;
 
   return (
     <div className="admin-list">
@@ -193,11 +225,19 @@ export default function AdminReviewsPage(): JSX.Element {
             : ''
         }
       >
+        {deleteMutation.error && (
+          <p className="admin-modal__error" role="alert">{deleteMutation.error.message}</p>
+        )}
         <footer className="admin-modal__footer">
           <button type="button" onClick={() => setDeleteTarget(null)} className="admin-modal__btn admin-modal__btn--ghost">
             {copy.deleteModal.cancelLabel}
           </button>
-          <button type="button" onClick={handleDelete} className="admin-modal__btn admin-modal__btn--danger">
+          <button
+            type="button"
+            onClick={handleDelete}
+            disabled={deleteMutation.submitting}
+            className="admin-modal__btn admin-modal__btn--danger"
+          >
             {copy.deleteModal.confirmLabel}
           </button>
         </footer>

@@ -42,7 +42,7 @@ export default function HomeCourseRanking({ title, courses }: HomeCourseRankingP
 
       <div className="home-course-ranking__layout">
         {/* 1위 대형 카드 */}
-        <Link href={`/courses/${first.slug}`} className="home-course-ranking__first" aria-label={`1위: ${first.title}`}>
+        <Link href={`/courses/${first.id}`} className="home-course-ranking__first" aria-label={`1위: ${first.title}`}>
           <div className="home-course-ranking__first-thumb">
             <Image
               src={first.thumbnail}
@@ -68,7 +68,7 @@ export default function HomeCourseRanking({ title, courses }: HomeCourseRankingP
         {/* 2~5위 그리드 */}
         <div className="home-course-ranking__grid">
           {rest.map((course, i) => (
-            <Link key={course.slug} href={`/courses/${course.slug}`} className="home-course-ranking__card" aria-label={`${i + 2}위: ${course.title}`}>
+            <Link key={course.id} href={`/courses/${course.id}`} className="home-course-ranking__card" aria-label={`${i + 2}위: ${course.title}`}>
               <div className="home-course-ranking__card-thumb">
                 <Image
                   src={course.thumbnail}

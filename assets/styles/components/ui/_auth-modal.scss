@@ -28,6 +28,13 @@
     gap: $spacing-3;
   }
 
+  &__error {
+    font-size: $font-size-sm;
+    color: $color-error;
+    margin: $spacing-0;
+    text-align: center;
+  }
+
   &__field {
     display: flex;
     flex-direction: column;

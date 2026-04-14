@@ -10,7 +10,9 @@ import { useState, useMemo, useCallback } from 'react';
 import type { JSX, ChangeEvent } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import type { AdminCourseListItem, AdminUserListItem } from '@/types';
+import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
+import { useAdminMutation, useAdminQuery } from '@/hooks/useAdminQuery';
+import { fetchAdminCourses, fetchAdminUsers, manualEnrollAdmin } from '@/lib/adminApi';
 
 interface Fields {
   userLabel: string; userPlaceholder: string; userAriaLabel: string; userNotFoundText: string;
@@ -40,18 +42,25 @@ export interface ManualEnrollCopy {
   errors: Errors;
 }
 
+interface CommonCopy {
+  loadingText: string;
+  errorTitle: string;
+  errorRetryLabel: string;
+}
+
 interface AdminManualEnrollContainerProps {
-  users: AdminUserListItem[];
-  courses: AdminCourseListItem[];
   copy: ManualEnrollCopy;
+  common: CommonCopy;
 }
 
 export default function AdminManualEnrollContainer({
-  users,
-  courses,
   copy,
+  common,
 }: AdminManualEnrollContainerProps): JSX.Element {
   const router = useRouter();
+
+  const usersQuery = useAdminQuery(() => fetchAdminUsers({ status: 'ACTIVE', size: 500 }), []);
+  const coursesQuery = useAdminQuery(() => fetchAdminCourses({ status: 'PUBLISHED', size: 500 }), []);
 
   const [userQuery, setUserQuery] = useState('');
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
@@ -60,14 +69,13 @@ export default function AdminManualEnrollContainer({
 
   // 학생/강사만 대상. 관리자/정지/탈퇴 제외
   const enrollableUsers = useMemo(
-    () => users.filter((u) => u.role !== 'ADMIN' && u.status === 'ACTIVE'),
-    [users],
+    () => (usersQuery.data?.content ?? []).filter((u) => u.role !== 'ADMIN' && u.status === 'ACTIVE'),
+    [usersQuery.data],
   );
 
-  // PUBLISHED 강의만 선택 가능
   const publishedCourses = useMemo(
-    () => courses.filter((c) => c.status === 'PUBLISHED'),
-    [courses],
+    () => (coursesQuery.data?.content ?? []).filter((c) => c.status === 'PUBLISHED'),
+    [coursesQuery.data],
   );
 
   const filteredUsers = useMemo(() => {
@@ -94,6 +102,11 @@ export default function AdminManualEnrollContainer({
     setErrorMsg('');
   }, []);
 
+  const mutation = useAdminMutation(
+    (args: { userId: number; courseId: number }) => manualEnrollAdmin(args.userId, args.courseId),
+    () => router.push('/admin/payments'),
+  );
+
   const handleSubmit = useCallback(() => {
     if (!selectedUserId) {
       setErrorMsg(copy.errors.userRequired);
@@ -103,9 +116,24 @@ export default function AdminManualEnrollContainer({
       setErrorMsg(copy.errors.courseRequired);
       return;
     }
-    // TODO: POST /api/v1/admin/payments/manual-enroll
-    router.push('/admin/payments');
-  }, [selectedUserId, selectedCourseId, copy.errors, router]);
+    setErrorMsg('');
+    void mutation.run({ userId: selectedUserId, courseId: selectedCourseId });
+  }, [selectedUserId, selectedCourseId, copy.errors, mutation]);
+
+  const initialLoading = (usersQuery.loading && !usersQuery.data) || (coursesQuery.loading && !coursesQuery.data);
+  const initialError = (usersQuery.error && !usersQuery.data) || (coursesQuery.error && !coursesQuery.data);
+
+  if (initialLoading) return <AdminLoading label={common.loadingText} />;
+  if (initialError) {
+    return (
+      <AdminError
+        title={common.errorTitle}
+        message={(usersQuery.error ?? coursesQuery.error)?.message ?? ''}
+        retryLabel={common.errorRetryLabel}
+        onRetry={() => { usersQuery.refetch(); coursesQuery.refetch(); }}
+      />
+    );
+  }
 
   return (
     <div className="admin-form-page">
@@ -217,6 +245,7 @@ export default function AdminManualEnrollContainer({
       </div>
 
       {errorMsg && <p className="admin-form-page__error" role="alert">{errorMsg}</p>}
+      {mutation.error && <p className="admin-form-page__error" role="alert">{mutation.error.message}</p>}
 
       <footer className="admin-form-page__footer">
         <Link href={copy.backLinkHref} className="admin-modal__btn admin-modal__btn--ghost">
@@ -226,7 +255,7 @@ export default function AdminManualEnrollContainer({
           type="button"
           onClick={handleSubmit}
           aria-label={copy.actions.submitAriaLabel}
-          disabled={!selectedUser || !selectedCourse}
+          disabled={!selectedUser || !selectedCourse || mutation.submitting}
           className="admin-modal__btn admin-modal__btn--primary"
         >
           {copy.actions.submitLabel}

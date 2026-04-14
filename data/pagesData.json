@@ -340,7 +340,8 @@
       "subtitle": "강의 플랫폼에 오신 것을 환영합니다",
       "findAccountLabel": "아이디·비밀번호 찾기",
       "signupLabel": "회원가입",
-      "backToLoginLabel": "로그인으로 돌아가기"
+      "backToLoginLabel": "로그인으로 돌아가기",
+      "loginError": "이메일 또는 비밀번호가 올바르지 않습니다."
     },
     "signup": {
       "seo": {
@@ -353,6 +354,13 @@
       "nicknamePlaceholder": "닉네임을 입력하세요",
       "nicknameDuplicateCheckLabel": "중복확인",
       "nicknameDuplicateCheckAriaLabel": "닉네임 중복 확인",
+      "emailDuplicateCheckLabel": "중복확인",
+      "emailDuplicateCheckAriaLabel": "이메일 중복 확인",
+      "emailAvailableMessage": "사용 가능한 이메일입니다.",
+      "emailUnavailableMessage": "이미 사용 중인 이메일입니다.",
+      "nicknameAvailableMessage": "사용 가능한 닉네임입니다.",
+      "nicknameUnavailableMessage": "이미 사용 중인 닉네임입니다.",
+      "duplicateCheckRequiredError": "중복 확인을 완료해 주세요.",
       "usernameLabel": "아이디",
       "usernamePlaceholder": "아이디를 입력하세요",
       "passwordLabel": "비밀번호",
@@ -378,9 +386,32 @@
         }
       ],
       "genderPlaceholder": "성별을 선택하세요",
+      "emailLabel": "이메일",
+      "emailPlaceholder": "이메일을 입력하세요",
+      "phoneLabel": "휴대폰 번호",
+      "phonePlaceholder": "숫자만 입력 (예: 01012345678)",
+      "sendCodeLabel": "인증번호 발송",
+      "sendCodeAriaLabel": "휴대폰 인증번호 발송",
+      "codeLabel": "인증번호",
+      "codePlaceholder": "6자리 인증번호",
+      "verifyCodeLabel": "확인",
+      "verifyCodeAriaLabel": "인증번호 확인",
+      "codeSentMessage": "인증번호가 발송되었습니다.",
+      "codeVerifiedMessage": "인증되었습니다.",
+      "phoneRequiredError": "휴대폰 번호를 입력해 주세요.",
+      "codeRequiredError": "인증번호를 입력해 주세요.",
+      "phoneNotVerifiedError": "휴대폰 인증을 완료해 주세요.",
+      "emailRequiredError": "이메일을 입력해 주세요.",
+      "nicknameRequiredError": "닉네임을 입력해 주세요.",
+      "nameRequiredError": "이름을 입력해 주세요.",
+      "genderRequiredError": "성별을 선택해 주세요.",
+      "passwordRequiredError": "비밀번호를 입력해 주세요 (8자 이상).",
       "agreeTerms": "이용약관에 동의합니다",
       "agreePrivacy": "개인정보처리방침에 동의합니다",
       "submitLabel": "가입하기",
+      "submittingLabel": "처리 중…",
+      "signupErrorMessage": "회원가입에 실패했습니다. 잠시 후 다시 시도해 주세요.",
+      "signupSuccessMessage": "회원가입이 완료되었습니다. 로그인해 주세요.",
       "dividerText": "또는",
       "hasAccountText": "이미 계정이 있으신가요?"
     },
@@ -526,6 +557,13 @@
     "homeAriaLabel": "홈 페이지로 이동"
   },
   "admin": {
+    "common": {
+      "loadingText": "불러오는 중…",
+      "errorTitle": "데이터를 불러오지 못했습니다",
+      "errorRetryLabel": "다시 시도",
+      "submittingText": "처리 중…",
+      "mutationErrorTitle": "작업에 실패했습니다"
+    },
     "layout": {
       "title": "관리자",
       "navLabel": "관리자 메뉴",
@@ -542,6 +580,7 @@
           "items": [
             { "label": "대시보드", "href": "/admin/dashboard", "ariaLabel": "관리자 대시보드로 이동" },
             { "label": "사용자 관리", "href": "/admin/users", "ariaLabel": "사용자 관리 페이지로 이동" },
+            { "label": "강사 지원 심사", "href": "/admin/instructor-applications", "ariaLabel": "강사 지원 심사 페이지로 이동" },
             { "label": "결제 관리", "href": "/admin/payments", "ariaLabel": "결제 관리 페이지로 이동" }
           ]
         },
@@ -549,7 +588,8 @@
           "label": "콘텐츠",
           "items": [
             { "label": "강의 관리", "href": "/admin/courses", "ariaLabel": "강의 관리 페이지로 이동" },
-            { "label": "리뷰 관리", "href": "/admin/reviews", "ariaLabel": "리뷰 관리 페이지로 이동" }
+            { "label": "리뷰 관리", "href": "/admin/reviews", "ariaLabel": "리뷰 관리 페이지로 이동" },
+            { "label": "공지사항 관리", "href": "/admin/notices", "ariaLabel": "공지사항 관리 페이지로 이동" }
           ]
         },
         {
@@ -623,6 +663,42 @@
         }
       }
     },
+    "bannerForm": {
+      "seoCreate": { "title": "배너 등록 — 관리자", "description": "새 배너 등록" },
+      "seoEdit": { "title": "배너 수정 — 관리자", "description": "배너 수정" },
+      "createTitle": "배너 등록",
+      "editTitle": "배너 수정",
+      "subtitle": "메인에 노출할 배너 정보를 입력합니다.",
+      "notFoundText": "해당 배너를 찾을 수 없습니다.",
+      "backLinkLabel": "배너 목록으로",
+      "backLinkHref": "/admin/banners",
+      "fields": {
+        "titleLabel": "제목",
+        "titlePlaceholder": "예: 신규 가입 30% 할인 이벤트",
+        "pcImageUrlLabel": "PC 이미지 URL",
+        "mobileImageUrlLabel": "모바일 이미지 URL",
+        "imageUrlPlaceholder": "https://...",
+        "linkUrlLabel": "클릭 시 이동 URL",
+        "linkUrlPlaceholder": "/events/welcome 또는 https://...",
+        "startDateLabel": "노출 시작일",
+        "endDateLabel": "노출 종료일",
+        "sortOrderLabel": "노출 순서",
+        "isActiveLabel": "활성화"
+      },
+      "errors": {
+        "titleRequired": "제목을 입력해 주세요.",
+        "pcImageUrlRequired": "PC 이미지 URL을 입력해 주세요.",
+        "mobileImageUrlRequired": "모바일 이미지 URL을 입력해 주세요.",
+        "linkUrlRequired": "링크 URL을 입력해 주세요.",
+        "datesRequired": "시작일과 종료일을 모두 입력해 주세요.",
+        "datesInvalid": "종료일은 시작일 이후여야 합니다."
+      },
+      "actions": {
+        "submitCreateLabel": "배너 등록",
+        "submitEditLabel": "수정 저장",
+        "cancelLabel": "취소"
+      }
+    },
     "banners": {
       "seo": { "title": "배너 관리 — 관리자", "description": "메인 배너 CRUD 및 순서 관리" },
       "title": "배너 관리",
@@ -640,6 +716,32 @@
         "cancelLabel": "취소"
       },
       "emptyText": "등록된 배너가 없습니다."
+    },
+    "mainSectionForm": {
+      "seoCreate": { "title": "메인 섹션 등록 — 관리자", "description": "새 메인 섹션 등록" },
+      "seoEdit": { "title": "메인 섹션 수정 — 관리자", "description": "메인 섹션 수정" },
+      "createTitle": "메인 섹션 등록",
+      "editTitle": "메인 섹션 수정",
+      "subtitle": "홈 페이지에 노출할 강의 섹션을 설정합니다.",
+      "notFoundText": "해당 섹션을 찾을 수 없습니다.",
+      "backLinkLabel": "메인 섹션 목록으로",
+      "backLinkHref": "/admin/main-sections",
+      "fields": {
+        "titleLabel": "섹션 제목",
+        "titlePlaceholder": "예: 이번 주 인기 강의",
+        "typeLabel": "섹션 타입",
+        "filterValueLabel": "필터 값",
+        "filterValueHelpTemplate": "{type} 타입은 필터 값을 사용하지 않습니다.",
+        "filterValueHelpActive": "카테고리 slug 또는 난이도 값을 입력하세요.",
+        "sortOrderLabel": "노출 순서",
+        "isActiveLabel": "활성화"
+      },
+      "typeLabels": { "NEW": "신규", "POPULAR": "인기", "LEVEL": "난이도", "CUSTOM": "커스텀" },
+      "errors": {
+        "titleRequired": "섹션 제목을 입력해 주세요.",
+        "filterValueRequired": "선택한 타입은 필터 값이 필요합니다."
+      },
+      "actions": { "submitCreateLabel": "등록", "submitEditLabel": "수정 저장", "cancelLabel": "취소" }
     },
     "mainSections": {
       "seo": { "title": "메인 섹션 관리 — 관리자", "description": "홈 페이지 섹션 구성" },
@@ -660,6 +762,33 @@
       },
       "emptyText": "등록된 섹션이 없습니다."
     },
+    "successStoryForm": {
+      "seoCreate": { "title": "성공 사례 등록 — 관리자", "description": "새 성공 사례 등록" },
+      "seoEdit": { "title": "성공 사례 수정 — 관리자", "description": "성공 사례 수정" },
+      "createTitle": "성공 사례 등록",
+      "editTitle": "성공 사례 수정",
+      "subtitle": "수강생의 성공 사례를 작성합니다.",
+      "notFoundText": "해당 사례를 찾을 수 없습니다.",
+      "backLinkLabel": "성공 사례 목록으로",
+      "backLinkHref": "/admin/success-stories",
+      "fields": {
+        "titleLabel": "제목",
+        "titlePlaceholder": "예: 비전공자에서 프론트엔드 개발자로",
+        "authorNameLabel": "주인공 이름",
+        "imageUrlLabel": "이미지 URL",
+        "imageUrlPlaceholder": "https://...",
+        "contentLabel": "본문",
+        "contentPlaceholder": "성공 사례 상세 내용을 입력하세요.",
+        "sortOrderLabel": "노출 순서",
+        "isActiveLabel": "활성화"
+      },
+      "errors": {
+        "titleRequired": "제목을 입력해 주세요.",
+        "authorNameRequired": "주인공 이름을 입력해 주세요.",
+        "contentRequired": "본문을 입력해 주세요."
+      },
+      "actions": { "submitCreateLabel": "등록", "submitEditLabel": "수정 저장", "cancelLabel": "취소" }
+    },
     "successStories": {
       "seo": { "title": "성공 사례 관리 — 관리자", "description": "수강생 성공 사례 CRUD" },
       "title": "성공 사례 관리",
@@ -677,6 +806,38 @@
         "cancelLabel": "취소"
       },
       "emptyText": "등록된 성공 사례가 없습니다."
+    },
+    "couponForm": {
+      "seoCreate": { "title": "쿠폰 발행 — 관리자", "description": "새 쿠폰 발행" },
+      "createTitle": "쿠폰 발행",
+      "subtitle": "새 할인 쿠폰을 발행합니다. 발행 후 즉시 사용자에게 노출됩니다.",
+      "backLinkLabel": "쿠폰 목록으로",
+      "backLinkHref": "/admin/coupons",
+      "fields": {
+        "codeLabel": "쿠폰 코드",
+        "codePlaceholder": "대문자/숫자 조합 (예: WELCOME30)",
+        "nameLabel": "쿠폰 이름",
+        "namePlaceholder": "예: 신규 가입 30% 할인",
+        "discountTypeLabel": "할인 유형",
+        "discountValueLabel": "할인 값",
+        "minOrderAmountLabel": "최소 결제 금액",
+        "maxDiscountAmountLabel": "최대 할인 금액",
+        "totalQuantityLabel": "발행 수량",
+        "startsAtLabel": "유효 시작일",
+        "expiresAtLabel": "유효 종료일"
+      },
+      "discountTypeOptions": { "PERCENT": "정률 (%)", "FIXED": "정액 (원)" },
+      "errors": {
+        "codeRequired": "쿠폰 코드를 입력해 주세요.",
+        "codeFormatInvalid": "대문자/숫자만 사용 가능합니다.",
+        "nameRequired": "쿠폰 이름을 입력해 주세요.",
+        "discountValueInvalid": "할인 값은 양수여야 합니다.",
+        "percentRange": "정률 할인은 1~100 사이여야 합니다.",
+        "quantityInvalid": "발행 수량은 1 이상이어야 합니다.",
+        "datesRequired": "유효 시작일과 종료일을 모두 입력해 주세요.",
+        "datesInvalid": "종료일은 시작일 이후여야 합니다."
+      },
+      "actions": { "submitLabel": "쿠폰 발행", "cancelLabel": "취소" }
     },
     "coupons": {
       "seo": { "title": "쿠폰 관리 — 관리자", "description": "쿠폰 생성·비활성화·사용 통계" },
@@ -696,6 +857,31 @@
         "cancelLabel": "취소"
       },
       "emptyText": "등록된 쿠폰이 없습니다."
+    },
+    "faqForm": {
+      "seoCreate": { "title": "FAQ 등록 — 관리자", "description": "새 FAQ 등록" },
+      "seoEdit": { "title": "FAQ 수정 — 관리자", "description": "FAQ 수정" },
+      "createTitle": "FAQ 등록",
+      "editTitle": "FAQ 수정",
+      "subtitle": "자주 묻는 질문과 답변을 작성합니다.",
+      "notFoundText": "해당 FAQ를 찾을 수 없습니다.",
+      "backLinkLabel": "FAQ 목록으로",
+      "backLinkHref": "/admin/faqs",
+      "fields": {
+        "categoryLabel": "카테고리",
+        "categoryPlaceholder": "예: 결제, 수강, 계정",
+        "questionLabel": "질문",
+        "questionPlaceholder": "예: 결제 후 환불이 가능한가요?",
+        "answerLabel": "답변",
+        "answerPlaceholder": "답변 내용을 입력하세요.",
+        "sortOrderLabel": "노출 순서"
+      },
+      "errors": {
+        "categoryRequired": "카테고리를 입력해 주세요.",
+        "questionRequired": "질문을 입력해 주세요.",
+        "answerRequired": "답변을 입력해 주세요."
+      },
+      "actions": { "submitCreateLabel": "등록", "submitEditLabel": "수정 저장", "cancelLabel": "취소" }
     },
     "faqs": {
       "seo": { "title": "FAQ 관리 — 관리자", "description": "FAQ CRUD 및 카테고리별 관리" },
@@ -730,7 +916,24 @@
       "columns": { "version": "버전", "effectiveDate": "시행일", "isCurrent": "현재", "createdAt": "등록일", "actions": "액션" },
       "currentBadgeLabel": "현재",
       "actionLabels": { "view": "내용 보기" },
-      "emptyText": "이 약관 유형의 이력이 없습니다."
+      "emptyText": "이 약관 유형의 이력이 없습니다.",
+      "createModal": {
+        "title": "새 약관 버전 등록",
+        "descriptionTemplate": "{type} 약관의 새 버전을 등록합니다. 등록 즉시 기존 현재 버전은 비활성화됩니다.",
+        "effectiveDateLabel": "시행일",
+        "contentLabel": "약관 내용",
+        "contentPlaceholder": "약관 전문을 입력하세요.",
+        "effectiveDateRequiredError": "시행일을 입력해 주세요.",
+        "contentRequiredError": "약관 내용을 입력해 주세요.",
+        "confirmLabel": "새 버전 등록",
+        "cancelLabel": "취소"
+      },
+      "viewModal": {
+        "titleTemplate": "{type} v{version}",
+        "effectiveDateLabel": "시행일",
+        "placeholderContent": "(mock 데이터 - 실제 약관 내용은 백엔드에서 조회됩니다)",
+        "closeLabel": "닫기"
+      }
     },
     "levels": {
       "seo": { "title": "레벨 기준 관리 — 관리자", "description": "사용자 레벨 승급 기준 설정" },
@@ -743,7 +946,23 @@
       "actionLabels": { "edit": "기준 수정" },
       "currencyUnit": "원",
       "courseUnit": "개",
-      "reviewUnit": "건"
+      "reviewUnit": "건",
+      "editModal": {
+        "titleTemplate": "{level} 기준 수정",
+        "description": "이 레벨로 승급하기 위한 최소 조건을 수정합니다. 저장 즉시 향후 갱신 시점부터 반영됩니다.",
+        "minEnrollmentLabel": "최소 수강 강의 수",
+        "minReviewLabel": "최소 리뷰 작성 수",
+        "minTotalSpentLabel": "최소 누적 결제액 (원)",
+        "negativeError": "0 이상의 정수를 입력해 주세요.",
+        "confirmLabel": "저장",
+        "cancelLabel": "취소"
+      },
+      "refreshModal": {
+        "title": "전체 사용자 레벨 수동 갱신",
+        "description": "현재 기준으로 전체 사용자의 레벨을 즉시 재계산합니다. 데이터 양에 따라 시간이 걸릴 수 있습니다.",
+        "confirmLabel": "수동 갱신 실행",
+        "cancelLabel": "취소"
+      }
     },
     "reviews": {
       "seo": { "title": "리뷰 관리 — 관리자", "description": "리뷰 검색 및 부적절 리뷰 삭제" },
@@ -1021,6 +1240,110 @@
         "pageSize": 10
       }
     },
+    "courseForm": {
+      "seoCreate": {
+        "title": "강의 등록 — 관리자",
+        "description": "새 강의 기본 정보 입력"
+      },
+      "seoEdit": {
+        "title": "강의 수정 — 관리자",
+        "description": "강의 기본 정보 수정"
+      },
+      "createTitle": "강의 등록",
+      "editTitle": "강의 수정",
+      "createSubtitle": "강의의 기본 정보를 입력합니다. 등록 후 DRAFT 상태로 저장되며 추가로 커리큘럼과 영상을 업로드할 수 있습니다.",
+      "editSubtitle": "강의 기본 정보를 수정합니다.",
+      "notFoundText": "해당 강의를 찾을 수 없습니다.",
+      "backLinkLabel": "강의 목록으로",
+      "backLinkHref": "/admin/courses",
+      "sections": {
+        "basicTitle": "기본 정보",
+        "pricingTitle": "가격·난이도",
+        "mediaTitle": "썸네일·상세 설명"
+      },
+      "fields": {
+        "titleLabel": "강의명",
+        "titlePlaceholder": "예: 실전 React 마스터 클래스",
+        "titleMaxLength": 200,
+        "categoryLabel": "카테고리",
+        "categoryPlaceholder": "카테고리 선택",
+        "instructorsLabel": "강사",
+        "instructorsHelp": "최소 1명 이상 선택해야 합니다.",
+        "levelLabel": "난이도",
+        "priceLabel": "가격",
+        "priceSuffix": "원",
+        "priceHelp": "0 이상의 정수를 입력하세요.",
+        "thumbnailLabel": "썸네일 URL",
+        "thumbnailPlaceholder": "https://...",
+        "thumbnailMaxLength": 500,
+        "thumbnailHelp": "이미지 URL을 입력하세요. 업로드 기능은 준비 중입니다.",
+        "descriptionLabel": "상세 설명",
+        "descriptionPlaceholder": "강의 상세 설명을 입력하세요."
+      },
+      "levelLabels": {
+        "BEGINNER": "입문",
+        "BASIC": "초급",
+        "INTERMEDIATE": "중급",
+        "ADVANCED": "고급"
+      },
+      "errors": {
+        "titleRequired": "강의명을 입력해 주세요.",
+        "titleTooLong": "강의명은 200자를 초과할 수 없습니다.",
+        "categoryRequired": "카테고리를 선택해 주세요.",
+        "instructorsRequired": "강사를 1명 이상 선택해 주세요.",
+        "levelRequired": "난이도를 선택해 주세요.",
+        "priceInvalid": "가격은 0 이상의 숫자로 입력해 주세요.",
+        "thumbnailTooLong": "썸네일 URL은 500자를 초과할 수 없습니다."
+      },
+      "actions": {
+        "submitCreateLabel": "강의 등록",
+        "submitEditLabel": "수정 저장",
+        "cancelLabel": "취소"
+      }
+    },
+    "notices": {
+      "seo": { "title": "공지사항 관리 — 관리자", "description": "공지사항 등록·수정·삭제 + 활성/고정 토글" },
+      "title": "공지사항 관리",
+      "subtitle": "사용자에게 노출되는 공지사항을 관리합니다.",
+      "createButtonLabel": "공지 등록",
+      "createButtonHref": "/admin/notices/new",
+      "createButtonAriaLabel": "새 공지사항 등록",
+      "columns": { "title": "제목", "pinned": "고정", "isActive": "활성", "createdAt": "등록일", "actions": "액션" },
+      "pinnedLabels": { "true": "고정", "false": "—" },
+      "activeLabels": { "true": "활성", "false": "비활성" },
+      "actionLabels": { "edit": "수정", "delete": "삭제" },
+      "deleteModal": {
+        "title": "공지사항 삭제",
+        "descriptionTemplate": "{title} 공지를 삭제합니다. 이 작업은 되돌릴 수 없습니다.",
+        "confirmLabel": "삭제",
+        "cancelLabel": "취소"
+      },
+      "emptyText": "등록된 공지사항이 없습니다.",
+      "pagination": { "previousLabel": "이전", "previousAriaLabel": "이전 페이지", "nextLabel": "다음", "nextAriaLabel": "다음 페이지", "pageInfoTemplate": "{current} / {total} 페이지 (총 {totalCount}건)", "pageSize": 10 }
+    },
+    "noticeForm": {
+      "seoCreate": { "title": "공지 등록 — 관리자", "description": "새 공지사항 등록" },
+      "seoEdit": { "title": "공지 수정 — 관리자", "description": "공지사항 수정" },
+      "createTitle": "공지 등록",
+      "editTitle": "공지 수정",
+      "subtitle": "공지사항 제목과 본문을 입력합니다. 고정 시 목록 상단에 표시됩니다.",
+      "notFoundText": "해당 공지를 찾을 수 없습니다.",
+      "backLinkLabel": "공지 목록으로",
+      "backLinkHref": "/admin/notices",
+      "fields": {
+        "titleLabel": "제목",
+        "titlePlaceholder": "예: 시스템 점검 안내",
+        "contentLabel": "본문",
+        "contentPlaceholder": "공지 내용을 입력하세요. 줄바꿈은 그대로 표시됩니다.",
+        "pinnedLabel": "상단 고정",
+        "isActiveLabel": "활성화 (사용자에게 노출)"
+      },
+      "errors": {
+        "titleRequired": "제목을 입력해 주세요.",
+        "contentRequired": "본문을 입력해 주세요."
+      },
+      "actions": { "submitCreateLabel": "등록", "submitEditLabel": "수정 저장", "cancelLabel": "취소" }
+    },
     "courses": {
       "seo": {
         "title": "강의 관리 — 관리자",
@@ -1089,7 +1412,9 @@
         "title": "강의 편집 — 관리자"
       },
       "title": "강의 편집",
-      "uploadSectionTitle": "영상 업로드"
+      "uploadSectionTitle": "영상 업로드",
+      "editBasicInfoLinkLabel": "기본 정보 수정",
+      "editBasicInfoLinkAriaLabel": "강의 기본 정보 수정 페이지로 이동"
     },
     "upload": {
       "dropzoneLabel": "영상 파일을 드래그하거나 클릭하여 선택하세요",

@@ -9,6 +9,9 @@ import { useState, useCallback } from 'react';
 import type { JSX } from 'react';
 import Link from 'next/link';
 import AdminModal from '@/components/admin/AdminModal';
+import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
+import { useAdminMutation, useAdminQuery } from '@/hooks/useAdminQuery';
+import { deactivateAdminCoupon, fetchAdminCoupons } from '@/lib/adminApi';
 import type { AdminCouponDiscountType, AdminCouponListItem } from '@/types';
 
 export interface CouponsCopy {
@@ -28,9 +31,11 @@ export interface CouponsCopy {
   emptyText: string;
 }
 
+interface CommonCopy { loadingText: string; errorTitle: string; errorRetryLabel: string; }
+
 interface AdminCouponListContainerProps {
-  coupons: AdminCouponListItem[];
   copy: CouponsCopy;
+  common: CommonCopy;
 }
 
 const formatNumber = (n: number): string => n.toLocaleString('ko-KR');
@@ -40,15 +45,35 @@ const formatDate = (iso: string): string => {
 };
 
 export default function AdminCouponListContainer({
-  coupons,
   copy,
+  common,
 }: AdminCouponListContainerProps): JSX.Element {
+  const { data, loading, error, refetch } = useAdminQuery(fetchAdminCoupons, []);
   const [deactivateTarget, setDeactivateTarget] = useState<AdminCouponListItem | null>(null);
 
+  const deactivateMutation = useAdminMutation(
+    (id: number) => deactivateAdminCoupon(id),
+    () => { setDeactivateTarget(null); refetch(); },
+  );
+
   const handleDeactivate = useCallback(() => {
-    // TODO: POST /api/v1/admin/coupons/{id}/deactivate
-    setDeactivateTarget(null);
-  }, []);
+    if (!deactivateTarget) return;
+    void deactivateMutation.run(deactivateTarget.id);
+  }, [deactivateTarget, deactivateMutation]);
+
+  if (loading && !data) return <AdminLoading label={common.loadingText} />;
+  if (error && !data) {
+    return (
+      <AdminError
+        title={common.errorTitle}
+        message={error.message}
+        retryLabel={common.errorRetryLabel}
+        onRetry={refetch}
+      />
+    );
+  }
+
+  const coupons = data ?? [];
 
   return (
     <div className="admin-list">
@@ -129,11 +154,19 @@ export default function AdminCouponListContainer({
             : ''
         }
       >
+        {deactivateMutation.error && (
+          <p className="admin-modal__error" role="alert">{deactivateMutation.error.message}</p>
+        )}
         <footer className="admin-modal__footer">
           <button type="button" onClick={() => setDeactivateTarget(null)} className="admin-modal__btn admin-modal__btn--ghost">
             {copy.deactivateModal.cancelLabel}
           </button>
-          <button type="button" onClick={handleDeactivate} className="admin-modal__btn admin-modal__btn--danger">
+          <button
+            type="button"
+            onClick={handleDeactivate}
+            disabled={deactivateMutation.submitting}
+            className="admin-modal__btn admin-modal__btn--danger"
+          >
             {copy.deactivateModal.confirmLabel}
           </button>
         </footer>

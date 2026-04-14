@@ -11,6 +11,7 @@ import { useState, useEffect, useRef, type JSX } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import CourseQuestionsTab from '@/components/courses/CourseQuestionsTab';
 import type { Course } from '@/types';
 import pagesData from '@/data/pagesData.json';
 
@@ -209,9 +210,7 @@ export default function CourseDetailContent({ course }: CourseDetailContentProps
         )}
 
         {activeTab === TABS[1] && (
-          <div className="course-detail-content__placeholder">
-            <p>{EMPTY_STATES.questions}</p>
-          </div>
+          <CourseQuestionsTab courseId={course.id} />
         )}
 
         {activeTab === TABS[2] && (

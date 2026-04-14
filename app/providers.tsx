@@ -9,23 +9,58 @@
 import type { JSX, ReactNode } from 'react';
 import { useEffect } from 'react';
 import useAuthStore from '@/stores/useAuthStore';
-import { getToken } from '@/lib/auth';
+import { useWishlistStoreBase } from '@/stores/useWishlistStore';
+import { fetchMyProfile, fetchMyFavorites } from '@/lib/userApi';
+import type { User } from '@/types';
+import ToastContainer from '@/components/ui/ToastContainer';
 
 interface ProvidersProps {
   children: ReactNode;
 }
 
-/** 인증 상태 초기화: localStorage 토큰이 있으면 로그인 상태 유지 */
+/**
+ * 인증 상태 초기화 — 페이지 로드 시 /v1/users/me 호출해서 세션 복구
+ * - httpOnly 쿠키가 살아있으면 프로필을 받아와 useAuthStore에 채운다
+ * - 쿠키가 없거나 만료되면 401이 반환되어 조용히 비로그인 상태로 둠
+ */
 function AuthInitializer({ children }: { children: ReactNode }): JSX.Element {
-  const isLoggedIn = useAuthStore((s) => s.isLoggedIn);
-  const logout = useAuthStore((s) => s.logout);
+  const login = useAuthStore((s) => s.login);
+  const setAuthReady = useAuthStore((s) => s.setAuthReady);
 
   useEffect(() => {
-    const token = getToken();
-    if (isLoggedIn && !token) {
-      logout();
-    }
-  }, [isLoggedIn, logout]);
+    let cancelled = false;
+    (async () => {
+      try {
+        const profile = await fetchMyProfile();
+        if (cancelled) return;
+        const user: User = {
+          id: String(profile.id),
+          username: profile.email,
+          name: profile.name,
+          nickname: profile.nickname,
+          email: profile.email,
+          profileImage: profile.profileImageUrl ?? undefined,
+          role: profile.role,
+          phone: profile.phone ?? undefined,
+        };
+        login(user, '');
+        // 로그인 복구 성공 시 서버 찜 목록 동기화
+        try {
+          const favorites = await fetchMyFavorites({ page: 1, size: 200 });
+          if (cancelled) return;
+          useWishlistStoreBase.getState().setWishSlugs(
+            favorites.content.map((f) => String(f.courseId)),
+          );
+        } catch {
+          // 찜 동기화 실패는 무시
+        }
+      } catch {
+        // 401 등은 정상적인 비로그인 상태로 간주 — authReady 만 true 로
+        if (!cancelled) setAuthReady(true);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [login, setAuthReady]);
 
   // 개발 환경에서만 콘솔 디버깅용으로 store를 window에 노출
   useEffect(() => {
@@ -66,6 +101,7 @@ export default function Providers({ children }: ProvidersProps): JSX.Element {
     <ThemeInitializer>
       <AuthInitializer>
         {children}
+        <ToastContainer />
       </AuthInitializer>
     </ThemeInitializer>
   );

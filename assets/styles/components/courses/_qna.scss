@@ -1,0 +1,407 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+
+/* =========================================
+ *  강의 Q&A 탭 (.course-qna)
+ * =========================================*/
+.course-qna {
+  letter-spacing: $letter-spacing-normal;
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing-4;
+    margin-bottom: $spacing-6;
+  }
+
+  &__title {
+    font-family: $font-family-heading;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: $spacing-0;
+  }
+
+  &__write-btn {
+    padding: $spacing-2 $spacing-4;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text-inverse;
+    background-color: $color-primary;
+    border: none;
+    border-radius: $radius-md;
+    cursor: pointer;
+    transition: background-color $duration-normal $ease-default;
+
+    &:hover {
+      background-color: $color-primary-dark;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+    padding: $spacing-5;
+    margin-bottom: $spacing-6;
+    background-color: $color-bg-secondary;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-lg;
+  }
+
+  &__input,
+  &__textarea {
+    width: 100%;
+    padding: $spacing-3;
+    font-family: $font-family-base;
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
+    outline: none;
+    transition: border-color $duration-normal $ease-default;
+
+    &:focus {
+      border-color: $color-border-focus;
+    }
+  }
+
+  &__textarea {
+    resize: vertical;
+    min-height: 6rem;
+  }
+
+  &__error {
+    font-size: $font-size-sm;
+    color: $color-error;
+    margin: $spacing-0;
+  }
+
+  &__form-footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__submit-btn {
+    padding: $spacing-2 $spacing-5;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text-inverse;
+    background-color: $color-text-primary;
+    border: none;
+    border-radius: $radius-md;
+    cursor: pointer;
+    transition: opacity $duration-normal $ease-default;
+
+    &:disabled {
+      opacity: $opacity-disabled;
+      cursor: not-allowed;
+    }
+  }
+
+  &__empty {
+    padding: $spacing-12 $spacing-4;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    text-align: center;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+    margin: $spacing-0;
+    padding: $spacing-0;
+    list-style: none;
+  }
+
+  &__item {
+    border-bottom: $border-thin solid $color-border;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__item-link {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+    padding: $spacing-4 $spacing-2;
+    text-decoration: none;
+    color: inherit;
+    transition: background-color $duration-fast $ease-default;
+
+    &:hover {
+      background-color: $color-bg-secondary;
+    }
+  }
+
+  &__item-row {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+  }
+
+  &__item-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__status {
+    display: inline-flex;
+    align-items: center;
+    padding: $spacing-1 $spacing-2;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    border-radius: $radius-sm;
+    flex-shrink: 0;
+
+    &--answered {
+      color: $color-success;
+      background-color: $color-success-bg;
+    }
+
+    &--pending {
+      color: $color-text-secondary;
+      background-color: $color-bg-tertiary;
+    }
+  }
+
+  &__item-meta {
+    display: flex;
+    gap: $spacing-4;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-4;
+    margin-top: $spacing-8;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+
+    button {
+      padding: $spacing-2 $spacing-4;
+      background-color: $color-bg-primary;
+      border: $border-thin solid $color-border;
+      border-radius: $radius-md;
+      cursor: pointer;
+      transition: background-color $duration-fast $ease-default;
+
+      &:hover:not(:disabled) {
+        background-color: $color-bg-secondary;
+      }
+
+      &:disabled {
+        opacity: $opacity-disabled;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+/* =========================================
+ *  Q&A 상세 (.course-qna-detail)
+ * =========================================*/
+.course-qna-detail {
+  max-width: 56rem;
+  margin: $spacing-0 auto;
+  padding: $spacing-8 $section-padding-x;
+  letter-spacing: $letter-spacing-normal;
+
+  &__back {
+    display: inline-block;
+    margin-bottom: $spacing-6;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    text-decoration: none;
+
+    &:hover {
+      color: $color-text-primary;
+    }
+  }
+
+  &__header {
+    padding-bottom: $spacing-6;
+    margin-bottom: $spacing-6;
+    border-bottom: $border-thin solid $color-border;
+  }
+
+  &__title {
+    font-family: $font-family-heading;
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: $spacing-0 $spacing-0 $spacing-3;
+    line-height: $line-height-tight;
+  }
+
+  &__meta {
+    display: flex;
+    gap: $spacing-4;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+
+  &__body {
+    padding: $spacing-2 $spacing-0 $spacing-10;
+    font-size: $font-size-base;
+    color: $color-text-body;
+    line-height: $line-height-relaxed;
+
+    p {
+      margin: $spacing-0 $spacing-0 $spacing-3;
+    }
+  }
+
+  &__answers {
+    padding-top: $spacing-8;
+    border-top: $border-thin solid $color-border;
+  }
+
+  &__answers-title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: $spacing-0 $spacing-0 $spacing-5;
+  }
+
+  &__empty {
+    padding: $spacing-10 $spacing-0;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    text-align: center;
+  }
+
+  &__answer-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+    margin: $spacing-0;
+    padding: $spacing-0;
+    list-style: none;
+  }
+
+  &__answer {
+    padding: $spacing-5;
+    background-color: $color-bg-secondary;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-lg;
+  }
+
+  &__answer-meta {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    margin-bottom: $spacing-3;
+    font-size: $font-size-sm;
+  }
+
+  &__answer-nickname {
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+  }
+
+  &__answer-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: $spacing-1 $spacing-2;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    color: $color-primary;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-primary;
+    border-radius: $radius-sm;
+  }
+
+  &__answer-date {
+    margin-left: auto;
+    color: $color-text-secondary;
+  }
+
+  &__answer-content {
+    font-size: $font-size-base;
+    color: $color-text-body;
+    line-height: $line-height-relaxed;
+    white-space: pre-wrap;
+    margin: $spacing-0;
+  }
+
+  &__answer-form {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+    margin-top: $spacing-10;
+    padding: $spacing-5;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-lg;
+  }
+
+  &__answer-form-title {
+    font-size: $font-size-md;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: $spacing-0;
+  }
+
+  &__answer-textarea {
+    width: 100%;
+    padding: $spacing-3;
+    font-family: $font-family-base;
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
+    outline: none;
+    resize: vertical;
+    min-height: 6rem;
+    transition: border-color $duration-normal $ease-default;
+
+    &:focus {
+      border-color: $color-border-focus;
+    }
+  }
+
+  &__answer-submit {
+    align-self: flex-end;
+    padding: $spacing-2 $spacing-5;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text-inverse;
+    background-color: $color-primary;
+    border: none;
+    border-radius: $radius-md;
+    cursor: pointer;
+    transition: background-color $duration-normal $ease-default;
+
+    &:hover:not(:disabled) {
+      background-color: $color-primary-dark;
+    }
+
+    &:disabled {
+      opacity: $opacity-disabled;
+      cursor: not-allowed;
+    }
+  }
+
+  &__error {
+    font-size: $font-size-sm;
+    color: $color-error;
+    margin: $spacing-0;
+  }
+}

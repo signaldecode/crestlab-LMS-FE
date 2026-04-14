@@ -404,6 +404,21 @@
       opacity: 0.85;
     }
   }
+
+  /* 닉네임 중복 확인 결과 메시지 */
+  &__dup-msg {
+    display: inline-block;
+    margin-top: $spacing-1;
+    font-size: $font-size-xs;
+
+    &--ok {
+      color: $color-success;
+    }
+
+    &--ng {
+      color: $color-error;
+    }
+  }
 }
 
 // ============================================

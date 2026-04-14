@@ -1,11 +1,15 @@
 /**
  * 관리자 대시보드 컨테이너 (AdminDashboardContainer)
  * - 매출/신규가입자/인기강의/리뷰/결제 5개 섹션을 표시한다
- * - 모든 텍스트와 데이터는 props로 주입되며, 페이지에서 data 헬퍼로 조립한다
+ * - 백엔드 GET /api/v1/admin/dashboard 실 API 연동
  */
 
+'use client';
+
 import type { JSX } from 'react';
-import type { AdminDashboardData } from '@/types';
+import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
+import { useAdminQuery } from '@/hooks/useAdminQuery';
+import { fetchAdminDashboard } from '@/lib/adminApi';
 
 interface PeriodLabels {
   today: string;
@@ -73,9 +77,15 @@ export interface DashboardCopy {
   };
 }
 
+interface CommonCopy {
+  loadingText: string;
+  errorTitle: string;
+  errorRetryLabel: string;
+}
+
 interface AdminDashboardContainerProps {
-  data: AdminDashboardData;
   copy: DashboardCopy;
+  common: CommonCopy;
 }
 
 const formatNumber = (n: number): string => n.toLocaleString('ko-KR');
@@ -94,9 +104,24 @@ const formatDateTime = (iso: string): string => {
 };
 
 export default function AdminDashboardContainer({
-  data,
   copy,
+  common,
 }: AdminDashboardContainerProps): JSX.Element {
+  const { data, loading, error, refetch } = useAdminQuery(fetchAdminDashboard);
+
+  if (loading && !data) return <AdminLoading label={common.loadingText} />;
+  if (error && !data) {
+    return (
+      <AdminError
+        title={common.errorTitle}
+        message={error.message}
+        retryLabel={common.errorRetryLabel}
+        onRetry={refetch}
+      />
+    );
+  }
+  if (!data) return <AdminLoading label={common.loadingText} />;
+
   const { revenue, newUsers, courseEnrollments, reviews, payments } = data;
   const { sections, periodLabels, currencyUnit, countUnit, personUnit, ratingUnit } = copy;
 

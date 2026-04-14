@@ -30,7 +30,6 @@ export default function OrderCompleteContainer({ orderId }: OrderCompleteContain
     ? new Date(completedOrder.approvedAt).toLocaleString('ko-KR')
     : '';
   const receiptUrl = completedOrder?.receipt?.url;
-  const firstCourseSlug = completedOrder?.courseAccess?.[0]?.courseSlug;
 
   return (
     <section className="order-complete">
@@ -92,23 +91,13 @@ export default function OrderCompleteContainer({ orderId }: OrderCompleteContain
 
         {/* CTA 버튼 */}
         <div className="order-complete__actions">
-          {firstCourseSlug ? (
-            <Link
-              href={`/courses/${firstCourseSlug}`}
-              className="order-complete__btn order-complete__btn--primary"
-              aria-label={pageData?.startLearningAriaLabel ?? '구매한 강의 학습 시작하기'}
-            >
-              {pageData?.startLearningLabel ?? '학습 시작하기'}
-            </Link>
-          ) : (
-            <Link
-              href="/learn"
-              className="order-complete__btn order-complete__btn--primary"
-              aria-label={pageData?.startLearningAriaLabel ?? '구매한 강의 학습 시작하기'}
-            >
-              {pageData?.startLearningLabel ?? '학습 시작하기'}
-            </Link>
-          )}
+          <Link
+            href="/mypage"
+            className="order-complete__btn order-complete__btn--primary"
+            aria-label={pageData?.startLearningAriaLabel ?? '구매한 강의 학습 시작하기'}
+          >
+            {pageData?.startLearningLabel ?? '학습 시작하기'}
+          </Link>
           <Link
             href="/mypage"
             className="order-complete__btn order-complete__btn--secondary"

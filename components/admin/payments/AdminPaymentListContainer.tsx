@@ -1,16 +1,18 @@
 /**
  * 관리자 결제 목록 컨테이너 (AdminPaymentListContainer)
- * - 필터(상태/키워드) + 테이블 + 페이지네이션
- * - 키워드는 주문번호/닉네임/이메일/강의명 모두 검색
- * - 상세에서 환불 처리; 헤더에서 수동 수강 등록 진입
+ * - 백엔드 GET /api/v1/admin/payments 실 API 연동
+ * - 상태 필터는 server-side, 키워드 검색은 현재 API 미지원이므로 client-side에서 필터링
  */
 
 'use client';
 
-import { useMemo, useState, useCallback } from 'react';
+import { useMemo, useState, useCallback, useEffect } from 'react';
 import type { JSX, ChangeEvent } from 'react';
 import Link from 'next/link';
-import type { AdminOrderListItem, AdminOrderStatus } from '@/types';
+import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
+import { useAdminQuery } from '@/hooks/useAdminQuery';
+import { fetchAdminPayments } from '@/lib/adminApi';
+import type { AdminOrderStatus } from '@/types';
 
 interface FiltersCopy {
   statusLabel: string;
@@ -63,9 +65,15 @@ export interface AdminPaymentsCopy {
   pagination: PaginationCopy;
 }
 
+interface CommonCopy {
+  loadingText: string;
+  errorTitle: string;
+  errorRetryLabel: string;
+}
+
 interface AdminPaymentListContainerProps {
-  orders: AdminOrderListItem[];
   copy: AdminPaymentsCopy;
+  common: CommonCopy;
 }
 
 const STATUS_VALUES: AdminOrderStatus[] = ['PENDING', 'PAID', 'CANCELLED', 'REFUNDED'];
@@ -73,14 +81,8 @@ const STATUS_VALUES: AdminOrderStatus[] = ['PENDING', 'PAID', 'CANCELLED', 'REFU
 const formatNumber = (n: number): string => n.toLocaleString('ko-KR');
 const formatDateTime = (iso: string): string => {
   const d = new Date(iso);
-  const yyyy = d.getFullYear();
-  const mm = String(d.getMonth() + 1).padStart(2, '0');
-  const dd = String(d.getDate()).padStart(2, '0');
-  const hh = String(d.getHours()).padStart(2, '0');
-  const mi = String(d.getMinutes()).padStart(2, '0');
-  return `${yyyy}.${mm}.${dd} ${hh}:${mi}`;
+  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
 };
-
 const fillTemplate = (template: string, vars: Record<string, string | number>): string =>
   Object.entries(vars).reduce(
     (acc, [key, value]) => acc.replaceAll(`{${key}}`, String(value)),
@@ -88,58 +90,61 @@ const fillTemplate = (template: string, vars: Record<string, string | number>): 
   );
 
 export default function AdminPaymentListContainer({
-  orders,
   copy,
+  common,
 }: AdminPaymentListContainerProps): JSX.Element {
   const [statusFilter, setStatusFilter] = useState<AdminOrderStatus | 'ALL'>('ALL');
+  const [keywordInput, setKeywordInput] = useState('');
   const [keyword, setKeyword] = useState('');
   const [page, setPage] = useState(1);
 
-  const normalizedKeyword = keyword.trim().toLowerCase();
-
-  const filteredOrders = useMemo(() => {
-    return orders.filter((o) => {
-      if (statusFilter !== 'ALL' && o.status !== statusFilter) return false;
-      if (normalizedKeyword) {
-        const haystack = [o.orderNumber, o.nickname, o.email, o.courseTitle]
-          .join(' ')
-          .toLowerCase();
-        if (!haystack.includes(normalizedKeyword)) return false;
-      }
-      return true;
-    });
-  }, [orders, statusFilter, normalizedKeyword]);
+  useEffect(() => {
+    const t = setTimeout(() => setKeyword(keywordInput.trim().toLowerCase()), 400);
+    return () => clearTimeout(t);
+  }, [keywordInput]);
 
   const pageSize = copy.pagination.pageSize;
-  const totalCount = filteredOrders.length;
-  const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
-  const safePage = Math.min(page, totalPages);
-  const pagedOrders = useMemo(() => {
-    const start = (safePage - 1) * pageSize;
-    return filteredOrders.slice(start, start + pageSize);
-  }, [filteredOrders, safePage, pageSize]);
 
-  const handleStatusChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
-    setStatusFilter(e.target.value as AdminOrderStatus | 'ALL');
-    setPage(1);
-  }, []);
-
-  const handleKeywordChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
-    setPage(1);
-  }, []);
+  const paymentsQuery = useAdminQuery(
+    () =>
+      fetchAdminPayments({
+        status: statusFilter === 'ALL' ? undefined : statusFilter,
+        page,
+        size: pageSize,
+      }),
+    [statusFilter, page, pageSize],
+  );
 
   const handleReset = useCallback(() => {
     setStatusFilter('ALL');
+    setKeywordInput('');
     setKeyword('');
     setPage(1);
   }, []);
 
-  const goPrev = useCallback(() => setPage((p) => Math.max(1, p - 1)), []);
-  const goNext = useCallback(
-    () => setPage((p) => Math.min(totalPages, p + 1)),
-    [totalPages],
-  );
+  if (paymentsQuery.error && !paymentsQuery.data) {
+    return (
+      <AdminError
+        title={common.errorTitle}
+        message={paymentsQuery.error.message}
+        retryLabel={common.errorRetryLabel}
+        onRetry={paymentsQuery.refetch}
+      />
+    );
+  }
+
+  const rawOrders = paymentsQuery.data?.content ?? [];
+  const orders = useMemo(() => {
+    if (!keyword) return rawOrders;
+    return rawOrders.filter((o) => {
+      const haystack = [o.orderNumber, o.nickname, o.email, o.courseTitle].join(' ').toLowerCase();
+      return haystack.includes(keyword);
+    });
+  }, [rawOrders, keyword]);
+
+  const totalCount = paymentsQuery.data?.totalElements ?? 0;
+  const totalPages = Math.max(1, paymentsQuery.data?.totalPages ?? 1);
+  const currentPage = paymentsQuery.data?.currentPage ?? page;
 
   return (
     <div className="admin-payments">
@@ -162,14 +167,12 @@ export default function AdminPaymentListContainer({
           <span className="admin-payments__filter-label">{copy.filters.statusLabel}</span>
           <select
             value={statusFilter}
-            onChange={handleStatusChange}
+            onChange={(e: ChangeEvent<HTMLSelectElement>) => { setStatusFilter(e.target.value as AdminOrderStatus | 'ALL'); setPage(1); }}
             className="admin-payments__select"
           >
             <option value="ALL">{copy.filters.statusAllLabel}</option>
             {STATUS_VALUES.map((s) => (
-              <option key={s} value={s}>
-                {copy.statusLabels[s]}
-              </option>
+              <option key={s} value={s}>{copy.statusLabels[s]}</option>
             ))}
           </select>
         </label>
@@ -178,8 +181,8 @@ export default function AdminPaymentListContainer({
           <span className="admin-payments__filter-label">{copy.filters.keywordLabel}</span>
           <input
             type="search"
-            value={keyword}
-            onChange={handleKeywordChange}
+            value={keywordInput}
+            onChange={(e) => setKeywordInput(e.target.value)}
             placeholder={copy.filters.keywordPlaceholder}
             aria-label={copy.filters.keywordAriaLabel}
             className="admin-payments__input"
@@ -196,7 +199,9 @@ export default function AdminPaymentListContainer({
         </button>
       </section>
 
-      {pagedOrders.length === 0 ? (
+      {paymentsQuery.loading && !paymentsQuery.data ? (
+        <AdminLoading label={common.loadingText} />
+      ) : orders.length === 0 ? (
         <p className="admin-payments__empty">{copy.emptyText}</p>
       ) : (
         <div className="admin-payments__table-wrap">
@@ -206,28 +211,18 @@ export default function AdminPaymentListContainer({
                 <th scope="col" className="admin-payments__th">{copy.columns.orderNumber}</th>
                 <th scope="col" className="admin-payments__th">{copy.columns.user}</th>
                 <th scope="col" className="admin-payments__th">{copy.columns.course}</th>
-                <th scope="col" className="admin-payments__th admin-payments__th--num">
-                  {copy.columns.originalAmount}
-                </th>
-                <th scope="col" className="admin-payments__th admin-payments__th--num">
-                  {copy.columns.discountAmount}
-                </th>
-                <th scope="col" className="admin-payments__th admin-payments__th--num">
-                  {copy.columns.finalAmount}
-                </th>
+                <th scope="col" className="admin-payments__th admin-payments__th--num">{copy.columns.originalAmount}</th>
+                <th scope="col" className="admin-payments__th admin-payments__th--num">{copy.columns.discountAmount}</th>
+                <th scope="col" className="admin-payments__th admin-payments__th--num">{copy.columns.finalAmount}</th>
                 <th scope="col" className="admin-payments__th">{copy.columns.status}</th>
                 <th scope="col" className="admin-payments__th">{copy.columns.createdAt}</th>
-                <th scope="col" className="admin-payments__th admin-payments__th--actions">
-                  {copy.columns.actions}
-                </th>
+                <th scope="col" className="admin-payments__th admin-payments__th--actions">{copy.columns.actions}</th>
               </tr>
             </thead>
             <tbody>
-              {pagedOrders.map((o) => (
+              {orders.map((o) => (
                 <tr key={o.id}>
-                  <td className="admin-payments__td admin-payments__td--order-number">
-                    {o.orderNumber}
-                  </td>
+                  <td className="admin-payments__td admin-payments__td--order-number">{o.orderNumber}</td>
                   <td className="admin-payments__td">
                     <div className="admin-payments__user">
                       <span className="admin-payments__user-nickname">{o.nickname}</span>
@@ -236,22 +231,16 @@ export default function AdminPaymentListContainer({
                   </td>
                   <td className="admin-payments__td admin-payments__td--course">{o.courseTitle}</td>
                   <td className="admin-payments__td admin-payments__td--num">
-                    {formatNumber(o.originalAmount)}
-                    {copy.currencyUnit}
+                    {formatNumber(o.originalAmount)}{copy.currencyUnit}
                   </td>
                   <td className="admin-payments__td admin-payments__td--num">
-                    {o.discountAmount > 0
-                      ? `-${formatNumber(o.discountAmount)}${copy.currencyUnit}`
-                      : '—'}
+                    {o.discountAmount > 0 ? `-${formatNumber(o.discountAmount)}${copy.currencyUnit}` : '—'}
                   </td>
                   <td className="admin-payments__td admin-payments__td--num admin-payments__td--final">
-                    {formatNumber(o.finalAmount)}
-                    {copy.currencyUnit}
+                    {formatNumber(o.finalAmount)}{copy.currencyUnit}
                   </td>
                   <td className="admin-payments__td">
-                    <span
-                      className={`admin-payments__status admin-payments__status--${o.status.toLowerCase()}`}
-                    >
+                    <span className={`admin-payments__status admin-payments__status--${o.status.toLowerCase()}`}>
                       {copy.statusLabels[o.status]}
                     </span>
                   </td>
@@ -259,9 +248,7 @@ export default function AdminPaymentListContainer({
                   <td className="admin-payments__td admin-payments__td--actions">
                     <Link
                       href={`/admin/payments/${o.id}`}
-                      aria-label={fillTemplate(copy.actions.viewAriaLabelTemplate, {
-                        orderNumber: o.orderNumber,
-                      })}
+                      aria-label={fillTemplate(copy.actions.viewAriaLabelTemplate, { orderNumber: o.orderNumber })}
                       className="admin-payments__action-link"
                     >
                       {copy.actions.viewLabel}
@@ -277,24 +264,20 @@ export default function AdminPaymentListContainer({
       <nav className="admin-payments__pagination" aria-label="페이지 탐색">
         <button
           type="button"
-          onClick={goPrev}
-          disabled={safePage <= 1}
+          onClick={() => setPage((p) => Math.max(1, p - 1))}
+          disabled={currentPage <= 1}
           aria-label={copy.pagination.previousAriaLabel}
           className="admin-payments__page-btn"
         >
           {copy.pagination.previousLabel}
         </button>
         <span className="admin-payments__page-info" aria-live="polite">
-          {fillTemplate(copy.pagination.pageInfoTemplate, {
-            current: safePage,
-            total: totalPages,
-            totalCount,
-          })}
+          {fillTemplate(copy.pagination.pageInfoTemplate, { current: currentPage, total: totalPages, totalCount })}
         </span>
         <button
           type="button"
-          onClick={goNext}
-          disabled={safePage >= totalPages}
+          onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+          disabled={currentPage >= totalPages}
           aria-label={copy.pagination.nextAriaLabel}
           className="admin-payments__page-btn"
         >

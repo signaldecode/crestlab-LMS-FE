@@ -6,6 +6,7 @@
  */
 
 import type { JSX } from 'react';
+import Link from 'next/link';
 import { getPageData } from '@/lib/data';
 import AdminCourseEditContainer from '@/components/admin/AdminCourseEditContainer';
 
@@ -18,6 +19,8 @@ interface AdminPageData {
     seo: { title: string };
     title: string;
     uploadSectionTitle: string;
+    editBasicInfoLinkLabel: string;
+    editBasicInfoLinkAriaLabel: string;
   };
   upload: {
     dropzoneLabel: string;
@@ -72,5 +75,18 @@ export default async function AdminCourseEditPage({ params }: AdminCourseEditPag
     },
   };
 
-  return <AdminCourseEditContainer courseId={id} texts={texts} />;
+  return (
+    <>
+      <div className="admin-course-edit-entry">
+        <Link
+          href={`/admin/courses/${id}/edit`}
+          aria-label={adminData?.courseEdit.editBasicInfoLinkAriaLabel ?? ''}
+          className="admin-modal__btn admin-modal__btn--ghost"
+        >
+          {adminData?.courseEdit.editBasicInfoLinkLabel ?? ''}
+        </Link>
+      </div>
+      <AdminCourseEditContainer courseId={id} texts={texts} />
+    </>
+  );
 }

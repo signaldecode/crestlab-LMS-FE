@@ -14,7 +14,7 @@ export async function POST(): Promise<NextResponse> {
     const accessToken = await getAccessToken();
 
     if (accessToken) {
-      await fetch(`${BACKEND_BASE}/api/auth/logout`, {
+      await fetch(`${BACKEND_BASE}/api/v1/auth/logout`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${accessToken}` },
       }).catch(() => {

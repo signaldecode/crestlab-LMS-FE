@@ -5,10 +5,14 @@
 
 'use client';
 
-import { useEffect, type JSX } from 'react';
+import { useCallback, useEffect, useState, type JSX } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import type { Course } from '@/types';
 import useWishlistStore from '@/stores/useWishlistStore';
+import useCourseFavorite from '@/hooks/useCourseFavorite';
+import useAuth from '@/hooks/useAuth';
+import { enrollFreeCourse, fetchMyEnrollments, UserApiError } from '@/lib/userApi';
 
 function formatPrice(price: number): string {
   return price.toLocaleString('ko-KR') + '원';
@@ -19,14 +23,61 @@ interface CourseDetailSidebarProps {
 }
 
 export default function CourseDetailSidebar({ course }: CourseDetailSidebarProps): JSX.Element {
-  const toggleWish = useWishlistStore((s) => s.toggleWish);
+  const router = useRouter();
+  const { isLoggedIn } = useAuth();
   const addRecent = useWishlistStore((s) => s.addRecent);
-  const wished = useWishlistStore((s) => s.slugs.includes(course.slug));
+  const { wished, toggle } = useCourseFavorite(course.id, course.slug);
   const wishCount = 120;
+
+  const [enrolling, setEnrolling] = useState(false);
+  const [enrollError, setEnrollError] = useState('');
 
   useEffect(() => {
     addRecent(course.slug);
   }, [course.slug, addRecent]);
+
+  const isFree = course.price === 0;
+
+  const handleFreeEnroll = useCallback(async () => {
+    if (enrolling) return;
+    if (!isLoggedIn) {
+      setEnrollError('로그인이 필요합니다.');
+      return;
+    }
+    setEnrolling(true);
+    setEnrollError('');
+    try {
+      await enrollFreeCourse(course.id);
+      // 등록 직후 첫 강의로 이동하기 위해 enrollmentId는 사용하지 않고 마이페이지로 이동
+      router.push('/mypage');
+    } catch (err) {
+      // 이미 수강중이면 마이페이지로 이동
+      if (err instanceof UserApiError && err.status === 409) {
+        router.push('/mypage');
+        return;
+      }
+      setEnrollError(err instanceof UserApiError ? err.message : '수강신청에 실패했습니다.');
+    } finally {
+      setEnrolling(false);
+    }
+  }, [enrolling, isLoggedIn, course.id, router]);
+
+  // 이미 수강중인지 여부 표시를 위해 enrollment 목록 조회 (로그인 상태일 때만)
+  const [alreadyEnrolled, setAlreadyEnrolled] = useState(false);
+  useEffect(() => {
+    if (!isLoggedIn) { setAlreadyEnrolled(false); return; }
+    let cancelled = false;
+    (async () => {
+      try {
+        const list = await fetchMyEnrollments();
+        if (cancelled) return;
+        setAlreadyEnrolled(list.some((e) => e.courseId === course.id));
+      } catch {
+        if (!cancelled) setAlreadyEnrolled(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [isLoggedIn, course.id]);
 
   return (
     <aside className="course-detail-sidebar">
@@ -101,7 +152,7 @@ export default function CourseDetailSidebar({ course }: CourseDetailSidebarProps
           <button
             type="button"
             className={`course-detail-sidebar__wish-btn${wished ? ' course-detail-sidebar__wish-btn--active' : ''}`}
-            onClick={() => toggleWish(course.slug)}
+            onClick={() => { void toggle(); }}
             aria-label={wished ? '찜 해제' : '찜하기'}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill={wished ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2">
@@ -109,13 +160,34 @@ export default function CourseDetailSidebar({ course }: CourseDetailSidebarProps
             </svg>
             <span className="course-detail-sidebar__wish-count">{wishCount}</span>
           </button>
-          <Link
-            href={`/checkout?slug=${course.slug}`}
-            className="course-detail-sidebar__buy-btn"
-          >
-            강의 구매하기
-          </Link>
+          {alreadyEnrolled ? (
+            <Link
+              href="/mypage"
+              className="course-detail-sidebar__buy-btn"
+            >
+              내 강의실로 이동
+            </Link>
+          ) : isFree ? (
+            <button
+              type="button"
+              className="course-detail-sidebar__buy-btn"
+              onClick={handleFreeEnroll}
+              disabled={enrolling}
+            >
+              {enrolling ? '수강신청 중...' : '무료 수강신청'}
+            </button>
+          ) : (
+            <Link
+              href={`/checkout?courseId=${course.id}`}
+              className="course-detail-sidebar__buy-btn"
+            >
+              강의 구매하기
+            </Link>
+          )}
         </div>
+        {enrollError && (
+          <p className="course-detail-sidebar__enroll-error" role="alert">{enrollError}</p>
+        )}
       </div>
     </aside>
   );

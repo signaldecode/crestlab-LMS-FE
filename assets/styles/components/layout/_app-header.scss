@@ -137,6 +137,12 @@
     gap: $spacing-2;
     flex-shrink: 0;
 
+    /* 세션 복구 중 — 버튼 자리만 유지 (레이아웃 점프 방지) */
+    &--pending {
+      width: 8rem;
+      height: 2rem;
+    }
+
     @media (max-width: 1023px) {
       display: none;
     }

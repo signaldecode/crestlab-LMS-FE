@@ -1,0 +1,188 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+
+.instructors-list {
+  padding: $section-padding-y $section-padding-x;
+  letter-spacing: $letter-spacing-normal;
+  background-color: $color-bg-primary;
+
+  &__inner {
+    max-width: $container-max-width;
+    margin: $spacing-0 auto;
+  }
+
+  &__header {
+    margin-bottom: $spacing-10;
+    text-align: center;
+  }
+
+  &__title {
+    font-family: $font-family-heading;
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: $spacing-0 $spacing-0 $spacing-3;
+    line-height: $line-height-tight;
+  }
+
+  &__subtitle {
+    font-size: $font-size-base;
+    color: $color-text-secondary;
+    margin: $spacing-0;
+  }
+
+  &__categories {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: $spacing-2;
+    margin-bottom: $spacing-10;
+  }
+
+  &__category {
+    padding: $spacing-2 $spacing-5;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all $duration-normal $ease-default;
+
+    &:hover {
+      color: $color-text-primary;
+      border-color: $color-text-primary;
+    }
+
+    &--active {
+      color: $color-text-inverse;
+      background-color: $color-text-primary;
+      border-color: $color-text-primary;
+    }
+  }
+
+  &__empty {
+    padding: $spacing-16 $spacing-4;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    text-align: center;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: $spacing-6;
+    margin: $spacing-0;
+    padding: $spacing-0;
+    list-style: none;
+  }
+
+  &__card {
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-lg;
+    overflow: hidden;
+    transition: transform $duration-normal $ease-smooth, box-shadow $duration-normal $ease-smooth;
+
+    &:hover {
+      transform: translateY(-0.25rem);
+      box-shadow: $shadow-md;
+    }
+  }
+
+  &__card-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-3;
+    padding: $spacing-6;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &__card-avatar {
+    width: 7.5rem;
+    height: 7.5rem;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: $color-bg-tertiary;
+    flex-shrink: 0;
+  }
+
+  &__card-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__card-name {
+    font-family: $font-family-heading;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: $spacing-0;
+  }
+
+  &__card-specialty {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-primary;
+    margin: $spacing-0;
+  }
+
+  &__card-description {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    text-align: center;
+    line-height: $line-height-base;
+    margin: $spacing-0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__card-footer {
+    display: flex;
+    gap: $spacing-4;
+    margin-top: $spacing-2;
+    padding-top: $spacing-3;
+    font-size: $font-size-xs;
+    color: $color-text-muted;
+    border-top: $border-thin solid $color-border;
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  &__pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-4;
+    margin-top: $spacing-10;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+
+    button {
+      padding: $spacing-2 $spacing-4;
+      background-color: $color-bg-primary;
+      border: $border-thin solid $color-border;
+      border-radius: $radius-md;
+      cursor: pointer;
+      transition: background-color $duration-fast $ease-default;
+
+      &:hover:not(:disabled) {
+        background-color: $color-bg-secondary;
+      }
+
+      &:disabled {
+        opacity: $opacity-disabled;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

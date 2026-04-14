@@ -9,7 +9,7 @@
 
 import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { confirmPayment } from '@/lib/api';
+import { confirmPayment } from '@/lib/userApi';
 import { getPageData } from '@/lib/data';
 import useOrderStore from '@/stores/useOrderStore';
 
@@ -46,9 +46,17 @@ function CheckoutSuccessContent() {
 
     confirmPayment({ paymentKey, orderId, amount })
       .then((result) => {
-        setCompletedOrder(result);
+        // 레거시 스토어(ConfirmPaymentResponse)와 필드가 다르므로 필요한 값만 어댑트
+        setCompletedOrder({
+          orderId: String(result.orderId),
+          status: (result.status === 'DONE' ? 'DONE' : 'ABORTED'),
+          totalAmount: result.amount,
+          method: result.method,
+          approvedAt: result.approvedAt,
+          courseAccess: [],
+        });
         setPaymentStatus('done');
-        router.replace(`/order/complete?orderId=${orderId}`);
+        router.replace(`/order/complete?orderId=${result.orderId}`);
       })
       .catch((err) => {
         setStatus('error');

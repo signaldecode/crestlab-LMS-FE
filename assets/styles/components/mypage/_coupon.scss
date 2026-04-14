@@ -321,6 +321,19 @@
     font-size: $font-size-sm;
     color: $color-text-secondary;
   }
+
+  /* 쿠폰 등록 결과 메시지 */
+  &__register-success {
+    margin: $spacing-2 $spacing-0 $spacing-0;
+    font-size: $font-size-sm;
+    color: $color-success;
+  }
+
+  &__register-error {
+    margin: $spacing-2 $spacing-0 $spacing-0;
+    font-size: $font-size-sm;
+    color: $color-error;
+  }
 }
 
 // ============================================
