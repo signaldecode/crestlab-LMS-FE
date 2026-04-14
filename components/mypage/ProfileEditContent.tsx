@@ -23,6 +23,7 @@ import {
   UserApiError,
   type Gender,
 } from '@/lib/userApi';
+import { uploadImage, validateImageFile } from '@/lib/upload';
 import accountData from '@/data/accountData.json';
 
 // Social Logos
@@ -39,23 +40,61 @@ export default function ProfileEditContent(): JSX.Element {
   const user = useAuthStore((s) => s.user);
   const setUser = useAuthStore((s) => s.setUser);
 
-  // 프로필 이미지
+  // 프로필 이미지 — Presigned URL 방식 S3 업로드
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const objectUrlRef = useRef<string | null>(null);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(user?.profileImage ?? null);
+  const [avatarS3Key, setAvatarS3Key] = useState<string | null>(null);
+  const [avatarUploading, setAvatarUploading] = useState(false);
+  const [avatarError, setAvatarError] = useState<string | null>(null);
 
-  const handleAvatarChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+  useEffect(() => {
+    return () => {
+      if (objectUrlRef.current) URL.revokeObjectURL(objectUrlRef.current);
+    };
+  }, []);
+
+  const handleAvatarChange = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    if (fileInputRef.current) fileInputRef.current.value = '';
     if (!file) return;
 
-    // 클라이언트 미리보기
-    const objectUrl = URL.createObjectURL(file);
-    setAvatarPreview(objectUrl);
+    const validationError = validateImageFile(file);
+    if (validationError === 'invalidFormat') {
+      setAvatarError(ps.uploadErrors.invalidFormat);
+      return;
+    }
+    if (validationError === 'fileTooLarge') {
+      setAvatarError(ps.uploadErrors.fileTooLarge);
+      return;
+    }
 
-    // TODO: 실제 업로드 API 호출 후 서버 URL로 교체
+    // 즉시 미리보기
+    if (objectUrlRef.current) URL.revokeObjectURL(objectUrlRef.current);
+    const objectUrl = URL.createObjectURL(file);
+    objectUrlRef.current = objectUrl;
+    setAvatarPreview(objectUrl);
+    setAvatarError(null);
+    setAvatarUploading(true);
+
+    try {
+      const { s3Key } = await uploadImage(file, 'PROFILE_IMAGE').promise;
+      setAvatarS3Key(s3Key);
+    } catch {
+      setAvatarError(ps.uploadErrors.uploadFailed);
+    } finally {
+      setAvatarUploading(false);
+    }
   }, []);
 
   const handleAvatarRemove = useCallback(() => {
+    if (objectUrlRef.current) {
+      URL.revokeObjectURL(objectUrlRef.current);
+      objectUrlRef.current = null;
+    }
     setAvatarPreview(null);
+    setAvatarS3Key(null);
+    setAvatarError(null);
     if (fileInputRef.current) fileInputRef.current.value = '';
   }, []);
 
@@ -177,9 +216,18 @@ export default function ProfileEditContent(): JSX.Element {
     setSubmitError('');
     try {
       // 1) 닉네임/프로필 이미지 수정 (PUT /v1/users/me/profile)
+      //    - avatarS3Key: 새로 업로드한 이미지 키
+      //    - avatarPreview === null && 기존 이미지 존재: 삭제 의도 → 빈 문자열 전송
+      //    - 변경 없음: undefined로 미전송
+      const profileImagePayload =
+        avatarS3Key
+          ? avatarS3Key
+          : avatarPreview === null && user.profileImage
+            ? ''
+            : undefined;
       await updateMyProfile({
         nickname,
-        profileImageUrl: avatarPreview ?? undefined,
+        profileImageUrl: profileImagePayload,
       });
 
       // 2) 회원정보(휴대폰/생년월일/성별/수신동의) + 비밀번호 변경 (PATCH /v1/users/me/info)
@@ -222,7 +270,7 @@ export default function ProfileEditContent(): JSX.Element {
   }, [
     user, submitting, nicknameChecked, nickname, phone, currentPassword, newPassword, confirmPassword,
     birthday, gender, personalInfoConsent, smsConsent, emailConsent, nightAdConsent,
-    avatarPreview, setUser, router,
+    avatarPreview, avatarS3Key, setUser, router,
   ]);
 
   const handleCancel = useCallback(() => {
@@ -279,10 +327,11 @@ export default function ProfileEditContent(): JSX.Element {
               type="button"
               className="member-edit__avatar-btn"
               onClick={() => fileInputRef.current?.click()}
+              disabled={avatarUploading}
             >
-              {ps.changeAvatarLabel}
+              {avatarUploading ? ps.uploadingLabel : ps.changeAvatarLabel}
             </button>
-            {avatarPreview && (
+            {avatarPreview && !avatarUploading && (
               <button
                 type="button"
                 className="member-edit__avatar-btn member-edit__avatar-btn--remove"
@@ -292,6 +341,9 @@ export default function ProfileEditContent(): JSX.Element {
               </button>
             )}
           </div>
+          {avatarError && (
+            <p className="member-edit__avatar-error" role="alert">{avatarError}</p>
+          )}
         </div>
 
         <div className="member-edit__row">

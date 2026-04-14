@@ -15,6 +15,7 @@ import type { Course } from '@/types';
 import useCourseFavorite from '@/hooks/useCourseFavorite';
 import useCartStore from '@/stores/useCartStore';
 import uiData from '@/data/uiData.json';
+import { resolveThumb } from '@/lib/images';
 
 interface CourseListCardProps {
   course: Course;
@@ -213,7 +214,7 @@ export default function CourseListCard({ course }: CourseListCardProps): JSX.Ele
         {/* 썸네일 */}
         <div className="course-list-card__thumb">
           <Image
-            src={course.thumbnail}
+            src={resolveThumb(course.thumbnail)}
             alt={course.thumbnailAlt}
             fill
             sizes="(max-width: 639px) 50vw, 342px"

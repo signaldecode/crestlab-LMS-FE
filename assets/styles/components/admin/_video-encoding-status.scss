@@ -1,0 +1,97 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+
+// ============================================
+// 영상 인코딩 상태 배지/진행률 (_video-encoding-status.scss)
+// - polling 기반 인코딩 상태 표시
+// ============================================
+
+.video-encoding-status {
+  display: inline-flex;
+  flex-direction: column;
+  gap: $spacing-1;
+  padding: $spacing-1 $spacing-2;
+  border-radius: $spacing-1;
+  font-size: $font-size-xs;
+
+  &__badge {
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+  }
+
+  &--loading {
+    color: $color-text-secondary;
+  }
+
+  &--pending &__badge,
+  &--processing &__badge {
+    color: $color-primary;
+  }
+
+  &--completed &__badge {
+    color: $color-success;
+  }
+
+  &--failed &__badge {
+    color: $color-error;
+  }
+
+  &__jobs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+    min-width: 10rem;
+  }
+
+  &__job {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+  }
+
+  &__job-label {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__track {
+    width: 100%;
+    height: 0.25rem;
+    background-color: $color-bg-tertiary;
+    border-radius: $spacing-1;
+    overflow: hidden;
+  }
+
+  &__fill {
+    height: 100%;
+    background-color: $color-primary;
+    transition: width $duration-normal $ease-default;
+  }
+
+  &__retry {
+    align-self: flex-start;
+    padding: $spacing-1 $spacing-2;
+    font-size: $font-size-xs;
+    font-family: $font-family-base;
+    color: $color-error;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-error;
+    border-radius: $spacing-1;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &__error {
+    font-size: $font-size-xs;
+    color: $color-error;
+  }
+}

@@ -7,6 +7,7 @@
 
 import { useMemo, useState, useCallback } from 'react';
 import type { JSX, ChangeEvent } from 'react';
+import AdminActionButton from '@/components/admin/AdminActionButton';
 import AdminModal from '@/components/admin/AdminModal';
 import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
 import { useAdminMutation, useAdminQuery } from '@/hooks/useAdminQuery';
@@ -186,13 +187,12 @@ export default function AdminReviewsPage(): JSX.Element {
                   <td className="admin-list__td admin-list__td--num">{r.likeCount}</td>
                   <td className="admin-list__td">{formatDateTime(r.createdAt)}</td>
                   <td className="admin-list__td admin-list__td--actions">
-                    <button
-                      type="button"
+                    <AdminActionButton
+                      variant="danger"
                       onClick={() => setDeleteTarget(r)}
-                      className="admin-list__action-btn admin-list__action-btn--danger"
                     >
                       {copy.actionLabels.delete}
-                    </button>
+                    </AdminActionButton>
                   </td>
                 </tr>
               ))}

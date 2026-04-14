@@ -1,0 +1,202 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+
+// ============================================
+// 커리큘럼 편집기 (_curriculum-editor.scss)
+// - 섹션/강의 2단 계층 + drag&drop 편집 UI
+// ============================================
+
+.curriculum-editor {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+
+  &__section-list,
+  &__lecture-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+  }
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+    padding: $spacing-4;
+    background-color: $color-bg-secondary;
+    border: $border-thin solid $color-border;
+    border-radius: $spacing-2;
+  }
+
+  &__section-header {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    flex-wrap: wrap;
+  }
+
+  &__section-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__lecture-list {
+    padding-left: $spacing-6;
+  }
+
+  &__lecture {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    padding: $spacing-2 $spacing-3;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: $spacing-1;
+  }
+
+  &__lecture-title {
+    flex: 1;
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__drag-handle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-1 $spacing-2;
+    font-size: $font-size-base;
+    color: $color-text-secondary;
+    background: none;
+    border: none;
+    cursor: grab;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  &__input {
+    flex: 1;
+    min-width: 0;
+    padding: $spacing-2 $spacing-3;
+    font-size: $font-size-sm;
+    font-family: $font-family-base;
+    color: $color-text-primary;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: $spacing-1;
+
+    &:focus {
+      outline: none;
+      border-color: $color-primary;
+    }
+  }
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-2 $spacing-3;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    font-family: $font-family-base;
+    color: $color-text-primary;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: $spacing-1;
+    cursor: pointer;
+    transition: opacity $duration-normal $ease-default;
+
+    &:hover:not(:disabled) {
+      opacity: 0.85;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &--primary {
+      color: $color-bg-primary;
+      background-color: $color-primary;
+      border-color: $color-primary;
+    }
+
+    &--danger {
+      color: $color-error;
+      border-color: $color-border;
+
+      &:hover:not(:disabled) {
+        border-color: $color-error;
+      }
+    }
+
+    &--add {
+      align-self: flex-start;
+      color: $color-primary;
+      border-style: dashed;
+      border-color: $color-primary;
+      background-color: transparent;
+    }
+
+    &--inner {
+      margin-left: $spacing-6;
+    }
+  }
+
+  &__add-form {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    flex-wrap: wrap;
+
+    &--inner {
+      margin-left: $spacing-6;
+    }
+  }
+
+  &__preview {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-1;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    cursor: pointer;
+  }
+
+  &__empty {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    text-align: center;
+    padding: $spacing-4;
+
+    &--inner {
+      padding: $spacing-2 $spacing-6;
+      text-align: left;
+    }
+  }
+
+  &__loading,
+  &__error {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    padding: $spacing-4;
+  }
+
+  &__error {
+    color: $color-error;
+  }
+}

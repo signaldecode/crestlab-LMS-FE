@@ -186,11 +186,13 @@ export interface SupportFaqCategory {
 export interface SupportFaqData {
   title: string;
   ariaLabel: string;
+  loadingText: string;
+  emptyText: string;
+  errorText: string;
+  categoryLabels: Record<string, string>;
   chipAriaLabel: string;
   questionPrefix: string;
   answerPrefix: string;
-  categories: SupportFaqCategory[];
-  items: SupportFaqItem[];
 }
 
 /* ── 후기 ── */
@@ -387,12 +389,18 @@ export interface HomeNewsSection {
     label: string;
     title: string;
     ariaLabel: string;
+    moreLabel?: string;
+    moreHref?: string;
+    moreAriaLabel?: string;
   };
   items: HomeNewsItem[];
   pagination: {
     perPage: number;
     totalPages: number;
     ariaLabel: string;
+    prevAriaLabel: string;
+    nextAriaLabel: string;
+    pageAriaFormat: string;
   };
 }
 
@@ -713,7 +721,7 @@ export interface AdminCouponListItem {
   discountValue: number;
   minOrderAmount: number;
   maxDiscountAmount: number;
-  totalQuantity: number;
+  totalQuantity: number | null;
   usedCount: number;
   isActive: boolean;
   startsAt: string;

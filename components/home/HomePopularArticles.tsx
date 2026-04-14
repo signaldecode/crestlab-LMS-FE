@@ -8,6 +8,7 @@ import type { JSX } from 'react';
 import Image from 'next/image';
 import type { PopularArticleRanked, PopularArticleCard } from '@/types';
 import { getPopularArticles } from '@/lib/data';
+import { resolveThumb } from '@/lib/images';
 
 function RankedItem({ item }: { item: PopularArticleRanked }): JSX.Element {
   return (
@@ -49,7 +50,7 @@ function ArticleCard({ item }: { item: PopularArticleCard }): JSX.Element {
       </div>
       <div className="home-popular__card-thumb">
         <Image
-          src={item.thumbnail}
+          src={resolveThumb(item.thumbnail)}
           alt={item.thumbnailAlt}
           width={160}
           height={120}
@@ -73,7 +74,7 @@ export default function HomePopularArticles(): JSX.Element {
         <div className="home-popular__featured" aria-label={featured.ariaLabel}>
           <div className="home-popular__featured-thumb">
             <Image
-              src={featured.thumbnail}
+              src={resolveThumb(featured.thumbnail)}
               alt={featured.thumbnailAlt}
               width={480}
               height={320}

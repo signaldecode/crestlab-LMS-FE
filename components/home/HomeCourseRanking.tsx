@@ -11,6 +11,7 @@ import type { JSX } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Course } from '@/types';
+import { resolveThumb } from '@/lib/images';
 
 interface HomeCourseRankingProps {
   title: string;
@@ -45,7 +46,7 @@ export default function HomeCourseRanking({ title, courses }: HomeCourseRankingP
         <Link href={`/courses/${first.id}`} className="home-course-ranking__first" aria-label={`1위: ${first.title}`}>
           <div className="home-course-ranking__first-thumb">
             <Image
-              src={first.thumbnail}
+              src={resolveThumb(first.thumbnail)}
               alt={first.thumbnailAlt}
               fill
               sizes="(max-width: 767px) 100vw, 45vw"
@@ -71,7 +72,7 @@ export default function HomeCourseRanking({ title, courses }: HomeCourseRankingP
             <Link key={course.id} href={`/courses/${course.id}`} className="home-course-ranking__card" aria-label={`${i + 2}위: ${course.title}`}>
               <div className="home-course-ranking__card-thumb">
                 <Image
-                  src={course.thumbnail}
+                  src={resolveThumb(course.thumbnail)}
                   alt={course.thumbnailAlt}
                   fill
                   sizes="(max-width: 767px) 50vw, 25vw"

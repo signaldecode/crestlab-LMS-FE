@@ -121,7 +121,7 @@
     }
 
     &--actions {
-      width: $spacing-16;
+      width: $spacing-20;
       text-align: center;
     }
   }
@@ -202,24 +202,6 @@
     &--withdrawn {
       background-color: $color-error-bg;
       color: $color-error;
-    }
-  }
-
-  // ── Action ──
-  &__action-link {
-    display: inline-block;
-    padding: $spacing-1 $spacing-3;
-    font-size: $font-size-xs;
-    font-weight: $font-weight-medium;
-    color: $color-primary;
-    background-color: $color-bg-primary;
-    border: $border-thin solid $color-border;
-    border-radius: $spacing-1;
-    text-decoration: none;
-
-    &:hover {
-      background-color: $color-bg-secondary;
-      border-color: $color-primary;
     }
   }
 

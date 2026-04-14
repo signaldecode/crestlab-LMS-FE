@@ -1,0 +1,81 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+
+// ============================================
+// 관리자 강의 편집 통합 탭 (_course-tabs.scss)
+// - 기본정보 / 커리큘럼 / 영상 / 설정 탭 내비게이션
+// ============================================
+
+.admin-course-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+
+  &__nav {
+    display: flex;
+    gap: $spacing-1;
+    border-bottom: $border-thin solid $color-border;
+  }
+
+  &__tab {
+    padding: $spacing-3 $spacing-5;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    font-family: $font-family-base;
+    color: $color-text-secondary;
+    background: none;
+    border: none;
+    border-bottom: 0.125rem solid transparent;
+    cursor: pointer;
+    transition: color $duration-normal $ease-default, border-color $duration-normal $ease-default;
+
+    &:hover {
+      color: $color-text-primary;
+    }
+
+    &--active {
+      color: $color-primary;
+      border-bottom-color: $color-primary;
+    }
+  }
+
+  &__panel {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+  }
+
+  &__settings {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+    padding: $spacing-6;
+    background-color: $color-bg-secondary;
+    border: $border-thin solid $color-border;
+    border-radius: $spacing-2;
+  }
+
+  &__status-current {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+  }
+
+  &__status-actions {
+    display: flex;
+    gap: $spacing-2;
+    flex-wrap: wrap;
+  }
+
+  &__status-msg {
+    font-size: $font-size-sm;
+    color: $color-success;
+  }
+
+  &__status-error {
+    font-size: $font-size-sm;
+    color: $color-error;
+  }
+}

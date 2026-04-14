@@ -11,6 +11,7 @@ import type { JSX, ChangeEvent } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
+import ImageUploader, { type ImageUploaderCopy } from '@/components/ui/ImageUploader';
 import { useAdminMutation, useAdminQuery } from '@/hooks/useAdminQuery';
 import {
   createAdminCourse,
@@ -28,6 +29,7 @@ interface Fields {
   levelLabel: string;
   priceLabel: string; priceSuffix: string; priceHelp: string;
   thumbnailLabel: string; thumbnailPlaceholder: string; thumbnailMaxLength: number; thumbnailHelp: string;
+  thumbnailUploader: Omit<ImageUploaderCopy, 'label' | 'hint'>;
   descriptionLabel: string; descriptionPlaceholder: string;
 }
 
@@ -39,6 +41,13 @@ interface Errors {
 
 interface Actions {
   submitCreateLabel: string; submitEditLabel: string; cancelLabel: string;
+}
+
+interface AutoSaveCopy {
+  savingLabel: string;
+  savedLabel: string;
+  savedAtFormat: string;
+  errorLabel: string;
 }
 
 export interface CourseFormCopy {
@@ -53,6 +62,7 @@ export interface CourseFormCopy {
   levelLabels: Record<AdminCourseLevel, string>;
   errors: Errors;
   actions: Actions;
+  autoSave?: AutoSaveCopy;
 }
 
 const LEVEL_VALUES: AdminCourseLevel[] = ['BEGINNER', 'BASIC', 'INTERMEDIATE', 'ADVANCED'];
@@ -110,6 +120,8 @@ export default function AdminCourseFormContainer({
   const [description, setDescription] = useState('');
   const [errors, setErrors] = useState<Partial<Record<keyof Errors, string>>>({});
   const [initialized, setInitialized] = useState(mode === 'create');
+  const [autoSaveStatus, setAutoSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+  const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null);
 
   // edit 모드: 초기 데이터 수신 시 1회 prefill
   useEffect(() => {
@@ -119,12 +131,54 @@ export default function AdminCourseFormContainer({
     setInstructorIds(initialInstructorIds);
     setLevel(initial.level);
     setPrice(String(initial.price));
+    setThumbnailUrl(initial.thumbnailUrl ?? '');
     setInitialized(true);
   }, [mode, initialized, initial, instructors.length, initialInstructorIds]);
 
   const toggleInstructor = useCallback((id: number) => {
     setInstructorIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
   }, []);
+
+  // 자동저장 (debounce 2s) — edit 모드 + initialized + 유효한 필드일 때만
+  useEffect(() => {
+    if (mode !== 'edit' || !initial || !initialized) return;
+
+    const priceNum = Number(price);
+    const valid =
+      title.trim().length > 0 &&
+      title.length <= copy.fields.titleMaxLength &&
+      categoryId !== '' &&
+      instructorIds.length > 0 &&
+      level !== '' &&
+      !!price && !Number.isNaN(priceNum) && priceNum >= 0 && Number.isInteger(priceNum) &&
+      thumbnailUrl.length <= copy.fields.thumbnailMaxLength;
+    if (!valid) return;
+
+    const timer = setTimeout(async () => {
+      try {
+        setAutoSaveStatus('saving');
+        await updateAdminCourse(initial.id, {
+          title: title.trim(),
+          categoryId: Number(categoryId),
+          description: description.trim() || undefined,
+          instructorIds,
+          level: level as AdminCourseLevel,
+          price: priceNum,
+          thumbnailUrl: thumbnailUrl.trim() || undefined,
+        });
+        setLastSavedAt(new Date());
+        setAutoSaveStatus('saved');
+      } catch {
+        setAutoSaveStatus('error');
+      }
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [
+    mode, initial, initialized,
+    title, categoryId, instructorIds, level, price, thumbnailUrl, description,
+    copy.fields.titleMaxLength, copy.fields.thumbnailMaxLength,
+  ]);
 
   const validate = useCallback(() => {
     const e: Partial<Record<keyof Errors, string>> = {};
@@ -299,19 +353,21 @@ export default function AdminCourseFormContainer({
       <div className="admin-form-page__field-group">
         <h2 className="admin-user-detail__section-title">{copy.sections.mediaTitle}</h2>
 
-        <label className="admin-form-page__field">
-          <span className="admin-form-page__label">{copy.fields.thumbnailLabel}</span>
-          <input
-            type="url"
-            value={thumbnailUrl}
-            onChange={(e) => setThumbnailUrl(e.target.value)}
-            placeholder={copy.fields.thumbnailPlaceholder}
-            maxLength={copy.fields.thumbnailMaxLength}
-            className="admin-form-page__input"
+        <div className="admin-form-page__field">
+          <ImageUploader
+            id="course-thumbnail"
+            uploadType="THUMBNAIL"
+            value={thumbnailUrl || null}
+            onChange={(s3Key) => setThumbnailUrl(s3Key ?? '')}
+            aspectRatio="16 / 9"
+            copy={{
+              ...copy.fields.thumbnailUploader,
+              label: copy.fields.thumbnailLabel,
+              hint: copy.fields.thumbnailHelp,
+            }}
           />
-          <span className="admin-modal__field-help">{copy.fields.thumbnailHelp}</span>
           {errors.thumbnailTooLong && <FieldError>{errors.thumbnailTooLong}</FieldError>}
-        </label>
+        </div>
 
         <label className="admin-form-page__field">
           <span className="admin-form-page__label">{copy.fields.descriptionLabel}</span>
@@ -328,6 +384,20 @@ export default function AdminCourseFormContainer({
       {mutation.error && <p className="admin-form-page__error" role="alert">{mutation.error.message}</p>}
 
       <footer className="admin-form-page__footer">
+        {mode === 'edit' && copy.autoSave && (
+          <span className="admin-form-page__autosave" role="status" aria-live="polite">
+            {autoSaveStatus === 'saving' && copy.autoSave.savingLabel}
+            {autoSaveStatus === 'saved' && lastSavedAt && (
+              <>
+                {copy.autoSave.savedLabel}{' '}
+                {copy.autoSave.savedAtFormat.replace('{time}', lastSavedAt.toLocaleTimeString())}
+              </>
+            )}
+            {autoSaveStatus === 'error' && (
+              <span className="admin-form-page__autosave-error">{copy.autoSave.errorLabel}</span>
+            )}
+          </span>
+        )}
         <Link href={copy.backLinkHref} className="admin-modal__btn admin-modal__btn--ghost">
           {copy.actions.cancelLabel}
         </Link>

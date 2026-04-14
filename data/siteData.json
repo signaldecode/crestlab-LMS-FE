@@ -68,6 +68,11 @@
         "ariaLabel": "게시판"
       },
       {
+        "label": "뉴스",
+        "href": "/news",
+        "ariaLabel": "뉴스 페이지"
+      },
+      {
         "label": "고객지원",
         "href": "/support",
         "ariaLabel": "고객지원 페이지"

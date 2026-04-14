@@ -9,6 +9,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import type { JSX, ChangeEvent } from 'react';
 import Link from 'next/link';
+import AdminActionButton from '@/components/admin/AdminActionButton';
 import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
 import { useAdminQuery } from '@/hooks/useAdminQuery';
 import { fetchAdminCourseCategories, fetchAdminCourses } from '@/lib/adminApi';
@@ -265,13 +266,12 @@ export default function AdminCourseListContainer({
                   </td>
                   <td className="admin-courses__td">{formatDate(c.createdAt)}</td>
                   <td className="admin-courses__td admin-courses__td--actions">
-                    <Link
+                    <AdminActionButton
                       href={`/admin/courses/${c.id}`}
-                      aria-label={fillTemplate(copy.actions.viewAriaLabelTemplate, { title: c.title })}
-                      className="admin-courses__action-link"
+                      ariaLabel={fillTemplate(copy.actions.viewAriaLabelTemplate, { title: c.title })}
                     >
                       {copy.actions.viewLabel}
-                    </Link>
+                    </AdminActionButton>
                   </td>
                 </tr>
               ))}

@@ -8,6 +8,7 @@
 import { useState, useCallback } from 'react';
 import type { JSX } from 'react';
 import Link from 'next/link';
+import AdminActionButton from '@/components/admin/AdminActionButton';
 import AdminModal from '@/components/admin/AdminModal';
 import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
 import { useAdminMutation, useAdminQuery } from '@/hooks/useAdminQuery';
@@ -38,7 +39,8 @@ interface AdminCouponListContainerProps {
   common: CommonCopy;
 }
 
-const formatNumber = (n: number): string => n.toLocaleString('ko-KR');
+const formatNumber = (n: number | null | undefined): string =>
+  typeof n === 'number' ? n.toLocaleString('ko-KR') : '-';
 const formatDate = (iso: string): string => {
   const d = new Date(iso);
   return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
@@ -126,13 +128,12 @@ export default function AdminCouponListContainer({
                   </td>
                   <td className="admin-list__td admin-list__td--actions">
                     {c.isActive && (
-                      <button
-                        type="button"
+                      <AdminActionButton
+                        variant="danger"
                         onClick={() => setDeactivateTarget(c)}
-                        className="admin-list__action-btn admin-list__action-btn--danger"
                       >
                         {copy.actionLabels.deactivate}
-                      </button>
+                      </AdminActionButton>
                     )}
                   </td>
                 </tr>

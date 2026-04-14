@@ -8,6 +8,7 @@
 
 import { useState, useCallback } from 'react';
 import type { JSX } from 'react';
+import AdminActionButton from '@/components/admin/AdminActionButton';
 import AdminModal from '@/components/admin/AdminModal';
 import {
   deactivateAdminCoupon,
@@ -86,13 +87,12 @@ export default function AdminDeleteAction({
 
   return (
     <>
-      <button
-        type="button"
+      <AdminActionButton
+        variant={variant === 'danger' ? 'danger' : 'default'}
         onClick={() => setIsOpen(true)}
-        className={`admin-list__action-btn${variant === 'danger' ? ' admin-list__action-btn--danger' : ''}`}
       >
         {buttonLabel}
-      </button>
+      </AdminActionButton>
 
       <AdminModal
         isOpen={isOpen}

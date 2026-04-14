@@ -6,6 +6,7 @@
 'use client';
 
 import { useState, useCallback, type JSX } from 'react';
+import AdminActionButton from '@/components/admin/AdminActionButton';
 import AdminModal from '@/components/admin/AdminModal';
 import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
 import { useAdminMutation, useAdminQuery } from '@/hooks/useAdminQuery';
@@ -137,13 +138,11 @@ export default function AdminInstructorApplicationsContainer(): JSX.Element {
                   </td>
                   <td className="admin-list__td">{formatDate(it.createdAt)}</td>
                   <td className="admin-list__td admin-list__td--actions">
-                    <button
-                      type="button"
+                    <AdminActionButton
                       onClick={() => { setDetailTarget(it); setShowRejectInput(false); setRejectReason(''); }}
-                      className="admin-list__action-btn"
                     >
                       상세
-                    </button>
+                    </AdminActionButton>
                   </td>
                 </tr>
               ))}

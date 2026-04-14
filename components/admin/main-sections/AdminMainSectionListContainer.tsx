@@ -2,6 +2,7 @@
 
 import type { JSX } from 'react';
 import Link from 'next/link';
+import AdminActionButton from '@/components/admin/AdminActionButton';
 import AdminDeleteAction from '@/components/admin/AdminDeleteAction';
 import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
 import { useAdminQuery } from '@/hooks/useAdminQuery';
@@ -88,9 +89,9 @@ export default function AdminMainSectionListContainer({ copy, common }: Props): 
                     </span>
                   </td>
                   <td className="admin-list__td admin-list__td--actions">
-                    <Link href={`/admin/main-sections/${s.id}/edit`} className="admin-list__action-link">
+                    <AdminActionButton href={`/admin/main-sections/${s.id}/edit`}>
                       {copy.actionLabels.edit}
-                    </Link>
+                    </AdminActionButton>
                     <AdminDeleteAction
                       targetId={s.id}
                       resource="mainSection"

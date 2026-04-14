@@ -1,12 +1,15 @@
 /**
- * 영상 업로드 유틸 (upload.ts)
+ * 업로드 유틸 (upload.ts)
  * - Presigned URL 기반 S3 직접 업로드를 위한 함수 모음
- * - requestPresignedUrl: Presigned URL 발급 요청
- * - uploadFileToS3: XHR 기반 S3 직접 업로드 (진행률 콜백 + 취소 지원)
- * - confirmUpload: 업로드 완료 확인
- * - validateVideoFile: 파일 형식/크기 검증
+ * - 영상/이미지 등 모든 업로드 지점에서 동일한 흐름을 사용한다
+ *   1) requestPresignedUrl  : Presigned URL 발급 요청
+ *   2) uploadFileToS3       : XHR 기반 S3 직접 업로드 (진행률 콜백 + 취소 지원)
+ *   3) confirmUpload        : 업로드 완료 확인 (영상에 한함)
+ * - validateVideoFile / validateImageFile : 파일 형식/크기 검증
+ * - uploadImage : 이미지 업로드 통합 헬퍼 (발급 → PUT → s3Key 반환)
  */
 
+import { issuePresignedUrl, type UploadType } from '@/lib/adminApi';
 import type {
   PresignedUrlRequest,
   PresignedUrlResponse,
@@ -16,23 +19,34 @@ import type {
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || '/api';
 
-const ALLOWED_MIME_TYPES = [
+const ALLOWED_VIDEO_MIME_TYPES = [
   'video/mp4',
   'video/quicktime',
   'video/x-msvideo',
   'video/x-matroska',
 ];
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024 * 1024; // 5GB
+const ALLOWED_IMAGE_MIME_TYPES = [
+  'image/jpeg',
+  'image/png',
+  'image/webp',
+  'image/gif',
+];
 
-/** 파일 형식/크기 검증 — errorKey를 반환하며, 유효하면 null */
+const MAX_VIDEO_FILE_SIZE = 5 * 1024 * 1024 * 1024; // 5GB
+const MAX_IMAGE_FILE_SIZE = 10 * 1024 * 1024;       // 10MB
+
+/** 영상 파일 검증 — errorKey 반환, 유효하면 null */
 export function validateVideoFile(file: File): string | null {
-  if (!ALLOWED_MIME_TYPES.includes(file.type)) {
-    return 'invalidFormat';
-  }
-  if (file.size > MAX_FILE_SIZE) {
-    return 'fileTooLarge';
-  }
+  if (!ALLOWED_VIDEO_MIME_TYPES.includes(file.type)) return 'invalidFormat';
+  if (file.size > MAX_VIDEO_FILE_SIZE) return 'fileTooLarge';
+  return null;
+}
+
+/** 이미지 파일 검증 — errorKey 반환, 유효하면 null */
+export function validateImageFile(file: File): string | null {
+  if (!ALLOWED_IMAGE_MIME_TYPES.includes(file.type)) return 'invalidFormat';
+  if (file.size > MAX_IMAGE_FILE_SIZE) return 'fileTooLarge';
   return null;
 }
 
@@ -111,4 +125,52 @@ export async function confirmUpload(
   }
 
   return res.json();
+}
+
+/* ────────────────────────────────────────────
+ *  이미지 업로드 통합 헬퍼
+ *  - Presigned URL 발급 → S3 PUT → s3Key 반환
+ *  - 진행률 콜백 + 취소 함수 지원
+ *  - 백엔드 계약: lib/adminApi.ts `issuePresignedUrl`
+ * ────────────────────────────────────────────*/
+export interface UploadImageResult {
+  s3Key: string;
+}
+
+export interface UploadImageHandle {
+  promise: Promise<UploadImageResult>;
+  abort: () => void;
+}
+
+/**
+ * 이미지 파일을 Presigned URL 방식으로 업로드한다.
+ * @param file        업로드할 이미지 파일 (validateImageFile 통과 가정)
+ * @param uploadType  THUMBNAIL | PROFILE_IMAGE | BACKGROUND_IMAGE | NOTICE_IMAGE
+ * @param onProgress  0–100 진행률 콜백
+ */
+export function uploadImage(
+  file: File,
+  uploadType: UploadType,
+  onProgress: (percent: number) => void = () => {},
+): UploadImageHandle {
+  let abortFn: () => void = () => {};
+
+  const promise = (async (): Promise<UploadImageResult> => {
+    const { presignedUrl, s3Key } = await issuePresignedUrl({
+      filename: file.name,
+      contentType: file.type,
+      uploadType,
+    });
+
+    const { promise: putPromise, abort } = uploadFileToS3(presignedUrl, file, onProgress);
+    abortFn = abort;
+    await putPromise;
+
+    return { s3Key };
+  })();
+
+  return {
+    promise,
+    abort: () => abortFn(),
+  };
 }

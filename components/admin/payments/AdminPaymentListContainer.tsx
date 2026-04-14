@@ -9,6 +9,7 @@
 import { useMemo, useState, useCallback, useEffect } from 'react';
 import type { JSX, ChangeEvent } from 'react';
 import Link from 'next/link';
+import AdminActionButton from '@/components/admin/AdminActionButton';
 import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
 import { useAdminQuery } from '@/hooks/useAdminQuery';
 import { fetchAdminPayments } from '@/lib/adminApi';
@@ -246,13 +247,12 @@ export default function AdminPaymentListContainer({
                   </td>
                   <td className="admin-payments__td">{formatDateTime(o.createdAt)}</td>
                   <td className="admin-payments__td admin-payments__td--actions">
-                    <Link
+                    <AdminActionButton
                       href={`/admin/payments/${o.id}`}
-                      aria-label={fillTemplate(copy.actions.viewAriaLabelTemplate, { orderNumber: o.orderNumber })}
-                      className="admin-payments__action-link"
+                      ariaLabel={fillTemplate(copy.actions.viewAriaLabelTemplate, { orderNumber: o.orderNumber })}
                     >
                       {copy.actions.viewLabel}
-                    </Link>
+                    </AdminActionButton>
                   </td>
                 </tr>
               ))}

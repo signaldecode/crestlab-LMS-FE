@@ -9,6 +9,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import type { UpcomingCourse } from '@/types';
+import { resolveThumb } from '@/lib/images';
 
 interface UpcomingCourseCardProps {
   course: UpcomingCourse;
@@ -23,7 +24,7 @@ export default function UpcomingCourseCard({ course }: UpcomingCourseCardProps) 
     <article className="upcoming-card">
       <div className="upcoming-card__thumbnail">
         <Image
-          src={course.thumbnail}
+          src={resolveThumb(course.thumbnail)}
           alt={course.thumbnailAlt}
           fill
           sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"

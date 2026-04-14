@@ -8,6 +8,7 @@
 
 import { useState, useCallback } from 'react';
 import type { JSX } from 'react';
+import AdminActionButton from '@/components/admin/AdminActionButton';
 import AdminModal from '@/components/admin/AdminModal';
 import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
 import { useAdminMutation, useAdminQuery } from '@/hooks/useAdminQuery';
@@ -168,9 +169,9 @@ export default function AdminTermsPage(): JSX.Element {
                   </td>
                   <td className="admin-list__td">{formatDate(t.createdAt)}</td>
                   <td className="admin-list__td admin-list__td--actions">
-                    <button type="button" onClick={() => setViewTarget(t)} className="admin-list__action-btn">
+                    <AdminActionButton onClick={() => setViewTarget(t)}>
                       {copy.actionLabels.view}
-                    </button>
+                    </AdminActionButton>
                   </td>
                 </tr>
               ))}

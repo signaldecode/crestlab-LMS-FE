@@ -1,14 +1,16 @@
 /**
- * 관리자 강의 편집 페이지
- * - /admin/courses/[id] (admin Route Group) 경로로 접근한다
- * - Next.js 16 async params 패턴을 사용한다
- * - getPageData('admin')으로 텍스트를 로드하고 AdminCourseEditContainer에 위임한다
+ * 관리자 강의 편집 통합 페이지 (/admin/courses/[id])
+ * - 기본정보 / 커리큘럼 / 영상 / 설정 4개 탭을 AdminCourseTabs에 위임한다
+ * - URL query `?tab=basic|curriculum|video|settings`로 탭 전환
  */
 
 import type { JSX } from 'react';
-import Link from 'next/link';
 import { getPageData } from '@/lib/data';
-import AdminCourseEditContainer from '@/components/admin/AdminCourseEditContainer';
+import AdminCourseTabs, {
+  type AdminCourseTabsCopy,
+} from '@/components/admin/courses/AdminCourseTabs';
+import type { CourseFormCopy } from '@/components/admin/courses/AdminCourseFormContainer';
+import type { CurriculumEditorCopy } from '@/components/admin/courses/CurriculumEditor';
 
 interface AdminCourseEditPageProps {
   params: Promise<{ id: string }>;
@@ -21,7 +23,11 @@ interface AdminPageData {
     uploadSectionTitle: string;
     editBasicInfoLinkLabel: string;
     editBasicInfoLinkAriaLabel: string;
+    tabs: AdminCourseTabsCopy;
+    curriculum: CurriculumEditorCopy;
   };
+  courseForm?: CourseFormCopy & { notFoundText?: string };
+  common?: { loadingText: string; errorTitle: string; errorRetryLabel: string };
   upload: {
     dropzoneLabel: string;
     dropzoneActiveLabel: string;
@@ -52,41 +58,42 @@ export default async function AdminCourseEditPage({ params }: AdminCourseEditPag
   const { id } = await params;
   const adminData = getPageData('admin') as AdminPageData | null;
 
-  const texts = {
+  if (!adminData?.courseEdit || !adminData.courseForm || !adminData.common) {
+    return <main>데이터를 불러올 수 없습니다.</main>;
+  }
+
+  const videoTexts = {
     courseEdit: {
-      title: adminData?.courseEdit.title || '',
-      uploadSectionTitle: adminData?.courseEdit.uploadSectionTitle || '',
+      title: adminData.courseEdit.title,
+      uploadSectionTitle: adminData.courseEdit.uploadSectionTitle,
     },
     upload: {
-      dropzoneLabel: adminData?.upload.dropzoneLabel || '',
-      dropzoneActiveLabel: adminData?.upload.dropzoneActiveLabel || '',
-      browseLabel: adminData?.upload.browseLabel || '',
-      browseAriaLabel: adminData?.upload.browseAriaLabel || '',
-      cancelLabel: adminData?.upload.cancelLabel || '',
-      cancelAriaLabel: adminData?.upload.cancelAriaLabel || '',
-      retryLabel: adminData?.upload.retryLabel || '',
-      retryAriaLabel: adminData?.upload.retryAriaLabel || '',
-      progressLabel: adminData?.upload.progressLabel || '',
-      successMessage: adminData?.upload.successMessage || '',
-      allowedFormats: adminData?.upload.allowedFormats || '',
-      maxSizeLabel: adminData?.upload.maxSizeLabel || '',
-      maxSizeValue: adminData?.upload.maxSizeValue || '',
-      errors: adminData?.upload.errors || {},
+      dropzoneLabel: adminData.upload.dropzoneLabel,
+      dropzoneActiveLabel: adminData.upload.dropzoneActiveLabel,
+      browseLabel: adminData.upload.browseLabel,
+      browseAriaLabel: adminData.upload.browseAriaLabel,
+      cancelLabel: adminData.upload.cancelLabel,
+      cancelAriaLabel: adminData.upload.cancelAriaLabel,
+      retryLabel: adminData.upload.retryLabel,
+      retryAriaLabel: adminData.upload.retryAriaLabel,
+      progressLabel: adminData.upload.progressLabel,
+      successMessage: adminData.upload.successMessage,
+      allowedFormats: adminData.upload.allowedFormats,
+      maxSizeLabel: adminData.upload.maxSizeLabel,
+      maxSizeValue: adminData.upload.maxSizeValue,
+      errors: adminData.upload.errors,
     },
   };
 
   return (
-    <>
-      <div className="admin-course-edit-entry">
-        <Link
-          href={`/admin/courses/${id}/edit`}
-          aria-label={adminData?.courseEdit.editBasicInfoLinkAriaLabel ?? ''}
-          className="admin-modal__btn admin-modal__btn--ghost"
-        >
-          {adminData?.courseEdit.editBasicInfoLinkLabel ?? ''}
-        </Link>
-      </div>
-      <AdminCourseEditContainer courseId={id} texts={texts} />
-    </>
+    <AdminCourseTabs
+      courseId={Number(id)}
+      formCopy={adminData.courseForm}
+      common={adminData.common}
+      notFoundText={adminData.courseForm.notFoundText ?? ''}
+      curriculumCopy={adminData.courseEdit.curriculum}
+      tabsCopy={adminData.courseEdit.tabs}
+      videoTexts={videoTexts}
+    />
   );
 }

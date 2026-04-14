@@ -1,0 +1,65 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+
+// ============================================
+// 공용 페이지네이션 (_pagination.scss)
+// - ellipsis 적용 페이지네이션
+// ============================================
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: $spacing-1;
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.25rem;
+    height: 2.25rem;
+    padding: 0 $spacing-2;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    font-family: $font-family-base;
+    color: $color-text-secondary;
+    background: none;
+    border: none;
+    border-radius: $radius-xs;
+    cursor: pointer;
+    transition: background-color $duration-normal $ease-default,
+      color $duration-normal $ease-default;
+
+    &:hover:not(:disabled):not(.pagination__btn--active) {
+      background-color: $color-bg-tertiary;
+    }
+
+    &--active {
+      color: $color-text-primary;
+      background-color: $color-bg-basic;
+      font-weight: $font-weight-semibold;
+      cursor: default;
+    }
+
+    &--arrow {
+      font-size: $font-size-base;
+
+      &:disabled {
+        opacity: 0.35;
+        cursor: default;
+      }
+    }
+  }
+
+  &__ellipsis {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    height: 2.25rem;
+    color: $color-text-secondary;
+    user-select: none;
+  }
+}

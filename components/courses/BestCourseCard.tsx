@@ -6,6 +6,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import type { BestCourse } from '@/types';
+import { resolveThumb } from '@/lib/images';
 
 function getBadgeVariant(badge: string): string {
   if (badge === 'ORIGINAL') return 'original';
@@ -27,7 +28,7 @@ export default function BestCourseCard({ course }: BestCourseCardProps) {
     <Link href={`/courses/${course.id}`} className="best-card">
       <div className="best-card__thumbnail">
         <Image
-          src={course.thumbnail}
+          src={resolveThumb(course.thumbnail)}
           alt={course.thumbnailAlt}
           fill
           sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"

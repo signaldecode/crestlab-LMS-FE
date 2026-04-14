@@ -9,6 +9,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useAdminQuery } from '@/hooks/useAdminQuery';
 import { fetchInstructor } from '@/lib/userApi';
+import { resolveThumb } from '@/lib/images';
 
 const SK = 'instructor-detail';
 
@@ -69,7 +70,7 @@ export default function InstructorDetailContainer({ instructorId }: Props): JSX.
                   <Link href={`/courses/${c.courseId}`} className={`${SK}__course-link`}>
                     {c.thumbnailUrl && (
                       <Image
-                        src={c.thumbnailUrl}
+                        src={resolveThumb(c.thumbnailUrl)}
                         alt={c.title}
                         width={240}
                         height={140}

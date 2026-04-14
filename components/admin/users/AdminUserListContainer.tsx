@@ -7,7 +7,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import type { JSX, ChangeEvent } from 'react';
-import Link from 'next/link';
+import AdminActionButton from '@/components/admin/AdminActionButton';
 import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
 import { useAdminQuery } from '@/hooks/useAdminQuery';
 import { fetchAdminUsers } from '@/lib/adminApi';
@@ -236,13 +236,12 @@ export default function AdminUserListContainer({
                   </td>
                   <td className="admin-users__td">{formatDate(u.createdAt)}</td>
                   <td className="admin-users__td admin-users__td--actions">
-                    <Link
+                    <AdminActionButton
                       href={`/admin/users/${u.id}`}
-                      aria-label={fillTemplate(copy.actions.viewAriaLabelTemplate, { nickname: u.nickname })}
-                      className="admin-users__action-link"
+                      ariaLabel={fillTemplate(copy.actions.viewAriaLabelTemplate, { nickname: u.nickname })}
                     >
                       {copy.actions.viewLabel}
-                    </Link>
+                    </AdminActionButton>
                   </td>
                 </tr>
               ))}

@@ -619,8 +619,36 @@ export interface NewsListParams {
   size?: number;
 }
 
-export function fetchNews(params: NewsListParams = {}): Promise<NewsPageResponse> {
-  return request<NewsPageResponse>('v1/news', { query: { ...params } });
+/**
+ * 백엔드 PageResponse raw 포맷 (lecture-api/common/response/PageResponse.java)
+ * - `total_elements` (snake_case, @JsonProperty), `totalPages` 없음
+ * - 프론트 친화 포맷(totalElements + 파생 totalPages)으로 변환한다
+ */
+interface RawPageResponse<T> {
+  content: T[];
+  page: number;
+  size: number;
+  total_elements?: number;
+  totalElements?: number;
+  totalPages?: number;
+}
+
+function normalizePage<T>(raw: RawPageResponse<T>): { content: T[]; page: number; size: number; totalElements: number; totalPages: number } {
+  const totalElements = raw.totalElements ?? raw.total_elements ?? 0;
+  const size = raw.size > 0 ? raw.size : 1;
+  const totalPages = raw.totalPages ?? Math.max(1, Math.ceil(totalElements / size));
+  return {
+    content: raw.content ?? [],
+    page: raw.page,
+    size: raw.size,
+    totalElements,
+    totalPages,
+  };
+}
+
+export async function fetchNews(params: NewsListParams = {}): Promise<NewsPageResponse> {
+  const raw = await request<RawPageResponse<NewsItem>>('v1/news', { query: { ...params } });
+  return normalizePage(raw);
 }
 
 /* ────────────────────────────────────────────
@@ -814,12 +842,29 @@ export interface NoticePageResponse {
   totalPages: number;
 }
 
-export function fetchNotices(params: { page?: number; size?: number } = {}): Promise<NoticePageResponse> {
-  return request<NoticePageResponse>('v1/notices', { query: { ...params } });
+export async function fetchNotices(params: { page?: number; size?: number } = {}): Promise<NoticePageResponse> {
+  const raw = await request<RawPageResponse<NoticeSummary>>('v1/notices', { query: { ...params } });
+  return normalizePage(raw);
 }
 
 export function fetchNoticeById(id: number): Promise<NoticeDetail> {
   return request<NoticeDetail>(`v1/notices/${id}`);
+}
+
+/* ────────────────────────────────────────────
+ *  공개 FAQ (/api/v1/faqs)
+ * ────────────────────────────────────────────*/
+export interface FaqApiItem {
+  id: number;
+  category: string;
+  question: string;
+  answer: string;
+  sortOrder: number;
+  updatedAt: string;
+}
+
+export function fetchFaqs(category?: string): Promise<FaqApiItem[]> {
+  return request<FaqApiItem[]>('v1/faqs', { query: category ? { category } : undefined });
 }
 
 /* ────────────────────────────────────────────

@@ -1,0 +1,42 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+
+// ============================================
+// 관리자 공용 액션 버튼 (_action-button.scss)
+// - 리스트/상세 테이블에서 사용하는 "상세/수정/삭제" 등 버튼
+// - Link/button 양쪽 모두 동일한 시각 스타일을 제공
+// ============================================
+
+.admin-action-btn {
+  display: inline-block;
+  padding: $spacing-1 $spacing-3;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  color: $color-primary;
+  background-color: $color-bg-primary;
+  border: $border-thin solid $color-border;
+  border-radius: $spacing-1;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  margin: 0 $spacing-1;
+
+  &:hover:not(:disabled) {
+    background-color: $color-bg-secondary;
+    border-color: $color-primary;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &--danger {
+    color: $color-error;
+
+    &:hover:not(:disabled) {
+      border-color: $color-error;
+    }
+  }
+}

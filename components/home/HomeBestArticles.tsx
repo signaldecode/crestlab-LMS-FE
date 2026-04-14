@@ -10,6 +10,7 @@
 import { useState, type JSX } from 'react';
 import Image from 'next/image';
 import type { HomeBestArticlesSection } from '@/types';
+import { resolveThumb } from '@/lib/images';
 
 interface HomeBestArticlesProps {
   section: HomeBestArticlesSection;
@@ -49,7 +50,7 @@ export default function HomeBestArticles({ section }: HomeBestArticlesProps): JS
               >
                 <div className="home-best-articles__thumb">
                   <Image
-                    src={article.thumbnail}
+                    src={resolveThumb(article.thumbnail)}
                     alt={article.thumbnailAlt}
                     fill
                     sizes={isFeatured ? '30vw' : '17vw'}

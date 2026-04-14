@@ -12,6 +12,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { Course } from '@/types';
 import CourseCard from '@/components/courses/CourseCard';
+import { resolveThumb } from '@/lib/images';
 
 interface HomeCourseFeatureProps {
   title: string;
@@ -37,7 +38,7 @@ export default function HomeCourseFeature({ title, courses }: HomeCourseFeatureP
         {/* 왼쪽 대형 카드 */}
         <Link href={`/courses/${featured.id}`} className="home-course-feature__hero" aria-label={featured.title}>
           <Image
-            src={featured.thumbnail}
+            src={resolveThumb(featured.thumbnail)}
             alt={featured.thumbnailAlt}
             fill
             sizes="(max-width: 767px) 100vw, 55vw"
@@ -68,7 +69,7 @@ export default function HomeCourseFeature({ title, courses }: HomeCourseFeatureP
             <Link key={course.id} href={`/courses/${course.id}`} className="home-course-feature__side-card">
               <div className="home-course-feature__side-thumb">
                 <Image
-                  src={course.thumbnail}
+                  src={resolveThumb(course.thumbnail)}
                   alt={course.thumbnailAlt}
                   fill
                   sizes="(max-width: 767px) 50vw, 20vw"

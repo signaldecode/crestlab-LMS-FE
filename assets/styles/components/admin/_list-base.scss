@@ -181,31 +181,6 @@
     &--info { background-color: $color-secondary-bg; color: $color-secondary; }
   }
 
-  &__action-link,
-  &__action-btn {
-    display: inline-block;
-    padding: $spacing-1 $spacing-3;
-    font-size: $font-size-xs;
-    font-weight: $font-weight-medium;
-    color: $color-primary;
-    background-color: $color-bg-primary;
-    border: $border-thin solid $color-border;
-    border-radius: $spacing-1;
-    text-decoration: none;
-    cursor: pointer;
-    margin: 0 $spacing-1;
-
-    &:hover {
-      background-color: $color-bg-secondary;
-      border-color: $color-primary;
-    }
-
-    &--danger {
-      color: $color-error;
-      &:hover { border-color: $color-error; }
-    }
-  }
-
   &__pagination {
     display: flex;
     align-items: center;

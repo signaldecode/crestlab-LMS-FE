@@ -1027,7 +1027,10 @@
     "meta": {
       "label": "News",
       "title": "이주의 추천 뉴스",
-      "ariaLabel": "이주의 추천 뉴스 섹션"
+      "ariaLabel": "이주의 추천 뉴스 섹션",
+      "moreLabel": "전체 뉴스 보기",
+      "moreHref": "/news",
+      "moreAriaLabel": "전체 뉴스 페이지로 이동"
     },
     "items": [
       {
@@ -1138,7 +1141,10 @@
     "pagination": {
       "perPage": 6,
       "totalPages": 6,
-      "ariaLabel": "뉴스 페이지 네비게이션"
+      "ariaLabel": "뉴스 페이지 네비게이션",
+      "prevAriaLabel": "이전 페이지",
+      "nextAriaLabel": "다음 페이지",
+      "pageAriaFormat": "{page} 페이지"
     }
   }
 }

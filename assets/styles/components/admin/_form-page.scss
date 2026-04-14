@@ -213,9 +213,20 @@
   &__footer {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     gap: $spacing-2;
     padding-top: $spacing-4;
     border-top: $border-thin solid $color-border;
+  }
+
+  &__autosave {
+    margin-right: auto;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__autosave-error {
+    color: $color-error;
   }
 
   &__checkbox-list {

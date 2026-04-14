@@ -250,6 +250,19 @@ export function reorderAdminSections(
   return request<void>(`v1/admin/courses/${courseId}/sections/order`, { method: 'PUT', body });
 }
 
+/**
+ * 관리자 커리큘럼 조회 — 섹션 + 중첩된 강의 목록
+ * 백엔드 요구사항(TODO): GET /api/v1/admin/courses/{courseId}/sections
+ *   → AdminSection[] 각 항목에 lectures: AdminLecture[] 포함 (status 무관하게 조회 허용)
+ */
+export interface AdminSectionWithLectures extends AdminSection {
+  lectures: AdminLecture[];
+}
+
+export function fetchAdminCourseCurriculum(courseId: number): Promise<AdminSectionWithLectures[]> {
+  return request<AdminSectionWithLectures[]>(`v1/admin/courses/${courseId}/sections`);
+}
+
 /* ────────────────────────────────────────────
  *  Admin Lectures CRUD (`/v1/admin/sections/{sectionId}/lectures`)
  * ────────────────────────────────────────────*/

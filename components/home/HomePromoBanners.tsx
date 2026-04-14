@@ -10,6 +10,7 @@ import { useState, type JSX } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { HomePromoBannerSection } from '@/types';
+import { resolveThumb } from '@/lib/images';
 
 interface HomePromoBannersProps {
   section: HomePromoBannerSection;
@@ -39,7 +40,7 @@ export default function HomePromoBanners({ section }: HomePromoBannersProps): JS
               <Link href={banner.href} className="home-promo__link" aria-label={banner.ariaLabel}>
                 <div className="home-promo__image-wrap">
                   <Image
-                    src={banner.thumbnail}
+                    src={resolveThumb(banner.thumbnail)}
                     alt={banner.thumbnailAlt}
                     fill
                     sizes="(max-width: 639px) 100vw, 50vw"

@@ -9,12 +9,15 @@ import type { JSX } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
+import ImageUploader, { type ImageUploaderCopy } from '@/components/ui/ImageUploader';
 import { useAdminMutation, useAdminQuery } from '@/hooks/useAdminQuery';
 import { createAdminBanner, fetchAdminBanners, updateAdminBanner } from '@/lib/adminApi';
 
 interface Fields {
   titleLabel: string; titlePlaceholder: string;
   pcImageUrlLabel: string; mobileImageUrlLabel: string; imageUrlPlaceholder: string;
+  imageHelp: string;
+  imageUploader: Omit<ImageUploaderCopy, 'label' | 'hint'>;
   linkUrlLabel: string; linkUrlPlaceholder: string;
   startDateLabel: string; endDateLabel: string;
   sortOrderLabel: string; isActiveLabel: string;
@@ -151,19 +154,37 @@ export default function AdminBannerFormContainer({
           {errors.titleRequired && <span className="admin-modal__error">{errors.titleRequired}</span>}
         </label>
 
-        <label className="admin-form-page__field">
-          <span className="admin-form-page__label">{copy.fields.pcImageUrlLabel}</span>
-          <input type="url" value={pcImageUrl} onChange={(e) => setPcImageUrl(e.target.value)}
-            placeholder={copy.fields.imageUrlPlaceholder} className="admin-form-page__input" />
+        <div className="admin-form-page__field">
+          <ImageUploader
+            id="banner-pc-image"
+            uploadType="BACKGROUND_IMAGE"
+            value={pcImageUrl || null}
+            onChange={(s3Key) => setPcImageUrl(s3Key ?? '')}
+            aspectRatio="16 / 5"
+            copy={{
+              ...copy.fields.imageUploader,
+              label: copy.fields.pcImageUrlLabel,
+              hint: copy.fields.imageHelp,
+            }}
+          />
           {errors.pcImageUrlRequired && <span className="admin-modal__error">{errors.pcImageUrlRequired}</span>}
-        </label>
+        </div>
 
-        <label className="admin-form-page__field">
-          <span className="admin-form-page__label">{copy.fields.mobileImageUrlLabel}</span>
-          <input type="url" value={mobileImageUrl} onChange={(e) => setMobileImageUrl(e.target.value)}
-            placeholder={copy.fields.imageUrlPlaceholder} className="admin-form-page__input" />
+        <div className="admin-form-page__field">
+          <ImageUploader
+            id="banner-mobile-image"
+            uploadType="BACKGROUND_IMAGE"
+            value={mobileImageUrl || null}
+            onChange={(s3Key) => setMobileImageUrl(s3Key ?? '')}
+            aspectRatio="3 / 4"
+            copy={{
+              ...copy.fields.imageUploader,
+              label: copy.fields.mobileImageUrlLabel,
+              hint: copy.fields.imageHelp,
+            }}
+          />
           {errors.mobileImageUrlRequired && <span className="admin-modal__error">{errors.mobileImageUrlRequired}</span>}
-        </label>
+        </div>
 
         <label className="admin-form-page__field">
           <span className="admin-form-page__label">{copy.fields.linkUrlLabel}</span>
