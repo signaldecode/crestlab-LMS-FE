@@ -2,18 +2,20 @@
 @use '../../tokens/spacing' as *;
 @use '../../tokens/typography' as *;
 @use '../../tokens/effects' as *;
+@use '../../mixins/breakpoints' as *;
 
 // ============================================
 // 관리자 대시보드 (_dashboard.scss)
-// - 매출/신규가입자/인기강의/리뷰/결제 섹션 스타일
+// - Hero KPI 요약 + 2열 그리드 패널 + 결제 현황 구성
 // ============================================
 
 .admin-dashboard {
   display: flex;
   flex-direction: column;
-  gap: $spacing-10;
+  gap: $spacing-8;
   max-width: $container-max-width;
 
+  // ── Header ──
   &__header {
     display: flex;
     flex-direction: column;
@@ -35,23 +37,58 @@
     margin: $spacing-0;
   }
 
-  &__section {
+  // ── Hero KPI Row ──
+  &__hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-4;
+
+    @include breakpoint(sm) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @include breakpoint(lg) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  // ── Grid Layout ──
+  &__grid {
+    display: grid;
+    gap: $spacing-6;
+
+    &--2 {
+      grid-template-columns: 1fr;
+
+      @include breakpoint(lg) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
+
+  // ── Panel (section card) ──
+  &__panel {
     display: flex;
     flex-direction: column;
     gap: $spacing-5;
+    padding: $spacing-6;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: $spacing-3;
+    box-shadow: $shadow-xs;
   }
 
-  &__section-head {
+  &__panel-head {
     display: flex;
-    flex-direction: column;
-    gap: $spacing-1;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: $spacing-3;
   }
 
   &__section-title {
-    font-size: $font-size-xl;
+    font-size: $font-size-lg;
     font-weight: $font-weight-semibold;
     color: $color-text-primary;
-    margin: $spacing-0;
+    margin: $spacing-0 $spacing-0 $spacing-1 $spacing-0;
   }
 
   &__section-desc {
@@ -60,18 +97,26 @@
     margin: $spacing-0;
   }
 
-  // ── Stat Card Grid ──
+  // ── Stat Card Grid (결제 등) ──
   &__stat-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr;
     gap: $spacing-4;
 
-    &--four {
-      grid-template-columns: repeat(4, 1fr);
+    @include breakpoint(sm) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @include breakpoint(lg) {
+      grid-template-columns: repeat(3, 1fr);
+
+      &--four {
+        grid-template-columns: repeat(4, 1fr);
+      }
     }
   }
 
   &__stat-card {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: $spacing-2;
@@ -79,11 +124,43 @@
     background-color: $color-bg-primary;
     border: $border-thin solid $color-border;
     border-radius: $spacing-2;
+    transition: box-shadow $duration-normal $ease-default, transform $duration-normal $ease-default;
+
+    &:hover {
+      box-shadow: $shadow-sm;
+    }
+
+    // Hero 변형 — 좌측 accent strip + 더 큰 수치
+    &--hero {
+      padding: $spacing-6;
+      box-shadow: $shadow-xs;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: $spacing-0;
+        left: $spacing-0;
+        bottom: $spacing-0;
+        width: $spacing-1;
+        border-radius: $spacing-2 $spacing-0 $spacing-0 $spacing-2;
+        background-color: $color-primary;
+      }
+
+      .admin-dashboard__stat-value {
+        font-size: $font-size-3xl;
+      }
+    }
+
+    &--accent-primary::before { background-color: $color-primary; }
+    &--accent-secondary::before { background-color: $color-secondary; }
+    &--accent-success::before { background-color: $color-success; }
+    &--accent-star::before { background-color: $color-star; }
   }
 
   &__stat-label {
     font-size: $font-size-sm;
     color: $color-text-secondary;
+    font-weight: $font-weight-medium;
   }
 
   &__stat-value {
@@ -91,6 +168,7 @@
     font-weight: $font-weight-bold;
     color: $color-text-primary;
     line-height: 1.2;
+    font-variant-numeric: tabular-nums;
   }
 
   &__stat-unit {
@@ -100,31 +178,111 @@
     color: $color-text-secondary;
   }
 
+  &__stat-delta {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-1;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    color: $color-text-muted;
+    margin-top: $spacing-1;
+
+    &--up { color: $color-success; }
+    &--down { color: $color-error; }
+    &--flat { color: $color-text-muted; }
+  }
+
+  &__stat-delta-arrow {
+    font-size: $font-size-xs;
+  }
+
+  &__stat-delta-value {
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__stat-delta-label {
+    color: $color-text-muted;
+    font-weight: $font-weight-regular;
+    margin-left: $spacing-1;
+  }
+
+  // ── Inline Stats (패널 내부 요약) ──
+  &__inline-stats {
+    display: flex;
+    gap: $spacing-6;
+    padding: $spacing-4 $spacing-5;
+    background-color: $color-bg-secondary;
+    border-radius: $spacing-2;
+  }
+
+  &__inline-stat {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+  }
+
+  &__inline-stat-label {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  &__inline-stat-value {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__inline-stat-unit {
+    margin-left: $spacing-1;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-regular;
+    color: $color-text-secondary;
+  }
+
   // ── Bar Chart ──
   &__trend {
     display: flex;
     flex-direction: column;
     gap: $spacing-3;
-    padding: $spacing-5;
-    background-color: $color-bg-secondary;
-    border-radius: $spacing-2;
   }
 
   &__trend-title {
-    font-size: $font-size-base;
+    font-size: $font-size-sm;
     font-weight: $font-weight-semibold;
-    color: $color-text-primary;
+    color: $color-text-secondary;
     margin: $spacing-0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 
   &__bar-chart {
     display: flex;
     align-items: flex-end;
     gap: $spacing-1;
-    height: 12rem;
+    height: 10rem;
     list-style: none;
-    padding: $spacing-0;
+    padding: $spacing-3 $spacing-0 $spacing-0;
     margin: $spacing-0;
+    border-bottom: $border-thin solid $color-border;
+    background-image: linear-gradient(
+      to top,
+      transparent calc(25% - 1px),
+      $color-border calc(25% - 1px),
+      $color-border 25%,
+      transparent 25%,
+      transparent calc(50% - 1px),
+      $color-border calc(50% - 1px),
+      $color-border 50%,
+      transparent 50%,
+      transparent calc(75% - 1px),
+      $color-border calc(75% - 1px),
+      $color-border 75%,
+      transparent 75%
+    );
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
   }
 
   &__bar-item {
@@ -137,19 +295,28 @@
     min-width: 0;
   }
 
-  &__bar {
+  &__bar-track {
+    flex: 1;
     width: 100%;
-    background-color: $color-primary;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  &__bar {
+    width: 70%;
+    background: linear-gradient(180deg, $color-primary 0%, $color-primary-dark 100%);
     border-radius: $spacing-1 $spacing-1 $spacing-0 $spacing-0;
-    transition: opacity $duration-normal $ease-default;
+    transition: opacity $duration-normal $ease-default, transform $duration-normal $ease-default;
     min-height: 0.125rem;
 
     &:hover {
-      opacity: 0.8;
+      opacity: 0.85;
+      transform: translateY(-0.125rem);
     }
 
     &--alt {
-      background-color: $color-secondary;
+      background: linear-gradient(180deg, $color-secondary 0%, $color-secondary-light 100%);
     }
   }
 
@@ -167,19 +334,16 @@
   &__table {
     width: 100%;
     border-collapse: collapse;
-    background-color: $color-bg-primary;
-    border: $border-thin solid $color-border;
-    border-radius: $spacing-2;
-    overflow: hidden;
   }
 
   &__th {
     padding: $spacing-3 $spacing-4;
     text-align: left;
-    font-size: $font-size-sm;
+    font-size: $font-size-xs;
     font-weight: $font-weight-semibold;
     color: $color-text-secondary;
-    background-color: $color-bg-secondary;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     border-bottom: $border-thin solid $color-border;
 
     &--narrow {
@@ -213,25 +377,57 @@
     border-bottom: none;
   }
 
+  &__table tbody tr {
+    transition: background-color $duration-normal $ease-default;
+
+    &:hover {
+      background-color: $color-bg-secondary;
+    }
+  }
+
+  &__rank-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: $spacing-6;
+    height: $spacing-6;
+    padding: $spacing-0 $spacing-2;
+    border-radius: $spacing-3;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    font-variant-numeric: tabular-nums;
+
+    &--top {
+      background-color: $color-primary;
+      color: $color-text-inverse;
+    }
+
+    &--base {
+      background-color: $color-bg-secondary;
+      color: $color-text-secondary;
+    }
+  }
+
   // ── Recent Reviews ──
   &__recent {
     display: flex;
     flex-direction: column;
     gap: $spacing-3;
-    margin-top: $spacing-2;
   }
 
   &__recent-title {
-    font-size: $font-size-base;
+    font-size: $font-size-sm;
     font-weight: $font-weight-semibold;
-    color: $color-text-primary;
+    color: $color-text-secondary;
     margin: $spacing-0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 
   &__review-list {
     display: flex;
     flex-direction: column;
-    gap: $spacing-3;
+    gap: $spacing-2;
     list-style: none;
     padding: $spacing-0;
     margin: $spacing-0;
@@ -242,8 +438,7 @@
     flex-direction: column;
     gap: $spacing-2;
     padding: $spacing-4;
-    background-color: $color-bg-primary;
-    border: $border-thin solid $color-border;
+    background-color: $color-bg-secondary;
     border-radius: $spacing-2;
   }
 
@@ -251,7 +446,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: $spacing-3;
+    gap: $spacing-2;
     font-size: $font-size-xs;
     color: $color-text-secondary;
   }
@@ -285,6 +480,10 @@
     color: $color-text-body;
     margin: $spacing-0;
     line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   &__empty {

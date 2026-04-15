@@ -24,6 +24,7 @@ export default function SidebarMenu({ isOpen, onClose }: SidebarMenuProps): JSX.
   const isLoggedIn = useAuthStore((s) => s.isLoggedIn);
   const authReady = useAuthStore((s) => s.authReady);
   const user = useAuthStore((s) => s.user);
+  const openLoginModal = useAuthStore((s) => s.openLoginModal);
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set());
 
   const toggleGroup = (href: string) => {
@@ -219,14 +220,17 @@ export default function SidebarMenu({ isOpen, onClose }: SidebarMenuProps): JSX.
             </>
           ) : (
             <>
-              <Link
-                href="/auth/login"
+              <button
+                type="button"
                 className="sidebar-menu__auth-btn"
-                onClick={onClose}
+                onClick={() => {
+                  onClose();
+                  openLoginModal();
+                }}
                 tabIndex={isOpen ? 0 : -1}
               >
                 {nav.auth.loginLabel}
-              </Link>
+              </button>
               <Link
                 href="/auth/signup"
                 className="sidebar-menu__auth-btn sidebar-menu__auth-btn--primary"

@@ -26,6 +26,15 @@
     gap: $spacing-2;
   }
 
+  &__back {
+    align-self: flex-start;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    text-decoration: none;
+
+    &:hover { color: $color-text-primary; }
+  }
+
   &__title {
     font-size: 2.125rem;
     font-weight: $font-weight-bold;

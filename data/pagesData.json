@@ -1,5 +1,39 @@
 {
   "_comment": "페이지별 SEO 메타/콘텐츠 데이터 — 각 페이지의 title, description, OG, 폼 라벨 등",
+  "search": {
+    "seo": {
+      "title": "통합 검색",
+      "description": "강의와 사용자를 한 번에 검색합니다."
+    },
+    "pageTitle": "통합 검색",
+    "pageSubtitlePrefix": "'",
+    "pageSubtitleSuffix": "' 검색 결과",
+    "formAriaLabel": "통합 검색 폼",
+    "keywordPlaceholder": "강의, 닉네임 검색",
+    "submitLabel": "검색",
+    "submitAriaLabel": "검색 실행",
+    "emptyKeywordText": "검색어를 입력해 주세요.",
+    "noResultsText": "'{keyword}'에 대한 검색 결과가 없습니다.",
+    "loadingText": "검색 중…",
+    "errorText": "검색 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.",
+    "sections": {
+      "coursesTitle": "강의",
+      "usersTitle": "사용자",
+      "countTemplate": "(총 {count}건)",
+      "moreLabelTemplate": "전체 강의 더 보기 →",
+      "viewAllCoursesHrefTemplate": "/search/courses?q={keyword}",
+      "viewAllUsersHrefTemplate": "/search/users?q={keyword}"
+    },
+    "courseCard": {
+      "freeBadge": "무료",
+      "instructorSeparator": ", ",
+      "priceUnit": "원",
+      "ratingUnit": "점",
+      "reviewUnit": "개 리뷰"
+    },
+    "emptyCoursesText": "강의 결과 없음",
+    "emptyUsersText": "사용자 결과 없음"
+  },
   "news": {
     "seo": {
       "title": "뉴스 — 시장·산업 소식",
@@ -339,7 +373,89 @@
     "seo": {
       "title": "소개 — 강의 플랫폼",
       "description": "강의 플랫폼 소개 및 비전"
+    },
+    "comingSoon": {
+      "title": "회사 소개 페이지를 준비 중입니다",
+      "description": "곧 미션, 팀, 연혁을 담은 소개 페이지로 찾아뵐게요. 문의는 고객센터를 통해 보내주시면 빠르게 도와드리겠습니다.",
+      "primaryAction": { "label": "강의 둘러보기", "href": "/courses", "ariaLabel": "전체 강의 페이지로 이동" },
+      "secondaryAction": { "label": "고객센터", "href": "/support", "ariaLabel": "고객센터로 이동" }
     }
+  },
+  "instructorApply": {
+    "seo": {
+      "title": "강사 지원하기 — 강의 플랫폼",
+      "description": "강사로 지원하여 본인의 강의를 등록하세요. 심사 결과는 영업일 기준 3~5일 내 안내됩니다."
+    },
+    "title": "강사 지원하기",
+    "subtitle": "본인의 전문성을 살려 강의를 만들고 싶다면 아래 정보를 작성해 주세요.\n심사 결과는 영업일 기준 3~5일 내 알림으로 안내됩니다.",
+    "fields": {
+      "name": {
+        "id": "instructor-apply-name",
+        "label": "성함",
+        "placeholder": "텍스트를 입력해주세요",
+        "required": true,
+        "maxLength": 50
+      },
+      "phone": {
+        "id": "instructor-apply-phone",
+        "label": "연락처",
+        "placeholder": "'-' 없이 숫자만 입력해주세요 (예: 01012345678)",
+        "required": true,
+        "type": "tel"
+      },
+      "specialty": {
+        "id": "instructor-apply-specialty",
+        "label": "전문 분야",
+        "placeholder": "강의하시려는 전문 분야를 입력해주세요 (예: 주식 가치투자, 부동산 경매)",
+        "required": true,
+        "maxLength": 50
+      },
+      "career": {
+        "id": "instructor-apply-career",
+        "label": "경력 소개",
+        "placeholder": "해당 분야의 경력과 어떤 성과를 만드셨는지 구체적으로 작성해주세요.",
+        "required": true,
+        "rows": 6
+      },
+      "lecturePlan": {
+        "id": "instructor-apply-lecture-plan",
+        "label": "강의 계획",
+        "placeholder": "강의 주제, 커리큘럼, 수강생이 얻을 수 있는 가치를 자유롭게 작성해주세요.",
+        "required": true,
+        "rows": 6
+      }
+    },
+    "actions": {
+      "cancel": "취소하기",
+      "cancelAriaLabel": "강사 지원 작성 취소",
+      "submit": "지원하기",
+      "submitAriaLabel": "강사 지원서 제출",
+      "submitting": "제출 중…"
+    },
+    "validation": {
+      "required": "필수 입력 항목입니다.",
+      "invalidPhone": "올바른 휴대폰 번호를 입력해주세요. (예: 01012345678)",
+      "tooLongName": "이름은 50자 이하여야 합니다.",
+      "tooLongSpecialty": "전문 분야는 50자 이하여야 합니다."
+    },
+    "loadingText": "불러오는 중…",
+    "statusView": {
+      "title": "강사 지원 현황",
+      "labels": {
+        "status": "상태",
+        "appliedAt": "지원일",
+        "specialty": "전문 분야",
+        "rejectReason": "반려 사유"
+      },
+      "statusLabels": {
+        "PENDING": "심사 중",
+        "APPROVED": "승인됨",
+        "REJECTED": "반려됨"
+      },
+      "homeLinkLabel": "홈으로",
+      "homeLinkHref": "/"
+    },
+    "cancelHref": "/"
   },
   "support": {
     "seo": {
@@ -612,6 +728,7 @@
           "label": "콘텐츠",
           "items": [
             { "label": "강의 관리", "href": "/admin/courses", "ariaLabel": "강의 관리 페이지로 이동" },
+            { "label": "카테고리 관리", "href": "/admin/categories", "ariaLabel": "카테고리 관리 페이지로 이동" },
             { "label": "리뷰 관리", "href": "/admin/reviews", "ariaLabel": "리뷰 관리 페이지로 이동" },
             { "label": "공지사항 관리", "href": "/admin/notices", "ariaLabel": "공지사항 관리 페이지로 이동" }
           ]
@@ -626,6 +743,14 @@
             { "label": "FAQ 관리", "href": "/admin/faqs", "ariaLabel": "FAQ 관리 페이지로 이동" },
             { "label": "약관 관리", "href": "/admin/terms", "ariaLabel": "약관 관리 페이지로 이동" },
             { "label": "레벨 기준", "href": "/admin/levels", "ariaLabel": "레벨 기준 관리 페이지로 이동" }
+          ]
+        }
+      ],
+      "instructorMenuGroups": [
+        {
+          "label": "강사",
+          "items": [
+            { "label": "내 강좌", "href": "/admin/courses/my", "ariaLabel": "내 담당 강좌 목록으로 이동" }
           ]
         }
       ]
@@ -646,6 +771,8 @@
         "monthly": "이번 달",
         "total": "누적"
       },
+      "deltaLabel": "전일 대비",
+      "noDeltaLabel": "변화 없음",
       "sections": {
         "revenue": {
           "title": "매출",
@@ -847,7 +974,12 @@
     },
     "couponForm": {
       "seoCreate": { "title": "쿠폰 발행 — 관리자", "description": "새 쿠폰 발행" },
+      "seoEdit": { "title": "쿠폰 수정 — 관리자", "description": "쿠폰 정보 수정" },
       "createTitle": "쿠폰 발행",
+      "editTitle": "쿠폰 수정",
+      "editSubtitle": "기존 쿠폰 정보를 수정합니다. 쿠폰 코드는 수정할 수 없습니다.",
+      "notFoundText": "해당 쿠폰을 찾을 수 없습니다.",
+      "codeReadonlyHint": "쿠폰 코드는 수정할 수 없습니다.",
       "subtitle": "새 할인 쿠폰을 발행합니다. 발행 후 즉시 사용자에게 노출됩니다.",
       "backLinkLabel": "쿠폰 목록으로",
       "backLinkHref": "/admin/coupons",
@@ -875,7 +1007,8 @@
         "datesRequired": "유효 시작일과 종료일을 모두 입력해 주세요.",
         "datesInvalid": "종료일은 시작일 이후여야 합니다."
       },
-      "actions": { "submitLabel": "쿠폰 발행", "cancelLabel": "취소" }
+      "actions": { "submitLabel": "쿠폰 발행", "cancelLabel": "취소" },
+      "editActions": { "submitLabel": "저장", "cancelLabel": "취소" }
     },
     "coupons": {
       "seo": { "title": "쿠폰 관리 — 관리자", "description": "쿠폰 생성·비활성화·사용 통계" },
@@ -887,11 +1020,29 @@
       "columns": { "code": "코드", "name": "이름", "discount": "할인", "minOrder": "최소 결제", "usage": "사용량", "period": "유효 기간", "isActive": "상태", "actions": "액션" },
       "discountTypeLabels": { "PERCENT": "%", "FIXED": "원" },
       "activeLabels": { "true": "활성", "false": "비활성" },
-      "actionLabels": { "deactivate": "비활성화" },
+      "actionLabels": { "edit": "수정", "deactivate": "비활성화", "delete": "삭제", "issue": "수동 지급" },
+      "editHrefTemplate": "/admin/coupons/{id}/edit",
+      "editAriaLabelTemplate": "{name} 쿠폰 수정",
       "deactivateModal": {
         "title": "쿠폰 비활성화",
         "descriptionTemplate": "{name} ({code}) 쿠폰을 비활성화합니다. 기존 발급분은 사용할 수 없게 되며 이 작업은 되돌릴 수 없습니다.",
         "confirmLabel": "비활성화",
+        "cancelLabel": "취소"
+      },
+      "deleteModal": {
+        "title": "쿠폰 삭제",
+        "descriptionTemplate": "{name} ({code}) 쿠폰을 영구 삭제합니다. 이미 발급된 이력이 있으면 실패하며 대신 비활성화를 사용해 주세요.",
+        "confirmLabel": "삭제",
+        "cancelLabel": "취소"
+      },
+      "issueModal": {
+        "title": "쿠폰 수동 지급",
+        "descriptionTemplate": "{name} ({code}) 쿠폰을 특정 사용자에게 직접 발급합니다.",
+        "userIdLabel": "사용자 ID",
+        "userIdPlaceholder": "사용자 ID를 입력하세요",
+        "userIdRequiredError": "사용자 ID를 입력해 주세요.",
+        "userIdInvalidError": "올바른 사용자 ID를 입력해 주세요.",
+        "confirmLabel": "지급",
         "cancelLabel": "취소"
       },
       "emptyText": "등록된 쿠폰이 없습니다."
@@ -920,6 +1071,59 @@
         "answerRequired": "답변을 입력해 주세요."
       },
       "actions": { "submitCreateLabel": "등록", "submitEditLabel": "수정 저장", "cancelLabel": "취소" }
+    },
+    "categories": {
+      "seo": { "title": "카테고리 관리 — 관리자", "description": "강의 카테고리 트리 CRUD 및 순서 관리" },
+      "title": "카테고리 관리",
+      "subtitle": "강의 분류 카테고리를 관리합니다. 2단계 트리(대분류 → 소분류) 구조입니다.",
+      "createRootButtonLabel": "대분류 추가",
+      "createRootButtonAriaLabel": "새 대분류 카테고리 추가",
+      "columns": {
+        "sortOrder": "순서",
+        "name": "이름",
+        "courseCount": "강의 수",
+        "childCount": "하위",
+        "actions": "액션"
+      },
+      "actionLabels": {
+        "addChild": "하위 추가",
+        "edit": "수정",
+        "delete": "삭제",
+        "moveUp": "위로",
+        "moveDown": "아래로"
+      },
+      "unitLabels": {
+        "course": "개",
+        "child": "개"
+      },
+      "emptyText": "등록된 카테고리가 없습니다.",
+      "createModal": {
+        "titleRoot": "대분류 카테고리 추가",
+        "titleChildTemplate": "{parent} 하위 카테고리 추가",
+        "nameLabel": "이름",
+        "namePlaceholder": "예: 프로그래밍",
+        "nameRequiredError": "이름을 입력해 주세요.",
+        "sortOrderLabel": "순서",
+        "sortOrderHelp": "숫자가 작을수록 먼저 노출됩니다.",
+        "confirmLabel": "추가",
+        "cancelLabel": "취소"
+      },
+      "editModal": {
+        "titleTemplate": "{name} 수정",
+        "nameLabel": "이름",
+        "nameRequiredError": "이름을 입력해 주세요.",
+        "sortOrderLabel": "순서",
+        "confirmLabel": "저장",
+        "cancelLabel": "취소"
+      },
+      "deleteModal": {
+        "title": "카테고리 삭제",
+        "descriptionTemplate": "{name}\n위 카테고리를 삭제합니다. 이 작업은 되돌릴 수 없습니다.",
+        "blockedWithCoursesTemplate": "이 카테고리에 연결된 강의({count}개)가 있어 삭제할 수 없습니다. 먼저 강의를 다른 카테고리로 이동하세요.",
+        "blockedWithChildrenTemplate": "하위 카테고리({count}개)가 있어 삭제할 수 없습니다. 먼저 하위를 삭제하세요.",
+        "confirmLabel": "삭제",
+        "cancelLabel": "취소"
+      }
     },
     "faqs": {
       "seo": { "title": "FAQ 관리 — 관리자", "description": "FAQ CRUD 및 카테고리별 관리" },
@@ -1016,7 +1220,24 @@
         "resetAriaLabel": "필터 초기화"
       },
       "columns": { "rating": "평점", "course": "강의", "user": "작성자", "content": "내용", "likeCount": "좋아요", "createdAt": "작성일", "actions": "액션" },
-      "actionLabels": { "delete": "삭제" },
+      "actionLabels": { "view": "자세히", "delete": "삭제" },
+      "detailModal": {
+        "title": "리뷰 상세",
+        "descriptionTemplate": "{nickname}님이 {course}에 작성한 리뷰입니다.",
+        "labels": {
+          "rating": "평점",
+          "course": "강의",
+          "user": "작성자",
+          "email": "이메일",
+          "likeCount": "좋아요",
+          "createdAt": "작성일",
+          "content": "내용"
+        },
+        "ratingUnit": "점",
+        "likeUnit": "개",
+        "deleteLabel": "삭제",
+        "closeLabel": "닫기"
+      },
       "deleteModal": {
         "title": "리뷰 삭제",
         "descriptionTemplate": "{nickname}님이 {course}에 작성한 리뷰를 삭제합니다. 이 작업은 되돌릴 수 없습니다.",
@@ -1167,7 +1388,43 @@
       "sections": {
         "basicTitle": "기본 정보",
         "enrollmentsTitle": "수강 현황",
-        "paymentsTitle": "결제 내역"
+        "paymentsTitle": "결제 내역",
+        "pointsTitle": "포인트 조정"
+      },
+      "tabs": {
+        "basicLabel": "기본 정보",
+        "enrollmentsLabel": "수강 현황",
+        "paymentsLabel": "결제 내역",
+        "pointsLabel": "포인트 조정"
+      },
+      "points": {
+        "description": "이 사용자의 포인트를 수동으로 적립(양수)하거나 차감(음수)합니다. 0은 입력할 수 없으며 사유는 필수입니다.",
+        "balanceLabel": "현재 보유 포인트",
+        "balanceUnit": "P",
+        "balanceUnavailableText": "보유 포인트 정보는 추후 제공됩니다.",
+        "fields": {
+          "amountLabel": "조절 포인트",
+          "amountPlaceholder": "양수=적립, 음수=차감 (예: 1000 또는 -500)",
+          "reasonLabel": "조절 사유",
+          "reasonPlaceholder": "예: CS 대응 보상 지급"
+        },
+        "errors": {
+          "amountRequired": "조절 포인트를 입력해 주세요.",
+          "amountZero": "0은 입력할 수 없습니다.",
+          "reasonRequired": "조절 사유를 입력해 주세요.",
+          "reasonTooLong": "사유는 150자 이내여야 합니다."
+        },
+        "confirmModal": {
+          "title": "포인트 조정 확인",
+          "creditTemplate": "{nickname}님에게 {amount}P를 적립합니다.",
+          "debitTemplate": "{nickname}님에서 {amount}P를 차감합니다.",
+          "reasonLabel": "사유",
+          "confirmLabel": "조정",
+          "cancelLabel": "취소"
+        },
+        "successText": "포인트 조정이 완료되었습니다.",
+        "successCloseLabel": "확인",
+        "actions": { "submitLabel": "조정하기", "resetLabel": "초기화" }
       },
       "labels": {
         "id": "ID",
@@ -1464,6 +1721,40 @@
         "pageSize": 10
       }
     },
+    "instructorMyCourses": {
+      "seo": {
+        "title": "내 강좌 — 강사",
+        "description": "내가 담당하는 강좌의 커리큘럼·영상을 편집할 수 있습니다."
+      },
+      "title": "내 강좌",
+      "subtitle": "관리자가 배정한 담당 강좌를 확인하고 커리큘럼·영상을 편집할 수 있습니다.",
+      "columns": {
+        "title": "강의명",
+        "category": "카테고리",
+        "level": "난이도",
+        "status": "상태",
+        "enrollment": "수강생",
+        "actions": "편집"
+      },
+      "statusLabels": {
+        "DRAFT": "초안",
+        "PUBLISHED": "공개",
+        "HIDDEN": "숨김",
+        "DELETED": "삭제"
+      },
+      "levelLabels": {
+        "BEGINNER": "입문",
+        "BASIC": "초급",
+        "INTERMEDIATE": "중급",
+        "ADVANCED": "고급"
+      },
+      "personUnit": "명",
+      "editLabel": "편집",
+      "editAriaLabelTemplate": "{title} 커리큘럼 편집 페이지로 이동",
+      "emptyText": "배정된 강좌가 없습니다. 관리자가 강좌에 배정하면 이곳에 표시됩니다.",
+      "loadingText": "내 강좌를 불러오는 중입니다…",
+      "errorText": "강좌를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요."
+    },
     "courseEdit": {
       "seo": {
         "title": "강의 편집 — 관리자"
@@ -1511,6 +1802,14 @@
         "loadErrorText": "커리큘럼을 불러오지 못했습니다.",
         "confirmDeleteSectionText": "이 섹션을 삭제하시겠습니까? 섹션 내 강의도 함께 삭제됩니다.",
         "confirmDeleteLectureText": "이 강의를 삭제하시겠습니까?",
+        "uploadVideoLabel": "영상 업로드",
+        "replaceVideoLabel": "영상 교체",
+        "uploadingLabel": "업로드 중…",
+        "linkingLabel": "영상 연결 중…",
+        "uploadErrorText": "영상 업로드에 실패했습니다.",
+        "linkErrorText": "영상 연결에 실패했습니다.",
+        "invalidVideoFormatText": "지원하지 않는 파일 형식입니다.",
+        "videoTooLargeText": "파일 크기가 5GB를 초과합니다.",
         "encoding": {
           "statusLabels": {
             "PENDING": "인코딩 대기",

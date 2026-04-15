@@ -19,6 +19,18 @@ html {
 
 body {
   min-height: 100vh;
+  // Sticky footer: 헤더/메인/푸터를 세로 flex로 배치해
+  // 콘텐츠가 짧은 페이지에서도 메인이 최소 뷰포트 높이를 채우고
+  // 푸터가 항상 하단에 붙도록 한다.
+  display: flex;
+  flex-direction: column;
+}
+
+#main-content {
+  flex: 1 0 auto;
+  // 콘텐츠가 적은 페이지에서도 본문이 시각적으로 충분한 비중을 차지하도록
+  // 최소 80vh 확보 — 푸터가 자연스럽게 화면 아래로 내려간다.
+  min-height: 80vh;
 }
 
 ul,

@@ -1,23 +1,24 @@
 /**
  * 업로드 유틸 (upload.ts)
  * - Presigned URL 기반 S3 직접 업로드를 위한 함수 모음
- * - 영상/이미지 등 모든 업로드 지점에서 동일한 흐름을 사용한다
- *   1) requestPresignedUrl  : Presigned URL 발급 요청
- *   2) uploadFileToS3       : XHR 기반 S3 직접 업로드 (진행률 콜백 + 취소 지원)
- *   3) confirmUpload        : 업로드 완료 확인 (영상에 한함)
- * - validateVideoFile / validateImageFile : 파일 형식/크기 검증
- * - uploadImage : 이미지 업로드 통합 헬퍼 (발급 → PUT → s3Key 반환)
+ *
+ * 영상 업로드 플로우 (BE 계약):
+ *   1) issuePresignedUrl(VIDEO)          → { presignedUrl, s3Key }
+ *   2) uploadFileToS3(presignedUrl, ...) → S3 PUT (진행률/취소 지원)
+ *   3) registerVideoUpload({ s3Key, ... }) → Video 엔티티 생성 (PENDING)
+ *   4) startVideoEncode(videoId)         → 인코딩 시작
+ *   5) linkLectureVideo(lectureId, videoId) → 강의와 연결 (업로드 외부에서 호출)
+ *
+ * 이미지는 presigned URL + S3 PUT만으로 완료되며 s3Key만 반환한다.
  */
 
-import { issuePresignedUrl, type UploadType } from '@/lib/adminApi';
-import type {
-  PresignedUrlRequest,
-  PresignedUrlResponse,
-  UploadConfirmRequest,
-  UploadConfirmResponse,
-} from '@/types';
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || '/api';
+import {
+  issuePresignedUrl,
+  registerVideoUpload,
+  startVideoEncode,
+  type UploadType,
+  type VideoMetadata,
+} from '@/lib/adminApi';
 
 const ALLOWED_VIDEO_MIME_TYPES = [
   'video/mp4',
@@ -50,28 +51,11 @@ export function validateImageFile(file: File): string | null {
   return null;
 }
 
-/** Presigned URL 발급 요청 */
-export async function requestPresignedUrl(
-  payload: PresignedUrlRequest
-): Promise<PresignedUrlResponse> {
-  const res = await fetch(`${API_BASE}/admin/upload/presigned-url`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  });
-
-  if (!res.ok) {
-    throw new Error('presignedFailed');
-  }
-
-  return res.json();
-}
-
 /** XHR 기반 S3 직접 업로드 — 진행률 콜백 + abort 함수 반환 */
 export function uploadFileToS3(
   uploadUrl: string,
   file: File,
-  onProgress: (percent: number) => void
+  onProgress: (percent: number) => void,
 ): { promise: Promise<void>; abort: () => void } {
   const xhr = new XMLHttpRequest();
 
@@ -110,31 +94,15 @@ export function uploadFileToS3(
   };
 }
 
-/** 업로드 완료 확인 */
-export async function confirmUpload(
-  payload: UploadConfirmRequest
-): Promise<UploadConfirmResponse> {
-  const res = await fetch(`${API_BASE}/admin/upload/confirm`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  });
-
-  if (!res.ok) {
-    throw new Error('confirmFailed');
-  }
-
-  return res.json();
-}
-
 /* ────────────────────────────────────────────
  *  이미지 업로드 통합 헬퍼
- *  - Presigned URL 발급 → S3 PUT → s3Key 반환
- *  - 진행률 콜백 + 취소 함수 지원
- *  - 백엔드 계약: lib/adminApi.ts `issuePresignedUrl`
+ *  - Presigned URL 발급 → S3 PUT → { s3Key, publicUrl } 반환
+ *  - publicUrl 은 백엔드가 내려주는 CloudFront 공개 URL (S3 버킷이 private + OAC 구조)
  * ────────────────────────────────────────────*/
 export interface UploadImageResult {
   s3Key: string;
+  /** CloudFront 공개 URL — DB 저장/이미지 src 용. 백엔드가 이미지 타입에 한해 발급. */
+  publicUrl: string;
 }
 
 export interface UploadImageHandle {
@@ -142,12 +110,6 @@ export interface UploadImageHandle {
   abort: () => void;
 }
 
-/**
- * 이미지 파일을 Presigned URL 방식으로 업로드한다.
- * @param file        업로드할 이미지 파일 (validateImageFile 통과 가정)
- * @param uploadType  THUMBNAIL | PROFILE_IMAGE | BACKGROUND_IMAGE | NOTICE_IMAGE
- * @param onProgress  0–100 진행률 콜백
- */
 export function uploadImage(
   file: File,
   uploadType: UploadType,
@@ -156,17 +118,81 @@ export function uploadImage(
   let abortFn: () => void = () => {};
 
   const promise = (async (): Promise<UploadImageResult> => {
-    const { presignedUrl, s3Key } = await issuePresignedUrl({
+    const { presignedUrl, s3Key, publicUrl } = await issuePresignedUrl({
       filename: file.name,
       contentType: file.type,
       uploadType,
     });
 
+    if (!publicUrl) {
+      throw new Error('이미지 업로드 응답에 publicUrl 이 없습니다. 백엔드 업로드 타입 설정을 확인하세요.');
+    }
+
     const { promise: putPromise, abort } = uploadFileToS3(presignedUrl, file, onProgress);
     abortFn = abort;
     await putPromise;
 
-    return { s3Key };
+    return { s3Key, publicUrl };
+  })();
+
+  return {
+    promise,
+    abort: () => abortFn(),
+  };
+}
+
+/* ────────────────────────────────────────────
+ *  영상 업로드 통합 헬퍼
+ *  - Presigned URL 발급 → S3 PUT → Video 등록 → 인코딩 시작
+ *  - 반환된 videoId로 이후 `linkLectureVideo(lectureId, videoId)` 호출
+ * ────────────────────────────────────────────*/
+export interface UploadVideoResult {
+  videoId: number;
+  s3Key: string;
+  encodingStatus: VideoMetadata['encodingStatus'];
+}
+
+export interface UploadVideoCallbacks {
+  onUploadProgress?: (percent: number) => void;
+  onPutStarted?: (abort: () => void) => void;
+  onPutCompleted?: () => void;
+}
+
+export interface UploadVideoHandle {
+  promise: Promise<UploadVideoResult>;
+  abort: () => void;
+}
+
+export function uploadVideo(
+  file: File,
+  callbacks: UploadVideoCallbacks = {},
+): UploadVideoHandle {
+  const { onUploadProgress = () => {}, onPutStarted, onPutCompleted } = callbacks;
+  let abortFn: () => void = () => {};
+
+  const promise = (async (): Promise<UploadVideoResult> => {
+    const { presignedUrl, s3Key } = await issuePresignedUrl({
+      filename: file.name,
+      contentType: file.type,
+      uploadType: 'VIDEO',
+    });
+
+    const { promise: putPromise, abort } = uploadFileToS3(presignedUrl, file, onUploadProgress);
+    abortFn = abort;
+    onPutStarted?.(abort);
+    await putPromise;
+    onPutCompleted?.();
+
+    const { videoId, encodingStatus } = await registerVideoUpload({
+      originalFilename: file.name,
+      s3Key,
+      fileSize: file.size,
+      contentType: file.type,
+    });
+
+    await startVideoEncode(videoId);
+
+    return { videoId, s3Key, encodingStatus };
   })();
 
   return {

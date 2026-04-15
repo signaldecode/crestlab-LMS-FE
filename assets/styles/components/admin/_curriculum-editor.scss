@@ -200,3 +200,19 @@
     color: $color-error;
   }
 }
+
+.lecture-video-upload {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+
+  &__status {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+
+  &__error {
+    font-size: $font-size-sm;
+    color: $color-error;
+  }
+}

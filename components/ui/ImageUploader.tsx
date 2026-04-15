@@ -2,7 +2,7 @@
  * 범용 이미지 업로더 (ImageUploader)
  * - Presigned URL 방식으로 S3에 직접 업로드한다 (uploadImage 헬퍼)
  * - uploadType: THUMBNAIL | PROFILE_IMAGE | BACKGROUND_IMAGE | NOTICE_IMAGE
- * - 업로드 성공 시 onChange(s3Key) 콜백
+ * - 업로드 성공 시 onChange(publicUrl) 콜백 — 백엔드가 발급한 CloudFront URL
  * - 미리보기/진행률/취소/교체/삭제 + 파일 검증 내장
  *
  * 모든 라벨/문구는 props로만 주입한다 (data/*.json에서 관리, 하드코딩 금지)
@@ -34,10 +34,10 @@ export interface ImageUploaderCopy {
 interface ImageUploaderProps {
   id: string;
   uploadType: UploadType;
-  /** 서버에 저장된 이미지 URL (또는 s3Key) — 기존 값 표시용 */
+  /** 서버에 저장된 이미지 공개 URL — 기존 값 표시용 */
   value: string | null;
-  /** 업로드 성공 시 s3Key, 삭제 시 null */
-  onChange: (s3Key: string | null) => void;
+  /** 업로드 성공 시 CloudFront publicUrl, 삭제 시 null */
+  onChange: (publicUrl: string | null) => void;
   copy: ImageUploaderCopy;
   /** 미리보기 폭 비율 (예: '16/9', '1/1') */
   aspectRatio?: string;
@@ -98,10 +98,10 @@ export default function ImageUploader({
       abortRef.current = handle.abort;
 
       try {
-        const { s3Key } = await handle.promise;
+        const { publicUrl } = await handle.promise;
         setStatus('idle');
         setProgress(100);
-        onChange(s3Key);
+        onChange(publicUrl);
       } catch (err) {
         const message = err instanceof Error ? err.message : '';
         if (message === 'cancelled') {

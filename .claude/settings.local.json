@@ -8,7 +8,9 @@
       "Bash(node -e ':*)",
       "mcp__figma__get_figma_data",
       "Bash(npm run:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(grep -i \"sidebar\\\\|menu\" /c/Users/youhyun/Desktop/Project/crestlab-LMS-FE/components/layout/*.tsx)",
+      "Bash(python -c ' *)"
     ]
   }
 }

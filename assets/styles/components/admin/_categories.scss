@@ -1,0 +1,33 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+
+// ============================================
+// 관리자 카테고리 트리 (_categories.scss)
+// - 2단계 트리 뷰 들여쓰기/브랜치 표시
+// ============================================
+
+.admin-category-tree {
+  &__row--depth-1 {
+    background-color: $color-bg-secondary;
+  }
+
+  &__branch {
+    display: inline-block;
+    margin-right: $spacing-2;
+    margin-left: $spacing-4;
+    color: $color-text-muted;
+    font-weight: $font-weight-regular;
+  }
+
+  &__name {
+    color: $color-text-primary;
+  }
+}
+
+// 모달 form wrapper (카테고리 외 다른 모달 폼에서도 재사용 가능)
+.admin-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}

@@ -4,11 +4,14 @@
 
 import type { JSX } from 'react';
 import type { Metadata } from 'next';
+import pagesData from '@/data/pagesData.json';
 import InstructorApplicationContainer from '@/components/instructors/InstructorApplicationContainer';
 
+const seo = pagesData.instructorApply.seo;
+
 export const metadata: Metadata = {
-  title: '강사 지원 — 강의 플랫폼',
-  description: '강사로 지원하여 본인의 강의를 등록하세요.',
+  title: seo.title,
+  description: seo.description,
 };
 
 export default function Page(): JSX.Element {

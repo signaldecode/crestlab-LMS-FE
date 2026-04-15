@@ -25,7 +25,19 @@ interface ReviewsCopy {
     resetLabel: string; resetAriaLabel: string;
   };
   columns: { rating: string; course: string; user: string; content: string; likeCount: string; createdAt: string; actions: string };
-  actionLabels: { delete: string };
+  actionLabels: { view: string; delete: string };
+  detailModal: {
+    title: string;
+    descriptionTemplate: string;
+    labels: {
+      rating: string; course: string; user: string; email: string;
+      likeCount: string; createdAt: string; content: string;
+    };
+    ratingUnit: string;
+    likeUnit: string;
+    deleteLabel: string;
+    closeLabel: string;
+  };
   deleteModal: {
     title: string; descriptionTemplate: string;
     confirmLabel: string; cancelLabel: string;
@@ -64,6 +76,7 @@ export default function AdminReviewsPage(): JSX.Element {
   const [keyword, setKeyword] = useState('');
   const [ratingFilter, setRatingFilter] = useState<string>('ALL');
   const [page, setPage] = useState(1);
+  const [viewTarget, setViewTarget] = useState<AdminReviewListItem | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<AdminReviewListItem | null>(null);
 
   const pageSize = copy?.pagination.pageSize ?? 10;
@@ -187,6 +200,9 @@ export default function AdminReviewsPage(): JSX.Element {
                   <td className="admin-list__td admin-list__td--num">{r.likeCount}</td>
                   <td className="admin-list__td">{formatDateTime(r.createdAt)}</td>
                   <td className="admin-list__td admin-list__td--actions">
+                    <AdminActionButton onClick={() => setViewTarget(r)}>
+                      {copy.actionLabels.view}
+                    </AdminActionButton>
                     <AdminActionButton
                       variant="danger"
                       onClick={() => setDeleteTarget(r)}
@@ -212,6 +228,70 @@ export default function AdminReviewsPage(): JSX.Element {
           {copy.pagination.nextLabel}
         </button>
       </nav>
+
+      <AdminModal
+        isOpen={!!viewTarget}
+        onClose={() => setViewTarget(null)}
+        title={copy.detailModal.title}
+        description={
+          viewTarget
+            ? copy.detailModal.descriptionTemplate
+                .replaceAll('{nickname}', viewTarget.nickname)
+                .replaceAll('{course}', viewTarget.courseTitle)
+            : ''
+        }
+      >
+        {viewTarget && (
+          <>
+            <dl className="admin-modal__info">
+              <div className="admin-modal__info-row">
+                <dt>{copy.detailModal.labels.rating}</dt>
+                <dd>{'★'.repeat(viewTarget.rating)} ({viewTarget.rating}{copy.detailModal.ratingUnit})</dd>
+              </div>
+              <div className="admin-modal__info-row">
+                <dt>{copy.detailModal.labels.course}</dt>
+                <dd>{viewTarget.courseTitle}</dd>
+              </div>
+              <div className="admin-modal__info-row">
+                <dt>{copy.detailModal.labels.user}</dt>
+                <dd>{viewTarget.nickname}</dd>
+              </div>
+              <div className="admin-modal__info-row">
+                <dt>{copy.detailModal.labels.email}</dt>
+                <dd>{viewTarget.email}</dd>
+              </div>
+              <div className="admin-modal__info-row">
+                <dt>{copy.detailModal.labels.likeCount}</dt>
+                <dd>{viewTarget.likeCount.toLocaleString('ko-KR')}{copy.detailModal.likeUnit}</dd>
+              </div>
+              <div className="admin-modal__info-row">
+                <dt>{copy.detailModal.labels.createdAt}</dt>
+                <dd>{formatDateTime(viewTarget.createdAt)}</dd>
+              </div>
+            </dl>
+            <div className="admin-modal__field">
+              <span className="admin-modal__field-label">{copy.detailModal.labels.content}</span>
+              <p className="admin-review-content">{viewTarget.content}</p>
+            </div>
+          </>
+        )}
+        <footer className="admin-modal__footer">
+          <button
+            type="button"
+            onClick={() => {
+              const target = viewTarget;
+              setViewTarget(null);
+              setDeleteTarget(target);
+            }}
+            className="admin-modal__btn admin-modal__btn--danger"
+          >
+            {copy.detailModal.deleteLabel}
+          </button>
+          <button type="button" onClick={() => setViewTarget(null)} className="admin-modal__btn admin-modal__btn--ghost">
+            {copy.detailModal.closeLabel}
+          </button>
+        </footer>
+      </AdminModal>
 
       <AdminModal
         isOpen={!!deleteTarget}

@@ -169,6 +169,40 @@ export function updateAdminCourseStatus(id: number, status: AdminCourseStatus): 
   return request<AdminCourseDetail>(`v1/admin/courses/${id}/status`, { method: 'PUT', body: { status } });
 }
 
+/* ────────────────────────────────────────────
+ *  강사 전용 — 본인 담당 강좌 목록 (`/v1/admin/courses/my`)
+ *  - 권한: INSTRUCTOR. DRAFT/PUBLISHED/HIDDEN 모두 포함
+ * ────────────────────────────────────────────*/
+export function fetchMyAdminCourses(): Promise<AdminCourseListItem[]> {
+  return request<AdminCourseListItem[]>('v1/admin/courses/my');
+}
+
+/* ────────────────────────────────────────────
+ *  강좌-강사 배정/해제 (`/v1/admin/courses/{id}/instructors`)
+ *  - 권한: ADMIN. sortOrder 가 작을수록 먼저 표시
+ *  - 마지막 강사 해제 시 409, 중복 배정 시 409
+ * ────────────────────────────────────────────*/
+export interface AssignCourseInstructorBody {
+  instructorId: number;
+  sortOrder: number;
+}
+
+export function assignCourseInstructor(courseId: number, body: AssignCourseInstructorBody): Promise<void> {
+  return request<void>(`v1/admin/courses/${courseId}/instructors`, { method: 'POST', body });
+}
+
+export function unassignCourseInstructor(courseId: number, instructorId: number): Promise<void> {
+  return request<void>(`v1/admin/courses/${courseId}/instructors/${instructorId}`, { method: 'DELETE' });
+}
+
+/* ────────────────────────────────────────────
+ *  강사 프로필 ↔ 유저 계정 연결 (`/v1/admin/instructors/{id}/user`)
+ *  - 권한: ADMIN. 연결 시 해당 유저의 role 이 INSTRUCTOR 로 변경됨
+ * ────────────────────────────────────────────*/
+export function linkInstructorUser(instructorId: number, userId: number): Promise<void> {
+  return request<void>(`v1/admin/instructors/${instructorId}/user`, { method: 'PUT', body: { userId } });
+}
+
 export function fetchAdminCourseCategories(): Promise<AdminCourseCategory[]> {
   return request<AdminCourseCategory[]>('v1/categories');
 }
@@ -252,15 +286,62 @@ export function reorderAdminSections(
 
 /**
  * 관리자 커리큘럼 조회 — 섹션 + 중첩된 강의 목록
- * 백엔드 요구사항(TODO): GET /api/v1/admin/courses/{courseId}/sections
- *   → AdminSection[] 각 항목에 lectures: AdminLecture[] 포함 (status 무관하게 조회 허용)
+ * 백엔드: GET /api/v1/admin/courses/{courseId}/curriculum → AdminCurriculumResponse
  */
 export interface AdminSectionWithLectures extends AdminSection {
   lectures: AdminLecture[];
 }
 
-export function fetchAdminCourseCurriculum(courseId: number): Promise<AdminSectionWithLectures[]> {
-  return request<AdminSectionWithLectures[]>(`v1/admin/courses/${courseId}/sections`);
+interface AdminCurriculumVideoItem {
+  id: number;
+  encodingStatus: string;
+  originalFilename: string;
+  durationSeconds: number;
+}
+
+interface AdminCurriculumLectureItem {
+  id: number;
+  title: string;
+  sortOrder: number;
+  isPreview: boolean;
+  durationSeconds: number;
+  video: AdminCurriculumVideoItem | null;
+}
+
+interface AdminCurriculumSectionItem {
+  id: number;
+  title: string;
+  sortOrder: number;
+  lectures: AdminCurriculumLectureItem[];
+}
+
+interface AdminCurriculumResponseRaw {
+  courseId: number;
+  courseTitle: string;
+  sections: AdminCurriculumSectionItem[];
+}
+
+export async function fetchAdminCourseCurriculum(courseId: number): Promise<AdminSectionWithLectures[]> {
+  const raw = await request<AdminCurriculumResponseRaw>(`v1/admin/courses/${courseId}/curriculum`);
+  return (raw.sections ?? []).map((section) => ({
+    id: section.id,
+    courseId: raw.courseId,
+    title: section.title,
+    sortOrder: section.sortOrder,
+    createdAt: '',
+    updatedAt: '',
+    lectures: (section.lectures ?? []).map((lecture) => ({
+      id: lecture.id,
+      sectionId: section.id,
+      title: lecture.title,
+      sortOrder: lecture.sortOrder,
+      isPreview: lecture.isPreview,
+      durationSeconds: lecture.durationSeconds,
+      videoId: lecture.video?.id ?? null,
+      createdAt: '',
+      updatedAt: '',
+    })),
+  }));
 }
 
 /* ────────────────────────────────────────────
@@ -373,6 +454,8 @@ export interface PresignedUrlRequest {
 export interface PresignedUrlResponse {
   presignedUrl: string;
   s3Key: string;
+  /** CloudFront 공개 URL — 이미지 타입만 채워지고 VIDEO 는 null. DB 저장/이미지 src 용. */
+  publicUrl: string | null;
   expiresIn: number;
 }
 
@@ -559,6 +642,47 @@ export function createAdminCoupon(body: AdminCouponCreateRequest): Promise<Admin
 
 export function deactivateAdminCoupon(id: number): Promise<void> {
   return request<void>(`v1/admin/coupons/${id}/deactivate`, { method: 'POST' });
+}
+
+export interface AdminCouponUpdateRequest {
+  name: string;
+  discountType: AdminCouponListItem['discountType'];
+  discountValue: number;
+  minOrderAmount: number;
+  maxDiscountAmount: number;
+  totalQuantity: number;
+  startsAt: string;
+  expiresAt: string;
+}
+
+export function updateAdminCoupon(id: number, body: AdminCouponUpdateRequest): Promise<AdminCouponListItem> {
+  return request<AdminCouponListItem>(`v1/admin/coupons/${id}`, { method: 'PUT', body });
+}
+
+export function deleteAdminCoupon(id: number): Promise<void> {
+  return request<void>(`v1/admin/coupons/${id}`, { method: 'DELETE' });
+}
+
+export interface AdminCouponIssueRequest {
+  userId: number;
+}
+
+export function issueAdminCoupon(id: number, body: AdminCouponIssueRequest): Promise<void> {
+  return request<void>(`v1/admin/coupons/${id}/issue`, { method: 'POST', body });
+}
+
+/* ────────────────────────────────────────────
+ *  Admin Points (수동 조절)
+ * ────────────────────────────────────────────*/
+export interface AdminPointAdjustRequest {
+  userId: number;
+  /** 양수=적립, 음수=차감, 0 불가 */
+  amount: number;
+  reason: string;
+}
+
+export function adjustAdminPoints(body: AdminPointAdjustRequest): Promise<void> {
+  return request<void>('v1/admin/points/adjust', { method: 'POST', body });
 }
 
 /* ────────────────────────────────────────────

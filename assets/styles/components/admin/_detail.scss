@@ -45,6 +45,57 @@
     margin: $spacing-0;
   }
 
+  &__balance {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+    padding: $spacing-4 $spacing-5;
+    background-color: $color-bg-secondary;
+    border-radius: $spacing-2;
+    margin: $spacing-0;
+  }
+
+  &__balance-label {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    color: $color-text-muted;
+    text-transform: uppercase;
+    margin: $spacing-0;
+  }
+
+  &__balance-value {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: $spacing-0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__tabs {
+    display: flex;
+    gap: $spacing-1;
+    border-bottom: $border-thin solid $color-border;
+  }
+
+  &__tab {
+    padding: $spacing-3 $spacing-5;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    cursor: pointer;
+
+    &:hover { color: $color-text-primary; }
+
+    &.is-active {
+      color: $color-text-primary;
+      border-bottom-color: $color-primary;
+      font-weight: $font-weight-semibold;
+    }
+  }
+
   &__section {
     display: flex;
     flex-direction: column;

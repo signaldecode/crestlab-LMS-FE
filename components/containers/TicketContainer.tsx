@@ -7,6 +7,7 @@
 
 import type { JSX } from 'react';
 import TicketForm from '@/components/support/TicketForm';
+import TicketList from '@/components/support/TicketList';
 
 interface TicketContainerProps {
   mode?: 'list' | 'create';
@@ -16,9 +17,7 @@ export default function TicketContainer({ mode = 'list' }: TicketContainerProps)
   return (
     <section className="ticket-container">
       {mode === 'create' && <TicketForm />}
-      {mode === 'list' && (
-        <div>{/* 문의 목록 — 추후 구현 */}</div>
-      )}
+      {mode === 'list' && <TicketList />}
     </section>
   );
 }

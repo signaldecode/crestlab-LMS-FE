@@ -78,7 +78,7 @@
         - list [ref=e54]:
           - listitem [ref=e55]:
             - link [ref=e56] [cursor=pointer]:
-              - /url: /instructor/apply
+              - /url: /instructors/apply
               - text: 강사 지원하기
       - generic [ref=e57]:
         - link [ref=e58] [cursor=pointer]:

@@ -82,24 +82,37 @@ function adaptCourse(item: UserCourseListItem): Course {
 export default function CourseGridContainer(): JSX.Element {
   const searchParams = useSearchParams();
   const category = searchParams.get('category') ?? '';
+  const categoryIdParam = searchParams.get('categoryId') ?? '';
   const [sort, setSort] = useState('popular');
   const [currentPage, setCurrentPage] = useState(1);
 
-  // 카테고리 목록은 slug→id 매핑용으로 1회 조회
+  // 카테고리 목록은 slug→id 매핑용으로 1회 조회 (categoryId 직접 전달 시에는 매핑 불필요)
   const { data: categories } = useAdminQuery<UserCategory[]>(
     () => fetchUserCategories(),
     [],
   );
 
   const categoryId = useMemo(() => {
+    // 신규 네비 메가메뉴는 `?categoryId=` 를 직접 전달한다 — 매핑 없이 사용
+    if (categoryIdParam) {
+      const n = Number(categoryIdParam);
+      return Number.isInteger(n) && n > 0 ? n : undefined;
+    }
+    // 레거시 `?category=stock` slug 링크 호환: slug→한글명→id 매핑
     if (!category) return undefined;
     const label = CATEGORY_LABELS[category] ?? category;
     return findCategoryId(categories, label);
-  }, [categories, category]);
+  }, [categories, category, categoryIdParam]);
 
   const sortApi = SORT_OPTIONS.find((o) => o.value === sort)?.api ?? 'POPULAR';
 
-  useEffect(() => { setCurrentPage(1); }, [category, sort]);
+  // 필터(카테고리/정렬) 변경 시 1페이지로 리셋 — 이전값 비교 패턴
+  const filterKey = `${category}|${categoryIdParam}|${sort}`;
+  const [prevFilterKey, setPrevFilterKey] = useState(filterKey);
+  if (prevFilterKey !== filterKey) {
+    setPrevFilterKey(filterKey);
+    setCurrentPage(1);
+  }
 
   const { data, loading, error } = useAdminQuery(
     () => fetchUserCourses({

@@ -1,16 +1,16 @@
 /**
  * 관리자 강의 편집 컨테이너 (AdminCourseEditContainer)
- * - useUploadStore + lib/upload 함수를 오케스트레이션한다
- * - 에러 키를 data에서 해석하여 메시지로 변환한다
- * - 모든 텍스트는 props로 수신한다 (하드코딩 금지)
+ * - useUpload hook으로 영상 업로드 전 과정을 수행한다
+ *   (Presigned URL → S3 PUT → Video 등록 → 인코딩 시작)
+ * - 업로드된 videoId는 상위 레이어에서 linkLectureVideo로 강의에 연결한다
+ *   (lecture 선택 UI가 붙으면 연동 예정 — 현재는 videoId만 노출)
  */
 
 'use client';
 
 import type { JSX } from 'react';
-import { useCallback } from 'react';
-import useUploadStore from '@/stores/useUploadStore';
-import { validateVideoFile, requestPresignedUrl, uploadFileToS3, confirmUpload } from '@/lib/upload';
+import { useCallback, useState } from 'react';
+import useUpload from '@/hooks/useUpload';
 import VideoUploadInput from './VideoUploadInput';
 
 interface AdminTexts {
@@ -42,57 +42,26 @@ interface AdminCourseEditContainerProps {
 }
 
 export default function AdminCourseEditContainer({
-  courseId,
+  courseId: _courseId,
   texts,
 }: AdminCourseEditContainerProps): JSX.Element {
-  const { status, progress, errorKey, setRequesting, setUploading, setProgress, setConfirming, setSuccess, setError, cancelUpload, resetUpload } =
-    useUploadStore();
+  const { status, progress, errorKey, upload, cancelUpload, resetUpload } = useUpload();
+  const [uploadedVideoId, setUploadedVideoId] = useState<number | null>(null);
 
   const errorMessage = errorKey ? (texts.upload.errors[errorKey] || null) : null;
 
   const handleFileSelect = useCallback(
     async (file: File) => {
-      const validationError = validateVideoFile(file);
-      if (validationError) {
-        setError(validationError);
-        return;
-      }
-
-      try {
-        setRequesting();
-
-        const { uploadUrl, fileKey } = await requestPresignedUrl({
-          courseId,
-          fileName: file.name,
-          contentType: file.type,
-        });
-
-        const { promise, abort } = uploadFileToS3(uploadUrl, file, (percent) => {
-          setProgress(percent);
-        });
-
-        setUploading(abort);
-        await promise;
-
-        setConfirming();
-        await confirmUpload({
-          courseId,
-          fileKey,
-          fileName: file.name,
-        });
-
-        setSuccess();
-      } catch (err) {
-        const message = err instanceof Error ? err.message : 'uploadFailed';
-        if (message !== 'cancelled') {
-          setError(message);
-        }
+      const result = await upload(file);
+      if (result) {
+        setUploadedVideoId(result.videoId);
       }
     },
-    [courseId, setRequesting, setUploading, setProgress, setConfirming, setSuccess, setError]
+    [upload],
   );
 
   const handleRetry = useCallback(() => {
+    setUploadedVideoId(null);
     resetUpload();
   }, [resetUpload]);
 
@@ -109,6 +78,9 @@ export default function AdminCourseEditContainer({
         onCancel={cancelUpload}
         onRetry={handleRetry}
       />
+      {uploadedVideoId !== null && (
+        <p className="admin-course-edit__video-id" data-video-id={uploadedVideoId} aria-hidden="true" />
+      )}
     </section>
   );
 }

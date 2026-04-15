@@ -1,8 +1,7 @@
 /**
  * 공지사항 목록 컨테이너 (BoardListContainer)
  * - 백엔드 GET /api/v1/notices 실 API 연동
- * - 고정 공지가 상단, 페이지네이션 지원
- * - 카테고리/조회수는 백엔드 미지원으로 제거됨
+ * - 고정 공지가 상단, 일반 공지에는 역순 번호 부여, 페이지네이션 지원
  */
 
 'use client';
@@ -21,6 +20,13 @@ function formatDate(iso: string): string {
   return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
 }
 
+function fillTemplate(template: string, vars: Record<string, string | number>): string {
+  return Object.entries(vars).reduce(
+    (acc, [k, v]) => acc.replaceAll(`{${k}}`, String(v)),
+    template,
+  );
+}
+
 export default function BoardListContainer(): JSX.Element {
   const boardData = getBoardData();
   const pageData = boardData.page;
@@ -34,58 +40,85 @@ export default function BoardListContainer(): JSX.Element {
   const allNotices = data?.content ?? [];
   const pinned = allNotices.filter((n) => n.pinned);
   const regular = allNotices.filter((n) => !n.pinned);
+  const totalElements = data?.totalElements ?? 0;
   const totalPages = Math.max(1, data?.totalPages ?? 1);
+  // 일반 공지 역순 번호 — 최신글이 가장 큰 번호
+  const regularStartNumber = Math.max(0, totalElements - pinned.length - (currentPage - 1) * ITEMS_PER_PAGE);
 
   return (
     <main className={SK}>
       <div className={`${SK}__inner`}>
-        <h1 className={`${SK}__title`}>{pageData.title}</h1>
+        <header className={`${SK}__header`}>
+          <h1 className={`${SK}__title`}>{pageData.title}</h1>
+          <p className={`${SK}__subtitle`}>{pageData.subtitle}</p>
+        </header>
 
         {loading && !data ? (
           <div className={`${SK}__empty`}>
-            <p className={`${SK}__empty-text`}>불러오는 중…</p>
+            <p className={`${SK}__empty-text`}>{pageData.loadingText}</p>
           </div>
         ) : error && !data ? (
           <div className={`${SK}__empty`}>
             <p className={`${SK}__empty-text`}>{error.message}</p>
             <button type="button" onClick={refetch} className={`${SK}__page-btn`}>
-              다시 시도
+              {pageData.errorRetryLabel}
             </button>
           </div>
         ) : (
           <>
-            {pinned.length > 0 && (
-              <ul className={`${SK}__pinned-list`}>
-                {pinned.map((notice) => (
-                  <li key={notice.id} className={`${SK}__item ${SK}__item--pinned`}>
-                    <Link href={`/board/${notice.id}`} className={`${SK}__item-link`}>
-                      <span className={`${SK}__pin-badge`}>{pageData.pinnedLabel}</span>
-                      <span className={`${SK}__item-title`}>{notice.title}</span>
-                      <span className={`${SK}__item-date`}>{formatDate(notice.createdAt)}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
+            <div className={`${SK}__meta-bar`}>
+              <span className={`${SK}__total-count`}>
+                {fillTemplate(pageData.totalCountTemplate, { count: totalElements })}
+              </span>
+            </div>
 
-            {regular.length > 0 ? (
-              <ul className={`${SK}__list`}>
-                {regular.map((notice) => (
-                  <li key={notice.id} className={`${SK}__item`}>
-                    <Link href={`/board/${notice.id}`} className={`${SK}__item-link`}>
-                      <span className={`${SK}__item-title`}>{notice.title}</span>
-                      <span className={`${SK}__item-meta`}>
-                        <span className={`${SK}__item-date`}>{formatDate(notice.createdAt)}</span>
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            ) : pinned.length === 0 ? (
+            {(pinned.length > 0 || regular.length > 0) ? (
+              <>
+                <div className={`${SK}__table-head`} role="presentation">
+                  <span className={`${SK}__col ${SK}__col--num`}>{pageData.columns.number}</span>
+                  <span className={`${SK}__col ${SK}__col--title`}>{pageData.columns.title}</span>
+                  <span className={`${SK}__col ${SK}__col--date`}>{pageData.columns.date}</span>
+                </div>
+
+                <ul className={`${SK}__list`}>
+                  {pinned.map((notice) => (
+                    <li key={notice.id} className={`${SK}__item ${SK}__item--pinned`}>
+                      <Link href={`/board/${notice.id}`} className={`${SK}__item-link`}>
+                        <span className={`${SK}__col ${SK}__col--num`}>
+                          <span className={`${SK}__pin-badge`}>{pageData.pinnedLabel}</span>
+                        </span>
+                        <span className={`${SK}__col ${SK}__col--title ${SK}__item-title`}>
+                          {notice.title}
+                        </span>
+                        <span className={`${SK}__col ${SK}__col--date ${SK}__item-date`}>
+                          {formatDate(notice.createdAt)}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+
+                  {regular.map((notice, idx) => (
+                    <li key={notice.id} className={`${SK}__item`}>
+                      <Link href={`/board/${notice.id}`} className={`${SK}__item-link`}>
+                        <span className={`${SK}__col ${SK}__col--num ${SK}__item-num`}>
+                          {regularStartNumber - idx}
+                        </span>
+                        <span className={`${SK}__col ${SK}__col--title ${SK}__item-title`}>
+                          {notice.title}
+                        </span>
+                        <span className={`${SK}__col ${SK}__col--date ${SK}__item-date`}>
+                          {formatDate(notice.createdAt)}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
               <div className={`${SK}__empty`}>
                 <p className={`${SK}__empty-text`}>{pageData.emptyText}</p>
               </div>
-            ) : null}
+            )}
 
             {totalPages > 1 && (
               <nav className={`${SK}__pagination`} aria-label="페이지 탐색">

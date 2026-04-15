@@ -17,9 +17,9 @@ import {
   createAdminCourse,
   fetchAdminCourse,
   fetchAdminCourseCategories,
-  fetchAdminUsers,
   updateAdminCourse,
 } from '@/lib/adminApi';
+import { fetchInstructors } from '@/lib/userApi';
 import type { AdminCourseLevel } from '@/types';
 
 interface Fields {
@@ -91,8 +91,10 @@ export default function AdminCourseFormContainer({
   const router = useRouter();
 
   const categoriesQuery = useAdminQuery(fetchAdminCourseCategories, []);
+  // 백엔드 `instructorIds` 는 Instructor 엔티티(=강사 프로필) ID 를 기대한다.
+  // User ID 가 아니므로 /v1/instructors 공개 엔드포인트로 강사 프로필 목록을 가져온다.
   const instructorsQuery = useAdminQuery(
-    () => fetchAdminUsers({ role: 'INSTRUCTOR', status: 'ACTIVE', size: 500 }),
+    () => fetchInstructors({ page: 1, size: 500 }),
     [],
   );
   const initialQuery = useAdminQuery(
@@ -104,11 +106,12 @@ export default function AdminCourseFormContainer({
   const instructors = instructorsQuery.data?.content ?? [];
   const initial = initialQuery.data;
 
+  // AdminCourseResponse.instructorNames 는 Instructor.name 기반이므로 이름으로 매칭
   const initialInstructorIds = useMemo<number[]>(() => {
     if (!initial) return [];
     return instructors
-      .filter((u) => initial.instructorNames.includes(u.nickname))
-      .map((u) => u.id);
+      .filter((i) => initial.instructorNames.includes(i.name))
+      .map((i) => i.instructorId);
   }, [initial, instructors]);
 
   const [title, setTitle] = useState('');
@@ -298,15 +301,15 @@ export default function AdminCourseFormContainer({
         <fieldset className="admin-form-page__field">
           <legend className="admin-form-page__label">{copy.fields.instructorsLabel}</legend>
           <div className="admin-form-page__checkbox-list">
-            {instructors.map((u) => (
-              <label key={u.id} className="admin-form-page__checkbox">
+            {instructors.map((i) => (
+              <label key={i.instructorId} className="admin-form-page__checkbox">
                 <input
                   type="checkbox"
-                  checked={instructorIds.includes(u.id)}
-                  onChange={() => toggleInstructor(u.id)}
+                  checked={instructorIds.includes(i.instructorId)}
+                  onChange={() => toggleInstructor(i.instructorId)}
                 />
-                <span>{u.nickname}</span>
-                <span className="admin-form-page__suggest-email">{u.email}</span>
+                <span>{i.name}</span>
+                {i.specialty && <span className="admin-form-page__suggest-email">{i.specialty}</span>}
               </label>
             ))}
           </div>

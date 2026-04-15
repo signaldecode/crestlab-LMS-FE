@@ -1,0 +1,97 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+
+// ============================================
+// 준비중 placeholder (_coming-soon.scss)
+// - 콘텐츠 미준비 페이지의 공용 빈 상태 화면
+// ============================================
+
+.coming-soon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: $spacing-16 $section-padding-x;
+  letter-spacing: $letter-spacing-normal;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-4;
+    max-width: $spacing-20 * 14;
+    text-align: center;
+  }
+
+  &__badge {
+    display: inline-block;
+    padding: $spacing-1 $spacing-4;
+    font-family: $font-family-accent;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    letter-spacing: 0.15em;
+    color: $color-primary;
+    background-color: rgba($color-primary, 0.08);
+    border-radius: $radius-xl;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    font-family: $font-family-heading;
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    line-height: $line-height-tight;
+    margin: $spacing-0;
+  }
+
+  &__description {
+    font-size: $font-size-base;
+    color: $color-text-secondary;
+    line-height: 1.7;
+    margin: $spacing-0;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $spacing-3;
+    margin-top: $spacing-4;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-3 $spacing-6;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    border-radius: $radius-md;
+    border: $border-thin solid transparent;
+    text-decoration: none;
+    transition: background-color 0.15s, color 0.15s;
+
+    &--primary {
+      color: $color-text-inverse;
+      background-color: $color-primary;
+      &:hover { background-color: $color-primary-dark; }
+    }
+
+    &--ghost {
+      color: $color-text-secondary;
+      background-color: transparent;
+      border-color: $color-border;
+      &:hover {
+        color: $color-text-primary;
+        background-color: $color-bg-secondary;
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    &__title { font-size: $font-size-xl; }
+  }
+}

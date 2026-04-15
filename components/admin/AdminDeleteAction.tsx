@@ -13,6 +13,7 @@ import AdminModal from '@/components/admin/AdminModal';
 import {
   deactivateAdminCoupon,
   deleteAdminBanner,
+  deleteAdminCategory,
   deleteAdminFaq,
   deleteAdminMainSection,
   deleteAdminNotice,
@@ -27,6 +28,7 @@ export type AdminDeleteResource =
   | 'faq'
   | 'review'
   | 'notice'
+  | 'category'
   | 'coupon'; // coupon은 실제로 비활성화 (deactivate)
 
 interface AdminDeleteActionProps {
@@ -52,6 +54,7 @@ function executeDelete(resource: AdminDeleteResource, id: number): Promise<void>
     case 'faq': return deleteAdminFaq(id);
     case 'review': return deleteAdminReview(id);
     case 'notice': return deleteAdminNotice(id);
+    case 'category': return deleteAdminCategory(id);
     case 'coupon': return deactivateAdminCoupon(id);
   }
 }

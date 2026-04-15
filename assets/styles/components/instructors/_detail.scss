@@ -3,159 +3,379 @@
 @use '../../tokens/typography' as *;
 @use '../../tokens/effects' as *;
 
+// ============================================
+// 강사 상세 (_detail.scss)
+// - Figma: 좌측 portrait(342×454) + 우측 정보 + 사이드바(이력) 3-col 히어로
+//   + 하단 "대표강의" 3-카드 그리드 (BEST 뱃지, 키워드 칩, 평점, 바로가기)
+// ============================================
+
 .instructor-detail {
-  padding: $spacing-8 $section-padding-x $spacing-16;
+  padding: $section-padding-y $section-padding-x;
   letter-spacing: $letter-spacing-normal;
 
   &__inner {
-    max-width: 64rem;
+    max-width: $container-max-width;
     margin: $spacing-0 auto;
-  }
-
-  &__back {
-    display: inline-block;
-    margin-bottom: $spacing-6;
-    font-size: $font-size-sm;
-    color: $color-text-secondary;
-    text-decoration: none;
-
-    &:hover {
-      color: $color-text-primary;
-    }
-  }
-
-  &__profile {
     display: flex;
-    align-items: center;
-    gap: $spacing-8;
-    padding: $spacing-8;
-    margin-bottom: $spacing-10;
-    background-color: $color-bg-secondary;
-    border: $border-thin solid $color-border;
-    border-radius: $radius-xl;
+    flex-direction: column;
+    gap: 6.25rem; // 100px between hero and 대표강의 (Figma)
+  }
 
-    @media (max-width: 40rem) {
-      flex-direction: column;
-      text-align: center;
-      gap: $spacing-5;
+  &__state {
+    padding: $spacing-16 $spacing-0;
+    text-align: center;
+    color: $color-text-muted;
+    font-size: $font-size-base;
+  }
+
+  /* ── 페이지 타이틀 ── */
+  &__page-header {
+    margin-bottom: $spacing-8;
+  }
+
+  &__page-title {
+    font-family: $font-family-heading;
+    font-size: 2.5rem; // display 1: 40px
+    font-weight: $font-weight-semibold;
+    line-height: 1.25;
+    color: $color-text-primary;
+    margin: $spacing-0;
+  }
+
+  &__page-title-suffix {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-regular;
+    color: $color-text-secondary;
+    margin-left: $spacing-2;
+  }
+
+  /* ── 히어로 (포트레이트 + 정보 + 사이드바) ── */
+  &__hero {
+    display: grid;
+    grid-template-columns: 342px 1fr 174px;
+    gap: $spacing-10; // 40px
+    align-items: start;
+
+    @media (max-width: 1023px) {
+      grid-template-columns: 1fr;
     }
   }
 
-  &__avatar {
-    width: 10rem;
-    height: 10rem;
-    border-radius: 50%;
+  &__portrait {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 342 / 454;
+    border-radius: 12px;
     overflow: hidden;
-    background-color: $color-bg-tertiary;
-    flex-shrink: 0;
+    background-color: $color-bg-basic;
+
+    @media (max-width: 1023px) {
+      max-width: 342px;
+    }
   }
 
-  &__avatar-img {
-    width: 100%;
-    height: 100%;
+  &__portrait-img {
     object-fit: cover;
   }
 
-  &__profile-info {
+  &__portrait-placeholder {
+    position: absolute;
+    inset: 0;
+    background-color: $color-bg-basic;
+  }
+
+  /* ── 우측 메인 정보 컬럼 ── */
+  &__profile {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-8; // 32px
+    min-width: 0;
+  }
+
+  &__name-row {
+    display: flex;
+    align-items: flex-end;
+    gap: $spacing-1;
+  }
+
+  &__name {
+    font-size: 1.75rem; // headline 2: 28px
+    font-weight: $font-weight-semibold;
+    line-height: 1.357;
+    color: $color-primary;
+  }
+
+  &__name-suffix {
+    font-size: $font-size-base;
+    font-weight: $font-weight-regular;
+    line-height: 1.5;
+    color: $color-text-secondary;
+  }
+
+  /* 통계 칩 스트립 */
+  &__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.75rem; // 28px (Figma spec)
+    margin: $spacing-0;
+  }
+
+  &__stat {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    margin: $spacing-0;
+  }
+
+  &__stat-label {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-regular;
+    color: $color-text-secondary;
+    margin: $spacing-0;
+  }
+
+  &__stat-divider {
+    width: 1px;
+    height: 12px;
+    background-color: $color-border;
+    display: inline-block;
+  }
+
+  &__stat-value {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    margin: $spacing-0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__bio {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-regular;
+    color: $color-text-secondary;
+    line-height: 1.7;
+    margin: $spacing-0;
+    white-space: pre-wrap;
+  }
+
+  /* ── 우측 사이드바 (이력 리스트) ── */
+  &__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-5;
+
+    @media (max-width: 1023px) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  &__sidebar-block {
     display: flex;
     flex-direction: column;
     gap: $spacing-2;
   }
 
-  &__name {
-    font-family: $font-family-heading;
-    font-size: $font-size-2xl;
-    font-weight: $font-weight-bold;
-    color: $color-text-primary;
-    margin: $spacing-0;
-    line-height: $line-height-tight;
-  }
-
-  &__specialty {
-    font-size: $font-size-base;
-    font-weight: $font-weight-medium;
-    color: $color-primary;
-    margin: $spacing-0;
-  }
-
-  &__follower {
+  &__sidebar-label {
     font-size: $font-size-sm;
+    font-weight: $font-weight-regular;
     color: $color-text-secondary;
+  }
+
+  &__sidebar-list {
+    list-style: none;
     margin: $spacing-0;
+    padding: $spacing-0;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
   }
 
-  &__section {
-    margin-bottom: $spacing-10;
-  }
-
-  &__section-title {
-    font-family: $font-family-heading;
-    font-size: $font-size-lg;
-    font-weight: $font-weight-bold;
+  &__sidebar-item {
+    position: relative;
+    padding-left: $spacing-3;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
     color: $color-text-primary;
-    margin: $spacing-0 $spacing-0 $spacing-4;
-    padding-bottom: $spacing-2;
-    border-bottom: $border-medium solid $color-text-primary;
-    display: inline-block;
+    line-height: 1.5;
+
+    &::before {
+      content: '-';
+      position: absolute;
+      left: 0;
+    }
   }
 
-  &__section-body {
-    font-size: $font-size-base;
-    color: $color-text-body;
-    line-height: $line-height-relaxed;
-    white-space: pre-wrap;
+  /* ── 대표 강의 섹션 ── */
+  &__courses-section {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-8;
+  }
+
+  &__courses-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__courses-title {
+    font-family: $font-family-heading;
+    font-size: 2rem; // 32px section title
+    font-weight: $font-weight-semibold;
+    line-height: 1.4375;
+    color: $color-text-primary;
     margin: $spacing-0;
   }
 
   &__courses {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
-    gap: $spacing-5;
+    list-style: none;
     margin: $spacing-0;
     padding: $spacing-0;
-    list-style: none;
-  }
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-6; // 24px
 
-  &__course {
-    background-color: $color-bg-primary;
-    border: $border-thin solid $color-border;
-    border-radius: $radius-lg;
-    overflow: hidden;
-    transition: transform $duration-normal $ease-smooth, box-shadow $duration-normal $ease-smooth;
-
-    &:hover {
-      transform: translateY(-0.125rem);
-      box-shadow: $shadow-sm;
+    @media (max-width: 1023px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: 639px) {
+      grid-template-columns: 1fr;
     }
   }
 
-  &__course-link {
+  /* ── 강의 카드 ── */
+  &__course {
     display: flex;
     flex-direction: column;
-    gap: $spacing-3;
-    padding-bottom: $spacing-4;
-    text-decoration: none;
-    color: inherit;
+    background-color: $color-bg-primary;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(34, 34, 34, 0.08);
+    height: 100%;
+  }
+
+  &__course-thumb-link {
+    display: block;
+    line-height: 0;
   }
 
   &__course-thumb {
+    position: relative;
     width: 100%;
-    height: auto;
-    display: block;
+    aspect-ratio: 464 / 204;
+    background-color: $color-bg-basic;
+  }
+
+  &__course-thumb-img {
     object-fit: cover;
-    aspect-ratio: 16 / 9;
+  }
+
+  &__course-body {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-6; // 32px → 24px 약간 축소
+    padding: $spacing-6;
+    flex: 1;
+  }
+
+  &__course-head {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
   }
 
   &__course-title {
-    padding: $spacing-0 $spacing-4;
-    font-size: $font-size-sm;
-    font-weight: $font-weight-semibold;
+    font-size: $font-size-lg; // 18px
+    font-weight: $font-weight-medium;
+    line-height: 1.444;
     color: $color-text-primary;
-    line-height: $line-height-base;
+    margin: $spacing-0;
     display: -webkit-box;
     -webkit-line-clamp: 2;
-    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    min-height: calc(#{$font-size-lg} * 1.444 * 2);
+  }
+
+  &__course-meta {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    flex-wrap: wrap;
+  }
+
+  &__course-rating,
+  &__course-instructor {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-1;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+
+  &__course-star {
+    color: $color-star;
+  }
+
+  &__course-rating-value {
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__course-rating-count {
+    color: $color-text-secondary;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__course-person {
+    color: $color-text-secondary;
+  }
+
+  /* 뱃지 */
+  &__course-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-2;
+  }
+
+  &__course-badge {
+    padding: $spacing-2 $spacing-4;
+    border-radius: 4px;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    line-height: 1.428;
+    white-space: nowrap;
+
+    &--best {
+      color: $color-text-inverse;
+      background: linear-gradient(143deg, #010101 0%, #1778F2 96%);
+    }
+
+    &--keyword {
+      color: $color-text-secondary;
+      background: $color-bg-primary;
+      border: $border-thin solid $color-border;
+    }
+  }
+
+  &__course-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-3;
+    margin-top: auto;
+    background-color: $color-bg-tertiary;
+    border-radius: 4px;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    text-decoration: none;
+    transition: background-color 0.15s, color 0.15s;
+
+    &:hover {
+      background-color: $color-border;
+      color: $color-text-primary;
+    }
   }
 }

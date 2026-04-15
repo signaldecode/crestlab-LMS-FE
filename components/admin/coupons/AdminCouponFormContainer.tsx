@@ -1,17 +1,17 @@
 /**
- * 관리자 쿠폰 발행 폼 (AdminCouponFormContainer)
- * - 백엔드: POST /api/v1/admin/coupons
+ * 관리자 쿠폰 폼 (AdminCouponFormContainer)
+ * - 백엔드: POST /api/v1/admin/coupons (create), PUT /api/v1/admin/coupons/{id} (edit)
  */
 
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import type { JSX } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAdminMutation } from '@/hooks/useAdminQuery';
-import { createAdminCoupon } from '@/lib/adminApi';
-import type { AdminCouponDiscountType } from '@/types';
+import { createAdminCoupon, fetchAdminCoupons, updateAdminCoupon } from '@/lib/adminApi';
+import type { AdminCouponDiscountType, AdminCouponListItem } from '@/types';
 
 interface Fields {
   codeLabel: string; codePlaceholder: string;
@@ -29,19 +29,39 @@ interface Errors {
 
 export interface CouponFormCopy {
   createTitle: string; subtitle: string;
+  editTitle?: string; editSubtitle?: string;
+  notFoundText?: string;
+  codeReadonlyHint?: string;
   backLinkLabel: string; backLinkHref: string;
   fields: Fields;
   discountTypeOptions: Record<AdminCouponDiscountType, string>;
   errors: Errors;
   actions: { submitLabel: string; cancelLabel: string };
+  editActions?: { submitLabel: string; cancelLabel: string };
 }
 
-interface Props { copy: CouponFormCopy; }
+interface Props {
+  copy: CouponFormCopy;
+  /** 전달 시 edit 모드로 동작 */
+  couponId?: number;
+}
 
 const CODE_PATTERN = /^[A-Z0-9]+$/;
 
-export default function AdminCouponFormContainer({ copy }: Props): JSX.Element {
+/** LocalDateTime → <input type=date> yyyy-mm-dd */
+const toDateInput = (iso: string): string => {
+  if (!iso) return '';
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return '';
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+};
+
+export default function AdminCouponFormContainer({ copy, couponId }: Props): JSX.Element {
   const router = useRouter();
+  const isEdit = typeof couponId === 'number';
   const [code, setCode] = useState('');
   const [name, setName] = useState('');
   const [discountType, setDiscountType] = useState<AdminCouponDiscountType>('PERCENT');
@@ -52,26 +72,72 @@ export default function AdminCouponFormContainer({ copy }: Props): JSX.Element {
   const [startsAt, setStartsAt] = useState('');
   const [expiresAt, setExpiresAt] = useState('');
   const [errors, setErrors] = useState<Partial<Record<keyof Errors, string>>>({});
+  const [loading, setLoading] = useState(isEdit);
+  const [notFound, setNotFound] = useState(false);
+
+  useEffect(() => {
+    if (!isEdit) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        const list = await fetchAdminCoupons();
+        if (cancelled) return;
+        const target = list.find((c: AdminCouponListItem) => c.id === couponId);
+        if (!target) {
+          setNotFound(true);
+        } else {
+          setCode(target.code);
+          setName(target.name);
+          setDiscountType(target.discountType);
+          setDiscountValue(String(target.discountValue));
+          setMinOrderAmount(String(target.minOrderAmount));
+          setMaxDiscountAmount(String(target.maxDiscountAmount ?? 0));
+          setTotalQuantity(String(target.totalQuantity));
+          setStartsAt(toDateInput(target.startsAt));
+          setExpiresAt(toDateInput(target.expiresAt));
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [isEdit, couponId]);
 
   const mutation = useAdminMutation(
-    async () => createAdminCoupon({
-      code: code.trim(),
-      name: name.trim(),
-      discountType,
-      discountValue: Number(discountValue),
-      minOrderAmount: Number(minOrderAmount),
-      maxDiscountAmount: Number(maxDiscountAmount),
-      totalQuantity: Number(totalQuantity),
-      startsAt,
-      expiresAt,
-    }),
+    async () => {
+      if (isEdit && typeof couponId === 'number') {
+        return updateAdminCoupon(couponId, {
+          name: name.trim(),
+          discountType,
+          discountValue: Number(discountValue),
+          minOrderAmount: Number(minOrderAmount),
+          maxDiscountAmount: Number(maxDiscountAmount),
+          totalQuantity: Number(totalQuantity),
+          startsAt,
+          expiresAt,
+        });
+      }
+      return createAdminCoupon({
+        code: code.trim(),
+        name: name.trim(),
+        discountType,
+        discountValue: Number(discountValue),
+        minOrderAmount: Number(minOrderAmount),
+        maxDiscountAmount: Number(maxDiscountAmount),
+        totalQuantity: Number(totalQuantity),
+        startsAt,
+        expiresAt,
+      });
+    },
     () => router.push('/admin/coupons'),
   );
 
   const handleSubmit = useCallback(() => {
     const e: Partial<Record<keyof Errors, string>> = {};
-    if (!code.trim()) e.codeRequired = copy.errors.codeRequired;
-    else if (!CODE_PATTERN.test(code)) e.codeFormatInvalid = copy.errors.codeFormatInvalid;
+    if (!isEdit) {
+      if (!code.trim()) e.codeRequired = copy.errors.codeRequired;
+      else if (!CODE_PATTERN.test(code)) e.codeFormatInvalid = copy.errors.codeFormatInvalid;
+    }
     if (!name.trim()) e.nameRequired = copy.errors.nameRequired;
     const dv = Number(discountValue);
     if (!discountValue || Number.isNaN(dv) || dv <= 0) e.discountValueInvalid = copy.errors.discountValueInvalid;
@@ -83,21 +149,32 @@ export default function AdminCouponFormContainer({ copy }: Props): JSX.Element {
     setErrors(e);
     if (Object.keys(e).length > 0) return;
     void mutation.run();
-  }, [code, name, discountType, discountValue, totalQuantity, startsAt, expiresAt, copy.errors, mutation]);
+  }, [isEdit, code, name, discountType, discountValue, totalQuantity, startsAt, expiresAt, copy.errors, mutation]);
+
+  if (loading) return <div className="admin-form-page"><p>…</p></div>;
+  if (notFound) return <div className="admin-form-page"><p>{copy.notFoundText ?? '찾을 수 없습니다.'}</p></div>;
+
+  const titleText = isEdit ? (copy.editTitle ?? copy.createTitle) : copy.createTitle;
+  const subtitleText = isEdit ? (copy.editSubtitle ?? copy.subtitle) : copy.subtitle;
+  const actions = isEdit ? (copy.editActions ?? copy.actions) : copy.actions;
 
   return (
     <div className="admin-form-page">
       <header className="admin-form-page__header">
         <Link href={copy.backLinkHref} className="admin-user-detail__back">← {copy.backLinkLabel}</Link>
-        <h1 className="admin-form-page__title">{copy.createTitle}</h1>
-        <p className="admin-form-page__subtitle">{copy.subtitle}</p>
+        <h1 className="admin-form-page__title">{titleText}</h1>
+        <p className="admin-form-page__subtitle">{subtitleText}</p>
       </header>
 
       <div className="admin-form-page__field-group">
         <label className="admin-form-page__field">
           <span className="admin-form-page__label">{copy.fields.codeLabel}</span>
           <input type="text" value={code} onChange={(e) => setCode(e.target.value.toUpperCase())}
-            placeholder={copy.fields.codePlaceholder} className="admin-form-page__input" />
+            placeholder={copy.fields.codePlaceholder} className="admin-form-page__input"
+            readOnly={isEdit} disabled={isEdit} />
+          {isEdit && copy.codeReadonlyHint && (
+            <span className="admin-form-page__hint">{copy.codeReadonlyHint}</span>
+          )}
           {errors.codeRequired && <span className="admin-modal__error">{errors.codeRequired}</span>}
           {errors.codeFormatInvalid && <span className="admin-modal__error">{errors.codeFormatInvalid}</span>}
         </label>
@@ -169,8 +246,8 @@ export default function AdminCouponFormContainer({ copy }: Props): JSX.Element {
       {mutation.error && <p className="admin-form-page__error" role="alert">{mutation.error.message}</p>}
 
       <footer className="admin-form-page__footer">
-        <Link href={copy.backLinkHref} className="admin-modal__btn admin-modal__btn--ghost">{copy.actions.cancelLabel}</Link>
-        <button type="button" onClick={handleSubmit} disabled={mutation.submitting} className="admin-modal__btn admin-modal__btn--primary">{copy.actions.submitLabel}</button>
+        <Link href={copy.backLinkHref} className="admin-modal__btn admin-modal__btn--ghost">{actions.cancelLabel}</Link>
+        <button type="button" onClick={handleSubmit} disabled={mutation.submitting} className="admin-modal__btn admin-modal__btn--primary">{actions.submitLabel}</button>
       </footer>
     </div>
   );

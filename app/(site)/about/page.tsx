@@ -1,13 +1,29 @@
 /**
  * 소개(About) 페이지
- * - 플랫폼/기관 소개 정보를 보여주는 페이지
- * - 텍스트/이미지/연혁 등은 data에서 로드한다
+ * - 본 콘텐츠 준비 전까지 ComingSoon placeholder 노출
  */
 
-export default function AboutPage() {
-  return (
-    <section className="about-page">
-      {/* data 기반 소개 콘텐츠가 이곳에 렌더링된다 */}
-    </section>
-  );
+import type { JSX } from 'react';
+import type { Metadata } from 'next';
+import ComingSoon, { type ComingSoonProps } from '@/components/common/ComingSoon';
+import { getPageData } from '@/lib/data';
+
+interface AboutPageData {
+  seo: { title: string; description: string };
+  comingSoon: ComingSoonProps;
+}
+
+function getCopy(): AboutPageData | null {
+  return (getPageData('about') as AboutPageData | null) ?? null;
+}
+
+export function generateMetadata(): Metadata {
+  const c = getCopy();
+  return c ? { title: c.seo.title, description: c.seo.description } : { title: '소개' };
+}
+
+export default function AboutPage(): JSX.Element {
+  const copy = getCopy();
+  if (!copy) return <main>데이터를 불러올 수 없습니다.</main>;
+  return <ComingSoon {...copy.comingSoon} />;
 }

@@ -1,6 +1,15 @@
 {
   "page": {
     "title": "공지사항",
+    "subtitle": "서비스 이용에 도움이 되는 새 소식과 점검 안내를 확인하세요.",
+    "totalCountTemplate": "총 {count}건",
+    "loadingText": "공지사항을 불러오는 중입니다…",
+    "errorRetryLabel": "다시 시도",
+    "columns": {
+      "number": "번호",
+      "title": "제목",
+      "date": "등록일"
+    },
     "seo": {
       "title": "공지사항 — 강의 플랫폼",
       "description": "강의 플랫폼의 공지사항, 이벤트, 업데이트 소식을 확인하세요."

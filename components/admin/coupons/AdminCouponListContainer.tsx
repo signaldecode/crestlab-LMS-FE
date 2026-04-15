@@ -12,7 +12,12 @@ import AdminActionButton from '@/components/admin/AdminActionButton';
 import AdminModal from '@/components/admin/AdminModal';
 import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
 import { useAdminMutation, useAdminQuery } from '@/hooks/useAdminQuery';
-import { deactivateAdminCoupon, fetchAdminCoupons } from '@/lib/adminApi';
+import {
+  deactivateAdminCoupon,
+  deleteAdminCoupon,
+  fetchAdminCoupons,
+  issueAdminCoupon,
+} from '@/lib/adminApi';
 import type { AdminCouponDiscountType, AdminCouponListItem } from '@/types';
 
 export interface CouponsCopy {
@@ -24,9 +29,21 @@ export interface CouponsCopy {
   columns: { code: string; name: string; discount: string; minOrder: string; usage: string; period: string; isActive: string; actions: string };
   discountTypeLabels: Record<AdminCouponDiscountType, string>;
   activeLabels: { true: string; false: string };
-  actionLabels: { deactivate: string };
+  actionLabels: { edit: string; deactivate: string; delete: string; issue: string };
+  editHrefTemplate: string;
+  editAriaLabelTemplate: string;
   deactivateModal: {
     title: string; descriptionTemplate: string;
+    confirmLabel: string; cancelLabel: string;
+  };
+  deleteModal: {
+    title: string; descriptionTemplate: string;
+    confirmLabel: string; cancelLabel: string;
+  };
+  issueModal: {
+    title: string; descriptionTemplate: string;
+    userIdLabel: string; userIdPlaceholder: string;
+    userIdRequiredError: string; userIdInvalidError: string;
     confirmLabel: string; cancelLabel: string;
   };
   emptyText: string;
@@ -52,16 +69,57 @@ export default function AdminCouponListContainer({
 }: AdminCouponListContainerProps): JSX.Element {
   const { data, loading, error, refetch } = useAdminQuery(fetchAdminCoupons, []);
   const [deactivateTarget, setDeactivateTarget] = useState<AdminCouponListItem | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<AdminCouponListItem | null>(null);
+  const [issueTarget, setIssueTarget] = useState<AdminCouponListItem | null>(null);
+  const [issueUserId, setIssueUserId] = useState('');
+  const [issueValidationError, setIssueValidationError] = useState<string | null>(null);
 
   const deactivateMutation = useAdminMutation(
     (id: number) => deactivateAdminCoupon(id),
     () => { setDeactivateTarget(null); refetch(); },
   );
 
+  const deleteMutation = useAdminMutation(
+    (id: number) => deleteAdminCoupon(id),
+    () => { setDeleteTarget(null); refetch(); },
+  );
+
+  const issueMutation = useAdminMutation(
+    ({ id, userId }: { id: number; userId: number }) => issueAdminCoupon(id, { userId }),
+    () => { setIssueTarget(null); setIssueUserId(''); },
+  );
+
   const handleDeactivate = useCallback(() => {
     if (!deactivateTarget) return;
     void deactivateMutation.run(deactivateTarget.id);
   }, [deactivateTarget, deactivateMutation]);
+
+  const handleDelete = useCallback(() => {
+    if (!deleteTarget) return;
+    void deleteMutation.run(deleteTarget.id);
+  }, [deleteTarget, deleteMutation]);
+
+  const handleIssue = useCallback(() => {
+    if (!issueTarget) return;
+    const trimmed = issueUserId.trim();
+    if (!trimmed) {
+      setIssueValidationError(copy.issueModal.userIdRequiredError);
+      return;
+    }
+    const parsed = Number(trimmed);
+    if (!Number.isInteger(parsed) || parsed <= 0) {
+      setIssueValidationError(copy.issueModal.userIdInvalidError);
+      return;
+    }
+    setIssueValidationError(null);
+    void issueMutation.run({ id: issueTarget.id, userId: parsed });
+  }, [issueTarget, issueUserId, issueMutation, copy.issueModal.userIdRequiredError, copy.issueModal.userIdInvalidError]);
+
+  const closeIssueModal = useCallback(() => {
+    setIssueTarget(null);
+    setIssueUserId('');
+    setIssueValidationError(null);
+  }, []);
 
   if (loading && !data) return <AdminLoading label={common.loadingText} />;
   if (error && !data) {
@@ -127,6 +185,18 @@ export default function AdminCouponListContainer({
                     </span>
                   </td>
                   <td className="admin-list__td admin-list__td--actions">
+                    <Link
+                      href={copy.editHrefTemplate.replace('{id}', String(c.id))}
+                      aria-label={copy.editAriaLabelTemplate.replace('{name}', c.name)}
+                      className="admin-list__action-link"
+                    >
+                      {copy.actionLabels.edit}
+                    </Link>
+                    {c.isActive && (
+                      <AdminActionButton onClick={() => setIssueTarget(c)}>
+                        {copy.actionLabels.issue}
+                      </AdminActionButton>
+                    )}
                     {c.isActive && (
                       <AdminActionButton
                         variant="danger"
@@ -135,6 +205,12 @@ export default function AdminCouponListContainer({
                         {copy.actionLabels.deactivate}
                       </AdminActionButton>
                     )}
+                    <AdminActionButton
+                      variant="danger"
+                      onClick={() => setDeleteTarget(c)}
+                    >
+                      {copy.actionLabels.delete}
+                    </AdminActionButton>
                   </td>
                 </tr>
               ))}
@@ -169,6 +245,80 @@ export default function AdminCouponListContainer({
             className="admin-modal__btn admin-modal__btn--danger"
           >
             {copy.deactivateModal.confirmLabel}
+          </button>
+        </footer>
+      </AdminModal>
+
+      <AdminModal
+        isOpen={!!deleteTarget}
+        onClose={() => setDeleteTarget(null)}
+        title={copy.deleteModal.title}
+        description={
+          deleteTarget
+            ? copy.deleteModal.descriptionTemplate
+                .replaceAll('{name}', deleteTarget.name)
+                .replaceAll('{code}', deleteTarget.code)
+            : ''
+        }
+      >
+        {deleteMutation.error && (
+          <p className="admin-modal__error" role="alert">{deleteMutation.error.message}</p>
+        )}
+        <footer className="admin-modal__footer">
+          <button type="button" onClick={() => setDeleteTarget(null)} className="admin-modal__btn admin-modal__btn--ghost">
+            {copy.deleteModal.cancelLabel}
+          </button>
+          <button
+            type="button"
+            onClick={handleDelete}
+            disabled={deleteMutation.submitting}
+            className="admin-modal__btn admin-modal__btn--danger"
+          >
+            {copy.deleteModal.confirmLabel}
+          </button>
+        </footer>
+      </AdminModal>
+
+      <AdminModal
+        isOpen={!!issueTarget}
+        onClose={closeIssueModal}
+        title={copy.issueModal.title}
+        description={
+          issueTarget
+            ? copy.issueModal.descriptionTemplate
+                .replaceAll('{name}', issueTarget.name)
+                .replaceAll('{code}', issueTarget.code)
+            : ''
+        }
+      >
+        <label className="admin-modal__field">
+          <span className="admin-modal__field-label">{copy.issueModal.userIdLabel}</span>
+          <input
+            type="number"
+            min={1}
+            value={issueUserId}
+            onChange={(e) => setIssueUserId(e.target.value)}
+            placeholder={copy.issueModal.userIdPlaceholder}
+            className="admin-modal__input"
+          />
+        </label>
+        {issueValidationError && (
+          <p className="admin-modal__error" role="alert">{issueValidationError}</p>
+        )}
+        {issueMutation.error && (
+          <p className="admin-modal__error" role="alert">{issueMutation.error.message}</p>
+        )}
+        <footer className="admin-modal__footer">
+          <button type="button" onClick={closeIssueModal} className="admin-modal__btn admin-modal__btn--ghost">
+            {copy.issueModal.cancelLabel}
+          </button>
+          <button
+            type="button"
+            onClick={handleIssue}
+            disabled={issueMutation.submitting}
+            className="admin-modal__btn admin-modal__btn--primary"
+          >
+            {copy.issueModal.confirmLabel}
           </button>
         </footer>
       </AdminModal>

@@ -1,8 +1,7 @@
 /**
  * 회원정보관리 콘텐츠 (ProfileEditContent)
  * - 회원 기본정보 수정 (이름/아이디/비밀번호/휴대폰/생년월일/성별)
- * - 소셜연동 관리
- * - 마케팅 수신 설정
+ * - 마케팅 수신 동의 (SMS/이메일)
  * - 회원탈퇴 / 취소 / 수정 버튼
  */
 
@@ -26,12 +25,6 @@ import {
 import { uploadImage, validateImageFile } from '@/lib/upload';
 import accountData from '@/data/accountData.json';
 
-// Social Logos
-import naverLogo from '@/assets/images/logo/naver.png';
-import kakaoLogo from '@/assets/images/logo/kakaotalk.png';
-import googleLogo from '@/assets/images/logo/google.png';
-import appleLogo from '@/assets/images/logo/apple.png';
-
 const profileEdit = accountData.profileEdit;
 const ps = profileEdit.profileSection;
 
@@ -44,7 +37,7 @@ export default function ProfileEditContent(): JSX.Element {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const objectUrlRef = useRef<string | null>(null);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(user?.profileImage ?? null);
-  const [avatarS3Key, setAvatarS3Key] = useState<string | null>(null);
+  const [avatarPublicUrl, setAvatarPublicUrl] = useState<string | null>(null);
   const [avatarUploading, setAvatarUploading] = useState(false);
   const [avatarError, setAvatarError] = useState<string | null>(null);
 
@@ -78,8 +71,8 @@ export default function ProfileEditContent(): JSX.Element {
     setAvatarUploading(true);
 
     try {
-      const { s3Key } = await uploadImage(file, 'PROFILE_IMAGE').promise;
-      setAvatarS3Key(s3Key);
+      const { publicUrl } = await uploadImage(file, 'PROFILE_IMAGE').promise;
+      setAvatarPublicUrl(publicUrl);
     } catch {
       setAvatarError(ps.uploadErrors.uploadFailed);
     } finally {
@@ -93,7 +86,7 @@ export default function ProfileEditContent(): JSX.Element {
       objectUrlRef.current = null;
     }
     setAvatarPreview(null);
-    setAvatarS3Key(null);
+    setAvatarPublicUrl(null);
     setAvatarError(null);
     if (fileInputRef.current) fileInputRef.current.value = '';
   }, []);
@@ -151,11 +144,9 @@ export default function ProfileEditContent(): JSX.Element {
   // 성별
   const [gender, setGender] = useState<'male' | 'female' | 'none'>(user?.gender ?? 'none');
 
-  // 마케팅 동의
-  const [personalInfoConsent, setPersonalInfoConsent] = useState(user?.marketingConsent?.personalInfo ?? false);
+  // 마케팅 동의 (SMS/이메일)
   const [smsConsent, setSmsConsent] = useState(user?.marketingConsent?.sms ?? false);
   const [emailConsent, setEmailConsent] = useState(user?.marketingConsent?.email ?? false);
-  const [nightAdConsent, setNightAdConsent] = useState(user?.marketingConsent?.nightAd ?? false);
 
   // 회원탈퇴 확인 모달
   const [isWithdrawOpen, setIsWithdrawOpen] = useState(false);
@@ -216,12 +207,12 @@ export default function ProfileEditContent(): JSX.Element {
     setSubmitError('');
     try {
       // 1) 닉네임/프로필 이미지 수정 (PUT /v1/users/me/profile)
-      //    - avatarS3Key: 새로 업로드한 이미지 키
+      //    - avatarPublicUrl: 새로 업로드한 이미지의 공개 URL (presigned 쿼리 제거본)
       //    - avatarPreview === null && 기존 이미지 존재: 삭제 의도 → 빈 문자열 전송
       //    - 변경 없음: undefined로 미전송
       const profileImagePayload =
-        avatarS3Key
-          ? avatarS3Key
+        avatarPublicUrl
+          ? avatarPublicUrl
           : avatarPreview === null && user.profileImage
             ? ''
             : undefined;
@@ -255,10 +246,10 @@ export default function ProfileEditContent(): JSX.Element {
         birthday,
         gender,
         marketingConsent: {
-          personalInfo: personalInfoConsent,
+          personalInfo: user.marketingConsent?.personalInfo ?? false,
           sms: smsConsent,
           email: emailConsent,
-          nightAd: nightAdConsent,
+          nightAd: user.marketingConsent?.nightAd ?? false,
         },
       });
       router.push('/mypage');
@@ -269,26 +260,13 @@ export default function ProfileEditContent(): JSX.Element {
     }
   }, [
     user, submitting, nicknameChecked, nickname, phone, currentPassword, newPassword, confirmPassword,
-    birthday, gender, personalInfoConsent, smsConsent, emailConsent, nightAdConsent,
-    avatarPreview, avatarS3Key, setUser, router,
+    birthday, gender, smsConsent, emailConsent,
+    avatarPreview, avatarPublicUrl, setUser, router,
   ]);
 
   const handleCancel = useCallback(() => {
     router.back();
   }, [router]);
-
-  const socialAccounts = user?.socialAccounts ?? [];
-
-  // Social Logo mapping
-  const getSocialLogo = (id: string) => {
-    switch (id) {
-      case 'naver': return naverLogo;
-      case 'kakao': return kakaoLogo;
-      case 'google': return googleLogo;
-      case 'apple': return appleLogo;
-      default: return null;
-    }
-  };
 
   return (
     <div className="member-edit">
@@ -481,7 +459,7 @@ export default function ProfileEditContent(): JSX.Element {
           <label className="member-edit__label" htmlFor="member-phone">
             {profileEdit.fields.phone.label}
           </label>
-          <div className="member-edit__field member-edit__field--with-btn">
+          <div className="member-edit__field">
             <input
               id="member-phone"
               type="tel"
@@ -490,9 +468,6 @@ export default function ProfileEditContent(): JSX.Element {
               onChange={handlePhoneChange}
               aria-label={profileEdit.fields.phone.ariaLabel}
             />
-            <button type="button" className="member-edit__verify-btn">
-              {profileEdit.buttons.verifyPhone}
-            </button>
           </div>
         </div>
 
@@ -535,91 +510,6 @@ export default function ProfileEditContent(): JSX.Element {
           </div>
         </div>
 
-        {/* 소셜연동 */}
-        <div className="member-edit__row member-edit__row--social">
-          <span className="member-edit__label">
-            {profileEdit.fields.socialAccounts.label}
-          </span>
-          <div className="member-edit__field member-edit__field--social">
-            {profileEdit.socialProviders.map((provider) => {
-              const account = socialAccounts.find((a) => a.provider === provider.id);
-              const isConnected = account?.connected ?? false;
-
-              return (
-                <div key={provider.id} className="member-edit__social-row">
-                  <div className="member-edit__social-info">
-                    <span
-                      className="member-edit__social-icon"
-                      aria-hidden="true"
-                    >
-                      {getSocialLogo(provider.id) ? (
-                        <Image
-                          src={getSocialLogo(provider.id)!}
-                          alt={provider.label}
-                          width={20}
-                          height={20}
-                          className="member-edit__social-logo"
-                        />
-                      ) : (
-                        <span
-                          className="member-edit__social-dot"
-                          data-provider={provider.id}
-                        />
-                      )}
-                    </span>
-                    <span className="member-edit__social-name">
-                      {provider.label}
-                      {provider.note && (
-                        <span className="member-edit__social-note">{provider.note}</span>
-                      )}
-                    </span>
-                  </div>
-                  <button
-                    type="button"
-                    className={`member-edit__social-btn${isConnected ? ' member-edit__social-btn--connected' : ''}`}
-                    aria-label={`${provider.label} ${isConnected ? profileEdit.buttons.socialDisconnect : profileEdit.buttons.socialConnect}`}
-                  >
-                    {profileEdit.buttons.socialConnect}
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* 가입일 */}
-        <div className="member-edit__row">
-          <label className="member-edit__label" htmlFor="member-join-date">
-            {profileEdit.fields.joinDate.label}
-          </label>
-          <div className="member-edit__field">
-            <input
-              id="member-join-date"
-              type="text"
-              className="member-edit__input member-edit__input--readonly"
-              value={user?.joinDate ?? ''}
-              readOnly
-              aria-label={profileEdit.fields.joinDate.ariaLabel}
-            />
-          </div>
-        </div>
-
-        {/* 등급 */}
-        <div className="member-edit__row">
-          <label className="member-edit__label" htmlFor="member-grade">
-            {profileEdit.fields.grade.label}
-          </label>
-          <div className="member-edit__field">
-            <input
-              id="member-grade"
-              type="text"
-              className="member-edit__input member-edit__input--readonly"
-              value={user?.grade ?? ''}
-              readOnly
-              aria-label={profileEdit.fields.grade.ariaLabel}
-            />
-          </div>
-        </div>
       </div>
 
       {/* 마케팅 수신 설정 */}
@@ -628,26 +518,6 @@ export default function ProfileEditContent(): JSX.Element {
           {profileEdit.marketing.title}
         </h3>
         <hr className="member-edit__divider" />
-
-        {/* 개인정보 동의 */}
-        <div className="member-edit__row">
-          <span className="member-edit__label">
-            {profileEdit.marketing.personalInfo.label}
-          </span>
-          <div className="member-edit__field">
-            <label className="member-edit__checkbox-label">
-              <input
-                type="checkbox"
-                className="member-edit__checkbox"
-                checked={personalInfoConsent}
-                onChange={(e) => setPersonalInfoConsent(e.target.checked)}
-              />
-              <span className="member-edit__checkbox-text">
-                {profileEdit.marketing.personalInfo.description}
-              </span>
-            </label>
-          </div>
-        </div>
 
         {/* 광고성 정보 수신 동의 */}
         <div className="member-edit__row">
@@ -680,25 +550,6 @@ export default function ProfileEditContent(): JSX.Element {
           </div>
         </div>
 
-        {/* 광고성 정보 야간 동의 */}
-        <div className="member-edit__row">
-          <span className="member-edit__label member-edit__label--multiline">
-            {profileEdit.marketing.nightAdConsent.label}
-          </span>
-          <div className="member-edit__field">
-            <label className="member-edit__checkbox-label">
-              <input
-                type="checkbox"
-                className="member-edit__checkbox"
-                checked={nightAdConsent}
-                onChange={(e) => setNightAdConsent(e.target.checked)}
-              />
-              <span className="member-edit__checkbox-text">
-                {profileEdit.marketing.nightAdConsent.description}
-              </span>
-            </label>
-          </div>
-        </div>
       </section>
 
       {/* 하단 버튼 */}

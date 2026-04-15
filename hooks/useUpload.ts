@@ -1,20 +1,15 @@
 /**
- * useUpload — 영상 업로드 상태 + Presigned URL 업로드 유틸 통합 Hook
+ * useUpload — 영상 업로드 상태 + uploadVideo 유틸 통합 Hook
  *
- * useUploadStore 상태와 lib/upload.ts 유틸 함수를 하나로 묶어
- * 컴포넌트에서 한 줄 호출로 영상 업로드 전 과정을 처리할 수 있게 한다.
+ * 플로우: Presigned URL 발급 → S3 PUT → Video 등록 → 인코딩 시작
+ * 반환된 videoId는 별도 단계에서 `linkLectureVideo(lectureId, videoId)`로 강의에 연결한다.
  */
 
 'use client';
 
 import { useCallback } from 'react';
 import useUploadStore from '@/stores/useUploadStore';
-import {
-  validateVideoFile,
-  requestPresignedUrl,
-  uploadFileToS3,
-  confirmUpload,
-} from '@/lib/upload';
+import { validateVideoFile, uploadVideo, type UploadVideoResult } from '@/lib/upload';
 import type { UploadStatus } from '@/types';
 
 export default function useUpload() {
@@ -30,60 +25,50 @@ export default function useUpload() {
   const cancelUpload = useUploadStore((s) => s.cancelUpload);
   const resetUpload = useUploadStore((s) => s.resetUpload);
 
-  /** 파일 선택 → 검증 → Presigned URL 발급 → S3 업로드 → 확인 전 과정 */
   const upload = useCallback(
-    async (file: File, courseId: string) => {
+    async (file: File): Promise<UploadVideoResult | null> => {
       const validationError = validateVideoFile(file);
       if (validationError) {
         setError(validationError);
-        return;
+        return null;
       }
 
       try {
         setRequesting();
-        const { uploadUrl, fileKey } = await requestPresignedUrl({
-          courseId,
-          fileName: file.name,
-          contentType: file.type,
+
+        const { promise } = uploadVideo(file, {
+          onUploadProgress: setProgress,
+          onPutStarted: (abort) => setUploading(abort),
+          onPutCompleted: () => setConfirming(),
         });
 
-        const { promise, abort } = uploadFileToS3(uploadUrl, file, (percent) => {
-          setProgress(percent);
-        });
-
-        setUploading(abort);
-        await promise;
-
-        setConfirming();
-        await confirmUpload({ courseId, fileKey, fileName: file.name });
-
+        const result = await promise;
         setSuccess();
+        return result;
       } catch (err) {
         const message = err instanceof Error ? err.message : 'uploadFailed';
         if (message !== 'cancelled') {
           setError(message);
         }
+        return null;
       }
     },
-    [setRequesting, setUploading, setProgress, setConfirming, setSuccess, setError]
+    [setRequesting, setUploading, setProgress, setConfirming, setSuccess, setError],
   );
 
   return {
-    /** 업로드 상태 */
     status,
     progress,
     errorKey,
-    isIdle: status === 'idle' as UploadStatus,
-    isUploading: status === 'uploading' as UploadStatus,
-    isSuccess: status === 'success' as UploadStatus,
-    isError: status === 'error' as UploadStatus,
+    isIdle: status === ('idle' as UploadStatus),
+    isUploading: status === ('uploading' as UploadStatus),
+    isSuccess: status === ('success' as UploadStatus),
+    isError: status === ('error' as UploadStatus),
 
-    /** 액션 */
     upload,
     cancelUpload,
     resetUpload,
 
-    /** 파일 검증 유틸 */
     validateVideoFile,
   };
 }

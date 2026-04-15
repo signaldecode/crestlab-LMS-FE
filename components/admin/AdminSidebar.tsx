@@ -9,6 +9,7 @@
 import type { JSX } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import useAuthStore, { selectIsAdmin } from '@/stores/useAuthStore';
 
 interface AdminMenuItem {
   label: string;
@@ -24,7 +25,10 @@ interface AdminMenuGroup {
 interface AdminSidebarProps {
   title: string;
   navAriaLabel: string;
-  menuGroups: AdminMenuGroup[];
+  /** ADMIN 전용 메뉴 */
+  adminMenuGroups: AdminMenuGroup[];
+  /** INSTRUCTOR 가 볼 메뉴 (ADMIN 도 함께 볼 수 있음) */
+  instructorMenuGroups: AdminMenuGroup[];
   backToSiteLabel: string;
   backToSiteHref: string;
   backToSiteAriaLabel: string;
@@ -33,12 +37,17 @@ interface AdminSidebarProps {
 export default function AdminSidebar({
   title,
   navAriaLabel,
-  menuGroups,
+  adminMenuGroups,
+  instructorMenuGroups,
   backToSiteLabel,
   backToSiteHref,
   backToSiteAriaLabel,
 }: AdminSidebarProps): JSX.Element {
   const pathname = usePathname();
+  const isAdmin = useAuthStore(selectIsAdmin);
+  const menuGroups = isAdmin
+    ? [...instructorMenuGroups, ...adminMenuGroups]
+    : instructorMenuGroups;
 
   return (
     <aside className="admin-layout__sidebar">

@@ -12,13 +12,67 @@
     margin: $spacing-0 auto;
   }
 
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+    padding-bottom: $spacing-8;
+    margin-bottom: $spacing-6;
+    border-bottom: $border-thin solid $color-border;
+  }
+
   &__title {
     font-family: $font-family-heading;
-    font-size: $font-size-2xl;
+    font-size: $font-size-3xl;
     font-weight: $font-weight-bold;
     color: $color-text-primary;
-    margin-bottom: $spacing-8;
+    margin: $spacing-0;
     line-height: $line-height-tight;
+  }
+
+  &__subtitle {
+    font-size: $font-size-base;
+    color: $color-text-secondary;
+    margin: $spacing-0;
+    line-height: 1.6;
+  }
+
+  &__meta-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing-4;
+    margin-bottom: $spacing-3;
+  }
+
+  &__total-count {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* 컬럼 가로 레이아웃 */
+  &__table-head {
+    display: grid;
+    grid-template-columns: $spacing-20 1fr $spacing-20 * 1.5;
+    gap: $spacing-3;
+    align-items: center;
+    padding: $spacing-3 $spacing-4;
+    border-top: $border-medium solid $color-text-primary;
+    border-bottom: $border-thin solid $color-border;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    color: $color-text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__col {
+    display: block;
+
+    &--num { text-align: center; }
+    &--title { min-width: 0; }
+    &--date { text-align: right; font-variant-numeric: tabular-nums; }
   }
 
   /* 툴바 */
@@ -110,10 +164,11 @@
   }
 
   &__item-link {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: $spacing-20 1fr $spacing-20 * 1.5;
     gap: $spacing-3;
-    padding: $spacing-4 $spacing-3;
+    align-items: center;
+    padding: $spacing-4;
     text-decoration: none;
     color: $color-text-primary;
     transition: background-color 0.15s;
@@ -121,6 +176,12 @@
     &:hover {
       background-color: $color-bg-tertiary;
     }
+  }
+
+  &__item-num {
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+    font-variant-numeric: tabular-nums;
   }
 
   /* 고정 뱃지 */
@@ -159,7 +220,6 @@
   }
 
   &__item-title {
-    flex: 1;
     font-size: $font-size-base;
     font-weight: $font-weight-medium;
     color: $color-text-primary;
@@ -168,17 +228,10 @@
     white-space: nowrap;
   }
 
-  &__item-meta {
-    display: flex;
-    align-items: center;
-    gap: $spacing-3;
-    flex-shrink: 0;
-  }
-
   &__item-date {
     font-size: $font-size-sm;
     color: $color-text-secondary;
-    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
   }
 
   &__item-views {
@@ -235,25 +288,38 @@
   /* 반응형 */
   @media (max-width: 767px) {
     &__title {
-      font-size: $font-size-xl;
+      font-size: $font-size-2xl;
     }
 
-    &__toolbar {
-      flex-direction: column;
-      align-items: flex-start;
+    &__table-head {
+      display: none;
     }
 
     &__item-link {
-      flex-wrap: wrap;
+      grid-template-columns: $spacing-12 1fr;
+      grid-template-rows: auto auto;
+      column-gap: $spacing-3;
+      row-gap: $spacing-1;
+      padding: $spacing-3 $spacing-4;
     }
 
-    &__item-title {
-      width: 100%;
-      order: 1;
+    &__col--num {
+      grid-row: 1 / span 2;
+      align-self: start;
     }
 
-    &__item-meta {
-      order: 2;
+    &__col--title {
+      grid-column: 2;
+      grid-row: 1;
+      white-space: normal;
+      line-height: 1.4;
+    }
+
+    &__col--date {
+      grid-column: 2;
+      grid-row: 2;
+      text-align: left;
+      font-size: $font-size-xs;
     }
   }
 }

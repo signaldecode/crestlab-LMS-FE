@@ -17,6 +17,7 @@ import CurriculumEditor, {
   type CurriculumEditorCopy,
 } from '@/components/admin/courses/CurriculumEditor';
 import { fetchAdminCourse, updateAdminCourseStatus } from '@/lib/adminApi';
+import useAuthStore, { selectIsAdmin } from '@/stores/useAuthStore';
 import type { AdminCourseStatus } from '@/types';
 
 export type CourseTabKey = 'basic' | 'curriculum' | 'video' | 'settings';
@@ -54,6 +55,8 @@ interface Props {
 }
 
 const TAB_KEYS: CourseTabKey[] = ['basic', 'curriculum', 'video', 'settings'];
+/** INSTRUCTOR 가 편집 가능한 탭만 — basic/settings 는 ADMIN 전용 */
+const INSTRUCTOR_TAB_KEYS: CourseTabKey[] = ['curriculum', 'video'];
 
 export default function AdminCourseTabs({
   courseId,
@@ -67,10 +70,13 @@ export default function AdminCourseTabs({
 }: Props): JSX.Element {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const isAdmin = useAuthStore(selectIsAdmin);
+  const visibleTabs = isAdmin ? TAB_KEYS : INSTRUCTOR_TAB_KEYS;
+  const defaultTab: CourseTabKey = isAdmin ? 'basic' : 'curriculum';
   const rawTab = searchParams.get('tab');
-  const activeTab: CourseTabKey = (TAB_KEYS as string[]).includes(rawTab ?? '')
+  const activeTab: CourseTabKey = (visibleTabs as string[]).includes(rawTab ?? '')
     ? (rawTab as CourseTabKey)
-    : 'basic';
+    : defaultTab;
 
   const [status, setStatus] = useState<AdminCourseStatus>(initialStatus ?? 'DRAFT');
 
@@ -121,7 +127,7 @@ export default function AdminCourseTabs({
   return (
     <div className="admin-course-tabs">
       <nav className="admin-course-tabs__nav" role="tablist" aria-label="course editor tabs">
-        {TAB_KEYS.map((key) => {
+        {visibleTabs.map((key) => {
           const isActive = activeTab === key;
           return (
             <button

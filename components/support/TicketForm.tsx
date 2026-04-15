@@ -1,91 +1,201 @@
 /**
  * 1:1 문의 작성 폼 (TicketForm)
- * - 서비스/분야 선택, 담당자/연락처/회사/이메일 입력, 문의 내용, 파일 첨부, 개인정보 동의
- * - 모든 라벨/placeholder/옵션은 data에서 가져온다
+ * - 백엔드 계약: POST /api/v1/inquiries { category, title, content, attachmentUrls? (max 3) }
+ * - 첨부 이미지는 Presigned URL 로 S3 업로드 → CloudFront publicUrl 을 attachmentUrls 에 담아 전송
+ * - 모든 라벨/placeholder/옵션은 supportData.ticketForm 에서 가져온다
  */
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { supportData } from '@/data';
+import { createInquiry, type InquiryCategory } from '@/lib/userApi';
+import { uploadImage, validateImageFile } from '@/lib/upload';
 import Select from '@/components/ui/Select';
 import Input from '@/components/ui/Input';
 import Textarea from '@/components/ui/Textarea';
-import FileUpload from '@/components/ui/FileUpload';
 import Checkbox from '@/components/ui/Checkbox';
 
 const form = supportData.ticketForm;
 const { fields, privacy, actions, validation } = form;
 
 interface FormState {
-  service: string;
-  category: string;
-  contactName: string;
-  phone: string;
-  email: string;
+  category: '' | InquiryCategory;
+  title: string;
   content: string;
 }
 
+interface AttachmentItem {
+  id: string;
+  previewUrl: string;
+  /** 업로드 완료 후 채워지는 publicUrl */
+  publicUrl: string | null;
+  /** 업로드 진행 상태 */
+  status: 'uploading' | 'done' | 'error';
+  errorMessage?: string;
+}
+
 const initialState: FormState = {
-  service: '',
   category: '',
-  contactName: '',
-  phone: '',
-  email: '',
+  title: '',
   content: '',
 };
 
 export default function TicketForm() {
+  const router = useRouter();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const [formData, setFormData] = useState<FormState>(initialState);
-  const [files, setFiles] = useState<File[]>([]);
+  const [attachments, setAttachments] = useState<AttachmentItem[]>([]);
   const [privacyAgreed, setPrivacyAgreed] = useState(false);
   const [privacyOpen, setPrivacyOpen] = useState(false);
-  const [errors, setErrors] = useState<Partial<Record<keyof FormState | 'privacy', string>>>({});
+  const [errors, setErrors] = useState<Partial<Record<keyof FormState | 'privacy' | 'attachments' | 'submit', string>>>({});
+  const [submitting, setSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
 
-  const handleChange = (key: keyof FormState) => (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
-  ) => {
-    setFormData((prev) => ({ ...prev, [key]: e.target.value }));
-    if (errors[key]) {
-      setErrors((prev) => ({ ...prev, [key]: undefined }));
+  const setField = <K extends keyof FormState>(key: K) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+      const value = e.target.value as FormState[K];
+      setFormData((prev) => ({ ...prev, [key]: value }));
+      if (errors[key]) setErrors((prev) => ({ ...prev, [key]: undefined }));
+    };
+
+  const handleSelectFiles = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files ?? []);
+    if (fileInputRef.current) fileInputRef.current.value = '';
+    if (!files.length) return;
+
+    const remaining = fields.attachments.maxFiles - attachments.length;
+    if (remaining <= 0) {
+      setErrors((prev) => ({ ...prev, attachments: validation.tooManyAttachments }));
+      return;
     }
+
+    const accepted = files.slice(0, remaining);
+    const rejected = files.length - accepted.length;
+    if (rejected > 0) {
+      setErrors((prev) => ({ ...prev, attachments: validation.tooManyAttachments }));
+    } else if (errors.attachments) {
+      setErrors((prev) => ({ ...prev, attachments: undefined }));
+    }
+
+    accepted.forEach((file) => {
+      const validationError = validateImageFile(file);
+      const id = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+      const previewUrl = URL.createObjectURL(file);
+
+      if (validationError) {
+        setAttachments((prev) => [
+          ...prev,
+          {
+            id,
+            previewUrl,
+            publicUrl: null,
+            status: 'error',
+            errorMessage: validationError === 'invalidFormat'
+              ? validation.invalidImageFormat
+              : validation.imageTooLarge,
+          },
+        ]);
+        return;
+      }
+
+      setAttachments((prev) => [
+        ...prev,
+        { id, previewUrl, publicUrl: null, status: 'uploading' },
+      ]);
+
+      uploadImage(file, 'NOTICE_IMAGE').promise
+        .then(({ publicUrl }) => {
+          setAttachments((prev) => prev.map((a) =>
+            a.id === id ? { ...a, publicUrl, status: 'done' } : a
+          ));
+        })
+        .catch(() => {
+          setAttachments((prev) => prev.map((a) =>
+            a.id === id ? { ...a, status: 'error', errorMessage: validation.uploadFailed } : a
+          ));
+        });
+    });
+  }, [attachments.length, errors.attachments]);
+
+  const handleRemoveAttachment = (id: string) => {
+    setAttachments((prev) => {
+      const target = prev.find((a) => a.id === id);
+      if (target?.previewUrl) URL.revokeObjectURL(target.previewUrl);
+      return prev.filter((a) => a.id !== id);
+    });
+    if (errors.attachments) setErrors((prev) => ({ ...prev, attachments: undefined }));
   };
 
   const validate = (): boolean => {
-    const newErrors: Partial<Record<keyof FormState | 'privacy', string>> = {};
+    const next: typeof errors = {};
+    if (!formData.category) next.category = validation.required;
+    if (!formData.title.trim()) next.title = validation.required;
+    else if (formData.title.trim().length > fields.title.maxLength) next.title = validation.titleTooLong;
+    if (!formData.content.trim()) next.content = validation.required;
+    if (!privacyAgreed) next.privacy = validation.privacyRequired;
 
-    if (!formData.service) newErrors.service = validation.required;
-    if (!formData.category) newErrors.category = validation.required;
-    if (!formData.contactName.trim()) newErrors.contactName = validation.required;
-    if (!formData.phone.trim()) {
-      newErrors.phone = validation.required;
-    } else if (!/^\d{8,15}$/.test(formData.phone.trim())) {
-      newErrors.phone = validation.invalidPhone;
-    }
-    if (!formData.email.trim()) {
-      newErrors.email = validation.required;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
-      newErrors.email = validation.invalidEmail;
-    }
-    if (!formData.content.trim()) newErrors.content = validation.required;
-    if (!privacyAgreed) newErrors.privacy = validation.privacyRequired;
+    const stillUploading = attachments.some((a) => a.status === 'uploading');
+    if (stillUploading) next.attachments = validation.uploadFailed;
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    setErrors(next);
+    return Object.keys(next).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
-    // TODO: API 연동 — POST /api/support/tickets
+
+    const attachmentUrls = attachments
+      .filter((a) => a.status === 'done' && a.publicUrl)
+      .map((a) => a.publicUrl as string);
+
+    setSubmitting(true);
+    setErrors((prev) => ({ ...prev, submit: undefined }));
+    try {
+      await createInquiry({
+        category: formData.category as InquiryCategory,
+        title: formData.title.trim(),
+        content: formData.content.trim(),
+        attachmentUrls: attachmentUrls.length ? attachmentUrls : undefined,
+      });
+      setSuccess(true);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : '';
+      setErrors((prev) => ({ ...prev, submit: message || validation.submitFailed }));
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleCancel = () => {
+    attachments.forEach((a) => URL.revokeObjectURL(a.previewUrl));
     setFormData(initialState);
-    setFiles([]);
+    setAttachments([]);
     setPrivacyAgreed(false);
     setErrors({});
+    router.push(form.successAction.href);
   };
+
+  if (success) {
+    return (
+      <div className="ticket-form-wrap">
+        <div className="ticket-form-wrap__success" role="status" aria-live="polite">
+          <p className="ticket-form-wrap__success-text">{form.successMessage}</p>
+          <Link
+            href={form.successAction.href}
+            className="ticket-form-wrap__submit-btn"
+            aria-label={form.successAction.ariaLabel}
+          >
+            {form.successAction.label}
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <form className="ticket-form-wrap" onSubmit={handleSubmit} noValidate>
@@ -96,56 +206,24 @@ export default function TicketForm() {
 
       <div className="ticket-form-wrap__body">
         <Select
-          id={fields.service.id}
-          label={fields.service.label}
-          placeholder={fields.service.placeholder}
-          options={fields.service.options}
-          value={formData.service}
-          onChange={handleChange('service')}
-          required={fields.service.required}
-          error={errors.service}
-        />
-
-        <Select
           id={fields.category.id}
           label={fields.category.label}
           placeholder={fields.category.placeholder}
           options={fields.category.options}
           value={formData.category}
-          onChange={handleChange('category')}
+          onChange={setField('category')}
           required={fields.category.required}
           error={errors.category}
         />
 
         <Input
-          id={fields.contactName.id}
-          label={fields.contactName.label}
-          placeholder={fields.contactName.placeholder}
-          value={formData.contactName}
-          onChange={handleChange('contactName')}
-          required={fields.contactName.required}
-          error={errors.contactName}
-        />
-
-        <Input
-          id={fields.phone.id}
-          label={fields.phone.label}
-          placeholder={fields.phone.placeholder}
-          value={formData.phone}
-          onChange={handleChange('phone')}
-          required={fields.phone.required}
-          error={errors.phone}
-        />
-
-        <Input
-          id={fields.email.id}
-          label={fields.email.label}
-          placeholder={fields.email.placeholder}
-          type="email"
-          value={formData.email}
-          onChange={handleChange('email')}
-          required={fields.email.required}
-          error={errors.email}
+          id={fields.title.id}
+          label={fields.title.label}
+          placeholder={fields.title.placeholder}
+          value={formData.title}
+          onChange={setField('title')}
+          required={fields.title.required}
+          error={errors.title}
         />
 
         <Textarea
@@ -153,23 +231,66 @@ export default function TicketForm() {
           label={fields.content.label}
           placeholder={fields.content.placeholder}
           value={formData.content}
-          onChange={handleChange('content')}
+          onChange={setField('content')}
           rows={fields.content.rows}
           required={fields.content.required}
           error={errors.content}
         />
 
-        <FileUpload
-          id={fields.fileUpload.id}
-          label={fields.fileUpload.label}
-          buttonLabel={fields.fileUpload.buttonLabel}
-          hint={fields.fileUpload.hint}
-          accept={fields.fileUpload.accept}
-          maxFiles={fields.fileUpload.maxFiles}
-          files={files}
-          onChange={setFiles}
-          removeAriaLabel={fields.fileUpload.removeAriaLabel}
-        />
+        <div className="ticket-form-wrap__attachments">
+          <span className="ticket-form-wrap__attachments-label">{fields.attachments.label}</span>
+          <p className="ticket-form-wrap__attachments-hint">{fields.attachments.hint}</p>
+
+          {attachments.length > 0 && (
+            <ul className="ticket-form-wrap__attachments-list">
+              {attachments.map((a) => (
+                <li key={a.id} className={`ticket-form-wrap__attachment ticket-form-wrap__attachment--${a.status}`}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={a.previewUrl} alt="" className="ticket-form-wrap__attachment-thumb" />
+                  {a.status === 'uploading' && (
+                    <span className="ticket-form-wrap__attachment-status">{fields.attachments.uploadingLabel}</span>
+                  )}
+                  {a.status === 'error' && a.errorMessage && (
+                    <span className="ticket-form-wrap__attachment-error">{a.errorMessage}</span>
+                  )}
+                  <button
+                    type="button"
+                    className="ticket-form-wrap__attachment-remove"
+                    onClick={() => handleRemoveAttachment(a.id)}
+                    aria-label={fields.attachments.removeAriaLabel}
+                  >
+                    ×
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {attachments.length < fields.attachments.maxFiles && (
+            <>
+              <input
+                ref={fileInputRef}
+                id={fields.attachments.id}
+                type="file"
+                accept="image/jpeg,image/png,image/webp,image/gif"
+                multiple
+                onChange={handleSelectFiles}
+                className="ticket-form-wrap__attachments-input"
+              />
+              <button
+                type="button"
+                className="ticket-form-wrap__attachments-btn"
+                onClick={() => fileInputRef.current?.click()}
+              >
+                {fields.attachments.buttonLabel}
+              </button>
+            </>
+          )}
+
+          {errors.attachments && (
+            <p className="input-field__error" role="alert">{errors.attachments}</p>
+          )}
+        </div>
 
         <div className="ticket-form-wrap__privacy">
           <Checkbox
@@ -205,6 +326,10 @@ export default function TicketForm() {
             ))}
           </div>
         )}
+
+        {errors.submit && (
+          <p className="input-field__error" role="alert">{errors.submit}</p>
+        )}
       </div>
 
       <div className="ticket-form-wrap__actions">
@@ -213,6 +338,7 @@ export default function TicketForm() {
           className="ticket-form-wrap__cancel-btn"
           onClick={handleCancel}
           aria-label={actions.cancelAriaLabel}
+          disabled={submitting}
         >
           {actions.cancel}
         </button>
@@ -220,8 +346,9 @@ export default function TicketForm() {
           type="submit"
           className="ticket-form-wrap__submit-btn"
           aria-label={actions.submitAriaLabel}
+          disabled={submitting}
         >
-          {actions.submit}
+          {submitting ? actions.submitting : actions.submit}
         </button>
       </div>
     </form>

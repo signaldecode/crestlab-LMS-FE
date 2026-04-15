@@ -59,9 +59,9 @@ export default function HomePage() {
       <BestReviewContainer />
 
       {/* 6. 탭 필터 강의 섹션 */}
-      {tabbedViews.map((view, idx) => (
+      {/* {tabbedViews.map((view, idx) => (
         <HomeTabbedSection key={`tabbed-${idx}`} view={view} />
-      ))}
+      ))} */}
 
       {/* 7. 이주의 추천 뉴스 */}
       <HomeNewsContainer section={homeNews} />

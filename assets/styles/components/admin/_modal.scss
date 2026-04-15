@@ -187,3 +187,17 @@
     }
   }
 }
+
+.admin-review-content {
+  margin: $spacing-0;
+  padding: $spacing-4;
+  background-color: $color-bg-secondary;
+  border-radius: $spacing-1;
+  font-size: $font-size-sm;
+  line-height: 1.7;
+  color: $color-text-primary;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 40vh;
+  overflow-y: auto;
+}

@@ -45,8 +45,11 @@ import {
 import VideoEncodingStatus, {
   type VideoEncodingStatusCopy,
 } from '@/components/admin/courses/VideoEncodingStatus';
+import LectureVideoUpload, {
+  type LectureVideoUploadCopy,
+} from '@/components/admin/courses/LectureVideoUpload';
 
-export interface CurriculumEditorCopy {
+export interface CurriculumEditorCopy extends LectureVideoUploadCopy {
   addSectionLabel: string;
   addLectureLabel: string;
   sectionTitlePlaceholder: string;
@@ -402,6 +405,10 @@ function LectureList({ sectionId, lectures, copy, onChange }: LectureListProps):
     onChange(lectures.filter((l) => l.id !== id));
   };
 
+  const handleVideoLinked = (id: number, videoId: number) => {
+    onChange(lectures.map((l) => (l.id === id ? { ...l, videoId } : l)));
+  };
+
   if (lectures.length === 0) {
     return <p className="curriculum-editor__empty curriculum-editor__empty--inner">{copy.emptyLecturesText}</p>;
   }
@@ -417,6 +424,7 @@ function LectureList({ sectionId, lectures, copy, onChange }: LectureListProps):
               copy={copy}
               onUpdate={handleUpdate}
               onDelete={handleDelete}
+              onVideoLinked={handleVideoLinked}
             />
           ))}
         </ul>
@@ -432,9 +440,10 @@ interface LectureRowProps {
   copy: CurriculumEditorCopy;
   onUpdate: (id: number, patch: { title: string; isPreview: boolean }) => Promise<void>;
   onDelete: (id: number) => Promise<void>;
+  onVideoLinked: (id: number, videoId: number) => void;
 }
 
-function LectureRow({ lecture, copy, onUpdate, onDelete }: LectureRowProps): JSX.Element {
+function LectureRow({ lecture, copy, onUpdate, onDelete, onVideoLinked }: LectureRowProps): JSX.Element {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: lecture.id });
   const [editing, setEditing] = useState(false);
   const [draftTitle, setDraftTitle] = useState(lecture.title);
@@ -498,6 +507,12 @@ function LectureRow({ lecture, copy, onUpdate, onDelete }: LectureRowProps): JSX
           {lecture.videoId != null && (
             <VideoEncodingStatus videoId={lecture.videoId} copy={copy.encoding} />
           )}
+          <LectureVideoUpload
+            lectureId={lecture.id}
+            hasVideo={lecture.videoId != null}
+            copy={copy}
+            onLinked={(videoId) => onVideoLinked(lecture.id, videoId)}
+          />
           <label className="curriculum-editor__preview">
             <input type="checkbox" checked={lecture.isPreview} onChange={handleTogglePreview} />
             <span>{copy.previewToggleLabel}</span>

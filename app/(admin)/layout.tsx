@@ -37,6 +37,7 @@ interface AdminLayoutData {
   accessDeniedMessage: string;
   accessDeniedActionLabel: string;
   menuGroups: AdminMenuGroup[];
+  instructorMenuGroups: AdminMenuGroup[];
 }
 
 export default function AdminLayout({ children }: AdminLayoutProps): JSX.Element {
@@ -52,7 +53,8 @@ export default function AdminLayout({ children }: AdminLayoutProps): JSX.Element
       <AdminSidebar
         title={layout.title}
         navAriaLabel={layout.navAriaLabel}
-        menuGroups={layout.menuGroups}
+        adminMenuGroups={layout.menuGroups}
+        instructorMenuGroups={layout.instructorMenuGroups}
         backToSiteLabel={layout.backToSiteLabel}
         backToSiteHref={layout.backToSiteHref}
         backToSiteAriaLabel={layout.backToSiteAriaLabel}

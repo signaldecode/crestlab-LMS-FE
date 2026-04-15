@@ -12,6 +12,11 @@
     top: $spacing-8;
   }
 
+  // ── 모바일 드롭다운 트리거 (데스크톱에서는 숨김) ──
+  &__mobile-trigger {
+    display: none;
+  }
+
   // ── 메뉴 ──
   &__nav {
     display: flex;
@@ -61,6 +66,87 @@
     &--active {
       color: $color-primary;
       font-weight: $font-weight-bold;
+    }
+  }
+
+  // ── 모바일(< 768px): 드롭다운 ──
+  @media (max-width: 767px) {
+    &__sticky {
+      position: relative;
+      top: 0;
+    }
+
+    &__mobile-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: $spacing-2;
+      width: 100%;
+      padding: $spacing-3 $spacing-4;
+      background: $color-bg-primary;
+      border: $border-thin solid $color-border;
+      border-radius: $radius-md;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-medium;
+      color: $color-text-primary;
+      cursor: pointer;
+      transition: border-color $duration-normal;
+
+      &:hover,
+      &[aria-expanded='true'] {
+        border-color: $color-border-focus;
+      }
+    }
+
+    &__mobile-trigger-label {
+      flex: 1;
+      text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &__mobile-trigger-icon {
+      flex-shrink: 0;
+      color: $color-text-secondary;
+      transition: transform $duration-normal;
+    }
+
+    &--mobile-open &__mobile-trigger-icon {
+      transform: rotate(180deg);
+    }
+
+    &__nav {
+      position: absolute;
+      top: calc(100% + #{$spacing-2});
+      left: 0;
+      right: 0;
+      z-index: $z-index-dropdown;
+      padding: $spacing-4;
+      background: $color-bg-primary;
+      border: $border-thin solid $color-border;
+      border-radius: $radius-md;
+      box-shadow: $shadow-md;
+      max-height: calc(100vh - 12rem);
+      overflow-y: auto;
+
+      display: none;
+    }
+
+    &--mobile-open &__nav {
+      display: flex;
+    }
+
+    &__menu-section {
+      &:last-child {
+        padding-bottom: 0;
+        border-bottom: none;
+        margin-bottom: 0;
+      }
+    }
+
+    &__menu-link {
+      padding: $spacing-2 0;
     }
   }
 }

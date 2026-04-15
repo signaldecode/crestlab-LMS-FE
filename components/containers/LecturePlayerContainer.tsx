@@ -335,6 +335,7 @@ export default function LecturePlayerContainer({ courseId, lectureId }: LectureP
         <LectureSidebar
           sections={sidebarSections}
           currentLectureId={lectureId}
+          courseId={courseId}
           onSelectLecture={handleSelectLecture}
         />
       </div>

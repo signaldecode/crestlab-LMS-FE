@@ -1034,20 +1034,37 @@ export function fetchEnrollmentPeriod(enrollmentId: number): Promise<EnrollmentP
 }
 
 /* ────────────────────────────────────────────
- *  통합 검색
+ *  통합 검색 (백엔드: GET /api/v1/search[/courses|/users])
+ *  - 커뮤니티는 프론트에서 사용하지 않음
  * ────────────────────────────────────────────*/
-export interface SearchCoursesItem {
+export interface SearchCourseItem {
   id: number;
   title: string;
-  thumbnailUrl: string;
   instructorNames: string[];
+  thumbnailUrl: string;
+  level: string;
   price: number;
+  averageRating: number;
+  reviewCount: number;
+  enrollmentCount: number;
+  tags: string[];
 }
 
+export interface SearchUserItem {
+  id: number;
+  nickname: string;
+  profileImageUrl: string | null;
+}
+
+export interface SearchGroup<T> {
+  items: T[];
+  totalCount: number;
+}
+
+/** 백엔드 통합 검색 응답 — communities 필드는 사용하지 않음 */
 export interface SearchAllResult {
-  courses: SearchCoursesItem[];
-  users: { id: number; nickname: string; profileImageUrl: string | null }[];
-  communities: { id: number; title: string; nickname: string; createdAt: string }[];
+  courses: SearchGroup<SearchCourseItem>;
+  users: SearchGroup<SearchUserItem>;
 }
 
 export function searchAll(keyword: string): Promise<SearchAllResult> {
@@ -1056,6 +1073,92 @@ export function searchAll(keyword: string): Promise<SearchAllResult> {
 
 export interface PageParams { page?: number; size?: number }
 
-export function searchCourses(keyword: string, params: PageParams = {}): Promise<UserCoursePageResponse> {
-  return request<UserCoursePageResponse>('v1/search/courses', { query: { keyword, ...params } });
+export function searchCourses(
+  keyword: string,
+  params: PageParams = {},
+): Promise<SearchGroup<SearchCourseItem>> {
+  return request<SearchGroup<SearchCourseItem>>('v1/search/courses', { query: { keyword, ...params } });
+}
+
+export function searchUsers(
+  keyword: string,
+  params: PageParams = {},
+): Promise<SearchGroup<SearchUserItem>> {
+  return request<SearchGroup<SearchUserItem>>('v1/search/users', { query: { keyword, ...params } });
+}
+
+/* ────────────────────────────────────────────
+ *  1:1 문의 (Inquiry) — /api/v1/inquiries
+ * ────────────────────────────────────────────*/
+export type InquiryCategory = 'COURSE' | 'PAYMENT' | 'INSTRUCTOR' | 'SERVICE' | 'ETC';
+export type InquiryStatus = 'WAITING' | 'ANSWERED';
+
+export interface InquiryCreateRequest {
+  category: InquiryCategory;
+  title: string;
+  content: string;
+  /** 첨부 이미지 publicUrl 목록 (최대 3장) */
+  attachmentUrls?: string[];
+}
+
+export interface InquiryListItem {
+  id: number;
+  category: InquiryCategory;
+  title: string;
+  status: InquiryStatus;
+  authorNickname: string | null;
+  createdAt: string;
+}
+
+export interface InquiryAnswer {
+  id: number;
+  adminNickname: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface InquiryDetail {
+  id: number;
+  category: InquiryCategory;
+  title: string;
+  content: string;
+  status: InquiryStatus;
+  authorNickname: string | null;
+  attachmentUrls: string[];
+  answer: InquiryAnswer | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface InquiryPageResponse {
+  content: InquiryListItem[];
+  page: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+}
+
+/** 문의 작성 — 응답: 생성된 inquiryId */
+export function createInquiry(body: InquiryCreateRequest): Promise<number> {
+  return request<number>('v1/inquiries', { method: 'POST', body });
+}
+
+/** 내 문의 목록 — page 는 1-base */
+export function fetchMyInquiries(params: {
+  status?: InquiryStatus;
+  page?: number;
+  size?: number;
+} = {}): Promise<InquiryPageResponse> {
+  return request<InquiryPageResponse>('v1/inquiries/my', { query: { ...params } });
+}
+
+/** 내 문의 상세 */
+export function fetchMyInquiryDetail(id: number): Promise<InquiryDetail> {
+  return request<InquiryDetail>(`v1/inquiries/${id}`);
+}
+
+/** 내 문의 삭제 (WAITING 상태만 가능) */
+export function deleteMyInquiry(id: number): Promise<void> {
+  return request<void>(`v1/inquiries/${id}`, { method: 'DELETE' });
 }

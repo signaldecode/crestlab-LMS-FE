@@ -1,0 +1,2113 @@
+metadata:
+  name: 온라인강의 - 플랫폼
+  components:
+    188:28645:
+      id: 188:28645
+      key: 3d774e7b3c875b7492689751c1467df0dbf46f6a
+      name: Group 1707481403
+    2:938:
+      id: 2:938
+      key: d73cb9622d57c9277fe3cef749854de1caa37a05
+      name: "\b사이즈=28, 형태=Symbol"
+      componentSetId: 2:913
+    2:882:
+      id: 2:882
+      key: cfe4761a9ff1fb50f34c3e48dc8fc981da23020d
+      name: 유튜브
+    2:1101:
+      id: 2:1101
+      key: 4cedf53f55a8459eb0c44274de4a7dcebb831f9f
+      name: 사이즈=28, 형태=Symbol
+      componentSetId: 2:1068
+    2:1048:
+      id: 2:1048
+      key: 1940aabcc091add52355f20ff15b0506cef4cf89
+      name: 인스타그램
+    2:1111:
+      id: 2:1111
+      key: b14cf71e6a88d16bb55d3ea644e182f2288d561f
+      name: X
+    573:29294:
+      id: 573:29294
+      key: 76fb42e72850da963547d93df60c52cb82a3f4de
+      name: Frame 1707487749
+    188:28161:
+      id: 188:28161
+      key: 18443b552be1f27c41862cc140202d7a13094d4f
+      name: 서랍식
+    44:2045:
+      id: 44:2045
+      key: 05e4c2fc4068fd1510be648c50dfa077624eed0c
+      name: 섹션타이틀
+    44:2034:
+      id: 44:2034
+      key: df4b921616e85b637f7b85dba5245dcd07d5f8e3
+      name: Property 1=pc
+      componentSetId: 188:22614
+    46:9400:
+      id: 46:9400
+      key: 84b0b9ff1ce74be4863d34b2b7a6ccd3bdde60dd
+      name: Frame 1707483308
+    573:25006:
+      id: 573:25006
+      key: 299ceae65e7a08a52f63193265a713c7baa6786d
+      name: 강의 리스트
+    44:3020:
+      id: 44:3020
+      key: 106fd1822149188e7480f5e0b419e2bb51daf3cb
+      name: 별
+    618:24098:
+      id: 618:24098
+      key: f3bf8d21df63788680ef09ef8dc4459e2afb66ff
+      name: Property 1=best
+      componentSetId: 618:24100
+  componentSets:
+    2:913:
+      id: 2:913
+      key: 4b46c48cfc589bdf9d8709e2e64ec0f069494c28
+      name: 유튜브
+      description: ''
+    2:1068:
+      id: 2:1068
+      key: 943b13f18a8e6adb71658b327b6e036950e46da3
+      name: 인스타그램
+      description: ''
+    188:22614:
+      id: 188:22614
+      key: 73448896dbb7f31cb5880db19869d9e982d165bd
+      name: 좌우버튼
+      description: ''
+    618:24100:
+      id: 618:24100
+      key: ae6f5d3026e9b891df5ddc7c732076a0edf1e352
+      name: Component 58
+      description: ''
+nodes:
+  - id: 635:35370
+    name: 강사소개 페이지
+    type: FRAME
+    layout: layout_OO4W12
+    fills: fill_03C9AO
+    children:
+      - id: 635:35373
+        name: Vector
+        type: IMAGE-SVG
+        layout: layout_GB896Q
+        fills: fill_QPBXUH
+        opacity: 0.30000001192092896
+      - id: 635:35374
+        name: Group 1707481403
+        type: INSTANCE
+        layout: layout_0HH1OC
+        componentId: 188:28645
+        children:
+          - id: I635:35374;188:28494
+            name: Rectangle 33404
+            type: RECTANGLE
+            layout: layout_2W0R8G
+            fills: fill_YHQU5D
+          - id: I635:35374;188:28493
+            name: Frame 1707487317
+            type: FRAME
+            layout: layout_RBLQ8O
+            fills: fill_YHQU5D
+            children:
+              - id: I635:35374;188:28491
+                name: Frame 1707487315
+                type: FRAME
+                layout: layout_CUZP9I
+                children:
+                  - id: I635:35374;188:28473
+                    name: Frame 1707487314
+                    type: FRAME
+                    layout: layout_UVSMTB
+                    children:
+                      - id: I635:35374;188:28423
+                        name: LOGO NAME
+                        type: TEXT
+                        layout: layout_ZYBSVB
+                        text: LOGO NAME
+                        textStyle: style_JD4LDK
+                        fills: fill_03C9AO
+                      - id: I635:35374;188:28469
+                        name: Frame 1707487244
+                        type: FRAME
+                        layout: layout_JKSHL1
+                        fills: fill_533KLN
+                        borderRadius: 4px
+                        children:
+                          - id: I635:35374;188:28470
+                            name: 문의하기
+                            type: TEXT
+                            layout: layout_ZYBSVB
+                            text: 문의하기
+                            textStyle: button 2
+                            fills: fill_03C9AO
+                  - id: I635:35374;188:28472
+                    name: Frame 1707487313
+                    type: FRAME
+                    layout: layout_KYZHZ0
+                    children:
+                      - id: I635:35374;188:28433
+                        name: Frame 1707487311
+                        type: FRAME
+                        layout: layout_EJQM4E
+                        children:
+                          - id: I635:35374;188:28425
+                            name: 임시텍스트
+                            type: TEXT
+                            layout: layout_ZYBSVB
+                            text: 임시텍스트
+                            textStyle: title 3
+                            fills: fill_03C9AO
+                          - id: I635:35374;188:28426
+                            name: 임시텍스트
+                            type: TEXT
+                            layout: layout_ZYBSVB
+                            text: 임시텍스트
+                            textStyle: title 3
+                            fills: fill_03C9AO
+                          - id: I635:35374;188:28427
+                            name: 임시텍스트
+                            type: TEXT
+                            layout: layout_ZYBSVB
+                            text: 임시텍스트
+                            textStyle: title 3
+                            fills: fill_03C9AO
+                          - id: I635:35374;188:28428
+                            name: 임시텍스트
+                            type: TEXT
+                            layout: layout_ZYBSVB
+                            text: 임시텍스트
+                            textStyle: title 3
+                            fills: fill_03C9AO
+                          - id: I635:35374;188:28429
+                            name: 임시텍스트
+                            type: TEXT
+                            layout: layout_ZYBSVB
+                            text: 임시텍스트
+                            textStyle: title 3
+                            fills: fill_03C9AO
+                          - id: I635:35374;188:28431
+                            name: 임시텍스트
+                            type: TEXT
+                            layout: layout_ZYBSVB
+                            text: 임시텍스트
+                            textStyle: title 3
+                            fills: fill_03C9AO
+                          - id: I635:35374;188:28430
+                            name: 임시텍스트
+                            type: TEXT
+                            layout: layout_ZYBSVB
+                            text: 임시텍스트
+                            textStyle: title 3
+                            fills: fill_03C9AO
+                      - id: I635:35374;188:28443
+                        name: Frame 1707487312
+                        type: FRAME
+                        layout: layout_WK7S5E
+                        children:
+                          - id: I635:35374;188:28434
+                            name: 임시텍스트
+                            type: TEXT
+                            layout: layout_ZYBSVB
+                            text: 임시텍스트
+                            textStyle: body 3
+                            fills: fill_6OZFB4
+                          - id: I635:35374;188:28436
+                            name: 임시텍스트
+                            type: TEXT
+                            layout: layout_ZYBSVB
+                            text: 임시텍스트
+                            textStyle: body 3
+                            fills: fill_6OZFB4
+                          - id: I635:35374;188:28437
+                            name: 임시텍스트
+                            type: TEXT
+                            layout: layout_ZYBSVB
+                            text: 임시텍스트
+                            textStyle: body 3
+                            fills: fill_6OZFB4
+                          - id: I635:35374;188:28438
+                            name: 임시텍스트
+                            type: TEXT
+                            layout: layout_ZYBSVB
+                            text: 임시텍스트
+                            textStyle: body 3
+                            fills: fill_6OZFB4
+                          - id: I635:35374;188:28439
+                            name: 임시텍스트
+                            type: TEXT
+                            layout: layout_ZYBSVB
+                            text: 임시텍스트
+                            textStyle: body 3
+                            fills: fill_6OZFB4
+                          - id: I635:35374;188:28441
+                            name: 임시텍스트
+                            type: TEXT
+                            layout: layout_ZYBSVB
+                            text: 임시텍스트
+                            textStyle: body 3
+                            fills: fill_6OZFB4
+                          - id: I635:35374;188:28440
+                            name: 임시텍스트
+                            type: TEXT
+                            layout: layout_ZYBSVB
+                            text: 임시텍스트
+                            textStyle: body 3
+                            fills: fill_6OZFB4
+                          - id: I635:35374;188:28442
+                            name: 임시텍스트
+                            type: TEXT
+                            layout: layout_ZYBSVB
+                            text: 임시텍스트
+                            textStyle: body 3
+                            fills: fill_6OZFB4
+              - id: I635:35374;188:28492
+                name: Frame 1707487316
+                type: FRAME
+                layout: layout_UVSMTB
+                children:
+                  - id: I635:35374;188:28453
+                    name: HEALTHPRO LAB ALL RIGHTS RESERVED.
+                    type: TEXT
+                    layout: layout_ZYBSVB
+                    text: HEALTHPRO LAB ALL RIGHTS RESERVED.
+                    textStyle: body 3
+                    fills: fill_6OZFB4
+                  - id: I635:35374;188:28454
+                    name: Frame 1707484196
+                    type: IMAGE-SVG
+                    layout: layout_8J4KH4
+      - id: 635:35375
+        name: Group 1707481487
+        type: GROUP
+        layout: layout_MVHVUJ
+        children:
+          - id: 635:35376
+            name: Frame 1707487749
+            type: INSTANCE
+            layout: layout_798WHB
+            componentId: 573:29294
+            children:
+              - id: I635:35376;573:29292
+                name: Frame 1707487748
+                type: FRAME
+                layout: layout_UEVAHJ
+                children:
+                  - id: I635:35376;573:29254
+                    name: LOGO NAME
+                    type: TEXT
+                    layout: layout_ZYBSVB
+                    text: LOGO NAME
+                    textStyle: style_JD4LDK
+                    fills: fill_5L1WBG
+                  - id: I635:35376;573:29291
+                    name: Frame 1707487747
+                    type: FRAME
+                    layout: layout_UEVAHJ
+                    children:
+                      - id: I635:35376;573:29285
+                        name: 서랍식
+                        type: IMAGE-SVG
+                        layout: layout_SXU808
+                        fills: fill_QPBXUH
+                      - id: I635:35376;573:29255
+                        name: Frame 1707486678
+                        type: FRAME
+                        layout: layout_UM9AIG
+                        children:
+                          - id: I635:35376;573:29260
+                            name: 회사소개
+                            type: TEXT
+                            layout: layout_ZYBSVB
+                            text: 회사소개
+                            textStyle: title 4
+                            fills: fill_YHQU5D
+                          - id: I635:35376;573:29256
+                            name: 주식
+                            type: TEXT
+                            layout: layout_ZYBSVB
+                            text: 주식
+                            textStyle: title 4
+                            fills: fill_YHQU5D
+                          - id: I635:35376;573:29257
+                            name: 가상자산
+                            type: TEXT
+                            layout: layout_ZYBSVB
+                            text: 가상자산
+                            textStyle: title 4
+                            fills: fill_YHQU5D
+                          - id: I635:35376;573:29258
+                            name: 부동산
+                            type: TEXT
+                            layout: layout_ZYBSVB
+                            text: 부동산
+                            textStyle: title 4
+                            fills: fill_YHQU5D
+                          - id: I635:35376;573:29259
+                            name: 강사
+                            type: TEXT
+                            layout: layout_ZYBSVB
+                            text: 강사
+                            textStyle: title 4
+                            fills: fill_YHQU5D
+              - id: I635:35376;573:29261
+                name: Frame 1707487397
+                type: FRAME
+                layout: layout_HX7MMZ
+                children:
+                  - id: I635:35376;573:29262
+                    name: Frame 1707486674
+                    type: FRAME
+                    layout: layout_L99K40
+                    fills: fill_03C9AO
+                    strokes: fill_SPRLBJ
+                    strokeWeight: 1px
+                    borderRadius: 9999px
+                    children:
+                      - id: I635:35376;573:29263
+                        name: 검색어를 입력해주세요
+                        type: TEXT
+                        layout: layout_ZYBSVB
+                        text: 검색어를 입력해주세요
+                        textStyle: body 3
+                        fills: fill_5WWIXG
+                      - id: I635:35376;573:29264
+                        name: 돋보기
+                        type: IMAGE-SVG
+                        layout: layout_OUMI1S
+                  - id: I635:35376;573:29268
+                    name: Frame 1707486676
+                    type: FRAME
+                    layout: layout_QD32M3
+                    children:
+                      - id: I635:35376;573:29269
+                        name: Frame 1707486675
+                        type: FRAME
+                        layout: layout_W4BRHQ
+                        children:
+                          - id: I635:35376;573:29270
+                            name: 로그인
+                            type: TEXT
+                            layout: layout_ZYBSVB
+                            text: 로그인
+                            textStyle: button 2
+                            fills: fill_5WWIXG
+                          - id: I635:35376;573:29271
+                            name: Ellipse 492
+                            type: ELLIPSE
+                            layout: layout_MJOUWG
+                            fills: fill_SPRLBJ
+                          - id: I635:35376;573:29272
+                            name: 회원가입
+                            type: TEXT
+                            layout: layout_ZYBSVB
+                            text: 회원가입
+                            textStyle: button 2
+                            fills: fill_5WWIXG
+          - id: 635:35377
+            name: Rectangle 33523
+            type: RECTANGLE
+            layout: layout_XJ6A5G
+            fills: fill_SPRLBJ
+      - id: 635:36143
+        name: Frame 1707487974
+        type: FRAME
+        layout: layout_Y85FGV
+        children:
+          - id: 635:35379
+            name: 섹션타이틀
+            type: INSTANCE
+            layout: layout_UVSMTB
+            componentId: 44:2045
+            componentProperties:
+              slide-btn: false
+            children:
+              - id: I635:35379;44:2022
+                name: 섹션 타이틀
+                type: TEXT
+                layout: layout_ZYBSVB
+                text: 유우키 강사님
+                textStyle: display 1
+                fills: fill_YHQU5D
+          - id: 635:36134
+            name: Frame 1707487973
+            type: FRAME
+            layout: layout_JB5TFL
+            children:
+              - id: 635:36133
+                name: Frame 1707487972
+                type: FRAME
+                layout: layout_5FY7T4
+                children:
+                  - id: 635:35394
+                    name: Component 52
+                    type: FRAME
+                    layout: layout_XI833T
+                    children:
+                      - id: 635:35395
+                        name: Rectangle 33438
+                        type: RECTANGLE
+                        layout: layout_IGZUVR
+                        fills: fill_CDSYIQ
+                        borderRadius: 12px
+                      - id: 635:36102
+                        name: image 4
+                        type: RECTANGLE
+                        layout: layout_X42BMZ
+                        fills: fill_M5RZGY
+                        borderRadius: 0px 0px 16px 16px
+                  - id: 635:36132
+                    name: Frame 1707487971
+                    type: FRAME
+                    layout: layout_RSWWQ5
+                    children:
+                      - id: 635:36130
+                        name: Frame 1707487970
+                        type: FRAME
+                        layout: layout_ZHRGI9
+                        children:
+                          - id: 635:36094
+                            name: Frame 1707487966
+                            type: FRAME
+                            layout: layout_0I9KR8
+                            children:
+                              - id: 635:36092
+                                name: 유우키
+                                type: TEXT
+                                layout: layout_ZYBSVB
+                                text: 유우키
+                                textStyle: headline 2
+                                fills: fill_MEKB6Z
+                              - id: 635:36093
+                                name: 강사님
+                                type: TEXT
+                                layout: layout_ZYBSVB
+                                text: 강사님
+                                textStyle: body 2
+                                fills: fill_5WWIXG
+                          - id: 635:36129
+                            name: Frame 1707487969
+                            type: FRAME
+                            layout: layout_TCJ2ZT
+                            children:
+                              - id: 635:36064
+                                name: Frame 1707486808
+                                type: FRAME
+                                layout: layout_E8GR78
+                                children:
+                                  - id: 635:36065
+                                    name: Frame 1707483308
+                                    type: INSTANCE
+                                    layout: layout_W4BRHQ
+                                    componentId: 46:9400
+                                    children:
+                                      - id: I635:36065;46:9396
+                                        name: 소속
+                                        type: TEXT
+                                        layout: layout_ZYBSVB
+                                        text: 전문분야
+                                        textStyle: body 3 (41:10030)
+                                        fills: fill_5WWIXG
+                                      - id: I635:36065;46:9397
+                                        name: Rectangle 1
+                                        type: RECTANGLE
+                                        layout: layout_Z8Z3CO
+                                        fills: fill_SPRLBJ
+                                      - id: I635:36065;46:9398
+                                        name: 시그널디코드
+                                        type: TEXT
+                                        layout: layout_ZYBSVB
+                                        text: Nct wish
+                                        textStyle: caption 2
+                                        fills: fill_YHQU5D
+                                  - id: 635:36066
+                                    name: Frame 1707486805
+                                    type: INSTANCE
+                                    layout: layout_W4BRHQ
+                                    componentId: 46:9400
+                                    children:
+                                      - id: I635:36066;46:9396
+                                        name: 소속
+                                        type: TEXT
+                                        layout: layout_ZYBSVB
+                                        text: 경력
+                                        textStyle: body 3 (41:10030)
+                                        fills: fill_5WWIXG
+                                      - id: I635:36066;46:9397
+                                        name: Rectangle 1
+                                        type: RECTANGLE
+                                        layout: layout_Z8Z3CO
+                                        fills: fill_SPRLBJ
+                                      - id: I635:36066;46:9398
+                                        name: 시그널디코드
+                                        type: TEXT
+                                        layout: layout_ZYBSVB
+                                        text: 6년
+                                        textStyle: caption 2
+                                        fills: fill_YHQU5D
+                                  - id: 635:36067
+                                    name: Frame 1707486806
+                                    type: INSTANCE
+                                    layout: layout_W4BRHQ
+                                    componentId: 46:9400
+                                    children:
+                                      - id: I635:36067;46:9396
+                                        name: 소속
+                                        type: TEXT
+                                        layout: layout_ZYBSVB
+                                        text: 팔로우
+                                        textStyle: body 3 (41:10030)
+                                        fills: fill_5WWIXG
+                                      - id: I635:36067;46:9397
+                                        name: Rectangle 1
+                                        type: RECTANGLE
+                                        layout: layout_Z8Z3CO
+                                        fills: fill_SPRLBJ
+                                      - id: I635:36067;46:9398
+                                        name: 시그널디코드
+                                        type: TEXT
+                                        layout: layout_ZYBSVB
+                                        text: 1,220
+                                        textStyle: caption 2
+                                        fills: fill_YHQU5D
+                                  - id: 635:36068
+                                    name: Frame 1707486807
+                                    type: INSTANCE
+                                    layout: layout_W4BRHQ
+                                    componentId: 46:9400
+                                    children:
+                                      - id: I635:36068;46:9396
+                                        name: 소속
+                                        type: TEXT
+                                        layout: layout_ZYBSVB
+                                        text: 누적 수익
+                                        textStyle: body 3 (41:10030)
+                                        fills: fill_5WWIXG
+                                      - id: I635:36068;46:9397
+                                        name: Rectangle 1
+                                        type: RECTANGLE
+                                        layout: layout_Z8Z3CO
+                                        fills: fill_SPRLBJ
+                                      - id: I635:36068;46:9398
+                                        name: 시그널디코드
+                                        type: TEXT
+                                        layout: layout_ZYBSVB
+                                        text: 4000원만원
+                                        textStyle: caption 2
+                                        fills: fill_YHQU5D
+                              - id: 635:36127
+                                name: 임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트
+                                type: TEXT
+                                layout: layout_S17VSM
+                                text: 임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트임시텍스트
+                                textStyle: body 3 (41:10030)
+                                fills: fill_5WWIXG
+                      - id: 635:36126
+                        name: Frame 1707487968
+                        type: FRAME
+                        layout: layout_M47DQA
+                        children:
+                          - id: 635:36106
+                            name: Frame 1707487951
+                            type: FRAME
+                            layout: layout_86OPSV
+                            children:
+                              - id: 635:36107
+                                name: 경력 및 학력
+                                type: TEXT
+                                layout: layout_469UPQ
+                                text: 경력 및 학력
+                                textStyle: body 3 (41:10030)
+                                fills: fill_5WWIXG
+                              - id: 635:36108
+                                name: Frame 1707487950
+                                type: FRAME
+                                layout: layout_KFS10S
+                                children:
+                                  - id: 635:36109
+                                    name: Frame 1707487948
+                                    type: FRAME
+                                    layout: layout_TNUN5B
+                                    children:
+                                      - id: 635:36110
+                                        name: '-'
+                                        type: TEXT
+                                        layout: layout_ZYBSVB
+                                        text: '-'
+                                        textStyle: caption 2
+                                        fills: fill_YHQU5D
+                                      - id: 635:36111
+                                        name: 간단한 이력을 소개하는 텍스트
+                                        type: TEXT
+                                        layout: layout_ZYBSVB
+                                        text: 간단한 이력을 소개하는 텍스트
+                                        textStyle: caption 2
+                                        fills: fill_YHQU5D
+                                  - id: 635:36112
+                                    name: Frame 1707487949
+                                    type: FRAME
+                                    layout: layout_TNUN5B
+                                    children:
+                                      - id: 635:36113
+                                        name: '-'
+                                        type: TEXT
+                                        layout: layout_ZYBSVB
+                                        text: '-'
+                                        textStyle: caption 2
+                                        fills: fill_YHQU5D
+                                      - id: 635:36114
+                                        name: 간단한 이력을 소개하는 텍스트
+                                        type: TEXT
+                                        layout: layout_ZYBSVB
+                                        text: 간단한 이력을 소개하는 텍스트
+                                        textStyle: caption 2
+                                        fills: fill_YHQU5D
+                          - id: 635:36116
+                            name: Frame 1707487967
+                            type: FRAME
+                            layout: layout_86OPSV
+                            children:
+                              - id: 635:36117
+                                name: 주료이력
+                                type: TEXT
+                                layout: layout_469UPQ
+                                text: 주료이력
+                                textStyle: body 3 (41:10030)
+                                fills: fill_5WWIXG
+                              - id: 635:36118
+                                name: Frame 1707487950
+                                type: FRAME
+                                layout: layout_KFS10S
+                                children:
+                                  - id: 635:36119
+                                    name: Frame 1707487948
+                                    type: FRAME
+                                    layout: layout_TNUN5B
+                                    children:
+                                      - id: 635:36120
+                                        name: '-'
+                                        type: TEXT
+                                        layout: layout_ZYBSVB
+                                        text: '-'
+                                        textStyle: caption 2
+                                        fills: fill_YHQU5D
+                                      - id: 635:36121
+                                        name: 간단한 이력을 소개하는 텍스트
+                                        type: TEXT
+                                        layout: layout_ZYBSVB
+                                        text: 간단한 이력을 소개하는 텍스트
+                                        textStyle: caption 2
+                                        fills: fill_YHQU5D
+                                  - id: 635:36122
+                                    name: Frame 1707487949
+                                    type: FRAME
+                                    layout: layout_TNUN5B
+                                    children:
+                                      - id: 635:36123
+                                        name: '-'
+                                        type: TEXT
+                                        layout: layout_ZYBSVB
+                                        text: '-'
+                                        textStyle: caption 2
+                                        fills: fill_YHQU5D
+                                      - id: 635:36124
+                                        name: 간단한 이력을 소개하는 텍스트
+                                        type: TEXT
+                                        layout: layout_ZYBSVB
+                                        text: 간단한 이력을 소개하는 텍스트
+                                        textStyle: caption 2
+                                        fills: fill_YHQU5D
+              - id: 635:35952
+                name: Frame 1707487360
+                type: FRAME
+                layout: layout_SKPDUG
+                children:
+                  - id: 635:35953
+                    name: 섹션타이틀
+                    type: FRAME
+                    layout: layout_UVSMTB
+                    children:
+                      - id: 635:35954
+                        name: 대표강의
+                        type: TEXT
+                        layout: layout_ZYBSVB
+                        text: 대표강의
+                        textStyle: style_1AK5U3
+                        fills: fill_YHQU5D
+                      - id: 635:35955
+                        name: 좌우버튼
+                        type: IMAGE-SVG
+                        layout: layout_UEVAHJ
+                        componentId: 44:2034
+                  - id: 635:35956
+                    name: Frame 1707487730
+                    type: FRAME
+                    layout: layout_LYOFEL
+                    children:
+                      - id: 635:35957
+                        name: 강의 리스트
+                        type: INSTANCE
+                        layout: layout_OIHZST
+                        fills: fill_03C9AO
+                        effects: effect_X861YE
+                        borderRadius: 16px
+                        componentId: 573:25006
+                        children:
+                          - id: I635:35957;573:23252
+                            name: Rectangle 33420
+                            type: RECTANGLE
+                            layout: layout_DSX3T0
+                            fills: fill_902OLG
+                            borderRadius: 16px 16px 0px 0px
+                          - id: I635:35957;573:24972
+                            name: Frame 1707487729
+                            type: FRAME
+                            layout: layout_B8ZONH
+                            borderRadius: 0px 0px 16px 16px
+                            children:
+                              - id: I635:35957;573:24971
+                                name: Frame 1707487728
+                                type: FRAME
+                                layout: layout_ZHRGI9
+                                children:
+                                  - id: I635:35957;573:23256
+                                    name: Frame 1707486697
+                                    type: FRAME
+                                    layout: layout_FYZ58H
+                                    children:
+                                      - id: I635:35957;573:23257
+                                        name: 비트코인으로 부자가 되고싶은 사람들의 강의 모임비트코인으로 부자가 되고싶은 사람들의 강의 모임
+                                        type: TEXT
+                                        layout: layout_AISHOX
+                                        text: 비트코인으로 부자가 되고싶은 사람들의 강의 모임비트코인으로 부자가 되고싶은 사람들의 강의 모임
+                                        textStyle: title 3
+                                        fills: fill_YHQU5D
+                                      - id: I635:35957;573:23258
+                                        name: Frame 1707486692
+                                        type: FRAME
+                                        layout: layout_UEVAHJ
+                                        children:
+                                          - id: I635:35957;573:23259
+                                            name: Frame 1707486690
+                                            type: FRAME
+                                            layout: layout_4FV0HZ
+                                            children:
+                                              - id: I635:35957;573:23260
+                                                name: 별
+                                                type: IMAGE-SVG
+                                                layout: layout_OUMI1S
+                                                fills: fill_QPBXUH
+                                                componentId: 44:3020
+                                              - id: I635:35957;573:23261
+                                                name: Frame 1707486689
+                                                type: FRAME
+                                                layout: layout_G9WHX6
+                                                children:
+                                                  - id: I635:35957;573:23262
+                                                    name: '4.0'
+                                                    type: TEXT
+                                                    layout: layout_ZYBSVB
+                                                    text: '4.0'
+                                                    textStyle: caption 2 (41:10032)
+                                                    fills: fill_YHQU5D
+                                                  - id: I635:35957;573:23263
+                                                    name: (150)
+                                                    type: TEXT
+                                                    layout: layout_ZYBSVB
+                                                    text: (150)
+                                                    textStyle: body 3
+                                                    fills: fill_5WWIXG
+                                          - id: I635:35957;573:23264
+                                            name: Frame 1707486691
+                                            type: FRAME
+                                            layout: layout_ZE5NHE
+                                            children:
+                                              - id: I635:35957;573:23265
+                                                name: 마이페이지
+                                                type: IMAGE-SVG
+                                                layout: layout_OUMI1S
+                                                fills: fill_QPBXUH
+                                              - id: I635:35957;573:23270
+                                                name: Frame 1707486689
+                                                type: FRAME
+                                                layout: layout_G9WHX6
+                                                children:
+                                                  - id: I635:35957;573:23271
+                                                    name: 강사명
+                                                    type: TEXT
+                                                    layout: layout_ZYBSVB
+                                                    text: 강사명
+                                                    textStyle: caption 2 (41:10032)
+                                                    fills: fill_YHQU5D
+                                  - id: I635:35957;573:23272
+                                    name: Frame 1707486696
+                                    type: FRAME
+                                    layout: layout_W4BRHQ
+                                    children:
+                                      - id: I635:35957;618:24101
+                                        name: Component 58
+                                        type: INSTANCE
+                                        layout: layout_0C9U5U
+                                        fills: fill_4M2EVM
+                                        borderRadius: 4px
+                                        componentId: 618:24098
+                                        children:
+                                          - id: I635:35957;618:24101;618:24096
+                                            name: BEST
+                                            type: TEXT
+                                            layout: layout_ZYBSVB
+                                            text: BEST
+                                            textStyle: caption 2 (41:10032)
+                                            fills: fill_03C9AO
+                                      - id: I635:35957;573:23275
+                                        name: Frame 1707486694
+                                        type: FRAME
+                                        layout: layout_0C9U5U
+                                        fills: fill_03C9AO
+                                        strokes: fill_SPRLBJ
+                                        strokeWeight: 1px
+                                        borderRadius: 4px
+                                        children:
+                                          - id: I635:35957;573:23276
+                                            name: '#키워드'
+                                            type: TEXT
+                                            layout: layout_ZYBSVB
+                                            text: '#키워드'
+                                            textStyle: caption 2 (41:10032)
+                                            fills: fill_5WWIXG
+                                      - id: I635:35957;573:23277
+                                        name: Frame 1707486695
+                                        type: FRAME
+                                        layout: layout_0C9U5U
+                                        fills: fill_03C9AO
+                                        strokes: fill_SPRLBJ
+                                        strokeWeight: 1px
+                                        borderRadius: 4px
+                                        children:
+                                          - id: I635:35957;573:23278
+                                            name: '#키워드'
+                                            type: TEXT
+                                            layout: layout_ZYBSVB
+                                            text: '#키워드'
+                                            textStyle: caption 2 (41:10032)
+                                            fills: fill_5WWIXG
+                              - id: I635:35957;573:23279
+                                name: Frame 1707487432
+                                type: FRAME
+                                layout: layout_GVALU4
+                                fills: fill_0BSQFP
+                                borderRadius: 4px
+                                children:
+                                  - id: I635:35957;573:23280
+                                    name: 바로가기
+                                    type: TEXT
+                                    layout: layout_ZYBSVB
+                                    text: 바로가기
+                                    textStyle: button 2
+                                    fills: fill_5WWIXG
+                      - id: 635:35958
+                        name: 강의 리스트
+                        type: INSTANCE
+                        layout: layout_OIHZST
+                        fills: fill_03C9AO
+                        effects: effect_X861YE
+                        borderRadius: 16px
+                        componentId: 573:25006
+                        children:
+                          - id: I635:35958;573:23252
+                            name: Rectangle 33420
+                            type: RECTANGLE
+                            layout: layout_DSX3T0
+                            fills: fill_FRNGSW
+                            borderRadius: 16px 16px 0px 0px
+                          - id: I635:35958;573:24972
+                            name: Frame 1707487729
+                            type: FRAME
+                            layout: layout_B8ZONH
+                            borderRadius: 0px 0px 16px 16px
+                            children:
+                              - id: I635:35958;573:24971
+                                name: Frame 1707487728
+                                type: FRAME
+                                layout: layout_ZHRGI9
+                                children:
+                                  - id: I635:35958;573:23256
+                                    name: Frame 1707486697
+                                    type: FRAME
+                                    layout: layout_FYZ58H
+                                    children:
+                                      - id: I635:35958;573:23257
+                                        name: 비트코인으로 부자가 되고싶은 사람들의 강의 모임비트코인으로 부자가 되고싶은 사람들의 강의 모임
+                                        type: TEXT
+                                        layout: layout_AISHOX
+                                        text: 비트코인으로 부자가 되고싶은 사람들의 강의 모임비트코인으로 부자가 되고싶은 사람들의 강의 모임
+                                        textStyle: title 3
+                                        fills: fill_YHQU5D
+                                      - id: I635:35958;573:23258
+                                        name: Frame 1707486692
+                                        type: FRAME
+                                        layout: layout_UEVAHJ
+                                        children:
+                                          - id: I635:35958;573:23259
+                                            name: Frame 1707486690
+                                            type: FRAME
+                                            layout: layout_4FV0HZ
+                                            children:
+                                              - id: I635:35958;573:23260
+                                                name: 별
+                                                type: IMAGE-SVG
+                                                layout: layout_OUMI1S
+                                                fills: fill_QPBXUH
+                                                componentId: 44:3020
+                                              - id: I635:35958;573:23261
+                                                name: Frame 1707486689
+                                                type: FRAME
+                                                layout: layout_G9WHX6
+                                                children:
+                                                  - id: I635:35958;573:23262
+                                                    name: '4.0'
+                                                    type: TEXT
+                                                    layout: layout_ZYBSVB
+                                                    text: '4.0'
+                                                    textStyle: caption 2 (41:10032)
+                                                    fills: fill_YHQU5D
+                                                  - id: I635:35958;573:23263
+                                                    name: (150)
+                                                    type: TEXT
+                                                    layout: layout_ZYBSVB
+                                                    text: (150)
+                                                    textStyle: body 3
+                                                    fills: fill_5WWIXG
+                                          - id: I635:35958;573:23264
+                                            name: Frame 1707486691
+                                            type: FRAME
+                                            layout: layout_ZE5NHE
+                                            children:
+                                              - id: I635:35958;573:23265
+                                                name: 마이페이지
+                                                type: IMAGE-SVG
+                                                layout: layout_OUMI1S
+                                                fills: fill_QPBXUH
+                                              - id: I635:35958;573:23270
+                                                name: Frame 1707486689
+                                                type: FRAME
+                                                layout: layout_G9WHX6
+                                                children:
+                                                  - id: I635:35958;573:23271
+                                                    name: 강사명
+                                                    type: TEXT
+                                                    layout: layout_ZYBSVB
+                                                    text: 강사명
+                                                    textStyle: caption 2 (41:10032)
+                                                    fills: fill_YHQU5D
+                                  - id: I635:35958;573:23272
+                                    name: Frame 1707486696
+                                    type: FRAME
+                                    layout: layout_W4BRHQ
+                                    children:
+                                      - id: I635:35958;618:24101
+                                        name: Component 58
+                                        type: INSTANCE
+                                        layout: layout_0C9U5U
+                                        fills: fill_4M2EVM
+                                        borderRadius: 4px
+                                        componentId: 618:24098
+                                        children:
+                                          - id: I635:35958;618:24101;618:24096
+                                            name: BEST
+                                            type: TEXT
+                                            layout: layout_ZYBSVB
+                                            text: BEST
+                                            textStyle: caption 2 (41:10032)
+                                            fills: fill_03C9AO
+                                      - id: I635:35958;573:23275
+                                        name: Frame 1707486694
+                                        type: FRAME
+                                        layout: layout_0C9U5U
+                                        fills: fill_03C9AO
+                                        strokes: fill_SPRLBJ
+                                        strokeWeight: 1px
+                                        borderRadius: 4px
+                                        children:
+                                          - id: I635:35958;573:23276
+                                            name: '#키워드'
+                                            type: TEXT
+                                            layout: layout_ZYBSVB
+                                            text: '#키워드'
+                                            textStyle: caption 2 (41:10032)
+                                            fills: fill_5WWIXG
+                                      - id: I635:35958;573:23277
+                                        name: Frame 1707486695
+                                        type: FRAME
+                                        layout: layout_0C9U5U
+                                        fills: fill_03C9AO
+                                        strokes: fill_SPRLBJ
+                                        strokeWeight: 1px
+                                        borderRadius: 4px
+                                        children:
+                                          - id: I635:35958;573:23278
+                                            name: '#키워드'
+                                            type: TEXT
+                                            layout: layout_ZYBSVB
+                                            text: '#키워드'
+                                            textStyle: caption 2 (41:10032)
+                                            fills: fill_5WWIXG
+                              - id: I635:35958;573:23279
+                                name: Frame 1707487432
+                                type: FRAME
+                                layout: layout_GVALU4
+                                fills: fill_0BSQFP
+                                borderRadius: 4px
+                                children:
+                                  - id: I635:35958;573:23280
+                                    name: 바로가기
+                                    type: TEXT
+                                    layout: layout_ZYBSVB
+                                    text: 바로가기
+                                    textStyle: button 2
+                                    fills: fill_5WWIXG
+                      - id: 635:35959
+                        name: 강의 리스트
+                        type: INSTANCE
+                        layout: layout_OIHZST
+                        fills: fill_03C9AO
+                        effects: effect_X861YE
+                        borderRadius: 16px
+                        componentId: 573:25006
+                        children:
+                          - id: I635:35959;573:23252
+                            name: Rectangle 33420
+                            type: RECTANGLE
+                            layout: layout_DSX3T0
+                            fills: fill_O1KHIO
+                            borderRadius: 16px 16px 0px 0px
+                          - id: I635:35959;573:24972
+                            name: Frame 1707487729
+                            type: FRAME
+                            layout: layout_B8ZONH
+                            borderRadius: 0px 0px 16px 16px
+                            children:
+                              - id: I635:35959;573:24971
+                                name: Frame 1707487728
+                                type: FRAME
+                                layout: layout_ZHRGI9
+                                children:
+                                  - id: I635:35959;573:23256
+                                    name: Frame 1707486697
+                                    type: FRAME
+                                    layout: layout_FYZ58H
+                                    children:
+                                      - id: I635:35959;573:23257
+                                        name: 비트코인으로 부자가 되고싶은 사람들의 강의 모임비트코인으로 부자가 되고싶은 사람들의 강의 모임
+                                        type: TEXT
+                                        layout: layout_AISHOX
+                                        text: 비트코인으로 부자가 되고싶은 사람들의 강의 모임비트코인으로 부자가 되고싶은 사람들의 강의 모임
+                                        textStyle: title 3
+                                        fills: fill_YHQU5D
+                                      - id: I635:35959;573:23258
+                                        name: Frame 1707486692
+                                        type: FRAME
+                                        layout: layout_UEVAHJ
+                                        children:
+                                          - id: I635:35959;573:23259
+                                            name: Frame 1707486690
+                                            type: FRAME
+                                            layout: layout_4FV0HZ
+                                            children:
+                                              - id: I635:35959;573:23260
+                                                name: 별
+                                                type: IMAGE-SVG
+                                                layout: layout_OUMI1S
+                                                fills: fill_QPBXUH
+                                                componentId: 44:3020
+                                              - id: I635:35959;573:23261
+                                                name: Frame 1707486689
+                                                type: FRAME
+                                                layout: layout_G9WHX6
+                                                children:
+                                                  - id: I635:35959;573:23262
+                                                    name: '4.0'
+                                                    type: TEXT
+                                                    layout: layout_ZYBSVB
+                                                    text: '4.0'
+                                                    textStyle: caption 2 (41:10032)
+                                                    fills: fill_YHQU5D
+                                                  - id: I635:35959;573:23263
+                                                    name: (150)
+                                                    type: TEXT
+                                                    layout: layout_ZYBSVB
+                                                    text: (150)
+                                                    textStyle: body 3
+                                                    fills: fill_5WWIXG
+                                          - id: I635:35959;573:23264
+                                            name: Frame 1707486691
+                                            type: FRAME
+                                            layout: layout_ZE5NHE
+                                            children:
+                                              - id: I635:35959;573:23265
+                                                name: 마이페이지
+                                                type: IMAGE-SVG
+                                                layout: layout_OUMI1S
+                                                fills: fill_QPBXUH
+                                              - id: I635:35959;573:23270
+                                                name: Frame 1707486689
+                                                type: FRAME
+                                                layout: layout_G9WHX6
+                                                children:
+                                                  - id: I635:35959;573:23271
+                                                    name: 강사명
+                                                    type: TEXT
+                                                    layout: layout_ZYBSVB
+                                                    text: 강사명
+                                                    textStyle: caption 2 (41:10032)
+                                                    fills: fill_YHQU5D
+                                  - id: I635:35959;573:23272
+                                    name: Frame 1707486696
+                                    type: FRAME
+                                    layout: layout_W4BRHQ
+                                    children:
+                                      - id: I635:35959;618:24101
+                                        name: Component 58
+                                        type: INSTANCE
+                                        layout: layout_0C9U5U
+                                        fills: fill_4M2EVM
+                                        borderRadius: 4px
+                                        componentId: 618:24098
+                                        children:
+                                          - id: I635:35959;618:24101;618:24096
+                                            name: BEST
+                                            type: TEXT
+                                            layout: layout_ZYBSVB
+                                            text: BEST
+                                            textStyle: caption 2 (41:10032)
+                                            fills: fill_03C9AO
+                                      - id: I635:35959;573:23275
+                                        name: Frame 1707486694
+                                        type: FRAME
+                                        layout: layout_0C9U5U
+                                        fills: fill_03C9AO
+                                        strokes: fill_SPRLBJ
+                                        strokeWeight: 1px
+                                        borderRadius: 4px
+                                        children:
+                                          - id: I635:35959;573:23276
+                                            name: '#키워드'
+                                            type: TEXT
+                                            layout: layout_ZYBSVB
+                                            text: '#키워드'
+                                            textStyle: caption 2 (41:10032)
+                                            fills: fill_5WWIXG
+                                      - id: I635:35959;573:23277
+                                        name: Frame 1707486695
+                                        type: FRAME
+                                        layout: layout_0C9U5U
+                                        fills: fill_03C9AO
+                                        strokes: fill_SPRLBJ
+                                        strokeWeight: 1px
+                                        borderRadius: 4px
+                                        children:
+                                          - id: I635:35959;573:23278
+                                            name: '#키워드'
+                                            type: TEXT
+                                            layout: layout_ZYBSVB
+                                            text: '#키워드'
+                                            textStyle: caption 2 (41:10032)
+                                            fills: fill_5WWIXG
+                              - id: I635:35959;573:23279
+                                name: Frame 1707487432
+                                type: FRAME
+                                layout: layout_GVALU4
+                                fills: fill_0BSQFP
+                                borderRadius: 4px
+                                children:
+                                  - id: I635:35959;573:23280
+                                    name: 바로가기
+                                    type: TEXT
+                                    layout: layout_ZYBSVB
+                                    text: 바로가기
+                                    textStyle: button 2
+                                    fills: fill_5WWIXG
+globalVars:
+  styles:
+    layout_OO4W12:
+      mode: none
+      sizing: {}
+      dimensions:
+        width: 1920
+        height: 1867
+    fill_03C9AO:
+      - '#FFFFFF'
+    layout_GB896Q:
+      mode: none
+      sizing: {}
+      locationRelativeToParent:
+        x: 806
+        y: 858.66
+      dimensions:
+        width: 20
+        height: 6.21
+    fill_QPBXUH: []
+    layout_0HH1OC:
+      mode: none
+      sizing: {}
+      locationRelativeToParent:
+        x: 0
+        y: 1485
+      dimensions:
+        width: 1920
+        height: 382
+    layout_2W0R8G:
+      mode: none
+      sizing: {}
+      locationRelativeToParent:
+        x: 0
+        y: 0
+      dimensions:
+        width: 1920
+        height: 382
+    fill_YHQU5D:
+      - '#222222'
+    layout_RBLQ8O:
+      mode: column
+      alignItems: stretch
+      gap: 40px
+      sizing:
+        horizontal: fixed
+        vertical: fixed
+      locationRelativeToParent:
+        x: 240
+        y: 60
+      dimensions:
+        width: 1440
+        height: 262
+    layout_CUZP9I:
+      mode: column
+      alignSelf: stretch
+      gap: 28px
+      sizing:
+        horizontal: fill
+        vertical: hug
+    layout_UVSMTB:
+      mode: row
+      justifyContent: space-between
+      alignItems: center
+      alignSelf: stretch
+      sizing:
+        horizontal: fill
+        vertical: hug
+    layout_ZYBSVB:
+      mode: none
+      sizing:
+        horizontal: hug
+        vertical: hug
+    style_JD4LDK:
+      fontFamily: Squada One
+      fontWeight: 400
+      fontSize: 32
+      lineHeight: 1.0570000410079956em
+      textAlignHorizontal: LEFT
+      textAlignVertical: TOP
+    layout_JKSHL1:
+      mode: row
+      justifyContent: center
+      alignItems: center
+      gap: 10px
+      padding: 16px 28px
+      sizing:
+        horizontal: fixed
+        vertical: hug
+      dimensions:
+        width: 148
+    fill_533KLN:
+      - '#333333'
+    button 2:
+      fontFamily: Pretendard
+      fontWeight: 500
+      fontSize: 14
+      lineHeight: 1.4285714285714286em
+      letterSpacing: '-2.5%'
+      textAlignHorizontal: LEFT
+      textAlignVertical: TOP
+    layout_KYZHZ0:
+      mode: column
+      gap: 16px
+      sizing:
+        horizontal: fixed
+        vertical: hug
+      dimensions:
+        width: 820
+    layout_EJQM4E:
+      mode: row
+      alignItems: center
+      alignSelf: stretch
+      gap: 48px
+      sizing:
+        horizontal: fill
+        vertical: hug
+    title 3:
+      fontFamily: Pretendard
+      fontWeight: 500
+      fontSize: 18
+      lineHeight: 1.4444444444444444em
+      letterSpacing: '-2.5%'
+      textAlignHorizontal: LEFT
+      textAlignVertical: TOP
+    layout_WK7S5E:
+      mode: row
+      alignItems: center
+      wrap: true
+      gap: 8px 20px
+      sizing:
+        horizontal: hug
+        vertical: hug
+    body 3:
+      fontFamily: Pretendard
+      fontWeight: 400
+      fontSize: 14
+      lineHeight: 1.4285714285714286em
+      letterSpacing: '-2.5%'
+      textAlignHorizontal: LEFT
+      textAlignVertical: TOP
+    fill_6OZFB4:
+      - rgba(255, 255, 255, 0.7)
+    layout_8J4KH4:
+      mode: row
+      alignItems: center
+      gap: 14px
+      sizing:
+        horizontal: hug
+        vertical: hug
+    layout_JVLPK3:
+      mode: row
+      justifyContent: center
+      alignItems: center
+      gap: 10px
+      padding: 10px
+      sizing:
+        horizontal: fixed
+        vertical: fixed
+      dimensions:
+        width: 44
+        height: 44
+    layout_OUMI1S:
+      mode: none
+      sizing:
+        horizontal: fixed
+        vertical: fixed
+      dimensions:
+        width: 20
+        height: 20
+    layout_U4KDRB:
+      mode: none
+      sizing: {}
+      locationRelativeToParent:
+        x: 0
+        y: 0
+      dimensions:
+        width: 20
+        height: 20
+    layout_LTQE6Q:
+      mode: none
+      sizing: {}
+      locationRelativeToParent:
+        x: 0.01
+        y: 2.97
+      dimensions:
+        width: 19.99
+        height: 14.06
+    layout_YMP047:
+      mode: none
+      sizing: {}
+      locationRelativeToParent:
+        x: 0
+        y: 0
+      dimensions:
+        width: 19.99
+        height: 14.06
+    layout_BH2PI4:
+      mode: none
+      sizing: {}
+      locationRelativeToParent:
+        x: 4.87
+        y: 4.86
+      dimensions:
+        width: 10.28
+        height: 10.28
+    layout_99UPS5:
+      mode: none
+      sizing: {}
+      locationRelativeToParent:
+        x: 14.15
+        y: 3.46
+      dimensions:
+        width: 2.4
+        height: 2.4
+    layout_ZOZHIA:
+      mode: none
+      sizing:
+        horizontal: fixed
+        vertical: fixed
+      dimensions:
+        width: 18
+        height: 18
+    layout_EHPSHM:
+      mode: none
+      sizing: {}
+      locationRelativeToParent:
+        x: 0
+        y: 0.87
+      dimensions:
+        width: 18
+        height: 16.25
+    layout_MVHVUJ:
+      mode: none
+      sizing: {}
+      locationRelativeToParent:
+        x: 0
+        y: 0
+      dimensions:
+        width: 1920
+        height: 101
+    layout_798WHB:
+      mode: row
+      justifyContent: space-between
+      alignItems: center
+      padding: 24px 0px
+      sizing:
+        horizontal: fixed
+        vertical: hug
+      locationRelativeToParent:
+        x: 240
+        y: 0
+      dimensions:
+        width: 1440
+    layout_UEVAHJ:
+      mode: row
+      alignItems: center
+      gap: 12px
+      sizing:
+        horizontal: hug
+        vertical: hug
+    fill_5L1WBG:
+      - '#111111'
+    layout_SXU808:
+      mode: none
+      sizing:
+        horizontal: fixed
+        vertical: fixed
+      dimensions:
+        width: 28
+        height: 28
+    layout_1IUSOO:
+      mode: none
+      sizing: {}
+      locationRelativeToParent:
+        x: 0
+        y: 0
+      dimensions:
+        width: 28
+        height: 28
+    layout_9NCONY:
+      mode: none
+      sizing: {}
+      locationRelativeToParent:
+        x: 4.67
+        y: 7
+      dimensions:
+        width: 18.67
+        height: 0
+    Font/02_black:
+      - '#111111'
+    layout_9WOYTT:
+      mode: none
+      sizing: {}
+      locationRelativeToParent:
+        x: 4.67
+        y: 14
+      dimensions:
+        width: 18.67
+        height: 0
+    layout_0HUUAJ:
+      mode: none
+      sizing: {}
+      locationRelativeToParent:
+        x: 4.67
+        y: 21
+      dimensions:
+        width: 18.67
+        height: 0
+    layout_UM9AIG:
+      mode: row
+      alignItems: center
+      gap: 48px
+      sizing:
+        horizontal: hug
+        vertical: hug
+    title 4:
+      fontFamily: Pretendard
+      fontWeight: 500
+      fontSize: 16
+      lineHeight: 1.5em
+      letterSpacing: '-2.5%'
+      textAlignHorizontal: LEFT
+      textAlignVertical: TOP
+    layout_HX7MMZ:
+      mode: row
+      alignItems: center
+      gap: 20px
+      sizing:
+        horizontal: hug
+        vertical: hug
+    layout_L99K40:
+      mode: row
+      justifyContent: space-between
+      alignItems: center
+      padding: 16px 24px
+      sizing:
+        horizontal: fixed
+        vertical: hug
+      dimensions:
+        width: 300
+    fill_SPRLBJ:
+      - '#E5E5EC'
+    fill_5WWIXG:
+      - '#767676'
+    layout_LR3S9L:
+      mode: none
+      sizing: {}
+      locationRelativeToParent:
+        x: 3.33
+        y: 3.33
+      dimensions:
+        width: 10.83
+        height: 10.83
+    fill_NVOQMK:
+      - '#999999'
+    layout_V0X6JY:
+      mode: none
+      sizing: {}
+      locationRelativeToParent:
+        x: 12.5
+        y: 12.5
+      dimensions:
+        width: 4.17
+        height: 4.17
+    layout_QD32M3:
+      mode: row
+      alignItems: center
+      gap: 16px
+      sizing:
+        horizontal: hug
+        vertical: hug
+    layout_W4BRHQ:
+      mode: row
+      alignItems: center
+      gap: 8px
+      sizing:
+        horizontal: hug
+        vertical: hug
+    layout_MJOUWG:
+      mode: none
+      sizing:
+        horizontal: fixed
+        vertical: fixed
+      dimensions:
+        width: 4
+        height: 4
+    layout_XJ6A5G:
+      mode: none
+      sizing: {}
+      locationRelativeToParent:
+        x: 0
+        y: 100
+      dimensions:
+        width: 1920
+        height: 1
+    layout_Y85FGV:
+      mode: column
+      alignItems: stretch
+      gap: 32px
+      sizing:
+        horizontal: fixed
+        vertical: hug
+      locationRelativeToParent:
+        x: 240
+        y: 181
+      dimensions:
+        width: 1440
+    display 1:
+      fontFamily: Pretendard
+      fontWeight: 600
+      fontSize: 40
+      lineHeight: 1.25em
+      letterSpacing: '-2.5%'
+      textAlignHorizontal: LEFT
+      textAlignVertical: TOP
+    layout_JB5TFL:
+      mode: column
+      alignSelf: stretch
+      gap: 100px
+      sizing:
+        horizontal: fill
+        vertical: hug
+    layout_5FY7T4:
+      mode: row
+      alignItems: center
+      gap: 40px
+      sizing:
+        horizontal: hug
+        vertical: hug
+    layout_XI833T:
+      mode: row
+      alignItems: center
+      sizing:
+        horizontal: fixed
+        vertical: hug
+      dimensions:
+        width: 342
+    layout_IGZUVR:
+      mode: none
+      sizing:
+        horizontal: fixed
+        vertical: fixed
+      dimensions:
+        width: 342
+        height: 454
+    fill_CDSYIQ:
+      - '#F6F7FB'
+    layout_X42BMZ:
+      mode: none
+      sizing:
+        horizontal: fixed
+        vertical: fixed
+      position: absolute
+      locationRelativeToParent:
+        x: 0
+        y: 0
+      dimensions:
+        width: 341
+        height: 454
+    fill_M5RZGY:
+      - type: IMAGE
+        imageRef: a56538eaacea76a21c991ab25ad4fc6aca5fe938
+        scaleMode: STRETCH
+        objectFit: fill
+        isBackground: false
+        imageDownloadArguments:
+          needsCropping: true
+          requiresImageDimensions: false
+          cropTransform:
+            - - 0.9990234375
+              - 0
+              - 0.00048828125
+            - - 0
+              - 0.88671875
+              - -0.04360349848866463
+          filenameSuffix: 732ca3
+    layout_RSWWQ5:
+      mode: column
+      gap: 32px
+      sizing:
+        horizontal: fixed
+        vertical: hug
+      dimensions:
+        width: 880
+    layout_ZHRGI9:
+      mode: column
+      alignSelf: stretch
+      gap: 16px
+      sizing:
+        horizontal: fill
+        vertical: hug
+    layout_0I9KR8:
+      mode: row
+      justifyContent: center
+      alignItems: flex-end
+      gap: 4px
+      sizing:
+        horizontal: hug
+        vertical: hug
+    headline 2:
+      fontFamily: Pretendard
+      fontWeight: 600
+      fontSize: 28
+      lineHeight: 1.3571428571428572em
+      letterSpacing: '-2.5%'
+      textAlignHorizontal: LEFT
+      textAlignVertical: CENTER
+    fill_MEKB6Z:
+      - '#0077FF'
+    body 2:
+      fontFamily: Pretendard
+      fontWeight: 400
+      fontSize: 16
+      lineHeight: 1.5em
+      letterSpacing: '-2.5%'
+      textAlignHorizontal: LEFT
+      textAlignVertical: CENTER
+    layout_TCJ2ZT:
+      mode: column
+      alignSelf: stretch
+      gap: 16px
+      sizing:
+        horizontal: fill
+        vertical: fixed
+      dimensions:
+        height: 118
+    layout_E8GR78:
+      mode: row
+      alignItems: center
+      gap: 28px
+      sizing:
+        horizontal: hug
+        vertical: hug
+    body 3 (41:10030):
+      fontFamily: Pretendard
+      fontWeight: 400
+      fontSize: 14
+      lineHeight: 1.4285714285714286em
+      letterSpacing: '-2.5%'
+      textAlignHorizontal: LEFT
+      textAlignVertical: CENTER
+    layout_Z8Z3CO:
+      mode: none
+      sizing:
+        horizontal: fixed
+        vertical: fixed
+      dimensions:
+        width: 1
+        height: 12
+    caption 2:
+      fontFamily: Pretendard
+      fontWeight: 500
+      fontSize: 14
+      lineHeight: 1.4285714285714286em
+      letterSpacing: '-2.5%'
+      textAlignHorizontal: LEFT
+      textAlignVertical: CENTER
+    layout_S17VSM:
+      mode: none
+      sizing:
+        horizontal: fill
+        vertical: fill
+    layout_M47DQA:
+      mode: column
+      alignItems: stretch
+      gap: 20px
+      sizing:
+        horizontal: fixed
+        vertical: hug
+      dimensions:
+        width: 174
+    layout_86OPSV:
+      mode: column
+      alignItems: stretch
+      alignSelf: stretch
+      gap: 8px
+      sizing:
+        horizontal: fill
+        vertical: fixed
+      dimensions:
+        height: 72
+    layout_469UPQ:
+      mode: none
+      sizing:
+        horizontal: fill
+        vertical: hug
+    layout_KFS10S:
+      mode: column
+      alignItems: stretch
+      alignSelf: stretch
+      gap: 4px
+      sizing:
+        horizontal: fill
+        vertical: hug
+    layout_TNUN5B:
+      mode: row
+      alignItems: center
+      alignSelf: stretch
+      gap: 4px
+      sizing:
+        horizontal: fill
+        vertical: hug
+    layout_SKPDUG:
+      mode: column
+      alignItems: stretch
+      alignSelf: stretch
+      gap: 32px
+      sizing:
+        horizontal: fill
+        vertical: hug
+    style_1AK5U3:
+      fontFamily: Pretendard
+      fontWeight: 600
+      fontSize: 32
+      lineHeight: 1.4375em
+      letterSpacing: '-2.5%'
+      textAlignHorizontal: LEFT
+      textAlignVertical: TOP
+    layout_10FZ4T:
+      mode: row
+      justifyContent: center
+      alignItems: center
+      gap: 10px
+      sizing:
+        horizontal: fixed
+        vertical: fixed
+      dimensions:
+        width: 48
+        height: 48
+    fill_0BSQFP:
+      - '#F4F4F4'
+    layout_8OF5OW:
+      mode: none
+      sizing: {}
+      locationRelativeToParent:
+        x: 6.67
+        y: 3.33
+      dimensions:
+        width: 6.67
+        height: 13.33
+    layout_LYOFEL:
+      mode: row
+      alignItems: center
+      alignSelf: stretch
+      gap: 24px
+      sizing:
+        horizontal: fill
+        vertical: hug
+    layout_OIHZST:
+      mode: column
+      alignItems: stretch
+      sizing:
+        horizontal: fixed
+        vertical: hug
+      dimensions:
+        width: 464
+    effect_X861YE:
+      boxShadow: 8px 8px 8px 0px rgba(34, 34, 34, 0.1)
+    layout_DSX3T0:
+      mode: none
+      sizing:
+        horizontal: fill
+        vertical: fixed
+      dimensions:
+        height: 204
+    fill_902OLG:
+      - type: IMAGE
+        imageRef: 796018f503936b112b8be4e32791c20236936287
+        scaleMode: STRETCH
+        objectFit: fill
+        isBackground: false
+        imageDownloadArguments:
+          needsCropping: true
+          requiresImageDimensions: false
+          cropTransform:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 0.6594827771186829
+              - 0.24650201201438904
+          filenameSuffix: 4f82ca
+      - type: IMAGE
+        imageRef: 4a90bc3fe3489d15b2d28699c07ca9a5456ed93f
+        scaleMode: FILL
+        objectFit: cover
+        isBackground: false
+        imageDownloadArguments:
+          needsCropping: false
+          requiresImageDimensions: false
+      - type: IMAGE
+        imageRef: 3b46998b269929a274e3a9188dc17728a9216553
+        scaleMode: FILL
+        objectFit: cover
+        isBackground: false
+        imageDownloadArguments:
+          needsCropping: false
+          requiresImageDimensions: false
+      - type: IMAGE
+        imageRef: 517f768fd35736ea95d0d64fbf3edf796955048d
+        scaleMode: FILL
+        objectFit: cover
+        isBackground: false
+        imageDownloadArguments:
+          needsCropping: false
+          requiresImageDimensions: false
+      - '#D9D9D9'
+    layout_B8ZONH:
+      mode: column
+      alignItems: stretch
+      alignSelf: stretch
+      gap: 32px
+      padding: 24px
+      sizing:
+        horizontal: fill
+        vertical: hug
+    layout_FYZ58H:
+      mode: column
+      alignSelf: stretch
+      gap: 8px
+      sizing:
+        horizontal: fill
+        vertical: hug
+    layout_AISHOX:
+      mode: none
+      sizing:
+        horizontal: fill
+        vertical: fixed
+      dimensions:
+        height: 52
+    layout_4FV0HZ:
+      mode: row
+      justifyContent: space-between
+      alignItems: center
+      sizing:
+        horizontal: fixed
+        vertical: hug
+      dimensions:
+        width: 75
+    layout_2CWR8C:
+      mode: none
+      sizing: {}
+      locationRelativeToParent:
+        x: 3.33
+        y: 3.33
+      dimensions:
+        width: 13.33
+        height: 13.33
+    fill_6Q12RK:
+      - '#F6C509'
+    layout_G9WHX6:
+      mode: row
+      alignItems: center
+      sizing:
+        horizontal: hug
+        vertical: hug
+    caption 2 (41:10032):
+      fontFamily: Pretendard
+      fontWeight: 500
+      fontSize: 14
+      lineHeight: 1.4285714285714286em
+      letterSpacing: '-2.5%'
+      textAlignHorizontal: LEFT
+      textAlignVertical: TOP
+    layout_ZE5NHE:
+      mode: row
+      alignItems: center
+      gap: 4px
+      sizing:
+        horizontal: fixed
+        vertical: hug
+      dimensions:
+        width: 69
+    layout_OKK904:
+      mode: none
+      sizing: {}
+      locationRelativeToParent:
+        x: 7.5
+        y: 3.33
+      dimensions:
+        width: 5
+        height: 5
+    layout_G0A9EW:
+      mode: none
+      sizing: {}
+      locationRelativeToParent:
+        x: 3.33
+        y: 11.67
+      dimensions:
+        width: 13.33
+        height: 5
+    layout_0C9U5U:
+      mode: row
+      justifyContent: center
+      alignItems: center
+      gap: 10px
+      padding: 8px 16px
+      sizing:
+        horizontal: hug
+        vertical: hug
+    fill_4M2EVM:
+      - type: GRADIENT_LINEAR
+        gradient: linear-gradient(143deg, rgba(1, 1, 1, 1) 0%, rgba(23, 120, 242, 1) 96%)
+    layout_GVALU4:
+      mode: row
+      justifyContent: center
+      alignItems: center
+      alignSelf: stretch
+      gap: 10px
+      padding: 16px 10px
+      sizing:
+        horizontal: fill
+        vertical: hug
+    fill_FRNGSW:
+      - type: IMAGE
+        imageRef: 77f68cfaff0583cecd68eda1b5e02ab90082ef2b
+        scaleMode: FILL
+        objectFit: cover
+        isBackground: false
+        imageDownloadArguments:
+          needsCropping: false
+          requiresImageDimensions: false
+      - type: IMAGE
+        imageRef: 4a90bc3fe3489d15b2d28699c07ca9a5456ed93f
+        scaleMode: FILL
+        objectFit: cover
+        isBackground: false
+        imageDownloadArguments:
+          needsCropping: false
+          requiresImageDimensions: false
+      - type: IMAGE
+        imageRef: 3b46998b269929a274e3a9188dc17728a9216553
+        scaleMode: FILL
+        objectFit: cover
+        isBackground: false
+        imageDownloadArguments:
+          needsCropping: false
+          requiresImageDimensions: false
+      - type: IMAGE
+        imageRef: 517f768fd35736ea95d0d64fbf3edf796955048d
+        scaleMode: FILL
+        objectFit: cover
+        isBackground: false
+        imageDownloadArguments:
+          needsCropping: false
+          requiresImageDimensions: false
+      - '#D9D9D9'
+    fill_O1KHIO:
+      - type: IMAGE
+        imageRef: cbf7c8d8d3e70f1c3b0372e0233406bf2b4b72da
+        scaleMode: FILL
+        objectFit: cover
+        isBackground: false
+        imageDownloadArguments:
+          needsCropping: false
+          requiresImageDimensions: false
+      - type: IMAGE
+        imageRef: 4a90bc3fe3489d15b2d28699c07ca9a5456ed93f
+        scaleMode: FILL
+        objectFit: cover
+        isBackground: false
+        imageDownloadArguments:
+          needsCropping: false
+          requiresImageDimensions: false
+      - type: IMAGE
+        imageRef: 3b46998b269929a274e3a9188dc17728a9216553
+        scaleMode: FILL
+        objectFit: cover
+        isBackground: false
+        imageDownloadArguments:
+          needsCropping: false
+          requiresImageDimensions: false
+      - type: IMAGE
+        imageRef: 517f768fd35736ea95d0d64fbf3edf796955048d
+        scaleMode: FILL
+        objectFit: cover
+        isBackground: false
+        imageDownloadArguments:
+          needsCropping: false
+          requiresImageDimensions: false
+      - '#D9D9D9'

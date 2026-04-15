@@ -3,54 +3,60 @@
 @use '../../tokens/typography' as *;
 @use '../../tokens/effects' as *;
 
+// ============================================
+// 강사 소개 목록 (_list.scss)
+// - Figma: 4열 × N행 카드 그리드
+// - 카드: 상단 이미지(342×454, radius 12) + 흰색 이름 칩 오버레이
+//   + 주요이력/주요강의 불릿 + "프로필 보기" CTA
+// ============================================
+
 .instructors-list {
   padding: $section-padding-y $section-padding-x;
   letter-spacing: $letter-spacing-normal;
-  background-color: $color-bg-primary;
 
   &__inner {
     max-width: $container-max-width;
     margin: $spacing-0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-8;
   }
 
   &__header {
-    margin-bottom: $spacing-10;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
   }
 
   &__title {
     font-family: $font-family-heading;
-    font-size: $font-size-3xl;
-    font-weight: $font-weight-bold;
+    font-size: 2.5rem; // display 1: 40px
+    font-weight: $font-weight-semibold;
+    line-height: 1.25;
     color: $color-text-primary;
-    margin: $spacing-0 $spacing-0 $spacing-3;
-    line-height: $line-height-tight;
-  }
-
-  &__subtitle {
-    font-size: $font-size-base;
-    color: $color-text-secondary;
     margin: $spacing-0;
+
+    @media (max-width: 767px) {
+      font-size: $font-size-2xl;
+    }
   }
 
-  &__categories {
+  /* ── 카테고리 필터 ── */
+  &__filters {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
-    gap: $spacing-2;
-    margin-bottom: $spacing-10;
+    gap: $spacing-3;
   }
 
-  &__category {
-    padding: $spacing-2 $spacing-5;
+  &__filter {
+    padding: $spacing-3 $spacing-6;
+    border-radius: 9999px;
+    border: $border-thin solid $color-border;
+    background: transparent;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
-    color: $color-text-secondary;
-    background-color: $color-bg-primary;
-    border: $border-thin solid $color-border;
-    border-radius: 9999px;
+    color: $color-text-muted;
     cursor: pointer;
-    transition: all $duration-normal $ease-default;
+    transition: background-color 0.15s, color 0.15s, border-color 0.15s;
 
     &:hover {
       color: $color-text-primary;
@@ -58,131 +64,230 @@
     }
 
     &--active {
+      background-color: $color-primary;
       color: $color-text-inverse;
-      background-color: $color-text-primary;
-      border-color: $color-text-primary;
+      border-color: $color-primary;
+
+      &:hover {
+        color: $color-text-inverse;
+        border-color: $color-primary;
+      }
     }
   }
 
-  &__empty {
-    padding: $spacing-16 $spacing-4;
-    font-size: $font-size-sm;
-    color: $color-text-secondary;
-    text-align: center;
-  }
-
+  /* ── 그리드 ── */
   &__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
-    gap: $spacing-6;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $spacing-12 $spacing-6; // row 48 / column 24
+    list-style: none;
     margin: $spacing-0;
     padding: $spacing-0;
-    list-style: none;
+
+    @media (max-width: 1023px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: 767px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: $spacing-6 $spacing-4;
+    }
+    @media (max-width: 479px) {
+      grid-template-columns: 1fr;
+    }
   }
 
   &__card {
-    background-color: $color-bg-primary;
-    border: $border-thin solid $color-border;
-    border-radius: $radius-lg;
-    overflow: hidden;
-    transition: transform $duration-normal $ease-smooth, box-shadow $duration-normal $ease-smooth;
-
-    &:hover {
-      transform: translateY(-0.25rem);
-      box-shadow: $shadow-md;
-    }
-  }
-
-  &__card-link {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: $spacing-3;
-    padding: $spacing-6;
-    text-decoration: none;
-    color: inherit;
+    gap: $spacing-4;
+    height: 100%; // 그리드 행 stretch 받아 CTA 정렬용
   }
 
-  &__card-avatar {
-    width: 7.5rem;
-    height: 7.5rem;
-    border-radius: 50%;
-    overflow: hidden;
-    background-color: $color-bg-tertiary;
-    flex-shrink: 0;
-  }
-
-  &__card-avatar-img {
+  /* ── 카드: 미디어 + 이름 칩 ── */
+  &__media {
+    position: relative;
     width: 100%;
-    height: 100%;
+    aspect-ratio: 342 / 454;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: $color-bg-basic; // #f6f7fb
+  }
+
+  &__media-img {
     object-fit: cover;
   }
 
-  &__card-name {
-    font-family: $font-family-heading;
-    font-size: $font-size-lg;
-    font-weight: $font-weight-bold;
-    color: $color-text-primary;
-    margin: $spacing-0;
+  &__media-placeholder {
+    position: absolute;
+    inset: 0;
+    background-color: $color-bg-basic;
   }
 
-  &__card-specialty {
+  &__name-chip {
+    position: absolute;
+    left: $spacing-6;
+    right: $spacing-6;
+    bottom: $spacing-6;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+    padding: $spacing-4 $spacing-5;
+    background-color: $color-bg-primary;
+    border-radius: 8px;
+  }
+
+  &__name {
+    font-size: $font-size-lg; // 18px
+    font-weight: $font-weight-medium;
+    line-height: 1.444;
+    color: $color-text-primary;
+  }
+
+  &__specialty {
+    font-size: $font-size-sm; // 14px
+    font-weight: $font-weight-regular;
+    line-height: 1.43;
+    color: $color-text-secondary;
+  }
+
+  /* ── 카드: 정보 블록 ── */
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-5;
+  }
+
+  &__info-block {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+  }
+
+  &__info-label {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-regular;
+    color: $color-text-secondary;
+  }
+
+  &__info-list {
+    list-style: none;
+    margin: $spacing-0;
+    padding: $spacing-0;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+  }
+
+  &__info-item {
+    position: relative;
+    padding-left: $spacing-3;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
-    color: $color-primary;
-    margin: $spacing-0;
+    color: $color-text-primary;
+    line-height: 1.5;
+
+    &::before {
+      content: '-';
+      position: absolute;
+      left: 0;
+      color: $color-text-primary;
+    }
   }
 
-  &__card-description {
-    font-size: $font-size-sm;
-    color: $color-text-secondary;
-    text-align: center;
-    line-height: $line-height-base;
-    margin: $spacing-0;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  &__card-footer {
+  /* ── 카드: CTA ── */
+  &__cta {
     display: flex;
-    gap: $spacing-4;
-    margin-top: $spacing-2;
-    padding-top: $spacing-3;
-    font-size: $font-size-xs;
-    color: $color-text-muted;
-    border-top: $border-thin solid $color-border;
-    width: 100%;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-3;
+    margin-top: auto; // 카드 하단 정렬 — 같은 행 카드끼리 CTA 라인 맞춤
+    background-color: $color-bg-tertiary; // #F4F4F4
+    border-radius: 4px;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    text-decoration: none;
+    transition: background-color 0.15s, color 0.15s;
+
+    &:hover {
+      background-color: $color-border;
+      color: $color-text-primary;
+    }
   }
 
+  /* ── 빈 상태 ── */
+  &__empty {
+    padding: $spacing-16 $spacing-0;
+    text-align: center;
+    font-size: $font-size-base;
+    color: $color-text-muted;
+  }
+
+  /* ── 페이지네이션 (숫자형) ── */
   &__pagination {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: $spacing-4;
-    margin-top: $spacing-10;
-    font-size: $font-size-sm;
+    gap: $spacing-3;
+    margin-top: $spacing-4;
+  }
+
+  &__page-arrow {
+    width: $spacing-10;
+    height: $spacing-10;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: 4px;
+    font-size: $font-size-base;
     color: $color-text-secondary;
+    cursor: pointer;
 
-    button {
-      padding: $spacing-2 $spacing-4;
-      background-color: $color-bg-primary;
-      border: $border-thin solid $color-border;
-      border-radius: $radius-md;
-      cursor: pointer;
-      transition: background-color $duration-fast $ease-default;
-
-      &:hover:not(:disabled) {
-        background-color: $color-bg-secondary;
-      }
-
-      &:disabled {
-        opacity: $opacity-disabled;
-        cursor: not-allowed;
-      }
+    &:hover:not(:disabled) {
+      background-color: $color-bg-secondary;
+      color: $color-text-primary;
     }
+
+    &:disabled {
+      color: $color-text-muted;
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  &__page-num {
+    min-width: $spacing-10;
+    height: $spacing-10;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-0 $spacing-3;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    cursor: pointer;
+    font-variant-numeric: tabular-nums;
+
+    &:hover {
+      background-color: $color-bg-secondary;
+      color: $color-text-primary;
+    }
+
+    &--active {
+      background-color: $color-bg-basic;
+      color: $color-text-secondary;
+      font-weight: $font-weight-semibold;
+    }
+  }
+
+  &__page-more {
+    color: $color-text-muted;
+    font-size: $font-size-base;
+    user-select: none;
   }
 }

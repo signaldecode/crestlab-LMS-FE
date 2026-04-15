@@ -11,6 +11,7 @@ import type { JSX } from 'react';
 import Link from 'next/link';
 import AdminModal from '@/components/admin/AdminModal';
 import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
+import AdminUserPointsPanel, { type AdminUserPointsPanelCopy } from '@/components/admin/points/AdminUserPointsPanel';
 import { useAdminMutation, useAdminQuery } from '@/hooks/useAdminQuery';
 import { deactivateAdminUser, fetchAdminUserDetail, updateAdminUserRole } from '@/lib/adminApi';
 import type {
@@ -19,10 +20,20 @@ import type {
   UserRole,
 } from '@/types';
 
+type DetailTab = 'basic' | 'enrollments' | 'payments' | 'points';
+
 interface SectionTitles {
   basicTitle: string;
   enrollmentsTitle: string;
   paymentsTitle: string;
+  pointsTitle: string;
+}
+
+interface TabLabels {
+  basicLabel: string;
+  enrollmentsLabel: string;
+  paymentsLabel: string;
+  pointsLabel: string;
 }
 
 interface Labels {
@@ -61,6 +72,7 @@ export interface UserDetailCopy {
   backLinkLabel: string;
   backLinkHref: string;
   sections: SectionTitles;
+  tabs: TabLabels;
   labels: Labels;
   actions: Actions;
   enrollmentColumns: EnrollmentColumns;
@@ -69,6 +81,7 @@ export interface UserDetailCopy {
   paymentEmpty: string;
   changeRoleModal: ChangeRoleModalCopy;
   deactivateModal: DeactivateModalCopy;
+  points: AdminUserPointsPanelCopy;
   roleLabels: Record<UserRole, string>;
   statusLabels: Record<AdminUserStatus, string>;
   levelLabels: Record<AdminUserLevel, string>;
@@ -106,6 +119,7 @@ export default function AdminUserDetailContainer({
     [userId],
   );
 
+  const [activeTab, setActiveTab] = useState<DetailTab>('basic');
   const [isRoleModalOpen, setRoleModalOpen] = useState(false);
   const [isDeactivateModalOpen, setDeactivateModalOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState<UserRole>('STUDENT');
@@ -179,7 +193,30 @@ export default function AdminUserDetailContainer({
         <p className="admin-user-detail__email">{user.email}</p>
       </header>
 
-      <section className="admin-user-detail__section" aria-labelledby="section-basic">
+      <nav className="admin-user-detail__tabs" aria-label="사용자 상세 탭">
+        {(
+          [
+            ['basic', copy.tabs.basicLabel],
+            ['enrollments', copy.tabs.enrollmentsLabel],
+            ['payments', copy.tabs.paymentsLabel],
+            ['points', copy.tabs.pointsLabel],
+          ] as [DetailTab, string][]
+        ).map(([key, label]) => (
+          <button
+            key={key}
+            type="button"
+            role="tab"
+            aria-selected={activeTab === key}
+            onClick={() => setActiveTab(key)}
+            className={`admin-user-detail__tab${activeTab === key ? ' is-active' : ''}`}
+          >
+            {label}
+          </button>
+        ))}
+      </nav>
+
+      {activeTab === 'basic' && (
+      <section className="admin-user-detail__section" aria-labelledby="section-basic" role="tabpanel">
         <div className="admin-user-detail__section-head">
           <h2 id="section-basic" className="admin-user-detail__section-title">
             {copy.sections.basicTitle}
@@ -218,8 +255,10 @@ export default function AdminUserDetailContainer({
           <InfoRow label={copy.labels.createdAt} value={formatDate(user.createdAt)} />
         </dl>
       </section>
+      )}
 
-      <section className="admin-user-detail__section" aria-labelledby="section-enrollments">
+      {activeTab === 'enrollments' && (
+      <section className="admin-user-detail__section" aria-labelledby="section-enrollments" role="tabpanel">
         <h2 id="section-enrollments" className="admin-user-detail__section-title">
           {copy.sections.enrollmentsTitle}
         </h2>
@@ -248,8 +287,10 @@ export default function AdminUserDetailContainer({
           </div>
         )}
       </section>
+      )}
 
-      <section className="admin-user-detail__section" aria-labelledby="section-payments">
+      {activeTab === 'payments' && (
+      <section className="admin-user-detail__section" aria-labelledby="section-payments" role="tabpanel">
         <h2 id="section-payments" className="admin-user-detail__section-title">
           {copy.sections.paymentsTitle}
         </h2>
@@ -282,6 +323,22 @@ export default function AdminUserDetailContainer({
           </div>
         )}
       </section>
+      )}
+
+      {activeTab === 'points' && (
+      <section className="admin-user-detail__section" aria-labelledby="section-points" role="tabpanel">
+        <h2 id="section-points" className="admin-user-detail__section-title">
+          {copy.sections.pointsTitle}
+        </h2>
+        <AdminUserPointsPanel
+          userId={userId}
+          nickname={user.nickname}
+          pointBalance={user.pointBalance}
+          onAdjustSuccess={refetch}
+          copy={copy.points}
+        />
+      </section>
+      )}
 
       {/* 역할 변경 모달 */}
       <AdminModal

@@ -649,6 +649,8 @@ export interface AdminUserDetail {
   createdAt: string;
   enrollments: AdminUserEnrollmentInfo[];
   payments: AdminUserPaymentInfo[];
+  /** 보유 포인트 — 백엔드 추가 예정 필드. 현재는 undefined 가능. */
+  pointBalance?: number;
 }
 
 /* ── 관리자 결제 관리 ──
@@ -1173,6 +1175,11 @@ export interface BoardNotice {
 export interface BoardData {
   page: {
     title: string;
+    subtitle: string;
+    totalCountTemplate: string;
+    loadingText: string;
+    errorRetryLabel: string;
+    columns: { number: string; title: string; date: string };
     seo: { title: string; description: string };
     categories: { value: string; label: string }[];
     sortOptions: { value: string; label: string }[];
@@ -1209,30 +1216,7 @@ export interface Ticket {
   createdAt: string;
 }
 
-/* ── 영상 업로드 (Presigned URL) ── */
-export interface PresignedUrlRequest {
-  courseId: string;
-  fileName: string;
-  contentType: string;
-}
-
-export interface PresignedUrlResponse {
-  uploadUrl: string;
-  fileKey: string;
-  expiresAt: string;
-}
-
-export interface UploadConfirmRequest {
-  courseId: string;
-  fileKey: string;
-  fileName: string;
-}
-
-export interface UploadConfirmResponse {
-  success: boolean;
-  videoUrl: string;
-}
-
+/* ── 영상 업로드 상태 ── */
 export type UploadStatus = 'idle' | 'requesting' | 'uploading' | 'confirming' | 'success' | 'error';
 
 export interface UploadError {

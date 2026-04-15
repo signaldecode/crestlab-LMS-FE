@@ -9,8 +9,9 @@
 
 import { useState, useEffect, useCallback, type ReactNode } from 'react';
 import { uiData } from '@/data';
+import LectureSidebarQna from './LectureSidebarQna';
 
-type SidebarTab = 'curriculum' | 'qna' | 'note' | 'chat' | 'script';
+type SidebarTab = 'curriculum' | 'qna';
 
 export interface CurriculumItem {
   id: string;
@@ -27,6 +28,7 @@ export interface CurriculumSection {
 interface LectureSidebarProps {
   sections: CurriculumSection[];
   currentLectureId: string;
+  courseId: number;
   onSelectLecture?: (lectureId: string) => void;
 }
 
@@ -41,28 +43,14 @@ const TAB_ICONS: Record<SidebarTab, ReactNode> = {
       <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z" />
     </svg>
   ),
-  note: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1.003 1.003 0 000-1.42l-2.34-2.34a1.003 1.003 0 00-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.82z" />
-    </svg>
-  ),
-  chat: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z" />
-    </svg>
-  ),
-  script: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z" />
-    </svg>
-  ),
 };
 
-const TAB_KEYS: SidebarTab[] = ['curriculum', 'qna', 'note', 'chat', 'script'];
+const TAB_KEYS: SidebarTab[] = ['curriculum', 'qna'];
 
 export default function LectureSidebar({
   sections,
   currentLectureId,
+  courseId,
   onSelectLecture,
 }: LectureSidebarProps) {
   const [activeTab, setActiveTab] = useState<SidebarTab>('curriculum');
@@ -169,31 +157,7 @@ export default function LectureSidebar({
         </div>
       )}
 
-      {activeTab === 'qna' && (
-        <div className="lecture-sidebar__empty">
-          <p>{sidebarLabels.empty.qna}</p>
-          <button className="lecture-sidebar__empty-btn">{sidebarLabels.empty.qnaButton}</button>
-        </div>
-      )}
-
-      {activeTab === 'note' && (
-        <div className="lecture-sidebar__empty">
-          <p>{sidebarLabels.empty.note}</p>
-          <button className="lecture-sidebar__empty-btn">{sidebarLabels.empty.noteButton}</button>
-        </div>
-      )}
-
-      {activeTab === 'chat' && (
-        <div className="lecture-sidebar__empty">
-          <p>{sidebarLabels.empty.chat}</p>
-        </div>
-      )}
-
-      {activeTab === 'script' && (
-        <div className="lecture-sidebar__empty">
-          <p>{sidebarLabels.empty.script}</p>
-        </div>
-      )}
+      {activeTab === 'qna' && <LectureSidebarQna courseId={courseId} />}
     </div>
   );
 

@@ -159,7 +159,7 @@ export default function AdminBannerFormContainer({
             id="banner-pc-image"
             uploadType="BACKGROUND_IMAGE"
             value={pcImageUrl || null}
-            onChange={(s3Key) => setPcImageUrl(s3Key ?? '')}
+            onChange={(url) => setPcImageUrl(url ?? '')}
             aspectRatio="16 / 5"
             copy={{
               ...copy.fields.imageUploader,
@@ -175,7 +175,7 @@ export default function AdminBannerFormContainer({
             id="banner-mobile-image"
             uploadType="BACKGROUND_IMAGE"
             value={mobileImageUrl || null}
-            onChange={(s3Key) => setMobileImageUrl(s3Key ?? '')}
+            onChange={(url) => setMobileImageUrl(url ?? '')}
             aspectRatio="3 / 4"
             copy={{
               ...copy.fields.imageUploader,

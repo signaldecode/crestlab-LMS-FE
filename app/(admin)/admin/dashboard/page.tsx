@@ -19,6 +19,8 @@ interface AdminDashboardPageData {
   personUnit: string;
   ratingUnit: string;
   periodLabels: DashboardCopy['periodLabels'];
+  deltaLabel: string;
+  noDeltaLabel: string;
   sections: DashboardCopy['sections'];
 }
 

@@ -216,14 +216,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
     padding: $spacing-3 $spacing-4;
+    font-family: inherit;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
     color: $color-text-primary;
     text-decoration: none;
+    background: transparent;
     border: $border-thin solid $color-border;
     border-radius: $radius-md;
     text-align: center;
+    cursor: pointer;
     transition: background-color $duration-fast $ease-default;
 
     &:hover {

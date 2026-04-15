@@ -76,4 +76,12 @@ const useAuthStore = create<AuthState>((set, get) => ({
 export const selectIsAdmin = (state: AuthState): boolean =>
   state.isLoggedIn && state.user?.role === 'ADMIN';
 
+/** 현재 로그인한 유저가 INSTRUCTOR 역할인지 판별 */
+export const selectIsInstructor = (state: AuthState): boolean =>
+  state.isLoggedIn && state.user?.role === 'INSTRUCTOR';
+
+/** 관리자 영역(/admin) 접근 가능 여부 — ADMIN 또는 INSTRUCTOR */
+export const selectCanAccessAdmin = (state: AuthState): boolean =>
+  state.isLoggedIn && (state.user?.role === 'ADMIN' || state.user?.role === 'INSTRUCTOR');
+
 export default useAuthStore;

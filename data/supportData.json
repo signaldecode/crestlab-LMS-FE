@@ -3,87 +3,152 @@
 
   "ticketForm": {
     "title": "1:1 문의",
-    "subtitle": "1:1 문의 사항을 적어주세요.",
+    "subtitle": "1:1 문의 사항을 적어주세요. 답변은 마이페이지 또는 문의 목록에서 확인하실 수 있습니다.",
     "fields": {
-      "service": {
-        "id": "service",
-        "label": "서비스",
-        "placeholder": "서비스를 선택해주세요",
-        "required": true,
-        "options": [
-          { "value": "cs", "label": "서비스" },
-          { "value": "lecture", "label": "강의" },
-          { "value": "payment", "label": "결제" },
-          { "value": "etc", "label": "기타" },
-          { "value": "instructor", "label": "강사" }
-        ]
-      },
       "category": {
-        "id": "category",
-        "label": "분야",
-        "placeholder": "분야를 선택해주세요",
+        "id": "inquiry-category",
+        "label": "문의 유형",
+        "placeholder": "문의 유형을 선택해주세요",
         "required": true,
         "options": [
-          { "value": "education", "label": "교육" },
-          { "value": "ecommerce", "label": "이커머스" },
-          { "value": "corporate", "label": "기업" },
-          { "value": "media", "label": "미디어" },
-          { "value": "etc", "label": "기타" }
+          { "value": "COURSE", "label": "강의 문의" },
+          { "value": "PAYMENT", "label": "결제 문의" },
+          { "value": "INSTRUCTOR", "label": "강사 문의" },
+          { "value": "SERVICE", "label": "서비스 문의" },
+          { "value": "ETC", "label": "기타 문의" }
         ]
       },
-      "contactName": {
-        "id": "contact-name",
-        "label": "성함",
-        "placeholder": "성함을 입력해주세요",
-        "required": true
-      },
-      "phone": {
-        "id": "phone",
-        "label": "연락처",
-        "placeholder": "'-' 없이 숫자만 입력해주세요",
-        "required": true
-      },
-      "email": {
-        "id": "email",
-        "label": "이메일",
-        "placeholder": "이메일 주소를 입력해주세요",
-        "required": true
+      "title": {
+        "id": "inquiry-title",
+        "label": "제목",
+        "placeholder": "문의 제목을 입력해주세요",
+        "required": true,
+        "maxLength": 200
       },
       "content": {
-        "id": "content",
+        "id": "inquiry-content",
         "label": "문의 내용",
-        "placeholder": "",
+        "placeholder": "문의하실 내용을 자세히 적어주세요.",
         "required": true,
         "rows": 8
       },
-      "fileUpload": {
-        "id": "file-upload",
-        "label": "파일첨부",
-        "buttonLabel": "파일 추가",
-        "hint": "최대 5개, 파일당 50MB 이하 (jpg, png, pdf, doc, docx, hwp, xlsx)",
-        "accept": ".jpg,.jpeg,.png,.pdf,.doc,.docx,.hwp,.xlsx",
-        "maxFiles": 5,
-        "removeAriaLabel": "삭제"
+      "attachments": {
+        "id": "inquiry-attachments",
+        "label": "첨부 이미지 (선택)",
+        "buttonLabel": "이미지 추가",
+        "hint": "최대 3장, 이미지 파일만 첨부 가능합니다 (jpg, png, webp, gif).",
+        "maxFiles": 3,
+        "removeAriaLabel": "첨부 이미지 삭제",
+        "uploadingLabel": "업로드 중…"
       }
     },
     "privacy": {
       "label": "[필수] 개인정보 수집 및 이용에 동의합니다",
       "toggleLabel": "내용 보기",
       "toggleAriaLabel": "개인정보 수집 동의 내용 펼치기",
-      "content": "수집 항목: 이름, 연락처, 이메일, 회사명\n수집 목적: 문의 접수 및 답변\n보유 기간: 문의 처리 완료 후 3년\n\n위 개인정보 수집·이용에 동의하지 않으실 수 있으며, 동의를 거부하실 경우 문의 접수가 제한됩니다."
+      "content": "수집 항목: 닉네임, 문의 내용, 첨부 이미지\n수집 목적: 문의 접수 및 답변\n보유 기간: 문의 처리 완료 후 3년\n\n위 개인정보 수집·이용에 동의하지 않으실 수 있으며, 동의를 거부하실 경우 문의 접수가 제한됩니다."
     },
     "actions": {
       "cancel": "취소",
       "submit": "문의하기",
+      "submitting": "전송 중…",
       "cancelAriaLabel": "문의 작성 취소",
-      "submitAriaLabel": "문의하기"
+      "submitAriaLabel": "문의 등록"
     },
     "validation": {
       "required": "필수 항목입니다",
-      "invalidEmail": "올바른 이메일 주소를 입력해주세요",
-      "invalidPhone": "올바른 연락처를 입력해주세요",
+      "titleTooLong": "제목은 200자 이하여야 합니다",
+      "tooManyAttachments": "첨부 이미지는 최대 3장까지 등록할 수 있습니다",
+      "invalidImageFormat": "지원하지 않는 이미지 형식입니다 (jpg, png, webp, gif)",
+      "imageTooLarge": "이미지 파일 크기가 너무 큽니다 (최대 10MB)",
+      "uploadFailed": "이미지 업로드에 실패했습니다. 잠시 후 다시 시도해주세요",
+      "submitFailed": "문의 등록에 실패했습니다. 잠시 후 다시 시도해주세요",
       "privacyRequired": "개인정보 수집 및 이용에 동의해주세요"
+    },
+    "successMessage": "문의가 정상적으로 접수되었습니다. 답변이 등록되면 알림으로 안내해 드리겠습니다.",
+    "successAction": {
+      "label": "내 문의 목록 보기",
+      "href": "/support/tickets",
+      "ariaLabel": "내 문의 목록 페이지로 이동"
     }
+  },
+
+  "ticketList": {
+    "title": "내 문의 내역",
+    "subtitle": "내가 등록한 1:1 문의와 답변 상태를 확인할 수 있습니다.",
+    "newTicketLabel": "1:1 문의 작성",
+    "newTicketHref": "/support/tickets/new",
+    "newTicketAriaLabel": "1:1 문의 작성 페이지로 이동",
+    "filters": {
+      "ariaLabel": "문의 상태 필터",
+      "options": [
+        { "value": "ALL", "label": "전체" },
+        { "value": "WAITING", "label": "답변 대기" },
+        { "value": "ANSWERED", "label": "답변 완료" }
+      ]
+    },
+    "columns": {
+      "category": "유형",
+      "title": "제목",
+      "status": "상태",
+      "createdAt": "등록일"
+    },
+    "statusLabels": {
+      "WAITING": "답변 대기",
+      "ANSWERED": "답변 완료"
+    },
+    "categoryLabels": {
+      "COURSE": "강의 문의",
+      "PAYMENT": "결제 문의",
+      "INSTRUCTOR": "강사 문의",
+      "SERVICE": "서비스 문의",
+      "ETC": "기타 문의"
+    },
+    "loadingText": "문의 내역을 불러오는 중입니다…",
+    "emptyText": "등록된 문의가 없습니다.",
+    "errorText": "문의 내역을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.",
+    "pageSize": 10,
+    "pagination": {
+      "ariaLabel": "문의 페이지네이션",
+      "prevAriaLabel": "이전 페이지",
+      "nextAriaLabel": "다음 페이지",
+      "pageAriaFormat": "{page} 페이지"
+    }
+  },
+
+  "ticketDetail": {
+    "backLabel": "← 문의 목록",
+    "backHref": "/support/tickets",
+    "backAriaLabel": "내 문의 목록으로 돌아가기",
+    "labels": {
+      "category": "유형",
+      "status": "상태",
+      "createdAt": "등록일",
+      "attachments": "첨부 이미지",
+      "answer": "관리자 답변",
+      "answeredAt": "답변일",
+      "noAnswer": "아직 답변이 등록되지 않았습니다."
+    },
+    "statusLabels": {
+      "WAITING": "답변 대기",
+      "ANSWERED": "답변 완료"
+    },
+    "categoryLabels": {
+      "COURSE": "강의 문의",
+      "PAYMENT": "결제 문의",
+      "INSTRUCTOR": "강사 문의",
+      "SERVICE": "서비스 문의",
+      "ETC": "기타 문의"
+    },
+    "deleteLabel": "삭제",
+    "deleteAriaLabel": "이 문의 삭제",
+    "deleteConfirmText": "이 문의를 삭제하시겠습니까? 삭제하면 복구할 수 없습니다.",
+    "deleteOnlyWaitingHint": "답변이 등록된 문의는 삭제할 수 없습니다.",
+    "loadingText": "문의를 불러오는 중입니다…",
+    "errorText": "문의를 불러오지 못했습니다.",
+    "notFoundText": "문의를 찾을 수 없습니다.",
+    "deleteFailedText": "삭제에 실패했습니다. 잠시 후 다시 시도해 주세요.",
+    "attachmentAlt": "문의 첨부 이미지"
   },
 
   "hub": {
@@ -99,10 +164,10 @@
           "ariaLabel": "1:1 문의 작성 페이지로 이동"
         },
         {
-          "label": "내 문의 내역",
-          "description": "지난 문의와 답변 상태를 확인합니다.",
-          "href": "/support/tickets",
-          "ariaLabel": "내 문의 내역 페이지로 이동"
+          "label": "자주 묻는 질문",
+          "description": "수강·결제·계정 등 자주 묻는 질문을 카테고리별로 확인해 보세요.",
+          "href": "/support/faq",
+          "ariaLabel": "자주 묻는 질문 페이지로 이동"
         }
       ]
     },

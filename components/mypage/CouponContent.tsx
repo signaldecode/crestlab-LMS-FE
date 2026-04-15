@@ -226,16 +226,11 @@ function CouponCard({ coupon, isExpired }: CouponCardProps) {
     <div className={`${SK}__card ${isExpired ? `${SK}__card--expired` : ''}`}>
       <div className={`${SK}__card-body`}>
         <span className={`${SK}__card-discount`}>{coupon.discountInfo}</span>
-        <p className={`${SK}__card-name`}>{coupon.couponName}</p>
-        <span className={`${SK}__card-date`}>
-          ~ {formatDate(coupon.expiresAt)}
-        </span>
-      </div>
-      <div className={`${SK}__card-ticket`}>
-        <div className={`${SK}__card-ticket-lines`} aria-hidden="true">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <span key={i} className={`${SK}__card-ticket-line`} />
-          ))}
+        <div className={`${SK}__card-info`}>
+          <p className={`${SK}__card-name`}>{coupon.couponName}</p>
+          <span className={`${SK}__card-date`}>
+            {formatDate(coupon.startsAt)} ~ {formatDate(coupon.expiresAt)}
+          </span>
         </div>
       </div>
     </div>

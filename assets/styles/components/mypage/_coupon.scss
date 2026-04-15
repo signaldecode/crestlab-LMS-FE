@@ -26,11 +26,13 @@
     display: flex;
     gap: $spacing-3;
     margin-bottom: $spacing-3;
+    justify-self: center;
   }
 
   &__register-input {
     flex: 1;
     padding: $spacing-3 $spacing-4;
+    max-width: 30rem;
     font-size: $font-size-base;
     color: $color-text-primary;
     border: 0.0625rem solid $color-border;
@@ -52,7 +54,7 @@
     font-size: $font-size-base;
     font-weight: $font-weight-medium;
     color: $color-text-inverse;
-    background: $color-text-primary;
+    background: $color-primary;
     border: none;
     border-radius: $spacing-2;
     cursor: pointer;
@@ -151,109 +153,68 @@
     }
   }
 
-  // ── 쿠폰 카드 (티켓 스타일) ──
+  // ── 쿠폰 카드 (SVG 배경) ──
+  // 카드 너비가 줄어들면 텍스트도 함께 축소되도록 container query 사용
+  // Figma 기준 392px 너비에서 discount 32px = 8.16%, name 20px = 5.1%, date 16px = 4.08%
   &__card {
-    display: flex;
-    border: 0.125rem dashed $color-primary-light;
-    border-radius: $spacing-3;
-    overflow: hidden;
-    background: $color-bg-primary;
-    transition: border-color $duration-normal;
-
-    &:hover {
-      border-color: $color-primary;
-    }
+    position: relative;
+    aspect-ratio: 392 / 188;
+    background-image: url('/images/ui/coupon.svg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    transition: opacity $duration-normal;
+    container-type: inline-size;
 
     &--expired {
-      border-color: $color-border;
-      opacity: 0.6;
-
-      &:hover {
-        border-color: $color-border;
-      }
+      opacity: 0.5;
+      filter: grayscale(0.4);
     }
   }
 
+  // SVG 내부 점선 박스 영역 (0 ~ 310.77 / 392 ≈ 79.28%)
+  // 텍스트 블록 Figma 위치: x=38.19, y=33.06 (카드 392×188 기준)
   &__card-body {
-    flex: 1;
-    padding: $spacing-5;
+    position: absolute;
+    inset: 17.59% 20.72% 0 9.74%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: $spacing-1;
+    gap: min(#{$spacing-4}, 4.08cqi);
     min-width: 0;
   }
 
   &__card-discount {
-    font-size: $font-size-2xl;
-    font-weight: $font-weight-bold;
+    font-size: min(#{$font-size-2xl}, 8.16cqi);
+    font-weight: $font-weight-semibold;
     color: $color-text-primary;
-    line-height: $line-height-tight;
+    line-height: 1.3125;
+    letter-spacing: $letter-spacing-normal;
+  }
+
+  &__card-info {
+    display: flex;
+    flex-direction: column;
+    gap: min(#{$spacing-1}, 1.02cqi);
+    min-width: 0;
   }
 
   &__card-name {
-    font-size: $font-size-sm;
+    font-size: min(#{$font-size-lg}, 5.1cqi);
     font-weight: $font-weight-medium;
     color: $color-text-primary;
-    margin: $spacing-1 0 0;
     line-height: $line-height-base;
+    letter-spacing: $letter-spacing-normal;
+    margin: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
   &__card-date {
-    font-size: $font-size-xs;
+    font-size: min(#{$font-size-base}, 4.08cqi);
+    font-weight: $font-weight-regular;
     color: $color-text-secondary;
-    margin-top: $spacing-1;
-  }
-
-  // ── 카드 우측 티켓 장식 ──
-  &__card-ticket {
-    width: 5rem;
-    flex-shrink: 0;
-    background: $color-primary;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-
-    // 톱니 효과 (왼쪽 반원)
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      left: -0.375rem;
-      width: 0.75rem;
-      height: 0.75rem;
-      border-radius: $radius-circle;
-      background: $color-bg-primary;
-    }
-
-    &::before {
-      top: -0.375rem;
-    }
-
-    &::after {
-      bottom: -0.375rem;
-    }
-  }
-
-  &__card-ticket-lines {
-    display: flex;
-    gap: 0.25rem;
-    opacity: 0.4;
-  }
-
-  &__card-ticket-line {
-    display: block;
-    width: 0.1875rem;
-    height: 3.5rem;
-    background: $color-text-inverse;
-    border-radius: 0.0625rem;
-
-    &:nth-child(2) { height: 2.5rem; }
-    &:nth-child(4) { height: 2.5rem; }
+    line-height: $line-height-base;
+    letter-spacing: $letter-spacing-normal;
   }
 
   // ── 빈 상태 ──

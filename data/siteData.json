@@ -86,7 +86,7 @@
     "user": [
       {
         "label": "강사 지원하기",
-        "href": "/instructor/apply",
+        "href": "/instructors/apply",
         "ariaLabel": "강사 지원하기"
       }
     ],
@@ -165,7 +165,7 @@
             },
             {
               "label": "강사 지원하기",
-              "href": "/instructor/apply"
+              "href": "/instructors/apply"
             }
           ]
         }
@@ -239,7 +239,7 @@
       },
       {
         "label": "강사 지원하기",
-        "href": "/instructor/apply",
+        "href": "/instructors/apply",
         "ariaLabel": "강사 지원 페이지로 이동"
       },
       {
