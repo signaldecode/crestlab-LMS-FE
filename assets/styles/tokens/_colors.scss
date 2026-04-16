@@ -85,6 +85,9 @@ $color-dark-surface-raised: rgba(28, 28, 32, 0.95);
 $color-badge-urgent: #ea580c;
 $color-badge-urgent-bg: #fff7ed;
 $color-badge-warning-dark: #a16207;
+$color-badge-new: #09A625;           // 강의 NEW 뱃지 배경
+$color-badge-hot: #FF5715;           // 강의 HOT(추천) 뱃지 배경
+$gradient-badge-best: linear-gradient(143deg, #010101 0%, #1778F2 96%); // 강의 BEST 뱃지 배경
 
 // Accent Gradient (텍스트 그라데이션용)
 $gradient-accent: linear-gradient(93.35deg, rgba(255, 255, 255, 0.8) 17.6%, rgba(255, 255, 255, 0.798077) 38.97%, rgba(255, 255, 255, 0.694231) 59.13%, rgba(255, 255, 255, 0.6) 80.2%);

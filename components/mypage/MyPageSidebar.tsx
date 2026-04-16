@@ -12,6 +12,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import accountData from '@/data/accountData.json';
 import ConfirmModal from '../layout/ConfirmModal';
+import useAuth from '@/hooks/useAuth';
 
 
 const mypageData = accountData.mypage;
@@ -24,15 +25,8 @@ for (const [key, val] of Object.entries(mypageData.sidebar.menuItems)) {
   menuItemMap[key] = item;
 }
 
-const externalLinkMap: Record<string, string> = {};
-mypageData.sidebar.externalLinks.forEach((link) => {
-  externalLinkMap[link.key] = link.href;
-});
-
 function getItemLabel(key: string): string {
   if (menuItemMap[key]) return menuItemMap[key].label;
-  const extLink = mypageData.sidebar.externalLinks.find((l) => l.key === key);
-  if (extLink) return extLink.label;
   if (key === 'logout') return mypageData.sidebar.logoutLabel;
   return key;
 }
@@ -56,10 +50,17 @@ function getCurrentLabel(pathname: string): string {
 
 export default function MyPageSidebar(): JSX.Element {
   const pathname = usePathname();
+  const { logout } = useAuth();
   const menuGroups = mypageData.sidebar.menuGroups;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const rootRef = useRef<HTMLElement | null>(null);
+
+  const handleLogoutConfirm = async () => {
+    setIsModalOpen(false);
+    await logout();
+    window.location.href = '/';
+  };
 
   /* 경로 변경 시 모바일 드롭다운 닫기 */
   useEffect(() => {
@@ -112,22 +113,7 @@ export default function MyPageSidebar(): JSX.Element {
               <ul className="mypage-sidebar__menu-list">
                 {group.items.map((itemKey) => {
                   const label = getItemLabel(itemKey);
-                  const externalHref = externalLinkMap[itemKey];
                   const menuItem = menuItemMap[itemKey];
-
-                  if (externalHref) {
-                    return (
-                      <li key={itemKey} className="mypage-sidebar__menu-item">
-                        <Link
-                          href={externalHref}
-                          className="mypage-sidebar__menu-link"
-                          onClick={() => setIsMobileOpen(false)}
-                        >
-                          {label}
-                        </Link>
-                      </li>
-                    );
-                  }
 
                   if (menuItem) {
                     const active = isActive(pathname, menuItem.href);
@@ -146,7 +132,13 @@ export default function MyPageSidebar(): JSX.Element {
 
                   return (
                     <li key={itemKey} className="mypage-sidebar__menu-item">
-                      <button type="button" className="mypage-sidebar__menu-link">
+                      <button
+                        type="button"
+                        className="mypage-sidebar__menu-link"
+                        onClick={() => {
+                          if (itemKey === 'logout') setIsModalOpen(true);
+                        }}
+                      >
                         {label}
                       </button>
                     </li>
@@ -160,9 +152,7 @@ export default function MyPageSidebar(): JSX.Element {
           isOpen={isModalOpen}
           message={mypageData.sidebar.logoutModalMessage}
           onCancel={() => setIsModalOpen(false)}
-          onConfirm={() => {
-            setIsModalOpen(false);
-          }}
+          onConfirm={() => { void handleLogoutConfirm(); }}
         />
 
       </div>

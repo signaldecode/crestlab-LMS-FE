@@ -436,6 +436,16 @@ export function reEncodeVideo(videoId: number): Promise<void> {
   return request<void>(`v1/admin/videos/${videoId}/re-encode`, { method: 'POST' });
 }
 
+/** 관리자 미리보기 Signed URL — 2026-04-16 추가 */
+export interface AdminSignedUrlResponse {
+  signedUrl: string;
+  expiresIn: number;
+}
+
+export function fetchAdminVideoPreviewUrl(videoId: number): Promise<AdminSignedUrlResponse> {
+  return request<AdminSignedUrlResponse>(`v1/admin/videos/${videoId}/preview-url`);
+}
+
 export function linkLectureVideo(lectureId: number, videoId: number): Promise<void> {
   return request<void>(`v1/admin/lectures/${lectureId}/video`, { method: 'PUT', body: { videoId } });
 }
@@ -496,6 +506,73 @@ export function updateAdminUserRole(id: number, role: UserRole): Promise<void> {
 
 export function deactivateAdminUser(id: number): Promise<void> {
   return request<void>(`v1/admin/users/${id}/deactivate`, { method: 'POST' });
+}
+
+/* ────────────────────────────────────────────
+ *  관리자 — 회원별 포인트/쿠폰 조회
+ * ────────────────────────────────────────────*/
+/** `GET /admin/users/{id}/points/summary` — 현재 잔액 + 30일내 소멸예정 */
+export interface AdminUserPointSummary {
+  totalPoints: number;
+  expiringPoints: number;
+}
+
+export function fetchAdminUserPointSummary(userId: number): Promise<AdminUserPointSummary> {
+  return request<AdminUserPointSummary>(`v1/admin/users/${userId}/points/summary`);
+}
+
+/** `GET /admin/users/{id}/points/history` — 적립/사용/소멸 내역 (페이지네이션) */
+export type AdminPointHistoryType = 'EARN' | 'USE' | 'EXPIRE';
+
+export interface AdminUserPointHistoryItem {
+  id: number;
+  type: AdminPointHistoryType;
+  amount: number;
+  description: string;
+  createdAt: string;
+}
+
+export interface AdminUserPointHistoryPage {
+  content: AdminUserPointHistoryItem[];
+  page: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+}
+
+export interface AdminUserPointHistoryParams {
+  /** 'all' 은 전달하지 않음 (백엔드 기본값). EARN/USE/EXPIRE */
+  type?: AdminPointHistoryType;
+  page?: number;
+  size?: number;
+}
+
+export function fetchAdminUserPointHistory(
+  userId: number,
+  params: AdminUserPointHistoryParams = {},
+): Promise<AdminUserPointHistoryPage> {
+  return request<AdminUserPointHistoryPage>(`v1/admin/users/${userId}/points/history`, {
+    query: { ...params },
+  });
+}
+
+/**
+ * `GET /admin/users/{id}/coupons` — 회원이 보유한 쿠폰 전체 (isUsable 포함)
+ * - 유저 API 의 `UserCouponResponse` 와 동일 스펙
+ */
+export interface AdminUserCoupon {
+  userCouponId: number;
+  couponId: number;
+  couponName: string;
+  discountInfo: string;
+  startsAt: string;
+  expiresAt: string;
+  isUsed: boolean;
+  isUsable: boolean;
+}
+
+export function fetchAdminUserCoupons(userId: number): Promise<AdminUserCoupon[]> {
+  return request<AdminUserCoupon[]>(`v1/admin/users/${userId}/coupons`);
 }
 
 /* ────────────────────────────────────────────

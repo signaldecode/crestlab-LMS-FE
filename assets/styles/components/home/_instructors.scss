@@ -22,13 +22,19 @@
     }
   }
 
+  &__header-left {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+  }
+
   &__subtitle {
     font-family: $font-family-accent;
     font-size: $font-size-md;
     font-weight: $font-weight-regular;
     color: $color-primary;
     letter-spacing: 0;
-    margin: 0 0 $spacing-1;
+    margin: 0;
   }
 
   &__title {
@@ -42,7 +48,7 @@
   &__desc {
     font-size: $font-size-sm;
     color: $color-text-secondary;
-    margin: 0;
+    margin: $spacing-1 0 0;
   }
 
   &__controls {
@@ -60,7 +66,6 @@
     border-radius: $radius-circle;
     background: $color-bg-primary;
     color: $color-text-primary;
-    font-size: $font-size-lg;
     cursor: pointer;
     transition: border-color $duration-normal $ease-default, color $duration-normal $ease-default;
 
@@ -100,77 +105,78 @@
     }
   }
 
-  // ── 카드 ──
+  // ── 카드 (피그마 Component 53 — 342×454 비율) ──
   &__card {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 342 / 454;
     background: $color-bg-basic;
-    border-radius: $radius-xl;
-    padding: $spacing-6;
-    text-align: center;
-    transition: box-shadow $duration-normal $ease-default;
+    border-radius: $radius-lg;
+    overflow: hidden;
+    text-decoration: none;
+    transition: transform $duration-normal $ease-default, box-shadow $duration-normal $ease-default;
 
     &:hover {
+      transform: translateY(-0.25rem);
       box-shadow: $shadow-md;
     }
   }
 
-  &__avatar {
-    width: 5rem;
-    height: 5rem;
-    margin: 0 auto $spacing-4;
+  // 이미지 영역 — 위 여백 후 하단까지 채움 (62/454 ≈ 13.66%)
+  &__media {
+    position: absolute;
+    inset: 13.66% 0 0 0;
+    overflow: hidden;
   }
 
-  &__name {
-    font-size: $font-size-base;
-    font-weight: $font-weight-bold;
-    color: $color-text-primary;
-    margin: 0 0 $spacing-1;
+  &__image {
+    object-fit: cover;
   }
 
-  &__specialty {
-    font-size: $font-size-xs;
-    color: $color-text-secondary;
-    margin: 0 0 $spacing-3;
+  &__fallback {
+    width: 100%;
+    height: 100%;
+    display: block;
   }
 
-  &__stats {
+  // 좌하단 플로팅 이름 카드 (x=24/342≈7%, y=348/454≈76.65%, w=294/342≈86%)
+  &__name-card {
+    position: absolute;
+    left: 7%;
+    top: 76.65%;
+    width: 86%;
+    background: $color-bg-primary;
+    border-radius: $radius-sm;
+    padding: $spacing-4 $spacing-5;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: $spacing-2;
-    font-size: $font-size-sm;
-    color: $color-text-secondary;
-    margin-bottom: $spacing-3;
-  }
-
-  &__stat {
-    display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: $spacing-1;
   }
 
-  &__star {
-    width: 0.875rem;
-    height: 0.875rem;
-    color: $color-star;
+  &__name {
+    font-family: $font-family-base;
+    font-size: 1.125rem; // 18px — 피그마 title 3
+    font-weight: $font-weight-medium;
+    line-height: 1.4444;
+    letter-spacing: $letter-spacing-normal;
+    color: $color-text-primary;
   }
 
-  &__divider {
-    width: $border-thin;
-    height: 0.75rem;
-    background: $color-border;
+  &__specialty {
+    font-family: $font-family-base;
+    font-size: 0.875rem; // 14px — 피그마 body 3
+    font-weight: $font-weight-regular;
+    line-height: 1.4286;
+    letter-spacing: $letter-spacing-normal;
+    color: $color-text-secondary;
   }
 
-  &__courses {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: $color-primary;
-    color: $color-text-inverse;
-    font-size: $font-size-xs;
-    font-weight: $font-weight-bold;
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: $radius-circle;
+  &__status {
+    padding: $spacing-12 0;
+    text-align: center;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
   }
 }
 

@@ -57,7 +57,7 @@ export default function OrderDetailContent({ orderId }: OrderDetailContentProps)
         <div className={`${SK}__not-found`}>
           <h2 className={`${SK}__not-found-title`}>{pageData.notFoundTitle}</h2>
           <p className={`${SK}__not-found-desc`}>{pageData.notFoundDescription}</p>
-          <Link href="/mypage" className={`${SK}__not-found-link`}>
+          <Link href="/mypage/orders" className={`${SK}__not-found-link`}>
             {pageData.notFoundLinkLabel}
           </Link>
         </div>
@@ -69,7 +69,7 @@ export default function OrderDetailContent({ orderId }: OrderDetailContentProps)
 
   return (
     <div className={`${SK}`}>
-      <Link href="/mypage" className={`${SK}__back`} aria-label={pageData.backAriaLabel}>
+      <Link href="/mypage/orders" className={`${SK}__back`} aria-label={pageData.backAriaLabel}>
         &larr; {pageData.backLabel}
       </Link>
 

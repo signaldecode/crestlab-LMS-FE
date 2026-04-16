@@ -21,6 +21,7 @@ import type {
   ProfileCardOptions,
   CommunityLevelData,
 } from '@/types';
+import { resolveImageUrl } from '@/lib/images';
 
 interface ProfileCardProps {
   /** 유저 정보 */
@@ -65,15 +66,16 @@ export default function ProfileCard({
   children,
 }: ProfileCardProps): JSX.Element {
   const opts = { ...DEFAULT_OPTIONS, ...options };
+  const profileImageUrl = resolveImageUrl(user.profileImage);
 
   return (
     <div className="profile-card" aria-label={ariaLabel}>
       {/* ── 커버 + 아바타 (겹침) ── */}
       {opts.showCover && (
         <div className="profile-card__cover">
-          {user.profileImage ? (
+          {profileImageUrl ? (
             <Image
-              src={user.profileImage}
+              src={profileImageUrl}
               alt={coverImageAlt ?? ''}
               fill
               sizes="300px"
@@ -176,10 +178,11 @@ export default function ProfileCard({
 
 /** 아바타 이미지 (내부 헬퍼) */
 function AvatarImage({ user, avatarAlt }: { user: ProfileCardUser; avatarAlt?: string }): JSX.Element {
-  if (user.profileImage) {
+  const avatarUrl = resolveImageUrl(user.profileImage);
+  if (avatarUrl) {
     return (
       <Image
-        src={user.profileImage}
+        src={avatarUrl}
         alt={avatarAlt ?? `${user.nickname} 프로필`}
         width={72}
         height={72}

@@ -209,7 +209,17 @@
     white-space: nowrap;
 
     &--best {
-      background: linear-gradient(143deg, #010101 0%, #1778F2 96%);
+      background: $gradient-badge-best;
+      color: $color-text-inverse;
+    }
+
+    &--new {
+      background: $color-badge-new;
+      color: $color-text-inverse;
+    }
+
+    &--hot {
+      background: $color-badge-hot;
       color: $color-text-inverse;
     }
 

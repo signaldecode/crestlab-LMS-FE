@@ -371,14 +371,129 @@
   },
   "about": {
     "seo": {
-      "title": "소개 — 강의 플랫폼",
-      "description": "강의 플랫폼 소개 및 비전"
+      "title": "브랜드 소개 — 크래스트랩",
+      "description": "데이터 기반 커리큘럼, 현직 전문가 강사진, 안심 학습 서비스까지. 크래스트랩이 제공하는 최고의 학습 경험을 소개합니다."
     },
-    "comingSoon": {
-      "title": "회사 소개 페이지를 준비 중입니다",
-      "description": "곧 미션, 팀, 연혁을 담은 소개 페이지로 찾아뵐게요. 문의는 고객센터를 통해 보내주시면 빠르게 도와드리겠습니다.",
-      "primaryAction": { "label": "강의 둘러보기", "href": "/courses", "ariaLabel": "전체 강의 페이지로 이동" },
-      "secondaryAction": { "label": "고객센터", "href": "/support", "ariaLabel": "고객센터로 이동" }
+    "ariaLabel": "브랜드 소개",
+    "hero": {
+      "eyebrow": "Intro",
+      "title": "비트코인, 주식, 부동산\n시장을 이기는 단 하나의 선택.",
+      "tablet": {
+        "alt": "수강생 투자 성과 성장 그래프 태블릿 목업",
+        "dashboardAlt": "태블릿 대시보드 화면",
+        "chips": ["+70%", "+56%", "+64%", "+90%"],
+        "guides": ["100%", "80%", "80%", "60%", "40%", "0%"]
+      }
+    },
+    "data": {
+      "eyebrow": "Data",
+      "title": "수강생 투자 전/후 결과 분석 대시보드",
+      "cards": [
+        {
+          "title": "검증된 데이터 기반\n커리큘럼 성과",
+          "body": "객관적인 데이터 분석을 기반으로 설계된 커리큘럼을 통해\n실질적인 투자 성과로 이어지는 학습을 제공합니다.",
+          "chartAriaLabel": "기초 학습 전후 포트폴리오 수익률 비교 차트",
+          "bars": [
+            { "label": "+10%", "height": 60, "caption": "기초 학습 전\n포트폴리오", "tone": "muted" },
+            { "label": "+120%", "height": 280, "caption": "기초 학습 후\n포트폴리오", "tone": "accent" }
+          ]
+        },
+        {
+          "title": "실질적인 투자\n결과 분석",
+          "body": "실제 투자 데이터를 기반으로 성과를 분석하고\n더 나은 의사결정을 위한 인사이트를 제공합니다.",
+          "chartAriaLabel": "투자 단계별 성과 비교 차트",
+          "bars": [
+            { "label": "+8%", "height": 47, "caption": "투자 시작\n단계", "tone": "muted" },
+            { "label": "+20%", "height": 159, "caption": "전략 적용\n단계", "tone": "muted" },
+            { "label": "+120%", "height": 280, "caption": "성과 개선\n결과", "tone": "accent" }
+          ]
+        }
+      ]
+    },
+    "experience": {
+      "eyebrow": "Experience",
+      "title": "최고의 학습 경험을 선사합니다",
+      "cards": [
+        {
+          "icon": "/images/about/3Dsecurity.png",
+          "iconAlt": "수강생 보호 정책 3D 아이콘",
+          "title": "수강생 보호 정책",
+          "body": "안전한 개인정보 관리, 학습 이력 꼼꼼한 보호\n유료 콘텐츠 불법 공유 방지"
+        },
+        {
+          "icon": "/images/about/3Dpie.png",
+          "iconAlt": "안심 학습 서비스 3D 아이콘",
+          "title": "안심 학습 서비스",
+          "body": "세심한 보호 아래 학습에 집중, 언제 어디서든\n수강하며 함께 성장하는 커뮤니티"
+        }
+      ],
+      "banner": {
+        "top": "수강생 안심 성장을 위한 단 하나의 플랫폼",
+        "bottom": "안전한 개인정보 관리와 수강생 보호 정책을 기반으로 학습 이력을 꼼꼼하게 보호하며\n학습에 집중할 수 있는 환경을 제공합니다."
+      }
+    },
+    "evolution": {
+      "eyebrow": "Evolution",
+      "title": "강의의 기준을 다시 정의",
+      "watermark": "CRAST LAB",
+      "phone": {
+        "frame": "/images/about/phone.png",
+        "alt": "모바일 강의 수강 화면 목업",
+        "screens": [
+          "/images/about/phoneContent1.png",
+          "/images/about/phoneContent2.png",
+          "/images/about/phoneContent3.png",
+          "/images/about/phoneContent4.png",
+          "/images/about/phoneContent5.png",
+          "/images/about/phoneContent6.png"
+        ]
+      },
+      "mock": {
+        "heading": "크래스트랩은 오직 최고의 강의만을\n수강생들에게 제공합니다.",
+        "body": "실제 시장에서 검증된 전략과 노하우를 바탕으로\n실질적인 성과로 이어지는 학습을 지원합니다",
+        "actions": [
+          { "label": "취소", "variant": "ghost", "ariaLabel": "취소 버튼 예시" },
+          { "label": "다음", "variant": "primary", "ariaLabel": "다음 버튼 예시" }
+        ]
+      }
+    },
+    "professionals": {
+      "eyebrow": "Professionals",
+      "title": "현직 전문가로 구성된\n프리미엄 강사진",
+      "body": "다양한 시장 경험을 갖춘 전문가들이\n데이터와 인사이트를 기반으로 체계적인 교육을 제공합니다.",
+      "followLabel": "팔로우",
+      "listAriaLabel": "크래스트랩 추천 강사 목록",
+      "instructors": [
+        { "name": "주식전문가", "followers": 5920, "active": true },
+        { "name": "부동산 전문가", "followers": 5143 },
+        { "name": "비트코인 전문가", "followers": 1277 },
+        { "name": "최고의 강사", "followers": 9121 },
+        { "name": "최적의 강사", "followers": 4521 },
+        { "name": "인기 강사", "followers": 7010 }
+      ]
+    },
+    "trust": {
+      "eyebrow": "Trust",
+      "title": "안정성과 효율성을 갖춘\n통합 결제 시스템",
+      "body": "안전한 결제 환경과 최적화된 프로세스를 통해\n누구나 빠르고 간편하게 이용할 수 있는 결제 경험을 제공합니다",
+      "mock": {
+        "ariaLabel": "통합 결제 시스템 UI 목업",
+        "selects": [
+          { "id": "about-trust-year", "label": "연도", "value": "2024" },
+          { "id": "about-trust-month", "label": "월", "value": "12" }
+        ],
+        "input": { "id": "about-trust-cvc", "label": "보안 코드", "value": "123" },
+        "switchLabel": "DEFAULT",
+        "cta": "Add now",
+        "card": {
+          "brand": "Mastercard",
+          "masked": "**** **** **** 0000",
+          "holderLabel": "Card Holder Name",
+          "holderValue": "Tiana Rosser",
+          "expiryLabel": "Expiry Date",
+          "expiryValue": "05/23"
+        }
+      }
     }
   },
   "instructorApply": {
@@ -1389,19 +1504,43 @@
         "basicTitle": "기본 정보",
         "enrollmentsTitle": "수강 현황",
         "paymentsTitle": "결제 내역",
-        "pointsTitle": "포인트 조정"
+        "pointsTitle": "포인트 조정",
+        "couponsTitle": "보유 쿠폰"
       },
       "tabs": {
         "basicLabel": "기본 정보",
         "enrollmentsLabel": "수강 현황",
         "paymentsLabel": "결제 내역",
-        "pointsLabel": "포인트 조정"
+        "pointsLabel": "포인트",
+        "couponsLabel": "쿠폰"
       },
       "points": {
         "description": "이 사용자의 포인트를 수동으로 적립(양수)하거나 차감(음수)합니다. 0은 입력할 수 없으며 사유는 필수입니다.",
         "balanceLabel": "현재 보유 포인트",
         "balanceUnit": "P",
-        "balanceUnavailableText": "보유 포인트 정보는 추후 제공됩니다.",
+        "balanceUnavailableText": "잔액 정보를 불러올 수 없습니다.",
+        "expiringLabel": "30일 내 소멸 예정",
+        "historyTitle": "포인트 내역",
+        "historyEmpty": "포인트 내역이 없습니다.",
+        "historyFilters": {
+          "allLabel": "전체",
+          "earnLabel": "적립",
+          "useLabel": "사용",
+          "expireLabel": "소멸"
+        },
+        "historyColumns": {
+          "type": "구분",
+          "amount": "포인트",
+          "description": "내용",
+          "createdAt": "일자"
+        },
+        "historyTypeLabels": {
+          "EARN": "적립",
+          "USE": "사용",
+          "EXPIRE": "소멸"
+        },
+        "paginationPrev": "이전",
+        "paginationNext": "다음",
         "fields": {
           "amountLabel": "조절 포인트",
           "amountPlaceholder": "양수=적립, 음수=차감 (예: 1000 또는 -500)",
@@ -1425,6 +1564,23 @@
         "successText": "포인트 조정이 완료되었습니다.",
         "successCloseLabel": "확인",
         "actions": { "submitLabel": "조정하기", "resetLabel": "초기화" }
+      },
+      "coupons": {
+        "tabActive": "보유중",
+        "tabUnavailable": "사용불가",
+        "tabUsed": "사용완료",
+        "emptyActive": "보유 중인 쿠폰이 없습니다.",
+        "emptyUnavailable": "사용불가 쿠폰이 없습니다.",
+        "emptyUsed": "사용완료된 쿠폰이 없습니다.",
+        "columns": {
+          "couponName": "쿠폰명",
+          "discount": "할인",
+          "period": "유효기간",
+          "status": "상태"
+        },
+        "statusUsable": "사용가능",
+        "statusUnusable": "사용불가",
+        "statusUsed": "사용완료"
       },
       "labels": {
         "id": "ID",
@@ -1819,7 +1975,12 @@
           },
           "retryLabel": "재시도 중…",
           "retryFailedLabel": "재인코딩",
-          "loadErrorLabel": "상태 조회 실패"
+          "loadErrorLabel": "상태 조회 실패",
+          "previewLabel": "미리보기",
+          "previewAriaLabel": "관리자 미리보기 재생",
+          "previewLoadingLabel": "미리보기 URL 발급 중…",
+          "previewModalTitle": "영상 미리보기",
+          "previewErrorLabel": "미리보기 URL을 가져오지 못했습니다."
         }
       }
     },

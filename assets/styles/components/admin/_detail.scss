@@ -47,12 +47,18 @@
 
   &__balance {
     display: flex;
-    flex-direction: column;
-    gap: $spacing-1;
+    flex-wrap: wrap;
+    gap: $spacing-6;
     padding: $spacing-4 $spacing-5;
     background-color: $color-bg-secondary;
     border-radius: $spacing-2;
-    margin: $spacing-0;
+    margin: $spacing-0 $spacing-0 $spacing-6;
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-1;
+    }
   }
 
   &__balance-label {
@@ -68,6 +74,104 @@
     font-weight: $font-weight-bold;
     color: $color-text-primary;
     margin: $spacing-0;
+    font-variant-numeric: tabular-nums;
+
+    &--muted {
+      color: $color-text-secondary;
+      font-weight: $font-weight-semibold;
+    }
+  }
+
+  // 포인트 내역 섹션
+  &__history {
+    margin: $spacing-6 $spacing-0;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+  }
+
+  &__history-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: $spacing-3;
+  }
+
+  &__history-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: $spacing-0;
+  }
+
+  &__history-filters {
+    display: flex;
+    gap: $spacing-1;
+    background: $color-bg-secondary;
+    border-radius: $spacing-2;
+    padding: $spacing-1;
+  }
+
+  &__history-filter {
+    padding: $spacing-1 $spacing-3;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    background: transparent;
+    border: none;
+    border-radius: $spacing-1;
+    cursor: pointer;
+    transition: background-color $duration-normal, color $duration-normal;
+
+    &.is-active {
+      background: $color-bg-primary;
+      color: $color-text-primary;
+      font-weight: $font-weight-semibold;
+      box-shadow: $shadow-sm;
+    }
+
+    &:hover:not(.is-active) {
+      color: $color-text-primary;
+    }
+  }
+
+  &__history-type {
+    display: inline-flex;
+    align-items: center;
+    padding: $spacing-1 $spacing-2;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    border-radius: $spacing-1;
+    background: $color-bg-tertiary;
+    color: $color-text-secondary;
+
+    &--earn {
+      background: color-mix(in srgb, $color-success 15%, transparent);
+      color: $color-success;
+    }
+
+    &--use {
+      background: color-mix(in srgb, $color-primary 15%, transparent);
+      color: $color-primary;
+    }
+
+    &--expire {
+      background: color-mix(in srgb, $color-text-muted 15%, transparent);
+      color: $color-text-muted;
+    }
+  }
+
+  &__pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-3;
+    margin-top: $spacing-4;
+  }
+
+  &__pagination-info {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
     font-variant-numeric: tabular-nums;
   }
 
@@ -208,5 +312,64 @@
     display: flex;
     justify-content: flex-end;
     gap: $spacing-2;
+  }
+}
+
+// ============================================
+// 관리자 — 사용자 쿠폰 패널
+// ============================================
+.admin-user-coupons {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+
+  &__tabs {
+    display: flex;
+    gap: $spacing-2;
+    border-bottom: $border-thin solid $color-border;
+  }
+
+  &__tab {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-2;
+    padding: $spacing-3 $spacing-4;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    background: transparent;
+    border: none;
+    border-bottom: 0.125rem solid transparent;
+    cursor: pointer;
+    transition: color $duration-normal, border-color $duration-normal;
+    margin-bottom: -0.0625rem;
+
+    &.is-active {
+      color: $color-text-primary;
+      border-bottom-color: $color-text-primary;
+      font-weight: $font-weight-semibold;
+    }
+
+    &:hover:not(.is-active) {
+      color: $color-text-primary;
+    }
+  }
+
+  &__tab-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.375rem;
+    height: 1.375rem;
+    padding: $spacing-0 $spacing-2;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    background: $color-bg-tertiary;
+    color: $color-text-secondary;
+    border-radius: 0.6875rem;
+
+    .admin-user-coupons__tab.is-active & {
+      background: $color-primary;
+      color: $color-text-inverse;
+    }
   }
 }

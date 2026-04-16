@@ -30,13 +30,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: $spacing-5;
-  }
-
-  &__filters {
-    display: flex;
-    align-items: center;
-    gap: $spacing-3;
+    gap: $spacing-4;
+    margin-bottom: $spacing-6;
+    flex-wrap: wrap;
   }
 
   &__count {
@@ -50,31 +46,39 @@
     }
   }
 
-  &__sort {
+  &__sort-pills {
     display: flex;
     align-items: center;
-    gap: $spacing-1;
-    position: relative;
+    gap: $spacing-2;
+    flex-wrap: wrap;
   }
 
-  &__sort-select {
-    appearance: none;
-    background: none;
-    border: none;
-    outline: none;
+  &__sort-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-2 $spacing-4;
+    min-height: 2rem;
     font-size: $font-size-sm;
-    font-weight: $font-weight-regular;
-    color: $color-text-primary;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    background: transparent;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-full;
     letter-spacing: $letter-spacing-normal;
     cursor: pointer;
-    padding-right: $spacing-6;
-  }
+    transition: background $duration-fast $ease-default, color $duration-fast $ease-default, border-color $duration-fast $ease-default;
 
-  &__sort-icon {
-    position: absolute;
-    right: 0;
-    color: $color-text-secondary;
-    pointer-events: none;
+    &:hover:not(.courses-page__sort-pill--active) {
+      border-color: $color-text-muted;
+      color: $color-text-primary;
+    }
+
+    &--active {
+      background: $color-text-primary;
+      border-color: $color-text-primary;
+      color: $color-text-inverse;
+    }
   }
 
   // ── 4열 카드 그리드 ──

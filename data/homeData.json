@@ -55,6 +55,21 @@
       }
     ]
   },
+  "homeMainCurations": {
+    "_comment": "백엔드 GET /api/v1/main 의 bestCourses/recommendedCourses/newCourses 섹션 메타",
+    "best": {
+      "subtitle": "BEST",
+      "title": "지금 가장 인기 있는 강의"
+    },
+    "recommended": {
+      "subtitle": "RECOMMEND",
+      "title": "에디터 추천 강의"
+    },
+    "new": {
+      "subtitle": "NEW",
+      "title": "최근 등록된 강의"
+    }
+  },
   "homeSections": [
     {
       "title": "이주의 추천 프로그램",
@@ -508,7 +523,7 @@
   "bestReviews": {
     "meta": {
       "label": "Review",
-      "title": "LectureHub 수강생 후기",
+      "title": "크레스트랩 수강생 후기",
       "description": "나도 할 수 있을까? 고민이 된다면 수강생들의 성장 경험을 들어보세요.",
       "ariaLabel": "수강생 베스트 후기 섹션"
     },
@@ -875,7 +890,8 @@
   },
   "homeInstructors": {
     "meta": {
-      "title": "최고의 전문가에게 배우세요",
+      "subtitle": "program",
+      "title": "이주의 베스트 프로그램",
       "description": "각 분야 최고의 전문가들이 직접 강의합니다",
       "ariaLabel": "인기 강사 소개"
     },

@@ -94,4 +94,49 @@
     font-size: $font-size-xs;
     color: $color-error;
   }
+
+  &__preview {
+    align-self: flex-start;
+    padding: $spacing-1 $spacing-2;
+    font-size: $font-size-xs;
+    font-family: $font-family-base;
+    color: $color-primary;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-primary;
+    border-radius: $spacing-1;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba($color-primary, 0.08);
+    }
+  }
+
+  &__preview-body {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+    width: 100%;
+  }
+
+  &__preview-player {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: $color-dark-bg;
+    border-radius: $radius-sm;
+    overflow: hidden;
+  }
+
+  &__preview-state {
+    margin: 0;
+    padding: $spacing-4;
+    text-align: center;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+}
+
+// 미리보기 모달을 열 때 공용 모달 폭을 영상 크기에 맞춰 확장
+.modal-content:has(.video-encoding-status__preview-body) {
+  max-width: min(56rem, 90vw);
+  width: min(56rem, 90vw);
 }

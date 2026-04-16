@@ -31,22 +31,26 @@ export default function CouponContent(): JSX.Element {
       void refetch();
     },
   );
-  const now = Date.now();
-  const activeCoupons = allCoupons.filter((c) => !c.isUsed && new Date(c.expiresAt).getTime() > now);
-  const expiredCoupons = allCoupons.filter((c) => c.isUsed || new Date(c.expiresAt).getTime() <= now);
+  /** 보유중: 미사용 + 사용가능 */
+  const activeCoupons = allCoupons.filter((c) => !c.isUsed && c.isUsable);
+  /** 사용불가: 미사용이지만 비활성화/만료/수량소진 */
+  const unavailableCoupons = allCoupons.filter((c) => !c.isUsed && !c.isUsable);
+  /** 사용완료 */
+  const usedCoupons = allCoupons.filter((c) => c.isUsed);
 
   const [couponCode, setCouponCode] = useState('');
-  const [activeTab, setActiveTab] = useState<'active' | 'used'>('active');
+  const [activeTab, setActiveTab] = useState<'active' | 'unavailable' | 'used'>('active');
   const [currentPage, setCurrentPage] = useState(1);
 
   /* 탭 전환 시 페이지 리셋 */
-  const handleTabChange = (tab: 'active' | 'used') => {
+  const handleTabChange = (tab: 'active' | 'unavailable' | 'used') => {
     setActiveTab(tab);
     setCurrentPage(1);
   };
 
   /* 현재 탭의 쿠폰 목록 */
-  const currentList = activeTab === 'active' ? activeCoupons : expiredCoupons;
+  const tabListMap = { active: activeCoupons, unavailable: unavailableCoupons, used: usedCoupons };
+  const currentList = tabListMap[activeTab];
   const totalPages = Math.max(1, Math.ceil(currentList.length / PER_PAGE));
   const pagedList = useMemo(
     () => currentList.slice((currentPage - 1) * PER_PAGE, currentPage * PER_PAGE),
@@ -114,26 +118,23 @@ export default function CouponContent(): JSX.Element {
 
         {/* 탭 */}
         <div className={`${SK}__tabs`} role="tablist">
-          <button
-            type="button"
-            role="tab"
-            aria-selected={activeTab === 'active'}
-            className={`${SK}__tab ${activeTab === 'active' ? `${SK}__tab--active` : ''}`}
-            onClick={() => handleTabChange('active')}
-          >
-            {pageData.tabActive}
-            <span className={`${SK}__tab-count`}>{activeCoupons.length}</span>
-          </button>
-          <button
-            type="button"
-            role="tab"
-            aria-selected={activeTab === 'used'}
-            className={`${SK}__tab ${activeTab === 'used' ? `${SK}__tab--active` : ''}`}
-            onClick={() => handleTabChange('used')}
-          >
-            {pageData.tabUsed}
-            <span className={`${SK}__tab-count`}>{expiredCoupons.length}</span>
-          </button>
+          {([
+            { key: 'active', label: pageData.tabActive, count: activeCoupons.length },
+            { key: 'unavailable', label: pageData.tabUnavailable, count: unavailableCoupons.length },
+            { key: 'used', label: pageData.tabUsed, count: usedCoupons.length },
+          ] as const).map(({ key, label, count }) => (
+            <button
+              key={key}
+              type="button"
+              role="tab"
+              aria-selected={activeTab === key}
+              className={`${SK}__tab ${activeTab === key ? `${SK}__tab--active` : ''}`}
+              onClick={() => handleTabChange(key)}
+            >
+              {label}
+              <span className={`${SK}__tab-count`}>{count}</span>
+            </button>
+          ))}
         </div>
 
         {/* 카드 그리드 */}
@@ -151,14 +152,16 @@ export default function CouponContent(): JSX.Element {
               <CouponCard
                 key={coupon.userCouponId}
                 coupon={coupon}
-                isExpired={activeTab === 'used'}
+                isDisabled={activeTab !== 'active'}
               />
             ))}
           </div>
         ) : (
           <div className={`${SK}__empty`}>
             <p className={`${SK}__empty-text`}>
-              {activeTab === 'active' ? pageData.emptyText : pageData.emptyUsedText}
+              {activeTab === 'active' && pageData.emptyText}
+              {activeTab === 'unavailable' && pageData.emptyUnavailableText}
+              {activeTab === 'used' && pageData.emptyUsedText}
             </p>
           </div>
         )}
@@ -213,7 +216,7 @@ export default function CouponContent(): JSX.Element {
 /* ── 쿠폰 카드 ── */
 interface CouponCardProps {
   coupon: UserCoupon;
-  isExpired: boolean;
+  isDisabled: boolean;
 }
 
 function formatDate(iso: string): string {
@@ -221,9 +224,9 @@ function formatDate(iso: string): string {
   return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
 }
 
-function CouponCard({ coupon, isExpired }: CouponCardProps) {
+function CouponCard({ coupon, isDisabled }: CouponCardProps) {
   return (
-    <div className={`${SK}__card ${isExpired ? `${SK}__card--expired` : ''}`}>
+    <div className={`${SK}__card ${isDisabled ? `${SK}__card--disabled` : ''}`}>
       <div className={`${SK}__card-body`}>
         <span className={`${SK}__card-discount`}>{coupon.discountInfo}</span>
         <div className={`${SK}__card-info`}>

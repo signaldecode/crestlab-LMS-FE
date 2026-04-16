@@ -58,11 +58,6 @@
     },
     "main": [
       {
-        "label": "회사소개",
-        "href": "/about",
-        "ariaLabel": "회사소개 페이지"
-      },
-      {
         "label": "게시판",
         "href": "/board",
         "ariaLabel": "게시판"
@@ -173,10 +168,10 @@
     }
   },
   "footer": {
-    "copyright": "© LECTUREHUB. ALL RIGHTS RESERVED.",
+    "copyright": "© 크레스트랩. ALL RIGHTS RESERVED.",
     "inquiryButton": {
       "label": "문의하기",
-      "href": "/support/tickets/new",
+      "href": "/mypage/tickets/new",
       "ariaLabel": "문의하기 페이지로 이동"
     },
     "mainLinks": [
@@ -249,7 +244,7 @@
       },
       {
         "label": "제휴 문의",
-        "href": "/support/tickets/new",
+        "href": "/mypage/tickets/new",
         "ariaLabel": "제휴 문의로 이동"
       }
     ]

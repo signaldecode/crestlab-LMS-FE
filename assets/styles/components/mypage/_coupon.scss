@@ -165,7 +165,7 @@
     transition: opacity $duration-normal;
     container-type: inline-size;
 
-    &--expired {
+    &--disabled {
       opacity: 0.5;
       filter: grayscale(0.4);
     }

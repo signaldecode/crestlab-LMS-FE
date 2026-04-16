@@ -458,6 +458,8 @@ export interface UserCoupon {
   startsAt: string;
   expiresAt: string;
   isUsed: boolean;
+  /** 현재 사용 가능 여부 (관리자 비활성화/만료/수량소진/사용완료 시 false) */
+  isUsable: boolean;
 }
 
 export function fetchMyCoupons(): Promise<UserCoupon[]> {
@@ -654,7 +656,7 @@ export async function fetchNews(params: NewsListParams = {}): Promise<NewsPageRe
 /* ────────────────────────────────────────────
  *  Course Q&A
  * ────────────────────────────────────────────*/
-export type QuestionStatus = 'PENDING' | 'ANSWERED';
+export type QuestionStatus = 'WAITING' | 'ANSWERED';
 
 export interface QuestionItem {
   id: number;
@@ -698,6 +700,13 @@ export function fetchQuestion(questionId: number): Promise<QuestionDetail> {
 
 export function createQuestion(courseId: number, body: { title: string; content: string }): Promise<QuestionItem> {
   return request<QuestionItem>(`v1/courses/${courseId}/questions`, { method: 'POST', body });
+}
+
+/* ────────────────────────────────────────────
+ *  내가 작성한 Q&A 목록 (`GET /v1/my/questions`) — 2026-04-16 추가
+ * ────────────────────────────────────────────*/
+export function fetchMyQuestions(params: { page?: number; size?: number } = {}): Promise<QuestionPageResponse> {
+  return request<QuestionPageResponse>('v1/my/questions', { query: { ...params } });
 }
 
 export function updateQuestion(questionId: number, body: { title: string; content: string }): Promise<QuestionItem> {
@@ -996,11 +1005,12 @@ export function registerCouponCode(code: string): Promise<void> {
 /* ────────────────────────────────────────────
  *  My reviews (수강한 강의에 내가 쓴 후기)
  * ────────────────────────────────────────────*/
-/** 내가 작성한 후기 목록 (백엔드 `MyReviewResponse`) — 썸네일 미포함 */
+/** 내가 작성한 후기 목록 (백엔드 `MyReviewResponse`) */
 export interface MyReviewItem {
   reviewId: number;
   courseId: number;
   courseTitle: string;
+  courseThumbnailUrl: string;
   content: string;
   rating: number;
   createdAt: string;
@@ -1085,6 +1095,71 @@ export function searchUsers(
   params: PageParams = {},
 ): Promise<SearchGroup<SearchUserItem>> {
   return request<SearchGroup<SearchUserItem>>('v1/search/users', { query: { keyword, ...params } });
+}
+
+/* ────────────────────────────────────────────
+ *  Main Page 통합 (`GET /api/v1/main`) — Redis 5분 캐시
+ * ────────────────────────────────────────────*/
+export interface MainBanner {
+  id: number;
+  title: string;
+  pcImageUrl: string;
+  mobileImageUrl: string;
+  linkUrl: string;
+}
+
+export interface MainCategory {
+  id: number;
+  name: string;
+}
+
+export interface MainCourseCard {
+  courseId: number;
+  thumbnailUrl: string;
+  title: string;
+  averageRating: number;
+  reviewCount: number;
+  instructorNames: string[];
+  tags: string[];
+}
+
+export interface MainReviewCard {
+  id: number;
+  nickname: string;
+  rating: number;
+  content: string;
+  createdAt: string;
+}
+
+export interface MainInstructorCard {
+  id: number;
+  name: string;
+  profileImageUrl: string | null;
+  specialty: string | null;
+}
+
+export interface MainNewsCard {
+  id: number;
+  title: string;
+  thumbnailUrl: string | null;
+  category: NewsCategory;
+  publishedAt: string;
+}
+
+/** 백엔드 `MainPageResponse` — 홈에 필요한 모든 데이터를 한 번에 반환 */
+export interface MainPageResponse {
+  banners: MainBanner[];
+  categories: MainCategory[];
+  bestCourses: MainCourseCard[];        // 최대 9
+  recommendedCourses: MainCourseCard[]; // 최대 9
+  newCourses: MainCourseCard[];         // 최대 9
+  topReviews: MainReviewCard[];         // 최대 20
+  instructors: MainInstructorCard[];    // 최대 8
+  latestNews: MainNewsCard[];           // 최대 8
+}
+
+export function fetchMainPage(): Promise<MainPageResponse> {
+  return request<MainPageResponse>('v1/main');
 }
 
 /* ────────────────────────────────────────────

@@ -71,6 +71,14 @@
     }
   }
 
+  // 로딩/에러/빈 상태
+  &__status {
+    padding: $spacing-12 0;
+    text-align: center;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+
   // 3열 그리드
   &__grid {
     display: grid;

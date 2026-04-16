@@ -34,9 +34,8 @@
     display: inline-block;
     font-size: $font-size-sm;
     font-weight: $font-weight-semibold;
-    color: $color-primary;
+    color: $color-text-inverse;
     letter-spacing: $letter-spacing-wide;
-    text-transform: uppercase;
     margin-bottom: $spacing-3;
   }
 
@@ -121,6 +120,14 @@
     }
   }
 
+  // ── 로딩/에러/빈 상태 ──
+  &__status {
+    padding: $spacing-12 0;
+    text-align: center;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+
   // ── 마퀴 영역 (풀 블리드) ──
   &__rows {
     width: 100vw;
@@ -148,11 +155,11 @@
     padding: $spacing-2 0;
 
     &--left {
-      animation: marquee-scroll-left 50s linear infinite;
+      animation: marquee-scroll-left 100s linear infinite;
     }
 
     &--right {
-      animation: marquee-scroll-right 50s linear infinite;
+      animation: marquee-scroll-right 100s linear infinite;
     }
   }
 
@@ -192,12 +199,13 @@
     width: 1.875rem;
     height: 1.875rem;
     border-radius: $radius-circle;
+    border: 1px solid $color-border;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: $font-size-sm;
     font-weight: $font-weight-bold;
-    color: $color-text-inverse;
+    color: $color-text-primary;
     flex-shrink: 0;
     line-height: 1;
 

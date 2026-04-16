@@ -27,7 +27,13 @@ export default function CourseDetailSidebar({ course }: CourseDetailSidebarProps
   const { isLoggedIn } = useAuth();
   const addRecent = useWishlistStore((s) => s.addRecent);
   const { wished, toggle } = useCourseFavorite(course.id, course.slug);
-  const wishCount = 120;
+  const [favoriteDelta, setFavoriteDelta] = useState(0);
+  const wishCount = (course.favoriteCount ?? 0) + favoriteDelta;
+
+  const handleToggleFavorite = useCallback(async () => {
+    setFavoriteDelta((d) => d + (wished ? -1 : 1));
+    await toggle();
+  }, [wished, toggle]);
 
   const [enrolling, setEnrolling] = useState(false);
   const [enrollError, setEnrollError] = useState('');
@@ -152,7 +158,7 @@ export default function CourseDetailSidebar({ course }: CourseDetailSidebarProps
           <button
             type="button"
             className={`course-detail-sidebar__wish-btn${wished ? ' course-detail-sidebar__wish-btn--active' : ''}`}
-            onClick={() => { void toggle(); }}
+            onClick={() => { void handleToggleFavorite(); }}
             aria-label={wished ? '찜 해제' : '찜하기'}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill={wished ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2">

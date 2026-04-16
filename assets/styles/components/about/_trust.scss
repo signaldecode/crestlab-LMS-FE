@@ -1,0 +1,219 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+
+// ============================================
+// About — Trust (_trust.scss)
+// - 좌: 결제 UI + 신용카드 목업 / 우: 카피
+// ============================================
+
+.about-trust {
+  &__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-16;
+    align-items: center;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
+      gap: $spacing-10;
+    }
+  }
+
+  &__copy {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+  }
+
+  &__title {
+    font-family: $font-family-heading;
+    font-size: 2.625rem;
+    font-weight: $font-weight-bold;
+    line-height: 1.29;
+    color: $color-text-black;
+    margin: 0;
+    white-space: pre-line;
+
+    @media (max-width: 1024px) { font-size: 2rem; }
+    @media (max-width: 640px)  { font-size: 1.5rem; }
+  }
+
+  &__body {
+    font-family: $font-family-base;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-regular;
+    line-height: 1.4;
+    color: $color-text-secondary;
+    margin: 0;
+    white-space: pre-line;
+  }
+
+  /* 좌측 결제 UI 카드 아일랜드 */
+  &__card {
+    position: relative;
+    background: $color-bg-basic;
+    border-radius: $radius-xl2;
+    padding: $spacing-12;
+    min-height: 28rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-8;
+
+    @media (max-width: 640px) { padding: $spacing-8; }
+  }
+
+  &__form {
+    width: 100%;
+    max-width: 22rem;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+    padding: $spacing-6;
+    border-radius: $radius-lg;
+    background: #333237;
+  }
+
+  &__row {
+    display: flex;
+    gap: $spacing-3;
+  }
+
+  &__select,
+  &__input {
+    flex: 1;
+    height: 3.125rem;
+    padding: $spacing-3 $spacing-4;
+    border-radius: $radius-sm;
+    border: 0;
+    background: #4E4E4E;
+    color: $color-text-inverse;
+    font-family: $font-family-base;
+    font-size: $font-size-sm;
+    line-height: 1;
+  }
+
+  &__switch {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+  }
+
+  &__switch-track {
+    position: relative;
+    width: 3rem;
+    height: 1.75rem;
+    border-radius: $radius-full;
+    background: $color-primary;
+    transition: background $duration-fast $ease-default;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0.25rem;
+      left: 1.5rem;
+      width: 1.25rem;
+      height: 1.25rem;
+      border-radius: $radius-full;
+      background: $color-text-inverse;
+      transition: left $duration-fast $ease-default;
+    }
+  }
+
+  &__switch-label {
+    font-family: $font-family-base;
+    font-size: $font-size-xs;
+    color: $color-text-inverse;
+  }
+
+  &__cta {
+    width: 100%;
+    height: 3.125rem;
+    border-radius: $radius-sm;
+    border: 0;
+    background: $color-text-inverse;
+    color: $color-text-black;
+    font-family: $font-family-base;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    box-shadow: 0 $spacing-1 $spacing-2 rgba(50, 50, 71, 0.08);
+    cursor: pointer;
+    transition: opacity $duration-fast $ease-default;
+
+    &:hover { opacity: $opacity-subtle; }
+  }
+
+  /* 신용카드 mockup */
+  &__credit-card {
+    width: 100%;
+    max-width: 21.5rem;
+    aspect-ratio: 343 / 216;
+    border-radius: $radius-md;
+    padding: $spacing-6;
+    background:
+      radial-gradient(circle at 85% 15%, rgba(255, 186, 73, 0.5) 0%, transparent 40%),
+      radial-gradient(circle at 15% 85%, rgba(0, 119, 255, 0.4) 0%, transparent 45%),
+      #151522;
+    color: $color-text-inverse;
+    box-shadow: 0 1.5rem 2rem rgba(50, 50, 71, 0.08), 0 1rem 1rem rgba(50, 50, 71, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__credit-card-chip {
+    width: 2.5rem;
+    height: 2rem;
+    border-radius: $radius-sm;
+    background: linear-gradient(135deg, #FFDF92 0%, #FFBA49 100%);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+  }
+
+  &__credit-card-brand {
+    position: absolute;
+    top: $spacing-4;
+    right: $spacing-4;
+    display: flex;
+    gap: -0.5rem;
+
+    span {
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: $radius-full;
+
+      &:first-child { background: #EB001B; }
+      &:last-child  { background: #F79E1B; margin-left: -0.5rem; mix-blend-mode: screen; }
+    }
+  }
+
+  &__credit-card-number {
+    font-family: $font-family-base;
+    font-size: 1.375rem;
+    letter-spacing: 0.1em;
+    line-height: 1;
+  }
+
+  &__credit-card-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: $spacing-6;
+  }
+
+  &__credit-card-label {
+    display: block;
+    font-family: $font-family-base;
+    font-size: $font-size-2xs;
+    color: #999999;
+    margin-bottom: $spacing-1;
+  }
+
+  &__credit-card-value {
+    font-family: $font-family-base;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-regular;
+  }
+}

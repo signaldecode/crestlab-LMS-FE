@@ -1,0 +1,91 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+
+// ============================================
+// About 페이지 공통 레이아웃 (_page.scss)
+// - Data ~ Evolution 구간은 다크 배경 띠로 묶는다
+// - 섹션 공통 inner(max-width) / 공통 eyebrow·heading 타이포
+// ============================================
+
+.about {
+  letter-spacing: $letter-spacing-normal;
+  color: $color-text-primary;
+  background: $color-bg-primary;
+
+  &__dark {
+    position: relative;
+    background: $color-text-black;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset-inline: 0;
+      top: 30%;
+      height: 60rem;
+      background: radial-gradient(ellipse at center top, rgba(0, 119, 255, 0.55) 0%, rgba(0, 119, 255, 0) 68%);
+      pointer-events: none;
+      z-index: 0;
+    }
+  }
+
+  &__section {
+    position: relative;
+    width: 100%;
+    max-width: $container-max-width;
+    margin-inline: auto;
+    padding: $spacing-24 $spacing-6;
+    z-index: 1;
+
+    @media (max-width: 1024px) {
+      padding-block: $spacing-20;
+    }
+    @media (max-width: 640px) {
+      padding-block: $spacing-16;
+    }
+  }
+
+  &__eyebrow {
+    display: block;
+    font-family: $font-family-base;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-medium;
+    line-height: 1.4;
+    text-transform: uppercase;
+    color: $color-primary;
+    margin: 0 0 $spacing-4;
+
+    &--on-dark {
+      color: $color-text-inverse;
+    }
+
+    @media (max-width: 640px) {
+      font-size: $font-size-base;
+    }
+  }
+
+  &__heading {
+    font-family: $font-family-heading;
+    font-weight: $font-weight-semibold;
+    line-height: 1.3;
+    color: $color-text-primary;
+    margin: 0;
+    white-space: pre-line;
+
+    &--on-dark {
+      color: $color-text-inverse;
+    }
+  }
+
+  &__body {
+    font-family: $font-family-base;
+    font-weight: $font-weight-regular;
+    font-size: $font-size-md;
+    line-height: 1.45;
+    color: $color-text-secondary;
+    margin: 0;
+    white-space: pre-line;
+  }
+}

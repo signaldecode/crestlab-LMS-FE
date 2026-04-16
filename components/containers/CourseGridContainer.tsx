@@ -155,26 +155,30 @@ export default function CourseGridContainer(): JSX.Element {
       <h1 className="courses-page__title">{pageTitle}</h1>
 
       <div className="courses-page__toolbar">
-        <div className="courses-page__filters">
-          <span className="courses-page__count">
-            전체 <strong>{totalElements}</strong>개
-          </span>
-        </div>
+        <span className="courses-page__count">
+          전체 <strong>{totalElements}</strong>개
+        </span>
 
-        <div className="courses-page__sort">
-          <select
-            className="courses-page__sort-select"
-            value={sort}
-            onChange={(e) => setSort(e.target.value)}
-            aria-label="정렬 기준"
-          >
-            {SORT_OPTIONS.map((opt) => (
-              <option key={opt.value} value={opt.value}>{opt.label}</option>
-            ))}
-          </select>
-          <svg className="courses-page__sort-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <path d="M5 8l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+        <div
+          className="courses-page__sort-pills"
+          role="tablist"
+          aria-label="정렬 기준"
+        >
+          {SORT_OPTIONS.map((opt) => {
+            const active = opt.value === sort;
+            return (
+              <button
+                key={opt.value}
+                type="button"
+                role="tab"
+                aria-selected={active}
+                className={`courses-page__sort-pill${active ? ' courses-page__sort-pill--active' : ''}`}
+                onClick={() => setSort(opt.value)}
+              >
+                {opt.label}
+              </button>
+            );
+          })}
         </div>
       </div>
 

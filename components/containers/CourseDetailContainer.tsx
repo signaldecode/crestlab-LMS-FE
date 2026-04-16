@@ -97,6 +97,7 @@ function toCourseShape(api: UserCourseDetail): Course {
     learningPoints: [],
     rating: info.averageRating,
     reviewCount: info.reviewCount,
+    favoriteCount: info.favoriteCount,
     enrollmentPeriod: info.monthPlan ? `${info.monthPlan}개월` : '',
     faq: [],
     bestReviews: api.bestReviews.map(mapReview),

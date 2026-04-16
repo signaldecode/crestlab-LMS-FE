@@ -207,8 +207,6 @@ export default function CourseListCard({ course }: CourseListCardProps): JSX.Ele
     <div
       className="course-list-card-wrap"
       ref={cardRef}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
     >
       <Link href={`/courses/${course.id}`} className="course-list-card" aria-label={course.title}>
         {/* 썸네일 */}
@@ -268,19 +266,11 @@ export default function CourseListCard({ course }: CourseListCardProps): JSX.Ele
               <span key={tag} className="course-list-card__tag">#{tag}</span>
             ))}
           </div>
+
+          <span className="course-list-card__cta" aria-hidden="true">바로가기</span>
         </div>
       </Link>
 
-      {showPopover && (
-        <ListCardPopover
-          course={course}
-          wished={wished}
-          onWishToggle={() => { void toggle(); }}
-          position={position}
-          onMouseEnter={handlePopoverEnter}
-          onMouseLeave={handlePopoverLeave}
-        />
-      )}
     </div>
   );
 }

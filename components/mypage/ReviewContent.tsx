@@ -6,9 +6,11 @@
 'use client';
 
 import type { JSX } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useAdminQuery } from '@/hooks/useAdminQuery';
 import { fetchMyReviews, type MyReviewPageResponse } from '@/lib/userApi';
+import { resolveThumb } from '@/lib/images';
 import accountData from '@/data/accountData.json';
 
 const reviewsPageData = accountData.mypage.reviewsPage;
@@ -39,10 +41,18 @@ export default function ReviewContent(): JSX.Element {
             {rows.map((item) => (
               <Link
                 key={item.reviewId}
-                href={`/courses/${item.courseId}/reviews`}
+                href={`/mypage/reviews/${item.reviewId}`}
                 className={`${SK}__review-card`}
               >
-                <div className={`${SK}__review-thumb`} />
+                <div className={`${SK}__review-thumb-link`}>
+                  <Image
+                    src={resolveThumb(item.courseThumbnailUrl)}
+                    alt={item.courseTitle}
+                    width={80}
+                    height={80}
+                    className={`${SK}__review-img`}
+                  />
+                </div>
                 <div className={`${SK}__review-body`}>
                   <span className={`${SK}__review-course-name`}>{item.courseTitle}</span>
                   <div className={`${SK}__review-stars`}>

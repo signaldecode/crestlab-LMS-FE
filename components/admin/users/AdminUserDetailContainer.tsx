@@ -12,6 +12,7 @@ import Link from 'next/link';
 import AdminModal from '@/components/admin/AdminModal';
 import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
 import AdminUserPointsPanel, { type AdminUserPointsPanelCopy } from '@/components/admin/points/AdminUserPointsPanel';
+import AdminUserCouponsPanel, { type AdminUserCouponsPanelCopy } from '@/components/admin/users/AdminUserCouponsPanel';
 import { useAdminMutation, useAdminQuery } from '@/hooks/useAdminQuery';
 import { deactivateAdminUser, fetchAdminUserDetail, updateAdminUserRole } from '@/lib/adminApi';
 import type {
@@ -20,13 +21,14 @@ import type {
   UserRole,
 } from '@/types';
 
-type DetailTab = 'basic' | 'enrollments' | 'payments' | 'points';
+type DetailTab = 'basic' | 'enrollments' | 'payments' | 'points' | 'coupons';
 
 interface SectionTitles {
   basicTitle: string;
   enrollmentsTitle: string;
   paymentsTitle: string;
   pointsTitle: string;
+  couponsTitle: string;
 }
 
 interface TabLabels {
@@ -34,6 +36,7 @@ interface TabLabels {
   enrollmentsLabel: string;
   paymentsLabel: string;
   pointsLabel: string;
+  couponsLabel: string;
 }
 
 interface Labels {
@@ -82,6 +85,7 @@ export interface UserDetailCopy {
   changeRoleModal: ChangeRoleModalCopy;
   deactivateModal: DeactivateModalCopy;
   points: AdminUserPointsPanelCopy;
+  coupons: AdminUserCouponsPanelCopy;
   roleLabels: Record<UserRole, string>;
   statusLabels: Record<AdminUserStatus, string>;
   levelLabels: Record<AdminUserLevel, string>;
@@ -200,6 +204,7 @@ export default function AdminUserDetailContainer({
             ['enrollments', copy.tabs.enrollmentsLabel],
             ['payments', copy.tabs.paymentsLabel],
             ['points', copy.tabs.pointsLabel],
+            ['coupons', copy.tabs.couponsLabel],
           ] as [DetailTab, string][]
         ).map(([key, label]) => (
           <button
@@ -333,10 +338,18 @@ export default function AdminUserDetailContainer({
         <AdminUserPointsPanel
           userId={userId}
           nickname={user.nickname}
-          pointBalance={user.pointBalance}
           onAdjustSuccess={refetch}
           copy={copy.points}
         />
+      </section>
+      )}
+
+      {activeTab === 'coupons' && (
+      <section className="admin-user-detail__section" aria-labelledby="section-coupons" role="tabpanel">
+        <h2 id="section-coupons" className="admin-user-detail__section-title">
+          {copy.sections.couponsTitle}
+        </h2>
+        <AdminUserCouponsPanel userId={userId} copy={copy.coupons} />
       </section>
       )}
 

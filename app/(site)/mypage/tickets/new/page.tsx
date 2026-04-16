@@ -1,10 +1,8 @@
 /**
- * 1:1 문의 작성 페이지
- * - 서비스/분야 선택, 담당자/연락처/회사/이메일 입력, 문의 내용, 파일 첨부를 처리한다
- * - TicketContainer를 create 모드로 조립한다
- * - SEO metadata는 supportData에서 로드한다
+ * 마이페이지 1:1 문의 작성 (/mypage/tickets/new)
  */
 
+import type { JSX } from 'react';
 import type { Metadata } from 'next';
 import { supportData } from '@/data';
 import TicketContainer from '@/components/containers/TicketContainer';
@@ -20,10 +18,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function TicketNewPage() {
+export default function MyPageTicketNewPage(): JSX.Element {
   return (
-    <main className="ticket-page">
+    <section className="ticket-page">
       <TicketContainer mode="create" />
-    </main>
+    </section>
   );
 }

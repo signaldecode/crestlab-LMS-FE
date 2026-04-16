@@ -40,7 +40,6 @@ const mainData: MainData = {
   a11y: siteData.a11y,
   geo: siteData.geo,
   seo: siteData.seo,
-  consultations: accountData.consultations,
   reviews: accountData.reviews,
   certificates: accountData.certificates,
   orders: accountData.orders,

@@ -8,11 +8,12 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { JSX } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import useAuthStore, { selectIsAdmin } from '@/stores/useAuthStore';
-import useAuth from '@/hooks/useAuth';
-import useToastStore from '@/stores/useToastStore';
+import { logoutApi } from '@/lib/userApi';
+import { removeToken } from '@/lib/auth';
+import { resolveImageUrl } from '@/lib/images';
 
 interface ProfileMenuItem {
   label: string;
@@ -38,13 +39,11 @@ interface ProfileMenuProps {
 }
 
 export default function ProfileMenu({ data }: ProfileMenuProps): JSX.Element {
-  const router = useRouter();
   const user = useAuthStore((s) => s.user);
   const isAdmin = useAuthStore(selectIsAdmin);
-  const { logout } = useAuth();
-  const showToast = useToastStore((s) => s.show);
 
   const [isOpen, setIsOpen] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const close = useCallback(() => setIsOpen(false), []);
@@ -68,13 +67,23 @@ export default function ProfileMenu({ data }: ProfileMenuProps): JSX.Element {
 
   const handleLogout = useCallback(async () => {
     close();
-    await logout();
-    router.push('/');
-    router.refresh();
-    showToast('로그아웃되었습니다.', 'info');
-  }, [logout, close, router, showToast]);
+    try {
+      await logoutApi();
+    } catch {
+      // 서버 호출 실패해도 클라이언트는 로그아웃 처리
+    }
+    removeToken();
+    // 하드 리다이렉트 — 전체 페이지 리로드로 모든 클라이언트 상태 초기화
+    window.location.href = '/';
+  }, [close]);
 
   const displayName = user?.nickname || user?.name || data.triggerLabel;
+  const profileImageUrl = resolveImageUrl(user?.profileImage);
+  const showAvatar = Boolean(profileImageUrl) && !imageError;
+
+  useEffect(() => {
+    setImageError(false);
+  }, [profileImageUrl]);
 
   return (
     <div className="profile-menu" ref={containerRef}>
@@ -86,10 +95,25 @@ export default function ProfileMenu({ data }: ProfileMenuProps): JSX.Element {
         aria-expanded={isOpen}
         onClick={toggle}
       >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-          <circle cx="12" cy="7" r="4" />
-        </svg>
+        {showAvatar ? (
+          <span className="profile-menu__avatar">
+            <Image
+              src={profileImageUrl as string}
+              alt=""
+              width={24}
+              height={24}
+              className="profile-menu__avatar-img"
+              onError={() => setImageError(true)}
+            />
+          </span>
+        ) : (
+          <span className="profile-menu__avatar profile-menu__avatar--fallback" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </span>
+        )}
         <span className="profile-menu__trigger-label">{displayName}</span>
       </button>
 

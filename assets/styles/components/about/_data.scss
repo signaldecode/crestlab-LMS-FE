@@ -1,0 +1,133 @@
+@use '../../tokens/colors' as *;
+@use '../../tokens/spacing' as *;
+@use '../../tokens/typography' as *;
+@use '../../tokens/effects' as *;
+
+// ============================================
+// About — Data (_data.scss)
+// - 다크 배경 위 카드 2개 (수익률 막대 차트)
+// ============================================
+
+.about-data {
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: $spacing-4;
+    margin-bottom: $spacing-12;
+  }
+
+  &__title {
+    font-size: 2.75rem; // 44px
+    line-height: 1.32;
+
+    @media (max-width: 1024px) { font-size: 2.25rem; }
+    @media (max-width: 640px)  { font-size: 1.75rem; }
+  }
+
+  &__cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: $spacing-6;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-12;
+    padding: $spacing-10;
+    border-radius: $radius-xl;
+    background: #161616;
+    color: $color-text-inverse;
+  }
+
+  &__card-heading {
+    font-family: $font-family-heading;
+    font-size: 2rem; // 32px
+    font-weight: $font-weight-semibold;
+    line-height: 1.3125;
+    color: $color-text-inverse;
+    margin: 0;
+    white-space: pre-line;
+  }
+
+  &__card-body {
+    font-family: $font-family-base;
+    font-size: $font-size-md;
+    font-weight: $font-weight-regular;
+    line-height: 1.45;
+    color: $color-text-secondary;
+    margin: $spacing-4 0 0;
+    white-space: pre-line;
+  }
+
+  /* 막대 그래프 */
+  &__chart {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: $spacing-16;
+    min-height: 22rem;
+
+    @media (max-width: 640px) {
+      gap: $spacing-8;
+      min-height: 18rem;
+    }
+  }
+
+  &__bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-3;
+  }
+
+  &__bar-label {
+    font-family: $font-family-heading;
+    font-size: 1.75rem; // 28px
+    font-weight: $font-weight-semibold;
+    line-height: 1.36;
+    color: $color-text-secondary;
+
+    .about-data__bar--accent & {
+      color: $color-text-inverse;
+    }
+
+    @media (max-width: 640px) { font-size: 1.25rem; }
+  }
+
+  &__bar-shape {
+    width: 6.75rem; // 108px
+    border-radius: $radius-md;
+    background: #575757;
+
+    .about-data__bar--accent & {
+      background:
+        linear-gradient(180deg, #00438F 0%, #1d4ed8 60%, #0077FF 100%);
+      box-shadow: 0 0.75rem 1.5rem rgba(0, 119, 255, 0.25);
+    }
+
+    @media (max-width: 640px) { width: 4rem; }
+  }
+
+  &__bar-caption {
+    font-family: $font-family-base;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-medium;
+    line-height: 1.5;
+    text-align: center;
+    color: $color-text-secondary;
+    white-space: pre-line;
+
+    .about-data__bar--accent & {
+      color: $color-text-inverse;
+    }
+
+    @media (max-width: 640px) { font-size: $font-size-sm; }
+  }
+}

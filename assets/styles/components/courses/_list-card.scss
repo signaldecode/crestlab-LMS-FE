@@ -8,9 +8,19 @@
 .course-list-card {
   display: flex;
   flex-direction: column;
-  gap: $spacing-3;
+  gap: $spacing-0;
   text-decoration: none;
   color: inherit;
+  background: $color-bg-primary;
+  border-radius: $radius-xl;
+  overflow: hidden;
+  box-shadow: $shadow-sm;
+  transition: transform $duration-normal $ease-default, box-shadow $duration-normal $ease-default;
+
+  &:hover {
+    transform: translateY(-0.125rem);
+    box-shadow: $shadow-md;
+  }
 
   &:hover .course-list-card__image {
     transform: scale(1.05);
@@ -21,7 +31,6 @@
     position: relative;
     width: 100%;
     height: 11.875rem;
-    border-radius: $radius-md;
     overflow: hidden;
     background: $color-bg-tertiary;
   }
@@ -61,7 +70,8 @@
   &__body {
     display: flex;
     flex-direction: column;
-    gap: $spacing-6;
+    gap: $spacing-4;
+    padding: $spacing-5 $spacing-4 $spacing-5;
   }
 
   &__info {
@@ -160,6 +170,26 @@
       background: $color-success-bg;
       color: $color-success;
     }
+  }
+
+  // ── CTA 버튼 ("바로가기") ──
+  &__cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-3 $spacing-5;
+    margin-top: $spacing-2;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text-inverse;
+    background: $color-primary;
+    border-radius: $radius-md;
+    letter-spacing: $letter-spacing-normal;
+    transition: background $duration-fast $ease-default;
+  }
+
+  &:hover &__cta {
+    background: $color-primary-dark;
   }
 }
 

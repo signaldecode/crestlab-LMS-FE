@@ -1,6 +1,5 @@
 /**
- * 1:1 문의 상세 페이지 (/support/tickets/[id])
- * - 본인이 작성한 문의의 상세 정보와 답변을 표시한다
+ * 마이페이지 1:1 문의 상세 (/mypage/tickets/[id])
  */
 
 import type { JSX } from 'react';
@@ -20,14 +19,14 @@ interface PageProps {
   params: Promise<{ id: string }>;
 }
 
-export default async function TicketDetailPage({ params }: PageProps): Promise<JSX.Element> {
+export default async function MyPageTicketDetailPage({ params }: PageProps): Promise<JSX.Element> {
   const { id } = await params;
   const ticketId = Number(id);
   if (!Number.isFinite(ticketId) || ticketId <= 0) notFound();
 
   return (
-    <main className="ticket-page">
+    <section className="ticket-page">
       <TicketDetail ticketId={ticketId} />
-    </main>
+    </section>
   );
 }

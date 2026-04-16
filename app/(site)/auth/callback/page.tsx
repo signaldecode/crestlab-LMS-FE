@@ -9,7 +9,6 @@
 
 import { Suspense, useEffect, useState, useCallback } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import useAuth from '@/hooks/useAuth';
 import { consumeState } from '@/lib/oauth';
 import config from '@/config';
 import pagesData from '@/data/pagesData.json';
@@ -42,7 +41,6 @@ export default function AuthCallbackPage() {
 function AuthCallbackContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const { login } = useAuth();
 
   const [error, setError] = useState<string | null>(null);
 
@@ -85,13 +83,13 @@ function AuthCallbackContent() {
         return;
       }
 
-      const data = await res.json();
-      login(data.user, '');
-      router.replace('/');
+      // 응답 body는 사용하지 않음 (쿠키만 필요). 하드 리다이렉트로 전체 세션 재부팅.
+      await res.json().catch(() => null);
+      window.location.href = '/';
     } catch {
       setError(callbackData.errorMessage);
     }
-  }, [searchParams, login, router]);
+  }, [searchParams]);
 
   useEffect(() => {
     handleCallback();

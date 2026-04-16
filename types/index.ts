@@ -99,6 +99,7 @@ export interface Course {
   learningPoints: string[];
   rating?: number;
   reviewCount?: number;
+  favoriteCount?: number;
   enrollmentPeriod: string;
   faq: CourseFaq[];
   bestReviews: CourseReview[];
@@ -338,6 +339,7 @@ export interface HomeInstructor {
 
 export interface HomeInstructorsSection {
   meta: {
+    subtitle: string;
     title: string;
     description: string;
     ariaLabel: string;
@@ -649,8 +651,6 @@ export interface AdminUserDetail {
   createdAt: string;
   enrollments: AdminUserEnrollmentInfo[];
   payments: AdminUserPaymentInfo[];
-  /** 보유 포인트 — 백엔드 추가 예정 필드. 현재는 undefined 가능. */
-  pointBalance?: number;
 }
 
 /* ── 관리자 결제 관리 ──
@@ -1065,16 +1065,6 @@ export interface CertificateData {
   completedAt: string | null;
 }
 
-export interface ConsultationData {
-  id: string;
-  courseSlug: string;
-  status: string;
-  question: string;
-  answer?: string | null;
-  createdAt: string;
-  answeredAt?: string | null;
-}
-
 export interface ReviewData {
   id: string;
   courseSlug: string;
@@ -1147,7 +1137,6 @@ export interface MainData {
   a11y: Record<string, unknown>;
   geo: GeoData;
   seo: Record<string, unknown>;
-  consultations: ConsultationData[];
   reviews: ReviewData[];
   certificates: CertificateData[];
   orders: OrderData[];

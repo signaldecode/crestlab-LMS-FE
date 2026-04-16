@@ -6,20 +6,14 @@
       "menuItems": {
         "myCourses": { "label": "내 강의 목록", "href": "/mypage" },
         "wishlist": { "label": "찜한 강의", "href": "/mypage/wishlist" },
-        "consultations": { "label": "강의 상담", "href": "/mypage/consultations" },
         "reviews": { "label": "강의 후기 관리", "href": "/mypage/reviews" },
+        "myQuestions": { "label": "내 Q&A", "href": "/mypage/questions" },
         "orders": { "label": "구매 내역", "href": "/mypage/orders" },
+        "tickets": { "label": "1:1 문의", "href": "/mypage/tickets" },
         "coupons": { "label": "쿠폰", "href": "/mypage/coupons" },
         "points": { "label": "포인트", "href": "/mypage/points" },
         "profileEdit": { "label": "회원정보관리", "href": "/mypage/settings" }
       },
-      "externalLinks": [
-        {
-          "key": "tickets",
-          "label": "1:1 문의",
-          "href": "/support/tickets/new"
-        }
-      ],
       "logoutLabel": "로그아웃",
       "logoutModalMessage": "정말 로그아웃 하시겠습니까?",
       "mobileMenuDefaultLabel": "메뉴 선택",
@@ -30,8 +24,8 @@
           "items": [
             "myCourses",
             "wishlist",
-            "consultations",
             "reviews",
+            "myQuestions",
             "orders"
           ]
         },
@@ -101,16 +95,64 @@
       "title": "강의 후기 관리",
       "emptyText": "작성한 후기가 없습니다."
     },
+    "questionsPage": {
+      "title": "내 Q&A",
+      "subtitle": "내가 강의에 작성한 질문을 한눈에 확인할 수 있습니다.",
+      "emptyText": "작성한 질문이 없습니다.",
+      "loadingText": "불러오는 중...",
+      "errorText": "질문을 불러오지 못했습니다.",
+      "statusLabels": {
+        "WAITING": "답변대기",
+        "ANSWERED": "답변완료"
+      },
+      "columns": {
+        "course": "강의",
+        "title": "질문",
+        "status": "상태",
+        "createdAt": "작성일"
+      },
+      "pageSize": 10,
+      "pagination": {
+        "ariaLabel": "내 질문 페이지네이션",
+        "prevAriaLabel": "이전 페이지",
+        "nextAriaLabel": "다음 페이지",
+        "pageAriaFormat": "{page} 페이지"
+      }
+    },
+    "reviewDetailPage": {
+      "title": "내 후기",
+      "backLabel": "후기 목록",
+      "backAriaLabel": "후기 목록으로 돌아가기",
+      "courseLinkLabel": "강의 페이지로 이동",
+      "thumbnailAriaLabel": "{course} 강의 페이지로 이동",
+      "ratingLabel": "별점",
+      "contentLabel": "후기 내용",
+      "createdAtLabel": "작성일",
+      "editLabel": "수정",
+      "saveLabel": "저장",
+      "cancelLabel": "취소",
+      "deleteLabel": "삭제",
+      "deleteConfirmMessage": "이 후기를 삭제하시겠습니까?",
+      "starAriaLabel": "별점 {n}점",
+      "contentPlaceholder": "강의에 대한 솔직한 후기를 남겨주세요.",
+      "saveFailedText": "저장에 실패했습니다. 잠시 후 다시 시도해 주세요.",
+      "deleteFailedText": "삭제에 실패했습니다. 잠시 후 다시 시도해 주세요.",
+      "notFoundTitle": "후기를 찾을 수 없습니다",
+      "notFoundDescription": "이미 삭제되었거나 접근 권한이 없습니다.",
+      "notFoundLinkLabel": "후기 목록으로 이동"
+    },
     "couponsPage": {
       "registerTitle": "쿠폰등록",
       "registerPlaceholder": "쿠폰을 등록해주세요",
       "registerButton": "쿠폰등록",
       "registerNote": "반드시 사이트에서 발행한 쿠폰번호만 입력해주세요(10~35자 일련번호 \"-\"제외)",
       "listTitle": "쿠폰리스트",
-      "tabActive": "보유중인 쿠폰",
-      "tabUsed": "사용완료 쿠폰",
+      "tabActive": "보유중",
+      "tabUnavailable": "사용불가",
+      "tabUsed": "사용완료",
       "discountSuffix": "%",
-      "emptyText": "쿠폰이 없습니다.",
+      "emptyText": "보유중인 쿠폰이 없습니다.",
+      "emptyUnavailableText": "사용불가 쿠폰이 없습니다.",
       "emptyUsedText": "사용완료된 쿠폰이 없습니다.",
       "perPage": 8,
       "paginationPrev": "이전 페이지",
@@ -194,10 +236,6 @@
       "starAriaLabel": "별점 {n}점",
       "totalRatingLabel": "전체 평점",
       "reviewCountSuffix": "개의 후기"
-    },
-    "consultationsPage": {
-      "title": "강의 상담",
-      "emptyText": "강의 상담 내역이 없습니다."
     },
     "learnConsultationPage": {
       "title": "강의 상담",
@@ -310,35 +348,6 @@
       "createdAt": "2024-12-20"
     }
   ],
-  "consultations": [
-    {
-      "id": "CONSULT-001",
-      "courseSlug": "real-estate-intermediate",
-      "status": "답변완료",
-      "question": "강의 수강 기간 연장은 어떻게 하나요?",
-      "answer": "수강 기간 연장은 마이페이지 > 강의 상담 또는 1:1 문의를 통해 신청 가능합니다. 연장 가능 여부는 구매 후 180일 이내 수강하지 않은 경우에 한하며, 1회에 한해 30일 연장이 가능합니다.",
-      "createdAt": "2025-02-20",
-      "answeredAt": "2025-02-21"
-    },
-    {
-      "id": "CONSULT-002",
-      "courseSlug": "financial-basic-class",
-      "status": "대기중",
-      "question": "보충 자료 PDF를 어디서 다운받을 수 있나요?",
-      "answer": null,
-      "createdAt": "2025-03-01",
-      "answeredAt": null
-    },
-    {
-      "id": "CONSULT-003",
-      "courseSlug": "my-house-basic",
-      "status": "답변완료",
-      "question": "실습 과제 제출 방법이 궁금합니다.",
-      "answer": "실습 과제는 각 강의 하단의 '과제 제출' 버튼을 통해 파일 또는 링크 형태로 제출하실 수 있습니다. 제출 후 강사가 확인하면 피드백이 제공됩니다.",
-      "createdAt": "2025-01-15",
-      "answeredAt": "2025-01-17"
-    }
-  ],
   "reviews": [
     {
       "id": "REVIEW-001",
@@ -406,7 +415,7 @@
   "giftcards": [
     {
       "id": "gc-001",
-      "name": "LectureHub 수강 상품권",
+      "name": "크레스트랩 수강 상품권",
       "balance": 50000,
       "originalAmount": 50000,
       "validFrom": "2026-01-15",
@@ -446,7 +455,7 @@
       "giftcardId": "gc-001",
       "type": "charge",
       "amount": 50000,
-      "description": "[상품권 등록] LectureHub 수강 상품권 등록",
+      "description": "[상품권 등록] 크레스트랩 수강 상품권 등록",
       "date": "2026-01-15"
     },
     {

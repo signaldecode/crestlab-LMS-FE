@@ -24,13 +24,5 @@ interface OrderDetailPageProps {
 export default async function OrderDetailPage({ params }: OrderDetailPageProps): Promise<JSX.Element> {
   const { orderId } = await params;
 
-  return (
-    <section className="mypage">
-      <div className="mypage__layout">
-        <div className="mypage__content mypage__content--full">
-          <OrderDetailContent orderId={orderId} />
-        </div>
-      </div>
-    </section>
-  );
+  return <OrderDetailContent orderId={orderId} />;
 }

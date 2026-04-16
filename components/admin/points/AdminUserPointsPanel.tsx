@@ -1,22 +1,47 @@
 /**
- * 관리자 사용자 포인트 조정 패널 (AdminUserPointsPanel)
- * - 사용자 상세 내 탭으로 사용
- * - 백엔드: POST /api/v1/admin/points/adjust
+ * 관리자 사용자 포인트 패널 (AdminUserPointsPanel)
+ * - 사용자 상세 내 "포인트" 탭
+ * - 잔액/소멸예정: GET /admin/users/{id}/points/summary
+ * - 적립·사용·소멸 내역: GET /admin/users/{id}/points/history (type 필터, 페이지네이션)
+ * - 수동 조정: POST /admin/points/adjust
  */
 
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import type { JSX } from 'react';
 import AdminModal from '@/components/admin/AdminModal';
-import { useAdminMutation } from '@/hooks/useAdminQuery';
-import { adjustAdminPoints } from '@/lib/adminApi';
+import { useAdminMutation, useAdminQuery } from '@/hooks/useAdminQuery';
+import {
+  adjustAdminPoints,
+  fetchAdminUserPointHistory,
+  fetchAdminUserPointSummary,
+  type AdminPointHistoryType,
+} from '@/lib/adminApi';
 
 export interface AdminUserPointsPanelCopy {
   description: string;
   balanceLabel: string;
   balanceUnit: string;
   balanceUnavailableText: string;
+  expiringLabel?: string;
+  historyTitle?: string;
+  historyEmpty?: string;
+  historyFilters?: {
+    allLabel: string;
+    earnLabel: string;
+    useLabel: string;
+    expireLabel: string;
+  };
+  historyColumns?: {
+    type: string;
+    amount: string;
+    description: string;
+    createdAt: string;
+  };
+  historyTypeLabels?: Record<AdminPointHistoryType, string>;
+  paginationPrev?: string;
+  paginationNext?: string;
   fields: {
     amountLabel: string; amountPlaceholder: string;
     reasonLabel: string; reasonPlaceholder: string;
@@ -39,16 +64,49 @@ export interface AdminUserPointsPanelCopy {
 interface Props {
   userId: number;
   nickname: string;
-  /** 백엔드가 `AdminUserDetailResponse.pointBalance` 를 내려주기 시작하면 자동으로 표시됨 */
-  pointBalance?: number;
   /** 조정 성공 시 상위에서 유저 정보 리프레시 */
   onAdjustSuccess?: () => void;
   copy: AdminUserPointsPanelCopy;
 }
 
 type FormErrorKey = keyof AdminUserPointsPanelCopy['errors'];
+type HistoryFilter = 'ALL' | AdminPointHistoryType;
 
-export default function AdminUserPointsPanel({ userId, nickname, pointBalance, onAdjustSuccess, copy }: Props): JSX.Element {
+const HISTORY_PAGE_SIZE = 10;
+
+const formatDate = (iso: string): string => {
+  const d = new Date(iso);
+  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+};
+
+export default function AdminUserPointsPanel({ userId, nickname, onAdjustSuccess, copy }: Props): JSX.Element {
+  // ── 잔액 ──
+  const {
+    data: summary,
+    loading: summaryLoading,
+    refetch: refetchSummary,
+  } = useAdminQuery(() => fetchAdminUserPointSummary(userId), [userId]);
+
+  // ── 내역 ──
+  const [historyFilter, setHistoryFilter] = useState<HistoryFilter>('ALL');
+  const [page, setPage] = useState(1);
+
+  const historyParams = useMemo(
+    () => ({
+      type: historyFilter === 'ALL' ? undefined : historyFilter,
+      page,
+      size: HISTORY_PAGE_SIZE,
+    }),
+    [historyFilter, page],
+  );
+
+  const {
+    data: historyPage,
+    loading: historyLoading,
+    refetch: refetchHistory,
+  } = useAdminQuery(() => fetchAdminUserPointHistory(userId, historyParams), [userId, historyFilter, page]);
+
+  // ── 폼 ──
   const [amount, setAmount] = useState('');
   const [reason, setReason] = useState('');
   const [errors, setErrors] = useState<Partial<Record<FormErrorKey, string>>>({});
@@ -66,6 +124,10 @@ export default function AdminUserPointsPanel({ userId, nickname, pointBalance, o
       setSuccessOpen(true);
       setAmount('');
       setReason('');
+      // 잔액/내역 갱신 + 상위 유저 정보도 갱신
+      void refetchSummary();
+      setPage(1);
+      void refetchHistory();
       onAdjustSuccess?.();
     },
   );
@@ -105,17 +167,133 @@ export default function AdminUserPointsPanel({ userId, nickname, pointBalance, o
     .replaceAll('{nickname}', nickname)
     .replaceAll('{amount}', Math.abs(numericAmount).toLocaleString('ko-KR'));
 
+  const filterOptions: Array<{ key: HistoryFilter; label: string }> = copy.historyFilters
+    ? [
+      { key: 'ALL', label: copy.historyFilters.allLabel },
+      { key: 'EARN', label: copy.historyFilters.earnLabel },
+      { key: 'USE', label: copy.historyFilters.useLabel },
+      { key: 'EXPIRE', label: copy.historyFilters.expireLabel },
+    ]
+    : [];
+
+  const historyItems = historyPage?.content ?? [];
+  const totalPages = historyPage?.totalPages ?? 1;
+
+  const handleFilterChange = (key: HistoryFilter) => {
+    setHistoryFilter(key);
+    setPage(1);
+  };
+
   return (
     <div className="admin-form-page__field-group">
+      {/* ── 잔액 박스 ── */}
       <dl className="admin-user-detail__balance">
-        <dt className="admin-user-detail__balance-label">{copy.balanceLabel}</dt>
-        <dd className="admin-user-detail__balance-value">
-          {typeof pointBalance === 'number'
-            ? `${pointBalance.toLocaleString('ko-KR')}${copy.balanceUnit}`
-            : copy.balanceUnavailableText}
-        </dd>
+        <div>
+          <dt className="admin-user-detail__balance-label">{copy.balanceLabel}</dt>
+          <dd className="admin-user-detail__balance-value">
+            {summaryLoading && !summary
+              ? '...'
+              : summary
+                ? `${summary.totalPoints.toLocaleString('ko-KR')}${copy.balanceUnit}`
+                : copy.balanceUnavailableText}
+          </dd>
+        </div>
+        {copy.expiringLabel && summary && summary.expiringPoints > 0 && (
+          <div>
+            <dt className="admin-user-detail__balance-label">{copy.expiringLabel}</dt>
+            <dd className="admin-user-detail__balance-value admin-user-detail__balance-value--muted">
+              {summary.expiringPoints.toLocaleString('ko-KR')}{copy.balanceUnit}
+            </dd>
+          </div>
+        )}
       </dl>
 
+      {/* ── 내역 테이블 ── */}
+      {copy.historyTitle && copy.historyColumns && copy.historyTypeLabels && (
+        <section className="admin-user-detail__history">
+          <div className="admin-user-detail__history-head">
+            <h3 className="admin-user-detail__history-title">{copy.historyTitle}</h3>
+            {filterOptions.length > 0 && (
+              <div className="admin-user-detail__history-filters" role="tablist">
+                {filterOptions.map(({ key, label }) => (
+                  <button
+                    key={key}
+                    type="button"
+                    role="tab"
+                    aria-selected={historyFilter === key}
+                    onClick={() => handleFilterChange(key)}
+                    className={`admin-user-detail__history-filter${historyFilter === key ? ' is-active' : ''}`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {historyLoading && historyItems.length === 0 ? (
+            <p className="admin-list__empty">...</p>
+          ) : historyItems.length === 0 ? (
+            <p className="admin-list__empty">{copy.historyEmpty ?? ''}</p>
+          ) : (
+            <>
+              <div className="admin-list__table-wrap">
+                <table className="admin-list__table">
+                  <thead>
+                    <tr>
+                      <th scope="col" className="admin-list__th admin-list__th--narrow">{copy.historyColumns.type}</th>
+                      <th scope="col" className="admin-list__th admin-list__th--num">{copy.historyColumns.amount}</th>
+                      <th scope="col" className="admin-list__th">{copy.historyColumns.description}</th>
+                      <th scope="col" className="admin-list__th">{copy.historyColumns.createdAt}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {historyItems.map((item) => (
+                      <tr key={item.id}>
+                        <td className="admin-list__td admin-list__td--narrow">
+                          <span className={`admin-user-detail__history-type admin-user-detail__history-type--${item.type.toLowerCase()}`}>
+                            {copy.historyTypeLabels![item.type]}
+                          </span>
+                        </td>
+                        <td className="admin-list__td admin-list__td--num">
+                          {item.type === 'EARN' ? '+' : '-'}
+                          {Math.abs(item.amount).toLocaleString('ko-KR')}{copy.balanceUnit}
+                        </td>
+                        <td className="admin-list__td">{item.description}</td>
+                        <td className="admin-list__td">{formatDate(item.createdAt)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {totalPages > 1 && (
+                <nav className="admin-user-detail__pagination" aria-label="포인트 내역 페이지">
+                  <button
+                    type="button"
+                    disabled={page <= 1}
+                    onClick={() => setPage((p) => p - 1)}
+                    className="admin-modal__btn admin-modal__btn--ghost"
+                  >
+                    {copy.paginationPrev ?? '이전'}
+                  </button>
+                  <span className="admin-user-detail__pagination-info">{page} / {totalPages}</span>
+                  <button
+                    type="button"
+                    disabled={page >= totalPages}
+                    onClick={() => setPage((p) => p + 1)}
+                    className="admin-modal__btn admin-modal__btn--ghost"
+                  >
+                    {copy.paginationNext ?? '다음'}
+                  </button>
+                </nav>
+              )}
+            </>
+          )}
+        </section>
+      )}
+
+      {/* ── 조정 폼 ── */}
       <p className="admin-form-page__subtitle">{copy.description}</p>
 
       <label className="admin-form-page__field">
