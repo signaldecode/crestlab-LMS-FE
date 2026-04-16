@@ -91,7 +91,6 @@ export default function HomeHeroContainer(): JSX.Element {
                 sizes="100vw"
                 priority={idx === 0}
                 className="home-hero__image"
-                unoptimized
               />
             </div>
           );

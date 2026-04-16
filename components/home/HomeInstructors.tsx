@@ -51,7 +51,6 @@ function InstructorCard({ instructor }: { instructor: MainInstructorCard }): JSX
             fill
             sizes="(max-width: 639px) 50vw, (max-width: 1023px) 33vw, 25vw"
             className="home-instructors__image"
-            unoptimized
           />
         ) : (
           <InstructorAvatarFallback color={colorFromId(instructor.id)} />

@@ -57,7 +57,6 @@ function MainCourseItem({ course, badge }: { course: MainCourseCard; badge?: Mai
           fill
           sizes="(max-width: 639px) 50vw, (max-width: 1023px) 33vw, 20vw"
           className="course-card__image"
-          unoptimized
         />
       </div>
       <div className="course-card__body">
