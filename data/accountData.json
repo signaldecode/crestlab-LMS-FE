@@ -4,15 +4,42 @@
     "sidebar": {
       "fallbackName": "회원",
       "menuItems": {
-        "myCourses": { "label": "내 강의 목록", "href": "/mypage" },
-        "wishlist": { "label": "찜한 강의", "href": "/mypage/wishlist" },
-        "reviews": { "label": "강의 후기 관리", "href": "/mypage/reviews" },
-        "myQuestions": { "label": "내 Q&A", "href": "/mypage/questions" },
-        "orders": { "label": "구매 내역", "href": "/mypage/orders" },
-        "tickets": { "label": "1:1 문의", "href": "/mypage/tickets" },
-        "coupons": { "label": "쿠폰", "href": "/mypage/coupons" },
-        "points": { "label": "포인트", "href": "/mypage/points" },
-        "profileEdit": { "label": "회원정보관리", "href": "/mypage/settings" }
+        "myCourses": {
+          "label": "내 강의 목록",
+          "href": "/mypage"
+        },
+        "wishlist": {
+          "label": "찜한 강의",
+          "href": "/mypage/wishlist"
+        },
+        "reviews": {
+          "label": "강의 후기 관리",
+          "href": "/mypage/reviews"
+        },
+        "myQuestions": {
+          "label": "내 Q&A",
+          "href": "/mypage/questions"
+        },
+        "orders": {
+          "label": "구매 내역",
+          "href": "/mypage/orders"
+        },
+        "tickets": {
+          "label": "1:1 문의",
+          "href": "/mypage/tickets"
+        },
+        "coupons": {
+          "label": "쿠폰",
+          "href": "/mypage/coupons"
+        },
+        "points": {
+          "label": "포인트",
+          "href": "/mypage/points"
+        },
+        "profileEdit": {
+          "label": "회원정보관리",
+          "href": "/mypage/settings"
+        }
       },
       "logoutLabel": "로그아웃",
       "logoutModalMessage": "정말 로그아웃 하시겠습니까?",
@@ -70,8 +97,14 @@
       "totalCountSuffix": "개의 강의",
       "sortAriaLabel": "정렬",
       "sortOptions": [
-        { "value": "recent", "label": "최신순" },
-        { "value": "title", "label": "이름순" }
+        {
+          "value": "recent",
+          "label": "최신순"
+        },
+        {
+          "value": "title",
+          "label": "이름순"
+        }
       ],
       "viewCourseLabel": "강의 보기",
       "removeAriaLabel": "찜 목록에서 제거",
@@ -170,14 +203,62 @@
         "use": "사용"
       },
       "mockHistory": [
-        { "id": "pt-001", "type": "earn", "description": "[수강평 작성] 100포인트가 적립되었습니다.", "amount": 600, "date": "26.05.22" },
-        { "id": "pt-002", "type": "use", "description": "[강의 사용] 100포인트가 차감되었습니다.", "amount": -200, "date": "26.05.22" },
-        { "id": "pt-003", "type": "use", "description": "[강의 사용] 100포인트가 차감되었습니다.", "amount": -200, "date": "26.05.22" },
-        { "id": "pt-004", "type": "earn", "description": "[수강평 작성] 100포인트가 적립되었습니다.", "amount": 600, "date": "26.05.22" },
-        { "id": "pt-005", "type": "use", "description": "[강의 사용] 100포인트가 차감되었습니다.", "amount": -200, "date": "26.05.22" },
-        { "id": "pt-006", "type": "earn", "description": "[수강평 작성] 100포인트가 적립되었습니다.", "amount": 600, "date": "26.05.22" },
-        { "id": "pt-007", "type": "earn", "description": "[수강평 작성] 100포인트가 적립되었습니다.", "amount": 600, "date": "26.05.22" },
-        { "id": "pt-008", "type": "earn", "description": "[수강평 작성] 100포인트가 적립되었습니다.", "amount": 600, "date": "26.05.22" }
+        {
+          "id": "pt-001",
+          "type": "earn",
+          "description": "[수강평 작성] 100포인트가 적립되었습니다.",
+          "amount": 600,
+          "date": "26.05.22"
+        },
+        {
+          "id": "pt-002",
+          "type": "use",
+          "description": "[강의 사용] 100포인트가 차감되었습니다.",
+          "amount": -200,
+          "date": "26.05.22"
+        },
+        {
+          "id": "pt-003",
+          "type": "use",
+          "description": "[강의 사용] 100포인트가 차감되었습니다.",
+          "amount": -200,
+          "date": "26.05.22"
+        },
+        {
+          "id": "pt-004",
+          "type": "earn",
+          "description": "[수강평 작성] 100포인트가 적립되었습니다.",
+          "amount": 600,
+          "date": "26.05.22"
+        },
+        {
+          "id": "pt-005",
+          "type": "use",
+          "description": "[강의 사용] 100포인트가 차감되었습니다.",
+          "amount": -200,
+          "date": "26.05.22"
+        },
+        {
+          "id": "pt-006",
+          "type": "earn",
+          "description": "[수강평 작성] 100포인트가 적립되었습니다.",
+          "amount": 600,
+          "date": "26.05.22"
+        },
+        {
+          "id": "pt-007",
+          "type": "earn",
+          "description": "[수강평 작성] 100포인트가 적립되었습니다.",
+          "amount": 600,
+          "date": "26.05.22"
+        },
+        {
+          "id": "pt-008",
+          "type": "earn",
+          "description": "[수강평 작성] 100포인트가 적립되었습니다.",
+          "amount": 600,
+          "date": "26.05.22"
+        }
       ]
     },
     "ordersPage": {
@@ -258,249 +339,6 @@
   "profileCard": {
     "avatarAlt": "프로필 사진"
   },
-  "orders": [
-    {
-      "id": "ORD-20250215-001",
-      "courseSlugs": [
-        "real-estate-intermediate"
-      ],
-      "items": [
-        {
-          "courseSlug": "real-estate-intermediate",
-          "price": 299000
-        }
-      ],
-      "coursePrice": 299000,
-      "couponDiscount": 44850,
-      "pointDiscount": 0,
-      "voucherDiscount": 0,
-      "totalAmount": 254150,
-      "paymentMethod": "card",
-      "status": "완료",
-      "createdAt": "2025-02-15",
-      "receiptUrl": "#"
-    },
-    {
-      "id": "ORD-20250128-002",
-      "courseSlugs": [
-        "financial-basic-class",
-        "us-stock-basic"
-      ],
-      "items": [
-        {
-          "courseSlug": "financial-basic-class",
-          "price": 249000
-        },
-        {
-          "courseSlug": "us-stock-basic",
-          "price": 199000
-        }
-      ],
-      "coursePrice": 448000,
-      "couponDiscount": 45500,
-      "pointDiscount": 10000,
-      "voucherDiscount": 10000,
-      "totalAmount": 382500,
-      "paymentMethod": "kakaopay",
-      "status": "완료",
-      "createdAt": "2025-01-28",
-      "receiptUrl": "#"
-    },
-    {
-      "id": "ORD-20250110-003",
-      "courseSlugs": [
-        "my-house-basic"
-      ],
-      "items": [
-        {
-          "courseSlug": "my-house-basic",
-          "price": 199000
-        }
-      ],
-      "coursePrice": 199000,
-      "couponDiscount": 29850,
-      "pointDiscount": 0,
-      "voucherDiscount": 0,
-      "totalAmount": 169150,
-      "paymentMethod": "tosspay",
-      "status": "완료",
-      "createdAt": "2025-01-10",
-      "receiptUrl": "#"
-    },
-    {
-      "id": "ORD-20241220-004",
-      "courseSlugs": [
-        "auction-basics"
-      ],
-      "items": [
-        {
-          "courseSlug": "auction-basics",
-          "price": 249000
-        }
-      ],
-      "coursePrice": 249000,
-      "couponDiscount": 37350,
-      "pointDiscount": 0,
-      "voucherDiscount": 0,
-      "totalAmount": 211650,
-      "paymentMethod": "card",
-      "status": "환불",
-      "createdAt": "2024-12-20"
-    }
-  ],
-  "reviews": [
-    {
-      "id": "REVIEW-001",
-      "courseSlug": "real-estate-intermediate",
-      "rating": 5,
-      "content": "React 컴포넌트 설계에 대해 체계적으로 배울 수 있었습니다. 특히 실전 패턴 사례가 매우 유익했어요.",
-      "createdAt": "2025-02-26"
-    },
-    {
-      "id": "REVIEW-002",
-      "courseSlug": "financial-basic-class",
-      "rating": 4,
-      "content": "코딩테스트 알고리즘 기초를 잡기에 좋은 강의입니다. 초보자도 이해하기 쉽게 설명해주셔서 좋았습니다.",
-      "createdAt": "2025-02-09"
-    },
-    {
-      "id": "REVIEW-003",
-      "courseSlug": "my-house-basic",
-      "rating": 5,
-      "content": "웹 개발 기초를 A부터 Z까지 알려주는 강의! 덕분에 자신감이 생겼습니다.",
-      "createdAt": "2025-01-20"
-    }
-  ],
-  "certificates": [
-    {
-      "id": "CERT-001",
-      "courseSlug": "real-estate-intermediate",
-      "status": "발급완료",
-      "issuedAt": "2025-02-28",
-      "completedAt": "2025-02-25"
-    },
-    {
-      "id": "CERT-002",
-      "courseSlug": "financial-basic-class",
-      "status": "발급완료",
-      "issuedAt": "2025-02-10",
-      "completedAt": "2025-02-08"
-    },
-    {
-      "id": "CERT-003",
-      "courseSlug": "my-house-basic",
-      "status": "수강중",
-      "issuedAt": null,
-      "completedAt": null
-    }
-  ],
-  "expiredCoupons": [
-    {
-      "id": "cpn-expired-1",
-      "amount": 30000,
-      "description": "[오픈알림 혜택] 프론트엔드 입문반 단 하루 3만원 쿠폰",
-      "validFrom": "2026.02.27",
-      "validTo": "2026.02.27",
-      "status": "기간만료"
-    },
-    {
-      "id": "cpn-expired-2",
-      "amount": 20000,
-      "description": "[오픈알림 혜택 특별연장] 백엔드 기초반 2만원 쿠폰",
-      "validFrom": "2026.02.28",
-      "validTo": "2026.03.02",
-      "status": "기간만료"
-    }
-  ],
-  "giftcards": [
-    {
-      "id": "gc-001",
-      "name": "크레스트랩 수강 상품권",
-      "balance": 50000,
-      "originalAmount": 50000,
-      "validFrom": "2026-01-15",
-      "validTo": "2026-07-15",
-      "status": "active"
-    },
-    {
-      "id": "gc-002",
-      "name": "신규가입 축하 상품권",
-      "balance": 10000,
-      "originalAmount": 30000,
-      "validFrom": "2026-02-01",
-      "validTo": "2026-05-01",
-      "status": "active"
-    },
-    {
-      "id": "gc-003",
-      "name": "이벤트 당첨 상품권",
-      "balance": 0,
-      "originalAmount": 20000,
-      "validFrom": "2025-11-01",
-      "validTo": "2026-02-01",
-      "status": "used"
-    }
-  ],
-  "giftcardHistory": [
-    {
-      "id": "gch-001",
-      "giftcardId": "gc-002",
-      "type": "use",
-      "amount": -20000,
-      "description": "[강의 결제] 코딩테스트 기초반 결제 시 사용",
-      "date": "2026-03-10"
-    },
-    {
-      "id": "gch-002",
-      "giftcardId": "gc-001",
-      "type": "charge",
-      "amount": 50000,
-      "description": "[상품권 등록] 크레스트랩 수강 상품권 등록",
-      "date": "2026-01-15"
-    },
-    {
-      "id": "gch-003",
-      "giftcardId": "gc-002",
-      "type": "charge",
-      "amount": 30000,
-      "description": "[상품권 등록] 신규가입 축하 상품권 등록",
-      "date": "2026-02-01"
-    },
-    {
-      "id": "gch-004",
-      "giftcardId": "gc-003",
-      "type": "use",
-      "amount": -20000,
-      "description": "[강의 결제] 프론트엔드 입문반 결제 시 사용",
-      "date": "2025-12-20"
-    }
-  ],
-  "enrolledCourses": [
-    {
-      "courseSlug": "real-estate-intermediate",
-      "progress": 72,
-      "lastLecture": "리스크 관리",
-      "lastLectureId": "l-2-2",
-      "lastAccessedAt": "2026-03-22",
-      "enrolledAt": "2026-02-15"
-    },
-    {
-      "courseSlug": "financial-basic-class",
-      "progress": 100,
-      "lastLecture": "최종 정리 및 Q&A",
-      "lastLectureId": "l-2-3",
-      "lastAccessedAt": "2026-03-18",
-      "enrolledAt": "2026-01-28"
-    },
-    {
-      "courseSlug": "my-house-basic",
-      "progress": 35,
-      "lastLecture": "핵심 개념 정리",
-      "lastLectureId": "l-1-0",
-      "lastAccessedAt": "2026-03-15",
-      "enrolledAt": "2026-01-10"
-    }
-  ],
   "profileEdit": {
     "title": "회원정보관리",
     "nicknameDuplicateCheckLabel": "중복확인",

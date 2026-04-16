@@ -17,6 +17,7 @@ import {
   createAdminCourse,
   fetchAdminCourse,
   fetchAdminCourseCategories,
+  fetchPublicTags,
   updateAdminCourse,
 } from '@/lib/adminApi';
 import { fetchInstructors } from '@/lib/userApi';
@@ -26,6 +27,7 @@ interface Fields {
   titleLabel: string; titlePlaceholder: string; titleMaxLength: number;
   categoryLabel: string; categoryPlaceholder: string;
   instructorsLabel: string; instructorsHelp: string;
+  tagsLabel: string; tagsHelp: string; tagsEmpty: string;
   levelLabel: string;
   priceLabel: string; priceSuffix: string; priceHelp: string;
   thumbnailLabel: string; thumbnailPlaceholder: string; thumbnailMaxLength: number; thumbnailHelp: string;
@@ -97,6 +99,7 @@ export default function AdminCourseFormContainer({
     () => fetchInstructors({ page: 1, size: 500 }),
     [],
   );
+  const tagsQuery = useAdminQuery(fetchPublicTags, []);
   const initialQuery = useAdminQuery(
     () => (mode === 'edit' && courseId ? fetchAdminCourse(courseId) : Promise.resolve(null)),
     [mode, courseId],
@@ -104,6 +107,7 @@ export default function AdminCourseFormContainer({
 
   const categories = categoriesQuery.data ?? [];
   const instructors = instructorsQuery.data?.content ?? [];
+  const tags = tagsQuery.data ?? [];
   const initial = initialQuery.data;
 
   // AdminCourseResponse.instructorNames 는 Instructor.name 기반이므로 이름으로 매칭
@@ -117,6 +121,7 @@ export default function AdminCourseFormContainer({
   const [title, setTitle] = useState('');
   const [categoryId, setCategoryId] = useState<number | ''>('');
   const [instructorIds, setInstructorIds] = useState<number[]>([]);
+  const [tagIds, setTagIds] = useState<number[]>([]);
   const [level, setLevel] = useState<AdminCourseLevel | ''>('');
   const [price, setPrice] = useState<string>('');
   const [thumbnailUrl, setThumbnailUrl] = useState('');
@@ -132,6 +137,7 @@ export default function AdminCourseFormContainer({
     setTitle(initial.title);
     setCategoryId(initial.categoryId);
     setInstructorIds(initialInstructorIds);
+    setTagIds((initial.tags ?? []).map((t) => t.id));
     setLevel(initial.level);
     setPrice(String(initial.price));
     setThumbnailUrl(initial.thumbnailUrl ?? '');
@@ -140,6 +146,10 @@ export default function AdminCourseFormContainer({
 
   const toggleInstructor = useCallback((id: number) => {
     setInstructorIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
+  }, []);
+
+  const toggleTag = useCallback((id: number) => {
+    setTagIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
   }, []);
 
   // 자동저장 (debounce 2s) — edit 모드 + initialized + 유효한 필드일 때만
@@ -168,6 +178,7 @@ export default function AdminCourseFormContainer({
           level: level as AdminCourseLevel,
           price: priceNum,
           thumbnailUrl: thumbnailUrl.trim() || undefined,
+          tagIds,
         });
         setLastSavedAt(new Date());
         setAutoSaveStatus('saved');
@@ -179,7 +190,7 @@ export default function AdminCourseFormContainer({
     return () => clearTimeout(timer);
   }, [
     mode, initial, initialized,
-    title, categoryId, instructorIds, level, price, thumbnailUrl, description,
+    title, categoryId, instructorIds, tagIds, level, price, thumbnailUrl, description,
     copy.fields.titleMaxLength, copy.fields.thumbnailMaxLength,
   ]);
 
@@ -209,6 +220,7 @@ export default function AdminCourseFormContainer({
         level: level as AdminCourseLevel,
         price: Number(price),
         thumbnailUrl: thumbnailUrl.trim() || undefined,
+        tagIds,
       };
       if (mode === 'edit' && initial) {
         return updateAdminCourse(initial.id, payload);
@@ -227,10 +239,12 @@ export default function AdminCourseFormContainer({
   const initialLoading =
     (categoriesQuery.loading && !categoriesQuery.data) ||
     (instructorsQuery.loading && !instructorsQuery.data) ||
+    (tagsQuery.loading && !tagsQuery.data) ||
     (mode === 'edit' && initialQuery.loading && !initialQuery.data);
   const initialError =
     (categoriesQuery.error && !categoriesQuery.data) ||
     (instructorsQuery.error && !instructorsQuery.data) ||
+    (tagsQuery.error && !tagsQuery.data) ||
     (mode === 'edit' && initialQuery.error && !initialQuery.data);
 
   if (initialLoading) return <AdminLoading label={common.loadingText} />;
@@ -238,11 +252,12 @@ export default function AdminCourseFormContainer({
     return (
       <AdminError
         title={common.errorTitle}
-        message={(categoriesQuery.error ?? instructorsQuery.error ?? initialQuery.error)?.message ?? ''}
+        message={(categoriesQuery.error ?? instructorsQuery.error ?? tagsQuery.error ?? initialQuery.error)?.message ?? ''}
         retryLabel={common.errorRetryLabel}
         onRetry={() => {
           categoriesQuery.refetch();
           instructorsQuery.refetch();
+          tagsQuery.refetch();
           if (mode === 'edit') initialQuery.refetch();
         }}
       />
@@ -315,6 +330,27 @@ export default function AdminCourseFormContainer({
           </div>
           <span className="admin-modal__field-help">{copy.fields.instructorsHelp}</span>
           {errors.instructorsRequired && <FieldError>{errors.instructorsRequired}</FieldError>}
+        </fieldset>
+
+        <fieldset className="admin-form-page__field">
+          <legend className="admin-form-page__label">{copy.fields.tagsLabel}</legend>
+          {tags.length === 0 ? (
+            <p className="admin-modal__field-help">{copy.fields.tagsEmpty}</p>
+          ) : (
+            <div className="admin-form-page__checkbox-list">
+              {tags.map((t) => (
+                <label key={t.id} className="admin-form-page__checkbox">
+                  <input
+                    type="checkbox"
+                    checked={tagIds.includes(t.id)}
+                    onChange={() => toggleTag(t.id)}
+                  />
+                  <span>{t.name}</span>
+                </label>
+              ))}
+            </div>
+          )}
+          <span className="admin-modal__field-help">{copy.fields.tagsHelp}</span>
         </fieldset>
       </div>
 

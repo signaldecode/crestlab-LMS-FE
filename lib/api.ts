@@ -7,7 +7,6 @@
 
 import type {
   Course,
-  Order,
   CreateOrderRequest,
   CreateOrderResponse,
   ConfirmPaymentRequest,
@@ -97,8 +96,3 @@ export async function confirmPayment(body: ConfirmPaymentRequest): Promise<Confi
   });
 }
 
-/** 내 주문 내역 조회 */
-export function fetchMyOrders(params: Record<string, string> = {}): Promise<Order[]> {
-  const query = new URLSearchParams(params).toString();
-  return request<Order[]>(`/me/orders${query ? `?${query}` : ''}`);
-}

@@ -5,16 +5,9 @@
 /** 백엔드가 썸네일 URL 을 내려주지 않을 때 사용할 기본 이미지 */
 export const PLACEHOLDER_THUMB = '/images/placeholder-thumb.svg';
 
-/**
- * next.config.ts 의 images.remotePatterns 에 포함되지 않은 외부 호스트.
- * 백엔드가 placeholder 용도로 이런 URL 을 내려주는 경우가 있어 로컬 placeholder 로 치환한다.
- */
-const DISALLOWED_REMOTE_HOSTS = ['picsum.photos', 'via.placeholder.com', 'placehold.co'];
-
-/** 빈/ null 썸네일 URL 또는 허용되지 않은 외부 placeholder 호스트를 로컬 placeholder 로 대체 */
+/** 빈/ null 썸네일 URL 을 로컬 placeholder 로 대체 */
 export function resolveThumb(url: string | null | undefined): string {
   if (!url || url.trim().length === 0) return PLACEHOLDER_THUMB;
-  if (DISALLOWED_REMOTE_HOSTS.some((host) => url.includes(host))) return PLACEHOLDER_THUMB;
   return url;
 }
 

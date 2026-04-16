@@ -19,6 +19,7 @@ import {
   deleteAdminNotice,
   deleteAdminReview,
   deleteAdminSuccessStory,
+  deleteAdminTag,
 } from '@/lib/adminApi';
 
 export type AdminDeleteResource =
@@ -29,6 +30,7 @@ export type AdminDeleteResource =
   | 'review'
   | 'notice'
   | 'category'
+  | 'tag'
   | 'coupon'; // coupon은 실제로 비활성화 (deactivate)
 
 interface AdminDeleteActionProps {
@@ -55,6 +57,7 @@ function executeDelete(resource: AdminDeleteResource, id: number): Promise<void>
     case 'review': return deleteAdminReview(id);
     case 'notice': return deleteAdminNotice(id);
     case 'category': return deleteAdminCategory(id);
+    case 'tag': return deleteAdminTag(id);
     case 'coupon': return deactivateAdminCoupon(id);
   }
 }

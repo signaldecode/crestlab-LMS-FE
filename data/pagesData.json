@@ -844,6 +844,7 @@
           "items": [
             { "label": "강의 관리", "href": "/admin/courses", "ariaLabel": "강의 관리 페이지로 이동" },
             { "label": "카테고리 관리", "href": "/admin/categories", "ariaLabel": "카테고리 관리 페이지로 이동" },
+            { "label": "태그 관리", "href": "/admin/tags", "ariaLabel": "태그 관리 페이지로 이동" },
             { "label": "리뷰 관리", "href": "/admin/reviews", "ariaLabel": "리뷰 관리 페이지로 이동" },
             { "label": "공지사항 관리", "href": "/admin/notices", "ariaLabel": "공지사항 관리 페이지로 이동" }
           ]
@@ -1236,6 +1237,41 @@
         "descriptionTemplate": "{name}\n위 카테고리를 삭제합니다. 이 작업은 되돌릴 수 없습니다.",
         "blockedWithCoursesTemplate": "이 카테고리에 연결된 강의({count}개)가 있어 삭제할 수 없습니다. 먼저 강의를 다른 카테고리로 이동하세요.",
         "blockedWithChildrenTemplate": "하위 카테고리({count}개)가 있어 삭제할 수 없습니다. 먼저 하위를 삭제하세요.",
+        "confirmLabel": "삭제",
+        "cancelLabel": "취소"
+      }
+    },
+    "tags": {
+      "seo": { "title": "태그 관리 — 관리자", "description": "강의 태그 CRUD" },
+      "title": "태그 관리",
+      "subtitle": "강의에 부여할 태그를 등록·수정·삭제합니다. 태그 삭제 시 연결된 강의-태그 매핑은 함께 제거되며, 강의 자체는 유지됩니다.",
+      "createButtonLabel": "태그 추가",
+      "createButtonAriaLabel": "새 태그 추가",
+      "columns": {
+        "id": "ID",
+        "name": "이름",
+        "actions": "액션"
+      },
+      "actionLabels": { "edit": "수정", "delete": "삭제" },
+      "emptyText": "등록된 태그가 없습니다.",
+      "createModal": {
+        "title": "태그 추가",
+        "nameLabel": "이름",
+        "namePlaceholder": "예: 스윙트레이딩",
+        "nameRequiredError": "태그 이름을 입력해 주세요.",
+        "confirmLabel": "추가",
+        "cancelLabel": "취소"
+      },
+      "editModal": {
+        "titleTemplate": "{name} 수정",
+        "nameLabel": "이름",
+        "nameRequiredError": "태그 이름을 입력해 주세요.",
+        "confirmLabel": "저장",
+        "cancelLabel": "취소"
+      },
+      "deleteModal": {
+        "title": "태그 삭제",
+        "descriptionTemplate": "{name}\n위 태그를 삭제합니다. 연결된 강의-태그 매핑이 함께 제거됩니다. (강의는 유지)",
         "confirmLabel": "삭제",
         "cancelLabel": "취소"
       }
@@ -1720,6 +1756,9 @@
         "categoryPlaceholder": "카테고리 선택",
         "instructorsLabel": "강사",
         "instructorsHelp": "최소 1명 이상 선택해야 합니다.",
+        "tagsLabel": "태그",
+        "tagsHelp": "강의에 연결할 태그를 선택합니다. 선택하지 않아도 됩니다.",
+        "tagsEmpty": "등록된 태그가 없습니다. 관리자 태그 관리에서 먼저 등록해 주세요.",
         "levelLabel": "난이도",
         "priceLabel": "가격",
         "priceSuffix": "원",

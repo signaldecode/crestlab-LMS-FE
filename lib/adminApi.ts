@@ -129,6 +129,7 @@ export interface AdminCourseDetail {
   categoryName: string;
   description: string | null;
   instructorNames: string[];
+  tags: AdminTagNode[];
   thumbnailUrl: string | null;
   level: AdminCourseLevel;
   price: number;
@@ -155,6 +156,8 @@ export interface AdminCourseCreateRequest {
   level: AdminCourseLevel;
   price: number;
   thumbnailUrl?: string;
+  /** 연결할 태그 ID 목록. 수정 시 전달하면 기존 연결이 이 목록으로 교체된다. */
+  tagIds?: number[];
 }
 
 export function createAdminCourse(body: AdminCourseCreateRequest): Promise<AdminCourseDetail> {
@@ -251,6 +254,40 @@ export function deleteAdminCategory(id: number): Promise<void> {
 
 export function reorderAdminCategories(body: AdminCategoryOrderRequest): Promise<void> {
   return request<void>('v1/admin/categories/order', { method: 'PUT', body });
+}
+
+/* ────────────────────────────────────────────
+ *  Tags (`/v1/tags` 공개 조회 · `/v1/admin/tags` 관리자 CRUD)
+ *  - 백엔드 커밋 6df4674 (2026-04-16)
+ *  - 태그는 평면 구조(부모/자식 없음). 이름 기준 정렬로 반환됨.
+ * ────────────────────────────────────────────*/
+export interface AdminTagNode {
+  id: number;
+  name: string;
+}
+
+export interface AdminTagCreateRequest { name: string }
+export type AdminTagUpdateRequest = AdminTagCreateRequest;
+
+/** 공개 태그 조회 — 강좌 폼 드롭다운/체크박스에 사용 (비로그인 접근 가능) */
+export function fetchPublicTags(): Promise<AdminTagNode[]> {
+  return request<AdminTagNode[]>('v1/tags');
+}
+
+export function fetchAdminTags(): Promise<AdminTagNode[]> {
+  return request<AdminTagNode[]>('v1/admin/tags');
+}
+
+export function createAdminTag(body: AdminTagCreateRequest): Promise<AdminTagNode> {
+  return request<AdminTagNode>('v1/admin/tags', { method: 'POST', body });
+}
+
+export function updateAdminTag(id: number, body: AdminTagUpdateRequest): Promise<AdminTagNode> {
+  return request<AdminTagNode>(`v1/admin/tags/${id}`, { method: 'PUT', body });
+}
+
+export function deleteAdminTag(id: number): Promise<void> {
+  return request<void>(`v1/admin/tags/${id}`, { method: 'DELETE' });
 }
 
 /* ────────────────────────────────────────────

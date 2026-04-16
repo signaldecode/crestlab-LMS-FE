@@ -180,16 +180,17 @@
     padding: $spacing-3 $spacing-5;
     margin-top: $spacing-2;
     font-size: $font-size-sm;
-    font-weight: $font-weight-semibold;
-    color: $color-text-inverse;
-    background: $color-primary;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    background: $color-bg-tertiary;
     border-radius: $radius-md;
     letter-spacing: $letter-spacing-normal;
     transition: background $duration-fast $ease-default;
   }
 
   &:hover &__cta {
-    background: $color-primary-dark;
+    background: $color-text-primary;
+    color: $color-text-inverse;
   }
 }
 

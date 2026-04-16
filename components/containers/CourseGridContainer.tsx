@@ -8,12 +8,12 @@
 
 import { useEffect, useMemo, useState, type JSX } from 'react';
 import { useWishlistStoreBase } from '@/stores/useWishlistStore';
+import useCategoryStore from '@/stores/useCategoryStore';
 import { useSearchParams } from 'next/navigation';
 import CourseListCard from '@/components/courses/CourseListCard';
 import { useAdminQuery } from '@/hooks/useAdminQuery';
 import {
   fetchUserCourses,
-  fetchUserCategories,
   type CourseSortType,
   type UserCourseListItem,
   type UserCategory,
@@ -36,17 +36,22 @@ const SORT_OPTIONS: { value: string; label: string; api: CourseSortType }[] = [
   { value: 'price-high', label: '가격 높은순', api: 'PRICE_HIGH' },
 ];
 
-function findCategoryId(categories: UserCategory[] | null, label: string): number | undefined {
-  if (!categories) return undefined;
-  const walk = (list: UserCategory[]): UserCategory | undefined => {
-    for (const c of list) {
-      if (c.name === label) return c;
-      const found = walk(c.children ?? []);
-      if (found) return found;
-    }
-    return undefined;
-  };
-  return walk(categories)?.id;
+function findCategoryByName(categories: UserCategory[], label: string): UserCategory | undefined {
+  for (const c of categories) {
+    if (c.name === label) return c;
+    const found = findCategoryByName(c.children ?? [], label);
+    if (found) return found;
+  }
+  return undefined;
+}
+
+function findCategoryById(categories: UserCategory[], id: number): UserCategory | undefined {
+  for (const c of categories) {
+    if (c.id === id) return c;
+    const found = findCategoryById(c.children ?? [], id);
+    if (found) return found;
+  }
+  return undefined;
 }
 
 function adaptCourse(item: UserCourseListItem): Course {
@@ -86,11 +91,12 @@ export default function CourseGridContainer(): JSX.Element {
   const [sort, setSort] = useState('popular');
   const [currentPage, setCurrentPage] = useState(1);
 
-  // 카테고리 목록은 slug→id 매핑용으로 1회 조회 (categoryId 직접 전달 시에는 매핑 불필요)
-  const { data: categories } = useAdminQuery<UserCategory[]>(
-    () => fetchUserCategories(),
-    [],
-  );
+  // 카테고리 목록은 전역 스토어에서 재사용 (헤더 메가메뉴와 캐시 공유)
+  const categories = useCategoryStore((s) => s.categories);
+  const loadCategories = useCategoryStore((s) => s.loadCategories);
+  useEffect(() => {
+    loadCategories();
+  }, [loadCategories]);
 
   const categoryId = useMemo(() => {
     // 신규 네비 메가메뉴는 `?categoryId=` 를 직접 전달한다 — 매핑 없이 사용
@@ -101,7 +107,7 @@ export default function CourseGridContainer(): JSX.Element {
     // 레거시 `?category=stock` slug 링크 호환: slug→한글명→id 매핑
     if (!category) return undefined;
     const label = CATEGORY_LABELS[category] ?? category;
-    return findCategoryId(categories, label);
+    return findCategoryByName(categories, label)?.id;
   }, [categories, category, categoryIdParam]);
 
   const sortApi = SORT_OPTIONS.find((o) => o.value === sort)?.api ?? 'POPULAR';
@@ -142,9 +148,14 @@ export default function CourseGridContainer(): JSX.Element {
     store.setWishSlugs([...current]);
   }, [data]);
 
-  const pageTitle = category
-    ? `${CATEGORY_LABELS[category] ?? category} 강의`
-    : '전체 강의';
+  const pageTitle = useMemo(() => {
+    if (categoryId !== undefined) {
+      const name = findCategoryById(categories, categoryId)?.name;
+      if (name) return `${name} 강의`;
+    }
+    if (category) return `${CATEGORY_LABELS[category] ?? category} 강의`;
+    return '전체 강의';
+  }, [categoryId, categories, category]);
 
   const goToPage = (page: number) => {
     if (page >= 1 && page <= totalPages) setCurrentPage(page);
@@ -155,10 +166,6 @@ export default function CourseGridContainer(): JSX.Element {
       <h1 className="courses-page__title">{pageTitle}</h1>
 
       <div className="courses-page__toolbar">
-        <span className="courses-page__count">
-          전체 <strong>{totalElements}</strong>개
-        </span>
-
         <div
           className="courses-page__sort-pills"
           role="tablist"

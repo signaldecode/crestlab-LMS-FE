@@ -17,6 +17,7 @@ import CategoryMegaMenu from '@/components/layout/CategoryMegaMenu';
 import SidebarMenu from '@/components/layout/SidebarMenu';
 import NotificationDrawer from '@/components/common/NotificationDrawer';
 import useAuthStore from '@/stores/useAuthStore';
+import useCategoryStore from '@/stores/useCategoryStore';
 import useNotificationStore from '@/stores/useNotificationStore';
 import { getNavData, getMainData } from '@/lib/data';
 import type { NotificationData } from '@/types';
@@ -59,6 +60,7 @@ export default function AppHeader(): JSX.Element {
   const toggleNotification = useNotificationStore((s) => s.toggle);
   const setNotifications = useNotificationStore((s) => s.setNotifications);
   const unreadCount = useNotificationStore((s) => s.unreadCount);
+  const loadCategories = useCategoryStore((s) => s.loadCategories);
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const openMenu = useCallback(() => setIsMobileMenuOpen(true), []);
@@ -69,6 +71,10 @@ export default function AppHeader(): JSX.Element {
       setNotifications(notifUi.mockNotifications);
     }
   }, [notifUi.mockNotifications, setNotifications]);
+
+  useEffect(() => {
+    loadCategories();
+  }, [loadCategories]);
 
   return (
     <header className="app-header" role="banner">

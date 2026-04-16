@@ -15,6 +15,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { useMainPage } from '@/components/home/MainPageProvider';
+import { resolveThumb } from '@/lib/images';
 
 const AUTO_PLAY_INTERVAL = 6000;
 const MOBILE_BREAKPOINT = 768;
@@ -78,7 +79,7 @@ export default function HomeHeroContainer(): JSX.Element {
       <div className="home-hero__viewport">
         {banners.map((banner, idx) => {
           const isActive = idx === current;
-          const src = isMobile ? banner.mobileImageUrl : banner.pcImageUrl;
+          const src = resolveThumb(isMobile ? banner.mobileImageUrl : banner.pcImageUrl);
           const slide = (
             <div
               className={`home-hero__slide${isActive ? ' home-hero__slide--active' : ''}`}

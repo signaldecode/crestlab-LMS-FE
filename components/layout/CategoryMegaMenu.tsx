@@ -9,10 +9,11 @@
 
 'use client';
 
-import { useEffect, useState, type JSX } from 'react';
+import { useMemo, type JSX } from 'react';
 import Link from 'next/link';
 import { getNavData } from '@/lib/data';
-import { fetchUserCategories, type UserCategory } from '@/lib/userApi';
+import useCategoryStore from '@/stores/useCategoryStore';
+import type { UserCategory } from '@/lib/userApi';
 import type { CategoryMenuGroup } from '@/types';
 
 function toNavGroup(category: UserCategory): CategoryMenuGroup {
@@ -28,26 +29,15 @@ function toNavGroup(category: UserCategory): CategoryMenuGroup {
 
 export default function CategoryMegaMenu(): JSX.Element {
   const { categoryMenu } = getNavData();
-  const [apiGroups, setApiGroups] = useState<CategoryMenuGroup[]>([]);
+  const categories = useCategoryStore((s) => s.categories);
 
   // 강사 관련 고정 그룹(기존 siteData 마지막 항목) — API 데이터 뒤에 그대로 덧붙인다.
   const instructorGroup = categoryMenu.groups[categoryMenu.groups.length - 1];
 
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const categories = await fetchUserCategories();
-        if (cancelled) return;
-        setApiGroups(categories.map(toNavGroup));
-      } catch {
-        // API 실패 시 빈 배열 유지 — 강사 그룹만 노출된다
-      }
-    })();
-    return () => { cancelled = true; };
-  }, []);
-
-  const groups = instructorGroup ? [...apiGroups, instructorGroup] : apiGroups;
+  const groups = useMemo(() => {
+    const apiGroups = categories.map(toNavGroup);
+    return instructorGroup ? [...apiGroups, instructorGroup] : apiGroups;
+  }, [categories, instructorGroup]);
 
   return (
     <div className="category-mega-menu" role="menu" aria-label={categoryMenu.ariaLabel}>

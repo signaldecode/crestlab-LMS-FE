@@ -109,29 +109,6 @@ export interface Course {
   discount?: CourseDiscount;
 }
 
-export interface HomeSectionCategory {
-  label: string;
-  slugs: string[];
-}
-
-export interface HomeSection {
-  title: string;
-  subtitle?: string;
-  categories: HomeSectionCategory[];
-}
-
-/** 칩별로 강의가 미리 resolve된 섹션 뷰 (서버에서 조립, 클라이언트로 전달) */
-export interface HomeSectionChip {
-  label: string;
-  courses: Course[];
-}
-
-export interface HomeSectionView {
-  title: string;
-  subtitle?: string;
-  chips: HomeSectionChip[];
-}
-
 /* ── 오픈예정 강의 ── */
 export interface UpcomingCourse {
   id: number;
@@ -226,78 +203,6 @@ export interface BestReviewSection {
   items: BestReviewItem[];
 }
 
-/* ── 실시간 인기 아티클 ── */
-export interface PopularArticleFeatured {
-  id: string;
-  rank: number;
-  thumbnail: string;
-  thumbnailAlt: string;
-  title: string;
-  authorNickname: string;
-  category: string;
-  date: string;
-  readTime: string;
-  viewCount: number;
-  ariaLabel: string;
-}
-
-export interface PopularArticleRanked {
-  id: string;
-  rank: number;
-  title: string;
-  authorNickname: string;
-  category: string;
-  date: string;
-  readTime: string;
-  viewCount: number;
-  ariaLabel: string;
-}
-
-export interface PopularArticleCard {
-  id: string;
-  authorNickname: string;
-  authorVerified: boolean;
-  category: string;
-  title: string;
-  content: string;
-  thumbnail: string;
-  thumbnailAlt: string;
-  likeCount: number;
-  commentCount: number;
-  date: string;
-  ariaLabel: string;
-}
-
-export interface PopularArticlesSection {
-  meta: {
-    title: string;
-    ariaLabel: string;
-  };
-  featured: PopularArticleFeatured;
-  ranked: PopularArticleRanked[];
-  cards: PopularArticleCard[];
-}
-
-/* ── 이주의 베스트 인기글 (캐러셀) ── */
-export interface HomeBestArticle {
-  id: string;
-  rank: number;
-  thumbnail: string;
-  thumbnailAlt: string;
-  title: string;
-  date: string;
-  ariaLabel: string;
-}
-
-export interface HomeBestArticlesSection {
-  meta: {
-    title: string;
-    icon: string;
-    ariaLabel: string;
-  };
-  articles: HomeBestArticle[];
-}
-
 /* ── 홈 카테고리 네비게이션 ── */
 export interface HomeCategoryItem {
   icon: string;
@@ -309,20 +214,6 @@ export interface HomeCategoryItem {
 export interface HomeCategorySection {
   meta: { ariaLabel: string };
   items: HomeCategoryItem[];
-}
-
-/* ── 실시간 카운터 ── */
-export interface LiveCounterItem {
-  icon: string;
-  value: number;
-  suffix: string;
-  label: string;
-  ariaLabel: string;
-}
-
-export interface LiveCounterSection {
-  meta: { ariaLabel: string };
-  items: LiveCounterItem[];
 }
 
 /* ── 인기 강사 ── */
@@ -345,33 +236,6 @@ export interface HomeInstructorsSection {
     ariaLabel: string;
   };
   instructors: HomeInstructor[];
-}
-
-/* ── CTA 배너 ── */
-export interface CtaBannerData {
-  title: string;
-  description: string;
-  buttonLabel: string;
-  buttonHref: string;
-  buttonAriaLabel: string;
-  ariaLabel: string;
-}
-
-/* ── 홈 프로모 배너 ── */
-export interface HomePromoBanner {
-  id: string;
-  title: string;
-  href: string;
-  thumbnail: string;
-  thumbnailAlt: string;
-  ariaLabel: string;
-}
-
-export interface HomePromoBannerSection {
-  meta: {
-    ariaLabel: string;
-  };
-  banners: HomePromoBanner[];
 }
 
 /* ── 홈 뉴스 섹션 ── */
@@ -919,34 +783,6 @@ export interface Coupon {
   code: string;
 }
 
-export interface Order {
-  id: string;
-  items: CartItem[];
-  totalAmount: number;
-  status: string;
-  createdAt: string;
-}
-
-export interface OrderItemData {
-  courseSlug: string;
-  price: number;
-}
-
-export interface OrderData {
-  id: string;
-  courseSlugs: string[];
-  items: OrderItemData[];
-  totalAmount: number;
-  coursePrice: number;
-  couponDiscount: number;
-  pointDiscount: number;
-  voucherDiscount: number;
-  paymentMethod: string;
-  status: string;
-  createdAt: string;
-  receiptUrl?: string;
-}
-
 /* ── 토스페이먼츠 결제 ── */
 
 /** 토스페이먼츠 결제 수단 */
@@ -1018,60 +854,6 @@ export type OrderStatus =
   | 'REFUNDED'
   | 'FAILED';
 
-/* ── 상품권 ── */
-export interface GiftcardData {
-  id: string;
-  name: string;
-  balance: number;
-  originalAmount: number;
-  validFrom: string;
-  validTo: string;
-  status: 'active' | 'used' | 'expired';
-}
-
-export interface GiftcardHistoryData {
-  id: string;
-  giftcardId: string;
-  type: 'charge' | 'use';
-  amount: number;
-  description: string;
-  date: string;
-}
-
-/* ── 수강중 강의 ── */
-export interface EnrolledCourseData {
-  courseSlug: string;
-  progress: number;
-  lastLecture: string;
-  lastLectureId: string;
-  lastAccessedAt: string;
-  enrolledAt: string;
-}
-
-export interface ExpiredCouponData {
-  id: string;
-  amount: number;
-  description: string;
-  validFrom: string;
-  validTo: string;
-  status: string;
-}
-
-export interface CertificateData {
-  id: string;
-  courseSlug: string;
-  status: string;
-  issuedAt: string | null;
-  completedAt: string | null;
-}
-
-export interface ReviewData {
-  id: string;
-  courseSlug: string;
-  rating: number;
-  content: string;
-  createdAt: string;
-}
 
 /* ── 알림 ── */
 export type NotificationType = 'new_post' | 'activity' | 'news';
@@ -1117,33 +899,17 @@ export interface MainData {
     notification: Record<string, unknown>;
   };
   pages: Record<string, unknown>;
-  courses: Course[];
-  homeSections: HomeSection[];
-  homeTabbedSections: HomeSection[];
   homeCategories: HomeCategorySection;
   upcomingCourses: UpcomingCourse[];
   bestCourses: BestCourse[];
   bestChipCategories: BestChipCategory[];
   bestReviews: BestReviewSection;
-  popularArticles: PopularArticlesSection;
-  homeBestArticles: HomeBestArticlesSection;
-  liveCounter: LiveCounterSection;
   homeInstructors: HomeInstructorsSection;
-  homePromoBanners: HomePromoBannerSection;
   homeNews: HomeNewsSection;
-  ctaBanner: CtaBannerData;
-  faq: FaqItem[];
   footer: FooterData;
   a11y: Record<string, unknown>;
   geo: GeoData;
   seo: Record<string, unknown>;
-  reviews: ReviewData[];
-  certificates: CertificateData[];
-  orders: OrderData[];
-  expiredCoupons: ExpiredCouponData[];
-  giftcards: GiftcardData[];
-  giftcardHistory: GiftcardHistoryData[];
-  enrolledCourses: EnrolledCourseData[];
   board: BoardData;
 }
 

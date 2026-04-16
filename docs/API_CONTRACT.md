@@ -1,6 +1,6 @@
 # Backend API Contract (lecture-api)
 
-> **Last synced**: 2026-04-16 (백엔드 커밋: `7c5b040`)
+> **Last synced**: 2026-04-16 (백엔드 커밋: `6df4674`)
 > **Base URL**: `http://13.124.163.110:8083`
 > **Proxy**: 프론트 `/api/proxy/v1/*` → 백엔드 `/api/v1/*`
 
@@ -10,6 +10,7 @@
 
 | 날짜 | 변경 내용 | 백엔드 커밋 | 프론트 연동 |
 |---|---|---|---|
+| 2026-04-16 | 강좌 태그 관리 (`/tags`, `/admin/tags`) + `CourseCreate/UpdateRequest.tagIds` + `AdminCourseResponse.tags` | `6df4674` | O |
 | 2026-04-16 | AWS MediaConvert 기반 HLS 인코딩 파이프라인 전환 + 관리자 미리보기 Signed URL (`GET /admin/videos/{videoId}/preview-url`) | `3ce423a` | O |
 | 2026-04-16 | 내가 작성한 Q&A 목록 조회 (`GET /my/questions`) | `73f96ae` | O |
 | 2026-04-16 | 내 후기 응답에 `courseThumbnailUrl` 필드 추가 + 메인 페이지(`/main/**`) 비로그인 공개 | `099274b` | O |
@@ -182,6 +183,22 @@ learningPolicy, refundPolicy: string | null
 | Method | Path | 설명 | Response |
 |---|---|---|---|
 | GET | `/` | 카테고리 트리 | `[{ id, name, children: [...] }]` |
+
+---
+
+## 4-b. Tags (`/api/v1/tags`)
+
+공개 조회(비로그인 허용). 강좌 등록/수정 화면의 태그 선택 드롭다운 용. 백엔드는 이름 오름차순으로 반환.
+
+| Method | Path | 설명 | Response |
+|---|---|---|---|
+| GET | `/` | 태그 전체 목록 | `TagResponse[]` |
+
+### TagResponse
+```
+id: number
+name: string
+```
 
 ---
 
@@ -640,8 +657,12 @@ title, categoryName, status, level, createdAt, updatedAt: string
 categoryId: number
 description, thumbnailUrl, publishedAt: string | null
 instructorNames: string[]
+tags: TagResponse[]               ← 2026-04-16 추가 ({id, name}[])
 averageRating: number
 ```
+
+### AdminCourseCreateRequest / AdminCourseUpdateRequest
+`tagIds?: number[]` — 선택. 수정 시 전달하면 기존 태그 연결이 이 목록으로 교체된다. (2026-04-16 추가)
 
 ### AdminCurriculumResponse
 ```
@@ -720,6 +741,34 @@ sortOrder: number (필수, >= 0)
 | PUT | `/categories/{id}` | 수정 |
 | DELETE | `/categories/{id}` | 삭제 |
 | PUT | `/categories/order` | 순서 변경 |
+
+---
+
+## A6-b. Tags CRUD — 2026-04-16 추가
+
+권한: ADMIN. 평면 구조(부모/자식 없음). 태그 삭제 시 `course_tags` 매핑은 함께 제거되며 강좌 자체는 유지된다.
+
+| Method | Path | 설명 | Request | Response |
+|---|---|---|---|---|
+| GET | `/tags` | 태그 전체 목록 | - | `TagResponse[]` |
+| POST | `/tags` | 태그 생성 (이름 중복 시 409 `TAG_002`) | `{ name }` | `TagResponse` (201) |
+| PUT | `/tags/{id}` | 태그 이름 수정 (404 `TAG_001` / 409 `TAG_002`) | `{ name }` | `TagResponse` |
+| DELETE | `/tags/{id}` | 태그 삭제 (404 `TAG_001`) | - | void (204) |
+
+### TagRequest (create/update 공용)
+```
+name: string (필수, max 50)
+```
+
+### 에러 코드
+- `TAG_001` — 태그 없음 (404)
+- `TAG_002` — 이미 사용 중인 태그 이름 (409)
+
+### 프론트 연동 (2026-04-16)
+- `lib/adminApi.ts`: `fetchPublicTags`, `fetchAdminTags`, `createAdminTag`, `updateAdminTag`, `deleteAdminTag` + `AdminTagNode` 타입
+- `components/admin/tags/AdminTagListContainer.tsx` — 목록/생성/수정/삭제 UI
+- `app/(admin)/admin/tags/page.tsx` — `/admin/tags` 관리 페이지
+- 강좌 폼(`AdminCourseFormContainer`)에 태그 체크박스 추가 — 강사도 공개 `/v1/tags` 로 조회
 
 ---
 
