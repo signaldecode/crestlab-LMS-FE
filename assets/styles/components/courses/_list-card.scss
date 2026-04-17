@@ -89,8 +89,11 @@
     margin: 0;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    // 1줄짜리 제목이어도 2줄만큼 공간을 확보해 카드 높이 편차 제거
+    min-height: calc(1.444em * 2);
   }
 
   // ── 메타 (별점 + 강사) ──
@@ -141,11 +144,16 @@
   }
 
   // ── 태그 행 ──
+  // 모바일(<640px)에서는 개수 차이로 인한 카드 높이 편차를 막기 위해 숨김
   &__tags {
-    display: flex;
+    display: none;
     align-items: center;
     gap: $spacing-2;
     flex-wrap: wrap;
+
+    @include breakpoint(sm) {
+      display: flex;
+    }
   }
 
   &__tag {
@@ -173,8 +181,9 @@
   }
 
   // ── CTA 버튼 ("바로가기") ──
+  // 모바일(<640px)에서는 숨김 — 카드 전체가 링크라 별도 CTA 불필요
   &__cta {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     padding: $spacing-3 $spacing-5;
@@ -186,6 +195,10 @@
     border-radius: $radius-md;
     letter-spacing: $letter-spacing-normal;
     transition: background $duration-fast $ease-default;
+
+    @include breakpoint(sm) {
+      display: flex;
+    }
   }
 
   &:hover &__cta {
