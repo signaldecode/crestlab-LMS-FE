@@ -1,6 +1,6 @@
 /**
  * 관리자 강의 편집 통합 탭 (AdminCourseTabs)
- * - 기본정보 / 커리큘럼 / 영상 / 설정 4개 탭을 URL query `?tab=`로 전환한다
+ * - 기본정보 / 커리큘럼 / 설정 3개 탭을 URL query `?tab=`로 전환한다
  * - 각 탭은 자립 컨테이너 컴포넌트를 렌더링한다
  */
 
@@ -12,7 +12,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import AdminCourseFormContainer, {
   type CourseFormCopy,
 } from '@/components/admin/courses/AdminCourseFormContainer';
-import AdminCourseEditContainer from '@/components/admin/AdminCourseEditContainer';
 import CurriculumEditor, {
   type CurriculumEditorCopy,
 } from '@/components/admin/courses/CurriculumEditor';
@@ -20,7 +19,7 @@ import { fetchAdminCourse, updateAdminCourseStatus } from '@/lib/adminApi';
 import useAuthStore, { selectIsAdmin } from '@/stores/useAuthStore';
 import type { AdminCourseStatus } from '@/types';
 
-export type CourseTabKey = 'basic' | 'curriculum' | 'video' | 'settings';
+export type CourseTabKey = 'basic' | 'curriculum' | 'settings';
 
 export interface AdminCourseTabsCopy {
   tabs: Record<CourseTabKey, string>;
@@ -51,12 +50,11 @@ interface Props {
   notFoundText: string;
   curriculumCopy: CurriculumEditorCopy;
   tabsCopy: AdminCourseTabsCopy;
-  videoTexts: Parameters<typeof AdminCourseEditContainer>[0]['texts'];
 }
 
-const TAB_KEYS: CourseTabKey[] = ['basic', 'curriculum', 'video', 'settings'];
+const TAB_KEYS: CourseTabKey[] = ['basic', 'curriculum', 'settings'];
 /** INSTRUCTOR 가 편집 가능한 탭만 — basic/settings 는 ADMIN 전용 */
-const INSTRUCTOR_TAB_KEYS: CourseTabKey[] = ['curriculum', 'video'];
+const INSTRUCTOR_TAB_KEYS: CourseTabKey[] = ['curriculum'];
 
 export default function AdminCourseTabs({
   courseId,
@@ -66,7 +64,6 @@ export default function AdminCourseTabs({
   notFoundText,
   curriculumCopy,
   tabsCopy,
-  videoTexts,
 }: Props): JSX.Element {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -156,9 +153,6 @@ export default function AdminCourseTabs({
         )}
         {activeTab === 'curriculum' && (
           <CurriculumEditor courseId={courseId} copy={curriculumCopy} />
-        )}
-        {activeTab === 'video' && (
-          <AdminCourseEditContainer courseId={String(courseId)} texts={videoTexts} />
         )}
         {activeTab === 'settings' && (
           <div className="admin-course-tabs__settings">

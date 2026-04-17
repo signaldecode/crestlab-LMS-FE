@@ -68,7 +68,7 @@
     "successMessage": "문의가 정상적으로 접수되었습니다. 답변이 등록되면 알림으로 안내해 드리겠습니다.",
     "successAction": {
       "label": "내 문의 목록 보기",
-      "href": "/mypage/tickets",
+      "href": "/support/tickets",
       "ariaLabel": "내 문의 목록 페이지로 이동"
     }
   },
@@ -77,8 +77,9 @@
     "title": "내 문의 내역",
     "subtitle": "내가 등록한 1:1 문의와 답변 상태를 확인할 수 있습니다.",
     "newTicketLabel": "1:1 문의 작성",
-    "newTicketHref": "/mypage/tickets/new",
+    "newTicketHref": "/support/tickets/new",
     "newTicketAriaLabel": "1:1 문의 작성 페이지로 이동",
+    "detailHrefBase": "/support/tickets",
     "filters": {
       "ariaLabel": "문의 상태 필터",
       "options": [
@@ -118,7 +119,7 @@
 
   "ticketDetail": {
     "backLabel": "← 문의 목록",
-    "backHref": "/mypage/tickets",
+    "backHref": "/support/tickets",
     "backAriaLabel": "내 문의 목록으로 돌아가기",
     "labels": {
       "category": "유형",
@@ -160,7 +161,7 @@
         {
           "label": "1:1 문의하기",
           "description": "원하는 답변을 찾지 못했다면 직접 문의해 주세요.",
-          "href": "/mypage/tickets/new",
+          "href": "/support/tickets/new",
           "ariaLabel": "1:1 문의 작성 페이지로 이동"
         },
         {

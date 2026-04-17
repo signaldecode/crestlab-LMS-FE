@@ -1,6 +1,6 @@
 /**
  * 강의 질문 상세 컴포넌트 (CourseQuestionDetailContent)
- * - 질문 본문 + 답변 목록 + 답변 작성 (강사/관리자만)
+ * - 질문 카드 + 상태 뱃지 + 답변 목록 + 답변 작성 (강사/관리자만)
  */
 
 'use client';
@@ -13,8 +13,24 @@ import {
   fetchQuestion,
 } from '@/lib/userApi';
 import useAuthStore, { selectIsAdmin } from '@/stores/useAuthStore';
+import pagesData from '@/data/pagesData.json';
 
 const SK = 'course-qna-detail';
+const qd = ((pagesData as unknown as Record<string, Record<string, unknown>>).courses
+  .detail as Record<string, unknown>).questionDetail as {
+  backLabel: string;
+  viewCountPrefix: string;
+  statusLabels: Record<'WAITING' | 'ANSWERED', string>;
+  answersTitlePrefix: string;
+  emptyTitle: string;
+  emptyDescription: string;
+  instructorBadgeLabel: string;
+  adminBadgeLabel: string;
+  answerFormTitle: string;
+  answerPlaceholder: string;
+  answerSubmitLabel: string;
+  loadingText: string;
+};
 
 interface Props {
   courseId: number;
@@ -53,36 +69,67 @@ export default function CourseQuestionDetailContent({ courseId, questionId }: Pr
   }, [answerContent, mutation]);
 
   if (loading && !data) {
-    return <main className={SK}><p>불러오는 중…</p></main>;
+    return <main className={SK}><p>{qd.loadingText}</p></main>;
   }
   if (error && !data) {
     return <main className={SK}><p>{error.message}</p></main>;
   }
   if (!data) return <main className={SK} />;
 
+  const statusKey = data.status === 'ANSWERED' ? 'answered' : 'waiting';
+
   return (
     <div className={SK}>
-      <Link href={`/courses/${courseId}?tab=질문답변`} className={`${SK}__back`}>← 질문 목록</Link>
+      <Link href={`/courses/${courseId}?tab=질문답변`} className={`${SK}__back`}>← {qd.backLabel}</Link>
 
-      <header className={`${SK}__header`}>
-        <h1 className={`${SK}__title`}>{data.title}</h1>
-        <div className={`${SK}__meta`}>
-          <span>{data.nickname}</span>
-          <span>{formatDate(data.createdAt)}</span>
-          <span>조회 {data.viewCount}</span>
+      <article className={`${SK}__card`}>
+        <header className={`${SK}__header`}>
+          <div className={`${SK}__title-row`}>
+            <h1 className={`${SK}__title`}>{data.title}</h1>
+            <span className={`${SK}__status ${SK}__status--${statusKey}`}>
+              {qd.statusLabels[data.status]}
+            </span>
+          </div>
+          <div className={`${SK}__meta`}>
+            <span className={`${SK}__meta-nickname`}>{data.nickname}</span>
+            <span className={`${SK}__meta-dot`} aria-hidden="true">·</span>
+            <span>{formatDate(data.createdAt)}</span>
+            <span className={`${SK}__meta-dot`} aria-hidden="true">·</span>
+            <span>{qd.viewCountPrefix} {data.viewCount}</span>
+          </div>
+        </header>
+
+        <div className={`${SK}__body`}>
+          {data.content.split('\n').map((line, i) => (
+            <p key={i}>{line || '\u00A0'}</p>
+          ))}
         </div>
-      </header>
-
-      <article className={`${SK}__body`}>
-        {data.content.split('\n').map((line, i) => (
-          <p key={i}>{line || '\u00A0'}</p>
-        ))}
       </article>
 
       <section className={`${SK}__answers`}>
-        <h2 className={`${SK}__answers-title`}>답변 {data.answers.length}</h2>
+        <h2 className={`${SK}__answers-title`}>{qd.answersTitlePrefix} {data.answers.length}</h2>
         {data.answers.length === 0 ? (
-          <p className={`${SK}__empty`}>아직 답변이 없습니다.</p>
+          <div className={`${SK}__empty`}>
+            <svg
+              className={`${SK}__empty-icon`}
+              width="48"
+              height="48"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+              <path d="M8 10h.01" />
+              <path d="M12 10h.01" />
+              <path d="M16 10h.01" />
+            </svg>
+            <p className={`${SK}__empty-title`}>{qd.emptyTitle}</p>
+            <p className={`${SK}__empty-desc`}>{qd.emptyDescription}</p>
+          </div>
         ) : (
           <ul className={`${SK}__answer-list`} role="list">
             {data.answers.map((a) => (
@@ -90,10 +137,10 @@ export default function CourseQuestionDetailContent({ courseId, questionId }: Pr
                 <div className={`${SK}__answer-meta`}>
                   <span className={`${SK}__answer-nickname`}>{a.nickname}</span>
                   {a.role === 'INSTRUCTOR' && (
-                    <span className={`${SK}__answer-badge`}>강사</span>
+                    <span className={`${SK}__answer-badge`}>{qd.instructorBadgeLabel}</span>
                   )}
                   {a.role === 'ADMIN' && (
-                    <span className={`${SK}__answer-badge`}>관리자</span>
+                    <span className={`${SK}__answer-badge`}>{qd.adminBadgeLabel}</span>
                   )}
                   <span className={`${SK}__answer-date`}>{formatDate(a.createdAt)}</span>
                 </div>
@@ -106,11 +153,11 @@ export default function CourseQuestionDetailContent({ courseId, questionId }: Pr
 
       {canAnswer && (
         <form className={`${SK}__answer-form`} onSubmit={handleAnswerSubmit}>
-          <h3 className={`${SK}__answer-form-title`}>답변 작성</h3>
+          <h3 className={`${SK}__answer-form-title`}>{qd.answerFormTitle}</h3>
           <textarea
             value={answerContent}
             onChange={(e) => setAnswerContent(e.target.value)}
-            placeholder="답변 내용을 입력하세요"
+            placeholder={qd.answerPlaceholder}
             rows={4}
             className={`${SK}__answer-textarea`}
             required
@@ -121,7 +168,7 @@ export default function CourseQuestionDetailContent({ courseId, questionId }: Pr
             className={`${SK}__answer-submit`}
             disabled={!answerContent.trim() || mutation.submitting}
           >
-            답변 등록
+            {qd.answerSubmitLabel}
           </button>
         </form>
       )}

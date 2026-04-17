@@ -24,8 +24,8 @@ interface ReviewsCopy {
     ratingLabel: string; ratingAllLabel: string;
     resetLabel: string; resetAriaLabel: string;
   };
-  columns: { rating: string; course: string; user: string; content: string; likeCount: string; createdAt: string; actions: string };
-  actionLabels: { view: string; delete: string };
+  columns: { rating: string; course: string; user: string; content: string; likeCount: string; createdAt: string; actions?: string };
+  actionLabels: { view?: string; delete: string };
   detailModal: {
     title: string;
     descriptionTemplate: string;
@@ -191,27 +191,45 @@ export default function AdminReviewsPage(): JSX.Element {
               </tr>
             </thead>
             <tbody>
-              {paged.map((r) => (
-                <tr key={r.id}>
-                  <td className="admin-list__td admin-list__td--narrow">{'★'.repeat(r.rating)}</td>
-                  <td className="admin-list__td admin-list__td--strong">{r.courseTitle}</td>
-                  <td className="admin-list__td">{r.nickname}</td>
-                  <td className="admin-list__td admin-list__td--ellipsis">{r.content}</td>
-                  <td className="admin-list__td admin-list__td--num">{r.likeCount}</td>
-                  <td className="admin-list__td">{formatDateTime(r.createdAt)}</td>
-                  <td className="admin-list__td admin-list__td--actions">
-                    <AdminActionButton onClick={() => setViewTarget(r)}>
-                      {copy.actionLabels.view}
-                    </AdminActionButton>
-                    <AdminActionButton
-                      variant="danger"
-                      onClick={() => setDeleteTarget(r)}
-                    >
-                      {copy.actionLabels.delete}
-                    </AdminActionButton>
-                  </td>
-                </tr>
-              ))}
+              {paged.map((r) => {
+                const openView = () => setViewTarget(r);
+                return (
+                  <tr
+                    key={r.id}
+                    className="is-clickable"
+                    role="button"
+                    tabIndex={0}
+                    aria-label={r.content}
+                    onClick={(e) => {
+                      const interactive = (e.target as HTMLElement).closest('button, a, input, select, textarea, [role="button"]');
+                      if (interactive && interactive !== e.currentTarget) return;
+                      openView();
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.target !== e.currentTarget) return;
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openView();
+                      }
+                    }}
+                  >
+                    <td className="admin-list__td admin-list__td--narrow">{'★'.repeat(r.rating)}</td>
+                    <td className="admin-list__td admin-list__td--strong">{r.courseTitle}</td>
+                    <td className="admin-list__td">{r.nickname}</td>
+                    <td className="admin-list__td admin-list__td--ellipsis">{r.content}</td>
+                    <td className="admin-list__td admin-list__td--num">{r.likeCount}</td>
+                    <td className="admin-list__td">{formatDateTime(r.createdAt)}</td>
+                    <td className="admin-list__td admin-list__td--actions">
+                      <AdminActionButton
+                        variant="danger"
+                        onClick={() => setDeleteTarget(r)}
+                      >
+                        {copy.actionLabels.delete}
+                      </AdminActionButton>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

@@ -8,7 +8,7 @@ import mainData from '@/data';
 import type {
   MainData, SiteData, NavData, UpcomingCourse, BestCourse, BestChipCategory,
   BestReviewSection, FooterData, GeoData, HomeCategorySection,
-  HomeInstructorsSection, HomeNewsSection, BoardNotice, BoardData,
+  HomeInstructorsSection, HomeNewsSection, BoardData,
 } from '@/types';
 
 const data: MainData = mainData;
@@ -83,14 +83,4 @@ export function getFooterData(): FooterData | null {
 /** 게시판 페이지 데이터 반환 */
 export function getBoardData(): BoardData {
   return data.board;
-}
-
-/** 전체 공지 목록 반환 */
-export function getBoardNotices(): BoardNotice[] {
-  return data.board?.notices || [];
-}
-
-/** slug로 공지 1건 조회 */
-export function findNoticeBySlug(slug: string): BoardNotice | null {
-  return data.board?.notices?.find((n) => n.slug === slug) || null;
 }

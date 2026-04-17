@@ -30,6 +30,8 @@ interface AdminLayoutData {
   title: string;
   navLabel: string;
   navAriaLabel: string;
+  menuOpenAriaLabel: string;
+  menuCloseAriaLabel: string;
   backToSiteLabel: string;
   backToSiteHref: string;
   backToSiteAriaLabel: string;
@@ -58,6 +60,8 @@ export default function AdminLayout({ children }: AdminLayoutProps): JSX.Element
         backToSiteLabel={layout.backToSiteLabel}
         backToSiteHref={layout.backToSiteHref}
         backToSiteAriaLabel={layout.backToSiteAriaLabel}
+        menuOpenAriaLabel={layout.menuOpenAriaLabel}
+        menuCloseAriaLabel={layout.menuCloseAriaLabel}
       />
       <main className="admin-layout__content">
         <AdminAccessGuard

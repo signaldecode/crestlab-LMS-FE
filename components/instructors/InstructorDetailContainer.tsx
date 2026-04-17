@@ -1,11 +1,12 @@
 /**
  * 강사 상세 페이지 컨테이너 (InstructorDetailContainer)
- * - Figma: 좌측 portrait(342×454) + 우측 정보(이름/통계 칩/소개/이력 사이드바)
- *   + 하단 "대표강의" 3-카드 그리드 (BEST 뱃지, 평점, 키워드 칩, 바로가기)
+ * - Figma: 좌측 portrait(342×454) + 우측 정보(이름/통계 칩/소개) + 사이드바(경력/주요이력)
+ *   + 하단 "대표강의" 캐러셀 (prev/next 화살표 + 가로 스크롤)
  */
 
 'use client';
 
+import { useCallback, useRef } from 'react';
 import type { JSX } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -17,13 +18,13 @@ import {
 import { resolveThumb } from '@/lib/images';
 
 const SK = 'instructor-detail';
-const BULLET_LIMIT = 4;
+const BULLET_LIMIT = 6;
 
 interface Props {
   instructorId: number;
 }
 
-/** career 문자열을 줄바꿈/세미콜론 기준으로 분리해 불릿 배열로 변환 */
+/** career/achievements 문자열을 줄바꿈/세미콜론 기준으로 분리해 불릿 배열로 변환 */
 function toBullets(text: string | null | undefined, limit: number): string[] {
   if (!text) return [];
   return text
@@ -51,11 +52,30 @@ function pickBestCourseId(courses: InstructorRepresentativeCourse[]): number | n
   return top.averageRating >= 4.5 ? top.courseId : null;
 }
 
+/** 누적 수익을 한국식 천원 표기로 변환 (예: 4_000_000 → "400만원이상") */
+function formatCumulativeIncome(amount: number): string {
+  if (amount >= 100_000_000) return `${Math.floor(amount / 100_000_000)}억원이상`;
+  if (amount >= 10_000) return `${Math.floor(amount / 10_000)}만원이상`;
+  return `${amount.toLocaleString('ko-KR')}원`;
+}
+
 export default function InstructorDetailContainer({ instructorId }: Props): JSX.Element {
   const { data, loading, error } = useAdminQuery(
     () => fetchInstructor(instructorId),
     [instructorId],
   );
+
+  const coursesScrollRef = useRef<HTMLUListElement | null>(null);
+
+  const scrollByCard = useCallback((direction: 1 | -1) => {
+    const el = coursesScrollRef.current;
+    if (!el) return;
+    const firstChild = el.firstElementChild as HTMLElement | null;
+    if (!firstChild) return;
+    const cardWidth = firstChild.getBoundingClientRect().width;
+    const gap = parseFloat(getComputedStyle(el).columnGap || '0') || 0;
+    el.scrollBy({ left: direction * (cardWidth + gap), behavior: 'smooth' });
+  }, []);
 
   if (loading && !data) return <main className={SK}><p className={`${SK}__state`}>불러오는 중…</p></main>;
   if (error && !data) return <main className={SK}><p className={`${SK}__state`}>{error.message}</p></main>;
@@ -63,7 +83,12 @@ export default function InstructorDetailContainer({ instructorId }: Props): JSX.
 
   const careerYears = extractYears(data.career);
   const careerBullets = toBullets(data.career, BULLET_LIMIT);
+  const achievementsBullets = toBullets(data.mainAchievements, BULLET_LIMIT);
   const bestCourseId = pickBestCourseId(data.representativeCourses);
+  const cumulativeIncomeText =
+    typeof data.cumulativeIncome === 'number' && data.cumulativeIncome > 0
+      ? formatCumulativeIncome(data.cumulativeIncome)
+      : null;
 
   return (
     <div className={SK}>
@@ -75,7 +100,7 @@ export default function InstructorDetailContainer({ instructorId }: Props): JSX.
           </h1>
         </header>
 
-        {/* 메인 프로필 블록: portrait + info column + sidebar */}
+        {/* 메인 프로필 블록: portrait(좌) + 정보 통합 컬럼(우) */}
         <section className={`${SK}__hero`}>
           <div className={`${SK}__portrait`}>
             {data.profileImageUrl ? (
@@ -83,7 +108,7 @@ export default function InstructorDetailContainer({ instructorId }: Props): JSX.
                 src={data.profileImageUrl}
                 alt={data.name}
                 fill
-                sizes="342px"
+                sizes="(max-width: 767px) 100vw, 320px"
                 className={`${SK}__portrait-img`}
               />
             ) : (
@@ -91,39 +116,56 @@ export default function InstructorDetailContainer({ instructorId }: Props): JSX.
             )}
           </div>
 
-          <div className={`${SK}__profile`}>
-            <div className={`${SK}__name-row`}>
-              <span className={`${SK}__name`}>{data.name}</span>
-              <span className={`${SK}__name-suffix`}>강사님</span>
+          <div className={`${SK}__main`}>
+            <div className={`${SK}__profile`}>
+              <div className={`${SK}__name-row`}>
+                <span className={`${SK}__name`}>{data.name}</span>
+                <span className={`${SK}__name-suffix`}>강사님</span>
+              </div>
+
+              <dl className={`${SK}__stats`}>
+                {data.specialty && (
+                  <StatChip label="전문분야" value={data.specialty} />
+                )}
+                {careerYears && (
+                  <StatChip label="경력" value={careerYears} />
+                )}
+                <StatChip label="팔로우" value={data.followerCount.toLocaleString('ko-KR')} />
+                {cumulativeIncomeText && (
+                  <StatChip label="누적 수익" value={cumulativeIncomeText} />
+                )}
+              </dl>
+
+              {data.description && (
+                <p className={`${SK}__bio`}>{data.description}</p>
+              )}
             </div>
 
-            <dl className={`${SK}__stats`}>
-              {data.specialty && (
-                <StatChip label="전문분야" value={data.specialty} />
-              )}
-              {careerYears && (
-                <StatChip label="경력" value={careerYears} />
-              )}
-              <StatChip label="팔로우" value={data.followerCount.toLocaleString('ko-KR')} />
-            </dl>
-
-            {data.description && (
-              <p className={`${SK}__bio`}>{data.description}</p>
+            {(careerBullets.length > 0 || achievementsBullets.length > 0) && (
+              <aside className={`${SK}__sidebar`}>
+                {careerBullets.length > 0 && (
+                  <div className={`${SK}__sidebar-block`}>
+                    <span className={`${SK}__sidebar-label`}>경력 및 학력</span>
+                    <ul className={`${SK}__sidebar-list`}>
+                      {careerBullets.map((line, i) => (
+                        <li key={i} className={`${SK}__sidebar-item`}>{line}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {achievementsBullets.length > 0 && (
+                  <div className={`${SK}__sidebar-block`}>
+                    <span className={`${SK}__sidebar-label`}>주요이력</span>
+                    <ul className={`${SK}__sidebar-list`}>
+                      {achievementsBullets.map((line, i) => (
+                        <li key={i} className={`${SK}__sidebar-item`}>{line}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </aside>
             )}
           </div>
-
-          {careerBullets.length > 0 && (
-            <aside className={`${SK}__sidebar`}>
-              <div className={`${SK}__sidebar-block`}>
-                <span className={`${SK}__sidebar-label`}>경력 및 학력</span>
-                <ul className={`${SK}__sidebar-list`}>
-                  {careerBullets.map((line, i) => (
-                    <li key={i} className={`${SK}__sidebar-item`}>{line}</li>
-                  ))}
-                </ul>
-              </div>
-            </aside>
-          )}
         </section>
 
         {/* 대표 강의 */}
@@ -131,9 +173,31 @@ export default function InstructorDetailContainer({ instructorId }: Props): JSX.
           <section className={`${SK}__courses-section`}>
             <header className={`${SK}__courses-header`}>
               <h2 className={`${SK}__courses-title`}>대표강의</h2>
+              <div className={`${SK}__courses-nav`}>
+                <button
+                  type="button"
+                  className={`${SK}__courses-nav-btn`}
+                  aria-label="이전 강의 보기"
+                  onClick={() => scrollByCard(-1)}
+                >
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                    <path d="M12.5 4 6.5 10l6 6" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  className={`${SK}__courses-nav-btn`}
+                  aria-label="다음 강의 보기"
+                  onClick={() => scrollByCard(1)}
+                >
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                    <path d="M7.5 4l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+              </div>
             </header>
 
-            <ul className={`${SK}__courses`} role="list">
+            <ul ref={coursesScrollRef} className={`${SK}__courses`} role="list">
               {data.representativeCourses.map((course) => (
                 <CourseCard
                   key={course.courseId}

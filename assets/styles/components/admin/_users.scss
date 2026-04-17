@@ -2,6 +2,7 @@
 @use '../../tokens/spacing' as *;
 @use '../../tokens/typography' as *;
 @use '../../tokens/effects' as *;
+@use '../../mixins/breakpoints' as *;
 
 // ============================================
 // 관리자 사용자 목록 (_users.scss)
@@ -49,11 +50,19 @@
     display: flex;
     flex-direction: column;
     gap: $spacing-1;
-    min-width: $spacing-20 * 1.5;
+    flex: 1 1 100%;
+    min-width: 0;
+
+    @include breakpoint(sm) {
+      flex: 0 1 auto;
+      min-width: $spacing-20 * 1.5;
+    }
 
     &--grow {
-      flex: 1;
-      min-width: $spacing-20 * 3;
+      @include breakpoint(sm) {
+        flex: 1;
+        min-width: $spacing-20 * 3;
+      }
     }
   }
 
@@ -208,10 +217,15 @@
   // ── Pagination ──
   &__pagination {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: $spacing-4;
+    gap: $spacing-2;
     padding: $spacing-4 $spacing-0;
+
+    @include breakpoint(sm) {
+      gap: $spacing-4;
+    }
   }
 
   &__page-btn {

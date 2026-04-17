@@ -96,7 +96,7 @@ export default function TicketList(): JSX.Element {
                 <tr key={item.id}>
                   <td>{list.categoryLabels[item.category]}</td>
                   <td>
-                    <Link href={`/mypage/tickets/${item.id}`} className="ticket-list-wrap__title-link">
+                    <Link href={`${list.detailHrefBase}/${item.id}`} className="ticket-list-wrap__title-link">
                       {item.title}
                     </Link>
                   </td>

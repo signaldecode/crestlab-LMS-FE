@@ -190,11 +190,14 @@
   }
 
   // ── 태그 행 ──
+  // min-height: 2줄 태그 기준 (태그 1행 ≈ 2.25rem + 행간 $spacing-2)
   &__tags {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    align-content: flex-start;
     gap: $spacing-2;
     flex-wrap: wrap;
+    min-height: calc(2 * 2.25rem + #{$spacing-2});
   }
 
   &__tag {

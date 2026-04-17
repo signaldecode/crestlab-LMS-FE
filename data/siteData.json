@@ -5,8 +5,8 @@
     "description": "최고의 온라인 강의 플랫폼",
     "url": "https://example.com",
     "logo": {
-      "text": "SIGNAL DECODE",
-      "alt": "SIGNAL DECODE 홈으로 이동"
+      "text": "리치클래스",
+      "alt": "리치클래스 홈으로 이동"
     },
     "links": {
       "header": [
@@ -168,10 +168,10 @@
     }
   },
   "footer": {
-    "copyright": "© 크레스트랩. ALL RIGHTS RESERVED.",
+    "copyright": "© 리치클래스. ALL RIGHTS RESERVED.",
     "inquiryButton": {
       "label": "문의하기",
-      "href": "/mypage/tickets/new",
+      "href": "/support/tickets/new",
       "ariaLabel": "문의하기 페이지로 이동"
     },
     "mainLinks": [
@@ -244,7 +244,7 @@
       },
       {
         "label": "제휴 문의",
-        "href": "/mypage/tickets/new",
+        "href": "/support/tickets/new",
         "ariaLabel": "제휴 문의로 이동"
       }
     ]

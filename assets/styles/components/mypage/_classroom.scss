@@ -2,6 +2,7 @@
 @use '../../tokens/spacing' as *;
 @use '../../tokens/typography' as *;
 @use '../../tokens/effects' as *;
+@use '../../tokens/z-index' as *;
 @use '../../mixins/breakpoints' as *;
 
 // ============================================
@@ -291,11 +292,11 @@
     }
   }
 
-  // 진행률 뱃지 (썸네일 우상단)
+  // 진행률 뱃지 (썸네일 좌상단 — 우상단은 더보기 메뉴)
   &__card-percent {
     position: absolute;
     top: $spacing-2;
-    right: $spacing-2;
+    left: $spacing-2;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -850,5 +851,80 @@
     margin-top: $spacing-1;
     font-size: $font-size-xs;
     color: $color-text-secondary;
+  }
+
+  // ── 더보기(⋯) 메뉴 ──
+  // 카드 전체를 <Link>로 감싸면 내부 <button>은 의미상 유효하지 않아서
+  // Link와 메뉴 버튼을 형제로 두고 래퍼에 position: relative 적용
+  &__hero-wrap,
+  &__card-wrap {
+    position: relative;
+  }
+
+  &__more {
+    position: absolute;
+    z-index: $z-index-dropdown;
+
+    &--hero {
+      top: $spacing-2;
+      right: $spacing-2;
+    }
+
+    &--card {
+      top: $spacing-2;
+      right: $spacing-2;
+    }
+  }
+
+  &__more-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: none;
+    border-radius: $radius-circle;
+    background: rgba(0, 0, 0, 0.5);
+    color: $color-text-inverse;
+    cursor: pointer;
+    transition: background $duration-normal $ease-default;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.75);
+    }
+
+    &:focus-visible {
+      outline: $border-medium solid $color-primary;
+      outline-offset: $border-medium;
+    }
+  }
+
+  &__more-dropdown {
+    position: absolute;
+    top: calc(100% + #{$spacing-1});
+    right: 0;
+    min-width: 10rem;
+    padding: $spacing-1;
+    background: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-sm;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.12);
+  }
+
+  &__more-item {
+    display: block;
+    padding: $spacing-2 $spacing-3;
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+    text-decoration: none;
+    border-radius: $radius-xs;
+    white-space: nowrap;
+    transition: background $duration-fast $ease-default;
+
+    &:hover {
+      background: $color-bg-secondary;
+      color: $color-primary;
+    }
   }
 }

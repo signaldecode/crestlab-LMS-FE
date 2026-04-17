@@ -784,6 +784,10 @@ export interface InstructorDetail {
   profileImageUrl: string | null;
   specialty: string | null;
   career: string | null;
+  /** 주요이력 — 줄바꿈/세미콜론 구분 텍스트 (백엔드가 제공할 경우) */
+  mainAchievements?: string | null;
+  /** 누적 수익(원). 백엔드가 제공할 경우 stat 칩에 노출 */
+  cumulativeIncome?: number | null;
   description: string | null;
   followerCount: number;
   isFollowing: boolean;

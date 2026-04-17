@@ -9,9 +9,9 @@
 import { useState, useCallback, useEffect } from 'react';
 import type { JSX, ChangeEvent } from 'react';
 import Link from 'next/link';
-import AdminActionButton from '@/components/admin/AdminActionButton';
 import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
 import { useAdminQuery } from '@/hooks/useAdminQuery';
+import { useNavigableRow } from '@/hooks/useNavigableRow';
 import { fetchAdminCourseCategories, fetchAdminCourses } from '@/lib/adminApi';
 import type { AdminCourseLevel, AdminCourseStatus } from '@/types';
 
@@ -37,7 +37,7 @@ interface ColumnsCopy {
   status: string;
   enrollment: string;
   createdAt: string;
-  actions: string;
+  actions?: string;
 }
 
 interface ActionsCopy {
@@ -101,6 +101,7 @@ export default function AdminCourseListContainer({
   copy,
   common,
 }: AdminCourseListContainerProps): JSX.Element {
+  const navigableRow = useNavigableRow();
   const [statusFilter, setStatusFilter] = useState<AdminCourseStatus | 'ALL'>('ALL');
   const [categoryFilter, setCategoryFilter] = useState<number | 'ALL'>('ALL');
   const [keywordInput, setKeywordInput] = useState('');
@@ -242,12 +243,18 @@ export default function AdminCourseListContainer({
                 <th scope="col" className="admin-courses__th">{copy.columns.status}</th>
                 <th scope="col" className="admin-courses__th admin-courses__th--num">{copy.columns.enrollment}</th>
                 <th scope="col" className="admin-courses__th">{copy.columns.createdAt}</th>
-                <th scope="col" className="admin-courses__th admin-courses__th--actions">{copy.columns.actions}</th>
               </tr>
             </thead>
             <tbody>
               {courses.map((c) => (
-                <tr key={c.id}>
+                <tr
+                  key={c.id}
+                  className="is-clickable"
+                  {...navigableRow(
+                    `/admin/courses/${c.id}`,
+                    fillTemplate(copy.actions.viewAriaLabelTemplate, { title: c.title }),
+                  )}
+                >
                   <td className="admin-courses__td admin-courses__td--id">{c.id}</td>
                   <td className="admin-courses__td admin-courses__td--title">{c.title}</td>
                   <td className="admin-courses__td">{c.categoryName}</td>
@@ -265,14 +272,6 @@ export default function AdminCourseListContainer({
                     {formatNumber(c.enrollmentCount)}{copy.personUnit}
                   </td>
                   <td className="admin-courses__td">{formatDate(c.createdAt)}</td>
-                  <td className="admin-courses__td admin-courses__td--actions">
-                    <AdminActionButton
-                      href={`/admin/courses/${c.id}`}
-                      ariaLabel={fillTemplate(copy.actions.viewAriaLabelTemplate, { title: c.title })}
-                    >
-                      {copy.actions.viewLabel}
-                    </AdminActionButton>
-                  </td>
                 </tr>
               ))}
             </tbody>

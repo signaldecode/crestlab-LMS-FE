@@ -1,18 +1,25 @@
 /**
  * 주문 상세 콘텐츠 (OrderDetailContent)
  * - 백엔드는 별도 상세 엔드포인트가 없어 `GET /v1/payments/history` 목록에서 id로 조회
+ * - status === 'PAID'일 때만 환불 신청 가능
  */
 
 'use client';
 
-import type { JSX } from 'react';
+import { useCallback, useState, type JSX } from 'react';
 import Link from 'next/link';
-import { useAdminQuery } from '@/hooks/useAdminQuery';
-import { fetchMyPayments, type PaymentHistoryItem } from '@/lib/userApi';
+import { useAdminMutation, useAdminQuery } from '@/hooks/useAdminQuery';
+import {
+  fetchMyPayments,
+  refundPayment,
+  type PaymentHistoryItem,
+} from '@/lib/userApi';
+import Modal from '@/components/layout/Modal';
 import accountData from '@/data/accountData.json';
 import uiData from '@/data/uiData.json';
 
 const pageData = accountData.mypage.orderDetailPage;
+const refundData = pageData.refundModal;
 const SK = 'order-detail';
 
 function formatPrice(price: number): string {
@@ -40,12 +47,57 @@ interface OrderDetailContentProps {
 }
 
 export default function OrderDetailContent({ orderId }: OrderDetailContentProps): JSX.Element {
-  const { data, loading } = useAdminQuery<PaymentHistoryItem[]>(
+  const { data, loading, refetch } = useAdminQuery<PaymentHistoryItem[]>(
     () => fetchMyPayments(),
     [],
   );
 
   const order = (data ?? []).find((o) => String(o.orderId) === orderId);
+
+  const [refundOpen, setRefundOpen] = useState(false);
+  const [reason, setReason] = useState('');
+  const [reasonError, setReasonError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+  const refundMutation = useAdminMutation(
+    (orderNumber: string, reasonText: string) =>
+      refundPayment({ orderNumber, reason: reasonText }),
+    () => {
+      setRefundOpen(false);
+      setReason('');
+      setReasonError(null);
+      setSuccessMessage(refundData.successMessage);
+      void refetch();
+    },
+  );
+
+  const openRefundModal = useCallback(() => {
+    setReason('');
+    setReasonError(null);
+    setSuccessMessage(null);
+    setRefundOpen(true);
+  }, []);
+
+  const closeRefundModal = useCallback(() => {
+    if (refundMutation.submitting) return;
+    setRefundOpen(false);
+    setReasonError(null);
+  }, [refundMutation.submitting]);
+
+  const handleSubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      if (!order) return;
+      const trimmed = reason.trim();
+      if (!trimmed) {
+        setReasonError(refundData.reasonRequired);
+        return;
+      }
+      setReasonError(null);
+      void refundMutation.run(order.orderNumber, trimmed);
+    },
+    [order, reason, refundMutation],
+  );
 
   if (loading) {
     return <div className={SK}><p>불러오는 중...</p></div>;
@@ -66,6 +118,7 @@ export default function OrderDetailContent({ orderId }: OrderDetailContentProps)
   }
 
   const isRefund = order.status === 'REFUNDED' || order.status === 'CANCELED';
+  const canRefund = order.status === 'PAID';
 
   return (
     <div className={`${SK}`}>
@@ -79,6 +132,10 @@ export default function OrderDetailContent({ orderId }: OrderDetailContentProps)
           {statusLabel(order.status)}
         </span>
       </header>
+
+      {successMessage && (
+        <div className={`${SK}__flash`} role="status">{successMessage}</div>
+      )}
 
       <section className={`${SK}__info`}>
         <dl className={`${SK}__info-list`}>
@@ -114,6 +171,66 @@ export default function OrderDetailContent({ orderId }: OrderDetailContentProps)
           </div>
         </dl>
       </section>
+
+      {canRefund && (
+        <div className={`${SK}__actions`}>
+          <button
+            type="button"
+            className={`${SK}__action-btn ${SK}__action-btn--outline`}
+            onClick={openRefundModal}
+            aria-label={pageData.refundAriaLabel}
+          >
+            {pageData.refundLabel}
+          </button>
+        </div>
+      )}
+
+      <Modal isOpen={refundOpen} onClose={closeRefundModal} title={refundData.title}>
+        <form className={`${SK}__refund-form`} onSubmit={handleSubmit}>
+          <p className={`${SK}__refund-desc`}>{refundData.description}</p>
+
+          <label className={`${SK}__refund-label`} htmlFor="refund-reason">
+            {refundData.reasonLabel}
+          </label>
+          <textarea
+            id="refund-reason"
+            className={`${SK}__refund-textarea`}
+            value={reason}
+            onChange={(e) => setReason(e.target.value)}
+            placeholder={refundData.reasonPlaceholder}
+            rows={5}
+            disabled={refundMutation.submitting}
+          />
+          {reasonError && (
+            <p className={`${SK}__refund-error`} role="alert">{reasonError}</p>
+          )}
+          {refundMutation.error && (
+            <p className={`${SK}__refund-error`} role="alert">
+              {refundMutation.error.message}
+            </p>
+          )}
+
+          <p className={`${SK}__refund-disclaimer`}>{refundData.disclaimer}</p>
+
+          <div className={`${SK}__refund-actions`}>
+            <button
+              type="button"
+              className={`${SK}__action-btn ${SK}__action-btn--outline`}
+              onClick={closeRefundModal}
+              disabled={refundMutation.submitting}
+            >
+              {refundData.cancelLabel}
+            </button>
+            <button
+              type="submit"
+              className={`${SK}__action-btn ${SK}__action-btn--secondary`}
+              disabled={refundMutation.submitting || !reason.trim()}
+            >
+              {refundMutation.submitting ? refundData.submittingLabel : refundData.submitLabel}
+            </button>
+          </div>
+        </form>
+      </Modal>
     </div>
   );
 }

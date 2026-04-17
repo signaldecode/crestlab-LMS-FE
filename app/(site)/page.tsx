@@ -32,7 +32,7 @@ export default function HomePage() {
         <HomeHeroContainer />
 
         {/* 2. 카테고리 퀵메뉴 (정적 — 아이콘 매핑 필요) */}
-        <HomeCategoryNav section={categories} />
+        {/* <HomeCategoryNav section={categories} /> */}
 
         {/* 3. BEST 강의 큐레이션 */}
         <HomeBestCourses />

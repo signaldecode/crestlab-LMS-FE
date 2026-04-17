@@ -1,15 +1,10 @@
 /**
- * 마이페이지 1:1 문의 목록 (/mypage/tickets)
- * - 마이페이지 레이아웃의 사이드바를 공유한다
+ * Legacy redirect: /mypage/tickets → /support/tickets
+ * - 1:1 문의는 /support/tickets 단독 페이지로 이전됨 (2026-04)
  */
 
-import type { JSX } from 'react';
-import TicketContainer from '@/components/containers/TicketContainer';
+import { redirect } from 'next/navigation';
 
-export default function MyPageTicketListPage(): JSX.Element {
-  return (
-    <section className="ticket-list-page">
-      <TicketContainer mode="list" />
-    </section>
-  );
+export default function MyPageTicketsRedirect(): never {
+  redirect('/support/tickets');
 }

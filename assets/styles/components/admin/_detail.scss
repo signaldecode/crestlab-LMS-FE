@@ -2,6 +2,7 @@
 @use '../../tokens/spacing' as *;
 @use '../../tokens/typography' as *;
 @use '../../tokens/effects' as *;
+@use '../../mixins/breakpoints' as *;
 
 // ============================================
 // 관리자 상세 페이지 공통 (_detail.scss)
@@ -208,6 +209,7 @@
 
   &__section-head {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     gap: $spacing-4;
@@ -222,6 +224,7 @@
 
   &__actions {
     display: flex;
+    flex-wrap: wrap;
     gap: $spacing-2;
   }
 
@@ -260,13 +263,17 @@
 
   &__info-list {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     gap: $spacing-3 $spacing-8;
     margin: $spacing-0;
     padding: $spacing-5;
     background-color: $color-bg-primary;
     border: $border-thin solid $color-border;
     border-radius: $spacing-2;
+
+    @include breakpoint(md) {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   &__info-row {

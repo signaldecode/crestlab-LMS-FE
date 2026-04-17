@@ -209,10 +209,15 @@
   // ── Inline Stats (패널 내부 요약) ──
   &__inline-stats {
     display: flex;
-    gap: $spacing-6;
+    flex-wrap: wrap;
+    gap: $spacing-4;
     padding: $spacing-4 $spacing-5;
     background-color: $color-bg-secondary;
     border-radius: $spacing-2;
+
+    @include breakpoint(sm) {
+      gap: $spacing-6;
+    }
   }
 
   &__inline-stat {
@@ -345,6 +350,7 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     border-bottom: $border-thin solid $color-border;
+    white-space: nowrap;
 
     &--narrow {
       width: $spacing-12;
@@ -352,7 +358,7 @@
 
     &--num {
       text-align: right;
-      width: $spacing-20;
+      width: $spacing-20 * 1.5;
     }
   }
 

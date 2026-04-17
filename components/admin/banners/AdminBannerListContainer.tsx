@@ -6,10 +6,10 @@
 
 import type { JSX } from 'react';
 import Link from 'next/link';
-import AdminActionButton from '@/components/admin/AdminActionButton';
 import AdminDeleteAction from '@/components/admin/AdminDeleteAction';
 import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
 import { useAdminQuery } from '@/hooks/useAdminQuery';
+import { useNavigableRow } from '@/hooks/useNavigableRow';
 import { fetchAdminBanners } from '@/lib/adminApi';
 
 export interface BannersCopy {
@@ -18,9 +18,9 @@ export interface BannersCopy {
   createButtonLabel: string;
   createButtonHref: string;
   createButtonAriaLabel: string;
-  columns: { sortOrder: string; title: string; linkUrl: string; period: string; isActive: string; actions: string };
+  columns: { sortOrder: string; title: string; linkUrl: string; period: string; isActive: string; actions?: string };
   activeLabels: { true: string; false: string };
-  actionLabels: { edit: string; delete: string };
+  actionLabels: { edit?: string; delete: string };
   deleteModal: {
     title: string; descriptionTemplate: string;
     confirmLabel: string; cancelLabel: string;
@@ -37,6 +37,7 @@ interface CommonCopy {
 interface Props { copy: BannersCopy; common: CommonCopy; }
 
 export default function AdminBannerListContainer({ copy, common }: Props): JSX.Element {
+  const navigableRow = useNavigableRow();
   const { data, loading, error, refetch } = useAdminQuery(fetchAdminBanners, []);
 
   if (loading && !data) return <AdminLoading label={common.loadingText} />;
@@ -82,7 +83,11 @@ export default function AdminBannerListContainer({ copy, common }: Props): JSX.E
             </thead>
             <tbody>
               {sorted.map((b) => (
-                <tr key={b.id}>
+                <tr
+                  key={b.id}
+                  className="is-clickable"
+                  {...navigableRow(`/admin/banners/${b.id}/edit`, b.title)}
+                >
                   <td className="admin-list__td admin-list__td--narrow">{b.sortOrder}</td>
                   <td className="admin-list__td admin-list__td--strong">{b.title}</td>
                   <td className="admin-list__td admin-list__td--ellipsis">{b.linkUrl}</td>
@@ -93,9 +98,6 @@ export default function AdminBannerListContainer({ copy, common }: Props): JSX.E
                     </span>
                   </td>
                   <td className="admin-list__td admin-list__td--actions">
-                    <AdminActionButton href={`/admin/banners/${b.id}/edit`}>
-                      {copy.actionLabels.edit}
-                    </AdminActionButton>
                     <AdminDeleteAction
                       targetId={b.id}
                       resource="banner"

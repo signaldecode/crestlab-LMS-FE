@@ -13,18 +13,139 @@
 
 
 .admin-layout {
-  display: flex;
+  display: block;
   min-height: 100vh;
 
+  @include breakpoint(lg) {
+    display: flex;
+  }
+
+  &__topbar {
+    position: sticky;
+    top: 0;
+    z-index: $z-index-fixed;
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    padding: $spacing-3 $spacing-4;
+    background-color: $color-bg-secondary;
+    border-bottom: $border-thin solid $color-border;
+
+    @include breakpoint(lg) {
+      display: none;
+    }
+  }
+
+  &__menu-btn {
+    width: $spacing-10;
+    height: $spacing-10;
+    padding: $spacing-0;
+    background: transparent;
+    border: $border-thin solid $color-border;
+    border-radius: $spacing-2;
+    color: $color-text-primary;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: $color-bg-tertiary;
+    }
+  }
+
+  &__menu-icon {
+    display: inline-flex;
+    flex-direction: column;
+    gap: $spacing-1;
+
+    span {
+      display: block;
+      width: $spacing-5;
+      height: $border-thin * 2;
+      background-color: currentColor;
+      border-radius: $border-thin;
+    }
+  }
+
+  &__topbar-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    margin: $spacing-0;
+  }
+
+  &__backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: $overlay-black-modal;
+    z-index: $z-index-sidebar;
+
+    &.is-open {
+      display: block;
+    }
+
+    @include breakpoint(lg) {
+      display: none;
+    }
+  }
+
   &__sidebar {
-    width: $spacing-20 * 3;
-    flex-shrink: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: min(80vw, $spacing-20 * 4);
+    z-index: $z-index-sidebar + 1;
     background-color: $color-bg-secondary;
     border-right: $border-thin solid $color-border;
     padding: $spacing-6;
     display: flex;
     flex-direction: column;
     gap: $spacing-6;
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform $duration-normal $ease-default;
+
+    &.is-open {
+      transform: translateX(0);
+    }
+
+    @include breakpoint(lg) {
+      position: static;
+      width: $spacing-20 * 3;
+      flex-shrink: 0;
+      transform: none;
+      transition: none;
+      z-index: auto;
+    }
+  }
+
+  &__sidebar-close {
+    align-self: flex-end;
+    width: $spacing-8;
+    height: $spacing-8;
+    padding: $spacing-0;
+    background: transparent;
+    border: none;
+    color: $color-text-secondary;
+    cursor: pointer;
+    border-radius: $spacing-1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: $font-size-xl;
+    line-height: 1;
+
+    &:hover {
+      background-color: $color-bg-tertiary;
+      color: $color-text-primary;
+    }
+
+    @include breakpoint(lg) {
+      display: none;
+    }
   }
 
   &__sidebar-title {
@@ -95,7 +216,16 @@
 
   &__content {
     flex: 1;
-    padding: $spacing-8;
+    min-width: 0;
+    padding: $spacing-4;
+
+    @include breakpoint(md) {
+      padding: $spacing-6;
+    }
+
+    @include breakpoint(lg) {
+      padding: $spacing-8;
+    }
   }
 
   &__denied {
@@ -128,6 +258,16 @@
     text-decoration: none;
     border-radius: $spacing-2;
     font-weight: $font-weight-semibold;
+  }
+}
+
+.admin-layout tr.is-clickable {
+  cursor: pointer;
+  transition: background-color $duration-normal $ease-default;
+
+  &:focus-visible {
+    outline: $border-thin * 2 solid $color-primary;
+    outline-offset: $border-thin * -2;
   }
 }
 

@@ -254,6 +254,86 @@
     }
   }
 
+  // 환불 성공 플래시 메시지
+  &__flash {
+    margin-bottom: $spacing-6;
+    padding: $spacing-3 $spacing-4;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-success;
+    background: rgba($color-success, 0.1);
+    border: $border-thin solid rgba($color-success, 0.3);
+    border-radius: $radius-md;
+  }
+
+  // 환불 모달 내부 폼
+  &__refund-form {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+    margin-top: $spacing-4;
+  }
+
+  &__refund-desc {
+    margin: $spacing-0;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    line-height: $line-height-base;
+  }
+
+  &__refund-label {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+  }
+
+  &__refund-textarea {
+    width: 100%;
+    padding: $spacing-3;
+    font-family: $font-family-base;
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-md;
+    outline: none;
+    resize: vertical;
+    min-height: 6rem;
+    transition: border-color $duration-normal $ease-default;
+
+    &:focus {
+      border-color: $color-border-focus;
+    }
+
+    &:disabled {
+      background-color: $color-bg-secondary;
+      cursor: not-allowed;
+    }
+  }
+
+  &__refund-error {
+    margin: $spacing-0;
+    font-size: $font-size-sm;
+    color: $color-error;
+  }
+
+  &__refund-disclaimer {
+    margin: $spacing-0;
+    padding: $spacing-3;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    background: $color-bg-secondary;
+    border-radius: $radius-sm;
+    line-height: $line-height-base;
+  }
+
+  &__refund-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: $spacing-2;
+    margin-top: $spacing-2;
+  }
+
   // Not found
   &__not-found {
     text-align: center;

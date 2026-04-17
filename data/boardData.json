@@ -15,13 +15,28 @@
       "description": "강의 플랫폼의 공지사항, 이벤트, 업데이트 소식을 확인하세요."
     },
     "categories": [
-      { "value": "notice", "label": "공지사항" },
-      { "value": "event", "label": "이벤트" },
-      { "value": "update", "label": "업데이트" }
+      {
+        "value": "notice",
+        "label": "공지사항"
+      },
+      {
+        "value": "event",
+        "label": "이벤트"
+      },
+      {
+        "value": "update",
+        "label": "업데이트"
+      }
     ],
     "sortOptions": [
-      { "value": "latest", "label": "최신순" },
-      { "value": "views", "label": "조회순" }
+      {
+        "value": "latest",
+        "label": "최신순"
+      },
+      {
+        "value": "views",
+        "label": "조회순"
+      }
     ],
     "defaultCategory": "notice",
     "filterLabel": "카테고리",
@@ -37,91 +52,5 @@
       "boardLabel": "게시판",
       "boardHref": "/board"
     }
-  },
-  "notices": [
-    {
-      "id": "n1",
-      "slug": "platform-open-notice",
-      "title": "강의 플랫폼 정식 오픈 안내",
-      "summary": "강의 플랫폼이 정식으로 오픈하였습니다. 다양한 강의와 혜택을 확인해 보세요.",
-      "content": "안녕하세요, 강의 플랫폼입니다.\n\n오랜 준비 끝에 강의 플랫폼이 정식으로 오픈하였습니다.\n\n주식, 가상자산(코인), 부동산 등 다양한 카테고리의 강의를 준비하였으며, 오픈 기념 특별 할인 이벤트도 진행 중입니다.\n\n많은 관심과 이용 부탁드립니다.\n\n감사합니다.",
-      "category": "notice",
-      "author": "운영팀",
-      "date": "2026-04-10",
-      "isPinned": true,
-      "viewCount": 1024
-    },
-    {
-      "id": "n2",
-      "slug": "open-event-discount",
-      "title": "오픈 기념 전 강의 30% 할인 이벤트",
-      "summary": "플랫폼 오픈을 기념하여 전 강의 30% 할인 이벤트를 진행합니다.",
-      "content": "안녕하세요, 강의 플랫폼입니다.\n\n플랫폼 오픈을 기념하여 아래와 같이 할인 이벤트를 진행합니다.\n\n■ 이벤트 기간: 2026년 4월 10일 ~ 2026년 4월 30일\n■ 할인 내용: 전 강의 30% 할인\n■ 적용 방법: 결제 시 자동 적용\n\n이번 기회를 놓치지 마세요!\n\n감사합니다.",
-      "category": "event",
-      "author": "운영팀",
-      "date": "2026-04-10",
-      "isPinned": true,
-      "viewCount": 856
-    },
-    {
-      "id": "n3",
-      "slug": "new-stock-course-release",
-      "title": "신규 주식 투자 입문 강의 오픈",
-      "summary": "초보자를 위한 주식 투자 입문 강의가 새롭게 오픈되었습니다.",
-      "content": "안녕하세요, 강의 플랫폼입니다.\n\n주식 투자를 처음 시작하시는 분들을 위한 입문 강의가 오픈되었습니다.\n\n■ 강의명: 주식 투자 첫걸음 — 기초부터 실전까지\n■ 강사: 김투자\n■ 수준: 입문\n■ 수강 기간: 30일\n\n차트 읽기, 종목 선정, 매매 타이밍 등 실전에 바로 적용할 수 있는 내용으로 구성되어 있습니다.\n\n감사합니다.",
-      "category": "update",
-      "author": "운영팀",
-      "date": "2026-04-08",
-      "isPinned": false,
-      "viewCount": 432
-    },
-    {
-      "id": "n4",
-      "slug": "system-maintenance-0415",
-      "title": "시스템 점검 안내 (4/15)",
-      "summary": "4월 15일 새벽 시간대에 시스템 점검이 진행됩니다.",
-      "content": "안녕하세요, 강의 플랫폼입니다.\n\n아래 일정으로 시스템 점검이 진행됩니다.\n\n■ 점검 일시: 2026년 4월 15일 (화) 02:00 ~ 06:00\n■ 점검 내용: 서버 안정화 및 성능 개선\n■ 영향 범위: 점검 시간 동안 서비스 이용이 제한됩니다\n\n이용에 불편을 드려 죄송합니다.\n\n감사합니다.",
-      "category": "notice",
-      "author": "운영팀",
-      "date": "2026-04-07",
-      "isPinned": false,
-      "viewCount": 287
-    },
-    {
-      "id": "n5",
-      "slug": "crypto-course-update",
-      "title": "가상자산 강의 커리큘럼 업데이트",
-      "summary": "가상자산 관련 강의의 커리큘럼이 최신 시장 동향에 맞게 업데이트되었습니다.",
-      "content": "안녕하세요, 강의 플랫폼입니다.\n\n가상자산 카테고리 강의들의 커리큘럼이 업데이트되었습니다.\n\n■ 업데이트 내용\n- 2026년 최신 규제 동향 반영\n- 디파이(DeFi) 심화 섹션 추가\n- 실전 포트폴리오 구성 가이드 추가\n\n기존 수강생분들도 업데이트된 내용을 바로 확인하실 수 있습니다.\n\n감사합니다.",
-      "category": "update",
-      "author": "운영팀",
-      "date": "2026-04-05",
-      "isPinned": false,
-      "viewCount": 198
-    },
-    {
-      "id": "n6",
-      "slug": "referral-event",
-      "title": "친구 추천 이벤트 — 추천할수록 혜택이!",
-      "summary": "친구를 추천하고 함께 혜택을 받아보세요.",
-      "content": "안녕하세요, 강의 플랫폼입니다.\n\n친구 추천 이벤트를 진행합니다.\n\n■ 이벤트 기간: 2026년 4월 1일 ~ 2026년 5월 31일\n■ 참여 방법: 마이페이지에서 추천 링크를 복사하여 친구에게 공유\n■ 혜택\n- 추천인: 건당 5,000 포인트 적립\n- 피추천인: 첫 결제 시 10% 추가 할인\n\n많은 참여 부탁드립니다.\n\n감사합니다.",
-      "category": "event",
-      "author": "운영팀",
-      "date": "2026-04-01",
-      "isPinned": false,
-      "viewCount": 543
-    },
-    {
-      "id": "n7",
-      "slug": "realestate-course-open",
-      "title": "부동산 투자 실전 강의 오픈 예정 안내",
-      "summary": "부동산 투자 실전 강의가 곧 오픈됩니다. 사전 알림을 신청해 보세요.",
-      "content": "안녕하세요, 강의 플랫폼입니다.\n\n많은 분들이 요청하신 부동산 투자 실전 강의가 오픈 예정입니다.\n\n■ 강의명: 부동산 투자 실전 — 경매부터 임대수익까지\n■ 오픈 예정일: 2026년 5월 초\n■ 강사: 박부동산 (15년 경력 부동산 전문가)\n\n강의 상세 페이지에서 사전 알림을 신청하시면 오픈 시 알려드립니다.\n\n감사합니다.",
-      "category": "update",
-      "author": "운영팀",
-      "date": "2026-03-28",
-      "isPinned": false,
-      "viewCount": 312
-    }
-  ]
+  }
 }

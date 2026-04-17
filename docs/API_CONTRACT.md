@@ -440,6 +440,8 @@ mainCourses: [{ courseId, title, thumbnailUrl }]
 ```
 instructorId, followerCount: number
 name, specialty?, career?, description?: string
+mainAchievements?: string         // 주요이력 — 줄바꿈/세미콜론 구분 (선택)
+cumulativeIncome?: number         // 누적 수익(원) — stat 칩 노출 (선택)
 profileImageUrl: string | null
 isFollowing: boolean
 representativeCourses: [{

@@ -8,10 +8,10 @@
 import { useState, useCallback } from 'react';
 import type { JSX } from 'react';
 import Link from 'next/link';
-import AdminActionButton from '@/components/admin/AdminActionButton';
 import AdminDeleteAction from '@/components/admin/AdminDeleteAction';
 import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
 import { useAdminQuery } from '@/hooks/useAdminQuery';
+import { useNavigableRow } from '@/hooks/useNavigableRow';
 import { fetchAdminNotices } from '@/lib/adminApi';
 
 export interface NoticesCopy {
@@ -20,10 +20,10 @@ export interface NoticesCopy {
   createButtonLabel: string;
   createButtonHref: string;
   createButtonAriaLabel: string;
-  columns: { title: string; pinned: string; isActive: string; createdAt: string; actions: string };
+  columns: { title: string; pinned: string; isActive: string; createdAt: string; actions?: string };
   pinnedLabels: { true: string; false: string };
   activeLabels: { true: string; false: string };
-  actionLabels: { edit: string; delete: string };
+  actionLabels: { edit?: string; delete: string };
   deleteModal: {
     title: string; descriptionTemplate: string;
     confirmLabel: string; cancelLabel: string;
@@ -51,6 +51,7 @@ const fillTemplate = (template: string, vars: Record<string, string | number>): 
   );
 
 export default function AdminNoticeListContainer({ copy, common }: Props): JSX.Element {
+  const navigableRow = useNavigableRow();
   const [page, setPage] = useState(1);
   const pageSize = copy.pagination.pageSize;
 
@@ -107,7 +108,11 @@ export default function AdminNoticeListContainer({ copy, common }: Props): JSX.E
             </thead>
             <tbody>
               {notices.map((n) => (
-                <tr key={n.id}>
+                <tr
+                  key={n.id}
+                  className="is-clickable"
+                  {...navigableRow(`/admin/notices/${n.id}/edit`, n.title)}
+                >
                   <td className="admin-list__td admin-list__td--strong">{n.title}</td>
                   <td className="admin-list__td">
                     {n.pinned && <span className="admin-list__badge admin-list__badge--info">{copy.pinnedLabels.true}</span>}
@@ -119,9 +124,6 @@ export default function AdminNoticeListContainer({ copy, common }: Props): JSX.E
                   </td>
                   <td className="admin-list__td">{formatDate(n.createdAt)}</td>
                   <td className="admin-list__td admin-list__td--actions">
-                    <AdminActionButton href={`/admin/notices/${n.id}/edit`}>
-                      {copy.actionLabels.edit}
-                    </AdminActionButton>
                     <AdminDeleteAction
                       targetId={n.id}
                       resource="notice"

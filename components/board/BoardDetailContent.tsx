@@ -67,22 +67,26 @@ export default function BoardDetailContent({ noticeId }: BoardDetailContentProps
           <span className={`${SK}__breadcrumb-current`}>{data.title}</span>
         </nav>
 
-        <header className={`${SK}__header`}>
-          {data.pinned && (
-            <span className={`${SK}__pin-badge`}>{pageData.pinnedLabel}</span>
-          )}
-          <h1 className={`${SK}__title`}>{data.title}</h1>
-          <div className={`${SK}__meta`}>
-            <span className={`${SK}__date`}>{formatDate(data.createdAt)}</span>
-          </div>
-        </header>
+        <article className={`${SK}__card`}>
+          <header className={`${SK}__header`}>
+            <div className={`${SK}__title-row`}>
+              <h1 className={`${SK}__title`}>{data.title}</h1>
+              {data.pinned && (
+                <span className={`${SK}__pin-badge`}>{pageData.pinnedLabel}</span>
+              )}
+            </div>
+            <div className={`${SK}__meta`}>
+              <span className={`${SK}__date`}>{formatDate(data.createdAt)}</span>
+            </div>
+          </header>
 
-        <article className={`${SK}__body`}>
-          {data.content.split('\n').map((line, i) => (
-            <p key={i} className={line.trim() === '' ? `${SK}__body-spacer` : undefined}>
-              {line || '\u00A0'}
-            </p>
-          ))}
+          <div className={`${SK}__body`}>
+            {data.content.split('\n').map((line, i) => (
+              <p key={i} className={line.trim() === '' ? `${SK}__body-spacer` : undefined}>
+                {line || '\u00A0'}
+              </p>
+            ))}
+          </div>
         </article>
 
         <div className={`${SK}__footer`}>

@@ -7,5 +7,4 @@
 export { default as useCart } from './useCart';
 export { default as usePlayer } from './usePlayer';
 export { default as useAuth } from './useAuth';
-export { default as useUpload } from './useUpload';
 export { default as useTheme } from './useTheme';

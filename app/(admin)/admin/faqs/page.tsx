@@ -7,10 +7,10 @@
 import { useMemo, useState } from 'react';
 import type { JSX, ChangeEvent } from 'react';
 import Link from 'next/link';
-import AdminActionButton from '@/components/admin/AdminActionButton';
 import AdminDeleteAction from '@/components/admin/AdminDeleteAction';
 import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
 import { useAdminQuery } from '@/hooks/useAdminQuery';
+import { useNavigableRow } from '@/hooks/useNavigableRow';
 import { fetchAdminFaqs } from '@/lib/adminApi';
 import { getPageData } from '@/lib/data';
 
@@ -22,8 +22,8 @@ interface FaqsCopy {
   createButtonHref: string;
   createButtonAriaLabel: string;
   filters: { categoryLabel: string; categoryAllLabel: string };
-  columns: { sortOrder: string; category: string; question: string; updatedAt: string; actions: string };
-  actionLabels: { edit: string; delete: string };
+  columns: { sortOrder: string; category: string; question: string; updatedAt: string; actions?: string };
+  actionLabels: { edit?: string; delete: string };
   deleteModal: {
     title: string; descriptionTemplate: string;
     confirmLabel: string; cancelLabel: string;
@@ -48,6 +48,7 @@ const formatDate = (iso: string): string => {
 };
 
 export default function AdminFaqsPage(): JSX.Element {
+  const navigableRow = useNavigableRow();
   const copy = getCopy();
   const common = getCommonCopy();
   const [categoryFilter, setCategoryFilter] = useState<string>('ALL');
@@ -123,7 +124,11 @@ export default function AdminFaqsPage(): JSX.Element {
             </thead>
             <tbody>
               {filtered.map((f) => (
-                <tr key={f.id}>
+                <tr
+                  key={f.id}
+                  className="is-clickable"
+                  {...navigableRow(`/admin/faqs/${f.id}/edit`, f.question)}
+                >
                   <td className="admin-list__td admin-list__td--narrow">{f.sortOrder}</td>
                   <td className="admin-list__td">
                     <span className="admin-list__badge admin-list__badge--info">{f.category}</span>
@@ -131,9 +136,6 @@ export default function AdminFaqsPage(): JSX.Element {
                   <td className="admin-list__td admin-list__td--strong">{f.question}</td>
                   <td className="admin-list__td">{formatDate(f.updatedAt)}</td>
                   <td className="admin-list__td admin-list__td--actions">
-                    <AdminActionButton href={`/admin/faqs/${f.id}/edit`}>
-                      {copy.actionLabels.edit}
-                    </AdminActionButton>
                     <AdminDeleteAction
                       targetId={f.id}
                       resource="faq"

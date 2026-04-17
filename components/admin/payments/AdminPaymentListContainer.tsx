@@ -9,9 +9,9 @@
 import { useMemo, useState, useCallback, useEffect } from 'react';
 import type { JSX, ChangeEvent } from 'react';
 import Link from 'next/link';
-import AdminActionButton from '@/components/admin/AdminActionButton';
 import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
 import { useAdminQuery } from '@/hooks/useAdminQuery';
+import { useNavigableRow } from '@/hooks/useNavigableRow';
 import { fetchAdminPayments } from '@/lib/adminApi';
 import type { AdminOrderStatus } from '@/types';
 
@@ -34,7 +34,7 @@ interface ColumnsCopy {
   finalAmount: string;
   status: string;
   createdAt: string;
-  actions: string;
+  actions?: string;
 }
 
 interface ActionsCopy {
@@ -94,6 +94,7 @@ export default function AdminPaymentListContainer({
   copy,
   common,
 }: AdminPaymentListContainerProps): JSX.Element {
+  const navigableRow = useNavigableRow();
   const [statusFilter, setStatusFilter] = useState<AdminOrderStatus | 'ALL'>('ALL');
   const [keywordInput, setKeywordInput] = useState('');
   const [keyword, setKeyword] = useState('');
@@ -217,12 +218,18 @@ export default function AdminPaymentListContainer({
                 <th scope="col" className="admin-payments__th admin-payments__th--num">{copy.columns.finalAmount}</th>
                 <th scope="col" className="admin-payments__th">{copy.columns.status}</th>
                 <th scope="col" className="admin-payments__th">{copy.columns.createdAt}</th>
-                <th scope="col" className="admin-payments__th admin-payments__th--actions">{copy.columns.actions}</th>
               </tr>
             </thead>
             <tbody>
               {orders.map((o) => (
-                <tr key={o.id}>
+                <tr
+                  key={o.id}
+                  className="is-clickable"
+                  {...navigableRow(
+                    `/admin/payments/${o.id}`,
+                    fillTemplate(copy.actions.viewAriaLabelTemplate, { orderNumber: o.orderNumber }),
+                  )}
+                >
                   <td className="admin-payments__td admin-payments__td--order-number">{o.orderNumber}</td>
                   <td className="admin-payments__td">
                     <div className="admin-payments__user">
@@ -246,14 +253,6 @@ export default function AdminPaymentListContainer({
                     </span>
                   </td>
                   <td className="admin-payments__td">{formatDateTime(o.createdAt)}</td>
-                  <td className="admin-payments__td admin-payments__td--actions">
-                    <AdminActionButton
-                      href={`/admin/payments/${o.id}`}
-                      ariaLabel={fillTemplate(copy.actions.viewAriaLabelTemplate, { orderNumber: o.orderNumber })}
-                    >
-                      {copy.actions.viewLabel}
-                    </AdminActionButton>
-                  </td>
                 </tr>
               ))}
             </tbody>

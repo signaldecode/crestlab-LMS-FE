@@ -12,6 +12,7 @@ import AdminActionButton from '@/components/admin/AdminActionButton';
 import AdminModal from '@/components/admin/AdminModal';
 import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
 import { useAdminMutation, useAdminQuery } from '@/hooks/useAdminQuery';
+import { useNavigableRow } from '@/hooks/useNavigableRow';
 import {
   deactivateAdminCoupon,
   deleteAdminCoupon,
@@ -26,10 +27,10 @@ export interface CouponsCopy {
   createButtonLabel: string;
   createButtonHref: string;
   createButtonAriaLabel: string;
-  columns: { code: string; name: string; discount: string; minOrder: string; usage: string; period: string; isActive: string; actions: string };
+  columns: { code: string; name: string; discount: string; minOrder: string; usage: string; period: string; isActive: string; actions?: string };
   discountTypeLabels: Record<AdminCouponDiscountType, string>;
   activeLabels: { true: string; false: string };
-  actionLabels: { edit: string; deactivate: string; delete: string; issue: string };
+  actionLabels: { edit?: string; deactivate: string; delete: string; issue: string };
   editHrefTemplate: string;
   editAriaLabelTemplate: string;
   deactivateModal: {
@@ -67,6 +68,7 @@ export default function AdminCouponListContainer({
   copy,
   common,
 }: AdminCouponListContainerProps): JSX.Element {
+  const navigableRow = useNavigableRow();
   const { data, loading, error, refetch } = useAdminQuery(fetchAdminCoupons, []);
   const [deactivateTarget, setDeactivateTarget] = useState<AdminCouponListItem | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<AdminCouponListItem | null>(null);
@@ -166,7 +168,14 @@ export default function AdminCouponListContainer({
             </thead>
             <tbody>
               {coupons.map((c) => (
-                <tr key={c.id}>
+                <tr
+                  key={c.id}
+                  className="is-clickable"
+                  {...navigableRow(
+                    copy.editHrefTemplate.replace('{id}', String(c.id)),
+                    copy.editAriaLabelTemplate.replace('{name}', c.name),
+                  )}
+                >
                   <td className="admin-list__td admin-list__td--strong">{c.code}</td>
                   <td className="admin-list__td">{c.name}</td>
                   <td className="admin-list__td admin-list__td--num">
@@ -185,13 +194,6 @@ export default function AdminCouponListContainer({
                     </span>
                   </td>
                   <td className="admin-list__td admin-list__td--actions">
-                    <Link
-                      href={copy.editHrefTemplate.replace('{id}', String(c.id))}
-                      aria-label={copy.editAriaLabelTemplate.replace('{name}', c.name)}
-                      className="admin-list__action-link"
-                    >
-                      {copy.actionLabels.edit}
-                    </Link>
                     {c.isActive && (
                       <AdminActionButton onClick={() => setIssueTarget(c)}>
                         {copy.actionLabels.issue}

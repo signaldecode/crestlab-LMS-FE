@@ -281,7 +281,24 @@
       "instructorLabel": "강사",
       "curriculumTitle": "커리큘럼",
       "reviewTitle": "수강 후기",
-      "faqTitle": "자주 묻는 질문"
+      "faqTitle": "자주 묻는 질문",
+      "questionDetail": {
+        "backLabel": "질문 목록",
+        "viewCountPrefix": "조회",
+        "statusLabels": {
+          "WAITING": "답변 대기",
+          "ANSWERED": "답변 완료"
+        },
+        "answersTitlePrefix": "답변",
+        "emptyTitle": "아직 답변이 등록되지 않았습니다",
+        "emptyDescription": "보통 1~2영업일 내에 답변이 등록됩니다. 조금만 기다려 주세요.",
+        "instructorBadgeLabel": "강사",
+        "adminBadgeLabel": "관리자",
+        "answerFormTitle": "답변 작성",
+        "answerPlaceholder": "답변 내용을 입력하세요",
+        "answerSubmitLabel": "답변 등록",
+        "loadingText": "불러오는 중…"
+      }
     }
   },
   "best": {
@@ -823,6 +840,8 @@
       "title": "관리자",
       "navLabel": "관리자 메뉴",
       "navAriaLabel": "관리자 내비게이션",
+      "menuOpenAriaLabel": "관리자 메뉴 열기",
+      "menuCloseAriaLabel": "관리자 메뉴 닫기",
       "backToSiteLabel": "사이트로 돌아가기",
       "backToSiteHref": "/",
       "backToSiteAriaLabel": "일반 사이트로 이동",
@@ -1955,14 +1974,12 @@
         "title": "강의 편집 — 관리자"
       },
       "title": "강의 편집",
-      "uploadSectionTitle": "영상 업로드",
       "editBasicInfoLinkLabel": "기본 정보 수정",
       "editBasicInfoLinkAriaLabel": "강의 기본 정보 수정 페이지로 이동",
       "tabs": {
         "tabs": {
           "basic": "기본정보",
           "curriculum": "커리큘럼",
-          "video": "영상",
           "settings": "설정"
         },
         "settings": {
@@ -2021,29 +2038,6 @@
           "previewModalTitle": "영상 미리보기",
           "previewErrorLabel": "미리보기 URL을 가져오지 못했습니다."
         }
-      }
-    },
-    "upload": {
-      "dropzoneLabel": "영상 파일을 드래그하거나 클릭하여 선택하세요",
-      "dropzoneActiveLabel": "여기에 파일을 놓으세요",
-      "browseLabel": "파일 선택",
-      "browseAriaLabel": "업로드할 영상 파일 선택",
-      "cancelLabel": "업로드 취소",
-      "cancelAriaLabel": "진행 중인 업로드 취소",
-      "retryLabel": "다시 시도",
-      "retryAriaLabel": "업로드 다시 시도",
-      "progressLabel": "업로드 진행률",
-      "successMessage": "영상이 성공적으로 업로드되었습니다.",
-      "allowedFormats": "MP4, MOV, AVI, MKV",
-      "maxSizeLabel": "최대 파일 크기",
-      "maxSizeValue": "5GB",
-      "errors": {
-        "invalidFormat": "지원하지 않는 파일 형식입니다. MP4, MOV, AVI, MKV 파일만 업로드 가능합니다.",
-        "fileTooLarge": "파일 크기가 5GB를 초과합니다.",
-        "presignedFailed": "업로드 URL 발급에 실패했습니다. 잠시 후 다시 시도해 주세요.",
-        "uploadFailed": "업로드에 실패했습니다. 네트워크 연결을 확인하고 다시 시도해 주세요.",
-        "confirmFailed": "업로드 확인에 실패했습니다. 잠시 후 다시 시도해 주세요.",
-        "cancelled": "업로드가 취소되었습니다."
       }
     }
   }

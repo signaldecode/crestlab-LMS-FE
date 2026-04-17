@@ -49,28 +49,30 @@
     margin-left: $spacing-2;
   }
 
-  /* ── 히어로 (포트레이트 + 정보 + 사이드바) ── */
+  /* ── 히어로 (portrait + 우측 통합 정보 컬럼) ── */
   &__hero {
     display: grid;
-    grid-template-columns: 342px 1fr 174px;
+    grid-template-columns: 320px 1fr;
     gap: $spacing-10; // 40px
     align-items: start;
 
-    @media (max-width: 1023px) {
+    @media (max-width: 767px) {
       grid-template-columns: 1fr;
+      gap: $spacing-6;
     }
   }
 
   &__portrait {
     position: relative;
     width: 100%;
-    aspect-ratio: 342 / 454;
+    aspect-ratio: 4 / 5;
     border-radius: 12px;
     overflow: hidden;
     background-color: $color-bg-basic;
 
-    @media (max-width: 1023px) {
-      max-width: 342px;
+    @media (max-width: 767px) {
+      max-width: 320px;
+      margin: $spacing-0 auto;
     }
   }
 
@@ -84,11 +86,19 @@
     background-color: $color-bg-basic;
   }
 
-  /* ── 우측 메인 정보 컬럼 ── */
+  /* ── 우측 통합 정보 컬럼 (profile + sidebar 수직 누적) ── */
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-10; // 40px — profile과 sidebar 사이 큰 간격
+    min-width: 0;
+  }
+
+  /* 프로필 블록 (이름/스탯/소개) */
   &__profile {
     display: flex;
     flex-direction: column;
-    gap: $spacing-8; // 32px
+    gap: $spacing-6; // 24px
     min-width: 0;
   }
 
@@ -158,21 +168,25 @@
     white-space: pre-wrap;
   }
 
-  /* ── 우측 사이드바 (이력 리스트) ── */
+  /* ── 사이드바 (경력 + 주요이력) — 우측 컬럼 내부에서 2-col 그리드 ── */
   &__sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-5;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-8 $spacing-10; // row gap 32 / col gap 40
+    padding-top: $spacing-6;
+    border-top: $border-thin solid $color-border;
 
-    @media (max-width: 1023px) {
-      grid-column: 1 / -1;
+    @media (max-width: 767px) {
+      grid-template-columns: 1fr;
+      gap: $spacing-6;
     }
   }
 
   &__sidebar-block {
     display: flex;
     flex-direction: column;
-    gap: $spacing-2;
+    gap: $spacing-3;
+    min-width: 0;
   }
 
   &__sidebar-label {
@@ -216,6 +230,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: $spacing-4;
   }
 
   &__courses-title {
@@ -227,19 +242,58 @@
     margin: $spacing-0;
   }
 
+  &__courses-nav {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+  }
+
+  &__courses-nav-btn {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $color-bg-tertiary;
+    border: none;
+    border-radius: 50%;
+    color: $color-text-secondary;
+    cursor: pointer;
+    transition: background-color 0.15s, color 0.15s;
+
+    &:hover {
+      background-color: $color-border;
+      color: $color-text-primary;
+    }
+
+    &:focus-visible {
+      outline: $border-thin * 2 solid $color-primary;
+      outline-offset: $border-thin * 2;
+    }
+  }
+
   &__courses {
     list-style: none;
     margin: $spacing-0;
     padding: $spacing-0;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: $spacing-6; // 24px
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% - #{$spacing-6} * 2) / 3);
+    column-gap: $spacing-6; // 24px
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     @media (max-width: 1023px) {
-      grid-template-columns: repeat(2, 1fr);
+      grid-auto-columns: calc((100% - #{$spacing-6}) / 2);
     }
     @media (max-width: 639px) {
-      grid-template-columns: 1fr;
+      grid-auto-columns: 100%;
     }
   }
 
@@ -252,6 +306,7 @@
     overflow: hidden;
     box-shadow: 0 8px 16px rgba(34, 34, 34, 0.08);
     height: 100%;
+    scroll-snap-align: start;
   }
 
   &__course-thumb-link {
@@ -349,7 +404,7 @@
 
     &--best {
       color: $color-text-inverse;
-      background: linear-gradient(143deg, #010101 0%, #1778F2 96%);
+      background-color: $color-primary;
     }
 
     &--keyword {

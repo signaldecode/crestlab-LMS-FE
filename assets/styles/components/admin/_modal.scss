@@ -3,6 +3,7 @@
 @use '../../tokens/typography' as *;
 @use '../../tokens/effects' as *;
 @use '../../tokens/z-index' as *;
+@use '../../mixins/breakpoints' as *;
 
 // ============================================
 // 관리자 공통 모달 (_modal.scss)
@@ -12,13 +13,18 @@
   background-color: $color-bg-primary;
   border-radius: $spacing-2;
   box-shadow: $shadow-md;
-  max-height: 90vh;
+  max-height: calc(100vh - #{$spacing-8});
   overflow-y: auto;
-  padding: $spacing-6;
+  padding: $spacing-4;
 
-  &--sm { width: 100%; max-width: $spacing-20 * 5.5; }
-  &--md { width: 100%; max-width: $spacing-20 * 7; }
-  &--lg { width: 100%; max-width: $spacing-20 * 9; }
+  @include breakpoint(sm) {
+    padding: $spacing-6;
+    max-height: 90vh;
+  }
+
+  &--sm { width: 100%; max-width: min(100%, #{$spacing-20 * 5.5}); }
+  &--md { width: 100%; max-width: min(100%, #{$spacing-20 * 7}); }
+  &--lg { width: 100%; max-width: min(100%, #{$spacing-20 * 9}); }
 
   &__overlay {
     position: fixed;
@@ -27,8 +33,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: $spacing-4;
+    padding: $spacing-2;
     z-index: $z-index-modal;
+
+    @include breakpoint(sm) {
+      padding: $spacing-4;
+    }
   }
 
   &__header {
@@ -144,6 +154,7 @@
 
   &__footer {
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-end;
     gap: $spacing-2;
     margin-top: $spacing-2;

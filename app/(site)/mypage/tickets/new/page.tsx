@@ -1,27 +1,9 @@
 /**
- * 마이페이지 1:1 문의 작성 (/mypage/tickets/new)
+ * Legacy redirect: /mypage/tickets/new → /support/tickets/new
  */
 
-import type { JSX } from 'react';
-import type { Metadata } from 'next';
-import { supportData } from '@/data';
-import TicketContainer from '@/components/containers/TicketContainer';
+import { redirect } from 'next/navigation';
 
-const seo = supportData.seo.ticket;
-
-export const metadata: Metadata = {
-  title: seo.title,
-  description: seo.description,
-  openGraph: {
-    title: seo.title,
-    description: seo.description,
-  },
-};
-
-export default function MyPageTicketNewPage(): JSX.Element {
-  return (
-    <section className="ticket-page">
-      <TicketContainer mode="create" />
-    </section>
-  );
+export default function MyPageTicketNewRedirect(): never {
+  redirect('/support/tickets/new');
 }

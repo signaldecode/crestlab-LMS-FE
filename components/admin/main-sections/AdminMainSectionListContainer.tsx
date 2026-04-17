@@ -2,10 +2,10 @@
 
 import type { JSX } from 'react';
 import Link from 'next/link';
-import AdminActionButton from '@/components/admin/AdminActionButton';
 import AdminDeleteAction from '@/components/admin/AdminDeleteAction';
 import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
 import { useAdminQuery } from '@/hooks/useAdminQuery';
+import { useNavigableRow } from '@/hooks/useNavigableRow';
 import { fetchAdminMainSections } from '@/lib/adminApi';
 import type { AdminMainSectionType } from '@/types';
 
@@ -15,10 +15,10 @@ export interface MainSectionsCopy {
   createButtonLabel: string;
   createButtonHref: string;
   createButtonAriaLabel: string;
-  columns: { sortOrder: string; title: string; type: string; filterValue: string; isActive: string; actions: string };
+  columns: { sortOrder: string; title: string; type: string; filterValue: string; isActive: string; actions?: string };
   typeLabels: Record<AdminMainSectionType, string>;
   activeLabels: { true: string; false: string };
-  actionLabels: { edit: string; delete: string };
+  actionLabels: { edit?: string; delete: string };
   deleteModal: {
     title: string; descriptionTemplate: string;
     confirmLabel: string; cancelLabel: string;
@@ -31,6 +31,7 @@ interface CommonCopy { loadingText: string; errorTitle: string; errorRetryLabel:
 interface Props { copy: MainSectionsCopy; common: CommonCopy; }
 
 export default function AdminMainSectionListContainer({ copy, common }: Props): JSX.Element {
+  const navigableRow = useNavigableRow();
   const { data, loading, error, refetch } = useAdminQuery(fetchAdminMainSections, []);
 
   if (loading && !data) return <AdminLoading label={common.loadingText} />;
@@ -76,7 +77,11 @@ export default function AdminMainSectionListContainer({ copy, common }: Props): 
             </thead>
             <tbody>
               {sorted.map((s) => (
-                <tr key={s.id}>
+                <tr
+                  key={s.id}
+                  className="is-clickable"
+                  {...navigableRow(`/admin/main-sections/${s.id}/edit`, s.title)}
+                >
                   <td className="admin-list__td admin-list__td--narrow">{s.sortOrder}</td>
                   <td className="admin-list__td admin-list__td--strong">{s.title}</td>
                   <td className="admin-list__td">
@@ -89,9 +94,6 @@ export default function AdminMainSectionListContainer({ copy, common }: Props): 
                     </span>
                   </td>
                   <td className="admin-list__td admin-list__td--actions">
-                    <AdminActionButton href={`/admin/main-sections/${s.id}/edit`}>
-                      {copy.actionLabels.edit}
-                    </AdminActionButton>
                     <AdminDeleteAction
                       targetId={s.id}
                       resource="mainSection"

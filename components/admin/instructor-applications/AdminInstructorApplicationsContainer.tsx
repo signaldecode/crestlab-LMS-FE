@@ -6,7 +6,6 @@
 'use client';
 
 import { useState, useCallback, type JSX } from 'react';
-import AdminActionButton from '@/components/admin/AdminActionButton';
 import AdminModal from '@/components/admin/AdminModal';
 import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
 import { useAdminMutation, useAdminQuery } from '@/hooks/useAdminQuery';
@@ -118,34 +117,51 @@ export default function AdminInstructorApplicationsContainer(): JSX.Element {
                 <th className="admin-list__th">전문 분야</th>
                 <th className="admin-list__th">상태</th>
                 <th className="admin-list__th">지원일</th>
-                <th className="admin-list__th admin-list__th--actions">액션</th>
               </tr>
             </thead>
             <tbody>
-              {items.map((it) => (
-                <tr key={it.id}>
-                  <td className="admin-list__td admin-list__td--narrow">{it.id}</td>
-                  <td className="admin-list__td admin-list__td--strong">{it.name}</td>
-                  <td className="admin-list__td">{it.specialty}</td>
-                  <td className="admin-list__td">
-                    <span
-                      className={`admin-list__badge admin-list__badge--${
-                        it.status === 'APPROVED' ? 'success' : it.status === 'REJECTED' ? 'error' : 'warning'
-                      }`}
-                    >
-                      {STATUS_LABELS[it.status]}
-                    </span>
-                  </td>
-                  <td className="admin-list__td">{formatDate(it.createdAt)}</td>
-                  <td className="admin-list__td admin-list__td--actions">
-                    <AdminActionButton
-                      onClick={() => { setDetailTarget(it); setShowRejectInput(false); setRejectReason(''); }}
-                    >
-                      상세
-                    </AdminActionButton>
-                  </td>
-                </tr>
-              ))}
+              {items.map((it) => {
+                const openDetail = () => {
+                  setDetailTarget(it);
+                  setShowRejectInput(false);
+                  setRejectReason('');
+                };
+                return (
+                  <tr
+                    key={it.id}
+                    className="is-clickable"
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`${it.name} 지원 상세`}
+                    onClick={(e) => {
+                      const interactive = (e.target as HTMLElement).closest('button, a, input, select, textarea, [role="button"]');
+                      if (interactive && interactive !== e.currentTarget) return;
+                      openDetail();
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.target !== e.currentTarget) return;
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openDetail();
+                      }
+                    }}
+                  >
+                    <td className="admin-list__td admin-list__td--narrow">{it.id}</td>
+                    <td className="admin-list__td admin-list__td--strong">{it.name}</td>
+                    <td className="admin-list__td">{it.specialty}</td>
+                    <td className="admin-list__td">
+                      <span
+                        className={`admin-list__badge admin-list__badge--${
+                          it.status === 'APPROVED' ? 'success' : it.status === 'REJECTED' ? 'error' : 'warning'
+                        }`}
+                      >
+                        {STATUS_LABELS[it.status]}
+                      </span>
+                    </td>
+                    <td className="admin-list__td">{formatDate(it.createdAt)}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

@@ -174,17 +174,6 @@ export interface SupportFaqData {
 }
 
 /* ── 후기 ── */
-export interface BestReviewItem {
-  id: string;
-  nickname: string;
-  date: string;
-  rating: number;
-  title: string;
-  content: string;
-  avatarColor: string;
-  ariaLabel: string;
-}
-
 export interface BestReviewStat {
   label: string;
   value: string;
@@ -200,7 +189,6 @@ export interface BestReviewSection {
     ariaLabel: string;
   };
   stats: BestReviewStat[];
-  items: BestReviewItem[];
 }
 
 /* ── 홈 카테고리 네비게이션 ── */
@@ -217,17 +205,6 @@ export interface HomeCategorySection {
 }
 
 /* ── 인기 강사 ── */
-export interface HomeInstructor {
-  id: string;
-  name: string;
-  specialty: string;
-  courseCount: number;
-  rating: number;
-  reviewCount: number;
-  color: string;
-  ariaLabel: string;
-}
-
 export interface HomeInstructorsSection {
   meta: {
     subtitle: string;
@@ -235,21 +212,9 @@ export interface HomeInstructorsSection {
     description: string;
     ariaLabel: string;
   };
-  instructors: HomeInstructor[];
 }
 
 /* ── 홈 뉴스 섹션 ── */
-export interface HomeNewsItem {
-  id: string;
-  thumbnail: string;
-  thumbnailAlt: string;
-  date: string;
-  title: string;
-  tags: string[];
-  href: string;
-  ariaLabel: string;
-}
-
 export interface HomeNewsSection {
   meta: {
     label: string;
@@ -258,15 +223,6 @@ export interface HomeNewsSection {
     moreLabel?: string;
     moreHref?: string;
     moreAriaLabel?: string;
-  };
-  items: HomeNewsItem[];
-  pagination: {
-    perPage: number;
-    totalPages: number;
-    ariaLabel: string;
-    prevAriaLabel: string;
-    nextAriaLabel: string;
-    pageAriaFormat: string;
   };
 }
 
@@ -914,19 +870,6 @@ export interface MainData {
 }
 
 /* ── 게시판(공지사항) ── */
-export interface BoardNotice {
-  id: string;
-  slug: string;
-  title: string;
-  summary: string;
-  content: string;
-  category: 'notice' | 'event' | 'update';
-  author: string;
-  date: string;
-  isPinned: boolean;
-  viewCount: number;
-}
-
 export interface BoardData {
   page: {
     title: string;
@@ -953,7 +896,6 @@ export interface BoardData {
       boardHref: string;
     };
   };
-  notices: BoardNotice[];
 }
 
 /* ── Breadcrumb ── */

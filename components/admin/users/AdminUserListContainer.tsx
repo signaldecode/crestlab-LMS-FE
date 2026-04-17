@@ -7,9 +7,9 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import type { JSX, ChangeEvent } from 'react';
-import AdminActionButton from '@/components/admin/AdminActionButton';
 import { AdminError, AdminLoading } from '@/components/admin/AdminDataState';
 import { useAdminQuery } from '@/hooks/useAdminQuery';
+import { useNavigableRow } from '@/hooks/useNavigableRow';
 import { fetchAdminUsers } from '@/lib/adminApi';
 import type { AdminUserLevel, AdminUserStatus, UserRole } from '@/types';
 
@@ -33,7 +33,7 @@ interface ColumnsCopy {
   level: string;
   status: string;
   createdAt: string;
-  actions: string;
+  actions?: string;
 }
 
 interface ActionsCopy {
@@ -91,6 +91,7 @@ export default function AdminUserListContainer({
   copy,
   common,
 }: AdminUserListContainerProps): JSX.Element {
+  const navigableRow = useNavigableRow();
   const [roleFilter, setRoleFilter] = useState<UserRole | 'ALL'>('ALL');
   const [statusFilter, setStatusFilter] = useState<AdminUserStatus | 'ALL'>('ALL');
   const [keywordInput, setKeywordInput] = useState('');
@@ -214,12 +215,18 @@ export default function AdminUserListContainer({
                 <th scope="col" className="admin-users__th">{copy.columns.level}</th>
                 <th scope="col" className="admin-users__th">{copy.columns.status}</th>
                 <th scope="col" className="admin-users__th">{copy.columns.createdAt}</th>
-                <th scope="col" className="admin-users__th admin-users__th--actions">{copy.columns.actions}</th>
               </tr>
             </thead>
             <tbody>
               {users.map((u) => (
-                <tr key={u.id}>
+                <tr
+                  key={u.id}
+                  className="is-clickable"
+                  {...navigableRow(
+                    `/admin/users/${u.id}`,
+                    fillTemplate(copy.actions.viewAriaLabelTemplate, { nickname: u.nickname }),
+                  )}
+                >
                   <td className="admin-users__td admin-users__td--id">{u.id}</td>
                   <td className="admin-users__td admin-users__td--nickname">{u.nickname}</td>
                   <td className="admin-users__td">{u.email}</td>
@@ -235,14 +242,6 @@ export default function AdminUserListContainer({
                     </span>
                   </td>
                   <td className="admin-users__td">{formatDate(u.createdAt)}</td>
-                  <td className="admin-users__td admin-users__td--actions">
-                    <AdminActionButton
-                      href={`/admin/users/${u.id}`}
-                      ariaLabel={fillTemplate(copy.actions.viewAriaLabelTemplate, { nickname: u.nickname })}
-                    >
-                      {copy.actions.viewLabel}
-                    </AdminActionButton>
-                  </td>
                 </tr>
               ))}
             </tbody>

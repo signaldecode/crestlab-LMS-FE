@@ -234,10 +234,28 @@
     }
   }
 
+  // 질문 본문을 감싸는 카드 — 헤더(제목+상태)와 본문을 하나의 박스로 묶어 구조감 제공
+  &__card {
+    padding: $spacing-6;
+    margin-bottom: $spacing-8;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-lg;
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.04);
+  }
+
   &__header {
-    padding-bottom: $spacing-6;
-    margin-bottom: $spacing-6;
+    padding-bottom: $spacing-4;
+    margin-bottom: $spacing-4;
     border-bottom: $border-thin solid $color-border;
+  }
+
+  &__title-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: $spacing-4;
+    margin-bottom: $spacing-3;
   }
 
   &__title {
@@ -245,19 +263,52 @@
     font-size: $font-size-2xl;
     font-weight: $font-weight-bold;
     color: $color-text-primary;
-    margin: $spacing-0 $spacing-0 $spacing-3;
+    margin: $spacing-0;
     line-height: $line-height-tight;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__status {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    padding: $spacing-1 $spacing-3;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    border-radius: $radius-sm;
+    white-space: nowrap;
+
+    &--answered {
+      color: $color-success;
+      background-color: $color-success-bg;
+    }
+
+    &--waiting {
+      color: $color-text-secondary;
+      background-color: $color-bg-tertiary;
+    }
   }
 
   &__meta {
     display: flex;
-    gap: $spacing-4;
+    align-items: center;
+    gap: $spacing-2;
     font-size: $font-size-sm;
     color: $color-text-secondary;
   }
 
+  &__meta-nickname {
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+  }
+
+  &__meta-dot {
+    color: $color-text-muted;
+  }
+
   &__body {
-    padding: $spacing-2 $spacing-0 $spacing-10;
+    padding: $spacing-2 $spacing-0 $spacing-0;
     font-size: $font-size-base;
     color: $color-text-body;
     line-height: $line-height-relaxed;
@@ -268,8 +319,7 @@
   }
 
   &__answers {
-    padding-top: $spacing-8;
-    border-top: $border-thin solid $color-border;
+    padding-top: $spacing-2;
   }
 
   &__answers-title {
@@ -279,11 +329,36 @@
     margin: $spacing-0 $spacing-0 $spacing-5;
   }
 
+  // 답변 없음 상태 — 아이콘 + 제목 + 부연설명
   &__empty {
-    padding: $spacing-10 $spacing-0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-2;
+    padding: $spacing-16 $spacing-4;
+    text-align: center;
+    background-color: $color-bg-secondary;
+    border: $border-thin dashed $color-border;
+    border-radius: $radius-lg;
+  }
+
+  &__empty-icon {
+    color: $color-text-muted;
+    margin-bottom: $spacing-2;
+  }
+
+  &__empty-title {
+    margin: $spacing-0;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+  }
+
+  &__empty-desc {
+    margin: $spacing-0;
     font-size: $font-size-sm;
     color: $color-text-secondary;
-    text-align: center;
   }
 
   &__answer-list {

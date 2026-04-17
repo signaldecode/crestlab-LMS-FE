@@ -42,11 +42,29 @@
     white-space: nowrap;
   }
 
+  /* 카드 — 헤더와 본문을 하나의 박스로 묶어 구조감 제공 */
+  &__card {
+    padding: $spacing-8;
+    margin-bottom: $spacing-8;
+    background-color: $color-bg-primary;
+    border: $border-thin solid $color-border;
+    border-radius: $radius-lg;
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.04);
+  }
+
   /* 헤더 */
   &__header {
     border-bottom: $border-thin solid $color-border;
-    padding-bottom: $spacing-6;
-    margin-bottom: $spacing-8;
+    padding-bottom: $spacing-5;
+    margin-bottom: $spacing-6;
+  }
+
+  &__title-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: $spacing-4;
+    margin-bottom: $spacing-3;
   }
 
   &__category-badge {
@@ -73,13 +91,28 @@
     }
   }
 
+  &__pin-badge {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    padding: $spacing-1 $spacing-3;
+    border-radius: $radius-sm;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    color: $color-text-inverse;
+    background-color: $color-error;
+    white-space: nowrap;
+  }
+
   &__title {
     font-family: $font-family-heading;
     font-size: $font-size-xl;
     font-weight: $font-weight-bold;
     color: $color-text-primary;
     line-height: $line-height-tight;
-    margin-bottom: $spacing-4;
+    margin: $spacing-0;
+    flex: 1;
+    min-width: 0;
   }
 
   &__meta {
@@ -97,7 +130,7 @@
 
   /* 본문 */
   &__body {
-    padding: $spacing-8 $spacing-0;
+    padding: $spacing-2 $spacing-0 $spacing-0;
     min-height: 15rem;
 
     p {
@@ -112,10 +145,8 @@
     height: $spacing-4;
   }
 
-  /* 푸터 */
+  /* 푸터 — 카드 바깥 하단의 "목록으로" 영역 */
   &__footer {
-    border-top: $border-thin solid $color-border;
-    padding-top: $spacing-6;
     display: flex;
     justify-content: center;
   }
